@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/setup-node@46071b5c7a2e0c34e49c3cb8a0e792e86e18d5ea
+        with:
+          node-version: 15
+
+      - run: npm ci
+      - run: npx --no-install ts-standard

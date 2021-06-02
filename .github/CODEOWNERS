@@ -4,12 +4,6 @@
 /.github/                                       @fuxingloh
 /.husky/                                        @fuxingloh
 /.idea/                                         @fuxingloh
-/.github/workflows/oss-governance-bot.yml       @fuxingloh
-/.github/governance.yml                         @fuxingloh
-
-/website/                                       @fuxingloh @fullstackninja864
-
-/packages/                                      @fuxingloh @fullstackninja864
 
 tsconfig.json                                   @fuxingloh
 package.json                                    @fuxingloh

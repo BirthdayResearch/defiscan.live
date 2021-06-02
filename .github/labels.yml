@@ -54,31 +54,7 @@
 
 # Area
 - color: fbca04
-  name: area/governance
-- color: fbca04
-  name: area/faucet
-- color: fbca04
-  name: area/burn
-- color: fbca04
-  name: area/account
-- color: fbca04
-  name: area/utxo
-- color: fbca04
-  name: area/burn-address
-- color: fbca04
-  name: area/dex
-- color: fbca04
-  name: area/supply
-- color: fbca04
-  name: area/tokens
-- color: fbca04
-  name: area/rich-list
-- color: fbca04
-  name: area/masternodes
-- color: fbca04
-  name: area/oracle
-- color: fbca04
-  name: area/order-book
+  name: area/core
 
 # Priority
 - color: d93f0b
