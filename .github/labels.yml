@@ -55,6 +55,24 @@
 # Area
 - color: fbca04
   name: area/core
+- color: fbca04
+  name: area/workflow
+- color: fbca04
+  name: area/public
+- color: fbca04
+  name: area/styles
+- color: fbca04
+  name: area/blocks
+- color: fbca04
+  name: area/transactions
+- color: fbca04
+  name: area/masternodes
+- color: fbca04
+  name: area/oracles
+- color: fbca04
+  name: area/tokens
+- color: fbca04
+  name: area/dex
 
 # Priority
 - color: d93f0b

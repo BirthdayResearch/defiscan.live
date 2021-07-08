@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 
-function MyApp ({ Component, pageProps }): JSX.Element {
+function App ({ Component, pageProps }): JSX.Element {
   return <Component {...pageProps} />
 }
 
-export default MyApp
+export default App

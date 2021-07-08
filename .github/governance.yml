@@ -19,7 +19,12 @@ issue:
       list:
         - feature
         - bug
+        - fix
+        - refactor
         - question
+        - chore
+        - docs
+        - dependencies
       multiple: false
       needs: true
       author_association:
@@ -32,6 +37,14 @@ issue:
       list:
         - core
         - workflow
+        - public
+        - styles
+        - blocks
+        - transactions
+        - masternodes
+        - oracles
+        - tokens
+        - dex
       multiple: true
       needs:
         comment: |

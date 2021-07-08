@@ -5,3 +5,43 @@ labels:
     sync: true
     matcher:
       files: ".github/**"
+
+  - label: area/public
+    sync: true
+    matcher:
+      files: "public/**"
+
+  - label: area/styles
+    sync: true
+    matcher:
+      files: "styles/**"
+
+  - label: area/blocks
+    sync: true
+    matcher:
+      files: "pages/blocks/**"
+
+  - label: area/transactions
+    sync: true
+    matcher:
+      files: "pages/transactions/**"
+
+  - label: area/masternodes
+    sync: true
+    matcher:
+      files: "pages/masternodes/**"
+
+  - label: area/oracles
+    sync: true
+    matcher:
+      files: "pages/oracles/**"
+
+  - label: area/tokens
+    sync: true
+    matcher:
+      files: "pages/tokens/**"
+
+  - label: area/dex
+    sync: true
+    matcher:
+      files: "pages/dex/**"
