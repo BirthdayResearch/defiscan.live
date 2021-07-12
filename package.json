@@ -16,6 +16,9 @@
       "name": "DeFi Explorer Contributors"
     }
   ],
+  "engines": {
+    "node": ">=14.x"
+  },
   "scripts": {
     "prepare": "husky install",
     "lint": "next lint",
