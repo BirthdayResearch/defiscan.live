@@ -14,4 +14,4 @@ updates:
     schedule:
       interval: "daily"
     labels:
-      - "kind/chore"
+      - "kind/dependencies"
