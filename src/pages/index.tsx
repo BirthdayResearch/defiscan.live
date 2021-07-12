@@ -6,7 +6,7 @@ export default function Home (): JSX.Element {
     <div className='container mx-auto px-4 py-6'>
       <Head>
         <title>DeFiChain MasterNode Voting</title>
-        <meta name='description' content='DeFiChain MasterNode Voting' />
+        <meta name='description' content='DeFiChain V2 Explorer' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
 

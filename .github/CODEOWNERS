@@ -5,10 +5,11 @@
 /.husky/                                        @fuxingloh
 /.idea/                                         @fuxingloh
 
-/pages/                                         @fuxingloh
-
 /public/                                        @fuxingloh
-/styles/                                        @fuxingloh
+
+/src/components/                                @fuxingloh
+/src/pages/                                     @fuxingloh
+/src/styles/                                    @fuxingloh
 
 tsconfig.json                                   @fuxingloh
 package.json                                    @fuxingloh
