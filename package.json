@@ -21,7 +21,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "lint": "next lint",
+    "lint": "next lint --fix",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
@@ -44,7 +44,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
-      "next lint"
+      "next lint --fix"
     ]
   }
 }
