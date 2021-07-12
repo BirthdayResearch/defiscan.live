@@ -2,7 +2,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/c206ba9a4fdf0699229c/maintainability)](https://codeclimate.com/github/DeFiCh/explorer/maintainability)
 [![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 
-# DeFi Explorer
+# [DeFi Explorer](https://v2.explorer.defichain.com)
+
+> https://v2.explorer.defichain.com
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7c8f536f-028f-493f-953f-293dcde36f89/deploy-status)](https://app.netlify.com/sites/defi-explorer/deploys)
 
@@ -36,6 +38,33 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+### Project Structure
+
+```txt
+explorer/
+├─ .github/
+├─ public/
+├─ src/
+│  ├─ components/
+│  ├─ pages/
+│  │  ├─ slugs/*.tsx
+│  │  └─ index.tsx
+│  └─ styles/
+└─ cypress/
+```
+
+DeFi Explorer project is structured with 2 core directories. Each pull request will likely carry significant changes
+into those directories.
+
+Directory               | Description
+------------------------|-------------
+`/.github`              | workflow for shift left automation
+`/public`               | static resources
+`/src/components`       | top level components for a shared design language
+`/src/pages`            | each page is associated with a route based on its file name
+`/app/styles`           | tailwind css style configuration
+`/cypress`              | E2E testing
 
 ### End-to-end Testing
 
