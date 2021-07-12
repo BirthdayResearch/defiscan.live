@@ -17,4 +17,4 @@ jobs:
           node-version: 15
 
       - run: npm ci
-      - run: npx --no-install ts-standard
+      - run: npx --no-install next lint
