@@ -10,7 +10,6 @@ export enum EnvironmentNetwork {
 
 export enum EnvironmentName {
   Production = 'Production',
-  Preview = 'Preview',
   Development = 'Development',
 }
 
@@ -30,15 +29,6 @@ export const environments: Record<EnvironmentName, Environment> = {
       EnvironmentNetwork.RemotePlayground,
     ]
   },
-  Preview: {
-    name: EnvironmentName.Preview,
-    debug: true,
-    networks: [
-      EnvironmentNetwork.RemotePlayground,
-      EnvironmentNetwork.TestNet,
-      EnvironmentNetwork.MainNet,
-    ]
-  },
   Development: {
     name: EnvironmentName.Development,
     debug: true,
@@ -55,11 +45,9 @@ export const environments: Record<EnvironmentName, Environment> = {
  * @return Environment of current explorer setup, checked against Environment Variable
  */
 export function getEnvironment (): Environment {
-  switch (process.env.ENVIRONMENT_NAME ?? process.env.NODE_ENV) {
+  switch (process.env.NODE_ENV) {
     case 'production':
       return environments[EnvironmentName.Production]
-    case 'preview':
-      return environments[EnvironmentName.Preview]
     case 'development':
     default:
       return environments[EnvironmentName.Development]
