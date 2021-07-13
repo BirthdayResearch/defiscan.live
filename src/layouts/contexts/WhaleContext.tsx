@@ -1,5 +1,5 @@
 import { WhaleApiClient, WhaleRpcClient } from '@defichain/whale-api-client'
-import React, { createContext, useContext, useMemo } from 'react'
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react'
 import { EnvironmentNetwork } from "./api/Environment";
 import { useNetworkContext } from './NetworkContext'
 
@@ -14,7 +14,7 @@ export function useWhaleRpcClient (): WhaleRpcClient {
   return useContext(WhaleRpcClientContext)
 }
 
-export function WhaleProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
 
   const { api, rpc } = useMemo(() => {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DeFiChainLogo from "../../components/icons/DeFiChainLogo";
 import { getEnvironment } from "../contexts/api/Environment";
 import { useNetworkContext } from "../contexts/NetworkContext";

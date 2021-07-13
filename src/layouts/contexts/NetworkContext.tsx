@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import { createContext, PropsWithChildren, useContext, useState } from 'react'
 import { EnvironmentNetwork } from "./api/Environment";
 import { useNetworkQuery } from "./api/NetworkQuery";
 
@@ -13,7 +13,7 @@ export function useNetworkContext (): Network {
   return useContext(NetworkContext)
 }
 
-export function NetworkProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function NetworkProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const query = useNetworkQuery()
   const [network, setNetwork] = useState<EnvironmentNetwork>(query.getNetwork())
 

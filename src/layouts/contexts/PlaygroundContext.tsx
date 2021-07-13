@@ -1,5 +1,5 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from "./api/Environment";
 import { useNetworkContext } from './NetworkContext'
 
@@ -17,7 +17,7 @@ export function usePlaygroundContext (): Playground {
   return useContext(PlaygroundContext)
 }
 
-export function PlaygroundProvider (props: React.PropsWithChildren<any>): JSX.Element | null {
+export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
 
   const connected = useConnectedPlayground()
