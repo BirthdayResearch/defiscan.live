@@ -8,21 +8,28 @@ interface Playground {
   api: PlaygroundApiClient
 }
 
-const PlaygroundContext = createContext<Playground>(undefined as any)
+const PlaygroundContext = createContext<Playground | undefined>(undefined)
 
 /**
  * usePlaygroundContext(), only available in debug mode and playground network.
  */
 export function usePlaygroundContext (): Playground {
-  return useContext(PlaygroundContext)
+  const context = useContext(PlaygroundContext)
+  if (context !== undefined) {
+    return context
+  }
+
+  throw new Error(`attempting to usePlaygroundContext on a debug environment`)
 }
 
 export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
-
   const connected = useConnectedPlayground()
 
   const context = useMemo(() => {
+    if (!getEnvironment().debug) {
+      return undefined
+    }
     const api = newPlaygroundClient(network)
     const rpc = new PlaygroundRpcClient(api)
     return { api, rpc }
