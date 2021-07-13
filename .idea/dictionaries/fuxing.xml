@@ -11,6 +11,7 @@
       <w>addpoolliquidity</w>
       <w>addvaryheader</w>
       <w>aentan</w>
+      <w>aikchun</w>
       <w>amkheight</w>
       <w>ancestorcount</w>
       <w>ancestorfees</w>
@@ -123,6 +124,7 @@
       <w>masternode</w>
       <w>masternodeid</w>
       <w>masternodeoperator</w>
+      <w>masternodes</w>
       <w>masternodestate</w>
       <w>mediantime</w>
       <w>mempool</w>
@@ -171,6 +173,7 @@
       <w>scripthash</w>
       <w>secp</w>
       <w>segwit</w>
+      <w>semibold</w>
       <w>sendrawtransaction</w>
       <w>sendtoaddress</w>
       <w>sendtokenstoaddress</w>
@@ -181,6 +184,7 @@
       <w>signrawtransactionwithkey</w>
       <w>sigs</w>
       <w>sigsrequired</w>
+      <w>siradji</w>
       <w>softforks</w>
       <w>spentby</w>
       <w>strippedsize</w>

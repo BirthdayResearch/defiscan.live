@@ -47,6 +47,7 @@ explorer/
 ├─ public/
 ├─ src/
 │  ├─ components/
+│  ├─ layouts/
 │  ├─ pages/
 │  │  ├─ slugs/*.tsx
 │  │  └─ index.tsx
@@ -62,6 +63,7 @@ Directory               | Description
 `/.github`              | workflow for shift left automation
 `/public`               | static resources
 `/src/components`       | top level components for a shared design language
+`/src/layouts`          | top level layouts for shared page layout & components
 `/src/pages`            | each page is associated with a route based on its file name
 `/app/styles`           | tailwind css style configuration
 `/cypress`              | E2E testing

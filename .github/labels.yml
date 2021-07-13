@@ -60,6 +60,8 @@
 - color: fbca04
   name: area/public
 - color: fbca04
+  name: area/layouts
+- color: fbca04
   name: area/styles
 - color: fbca04
   name: area/blocks
