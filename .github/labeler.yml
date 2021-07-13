@@ -11,6 +11,11 @@ labels:
     matcher:
       files: "public/**"
 
+  - label: area/layouts
+    sync: true
+    matcher:
+      files: "src/layouts/**"
+
   - label: area/styles
     sync: true
     matcher:

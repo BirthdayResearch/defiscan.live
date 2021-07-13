@@ -38,6 +38,7 @@ issue:
         - core
         - workflow
         - public
+        - layouts
         - styles
         - blocks
         - transactions

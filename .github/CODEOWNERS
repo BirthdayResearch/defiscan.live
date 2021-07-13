@@ -1,20 +1,35 @@
 # Define individuals that are responsible for code in a repository.
 # More details are here: https://help.github.com/articles/about-codeowners/
 
-/.github/                                       @fuxingloh
+/.github/                                       @fuxingloh @ivan-zynesis @monstrobishi
 /.husky/                                        @fuxingloh
 /.idea/                                         @fuxingloh
 
+/src/components/                                @fuxingloh @ivan-zynesis @monstrobishi
+/src/layouts/                                   @fuxingloh @ivan-zynesis @monstrobishi
+
+/src/pages/                                     @fuxingloh @ivan-zynesis @monstrobishi
+
+/src/pages/blocks/                              @ivan-zynesis @aikchun
+/src/pages/transactions/                        @ivan-zynesis @aikchun
+/src/pages/tokens/                              @ivan-zynesis @siradji
+/src/pages/masternodes/                         @ivan-zynesis @siradji
+/src/pages/anchors/                             @monstrobishi
+/src/pages/prices/                              @monstrobishi @jingyi2811
+/src/pages/dex/                                 @monstrobishi @canonbrother
+/src/pages/icx/btc/                             @monstrobishi
+
+/src/styles/                                    @fuxingloh
+postcss.config.js                               @fuxingloh
+tailwind.config.js                              @fuxingloh
+
 /public/                                        @fuxingloh
 
-/src/components/                                @fuxingloh
-/src/pages/                                     @fuxingloh
-/src/styles/                                    @fuxingloh
-
+next.config.js                                  @fuxingloh @ivan-zynesis @monstrobishi
+package.json                                    @fuxingloh @ivan-zynesis @monstrobishi
+package-lock.json                               @fuxingloh @ivan-zynesis @monstrobishi
 tsconfig.json                                   @fuxingloh
-package.json                                    @fuxingloh
-package-lock.json                               @fuxingloh
 
-CONTRIBUTING.md                                 @fuxingloh
-README.md                                       @fuxingloh
+CONTRIBUTING.md                                 @fuxingloh @ivan-zynesis @monstrobishi
+README.md                                       @fuxingloh @ivan-zynesis @monstrobishi
 LICENSE                                         @fuxingloh
