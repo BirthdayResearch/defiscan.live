@@ -5,8 +5,9 @@
 /.husky/                                        @fuxingloh
 /.idea/                                         @fuxingloh
 
-/src/components/                                @fuxingloh @ivan-zynesis @monstrobishi
-/src/layouts/                                   @fuxingloh @ivan-zynesis @monstrobishi
+/src/components/                                @ivan-zynesis @monstrobishi @siradji @aikchun
+/src/layouts/                                   @fuxingloh
+/src/store/                                     @fuxingloh
 
 /src/pages/                                     @fuxingloh @ivan-zynesis @monstrobishi
 

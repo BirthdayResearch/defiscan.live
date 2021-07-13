@@ -51,6 +51,7 @@ explorer/
 │  ├─ pages/
 │  │  ├─ slugs/*.tsx
 │  │  └─ index.tsx
+│  ├─ store/
 │  └─ styles/
 └─ cypress/
 ```
@@ -65,6 +66,7 @@ Directory               | Description
 `/src/components`       | top level components for a shared design language
 `/src/layouts`          | top level layouts for shared page layout & components
 `/src/pages`            | each page is associated with a route based on its file name
+`/src/store`            | global state that is used in at least more than once
 `/app/styles`           | tailwind css style configuration
 `/cypress`              | E2E testing
 
