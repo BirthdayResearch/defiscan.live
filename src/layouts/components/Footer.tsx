@@ -1,17 +1,18 @@
-import React from "react";
 import Link from 'next/link'
 import DeFiChainLogo from "../../components/icons/DeFiChainLogo";
 
 export default function Footer (): JSX.Element {
   return (
-    <footer className={'mt-12'}>
+    <footer className={'mt-12 border-t border-gray-100'}>
       <div className={'container mx-auto px-4 py-12'}>
         <Link href={'/'}>
-          <DeFiChainLogo className={'w-28 h-full cursor-pointer'} />
+          <div className={'cursor-pointer'}>
+            <DeFiChainLogo className={'w-28 h-full'} />
+          </div>
         </Link>
 
-        <div className={'flex flex-wrap mt-4 -mx-8'}>
-          <div className={'px-8 py-3 flex-grow'}>
+        <div className={'flex flex-wrap mt-4'}>
+          <div className={'py-3 flex-grow'}>
             <div className={'text-2xl font-semibold'}>Explorer</div>
 
             <div className={'flex flex-wrap mt-3 -m-2 w-72'}>
@@ -23,7 +24,7 @@ export default function Footer (): JSX.Element {
             </div>
           </div>
 
-          <div className={'px-8 py-3 max-w-lg'}>
+          <div className={'py-3 max-w-lg'}>
             <p className={'text-sm text-gray-600'}>
               DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
               and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services,
