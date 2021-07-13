@@ -1,9 +1,19 @@
-import React from 'react'
 import Head from "next/head";
+import React from 'react'
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { NetworkProvider } from "./contexts/NetworkContext";
+import { PlaygroundProvider } from "./contexts/PlaygroundContext";
+import { WhaleProvider } from "./contexts/WhaleContext";
 
-export default function Default (props: React.PropsWithChildren<any>): JSX.Element {
+/**
+ * Default Layout with <Head> providing default Metadata for SEO
+ *
+ * Wrapped in <NetworkProvider> intercept network params from querystring.
+ * Followed by <PlaygroundProvider> to automatically swatch between local and remote playground for debug environment.
+ * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
+ */
+export default function Default (props: React.PropsWithChildren<any>): JSX.Element | null {
   return (
     <div className={'flex flex-col min-h-screen'}>
       <Head>
@@ -12,13 +22,19 @@ export default function Default (props: React.PropsWithChildren<any>): JSX.Eleme
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header />
+      <NetworkProvider>
+        <PlaygroundProvider>
+          <WhaleProvider>
+            <Header />
 
-      <main className={'flex-grow'}>
-        {props.children}
-      </main>
+            <main className={'flex-grow'}>
+              {props.children}
+            </main>
 
-      <Footer />
+            <Footer />
+          </WhaleProvider>
+        </PlaygroundProvider>
+      </NetworkProvider>
     </div>
   )
 }
