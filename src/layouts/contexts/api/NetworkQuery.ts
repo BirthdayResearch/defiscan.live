@@ -31,7 +31,7 @@ export function useNetworkQuery (): NetworkQueryInterface {
         throw new Error('network is not part of environment')
       }
 
-      if (env.networks[0] === network) {
+      if (isDefaultNetwork(network)) {
         void router.push({ pathname: '/' })
       }
 

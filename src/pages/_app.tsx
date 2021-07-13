@@ -1,7 +1,8 @@
 import '../styles/globals.css'
+import App, { AppContext } from "next/app";
 import Default from "../layouts/Default";
 
-function App ({ Component, pageProps }): JSX.Element {
+function ExplorerApp ({ Component, pageProps }): JSX.Element {
   return (
     <Default>
       <Component {...pageProps} />
@@ -9,4 +10,12 @@ function App ({ Component, pageProps }): JSX.Element {
   )
 }
 
-export default App
+/**
+ * To load SSR for hydrating
+ */
+ExplorerApp.getInitialProps = async (ctx: AppContext) => {
+  const appProps = await App.getInitialProps(ctx)
+  return { ...appProps }
+}
+
+export default ExplorerApp
