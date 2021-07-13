@@ -1,0 +1,5 @@
+[[plugins]]
+package = "@netlify/plugin-lighthouse"
+
+[context.deploy-preview.environment]
+NODE_ENV = "test"
