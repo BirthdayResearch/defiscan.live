@@ -14,6 +14,7 @@
 // ***********************************************************
 
 import './commands'
+import '@cypress/code-coverage/support'
 
 Cypress.Server.defaults({
   ignore: (xhr: Request) => {

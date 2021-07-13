@@ -20,4 +20,6 @@ import {} from 'cypress'
 module.exports = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): any => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  require('@cypress/code-coverage/task')(on, config)
+  return config
 }
