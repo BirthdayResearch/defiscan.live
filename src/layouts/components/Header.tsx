@@ -30,7 +30,7 @@ export default function Header (): JSX.Element {
               </div>
             </div>
             <div className={'flex items-center'}>
-              <div className={'mr-3 text-sm font-medium'}>
+              <div className={'mr-3 text-xs font-medium'}>
                 {getEnvironment().name}
               </div>
               <button className={'bg-gray-100 px-2 py-1.5 rounded flex items-center'}>
