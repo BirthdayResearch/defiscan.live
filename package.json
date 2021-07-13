@@ -24,7 +24,10 @@
     "lint": "next lint --fix",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --headless --browser chrome",
+    "playground:start": "docker-compose up"
   },
   "dependencies": {
     "@defichain/playground-api-client": ">=0.5.5",
@@ -40,6 +43,7 @@
     "@types/node": "^14.17.5",
     "@types/react": "^17.0.14",
     "autoprefixer": "^10.3.1",
+    "cypress": "^7.7.0",
     "eslint": "^7.30.0",
     "eslint-config-next": "^11.0.1",
     "husky": "^7.0.1",
