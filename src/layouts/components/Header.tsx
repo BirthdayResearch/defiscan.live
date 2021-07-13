@@ -20,7 +20,7 @@ export default function Header (): JSX.Element {
   return (
     <header className={'bg-white'}>
       <div className={'border-b border-gray-100'}>
-        <div className={'container mx-auto px-4 py-1'}>
+        <div className={'container mx-auto px-4 py-1.5'}>
           <div className={'flex items-center justify-between'}>
             <div>
               <div>

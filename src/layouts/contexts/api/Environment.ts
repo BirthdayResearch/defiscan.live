@@ -55,7 +55,7 @@ export const environments: Record<EnvironmentName, Environment> = {
  * @return Environment of current explorer setup, checked against Environment Variable
  */
 export function getEnvironment (): Environment {
-  switch (process.env.NODE_ENV as string) {
+  switch (process.env.ENVIRONMENT_NAME ?? process.env.NODE_ENV) {
     case 'production':
       return environments[EnvironmentName.Production]
     case 'preview':

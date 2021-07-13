@@ -1,2 +1,5 @@
 [[plugins]]
 package = "@netlify/plugin-lighthouse"
+
+[context.deploy-preview.environment]
+ENVIRONMENT_NAME = "preview"
