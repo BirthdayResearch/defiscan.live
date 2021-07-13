@@ -6,7 +6,9 @@ export default function Footer (): JSX.Element {
     <footer className={'mt-12 border-t border-gray-100'}>
       <div className={'container mx-auto px-4 py-12'}>
         <Link href={'/'}>
-          <DeFiChainLogo className={'w-28 h-full cursor-pointer'} />
+          <div className={'cursor-pointer'}>
+            <DeFiChainLogo className={'w-28 h-full'} />
+          </div>
         </Link>
 
         <div className={'flex flex-wrap mt-4'}>
