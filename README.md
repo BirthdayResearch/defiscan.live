@@ -1,4 +1,6 @@
 [![CI](https://github.com/DeFiCh/explorer/actions/workflows/ci.yml/badge.svg)](https://github.com/DeFiCh/explorer/actions/workflows/ci.yml)
+[![explorer](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/count/oa9mrn/main&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/oa9mrn/runs)
+[![codecov](https://codecov.io/gh/DeFiCh/explorer/branch/main/graph/badge.svg?token=n2ZYvbqRtW)](https://codecov.io/gh/DeFiCh/explorer)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c206ba9a4fdf0699229c/maintainability)](https://codeclimate.com/github/DeFiCh/explorer/maintainability)
 [![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 
