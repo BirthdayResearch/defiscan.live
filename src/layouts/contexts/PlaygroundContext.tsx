@@ -19,7 +19,7 @@ export function usePlaygroundContext (): Playground {
     return context
   }
 
-  throw new Error(`attempting to usePlaygroundContext on a debug environment`)
+  throw new Error(`attempting to usePlaygroundContext on a non debug environment`)
 }
 
 export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element | null {

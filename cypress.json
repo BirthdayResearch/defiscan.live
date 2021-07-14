@@ -1,9 +1,11 @@
 {
   "projectId": "oa9mrn",
-  "env": {
-    "URL": "http://localhost:3000/"
-  },
+  "fixturesFolder": false,
+  "baseUrl": "http://localhost:3000",
   "viewportWidth": 1200,
   "viewportHeight": 1000,
-  "retries": { "runMode": 1, "openMode": 0 }
+  "retries": {
+    "runMode": 1,
+    "openMode": 0
+  }
 }
