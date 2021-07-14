@@ -52,3 +52,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
+        with:
+          fail_ci_if_error: true
