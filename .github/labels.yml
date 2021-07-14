@@ -62,6 +62,8 @@
 - color: fbca04
   name: area/layouts
 - color: fbca04
+  name: area/store
+- color: fbca04
   name: area/styles
 - color: fbca04
   name: area/blocks

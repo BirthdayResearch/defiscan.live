@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { PropsWithChildren } from "react";
+import { Provider } from "react-redux";
+import { store } from "../store";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { useKeepNetworkQueryString } from "./contexts/api/NetworkQuery";
@@ -20,21 +22,24 @@ export default function Default (props: PropsWithChildren<any>): JSX.Element | n
   return (
     <div className={'flex flex-col min-h-screen'}>
       <Head>
-        <title>DeFiChain V2 Explorer</title>
-        <meta name='description' content='DeFiChain V2 Explorer' />
+        <title>DeFiChain Explorer 2.0</title>
+        <meta name='description'
+              content='DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <NetworkProvider>
         <PlaygroundProvider>
           <WhaleProvider>
-            <Header />
+            <Provider store={store}>
+              <Header />
 
-            <main className={'flex-grow'}>
-              {props.children}
-            </main>
+              <main className={'flex-grow'}>
+                {props.children}
+              </main>
 
-            <Footer />
+              <Footer />
+            </Provider>
           </WhaleProvider>
         </PlaygroundProvider>
       </NetworkProvider>

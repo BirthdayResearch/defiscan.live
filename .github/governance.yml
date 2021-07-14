@@ -39,6 +39,7 @@ issue:
         - workflow
         - public
         - layouts
+        - store
         - styles
         - blocks
         - transactions

@@ -21,6 +21,11 @@ labels:
     matcher:
       files: "src/styles/**"
 
+  - label: area/store
+    sync: true
+    matcher:
+      files: "src/store/**"
+
   - label: area/blocks
     sync: true
     matcher:
