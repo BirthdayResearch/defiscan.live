@@ -2,7 +2,7 @@ import {} from 'cypress'
 
 context('header', () => {
   beforeEach(function () {
-    cy.visit(Cypress.env('URL'))
+    cy.visit('/')
   })
 
   it('should contain block count', function () {
