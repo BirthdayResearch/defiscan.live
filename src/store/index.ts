@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { block } from './block'
 
 /**
- * RootState for DeFi Explorer
+ * RootState for DeFi Scan
  *
  * All state reducers in this store must be designed for global use and placed in this
  * directory. Reducer that is not meant to be global must not be part of RootState.

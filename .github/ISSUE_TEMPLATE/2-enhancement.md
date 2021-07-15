@@ -1,6 +1,6 @@
 ---
 name: Enhancement request
-about: Suggest an enhancement for DeFi Explorer
+about: Suggest an enhancement for DeFi Scan
 labels: kind/feature
 ---
 

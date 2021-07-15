@@ -42,7 +42,7 @@ export const environments: Record<EnvironmentName, Environment> = {
 }
 
 /**
- * @return Environment of current explorer setup, checked against Environment Variable
+ * @return Environment of current setup, checked against Environment Variable
  */
 export function getEnvironment (): Environment {
   switch (process.env.NODE_ENV) {

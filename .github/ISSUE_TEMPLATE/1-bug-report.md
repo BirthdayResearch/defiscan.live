@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a bug encountered with using DeFi Explorer
+about: Report a bug encountered with using DeFi Scan
 labels: kind/bug
 ---
 
