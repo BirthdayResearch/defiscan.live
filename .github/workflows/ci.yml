@@ -51,7 +51,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: npx codecov
       - uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192
         with:
           fail_ci_if_error: true
