@@ -1,6 +1,6 @@
 ---
 name: General question
-about: General question about using DeFi Explorer
+about: General question about using DeFi Scan
 labels: kind/question
 ---
 

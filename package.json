@@ -1,5 +1,5 @@
 {
-  "name": "explorer",
+  "name": "@defichain/scan",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -13,7 +13,7 @@
       "name": "DeFi Blockchain Contributors"
     },
     {
-      "name": "DeFi Explorer Contributors"
+      "name": "DeFi Scan Contributors"
     }
   ],
   "engines": {

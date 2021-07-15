@@ -1,4 +1,4 @@
-# DeFi Explorer Contributing Guide
+# DeFi Scan Contributing Guide
 
 ## Developing Guides
 
