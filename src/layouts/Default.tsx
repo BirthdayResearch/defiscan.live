@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { store } from '../store'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import { useKeepNetworkQueryString } from './contexts/api/NetworkQuery'
+import { KeepNetworkQueryString } from './contexts/api/NetworkQuery'
 import { NetworkProvider } from './contexts/NetworkContext'
 import { PlaygroundProvider } from './contexts/PlaygroundContext'
 import { WhaleProvider } from './contexts/WhaleContext'
@@ -17,8 +17,6 @@ import { WhaleProvider } from './contexts/WhaleContext'
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
 export default function Default (props: PropsWithChildren<any>): JSX.Element | null {
-  useKeepNetworkQueryString()
-
   return (
     <div className='flex flex-col min-h-screen'>
       <Head>
@@ -34,13 +32,15 @@ export default function Default (props: PropsWithChildren<any>): JSX.Element | n
         <PlaygroundProvider>
           <WhaleProvider>
             <Provider store={store}>
-              <Header />
+              <KeepNetworkQueryString>
+                <Header />
 
-              <main className='flex-grow'>
-                {props.children}
-              </main>
+                <main className='flex-grow'>
+                  {props.children}
+                </main>
 
-              <Footer />
+                <Footer />
+              </KeepNetworkQueryString>
             </Provider>
           </WhaleProvider>
         </PlaygroundProvider>

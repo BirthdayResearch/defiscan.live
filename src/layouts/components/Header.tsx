@@ -15,7 +15,7 @@ export default function Header (): JSX.Element {
     void rpc.blockchain.getBlockchainInfo().then(({ blocks }) => {
       setCount(blocks)
     })
-  }, [network, rpc.blockchain])
+  }, [])
 
   return (
     <header className='bg-white'>

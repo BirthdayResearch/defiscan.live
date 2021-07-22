@@ -27,7 +27,7 @@ export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element 
   const connected = useConnectedPlayground()
 
   const context = useMemo(() => {
-    if (!getEnvironment().debug) {
+    if (!isPlaygroundAvailable(network)) {
       return undefined
     }
     const api = newPlaygroundClient(network)
@@ -51,12 +51,12 @@ export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element 
  * @return boolean when completed or found connected playground
  */
 function useConnectedPlayground (): boolean {
-  const { setNetwork } = useNetworkContext()
+  const { network, setNetwork } = useNetworkContext()
   const [isLoaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const environment = getEnvironment()
-    if (!environment.debug) {
+    if (!isPlaygroundAvailable(network)) {
       setLoaded(true)
       return
     }
@@ -72,9 +72,22 @@ function useConnectedPlayground (): boolean {
     }
 
     void findPlayground()
-  }, [setNetwork])
+  }, [])
 
   return isLoaded
+}
+
+function isPlaygroundAvailable (network: EnvironmentNetwork): boolean {
+  const environment = getEnvironment()
+  if (!isPlayground(network)) {
+    return false
+  }
+
+  if (!environment.debug) {
+    return false
+  }
+
+  return true
 }
 
 async function isConnected (network: EnvironmentNetwork): Promise<boolean> {
