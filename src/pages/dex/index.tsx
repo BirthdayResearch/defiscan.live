@@ -11,6 +11,7 @@ const DexPage: NextPage = () => {
 
   useEffect(() => {
     const listPoolPairs = (): any => {
+      // TODO(canonbrother): poolpair api on whale client side is still WIP
       // const poolPairs = await rpc.poolpair.list()
       const poolPairs = [
         { id: '0', symbol: 'BTC-DFI', totalLiquidityUsd: '174058812.06', dailyVolumeUsd30: '1213847.86', liquidity: '2851.29 BTC + 46161333.26 DFI', priceRatio: '16189.62 DFI/BTC', apr: '85.04' },
@@ -43,9 +44,9 @@ const DexPage: NextPage = () => {
           </div>
         </div>
         <div className='table-row-group'>
-          {poolPairs.length !== 0 ? (
+          {poolPairs.length !== 0 && (
             poolPairs.map((p: any) => (
-              <tr key={p.id}>
+              <tr key={p.id} className='table-row'>
                 <div className='table-cell px-4 py-4 border-t text-left'>{p.symbol}</div>
                 <div className='table-cell px-4 py-4 border-t text-right'>{p.totalLiquidityUsd}</div>
                 <div className='table-cell px-4 py-4 border-t text-right'>{p.dailyVolumeUsd30}</div>
@@ -54,8 +55,6 @@ const DexPage: NextPage = () => {
                 <div className='table-cell px-4 py-4 border-t text-right'>{p.apr} %</div>
               </tr>
             ))
-          ) : (
-            <div>No pool pairs found</div>
           )}
         </div>
       </div>
