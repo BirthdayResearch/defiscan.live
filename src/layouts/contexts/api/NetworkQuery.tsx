@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { PropsWithChildren, useEffect } from 'react'
-import { useNetworkContext } from "../NetworkContext";
+import { useNetworkContext } from '../NetworkContext'
 import { EnvironmentNetwork, getEnvironment } from './Environment'
 
 interface NetworkQueryInterface {
@@ -87,7 +87,7 @@ export function KeepNetworkQueryString (props: PropsWithChildren<any>): JSX.Elem
         pathname: pathname,
         query: {
           ...Object.fromEntries(new URLSearchParams(search).entries()),
-          network: network,
+          network: network
         }
       }, undefined, { shallow: true })
     }
@@ -100,4 +100,3 @@ export function KeepNetworkQueryString (props: PropsWithChildren<any>): JSX.Elem
 
   return props.children
 }
-
