@@ -31,34 +31,34 @@ const DexPage: NextPage = () => {
   return (
     <div className={'container mx-auto px-4 py-6'}>
       <h1 className={'text-2xl font-medium pb-8'}>Liquidity Pool Pairs</h1>
-      <table className="sm:shadow-2xl border-collapse w-full">
-        <thead>
-          <tr className="border-t-2">
-            <th className="px-4 py-4 font-medium text-left">Name</th>
-            <th className="px-4 py-4 font-medium text-right">Total Liquidity <span className="text-gray-500">USD</span></th>
-            <th className="px-4 py-4 font-medium text-right">Daily Volume USD <span className="text-gray-500">(30d avg)</span></th>
-            <th className="px-4 py-4 font-medium text-right">Liquidity</th>
-            <th className="px-4 py-4 font-medium text-right">Price Ratio</th>
-            <th className="px-4 py-4 font-medium text-right">APR</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div className='table sm:shadow-2xl border-collapse w-full'>
+        <div className='table-row-group'>
+          <div className='table-row'>
+            <div className='table-cell px-4 py-4 font-medium text-left'>Name</div>
+            <div className='table-cell px-4 py-4 font-medium text-right'>Total Liquidity <span className="text-gray-500">USD</span></div>
+            <div className='table-cell px-4 py-4 font-medium text-right'>Daily Volume USD <span className="text-gray-500">(30d avg)</span></div>
+            <div className='table-cell px-4 py-4 font-medium text-right'>Liquidity</div>
+            <div className='table-cell px-4 py-4 font-medium text-right'>Price Ratio</div>
+            <div className='table-cell px-4 py-4 font-medium text-right'>APR</div>
+          </div>
+        </div>
+        <div className='table-row-group'>
           {poolPairs.length !== 0 ? (
             poolPairs.map((p: any) => (
               <tr key={p.id}>
-                <td className="px-4 py-4 border-t text-left">{p.symbol}</td>
-                <td className="px-4 py-4 border-t text-right">{p.totalLiquidityUsd}</td>
-                <td className="px-4 py-4 border-t text-right">{p.dailyVolumeUsd30}</td>
-                <td className="px-4 py-4 border-t text-right">{p.liquidity}</td>
-                <td className="px-4 py-4 border-t text-right">{p.priceRatio}</td>
-                <td className="px-4 py-4 border-t text-right">{p.apr} %</td>
+                <div className='table-cell px-4 py-4 border-t text-left'>{p.symbol}</div>
+                <div className='table-cell px-4 py-4 border-t text-right'>{p.totalLiquidityUsd}</div>
+                <div className='table-cell px-4 py-4 border-t text-right'>{p.dailyVolumeUsd30}</div>
+                <div className='table-cell px-4 py-4 border-t text-right'>{p.liquidity}</div>
+                <div className='table-cell px-4 py-4 border-t text-right'>{p.priceRatio}</div>
+                <div className='table-cell px-4 py-4 border-t text-right'>{p.apr} %</div>
               </tr>
             ))
           ) : (
             <div>No pool pairs found</div>
           )}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   )
 }
