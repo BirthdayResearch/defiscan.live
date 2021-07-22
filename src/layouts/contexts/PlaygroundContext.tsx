@@ -54,12 +54,13 @@ function useConnectedPlayground (): boolean {
   const { setNetwork } = useNetworkContext()
   const [isLoaded, setLoaded] = useState(false)
 
-  const environment = getEnvironment()
-  if (!environment.debug) {
-    return true
-  }
-
   useEffect(() => {
+    const environment = getEnvironment()
+    if (!environment.debug) {
+      setLoaded(true)
+      return
+    }
+
     async function findPlayground (): Promise<void> {
       for (const network of environment.networks.filter(isPlayground)) {
         if (await isConnected(network)) {
