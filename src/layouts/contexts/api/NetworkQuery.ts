@@ -20,24 +20,23 @@ interface NetworkQueryInterface {
 export function useNetworkQuery (): NetworkQueryInterface {
   const env = getEnvironment()
   const router = useRouter()
-  const network = resolveNetwork(router.query['network'])
+  const current = resolveNetwork(router.query['network'])
 
   return {
     getNetwork (): EnvironmentNetwork {
-      return network
+      return current
     },
     setNetwork (network: EnvironmentNetwork) {
       if (!env.networks.includes(network)) {
         throw new Error('network is not part of environment')
       }
-
-      if (isDefaultNetwork(network)) {
-        void router.push({ pathname: '/' })
+      if (current === network) {
+        return
       }
 
       void router.push({
-        pathname: '/',
-        query: { network: network },
+        pathname: router.pathname,
+        query: isDefaultNetwork(network) ? { network: network } : {},
       })
     }
   }
