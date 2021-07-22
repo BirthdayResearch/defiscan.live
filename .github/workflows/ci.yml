@@ -18,7 +18,7 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-      - run: npx --no-install next lint
+      - run: npx --no-install next lint --dir src
 
   e2e:
     name: End-to-end

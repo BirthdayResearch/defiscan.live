@@ -1,6 +1,6 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
 import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react'
-import { EnvironmentNetwork, getEnvironment, isPlayground } from "./api/Environment";
+import { EnvironmentNetwork, getEnvironment, isPlayground } from './api/Environment'
 import { useNetworkContext } from './NetworkContext'
 
 interface Playground {
@@ -19,7 +19,7 @@ export function usePlaygroundContext (): Playground {
     return context
   }
 
-  throw new Error(`attempting to usePlaygroundContext on a non debug environment`)
+  throw new Error('attempting to usePlaygroundContext on a non debug environment')
 }
 
 export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element | null {
@@ -72,7 +72,7 @@ function useConnectedPlayground (): boolean {
     }
 
     void findPlayground()
-  }, [])
+  }, [setNetwork])
 
   return isLoaded
 }

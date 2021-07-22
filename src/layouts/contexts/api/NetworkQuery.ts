@@ -1,17 +1,17 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { EnvironmentNetwork, getEnvironment } from "./Environment";
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { EnvironmentNetwork, getEnvironment } from './Environment'
 
 interface NetworkQueryInterface {
   /**
    * @return {EnvironmentNetwork} from query string
    */
-  getNetwork (): EnvironmentNetwork
+  getNetwork: () => EnvironmentNetwork
 
   /**
    * @param {EnvironmentNetwork} network to set to update entire NetworkContext, reflected in url if non env default
    */
-  setNetwork (network: EnvironmentNetwork): void
+  setNetwork: (network: EnvironmentNetwork) => void
 }
 
 /**
@@ -20,7 +20,7 @@ interface NetworkQueryInterface {
 export function useNetworkQuery (): NetworkQueryInterface {
   const env = getEnvironment()
   const router = useRouter()
-  const current = resolveNetwork(router.query['network'])
+  const current = resolveNetwork(router.query.network)
 
   return {
     getNetwork (): EnvironmentNetwork {
@@ -36,7 +36,7 @@ export function useNetworkQuery (): NetworkQueryInterface {
 
       void router.push({
         pathname: router.pathname,
-        query: isDefaultNetwork(network) ? { network: network } : {},
+        query: isDefaultNetwork(network) ? { network: network } : {}
       })
     }
   }
@@ -50,7 +50,7 @@ export function useKeepNetworkQueryString (): void {
   const { getNetwork } = useNetworkQuery()
 
   useEffect(() => {
-    function routeChangeComplete (url: string, options: { shadow: boolean }) {
+    function routeChangeComplete (url: string, options: { shadow: boolean }): void {
       if (options.shadow) {
         return
       }
@@ -68,7 +68,7 @@ export function useKeepNetworkQueryString (): void {
         query: {
           network: getNetwork(),
           ...router.query
-        },
+        }
       }, undefined, { shallow: true })
     }
 
@@ -76,7 +76,7 @@ export function useKeepNetworkQueryString (): void {
     return () => {
       router.events.off('routeChangeComplete', routeChangeComplete)
     }
-  }, [])
+  }, [getNetwork, router])
 }
 
 function isDefaultNetwork (network: EnvironmentNetwork): boolean {
