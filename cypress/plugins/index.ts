@@ -1,5 +1,3 @@
-import {} from 'cypress'
-
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -16,10 +14,8 @@ import {} from 'cypress'
 /**
  * @type {Cypress.PluginConfig}
  */
-// eslint-disable-next-line no-unused-vars
-module.exports = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): any => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions): any => {
+  // @ts-ignore
   require('@cypress/code-coverage/task')(on, config)
   return config
 }

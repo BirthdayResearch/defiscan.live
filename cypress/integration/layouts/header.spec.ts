@@ -1,6 +1,4 @@
-import {} from 'cypress'
-
-context('header', () => {
+describe('header', () => {
   beforeEach(function () {
     cy.visit('/')
   })

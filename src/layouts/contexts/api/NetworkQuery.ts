@@ -36,7 +36,7 @@ export function useNetworkQuery (): NetworkQueryInterface {
 
       void router.push({
         pathname: router.pathname,
-        query: isDefaultNetwork(network) ? { network: network } : {}
+        query: isDefaultNetwork(network) ? {} : { network: network }
       })
     }
   }
