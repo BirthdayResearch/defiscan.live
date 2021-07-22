@@ -46,14 +46,14 @@ const DexPage: NextPage = () => {
         <div className='table-row-group'>
           {poolPairs.length !== 0 && (
             poolPairs.map((p: any) => (
-              <tr key={p.id} className='table-row'>
+              <div key={p.id} className='table-row'>
                 <div className='table-cell px-4 py-4 border-t text-left'>{p.symbol}</div>
                 <div className='table-cell px-4 py-4 border-t text-right'>{p.totalLiquidityUsd}</div>
                 <div className='table-cell px-4 py-4 border-t text-right'>{p.dailyVolumeUsd30}</div>
                 <div className='table-cell px-4 py-4 border-t text-right'>{p.liquidity}</div>
                 <div className='table-cell px-4 py-4 border-t text-right'>{p.priceRatio}</div>
                 <div className='table-cell px-4 py-4 border-t text-right'>{p.apr} %</div>
-              </tr>
+              </div>
             ))
           )}
         </div>
