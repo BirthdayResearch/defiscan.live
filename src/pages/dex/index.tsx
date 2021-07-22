@@ -6,15 +6,15 @@ import Loader from '../../components/loader/loader'
 const DexPage: NextPage = () => {
   const [loading, setLoading] = useState(true)
   const [poolPairs, setPoolPairs] = useState<any>([])
-  
+
   // const rpc = useWhaleApiClient()
-  
+
   useEffect(() => {
-    const listPoolPairs = async () => {
+    const listPoolPairs = (): any => {
       // const poolPairs = await rpc.poolpair.list()
       const poolPairs = [
-        { id: '0', symbol: 'BTC-DFI', totalLiquidityUsd: '174058812.06', dailyVolumeUsd30: '1213847.86', liquidity: '2851.29 BTC + 46161333.26 DFI', priceRatio: '16189.62 DFI/BTC', apr: '85.04'},
-        { id: '1', symbol: 'ETH-DFI', totalLiquidityUsd: '37161024.14', dailyVolumeUsd30: '411450.11', liquidity: '10143.25 ETH + 9825594.18 DFI', priceRatio: '968.68 DFI/ETH', apr: '74.69'},
+        { id: '0', symbol: 'BTC-DFI', totalLiquidityUsd: '174058812.06', dailyVolumeUsd30: '1213847.86', liquidity: '2851.29 BTC + 46161333.26 DFI', priceRatio: '16189.62 DFI/BTC', apr: '85.04' },
+        { id: '1', symbol: 'ETH-DFI', totalLiquidityUsd: '37161024.14', dailyVolumeUsd30: '411450.11', liquidity: '10143.25 ETH + 9825594.18 DFI', priceRatio: '968.68 DFI/ETH', apr: '74.69' }
       ]
       setPoolPairs(poolPairs)
       setLoading(false)
@@ -29,14 +29,14 @@ const DexPage: NextPage = () => {
   }
 
   return (
-    <div className={'container mx-auto px-4 py-6'}>
-      <h1 className={'text-2xl font-medium pb-8'}>Liquidity Pool Pairs</h1>
+    <div className='container mx-auto px-4 py-6'>
+      <h1 className='text-2xl font-medium pb-8'>Liquidity Pool Pairs</h1>
       <div className='table sm:shadow-2xl border-collapse w-full'>
         <div className='table-row-group'>
           <div className='table-row'>
             <div className='table-cell px-4 py-4 font-medium text-left'>Name</div>
-            <div className='table-cell px-4 py-4 font-medium text-right'>Total Liquidity <span className="text-gray-500">USD</span></div>
-            <div className='table-cell px-4 py-4 font-medium text-right'>Daily Volume USD <span className="text-gray-500">(30d avg)</span></div>
+            <div className='table-cell px-4 py-4 font-medium text-right'>Total Liquidity <span className='text-gray-500'>USD</span></div>
+            <div className='table-cell px-4 py-4 font-medium text-right'>Daily Volume USD <span className='text-gray-500'>(30d avg)</span></div>
             <div className='table-cell px-4 py-4 font-medium text-right'>Liquidity</div>
             <div className='table-cell px-4 py-4 font-medium text-right'>Price Ratio</div>
             <div className='table-cell px-4 py-4 font-medium text-right'>APR</div>
