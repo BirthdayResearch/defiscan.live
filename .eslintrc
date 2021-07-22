@@ -1,11 +1,14 @@
 {
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "extends": [
     "standard-with-typescript",
     "standard-jsx",
     "next",
     "next/core-web-vitals"
   ],
-  "parserOptions": {
-    "project": "./tsconfig.json"
+  "rules": {
+    "no-void": "off"
   }
 }

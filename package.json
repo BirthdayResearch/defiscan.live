@@ -21,7 +21,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "lint": "next lint --fix",
+    "lint": "next lint --fix --dir src",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

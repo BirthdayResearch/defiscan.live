@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react'
-import { EnvironmentNetwork } from "./api/Environment";
-import { useNetworkQuery } from "./api/NetworkQuery";
+import { EnvironmentNetwork } from './api/Environment'
+import { useNetworkQuery } from './api/NetworkQuery'
 
 interface Network {
   network: EnvironmentNetwork
