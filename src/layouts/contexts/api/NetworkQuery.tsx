@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
+import { useNetworkContext } from '../NetworkContext'
 import { EnvironmentNetwork, getEnvironment } from './Environment'
 
 interface NetworkQueryInterface {
@@ -36,47 +37,10 @@ export function useNetworkQuery (): NetworkQueryInterface {
 
       void router.push({
         pathname: router.pathname,
-        query: isDefaultNetwork(network) ? { network: network } : {}
+        query: isDefaultNetwork(network) ? {} : { network: network }
       })
     }
   }
-}
-
-/**
- * Keep Network QueryString when routing
- */
-export function useKeepNetworkQueryString (): void {
-  const router = useRouter()
-  const { getNetwork } = useNetworkQuery()
-
-  useEffect(() => {
-    function routeChangeComplete (url: string, options: { shadow: boolean }): void {
-      if (options.shadow) {
-        return
-      }
-
-      if (hasNetwork(url)) {
-        return
-      }
-
-      if (isDefaultNetwork(getNetwork())) {
-        return
-      }
-
-      void router.replace({
-        pathname: router.pathname,
-        query: {
-          network: getNetwork(),
-          ...router.query
-        }
-      }, undefined, { shallow: true })
-    }
-
-    router.events.on('routeChangeComplete', routeChangeComplete)
-    return () => {
-      router.events.off('routeChangeComplete', routeChangeComplete)
-    }
-  }, [getNetwork, router])
 }
 
 function isDefaultNetwork (network: EnvironmentNetwork): boolean {
@@ -97,4 +61,42 @@ function resolveNetwork (text?: string | string[]): EnvironmentNetwork {
   }
 
   return env.networks[0]
+}
+
+export function KeepNetworkQueryString (props: PropsWithChildren<any>): JSX.Element {
+  const router = useRouter()
+  const { network } = useNetworkContext()
+
+  useEffect(() => {
+    function routeChangeComplete (url: string, options: { shadow: boolean }): void {
+      const [pathname, search] = url.split('?')
+
+      if (options.shadow) {
+        return
+      }
+
+      if (hasNetwork(url)) {
+        return
+      }
+
+      if (isDefaultNetwork(network)) {
+        return
+      }
+
+      void router.replace({
+        pathname: pathname,
+        query: {
+          ...Object.fromEntries(new URLSearchParams(search).entries()),
+          network: network
+        }
+      }, undefined, { shallow: true })
+    }
+
+    router.events.on('routeChangeComplete', routeChangeComplete)
+    return () => {
+      router.events.off('routeChangeComplete', routeChangeComplete)
+    }
+  }, [network])
+
+  return props.children
 }

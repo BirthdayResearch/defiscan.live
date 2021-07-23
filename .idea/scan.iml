@@ -4,6 +4,12 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludePattern pattern="*dist*" />
+      <excludePattern pattern="*__snapshots__*" />
+      <excludePattern pattern="*coverage*" />
+      <excludePattern pattern="*.nyc_output*" />
+      <excludePattern pattern="*cypress-coverage*" />
+      <excludePattern pattern="*jest-coverage*" />
+      <excludePattern pattern="*reports*" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
