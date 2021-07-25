@@ -55,14 +55,15 @@ const Masternodes: NextPage = (): JSX.Element => {
       <PageHeading>Masternodes</PageHeading>
       <div className='flex flex-row justify-end'>
         <div className='flex flex-col'>
-          <label className='text-sm text-grey-300 font-semibold'>List size</label>
+          <label htmlFor={"masternodeSelect"} className='text-sm text-grey-300 font-semibold'>List size</label>
           <select
             id='masternodeSelect'
             className='w-20 text-center p-2 border border-grey-300'
             onChange={async e => await handleListSizeSelect(e)}
             value={listSize}
+            defaultValue={''}
           >
-            <option selected value={5}>5</option>
+            <option value={5}>5</option>
             <option value={10}>10</option>
             <option value={30}>30</option>
             <option value={50}>50</option>
@@ -72,9 +73,12 @@ const Masternodes: NextPage = (): JSX.Element => {
       </div>
       <div className='table border-collapse w-full border-2 rounded-2xl shadow rounded-lg bg-white mt-3'>
         <div className='table-row-group'>
-          <div className='table-row border-b-2 border-gray-300 py-2'>
-            <div className='table-cell text-lg py-4 px-2'>OwnerAuthAddress</div>
-            <div className='table-cell text-lg py-4 px-2'>OperatorAuthAddress</div>
+          <div
+            data-testid={"mn_table_head"}
+            className='table-row border-b-2 border-gray-300 py-2'
+          >
+            <div className='table-cell text-lg py-4 px-2'>ownerAuthAddress</div>
+            <div className='table-cell text-lg py-4 px-2'>operatorAuthAddress</div>
             <div className='table-cell text-lg py-4 px-2'>creationHeight</div>
             <div className='table-cell text-lg py-4 px-2'>resignHeight</div>
             <div className='table-cell text-lg py-4 px-2'>mintedBlocks</div>
