@@ -6,13 +6,13 @@ interface IProps {
 
 export const MasternodeItem = ({ data }: IProps): JSX.Element => {
   return (
-    <div className='table-row border-bottom-2'>
-      <div className='table-cell'>{data.owner.address}</div>
-      <div className='table-cell'>{data.operator.address}</div>
-      <div className='table-cell'>{data.creation.height}</div>
-      <div className='table-cell'>{data.resign.height}</div>
-      <div className='table-cell'>{data.mintedBlocks}</div>
-      <div className='table-cell'>{data.state}</div>
+    <div className='table-row border-b border-gray-300'>
+      <div className='table-cell py-4 px-4'>{data.owner.address}</div>
+      <div className='table-cell py-4 px-2'>{data.operator.address}</div>
+      <div className='table-cell py-4 px-2'>{data.creation.height}</div>
+      <div className='table-cell py-4 px-2'>{data.resign.height}</div>
+      <div className='table-cell py-4 px-2'>{data.mintedBlocks}</div>
+      <div className='table-cell py-4 px-2'>{data.state}</div>
     </div>
   )
 }
