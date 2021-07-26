@@ -2,12 +2,11 @@ import { Fragment } from 'react'
 import { parseAge } from '../utils'
 
 export default function Blocks (): JSX.Element {
-
   const blocks = [
-    {height: 100, time: parseAge(1627288589), transactions: ['', '' ,''], size: 1},
-    {height: 99, time: parseAge(1627277303), transactions: ['', '' ,''], size: 2},
-    {height: 98, time: parseAge(1626079179), transactions: ['', '' ,''], size: 3},
-    {height: 97, time: parseAge(1595752871), transactions: [], size: 4}
+    { height: 100, time: parseAge(1627288589), transactions: ['', '', ''], size: 1 },
+    { height: 99, time: parseAge(1627277303), transactions: ['', '', ''], size: 2 },
+    { height: 98, time: parseAge(1626079179), transactions: ['', '', ''], size: 3 },
+    { height: 97, time: parseAge(1595752871), transactions: [], size: 4 }
   ]
 
   const renderBlocks = (): JSX.Element[] => {
