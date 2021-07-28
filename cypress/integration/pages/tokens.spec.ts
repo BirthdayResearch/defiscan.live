@@ -18,6 +18,7 @@ import {} from 'cypress'
       cy.get('[data-testid="tokens_listitem"]').should('exist')
       cy.get('[data-testid="tokens_listitem"] > div:nth-child(1)').should('exist')
       cy.get('[data-testid="tokens_listitem"] > div:nth-child(2)').should('exist')
+      cy.get('[data-testid="tokens_listitem"] > div:nth-child(3)').should('exist')
     })
 
     it('should render loader component when pagination button is clicked', function () {
