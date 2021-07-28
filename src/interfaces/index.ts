@@ -1,17 +1,22 @@
-export interface TokenData {
+export interface MasternodeData {
   id: string
-  symbol: string
-  symbolKey: string
-  name: string
-  decimal: number
-  limit: string
-  mintable: boolean
-  tradeable: boolean
-  isDAT: boolean
-  isLPS: boolean
-  finalized: boolean
-  minted: string
-  creation: { tx: string, height: number }
-  destruction: { tx: string, height: number }
-  collateralAddress: string
+  state: MasternodeState
+  mintedBlocks: number
+  owner: {address: string}
+  operator: {address: string}
+  creation: {height: number}
+  resign: {
+    tx: string
+    height: number
+  }
+}
+
+export enum MasternodeState {
+  PRE_ENABLED = 'PRE_ENABLED',
+  ENABLED = 'ENABLED',
+  PRE_RESIGNED = 'PRE_RESIGNED',
+  RESIGNED = 'RESIGNED',
+  PRE_BANNED = 'PRE_BANNED',
+  BANNED = 'BANNED',
+  UNKNOWN = 'UNKNOWN'
 }
