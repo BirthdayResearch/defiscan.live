@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import DeFiChainLogo from '../../components/icons/DeFiChainLogo'
+import { DeFiChainLogo } from '../../components/icons/DeFiChainLogo'
 
-export default function Footer (): JSX.Element {
+export function Footer (): JSX.Element {
   return (
     <footer className='mt-12 border-t border-gray-100'>
       <div className='container mx-auto px-4 py-12'>

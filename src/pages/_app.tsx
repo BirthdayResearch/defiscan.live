@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import App, { AppContext } from 'next/app'
-import Default from '../layouts/Default'
+import { Default } from '../layouts/Default'
 
 function ScanApp ({ Component, pageProps }): JSX.Element {
   return (

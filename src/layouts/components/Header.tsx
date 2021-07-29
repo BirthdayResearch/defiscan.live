@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import DeFiChainLogo from '../../components/icons/DeFiChainLogo'
+import { DeFiChainLogo } from '../../components/icons/DeFiChainLogo'
 import { getEnvironment } from '../contexts/api/Environment'
 import { useNetworkContext } from '../contexts/NetworkContext'
 import { useWhaleRpcClient } from '../contexts/WhaleContext'
 
-export default function Header (): JSX.Element {
+export function Header (): JSX.Element {
   const { network } = useNetworkContext()
   const rpc = useWhaleRpcClient()
   const [count, setCount] = useState(0)

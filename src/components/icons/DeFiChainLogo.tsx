@@ -1,6 +1,6 @@
 import { SVGProps } from 'react'
 
-export default function DeFiChainLogo (props: SVGProps<SVGSVGElement>): JSX.Element {
+export function DeFiChainLogo (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width={156} height={72} viewBox='0 0 156 72' {...props}>
       <path

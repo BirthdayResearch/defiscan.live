@@ -9,6 +9,17 @@
     "next/core-web-vitals"
   ],
   "rules": {
-    "no-void": "off"
-  }
+    "func-style": [2, "declaration"],
+    "no-void": "off",
+    "import/no-default-export": "error"
+  },
+  "overrides": [
+    {
+      "files": ["src/pages/**.tsx"],
+      "rules": {
+        "import/no-default-export": "off",
+        "import/prefer-default-export": "error"
+      }
+    }
+  ]
 }
