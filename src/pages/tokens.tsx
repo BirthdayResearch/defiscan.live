@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { useWhaleApiClient } from '../layouts/contexts/WhaleContext'
-import { Loader } from '../components/shared'
-import { TokenData } from '../interfaces'
+import  Loader  from '../components/shared/Loader'
+import { tokens } from '@defichain/whale-api-client'
 
 const TokenItem = ({ data }): JSX.Element => {
   return (
@@ -15,17 +15,17 @@ const TokenItem = ({ data }): JSX.Element => {
 }
 
 const TokensPage: NextPage = (): JSX.Element => {
-  const [tokens, setTokens] = useState<TokenData[]>([])
+  const [tokens, setTokens] = useState<tokens.TokenData[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [nextToken, setNextToken] = useState<string | number | undefined>(undefined)
   const [hasNext, setHasNext] = useState<boolean>(false)
 
-  const rpc = useWhaleApiClient()
+  const api = useWhaleApiClient()
 
   useEffect(() => {
     const fetchTokens = async (): Promise<void> => {
       // NOTE(siradji) Made 2 the default query size. Will be changing it when design is finalized.
-      const response = await rpc.tokens.list(2)
+      const response = await api.tokens.list(2)
       setLoading(false)
       setTokens(response as any)
       setHasNext(response.hasNext)
@@ -44,7 +44,7 @@ const TokensPage: NextPage = (): JSX.Element => {
     if (!hasNext) return
 
     setLoading(true)
-    const response = await rpc.tokens.list(2, (nextToken as string))
+    const response = await api.tokens.list(2, (nextToken as string))
     setLoading(false)
     setTokens(response as any)
     setHasNext(response.hasNext)

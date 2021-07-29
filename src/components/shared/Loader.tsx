@@ -1,4 +1,4 @@
-export const Loader = (): JSX.Element => {
+export default function Loader (): JSX.Element {
   return (
     <div data-testid='loader' className='flex flex-row justify-center'>
       <svg className='animate-spin -ml-1 mr-3 h-14 w-14 text-primary' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'>
