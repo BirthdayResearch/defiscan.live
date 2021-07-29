@@ -27,7 +27,7 @@
     "start": "next start",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --headless --browser chrome",
-    "playground:start": "docker-compose up"
+    "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
     "@defichain/playground-api-client": ">=0.7.0",
