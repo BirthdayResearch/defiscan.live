@@ -2,8 +2,8 @@ import Head from 'next/head'
 import { PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
 import { store } from '../store'
-import Footer from './components/Footer'
-import Header from './components/Header'
+import { Footer } from './components/Footer'
+import { Header } from './components/Header'
 import { KeepNetworkQueryString } from './contexts/api/NetworkQuery'
 import { NetworkProvider } from './contexts/NetworkContext'
 import { PlaygroundProvider } from './contexts/PlaygroundContext'
@@ -16,7 +16,7 @@ import { WhaleProvider } from './contexts/WhaleContext'
  * Followed by <PlaygroundProvider> to automatically swatch between local and remote playground for debug environment.
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
-export default function Default (props: PropsWithChildren<any>): JSX.Element | null {
+export function Default (props: PropsWithChildren<any>): JSX.Element | null {
   return (
     <div className='flex flex-col min-h-screen'>
       <Head>
