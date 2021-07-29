@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { useWhaleApiClient } from '../layouts/contexts/WhaleContext'
-import  Loader  from '../components/shared/Loader'
+import Loader from '../components/shared/Loader'
 import { tokens } from '@defichain/whale-api-client'
 
 const TokenItem = ({ data }): JSX.Element => {
