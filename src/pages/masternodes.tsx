@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { useWhaleApiClient } from '../layouts/contexts/WhaleContext'
 
-import { MasternodeData } from '../interfaces'
-import { Loader } from '../components/shared'
+import { masternodes } from '@defichain/whale-api-client'
+import Loader from '../components/shared/Loader'
 
 const MasternodeItem = ({ data }): JSX.Element => {
   return (
@@ -23,15 +23,15 @@ const Masternodes: NextPage = (): JSX.Element => {
   const [hasNext, setHasNext] = useState<boolean>(false)
   const [nextToken, setNextToken] = useState<string | number | undefined>(undefined)
   const [loading, setLoading] = useState<boolean>(true)
-  const [masternodes, setMasternodes] = useState<MasternodeData[]>([])
+  const [masternodes, setMasternodes] = useState<masternodes.MasternodeData[]>([])
 
   // whaleAPI hook
-  const rpc = useWhaleApiClient()
+  const api = useWhaleApiClient()
 
   useEffect(() => {
     const fetchMasternodes = async (): Promise<void> => {
       // NOTE(siradji) Made 2 the default query size. Will be changing it when design is finalized.
-      const response = await rpc.masternodes.list(2)
+      const response = await api.masternodes.list(2)
       setLoading(false)
       setMasternodes(response as any)
       setHasNext(response.hasNext)
@@ -50,7 +50,7 @@ const Masternodes: NextPage = (): JSX.Element => {
     if (!hasNext) return
 
     setLoading(true)
-    const response = await rpc.masternodes.list(2, (nextToken as string))
+    const response = await api.masternodes.list(2, (nextToken as string))
     setLoading(false)
     setMasternodes(response as any)
     setHasNext(response.hasNext)
