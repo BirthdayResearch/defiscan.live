@@ -1,8 +1,8 @@
 import { parseAge } from '../../utils'
-import TableHeader from '../../components/TableHeader'
+import { TableHeader } from '../../components/TableHeader'
 import Link from 'next/link'
 
-export function Blocks (): JSX.Element {
+export default function Blocks (): JSX.Element {
   // dummy data
   const blocks = [
     { id: 100, height: 100, time: parseAge(1627288589), transactions: ['', '', ''], size: 1 },
