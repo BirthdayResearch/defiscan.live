@@ -1,5 +1,5 @@
 import { parseAge } from '../../utils'
-import { TableHeader } from '../../components/Table/index'
+import { TableHeader, TableBody } from '../../components/Table/index'
 import Link from 'next/link'
 
 export default function Blocks (): JSX.Element {
@@ -32,9 +32,9 @@ export default function Blocks (): JSX.Element {
         <div className='flex-1 text-right'>Transactions</div>
         <div className='flex-1 text-right'>Size</div>
       </TableHeader>
-      <div className='block-table-body flex flex-col w-screen md:w-2/3'>
+      <TableBody  className='w-screen md:w-2/3'>
         {renderBlocks()}
-      </div>
+      </TableBody>
     </div>
   )
 }
