@@ -5,7 +5,7 @@ export interface TableProps {
   children?: ReactNode
 }
 
-export default function TableHeader (props: TableProps): JSX.Element {
+export function TableHeader (props: TableProps): JSX.Element {
   const { className = '' } = props
   return (
     <div className={`table-header flex ${className}`}>
