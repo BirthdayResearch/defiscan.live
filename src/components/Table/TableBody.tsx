@@ -1,19 +1,19 @@
 import { ReactNode } from 'react'
 
-export interface TableProps {
+interface TableBodyProps {
   className?: string
   children: ReactNode
 }
 
-export function TableHeader (props: TableProps): JSX.Element {
+export function TableBody (props: TableBodyProps): JSX.Element {
   const { className = '', children } = props
   return (
-    <div className={`table-header flex ${className}`}>
+    <div className={`table-body flex flex-col ${className}`}>
       {children}
     </div>
   )
 }
 
-TableHeader.defaultProps = {
+TableBody.defaulProps = {
   className: ''
 }

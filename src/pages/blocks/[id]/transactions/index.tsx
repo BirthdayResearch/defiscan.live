@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { TableHeader } from '../../../../components/Table/index'
+import { TableHeader, TableBody } from '../../../../components/Table/index'
 
 interface Transaction {
   id: string
@@ -39,16 +39,16 @@ export default function Transactions (): JSX.Element {
     ))
   }
   return (
-    <div className='container'>
+    <div className='container mx-auto px-4 py-8'>
       <div>Blocks: {id}</div>
       <div>Transactions</div>
       <TableHeader>
         <div className='flex-1'>Id</div>
         <div className='flex-1'>Sequence</div>
       </TableHeader>
-      <div className='block-table-body flex flex-col'>
+      <TableBody>
         {renderRows()}
-      </div>
+      </TableBody>
     </div>
   )
 }
