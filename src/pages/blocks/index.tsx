@@ -2,7 +2,7 @@ import { parseAge } from '../../utils'
 import TableHeader from '../../components/TableHeader'
 import Link from 'next/link'
 
-export default function Blocks (): JSX.Element {
+export function Blocks (): JSX.Element {
   // dummy data
   const blocks = [
     { id: 100, height: 100, time: parseAge(1627288589), transactions: ['', '', ''], size: 1 },
@@ -11,7 +11,7 @@ export default function Blocks (): JSX.Element {
     { id: 97, height: 97, time: parseAge(1595752871), transactions: [], size: 4 }
   ]
 
-  const renderBlocks = (): JSX.Element[] => {
+  function renderBlocks (): JSX.Element[] {
     return blocks.map(block => (
       <div className='blocks-table-row flex justify-between' key={block.time}>
         <div className='flex-1'>
