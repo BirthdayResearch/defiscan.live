@@ -32,7 +32,7 @@ export default function Blocks (): JSX.Element {
         <div className='flex-1 text-right'>Transactions</div>
         <div className='flex-1 text-right'>Size</div>
       </TableHeader>
-      <TableBody  className='w-screen md:w-2/3'>
+      <TableBody className='w-screen md:w-2/3'>
         {renderBlocks()}
       </TableBody>
     </div>
