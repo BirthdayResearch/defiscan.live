@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useWhaleApiClient } from '../layouts/contexts/WhaleContext'
-import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { tokens } from '@defichain/whale-api-client'
 
 interface useInfiniteScrollData {
   loading: boolean
-  tokens: TokenData[]
+  tokens: tokens.TokenData[]
   hasNext: boolean
   next: string | number | undefined
   error: boolean
 }
 
-export function useInfiniteScroll (size?: number, nextToken?: string): useInfiniteScrollData {
+export function useInfiniteScroll (querySize: number, nextToken?: string): useInfiniteScrollData {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [tokens, setTokens] = useState<TokenData[]>([])
+  const [tokens, setTokens] = useState<tokens.TokenData[]>([])
   const [hasNext, setHasNext] = useState<boolean>(false)
   const [next, setNext] = useState<string | number | undefined>(undefined)
 
@@ -22,7 +22,7 @@ export function useInfiniteScroll (size?: number, nextToken?: string): useInfini
   useEffect(() => {
     setLoading(true)
     setError(false)
-    api.tokens.list(4, nextToken ?? nextToken)
+    api.tokens.list(querySize, nextToken ?? nextToken)
       .then(res => {
         setLoading(false)
         setTokens(prevTokens => [...prevTokens, ...res])

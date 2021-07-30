@@ -1,8 +1,13 @@
-import { forwardRef, useState, useRef, useCallback, ForwardedRef } from 'react'
+import { forwardRef, useState, useRef, useCallback, ForwardedRef, PropsWithChildren } from 'react'
 import { Loader } from '../components/shared/Loader'
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll'
+import { tokens } from '@defichain/whale-api-client'
 
-const TokenItem = forwardRef(function tokens (props: any, ref: ForwardedRef<HTMLDivElement>) {
+interface TokenItemProps extends PropsWithChildren<unknown> {
+  data: tokens.TokenData
+}
+
+const TokenItem = forwardRef(function tokens (props: TokenItemProps, ref: ForwardedRef<HTMLDivElement>) {
   return (
     <div
       ref={ref} data-testid='tokens_listitem'
@@ -24,7 +29,7 @@ function TokensPage (): JSX.Element {
     error,
     hasNext,
     next
-  } = useInfiniteScroll(30, nextToken)
+  } = useInfiniteScroll(5, nextToken)
 
   const lastTokenRef = useCallback(node => {
     if (loading) return
@@ -37,7 +42,7 @@ function TokensPage (): JSX.Element {
         setNextToken(next as string)
       }
     })
-    if (node !== null) observer.current.observe(node)
+    if (node !== undefined) observer.current.observe(node)
   }, [loading, hasNext])
 
   if (error) {
@@ -63,9 +68,14 @@ function TokensPage (): JSX.Element {
             return <TokenItem data={token} key={token.id} />
           }
         })}
-        {loading && <Loader />}
+        {loading && (
+          <div className='my-5'>
+            <Loader />
+          </div>
+        )}
       </div>
     </div>
   )
 }
+
 export default TokensPage
