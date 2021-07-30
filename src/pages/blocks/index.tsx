@@ -1,5 +1,5 @@
 import { parseAge } from '../../utils'
-import { TableHeader } from '../../components/TableHeader'
+import { TableHeader } from '../../components/Table/index'
 import Link from 'next/link'
 
 export default function Blocks (): JSX.Element {

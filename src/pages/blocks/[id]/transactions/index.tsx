@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { TableHeader } from '../../../../components/TableHeader'
+import { TableHeader } from '../../../../components/Table/index'
 
 interface Transaction {
   id: string
@@ -33,8 +33,8 @@ export default function Transactions (): JSX.Element {
   function renderRows (): JSX.Element[] {
     return transactions.map((t) => (
       <div className='blocks-table-row flex justify-between' key={t.id}>
-        <div>{t.id}</div>
-        <div>{t.sequence}</div>
+        <div className='flex-1'>{t.id}</div>
+        <div className='flex-1'>{t.sequence}</div>
       </div>
     ))
   }
@@ -46,7 +46,7 @@ export default function Transactions (): JSX.Element {
         <div className='flex-1'>Id</div>
         <div className='flex-1'>Sequence</div>
       </TableHeader>
-      <div className='block-table-body flex flex-col w-screen md:w-2/3'>
+      <div className='block-table-body flex flex-col'>
         {renderRows()}
       </div>
     </div>
