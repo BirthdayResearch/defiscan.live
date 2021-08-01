@@ -9,6 +9,9 @@ import { NetworkProvider } from './contexts/NetworkContext'
 import { PlaygroundProvider } from './contexts/PlaygroundContext'
 import { WhaleProvider } from './contexts/WhaleContext'
 
+const title = 'DeFi Scan'
+const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
+
 /**
  * Default Layout with <Head> providing default Metadata for SEO
  *
@@ -20,11 +23,18 @@ export function Default (props: PropsWithChildren<any>): JSX.Element | null {
   return (
     <div className='flex flex-col min-h-screen'>
       <Head>
-        <title>DeFiChain Explorer 2.0</title>
-        <meta
-          name='description'
-          content='DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
-        />
+        <meta charSet='UTF-8' />
+
+        <title>{title}</title>
+        <meta key='description' name='description' content={description} />
+        <meta key='robots' name='robots' content='follow,index' />
+        <meta key='viewport' name='viewport' content='width=device-width, initial-scale=1' />
+
+        <meta key='og:locale' name='og:locale' content='en_US' />
+        <meta key='og:title' name='og:title' content={title} />
+        <meta key='og:site_name' name='og:site_name' content={title} />
+        <meta key='og:description' name='og:description' content={description} />
+
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
