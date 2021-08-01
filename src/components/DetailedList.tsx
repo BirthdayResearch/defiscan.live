@@ -83,7 +83,7 @@ export function DetailedList ({ data }: Iprops): JSX.Element {
               {data.finalized}
             </span>
           </div>
-          <div data-testid="token_detailed_list" className='flex flex-row items-center space-x-8 px-4 py-5'>
+          <div data-testid='token_detailed_list' className='flex flex-row items-center space-x-8 px-4 py-5'>
             <span className='text-sm font-semibold text-gray-500'>
               Collateral Address
             </span>

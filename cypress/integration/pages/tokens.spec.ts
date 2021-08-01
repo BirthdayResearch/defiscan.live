@@ -47,8 +47,7 @@ describe('Tokens page', function () {
       cy.get('div[data-testid="tokens_table_head"] > div:nth-child(1)').should('have.text', 'name')
       cy.get('div[data-testid="tokens_table_head"] > div:nth-child(2)').should('have.text', 'symbol')
       cy.get('div[data-testid="tokens_table_head"] > div:nth-child(3)').should('have.text', 'minted')
-    })
-
+     })
   })
 
 })
