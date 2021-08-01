@@ -24,7 +24,7 @@ export function Header (): JSX.Element {
             <Link href='/' passHref>
               <div className='flex items-center cursor-pointer hover:text-primary'>
                 <DeFiChainLogo className='w-16 h-full' />
-                <h6 className='ml-3 text-xl font-semibold'>Scan</h6>
+                <h6 className='ml-3 text-xl font-medium'>Scan</h6>
               </div>
             </Link>
           </div>

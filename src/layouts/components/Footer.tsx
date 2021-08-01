@@ -16,13 +16,13 @@ export function Footer (): JSX.Element {
             <div className='text-2xl font-semibold'>Scan</div>
 
             <div className='flex flex-wrap mt-3 -m-2 w-72'>
-              <FooterInternalLink href='/blocks' text='Blocks' />
-              <FooterInternalLink href='/dex' text='DEX' />
+              <FooterInternalLink href='https://mainnet.defichain.io/#/DFI/mainnet/home' text='Blocks' />
+              <FooterInternalLink href='https://dex.defichain.com/mainnet/pool' text='DEX' />
               <FooterInternalLink href='/prices' text='Prices' />
-              <FooterInternalLink href='/icx' text='ICX' />
-              <FooterInternalLink href='/tokens' text='Tokens' />
-              <FooterInternalLink href='/masternodes' text='Masternodes' />
-              <FooterInternalLink href='/anchors' text='BTC Anchors' />
+              {/* <FooterInternalLink href='/icx' text='ICX' /> */}
+              <FooterInternalLink href='https://dex.defichain.com/mainnet/token' text='Tokens' />
+              {/* <FooterInternalLink href='/masternodes' text='Masternodes' /> */}
+              <FooterInternalLink href='https://dex.defichain.com/mainnet/anchors' text='BTC Anchors' />
             </div>
           </div>
 
