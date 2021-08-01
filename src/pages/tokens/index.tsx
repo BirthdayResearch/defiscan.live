@@ -16,7 +16,7 @@ const TokenItem = forwardRef(function tokens ({ data }: TokenItemProps, ref: For
       className='flex flex-col md:flex-row justify-center md:justify-between border-b border-gray-300'
     >
       <Link href={`tokens/${data.id}`}>
-        <a>
+        <a data-testid={`token_page_link_${data.id}`}>
           <div className='p-4 text-center flex-none md:flex-1 md:text-left'>{data.symbol}</div>
         </a>
       </Link>
