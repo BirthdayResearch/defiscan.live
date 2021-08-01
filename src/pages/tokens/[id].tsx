@@ -44,6 +44,7 @@ export default function Token (): JSX.Element {
     <div>
       <Container>
         <button
+          data-testid='token_back_btn'
           className='px-7 py-2 border-grey-300 border-2 rounded-sm'
           onClick={() => back()}
         >
