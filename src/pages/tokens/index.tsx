@@ -1,26 +1,32 @@
+import Link from 'next/link'
 import { forwardRef, useState, useRef, useCallback, ForwardedRef, PropsWithChildren } from 'react'
-import { Loader } from '../components/shared/Loader'
-import { useInfiniteScroll } from '../hooks/useInfiniteScroll'
+import { Loader } from '../../components/shared/Loader'
+import { useTokens } from '../../hooks/useTokens'
 import { tokens } from '@defichain/whale-api-client'
+import { Container } from '../../layouts/components/Container'
 
 interface TokenItemProps extends PropsWithChildren<unknown> {
   data: tokens.TokenData
 }
 
-const TokenItem = forwardRef(function tokens (props: TokenItemProps, ref: ForwardedRef<HTMLDivElement>) {
+const TokenItem = forwardRef(function tokens ({ data }: TokenItemProps, ref: ForwardedRef<HTMLDivElement>) {
   return (
     <div
       ref={ref} data-testid='tokens_listitem'
       className='flex flex-col md:flex-row justify-center md:justify-between border-b border-gray-300'
     >
-      <div className='p-4 text-center flex-none md:flex-1 md:text-left'>{props.data.symbol}</div>
-      <div className='p-4 text-center flex-none md:flex-1 md:text-center'>{props.data.symbolKey}</div>
-      <div className='p-4 text-center flex-none md:flex-1 md:text-right'>{props.data.minted}</div>
+      <Link href={`tokens/${data.id}`}>
+        <a>
+          <div className='p-4 text-center flex-none md:flex-1 md:text-left'>{data.symbol}</div>
+        </a>
+      </Link>
+      <div className='p-4 text-center flex-none md:flex-1 md:text-center'>{data.symbolKey}</div>
+      <div className='p-4 text-center flex-none md:flex-1 md:text-right'>{data.minted}</div>
     </div>
   )
 })
 
-function TokensPage (): JSX.Element {
+export default function TokensPage (): JSX.Element {
   const [nextToken, setNextToken] = useState<string>('')
   const observer = useRef<IntersectionObserver>()
   const {
@@ -29,7 +35,7 @@ function TokensPage (): JSX.Element {
     error,
     hasNext,
     next
-  } = useInfiniteScroll(5, nextToken)
+  } = useTokens(5, nextToken)
 
   const lastTokenRef = useCallback(node => {
     if (loading) return
@@ -42,7 +48,7 @@ function TokensPage (): JSX.Element {
         setNextToken(next as string)
       }
     })
-    if (node !== undefined) observer.current.observe(node)
+    if (node !== null) observer.current.observe(node)
   }, [loading, hasNext])
 
   if (error) {
@@ -50,7 +56,7 @@ function TokensPage (): JSX.Element {
   }
 
   return (
-    <div className='container mx-auto px-4 py-6'>
+    <Container>
       <h1 className='text-2xl font-medium pb-8'>Tokens</h1>
       <div className='w-full px-3 border-2 rounded-2xl shadow rounded-lg bg-white mt-3'>
         <div
@@ -74,8 +80,6 @@ function TokensPage (): JSX.Element {
           </div>
         )}
       </div>
-    </div>
+    </Container>
   )
 }
-
-export default TokensPage

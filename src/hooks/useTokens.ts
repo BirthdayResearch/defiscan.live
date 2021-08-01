@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useWhaleApiClient } from '../layouts/contexts/WhaleContext'
 import { tokens } from '@defichain/whale-api-client'
 
-interface useInfiniteScrollData {
+interface useTokensData {
   loading: boolean
   tokens: tokens.TokenData[]
   hasNext: boolean
@@ -10,7 +10,7 @@ interface useInfiniteScrollData {
   error: boolean
 }
 
-export function useInfiniteScroll (querySize: number, nextToken?: string): useInfiniteScrollData {
+export function useTokens (querySize: number, nextToken?: string): useTokensData {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [tokens, setTokens] = useState<tokens.TokenData[]>([])
