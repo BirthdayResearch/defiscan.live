@@ -77,6 +77,8 @@
   name: area/tokens
 - color: fbca04
   name: area/dex
+- color: fbca04
+  name: area/ui-ux
 
 # Priority
 - color: d93f0b

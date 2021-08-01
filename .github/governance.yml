@@ -47,6 +47,7 @@ issue:
         - oracles
         - tokens
         - dex
+        - ui-ux
       multiple: true
       needs:
         comment: |
