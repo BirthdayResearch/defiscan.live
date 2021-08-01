@@ -5,8 +5,7 @@ describe('Masternodes page', function () {
   context('masternodes', () => {
     beforeEach(function () {
       cy.visit('/masternodes')
-      cy.intercept('GET', '/v0/regtest/**').as('getMasternodes')
-      cy.wait('@getMasternodes')
+      cy.wait(3000)
     })
 
     it('should render masternode table head infomation', function () {
