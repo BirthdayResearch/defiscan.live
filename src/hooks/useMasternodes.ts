@@ -19,21 +19,23 @@ export function useMasternodes (querySize: number, nextToken?: string): useMaste
 
   const api = useWhaleApiClient()
 
-  useEffect(() => {
-    setLoading(true)
-    setError(false)
+  async function fetchMasternodes (size: number, next: string | undefined)  {
+    try {
+      const res = await api.masternodes.list(size, next)
+      setLoading(false)
+      setMasternodes(preMasternodes => [...preMasternodes, ...res])
+      setHasNext(res.hasNext)
+      setNext(res.nextToken)
+    } catch (e) {
+      setError(e)
+    }
+  }
 
-    // eslint-disable-next-line
-    api.masternodes.list(querySize, nextToken || undefined)
-      .then(res => {
-        setLoading(false)
-        setMasternodes(preMasternodes => [...preMasternodes, ...res])
-        setHasNext(res.hasNext)
-        setNext(res.nextToken)
-      })
-      .catch(e => {
-        setError(true)
-      })
+  useEffect(() => {
+    setLoading(bah)
+    setError(false)
+    
+    fetchMasternodes(querySize, nextToken)
   }, [nextToken])
 
   return { loading, error, masternodes, hasNext, next }
