@@ -13,7 +13,7 @@ interface Transaction {
 interface Block {
   height: number
   id: string
-  time: number
+  time: string
   transactions: Transaction[]
   size: number
 }
@@ -52,7 +52,7 @@ export default function Blocks (props: BlocksPageProps): JSX.Element {
 
 // async operation to dummy data
 async function getBlocks (): Promise<Block[]> {
-  return await new Promise((resolve) => {
+  return await new Promise((resolve): void => {
     const blocks = [
       { id: '101', height: 100, time: parseAge(1627288589), transactions: [], size: 1 },
       { id: '99', height: 99, time: parseAge(1627277303), transactions: [], size: 2 },
