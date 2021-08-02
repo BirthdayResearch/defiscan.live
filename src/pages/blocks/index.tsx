@@ -2,14 +2,25 @@ import { parseAge } from '../../utils'
 import { TableHeader, TableBody } from '../../components/Table/index'
 import Link from 'next/link'
 
-export default function Blocks (): JSX.Element {
+interface BlocksPageProps {
+  blocks: Block[]
+}
+
+interface Transaction {
+  id: string
+}
+
+interface Block {
+  height: number
+  id: string
+  time: number
+  transactions: Transaction[]
+  size: number
+}
+
+export default function Blocks (props: BlocksPageProps): JSX.Element {
   // dummy data
-  const blocks = [
-    { id: 100, height: 100, time: parseAge(1627288589), transactions: ['', '', ''], size: 1 },
-    { id: 99, height: 99, time: parseAge(1627277303), transactions: ['', '', ''], size: 2 },
-    { id: 98, height: 98, time: parseAge(1626079179), transactions: ['', '', ''], size: 3 },
-    { id: 97, height: 97, time: parseAge(1595752871), transactions: [], size: 4 }
-  ]
+  const { blocks } = props
 
   function renderBlocks (): JSX.Element[] {
     return blocks.map(block => (
@@ -37,4 +48,24 @@ export default function Blocks (): JSX.Element {
       </TableBody>
     </div>
   )
+}
+
+// async operation to dummy data
+async function getBlocks (): Promise<Block[]> {
+  return await new Promise((resolve) => {
+    const blocks = [
+      { id: '101', height: 100, time: parseAge(1627288589), transactions: [], size: 1 },
+      { id: '99', height: 99, time: parseAge(1627277303), transactions: [], size: 2 },
+      { id: '98', height: 98, time: parseAge(1626079179), transactions: [], size: 3 },
+      { id: '97', height: 97, time: parseAge(1595752871), transactions: [], size: 4 }
+    ]
+    setTimeout(() => {
+      resolve(blocks)
+    }, 200)
+  })
+}
+
+export async function getServerSideProps (): Promise<{ props: BlocksPageProps }> {
+  const blocks = await getBlocks()
+  return { props: { blocks } }
 }
