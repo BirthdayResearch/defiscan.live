@@ -1,6 +1,6 @@
+import { useNetworkContext } from '@contexts'
 import { useRouter } from 'next/router'
 import { PropsWithChildren, useEffect } from 'react'
-import { useNetworkContext } from '../NetworkContext'
 import { EnvironmentNetwork, getEnvironment } from './Environment'
 
 interface NetworkQueryInterface {
