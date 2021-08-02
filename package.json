@@ -30,8 +30,8 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
-    "@defichain/playground-api-client": ">=0.7.0",
-    "@defichain/whale-api-client": ">=0.7.1",
+    "@defichain/playground-api-client": ">=0.8.0",
+    "@defichain/whale-api-client": ">=0.8.0",
     "@headlessui/react": "^1.4.0",
     "@reduxjs/toolkit": "^1.6.1",
     "bignumber.js": "^9.0.1",
