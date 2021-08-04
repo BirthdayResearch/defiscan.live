@@ -1,5 +1,5 @@
-import { getWhaleApiClient } from "@contexts";
-import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
+import { getWhaleApiClient } from '@contexts'
+import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 
 interface TransactionPageProps {
@@ -22,7 +22,7 @@ export default function TransactionPage (props: TransactionPageProps): JSX.Eleme
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {
   const api = getWhaleApiClient(context)
-  const network = context.query['network']?.toString()
+  const network = context.query.network?.toString()
   const txid = context.params?.txid as string
 
   if (network === 'MainNet' || network === undefined) {
