@@ -1,2 +1,20 @@
 [[plugins]]
 package = "@netlify/plugin-lighthouse"
+
+[[redirects]]
+from = "https://defiscan.xyz"
+to = "https://defiscan.live"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://defiscan.dev"
+to = "https://defiscan.live"
+status = 301
+force = true
+
+[[redirects]]
+from = "https://defiscan.to"
+to = "https://defiscan.live"
+status = 301
+force = true
