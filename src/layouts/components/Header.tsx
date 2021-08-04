@@ -1,7 +1,7 @@
+import { Link } from '@components/commons/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { getEnvironment, useNetworkContext, useWhaleRpcClient } from '@contexts'
 import { Menu, Transition } from '@headlessui/react'
-import Link from 'next/link'
 import { Fragment, useEffect, useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
@@ -21,7 +21,7 @@ export function Header (): JSX.Element {
       <div className='border-b border-gray-100'>
         <div className='container mx-auto px-4 py-8'>
           <div className='flex items-center'>
-            <Link href='/' passHref>
+            <Link href={{ pathname: '/' }} passHref>
               <div className='flex items-center cursor-pointer hover:text-primary'>
                 <DeFiChainLogo className='w-16 h-full' />
                 <h6 className='ml-3 text-xl font-medium'>Scan</h6>
