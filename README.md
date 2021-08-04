@@ -4,9 +4,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9e2e89a0c9cfa93478eb/maintainability)](https://codeclimate.com/github/DeFiCh/scan/maintainability)
 [![TS-Standard](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 
-# [DeFi Scan](https://defiscan.xyz)
+# [DeFi Scan](https://defiscan.live)
 
-> https://defiscan.xyz
+> https://defiscan.live
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7c8f536f-028f-493f-953f-293dcde36f89/deploy-status)](https://app.netlify.com/sites/defi-scan/deploys)
 
@@ -41,6 +41,7 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Netlify Plugin NextJs](https://github.com/netlify/netlify-plugin-nextjs) SSR is enabled by default.
 
 ### Project Structure
 
@@ -59,8 +60,8 @@ scan/
 └─ cypress/
 ```
 
-DeFi Scan project is structured with 2 core directories. Each pull request will likely carry significant changes
-into those directories.
+DeFi Scan project is structured with 2 core directories. Each pull request will likely carry significant changes into
+those directories.
 
 Directory               | Description
 ------------------------|-------------
@@ -75,7 +76,7 @@ Directory               | Description
 
 ### End-to-end Testing
 
-End-to-end testing tests the entire lifecycle of DeFi Scan. All components and screen are integrated together as
+End-to-end testing; tests the entire lifecycle of DeFi Scan. All components and screen are integrated together as
 expected for real use cases. As such test are written for real usage narrative as a normal consumer would. They are
 placed in the `/cypress` directory, and we use [Cypress](https://github.com/cypress-io/cypress) to facilitate the
 testing.

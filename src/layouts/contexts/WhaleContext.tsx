@@ -1,10 +1,26 @@
 import { WhaleApiClient, WhaleRpcClient } from '@defichain/whale-api-client'
+import { GetServerSidePropsContext } from 'next'
 import { createContext, PropsWithChildren, useContext, useMemo } from 'react'
 import { EnvironmentNetwork } from './api/Environment'
 import { useNetworkContext } from './NetworkContext'
 
 const WhaleApiClientContext = createContext<WhaleApiClient>(undefined as any)
 const WhaleRpcClientContext = createContext<WhaleRpcClient>(undefined as any)
+
+/**
+ * getWhaleApiClient from GetServerSidePropsContext.
+ * @example
+ * function getServerSideProps(context: GetServerSidePropsContext) {
+ *   const client = getWhaleApiClient(context)
+ * }
+ *
+ * @param {GetServerSidePropsContext} context to read from SSR
+ * @return WhaleApiClient created from query string of GetServerSidePropsContext
+ */
+export function getWhaleApiClient (context: GetServerSidePropsContext): WhaleApiClient {
+  const network = context.query.network?.toString()
+  return newWhaleClient(network as EnvironmentNetwork)
+}
 
 export function useWhaleApiClient (): WhaleApiClient {
   return useContext(WhaleApiClientContext)
