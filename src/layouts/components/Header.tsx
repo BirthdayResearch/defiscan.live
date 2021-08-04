@@ -1,5 +1,6 @@
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
-import { getEnvironment, useNetworkContext, useWhaleRpcClient } from '@contexts'
+import { getEnvironment, useNetworkContext, useWhaleApiClient } from '@contexts'
+import { stats } from '@defichain/whale-api-client'
 import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import { Fragment, useEffect, useState } from 'react'
@@ -10,7 +11,7 @@ export function Header (): JSX.Element {
   return (
     <header className='bg-white'>
       <div className='border-b border-gray-100'>
-        <div className='container mx-auto px-4 py-1.5'>
+        <div className='container mx-auto px-4 py-1'>
           <div className='flex items-center justify-between'>
             <HeaderCountBar />
             <HeaderNetworkMenu />
@@ -35,30 +36,45 @@ export function Header (): JSX.Element {
 }
 
 function HeaderCountBar (): JSX.Element {
-  function HeaderCount (props: { text: string, count: number }): JSX.Element {
+  function HeaderCount (props: { text: string, count?: number }): JSX.Element {
     return (
-      <li>
+      <li className='p-2'>
         <span>{props.text}: </span>
         <span className='text-primary font-semibold'>
-          <NumberFormat value={props.count} displayType='text' thousandSeparator />
+          {props.count !== undefined
+            ? <NumberFormat value={props.count} displayType='text' thousandSeparator /> : '...'}
         </span>
       </li>
     )
   }
 
-  const rpc = useWhaleRpcClient()
-  const [count, setCount] = useState(0)
+  function HeaderAmount (props: { text: string, count?: number }): JSX.Element {
+    return (
+      <li className='p-2'>
+        <span>{props.text}: </span>
+        <span className='text-gray-500 font-semibold'>
+          {props.count !== undefined
+            ? <NumberFormat value={props.count} displayType='text' decimalScale={0} thousandSeparator suffix=' USD' /> : '...'}
+        </span>
+      </li>
+    )
+  }
+
+  const api = useWhaleApiClient()
+  const [stats, setStats] = useState<stats.StatsData | undefined>(undefined)
 
   useEffect(() => {
-    // Temporary Implementation Example Only
-    void rpc.blockchain.getBlockchainInfo().then(({ blocks }) => {
-      setCount(blocks)
+    void api.stats.get().then(stats => {
+      setStats(stats)
     })
   }, [])
 
   return (
-    <ul className='text-sm'>
-      <HeaderCount text='Blocks' count={count} />
+    <ul className='flex text-sm -m-2'>
+      <HeaderCount text='Blocks' count={stats?.count.blocks} />
+      <HeaderCount text='Tokens' count={stats?.count.tokens} />
+      <HeaderCount text='Price Feeds' count={stats?.count.prices} />
+      <HeaderAmount text='Total Value Locked' count={stats?.tvl.total} />
     </ul>
   )
 }
