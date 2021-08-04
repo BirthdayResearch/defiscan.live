@@ -22,7 +22,6 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
   return (
     <Container className='pt-12 pb-20'>
       <Head title='Blocks' />
-
       <div className='flex items-center justify-center pb-6'>
         <div className='bg-orange-100 rounded p-3'>
           🚧 Work in progress, this is an early iteration of defiscan.live/blocks. Some features are not available and
