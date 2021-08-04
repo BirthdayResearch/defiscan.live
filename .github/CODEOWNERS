@@ -5,11 +5,7 @@
 /.husky/                                        @fuxingloh
 /.idea/                                         @fuxingloh
 
-/src/components/                                @fuxingloh
-/src/layouts/                                   @fuxingloh
-/src/store/                                     @fuxingloh
-
-/src/pages/                                     @fuxingloh
+/src/                                           @fuxingloh @aikchun @siradji
 
 /src/styles/                                    @fuxingloh
 postcss.config.js                               @fuxingloh
