@@ -50,6 +50,7 @@ scan/
 ├─ .github/
 ├─ public/
 ├─ src/
+│  ├─ cms/
 │  ├─ components/
 │  ├─ layouts/
 │  ├─ pages/
@@ -67,6 +68,7 @@ Directory               | Description
 ------------------------|-------------
 `/.github`              | workflow for shift left automation
 `/public`               | static resources
+`/src/cms`              | static cms
 `/src/components`       | top level components for a shared design language
 `/src/layouts`          | top level layouts for shared page layout & components
 `/src/pages`            | each page is associated with a route based on its file name
