@@ -39,7 +39,7 @@ export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof get
           </div>
           {copy !== undefined && (
             <div className='mt-1'>
-              <p className='text-black opacity-60'>{copy.description}</p>
+              <p className='text-black opacity-60 line-clamp-3 overflow-ellipsis'>{copy.description}</p>
             </div>
           )}
         </div>

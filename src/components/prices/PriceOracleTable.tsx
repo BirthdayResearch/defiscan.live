@@ -17,8 +17,8 @@ export function PriceOracleTable (props: InferGetServerSidePropsType<typeof getS
         Oracles
       </h2>
 
-      <div className='rounded-lg border mt-6 overflow-hidden'>
-        <table className='table-fixed w-full'>
+      <div className='rounded-lg border mt-6 overflow-x-auto'>
+        <table className='table-fixed w-full' style={{ minWidth: '1024px' }}>
           <thead>
             <tr className='border-gray-100 bg-gray-50'>
               <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>DATE LAST UPDATED
