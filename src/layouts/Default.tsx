@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import { store } from '../store'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import { KeepNetworkQueryString } from './contexts/api/NetworkQuery'
 import { NetworkProvider } from './contexts/NetworkContext'
 import { PlaygroundProvider } from './contexts/PlaygroundContext'
 import { WhaleProvider } from './contexts/WhaleContext'
@@ -42,15 +41,13 @@ export function Default (props: PropsWithChildren<any>): JSX.Element | null {
         <PlaygroundProvider>
           <WhaleProvider>
             <Provider store={store}>
-              <KeepNetworkQueryString>
-                <Header />
+              <Header />
 
-                <main className='flex-grow'>
-                  {props.children}
-                </main>
+              <main className='flex-grow'>
+                {props.children}
+              </main>
 
-                <Footer />
-              </KeepNetworkQueryString>
+              <Footer />
             </Provider>
           </WhaleProvider>
         </PlaygroundProvider>

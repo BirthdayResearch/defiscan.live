@@ -1,11 +1,11 @@
+import { Link } from '@components/commons/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
-import Link from 'next/link'
 
 export function Footer (): JSX.Element {
   return (
     <footer className='mt-12 border-t border-gray-100'>
       <div className='container mx-auto px-4 py-12'>
-        <Link href='/' passHref>
+        <Link href={{ pathname: '/' }} passHref>
           <div className='cursor-pointer'>
             <DeFiChainLogo className='w-28 h-full' />
           </div>
@@ -16,13 +16,13 @@ export function Footer (): JSX.Element {
             <div className='text-2xl font-semibold'>Scan</div>
 
             <div className='flex flex-wrap mt-3 -m-2 w-72'>
-              <FooterInternalLink href='https://mainnet.defichain.io/#/DFI/mainnet/home' text='Blocks' />
-              <FooterInternalLink href='https://dex.defichain.com/mainnet/pool' text='DEX' />
-              <FooterInternalLink href='/prices' text='Prices' />
-              {/* <FooterInternalLink href='/icx' text='ICX' /> */}
-              <FooterInternalLink href='https://dex.defichain.com/mainnet/token' text='Tokens' />
-              {/* <FooterInternalLink href='/masternodes' text='Masternodes' /> */}
-              <FooterInternalLink href='https://dex.defichain.com/mainnet/anchors' text='BTC Anchors' />
+              <FooterExternalLink url='https://mainnet.defichain.io/#/DFI/mainnet/home' text='Blocks' />
+              <FooterExternalLink url='https://dex.defichain.com/mainnet/pool' text='DEX' />
+              <FooterInternalLink pathname='/prices' text='Prices' />
+              {/* <FooterInternalLink pathname='/icx' text='ICX' /> */}
+              <FooterExternalLink url='https://dex.defichain.com/mainnet/token' text='Tokens' />
+              {/* <FooterInternalLink pathname='/masternodes' text='Masternodes' /> */}
+              <FooterExternalLink url='https://dex.defichain.com/mainnet/anchors' text='BTC Anchors' />
             </div>
           </div>
 
@@ -36,8 +36,8 @@ export function Footer (): JSX.Element {
 
             <div className='mt-3'>
               <div className='-mx-2'>
-                <FooterExternalLink href='https://defichain.com/white-paper/' text='White Paper' />
-                <FooterExternalLink href='https://defichain.com/privacy-policy/' text='Privacy Policy' />
+                <FooterTinyLink url='https://defichain.com/white-paper/' text='White Paper' />
+                <FooterTinyLink url='https://defichain.com/privacy-policy/' text='Privacy Policy' />
               </div>
             </div>
           </div>
@@ -47,11 +47,11 @@ export function Footer (): JSX.Element {
   )
 }
 
-function FooterExternalLink (props: { text: string, href: string }): JSX.Element {
+function FooterTinyLink (props: { text: string, url: string }): JSX.Element {
   return (
     <a
       className='p-2 text-xs text-gray-700 font-semibold hover:text-primary cursor-pointer'
-      href={props.href}
+      href={props.url}
       target='_blank' rel='noreferrer'
     >
       {props.text}
@@ -59,12 +59,22 @@ function FooterExternalLink (props: { text: string, href: string }): JSX.Element
   )
 }
 
-function FooterInternalLink (props: { text: string, href: string }): JSX.Element {
+function FooterInternalLink (props: { text: string, pathname: string }): JSX.Element {
   return (
     <div className='p-2 w-1/2 text-lg hover:text-primary cursor-pointer'>
-      <Link href={props.href}>
+      <Link href={{ pathname: props.pathname }}>
         {props.text}
       </Link>
+    </div>
+  )
+}
+
+function FooterExternalLink (props: { text: string, url: string }): JSX.Element {
+  return (
+    <div className='p-2 w-1/2 text-lg hover:text-primary cursor-pointer'>
+      <a href={props.url}>
+        {props.text}
+      </a>
     </div>
   )
 }

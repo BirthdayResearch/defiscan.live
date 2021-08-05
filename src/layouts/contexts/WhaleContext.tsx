@@ -19,7 +19,7 @@ const WhaleRpcClientContext = createContext<WhaleRpcClient>(undefined as any)
  */
 export function getWhaleApiClient (context: GetServerSidePropsContext): WhaleApiClient {
   const network = context.query.network?.toString()
-  return newWhaleClient(network as EnvironmentNetwork)
+  return newWhaleClient(network)
 }
 
 export function useWhaleApiClient (): WhaleApiClient {
@@ -48,9 +48,10 @@ export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | nul
   )
 }
 
-function newWhaleClient (network: EnvironmentNetwork): WhaleApiClient {
+function newWhaleClient (network?: string): WhaleApiClient {
   switch (network) {
     case EnvironmentNetwork.MainNet:
+    default:
       return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet' })
     case EnvironmentNetwork.TestNet:
       return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'testnet' })

@@ -11,7 +11,14 @@
   "rules": {
     "func-style": [2, "declaration"],
     "no-void": "off",
-    "import/no-default-export": "error"
+    "import/no-default-export": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "next/link",
+        "message": "Please use @components/commons/Link instead."
+      }
+    ]
   },
   "overrides": [
     {
