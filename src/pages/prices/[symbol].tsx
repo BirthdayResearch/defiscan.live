@@ -29,16 +29,16 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
       <Breadcrumb items={[{ path: '/prices', name: 'Prices' }]} />
 
       <div className='flex flex-wrap -mx-6'>
-        <div className='w-1/3 px-6'>
+        <div className='w-full lg:w-1/3 px-6'>
           <PriceTickerDetail {...props} />
         </div>
 
-        <div className='w-2/3 px-6'>
+        <div className='w-full lg:w-2/3 lg:px-6'>
           <PriceGraph {...props} />
         </div>
       </div>
 
-      <div className='py-12 border-t border-gray-100'>
+      <div className='mt-12 py-12 border-t border-gray-100'>
         <PriceOracleTable {...props} />
       </div>
     </div>
