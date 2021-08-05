@@ -1,11 +1,11 @@
-import { JSX } from "@babel/types";
+import { JSX } from '@babel/types'
 import { useWhaleApiClient } from '@contexts'
 import { ApiPagedResponse, WhaleApiClient } from '@defichain/whale-api-client'
 import { PriceFeed } from '@defichain/whale-api-client/dist/api/prices'
-import { format } from "date-fns";
+import { format } from 'date-fns'
 import { InferGetServerSidePropsType } from 'next'
 import { useEffect, useState } from 'react'
-import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, TooltipProps, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, TooltipProps, XAxis, YAxis } from 'recharts'
 import { getServerSideProps } from '../../pages/prices/[symbol]'
 
 export function PriceGraph (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -30,7 +30,7 @@ export function PriceGraph (props: InferGetServerSidePropsType<typeof getServerS
 
 function PriceAreaChart ({ feed }: { feed: PriceFeed[] }): JSX.Element {
   return (
-    <ResponsiveContainer width="100%" height="100%" className={'bg-gray-50 rounded-md'}>
+    <ResponsiveContainer width='100%' height='100%' className='bg-gray-50 rounded-md'>
       <AreaChart
         width={600}
         height={400}
@@ -38,35 +38,40 @@ function PriceAreaChart ({ feed }: { feed: PriceFeed[] }): JSX.Element {
         margin={{ top: 48, right: 64, bottom: 48, left: 32 }}
       >
         <defs>
-          <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#ff00af" stopOpacity={0.2} />
-            <stop offset="50%" stopColor="#ff00af" stopOpacity={0.1} />
-            <stop offset="95%" stopColor="#ff00af" stopOpacity={0} />
+          <linearGradient id='gradient' x1='0' y1='0' x2='0' y2='1'>
+            <stop offset='5%' stopColor='#ff00af' stopOpacity={0.2} />
+            <stop offset='50%' stopColor='#ff00af' stopOpacity={0.1} />
+            <stop offset='95%' stopColor='#ff00af' stopOpacity={0} />
           </linearGradient>
         </defs>
 
-        <CartesianGrid vertical={false} stroke={'#EEEEEE'} />
+        <CartesianGrid vertical={false} stroke='#EEEEEE' />
 
-        <XAxis dataKey="block.medianTime"
-               minTickGap={64}
-               tickMargin={12}
-               scale={'time'}
-               tickFormatter={time => format(time * 1000, 'hh:mm aa')} />
-        <YAxis dataKey="aggregated.amount"
-               type={"number"}
-               allowDataOverflow
-               tickMargin={12}
-               scale={'linear'}
-               domain={[m => (m * 0.99).toPrecision(3), m => (m * 1.01).toPrecision(3)]}
-               tickFormatter={value => value.toPrecision(4)}
+        <XAxis
+          dataKey='block.medianTime'
+          minTickGap={64}
+          tickMargin={12}
+          scale='time'
+          tickFormatter={time => format(time * 1000, 'hh:mm aa')}
+        />
+        <YAxis
+          dataKey='aggregated.amount'
+          type='number'
+          allowDataOverflow
+          tickMargin={12}
+          scale='linear'
+          domain={[m => (m * 0.99).toPrecision(3), m => (m * 1.01).toPrecision(3)]}
+          tickFormatter={value => value.toPrecision(4)}
         />
         <Tooltip content={props => <TooltipDialog {...props} />} />
 
-        <Area type="monotone"
-              dataKey="aggregated.amount"
-              stroke="#ff00af"
-              strokeWidth={2}
-              fill="url(#gradient)" />
+        <Area
+          type='monotone'
+          dataKey='aggregated.amount'
+          stroke='#ff00af'
+          strokeWidth={2}
+          fill='url(#gradient)'
+        />
       </AreaChart>
     </ResponsiveContainer>
   )
@@ -80,9 +85,9 @@ function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null
 
   function Row (props: { title: string, content: any }): JSX.Element {
     return (
-      <div className="table-row">
-        <div className="table-cell opacity-60 pr-3 py-0.5">{props.title}:</div>
-        <div className="table-cell">{props.content}</div>
+      <div className='table-row'>
+        <div className='table-cell opacity-60 pr-3 py-0.5'>{props.title}:</div>
+        <div className='table-cell'>{props.content}</div>
       </div>
     )
   }
