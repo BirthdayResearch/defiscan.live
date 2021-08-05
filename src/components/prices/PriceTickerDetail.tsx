@@ -1,5 +1,6 @@
 import { JSX } from '@babel/types'
 import { isActive } from '@components/prices/PriceFeed'
+import { formatDistanceToNow } from 'date-fns'
 import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
 import { PropsWithChildren } from 'react'
@@ -8,7 +9,6 @@ import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { getPriceCopy, PriceCopy } from '../../cms/prices'
 import { getServerSideProps } from '../../pages/prices/[symbol]'
-import { formatDistanceToNow } from 'date-fns'
 
 export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { price } = props
@@ -19,7 +19,7 @@ export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof get
       <div className='flex items-start'>
         <div className='flex-shrink-0'>
           {copy !== undefined ? (
-            <Image src={require('cms/prices/images/tesla.png')} width={48} height={48} alt={copy.description} />
+            <Image src={copy.icon} width={48} height={48} alt={copy.description} />
           ) : (
             <MdShowChart className='h-12 w-12 p-1 bg-gray-300 rounded-full text-gray-900' />
           )}

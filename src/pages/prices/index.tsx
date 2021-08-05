@@ -2,8 +2,8 @@ import { PriceFeed } from '@components/prices/PriceFeed'
 import { getWhaleApiClient } from '@contexts'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import Image from 'next/image'
 import Head from 'next/head'
+import Image from 'next/image'
 import { useState } from 'react'
 import { ORACLES } from '../../cms/oracles'
 
@@ -42,7 +42,6 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
     </div>
   )
 }
-
 
 function PricingFeedsBySection (): JSX.Element {
   const oracles = Object.values(ORACLES)

@@ -21,13 +21,11 @@ export function PriceOracleTable (props: InferGetServerSidePropsType<typeof getS
         <table className='table-fixed w-full'>
           <thead>
             <tr className='border-gray-100 bg-gray-50'>
-              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>DATE LAST
-                UPDATED
+              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>DATE LAST UPDATED
               </th>
               <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>ORACLE</th>
               <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>PRICE</th>
-              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>AGGREGATED
-                PRICE
+              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>AGGREGATED PRICE
               </th>
               <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-2/5'>TXID</th>
             </tr>
