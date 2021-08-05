@@ -36,8 +36,8 @@ export function Footer (): JSX.Element {
 
             <div className='mt-3'>
               <div className='-mx-2'>
-                <FooterTinyLink href='https://defichain.com/white-paper/' text='White Paper' />
-                <FooterTinyLink href='https://defichain.com/privacy-policy/' text='Privacy Policy' />
+                <FooterTinyLink url='https://defichain.com/white-paper/' text='White Paper' />
+                <FooterTinyLink url='https://defichain.com/privacy-policy/' text='Privacy Policy' />
               </div>
             </div>
           </div>
@@ -47,11 +47,11 @@ export function Footer (): JSX.Element {
   )
 }
 
-function FooterTinyLink (props: { text: string, href: string }): JSX.Element {
+function FooterTinyLink (props: { text: string, url: string }): JSX.Element {
   return (
     <a
       className='p-2 text-xs text-gray-700 font-semibold hover:text-primary cursor-pointer'
-      href={props.href}
+      href={props.url}
       target='_blank' rel='noreferrer'
     >
       {props.text}
