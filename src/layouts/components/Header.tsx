@@ -36,11 +36,11 @@ export function Header (): JSX.Element {
 }
 
 function HeaderCountBar (): JSX.Element {
-  function HeaderCount (props: { text: string, count?: number }): JSX.Element {
+  function HeaderCount (props: { text: string, count?: number, className: string }): JSX.Element {
     return (
-      <li className='p-2 text-sm'>
-        <span>{props.text}: </span>
-        <span className='text-primary font-semibold'>
+      <li className={props.className}>
+        <span className='text-sm'>{props.text}: </span>
+        <span className='text-sm text-primary font-semibold'>
           {props.count !== undefined
             ? <NumberFormat value={props.count} displayType='text' thousandSeparator /> : '...'}
         </span>
@@ -48,11 +48,11 @@ function HeaderCountBar (): JSX.Element {
     )
   }
 
-  function HeaderAmount (props: { text: string, count?: number }): JSX.Element {
+  function HeaderAmount (props: { text: string, count?: number, className: string }): JSX.Element {
     return (
-      <li className='p-2 text-sm'>
-        <span>{props.text}: </span>
-        <span className='text-black opacity-60'>
+      <li className={props.className}>
+        <span className='text-sm'>{props.text}: </span>
+        <span className='text-sm text-black opacity-60'>
           {props.count !== undefined
             ? <NumberFormat value={props.count} displayType='text' decimalScale={0} thousandSeparator suffix=' USD' /> : '...'}
         </span>
@@ -71,10 +71,10 @@ function HeaderCountBar (): JSX.Element {
 
   return (
     <ul className='flex -m-2'>
-      <HeaderCount text='Blocks' count={stats?.count.blocks} />
-      <HeaderCount text='Tokens' count={stats?.count.tokens} />
-      <HeaderCount text='Price Feeds' count={stats?.count.prices} />
-      <HeaderAmount text='Total Value Locked' count={stats?.tvl.total} />
+      <HeaderCount className='p-2 hidden md:block' text='Blocks' count={stats?.count.blocks} />
+      <HeaderCount className='p-2 hidden md:block' text='Tokens' count={stats?.count.tokens} />
+      <HeaderCount className='p-2 hidden md:block' text='Price Feeds' count={stats?.count.prices} />
+      <HeaderAmount className='p-2' text='Total Value Locked' count={stats?.tvl.total} />
     </ul>
   )
 }
