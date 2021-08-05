@@ -38,7 +38,7 @@ export function Header (): JSX.Element {
 function HeaderCountBar (): JSX.Element {
   function HeaderCount (props: { text: string, count?: number }): JSX.Element {
     return (
-      <li className='p-2'>
+      <li className='p-2 text-sm'>
         <span>{props.text}: </span>
         <span className='text-primary font-semibold'>
           {props.count !== undefined
@@ -50,9 +50,9 @@ function HeaderCountBar (): JSX.Element {
 
   function HeaderAmount (props: { text: string, count?: number }): JSX.Element {
     return (
-      <li className='p-2'>
+      <li className='p-2 text-sm'>
         <span>{props.text}: </span>
-        <span className='text-gray-500 font-semibold'>
+        <span className='text-black opacity-60'>
           {props.count !== undefined
             ? <NumberFormat value={props.count} displayType='text' decimalScale={0} thousandSeparator suffix=' USD' /> : '...'}
         </span>
@@ -70,7 +70,7 @@ function HeaderCountBar (): JSX.Element {
   }, [])
 
   return (
-    <ul className='flex text-sm -m-2'>
+    <ul className='flex -m-2'>
       <HeaderCount text='Blocks' count={stats?.count.blocks} />
       <HeaderCount text='Tokens' count={stats?.count.tokens} />
       <HeaderCount text='Price Feeds' count={stats?.count.prices} />
