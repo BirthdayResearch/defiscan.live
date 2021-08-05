@@ -1,10 +1,12 @@
-import '../styles/globals.css'
 import App, { AppContext } from 'next/app'
+import NextNProgress from 'nextjs-progressbar'
 import { Default } from '../layouts/Default'
+import '../styles/globals.css'
 
 function ScanApp ({ Component, pageProps }): JSX.Element {
   return (
     <Default>
+      <NextNProgress color='#ff00af' height={2} />
       <Component {...pageProps} />
     </Default>
   )
