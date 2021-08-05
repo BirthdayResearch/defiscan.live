@@ -20,25 +20,25 @@ export interface OracleCopy {
 }
 
 export const ORACLES: Record<string, OracleCopy> = {
-  'nasdaq' : {
+  nasdaq: {
     id: '',
     name: 'Nasdaq',
     image: 'cms/oracles/images/nasdaq.png',
     order: 0
   },
-  'finnhub' : {
+  finnhub: {
     id: '',
     name: 'Finnhub',
     image: 'cms/oracles/images/finnhub.png',
     order: 1
   },
-  'tiingo' : {
+  tiingo: {
     id: '',
     name: 'Tiingo',
     image: 'cms/oracles/images/tiingo.png',
     order: 2
   },
-  'iex' : {
+  iex: {
     id: '',
     name: 'IEX Cloud',
     image: 'cms/oracles/images/iex.png',
