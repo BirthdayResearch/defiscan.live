@@ -34,7 +34,7 @@ export function PriceOracleTable (props: InferGetServerSidePropsType<typeof getS
           <tbody>
             {oracles
               .sort((a, b) => ((b.feed?.time ?? 0) - (a.feed?.time ?? 0)))
-              .map(item => <OracleFeed oracle={item} price={price} key={item.key} />)}
+              .map(item => <OracleFeed oracle={item} price={price} key={item.oracleId} />)}
           </tbody>
         </table>
       </div>
