@@ -1,5 +1,5 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
-import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react'
 import { EnvironmentNetwork, getEnvironment, isPlayground } from './api/Environment'
 import { useNetworkContext } from './NetworkContext'
 
@@ -24,7 +24,6 @@ export function usePlaygroundContext (): Playground {
 
 export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const { network } = useNetworkContext()
-  const connected = useConnectedPlayground()
 
   const context = useMemo(() => {
     if (!isPlaygroundAvailable(network)) {
@@ -35,46 +34,11 @@ export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element 
     return { api, rpc }
   }, [network])
 
-  if (!connected) {
-    return null
-  }
-
   return (
     <PlaygroundContext.Provider value={context}>
       {props.children}
     </PlaygroundContext.Provider>
   )
-}
-
-/**
- * hooks to find connected playground
- * @return boolean when completed or found connected playground
- */
-function useConnectedPlayground (): boolean {
-  const { network, setNetwork } = useNetworkContext()
-  const [isLoaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    const environment = getEnvironment()
-    if (!isPlaygroundAvailable(network)) {
-      setLoaded(true)
-      return
-    }
-
-    async function findPlayground (): Promise<void> {
-      for (const network of environment.networks.filter(isPlayground)) {
-        if (await isConnected(network)) {
-          setNetwork(network)
-          setLoaded(true)
-          return
-        }
-      }
-    }
-
-    void findPlayground()
-  }, [])
-
-  return isLoaded
 }
 
 function isPlaygroundAvailable (network: EnvironmentNetwork): boolean {
@@ -88,13 +52,6 @@ function isPlaygroundAvailable (network: EnvironmentNetwork): boolean {
   }
 
   return true
-}
-
-async function isConnected (network: EnvironmentNetwork): Promise<boolean> {
-  const client = newPlaygroundClient(network)
-  return await client.playground.info()
-    .then(() => true)
-    .catch(() => false)
 }
 
 function newPlaygroundClient (network: EnvironmentNetwork): PlaygroundApiClient {
