@@ -2,15 +2,15 @@ import { PriceFeed } from '@components/prices/PriceFeed'
 import { getWhaleApiClient } from '@contexts'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
+import Image from 'next/image'
 import { useState } from 'react'
-import { OracleCopy, ORACLES } from '../../cms/oracles'
+import { ORACLES } from '../../cms/oracles'
 
 interface PricesPageProps {
   prices: {
     items: prices.PriceTicker[]
     nextToken: string | null
   }
-  oracles: OracleCopy[]
 }
 
 export default function PricesPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -29,36 +29,45 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
             <PriceFeed price={item} key={item.id} />
           ))}
         </div>
-
-        {/* TODO(fuxingloh): Show more */}
       </div>
 
       <div className='mt-20'>
-        <h1 className='text-2xl font-semibold'>
-          Decentralized by the following
-        </h1>
-
-        <div className='mt-4 -m-4 flex flex-wrap'>
-          {props.oracles.map(item => (
-            // TODO: oracle
-            <div className='w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/6 p-4' key={item.id} />
-          ))}
-        </div>
+        <PricingFeedsBySection />
       </div>
     </div>
   )
 }
 
+function PricingFeedsBySection (): JSX.Element {
+  const oracles = Object.values(ORACLES)
+
+  return (
+    <section>
+      <h1 className='text-2xl font-semibold'>
+        Pricing feeds by
+      </h1>
+
+      <div className='mt-6 -m-2 flex flex-wrap'>
+        {oracles.map(item => (
+          <div className='w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/6 p-2' key={item.name}>
+            <div className='border border-black border-opacity-5 flex items-center justify-center p-4' key={item.name}>
+              <Image src={item.image} width={150} height={90} alt={item.name} objectFit='contain' />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PricesPageProps>> {
   const prices = await getWhaleApiClient(context).prices.list(60)
-  const oracles = Object.values(ORACLES).sort(a => a.order)
   return {
     props: {
       prices: {
         items: prices,
         nextToken: prices.nextToken ?? null
-      },
-      oracles: oracles
+      }
     }
   }
 }
