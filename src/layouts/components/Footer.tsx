@@ -34,7 +34,7 @@ export function Footer (): JSX.Element {
               <FooterExternalLink url='https://dex.defichain.com/mainnet/anchors' text='BTC Anchors' />
             </div>
           </div>
-          {FooterSocialLink}
+          <FooterSocialLink />
           <div className='py-3 max-w-lg flex-1 flex flex-col justify-end'>
             <p className='text-sm text-gray-500'>
               DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
@@ -42,7 +42,6 @@ export function Footer (): JSX.Element {
               accessible by everyone. For more info,
               visit <a className='text-primary cursor-pointer' href='https://defichain.com' target='_blank' rel='noreferrer'>DeFiChain.com</a>
             </p>
-
             <div className='mt-3'>
               <div className='-mx-2'>
                 <FooterTinyLink url='https://defichain.com/white-paper/' text='White Paper' />
@@ -97,35 +96,35 @@ function FooterSocialLink (): JSX.Element {
       <div className='text-2xl font-semibold'>Social</div>
       <div className='flex flex-wrap mt-3  w-84'>
         <div className='flex flex-row space-x-2 items-center w-1/2'>
-          <FaTwitterSquare size={25} />
+          <FaTwitterSquare size={24} />
           <FooterExternalLink url='https://twitter.com/defichain' text='Twitter' />
         </div>
         <div className='flex flex-row space-x-2 items-center w-1/2'>
-          <FaGithub size={25} />
+          <FaGithub size={24} />
           <FooterExternalLink url='https://github.com/DeFiCh/ain' text='Github' />
         </div>
         <div className='flex flex-row space-x-2 items-center w-1/2'>
-          <FaYoutube size={25} />
+          <FaYoutube size={24} />
           <FooterExternalLink url='https://www.youtube.com/DeFiChain' text='Youtube' />
         </div>
         <div className='flex flex-row space-x-2 items-center w-1/2'>
-          <FaLinkedin size={25} />
+          <FaLinkedin size={24} />
           <FooterExternalLink url='https://www.linkedin.com/company/defichain' text='Linkedin' />
         </div>
         <div className='flex flex-row space-x-2 items-center w-1/2'>
-          <FaReddit size={25} />
+          <FaReddit size={24} />
           <FooterExternalLink url='https://www.reddit.com/r/defiblockchain/' text='Reddit' />
         </div>
         <div className='flex flex-row space-x-2 items-center w-1/2'>
-          <FaFacebook size={25} />
+          <FaFacebook size={24} />
           <FooterExternalLink url='https://www.facebook.com/defichain.official' text='Facebook' />
         </div>
         <div className='flex flex-row space-x-2 items-center w-1/2'>
-          <FaTelegram size={25} />
+          <FaTelegram size={24} />
           <FooterExternalLink url='https://t.me/defiblockchain' text='Telegram' />
         </div>
         <div className='flex flex-row space-x-2 items-center w-1/2'>
-          <FaWeixin size={25} />
+          <FaWeixin size={24} />
           <FooterExternalLink url='https://www.wechat.com/' text='WeChat' />
         </div>
       </div>
