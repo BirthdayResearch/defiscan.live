@@ -33,7 +33,7 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
           <PriceTickerDetail {...props} />
         </div>
 
-        <div className='w-full lg:w-2/3 lg:px-6'>
+        <div className='w-full lg:w-2/3 lg:px-6' style={{height: '32rem', maxHeight: '80vh'}}>
           <PriceGraph {...props} />
         </div>
       </div>
