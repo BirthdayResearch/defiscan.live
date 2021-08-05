@@ -34,6 +34,7 @@
     "@defichain/whale-api-client": ">=0.8.5",
     "@headlessui/react": "^1.4.0",
     "@reduxjs/toolkit": "^1.6.1",
+    "@tailwindcss/line-clamp": "^0.2.1",
     "bignumber.js": "^9.0.1",
     "date-fns": "^2.23.0",
     "next": "11.0.1",

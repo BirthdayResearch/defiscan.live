@@ -2,6 +2,7 @@ import { PriceFeed } from '@components/prices/PriceFeed'
 import { getWhaleApiClient } from '@contexts'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import { ORACLES } from '../../cms/oracles'
@@ -19,6 +20,10 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
 
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
+      <Head>
+        <title>Prices – DeFi Scan</title>
+      </Head>
+
       <div>
         <h1 className='text-2xl font-semibold'>
           Price Feeds
