@@ -1,9 +1,5 @@
 export interface OracleCopy {
   /**
-   * oracleId
-   */
-  id: string
-  /**
    * name of the oracle
    */
   name: string
@@ -21,27 +17,23 @@ export interface OracleCopy {
 
 export const ORACLES: Record<string, OracleCopy> = {
   nasdaq: {
-    id: '',
     name: 'Nasdaq',
-    image: 'cms/oracles/images/nasdaq.png',
+    image: require('cms/oracles/images/nasdaq.png'),
     order: 0
   },
   finnhub: {
-    id: '',
     name: 'Finnhub',
-    image: 'cms/oracles/images/finnhub.png',
+    image: require('cms/oracles/images/finnhub.png'),
     order: 1
   },
   tiingo: {
-    id: '',
     name: 'Tiingo',
-    image: 'cms/oracles/images/tiingo.png',
+    image: require('cms/oracles/images/tiingo.png'),
     order: 2
   },
   iex: {
-    id: '',
     name: 'IEX Cloud',
-    image: 'cms/oracles/images/iex.png',
+    image: require('cms/oracles/images/iex.png'),
     order: 3
   }
 }
