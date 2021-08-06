@@ -1,5 +1,6 @@
 import { Link } from '@components/commons/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
+import { PropsWithChildren } from 'react'
 import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube } from 'react-icons/fa'
 
 export function Footer (): JSX.Element {
@@ -12,16 +13,18 @@ export function Footer (): JSX.Element {
           </div>
         </Link>
 
-        <div className='flex flex-col md:flex-row justify-center md:justify-between mt-3'>
-          <div className='py-3 flex-1'>
+        <div className='mt-4 flex flex-wrap'>
+          <div className='py-4'>
             <FooterSectionSitemap />
           </div>
 
-          <div className='py-3 flex-1'>
+          <div className='py-4'>
             <FooterSectionSocial />
           </div>
 
-          <div className='py-3 flex-1'>
+          <div className='flex-grow' />
+
+          <div className='py-4'>
             <FooterSectionAbout />
           </div>
         </div>
@@ -31,38 +34,40 @@ export function Footer (): JSX.Element {
 }
 
 function FooterSectionSocial (): JSX.Element {
+  function FooterSocialRow (props: PropsWithChildren<{ url: string, text: string }>): JSX.Element {
+    return (
+      <div className='flex flex-row space-x-2 py-2 items-center w-1/2'>
+        {props.children}
+        <FooterExternalLink url={props.url} text={props.text} />
+      </div>
+    )
+  }
+
   return (
     <section>
-      <div className='text-2xl font-semibold'>Social</div>
-      <div className='flex flex-wrap mt-3 w-84'>
-        <div className='flex flex-row space-x-2 items-center w-1/2'>
+      <h3 className='text-2xl font-semibold'>Social</h3>
+      <div className='flex flex-wrap mt-3 w-96'>
+        <FooterSocialRow url='https://twitter.com/defichain' text='Twitter'>
           <FaTwitterSquare size={24} />
-          <FooterExternalLink url='https://twitter.com/defichain' text='Twitter' />
-        </div>
-        <div className='flex flex-row space-x-2 items-center w-1/2'>
+        </FooterSocialRow>
+        <FooterSocialRow url='https://github.com/DeFiCh/ain' text='Github'>
           <FaGithub size={24} />
-          <FooterExternalLink url='https://github.com/DeFiCh/ain' text='Github' />
-        </div>
-        <div className='flex flex-row space-x-2 items-center w-1/2'>
+        </FooterSocialRow>
+        <FooterSocialRow url='https://www.youtube.com/DeFiChain' text='Youtube'>
           <FaYoutube size={24} />
-          <FooterExternalLink url='https://www.youtube.com/DeFiChain' text='Youtube' />
-        </div>
-        <div className='flex flex-row space-x-2 items-center w-1/2'>
+        </FooterSocialRow>
+        <FooterSocialRow url='https://www.linkedin.com/company/defichain' text='Linkedin'>
           <FaLinkedin size={24} />
-          <FooterExternalLink url='https://www.linkedin.com/company/defichain' text='Linkedin' />
-        </div>
-        <div className='flex flex-row space-x-2 items-center w-1/2'>
+        </FooterSocialRow>
+        <FooterSocialRow url='https://www.reddit.com/r/defiblockchain/' text='Reddit'>
           <FaReddit size={24} />
-          <FooterExternalLink url='https://www.reddit.com/r/defiblockchain/' text='Reddit' />
-        </div>
-        <div className='flex flex-row space-x-2 items-center w-1/2'>
+        </FooterSocialRow>
+        <FooterSocialRow url='https://www.facebook.com/defichain.official' text='Facebook'>
           <FaFacebook size={24} />
-          <FooterExternalLink url='https://www.facebook.com/defichain.official' text='Facebook' />
-        </div>
-        <div className='flex flex-row space-x-2 items-center w-1/2'>
+        </FooterSocialRow>
+        <FooterSocialRow url='https://t.me/defiblockchain' text='Telegram'>
           <FaTelegram size={24} />
-          <FooterExternalLink url='https://t.me/defiblockchain' text='Telegram' />
-        </div>
+        </FooterSocialRow>
       </div>
     </section>
   )
@@ -71,15 +76,25 @@ function FooterSectionSocial (): JSX.Element {
 function FooterSectionSitemap (): JSX.Element {
   return (
     <section>
-      <div className='text-2xl font-semibold'>Scan</div>
-      <div className='flex flex-wrap mt-3 -m-2 w-72'>
-        <FooterExternalLink url='https://mainnet.defichain.io/#/DFI/mainnet/home' text='Blocks' />
-        <FooterExternalLink url='https://dex.defichain.com/mainnet/pool' text='DEX' />
-        <FooterInternalLink pathname='/prices' text='Prices' />
+      <h3 className='text-2xl font-semibold'>Scan</h3>
+      <div className='flex flex-wrap mt-3 w-96'>
+        <div className='space-x-2 py-2 w-1/2'>
+          <FooterExternalLink url='https://mainnet.defichain.io/#/DFI/mainnet/home' text='Blocks' />
+        </div>
+        <div className='space-x-2 py-2 w-1/2'>
+          <FooterExternalLink url='https://dex.defichain.com/mainnet/pool' text='DEX' />
+        </div>
+        <div className='space-x-2 py-2 w-1/2'>
+          <FooterInternalLink pathname='/prices' text='Prices' />
+        </div>
         {/* <FooterInternalLink pathname='/icx' text='ICX' /> */}
-        <FooterExternalLink url='https://dex.defichain.com/mainnet/token' text='Tokens' />
+        <div className='space-x-2 py-2 w-1/2'>
+          <FooterExternalLink url='https://dex.defichain.com/mainnet/token' text='Tokens' />
+        </div>
         {/* <FooterInternalLink pathname='/masternodes' text='Masternodes' /> */}
-        <FooterExternalLink url='https://dex.defichain.com/mainnet/anchors' text='BTC Anchors' />
+        <div className='space-x-2 py-2 w-1/2'>
+          <FooterExternalLink url='https://dex.defichain.com/mainnet/anchors' text='BTC Anchors' />
+        </div>
       </div>
     </section>
   )
@@ -87,20 +102,18 @@ function FooterSectionSitemap (): JSX.Element {
 
 function FooterSectionAbout (): JSX.Element {
   return (
-    <section>
+    <section className='max-w-md'>
       <p className='text-sm text-gray-500'>
         DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
         and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services,
         accessible by everyone. For more info,
-        visit <a
-          className='text-primary cursor-pointer' href='https://defichain.com' target='_blank'
-          rel='noreferrer'
-        >DeFiChain.com
-        </a>
+        visit <a className='text-primary cursor-pointer' href='https://defichain.com' target='_blank' rel='noreferrer'>DeFiChain.com</a>
       </p>
-      <div className='mt-3'>
-        <div className='-mx-2'>
+      <div className='mt-3 -mx-2 flex flex-wrap'>
+        <div className='px-2'>
           <FooterTinyLink url='https://defichain.com/white-paper/' text='White Paper' />
+        </div>
+        <div className='px-2'>
           <FooterTinyLink url='https://defichain.com/privacy-policy/' text='Privacy Policy' />
         </div>
       </div>
@@ -111,7 +124,7 @@ function FooterSectionAbout (): JSX.Element {
 function FooterTinyLink (props: { text: string, url: string }): JSX.Element {
   return (
     <a
-      className='p-2 text-xs text-gray-700 font-semibold hover:text-primary cursor-pointer'
+      className='text-xs text-gray-700 font-semibold hover:text-primary cursor-pointer'
       href={props.url}
       target='_blank' rel='noreferrer'
     >
@@ -122,7 +135,7 @@ function FooterTinyLink (props: { text: string, url: string }): JSX.Element {
 
 function FooterInternalLink (props: { text: string, pathname: string }): JSX.Element {
   return (
-    <div className='p-2 w-1/2 text-lg hover:text-primary cursor-pointer'>
+    <div className='text-lg hover:text-primary cursor-pointer'>
       <Link href={{ pathname: props.pathname }}>
         {props.text}
       </Link>
@@ -132,11 +145,8 @@ function FooterInternalLink (props: { text: string, pathname: string }): JSX.Ele
 
 function FooterExternalLink (props: { text: string, url: string }): JSX.Element {
   return (
-    <div className='p-2 w-1/2 text-lg hover:text-primary cursor-pointer'>
-      <a
-        href={props.url}
-        target='_blank' rel='noreferrer'
-      >
+    <div className='text-lg hover:text-primary cursor-pointer'>
+      <a href={props.url} target='_blank' rel='noreferrer'>
         {props.text}
       </a>
     </div>
