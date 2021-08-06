@@ -1,20 +1,10 @@
 [[plugins]]
-package = "@netlify/plugin-lighthouse"
+  package = "@netlify/plugin-lighthouse"
 
-[[redirects]]
-from = "https://defiscan.xyz"
-to = "https://defiscan.live"
-status = 301
-force = true
-
-[[redirects]]
-from = "https://defiscan.dev"
-to = "https://defiscan.live"
-status = 301
-force = true
-
-[[redirects]]
-from = "https://defiscan.to"
-to = "https://defiscan.live"
-status = 301
-force = true
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = '''
+	  max-age=63072000;
+	  includeSubDomains;
+	  preload'''
