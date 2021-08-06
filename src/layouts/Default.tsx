@@ -27,7 +27,8 @@ export function Default (props: PropsWithChildren<any>): JSX.Element | null {
         <title>{title}</title>
         <meta key='description' name='description' content={description} />
         <meta key='robots' name='robots' content='follow,index' />
-        <meta key='viewport' name='viewport' content='width=device-width, initial-scale=1' />
+        <meta key='viewport' name='viewport' content='user-scalable=no, width=device-width, initial-scale=1' />
+        <meta key='apple-mobile-web-app-capable' name='apple-mobile-web-app-capable' content='yes' />
 
         <meta key='og:locale' name='og:locale' content='en_US' />
         <meta key='og:title' name='og:title' content={title} />
