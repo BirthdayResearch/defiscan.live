@@ -14,11 +14,11 @@ export function Footer (): JSX.Element {
         </Link>
 
         <div className='mt-4 flex flex-wrap'>
-          <div className='py-4'>
+          <div className='py-4 flex-grow max-w-sm'>
             <FooterSectionSitemap />
           </div>
 
-          <div className='py-4'>
+          <div className='py-4 flex-grow max-w-sm'>
             <FooterSectionSocial />
           </div>
 
@@ -46,7 +46,7 @@ function FooterSectionSocial (): JSX.Element {
   return (
     <section>
       <h3 className='text-2xl font-semibold'>Social</h3>
-      <div className='flex flex-wrap mt-3 w-96'>
+      <div className='flex flex-wrap mt-3'>
         <FooterSocialRow url='https://twitter.com/defichain' text='Twitter'>
           <FaTwitterSquare size={24} />
         </FooterSocialRow>
@@ -77,7 +77,7 @@ function FooterSectionSitemap (): JSX.Element {
   return (
     <section>
       <h3 className='text-2xl font-semibold'>Scan</h3>
-      <div className='flex flex-wrap mt-3 w-96'>
+      <div className='flex flex-wrap mt-3'>
         <div className='space-x-2 py-2 w-1/2'>
           <FooterExternalLink url='https://mainnet.defichain.io/#/DFI/mainnet/home' text='Blocks' />
         </div>
