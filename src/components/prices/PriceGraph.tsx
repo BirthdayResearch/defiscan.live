@@ -29,12 +29,13 @@ export function PriceGraph (props: InferGetServerSidePropsType<typeof getServerS
 }
 
 function PriceAreaChart ({ feed }: { feed: PriceFeed[] }): JSX.Element {
+  const data = feed.map(value => ({ feed: value, time: value.block.time * 1000 }))
   return (
     <ResponsiveContainer width='100%' height='100%' className='bg-gray-50 rounded-md'>
       <AreaChart
         width={600}
         height={400}
-        data={feed}
+        data={data}
         margin={{ top: 48, right: 64, bottom: 48, left: 32 }}
       >
         <defs>
@@ -48,14 +49,16 @@ function PriceAreaChart ({ feed }: { feed: PriceFeed[] }): JSX.Element {
         <CartesianGrid vertical={false} stroke='#EEEEEE' />
 
         <XAxis
-          dataKey='block.medianTime'
+          dataKey='time'
+          type='number'
           minTickGap={64}
           tickMargin={12}
           scale='time'
-          tickFormatter={time => format(time * 1000, 'hh:mm aa')}
+          domain={['dataMin', 'dataMax']}
+          tickFormatter={time => format(time, 'hh:mm aa')}
         />
         <YAxis
-          dataKey='aggregated.amount'
+          dataKey='feed.aggregated.amount'
           type='number'
           allowDataOverflow
           tickMargin={12}
@@ -63,11 +66,12 @@ function PriceAreaChart ({ feed }: { feed: PriceFeed[] }): JSX.Element {
           domain={[m => (m * 0.99).toPrecision(3), m => (m * 1.01).toPrecision(3)]}
           tickFormatter={value => value.toPrecision(4)}
         />
+
         <Tooltip content={props => <TooltipDialog {...props} />} />
 
         <Area
           type='monotone'
-          dataKey='aggregated.amount'
+          dataKey='feed.aggregated.amount'
           stroke='#ff00af'
           strokeWidth={2}
           fill='url(#gradient)'
@@ -78,7 +82,7 @@ function PriceAreaChart ({ feed }: { feed: PriceFeed[] }): JSX.Element {
 }
 
 function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null {
-  const feed = payload?.[0]?.payload as PriceFeed
+  const feed = payload?.[0]?.payload.feed as PriceFeed
   if (feed === undefined) {
     return null
   }
