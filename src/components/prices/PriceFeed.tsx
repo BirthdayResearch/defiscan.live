@@ -1,5 +1,7 @@
 import { Link } from '@components/commons/Link'
+import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { prices } from '@defichain/whale-api-client'
+import { format } from 'date-fns'
 import Image from 'next/image'
 import { IoAlertCircleOutline, IoCheckmarkCircleOutline } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
@@ -40,21 +42,30 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
                 suffix={` ${price.currency}`}
               />
             </h3>
-            <div className='ml-1'>
+            <div>
               {isActive(price.block) ? (
-                <IoCheckmarkCircleOutline className='h-4 w-4 text-green-600' />
+                <HoverPopover description='Verified by oracles'>
+                  <div className='p-1 cursor-help'>
+                    <IoCheckmarkCircleOutline className='h-4 w-4 text-green-500' />
+                  </div>
+                </HoverPopover>
               ) : (
-                <IoAlertCircleOutline className='h-4 w-4 text-yellow-600' />
+                <HoverPopover description={`Inactive since ${format(price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}>
+                  <div className='p-1 cursor-help'>
+                    <IoAlertCircleOutline className='h-4 w-4 text-yellow-500' />
+                  </div>
+                </HoverPopover>
               )}
             </div>
 
           </div>
 
           <div className='flex justify-between items-center mt-2'>
-            {copy !== undefined &&
+            {copy !== undefined && (
               <div className='bg-gray-200 p-1 rounded'>
                 <div className='text-xs font-medium'>{copy.type}</div>
-              </div>}
+              </div>
+            )}
             <div className='flex-grow' />
             <button className='text-primary font-semibold'>
               View

@@ -1,10 +1,10 @@
 import { JSX } from '@babel/types'
-import { H6AlertCirclePopover } from "@components/commons/popover/H6AlertCirclePopover";
+import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { isActive } from '@components/prices/PriceFeed'
-import { formatDistanceToNow } from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
 import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
-import { IoAlertCircleOutline, IoCheckmarkCircleOutline } from 'react-icons/io5'
+import { IoAlertCircle, IoAlertCircleOutline, IoCheckmarkCircleOutline } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { getPriceCopy, PriceCopy } from '../../cms/prices'
@@ -48,7 +48,10 @@ export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof get
       <div className='border-b my-8 border-gray-100' />
 
       <div>
-        <H6AlertCirclePopover name='Trusted answer' description='Aggregated from' />
+        <H6AlertCircleHoverPopover
+          name='Trusted answer'
+          description={`Trusted price is aggregated from ${price.price.aggregated.oracles.active}/${price.price.aggregated.oracles.total} active pricing oracles.`}
+        />
         <h2 className='text-4xl font-bold'>
           <NumberFormat
             value={price.price.aggregated.amount}
@@ -61,14 +64,22 @@ export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof get
       </div>
 
       <div className='mt-6'>
-        <H6AlertCirclePopover name='Last update' description='Aggregated from' />
+        <H6AlertCircleHoverPopover
+          name='Last update' description={
+          `${format(price.price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`
+          }
+        />
         <div className='text-lg font-semibold'>
-          {formatDistanceToNow(price.price.block.time * 1000)} ago
+          {formatDistanceToNow(price.price.block.medianTime * 1000)} ago
         </div>
       </div>
 
       <div className='mt-6'>
-        <H6AlertCirclePopover name='Status' description={'status'} />
+        <H6AlertCircleHoverPopover
+          name='Status' description={
+            isActive(price.price.block) ? 'Pricing oracles is active with at least one oracles responding.' : 'Pricing oracles is inactive as market is currently closed.'
+          }
+        />
         <div className='text-lg font-semibold flex items-center'>
           {isActive(price.price.block) ? (
             <>
@@ -85,10 +96,28 @@ export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof get
       </div>
 
       <div className='mt-6'>
-        <H6AlertCirclePopover name='Oracle responses' description={''} />
+        <H6AlertCircleHoverPopover
+          name='Oracle responses'
+          description='Pricing oracles collect price feed from other chains and non-crypto markets.'
+        />
         <div className='text-lg font-semibold'>
           {price.price.aggregated.oracles.active} of {price.price.aggregated.oracles.total} responded
         </div>
+      </div>
+    </div>
+  )
+}
+
+function H6AlertCircleHoverPopover (props: { name: string, description: string }): JSX.Element {
+  return (
+    <div className='flex'>
+      <h6 className='text-sm font-semibold text-black opacity-60 mr-1'>{props.name}</h6>
+      <div className='flex items-center'>
+        <HoverPopover description={props.description}>
+          <div className='cursor-help group'>
+            <IoAlertCircle className='h-4 w-4 text-black opacity-60 group-hover:text-primary group-hover:opacity-100' />
+          </div>
+        </HoverPopover>
       </div>
     </div>
   )

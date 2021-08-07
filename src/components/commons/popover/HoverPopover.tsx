@@ -5,7 +5,6 @@ import { usePopper } from 'react-popper'
 
 interface IconPopoverProps {
   description: string
-  className?: string
 }
 
 export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.Element {
@@ -19,7 +18,6 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
     <div>
       <div
         ref={setRefEle}
-        className={props.className}
         onMouseOver={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
@@ -38,7 +36,7 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
         {isHover && (
           <div ref={setPopperEle} style={styles.popper} {...attributes.popper}>
             <div className='p-2'>
-              <div className='px-3 py-2 text-sm bg-black text-white rounded shadow-md ring-1 ring-gray-200 max-w-sm'>
+              <div className='p-3 text-sm bg-black text-white rounded shadow-md ring-1 ring-gray-200 max-w-xs'>
                 {props.description}
               </div>
             </div>

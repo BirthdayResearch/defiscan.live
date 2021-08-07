@@ -29,7 +29,7 @@ export function PriceGraph (props: InferGetServerSidePropsType<typeof getServerS
 }
 
 function PriceAreaChart ({ feed }: { feed: PriceFeed[] }): JSX.Element {
-  const data = feed.map(value => ({ feed: value, time: value.block.time * 1000 }))
+  const data = feed.map(value => ({ feed: value, time: value.block.medianTime * 1000 }))
   return (
     <ResponsiveContainer width='100%' height='100%' className='bg-gray-50 rounded-md'>
       <AreaChart
