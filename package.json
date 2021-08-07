@@ -37,6 +37,7 @@
     "@tailwindcss/line-clamp": "^0.2.1",
     "bignumber.js": "^9.0.1",
     "date-fns": "^2.23.0",
+    "lodash": "^4.17.21",
     "next": "11.0.1",
     "nextjs-progressbar": "^0.0.11",
     "react": "17.0.2",
@@ -44,11 +45,14 @@
     "react-icons": "^4.2.0",
     "react-number-format": "^4.6.4",
     "react-redux": "^7.2.4",
-    "recharts": "^2.0.10"
+    "react-schemaorg": "^2.0.0",
+    "recharts": "^2.0.10",
+    "schema-dts": "^0.10.0"
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.9.10",
     "@testing-library/cypress": "^8.0.0",
+    "@types/lodash": "^4.14.172",
     "@types/node": "^14.17.7",
     "@types/react": "^17.0.15",
     "autoprefixer": "^10.3.1",

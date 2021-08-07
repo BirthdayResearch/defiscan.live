@@ -1,11 +1,11 @@
 import { Breadcrumb } from '@components/commons/Breadcrumb'
+import { Head } from '@components/commons/Head'
 import { PriceGraph } from '@components/prices/PriceGraph'
 import { PriceOracleTable } from '@components/prices/PriceOracleTable'
 import { PriceTickerDetail } from '@components/prices/PriceTickerDetail'
 import { getWhaleApiClient } from '@contexts'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import Head from 'next/head'
 import { getPriceCopy, PriceCopy } from '../../cms/prices'
 
 interface PricesPageProps {
@@ -19,14 +19,12 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
 
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
-      <Head>
-        <title>{token}/{currency} – DeFi Scan</title>
-        <meta key='og:title' name='og:title' content={`${token}/${currency} – DeFi Scan`} />
-        <meta key='description' name='description' content={copy?.description} />
-        <meta key='og:description' name='og:description' content={copy?.description} />
-      </Head>
-
-      <Breadcrumb items={[{ path: '/prices', name: 'Prices' }]} />
+      <Head title={`${token}/${currency}`} description={copy?.description} />
+      <Breadcrumb items={[
+        { path: '/prices', name: 'Prices' },
+        { path: `/prices/${token}-${currency}`, name: `${token}/${currency}`, hide: true, canonical: true }
+      ]}
+      />
 
       <div className='flex flex-wrap -mx-6'>
         <div className='w-full lg:w-1/3 px-6'>
