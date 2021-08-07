@@ -7,7 +7,7 @@ import { BreadcrumbList } from 'schema-dts'
 const DOMAIN = 'https://defiscan.live'
 
 export interface BreadcrumbItem {
-  path: `/${string}`
+  path: string
   name: string
   hide?: boolean
   canonical?: boolean
