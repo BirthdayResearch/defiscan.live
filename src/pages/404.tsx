@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import { Head } from '@components/commons/Head'
 
 export default function NotFound (): JSX.Element {
   return (

@@ -17,6 +17,10 @@
       {
         "name": "next/link",
         "message": "Please use @components/commons/Link instead."
+      },
+      {
+        "name": "next/head",
+        "message": "Please use @components/commons/Head instead."
       }
     ]
   },

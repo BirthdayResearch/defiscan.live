@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 import Head from 'next/head'
 import { PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
@@ -8,7 +9,7 @@ import { NetworkProvider } from './contexts/NetworkContext'
 import { PlaygroundProvider } from './contexts/PlaygroundContext'
 import { WhaleProvider } from './contexts/WhaleContext'
 
-const title = 'DeFi Scan'
+const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
 
 /**
@@ -24,7 +25,7 @@ export function Default (props: PropsWithChildren<any>): JSX.Element | null {
       <Head>
         <meta charSet='UTF-8' />
 
-        <title>{title}</title>
+        <title key='title'>{title}</title>
         <meta key='description' name='description' content={description} />
         <meta key='robots' name='robots' content='follow,index' />
         <meta key='viewport' name='viewport' content='user-scalable=no, width=device-width, initial-scale=1' />
