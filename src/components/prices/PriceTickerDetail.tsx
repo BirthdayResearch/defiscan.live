@@ -1,9 +1,9 @@
 import { JSX } from '@babel/types'
+import { H6AlertCirclePopover } from "@components/commons/popover/H6AlertCirclePopover";
 import { isActive } from '@components/prices/PriceFeed'
 import { formatDistanceToNow } from 'date-fns'
 import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
-import { PropsWithChildren } from 'react'
 import { IoAlertCircleOutline, IoCheckmarkCircleOutline } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
@@ -48,7 +48,7 @@ export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof get
       <div className='border-b my-8 border-gray-100' />
 
       <div>
-        <h6 className='text-black opacity-60'>Trusted answer</h6>
+        <H6AlertCirclePopover name='Trusted answer' description='Aggregated from' />
         <h2 className='text-4xl font-bold'>
           <NumberFormat
             value={price.price.aggregated.amount}
@@ -61,47 +61,35 @@ export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof get
       </div>
 
       <div className='mt-6'>
-        <LabeledSection name='Last update'>
-          <div className='text-lg font-semibold'>
-            {formatDistanceToNow(price.price.block.time * 1000)} ago
-          </div>
-        </LabeledSection>
+        <H6AlertCirclePopover name='Last update' description='Aggregated from' />
+        <div className='text-lg font-semibold'>
+          {formatDistanceToNow(price.price.block.time * 1000)} ago
+        </div>
       </div>
 
       <div className='mt-6'>
-        <LabeledSection name='Status'>
-          <div className='text-lg font-semibold flex items-center'>
-            {isActive(price.price.block) ? (
-              <>
-                <span>Active</span>
-                <IoCheckmarkCircleOutline className='ml-1 h-4 w-4 text-green-600' />
-              </>
-            ) : (
-              <>
-                <span>Inactive</span>
-                <IoAlertCircleOutline className='ml-1 h-4 w-4 text-yellow-600' />
-              </>
-            )}
-          </div>
-        </LabeledSection>
+        <H6AlertCirclePopover name='Status' description={'status'} />
+        <div className='text-lg font-semibold flex items-center'>
+          {isActive(price.price.block) ? (
+            <>
+              <span>Active</span>
+              <IoCheckmarkCircleOutline className='ml-1 h-4 w-4 text-green-600' />
+            </>
+          ) : (
+            <>
+              <span>Inactive</span>
+              <IoAlertCircleOutline className='ml-1 h-4 w-4 text-yellow-600' />
+            </>
+          )}
+        </div>
       </div>
 
       <div className='mt-6'>
-        <LabeledSection name='Oracle responses'>
-          <div className='text-lg font-semibold'>
-            {price.price.aggregated.oracles.active} of {price.price.aggregated.oracles.total} responded
-          </div>
-        </LabeledSection>
+        <H6AlertCirclePopover name='Oracle responses' description={''} />
+        <div className='text-lg font-semibold'>
+          {price.price.aggregated.oracles.active} of {price.price.aggregated.oracles.total} responded
+        </div>
       </div>
     </div>
-  )
-}
-
-function LabeledSection (props: PropsWithChildren<{ name: string }>): JSX.Element {
-  return (
-    <>
-      <h6 className='text-sm font-semibold text-black opacity-60'>{props.name}</h6>
-      {props.children}
-    </>
   )
 }
