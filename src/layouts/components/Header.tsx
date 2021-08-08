@@ -4,13 +4,24 @@ import { getEnvironment } from '@contexts/Environment'
 import { useNetwork } from '@contexts/NetworkContext'
 import { Menu, Transition } from '@headlessui/react'
 import { RootState } from '@store/index'
-import { Fragment, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Fragment, useEffect, useState } from 'react'
 import { MdArrowDropDown, MdClose, MdMenu } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 
 export function Header (): JSX.Element {
   const [menu, setMenu] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    function routeChangeStart (): void {
+      setMenu(false)
+    }
+
+    router.events.on('routeChangeStart', routeChangeStart)
+    return () => router.events.off('routeChangeStart', routeChangeStart)
+  }, [])
 
   return (
     <header className='bg-white'>
