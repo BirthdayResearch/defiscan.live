@@ -37,6 +37,7 @@ export function Default (props: PropsWithChildren<any>): JSX.Element | null {
         <meta key='og:description' name='og:description' content={description} />
 
         <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' type='image/png' sizes='48x48' href='/favicon.png' />
       </Head>
 
       <NetworkProvider>
