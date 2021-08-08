@@ -1,13 +1,13 @@
 /* eslint-disable no-restricted-imports */
+import { NetworkProvider } from '@contexts/NetworkContext'
+import { PlaygroundProvider } from '@contexts/PlaygroundContext'
+import { WhaleProvider } from '@contexts/WhaleContext'
 import Head from 'next/head'
 import { PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
 import { store } from '../store'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import { NetworkProvider } from './contexts/NetworkContext'
-import { PlaygroundProvider } from './contexts/PlaygroundContext'
-import { WhaleProvider } from './contexts/WhaleContext'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'

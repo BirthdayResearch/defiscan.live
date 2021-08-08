@@ -4,7 +4,7 @@ import { PriceGraph } from '@components/prices/PriceGraph'
 import { PriceOracleTable } from '@components/prices/PriceOracleTable'
 import { PriceTickerDetail } from '@components/prices/PriceTickerDetail'
 import { getPriceCopy, PriceCopy } from '@content/prices'
-import { getWhaleApiClient } from '@contexts'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 
@@ -28,7 +28,7 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
 
       <div className='flex flex-wrap -mx-6'>
         <div className='w-full lg:w-1/3 px-6'>
-          <PriceTickerDetail {...props} />
+          <PriceTickerDetail price={props.price} />
         </div>
 
         <div className='w-full lg:w-2/3 lg:px-6' style={{ height: '32rem', maxHeight: '80vh' }}>

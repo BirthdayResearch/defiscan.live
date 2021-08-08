@@ -21,9 +21,9 @@
     "baseUrl": "src",
     "paths": {
       "@content/*": ["../content/*"],
+      "@contexts/*": ["layouts/contexts/*"],
       "@components/*": ["components/*"],
-      "@store/*": ["store/*"],
-      "@contexts": ["layouts/contexts/index"]
+      "@store/*": ["store/*"]
     }
   },
   "include": [

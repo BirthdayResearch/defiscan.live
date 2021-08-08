@@ -1,15 +1,16 @@
 import { JSX } from '@babel/types'
-import { useWhaleApiClient } from '@contexts'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { ApiPagedResponse, WhaleApiClient } from '@defichain/whale-api-client'
-import { PriceFeed } from '@defichain/whale-api-client/dist/api/prices'
+import { PriceFeed, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format } from 'date-fns'
-import { InferGetServerSidePropsType } from 'next'
 import { useEffect, useState } from 'react'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, TooltipProps, XAxis, YAxis } from 'recharts'
-import { getServerSideProps } from '../../pages/prices/[symbol]'
 
-export function PriceGraph (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { token, currency } = props.price.price
+interface PriceGraphProps {
+  price: PriceTicker
+}
+
+export function PriceGraph ({ price: { price: { token, currency } } }: PriceGraphProps): JSX.Element {
   const api = useWhaleApiClient()
   const [feed, setFeed] = useState<PriceFeed[] | undefined>(undefined)
 

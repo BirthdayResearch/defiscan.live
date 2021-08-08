@@ -2,16 +2,18 @@ import { JSX } from '@babel/types'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { isActive } from '@components/prices/PriceFeed'
 import { getPriceCopy, PriceCopy } from '@content/prices'
+import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format, formatDistanceToNow } from 'date-fns'
-import { InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
 import { IoAlertCircle, IoAlertCircleOutline, IoCheckmarkCircleOutline } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
-import { getServerSideProps } from '../../pages/prices/[symbol]'
 
-export function PriceTickerDetail (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { price } = props
+interface PriceTickerDetailProps {
+  price: PriceTicker
+}
+
+export function PriceTickerDetail ({ price }: PriceTickerDetailProps): JSX.Element {
   const copy: PriceCopy | undefined = getPriceCopy(price.id)
 
   return (

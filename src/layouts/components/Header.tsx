@@ -1,6 +1,8 @@
 import { Link } from '@components/commons/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
-import { getEnvironment, useNetworkContext, useWhaleApiClient } from '@contexts'
+import { getEnvironment } from '@contexts/Environment'
+import { useNetwork } from '@contexts/NetworkContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { stats } from '@defichain/whale-api-client'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
@@ -80,7 +82,7 @@ function HeaderCountBar (): JSX.Element {
 }
 
 function HeaderNetworkMenu (): JSX.Element {
-  const { network } = useNetworkContext()
+  const network = useNetwork()
   const { networks } = getEnvironment()
 
   return (

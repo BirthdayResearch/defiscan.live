@@ -1,8 +1,8 @@
 import { WhaleApiClient, WhaleRpcClient } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext } from 'next'
 import { createContext, PropsWithChildren, useContext, useMemo } from 'react'
-import { EnvironmentNetwork, getEnvironment } from './api/Environment'
-import { useNetworkContext } from './NetworkContext'
+import { getEnvironment } from './Environment'
+import { Network, useNetwork } from './NetworkContext'
 
 const WhaleApiClientContext = createContext<WhaleApiClient>(undefined as any)
 const WhaleRpcClientContext = createContext<WhaleRpcClient>(undefined as any)
@@ -26,12 +26,15 @@ export function useWhaleApiClient (): WhaleApiClient {
   return useContext(WhaleApiClientContext)
 }
 
+/**
+ * @deprecated added for convenience, do not use.
+ */
 export function useWhaleRpcClient (): WhaleRpcClient {
   return useContext(WhaleRpcClientContext)
 }
 
 export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | null {
-  const { network } = useNetworkContext()
+  const network = useNetwork()
 
   const { api, rpc } = useMemo(() => {
     const api = newWhaleClient(network)
@@ -50,14 +53,14 @@ export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | nul
 
 function newWhaleClient (network?: string): WhaleApiClient {
   switch (network) {
-    case EnvironmentNetwork.MainNet:
+    case Network.MainNet:
     default:
       return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet' })
-    case EnvironmentNetwork.TestNet:
+    case Network.TestNet:
       return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'testnet' })
-    case EnvironmentNetwork.RemotePlayground:
+    case Network.RemotePlayground:
       return new WhaleApiClient({ url: 'https://playground.defichain.com', network: 'regtest' })
-    case EnvironmentNetwork.LocalPlayground:
+    case Network.LocalPlayground:
       return new WhaleApiClient({ url: 'http://localhost:19553', network: 'regtest' })
   }
 }
