@@ -21,7 +21,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "lint": "next lint --fix --dir src",
+    "lint": "eslint src content --fix",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -63,9 +63,13 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.0.1",
     "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.7",
     "ts-standard": "^10.0.0",
     "typescript": "4.3.2"
+  },
+  "lint-staged": {
+    "*": "npm run lint"
   }
 }
