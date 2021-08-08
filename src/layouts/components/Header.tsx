@@ -2,42 +2,67 @@ import { Link } from '@components/commons/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { getEnvironment } from '@contexts/Environment'
 import { useNetwork } from '@contexts/NetworkContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
-import { stats } from '@defichain/whale-api-client'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useState } from 'react'
-import { MdArrowDropDown } from 'react-icons/md'
+import { RootState } from '@store/index'
+import { Fragment, useState } from 'react'
+import { MdArrowDropDown, MdClose, MdMenu } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
 
 export function Header (): JSX.Element {
+  const [menu, setMenu] = useState(false)
+
   return (
     <header className='bg-white'>
-      <div className='border-b border-gray-100'>
+      <div className='hidden md:block border-b border-gray-100'>
         <div className='container mx-auto px-4 py-1'>
-          <div className='flex items-center justify-between'>
-            <HeaderCountBar />
+          <div className='flex items-center justify-between h-8'>
+            <HeaderCountBar className='h-full flex flex-wrap -m-2 overflow-hidden' />
             <HeaderNetworkMenu />
           </div>
         </div>
       </div>
 
       <div className='border-b border-gray-100'>
-        <div className='container mx-auto px-4 py-8'>
-          <div className='flex items-center'>
-            <Link href={{ pathname: '/' }} passHref>
-              <div className='flex items-center cursor-pointer hover:text-primary'>
-                <DeFiChainLogo className='w-16 h-full' />
-                <h6 className='ml-3 text-xl font-medium'>Scan</h6>
-              </div>
-            </Link>
+        <div className='container mx-auto px-4 py-4 md:py-8'>
+          <div className='flex items-center justify-between'>
+            <div>
+              <Link href={{ pathname: '/' }} passHref>
+                <div className='flex items-center cursor-pointer hover:text-primary'>
+                  <DeFiChainLogo className='w-16 h-full' />
+                  <h6 className='ml-3 text-xl font-medium'>Scan</h6>
+                </div>
+              </Link>
+            </div>
+            <div className='md:hidden'>
+              {menu ? (
+                <MdClose className='h-6 w-6 text-primary' onClick={() => setMenu(false)} />
+              ) : (
+                <MdMenu className='h-6 w-6 text-primary' onClick={() => setMenu(true)} />
+              )}
+            </div>
           </div>
         </div>
+      </div>
+
+      <div>
+        {menu && (
+          <div className='container mx-auto px-4 pt-2 pb-4 border-b border-gray-100 shadow-sm'>
+            <div className='flex flex-col'>
+              <HeaderLink className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices' />
+            </div>
+            <HeaderCountBar className='mt-4 border border-gray-100 rounded p-2 bg-gray-50 flex flex-wrap' />
+            <div className='mt-4'>
+              <HeaderNetworkMenu />
+            </div>
+          </div>
+        )}
       </div>
     </header>
   )
 }
 
-function HeaderCountBar (): JSX.Element {
+function HeaderCountBar (props: { className: string }): JSX.Element {
   function HeaderCount (props: { text: string, count?: number, className: string }): JSX.Element {
     return (
       <li className={props.className}>
@@ -54,29 +79,25 @@ function HeaderCountBar (): JSX.Element {
     return (
       <li className={props.className}>
         <span className='text-sm'>{props.text}: </span>
-        <span className='text-sm text-black opacity-60'>
-          {props.count !== undefined
-            ? <NumberFormat value={props.count} displayType='text' decimalScale={0} thousandSeparator suffix=' USD' /> : '...'}
+        <span className='text-sm font-medium text-black opacity-60'>
+          {props.count !== undefined ? (
+            <NumberFormat value={props.count} displayType='text' decimalScale={0} thousandSeparator suffix=' USD' />
+          ) : (
+            '...'
+          )}
         </span>
       </li>
     )
   }
 
-  const api = useWhaleApiClient()
-  const [stats, setStats] = useState<stats.StatsData | undefined>(undefined)
-
-  useEffect(() => {
-    void api.stats.get().then(stats => {
-      setStats(stats)
-    })
-  }, [])
+  const { count, tvl } = useSelector((state: RootState) => state.stats)
 
   return (
-    <ul className='flex -m-2'>
-      <HeaderCount className='p-2 hidden md:block' text='Blocks' count={stats?.count.blocks} />
-      <HeaderCount className='p-2 hidden md:block' text='Tokens' count={stats?.count.tokens} />
-      <HeaderCount className='p-2 hidden md:block' text='Price Feeds' count={stats?.count.prices} />
-      <HeaderAmount className='p-2' text='Total Value Locked' count={stats?.tvl.total} />
+    <ul className={props.className}>
+      <HeaderCount className='px-2 py-1' text='Blocks' count={count.blocks} />
+      <HeaderCount className='px-2 py-1' text='Tokens' count={count.tokens} />
+      <HeaderCount className='px-2 py-1' text='Price Feeds' count={count.prices} />
+      <HeaderAmount className='px-2 py-1' text='Total Value Locked' count={tvl.total} />
     </ul>
   )
 }
@@ -126,5 +147,17 @@ function HeaderNetworkMenu (): JSX.Element {
         </Menu.Items>
       </Transition>
     </Menu>
+  )
+}
+
+function HeaderLink (props: { text: string, pathname: string, className: string }): JSX.Element {
+  return (
+    <div className={props.className}>
+      <div className='p-2 text-lg hover:text-primary cursor-pointer'>
+        <Link href={{ pathname: props.pathname }}>
+          {props.text}
+        </Link>
+      </div>
+    </div>
   )
 }
