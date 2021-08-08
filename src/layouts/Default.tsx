@@ -2,10 +2,11 @@
 import { NetworkProvider } from '@contexts/NetworkContext'
 import { PlaygroundProvider } from '@contexts/PlaygroundContext'
 import { WhaleProvider } from '@contexts/WhaleContext'
+import { StatsProvider } from '@store/stats'
 import Head from 'next/head'
 import { PropsWithChildren } from 'react'
-import { Provider } from 'react-redux'
-import { store } from '../store'
+import { Provider as StoreProvider } from 'react-redux'
+import { createStore } from '../store'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 
@@ -20,6 +21,8 @@ const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoi
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
 export function Default (props: PropsWithChildren<any>): JSX.Element | null {
+  const store = createStore()
+
   return (
     <div className='flex flex-col min-h-screen'>
       <Head>
@@ -42,15 +45,17 @@ export function Default (props: PropsWithChildren<any>): JSX.Element | null {
       <NetworkProvider>
         <PlaygroundProvider>
           <WhaleProvider>
-            <Provider store={store}>
-              <Header />
+            <StoreProvider store={store}>
+              <StatsProvider>
+                <Header />
 
-              <main className='flex-grow'>
-                {props.children}
-              </main>
+                <main className='flex-grow'>
+                  {props.children}
+                </main>
 
-              <Footer />
-            </Provider>
+                <Footer />
+              </StatsProvider>
+            </StoreProvider>
           </WhaleProvider>
         </PlaygroundProvider>
       </NetworkProvider>

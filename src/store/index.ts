@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { configureStore } from '@reduxjs/toolkit'
-import { block } from './block'
+import { stats } from '@store/stats'
 
 /**
  * RootState for DeFi Scan
@@ -9,10 +10,12 @@ import { block } from './block'
  *
  * Non-global state should be managed independently within their own React Component/Page.
  */
-export const store = configureStore({
-  reducer: {
-    block: block.reducer
-  }
-})
+export function createStore () {
+  return configureStore({
+    reducer: {
+      stats: stats.reducer
+    }
+  })
+}
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<ReturnType<typeof createStore>['getState']>

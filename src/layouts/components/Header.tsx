@@ -2,12 +2,12 @@ import { Link } from '@components/commons/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { getEnvironment } from '@contexts/Environment'
 import { useNetwork } from '@contexts/NetworkContext'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
-import { stats } from '@defichain/whale-api-client'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useState } from 'react'
+import { RootState } from '@store/index'
+import { Fragment } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
 
 export function Header (): JSX.Element {
   return (
@@ -62,21 +62,14 @@ function HeaderCountBar (): JSX.Element {
     )
   }
 
-  const api = useWhaleApiClient()
-  const [stats, setStats] = useState<stats.StatsData | undefined>(undefined)
-
-  useEffect(() => {
-    void api.stats.get().then(stats => {
-      setStats(stats)
-    })
-  }, [])
+  const { count, tvl } = useSelector((state: RootState) => state.stats)
 
   return (
     <ul className='flex -m-2'>
-      <HeaderCount className='p-2 hidden md:block' text='Blocks' count={stats?.count.blocks} />
-      <HeaderCount className='p-2 hidden md:block' text='Tokens' count={stats?.count.tokens} />
-      <HeaderCount className='p-2 hidden md:block' text='Price Feeds' count={stats?.count.prices} />
-      <HeaderAmount className='p-2' text='Total Value Locked' count={stats?.tvl.total} />
+      <HeaderCount className='p-2 hidden md:block' text='Blocks' count={count.blocks} />
+      <HeaderCount className='p-2 hidden md:block' text='Tokens' count={count.tokens} />
+      <HeaderCount className='p-2 hidden md:block' text='Price Feeds' count={count.prices} />
+      <HeaderAmount className='p-2' text='Total Value Locked' count={tvl.total} />
     </ul>
   )
 }
