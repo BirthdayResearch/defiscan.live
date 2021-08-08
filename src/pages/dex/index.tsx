@@ -1,65 +1,126 @@
-import { NextPage } from 'next'
-import { useEffect, useState } from 'react'
-import Loader from '../../components/loader/loader'
-// import { useWhaleApiClient } from '../../layouts/contexts/WhaleContext'
+import { AdaptiveTable } from '@components/commons/AdaptiveTable'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { poolpairs } from '@defichain/whale-api-client'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import BigNumber from 'bignumber.js'
+import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
+import { useState } from 'react'
+import NumberFormat from 'react-number-format'
 
-const DexPage: NextPage = () => {
-  const [loading, setLoading] = useState(true)
-  const [poolPairs, setPoolPairs] = useState<any>([])
-
-  // const rpc = useWhaleApiClient()
-
-  useEffect(() => {
-    const listPoolPairs = (): any => {
-      // TODO(canonbrother): poolpair api on whale client side is still WIP
-      // const poolPairs = await rpc.poolpair.list()
-      const poolPairs = [
-        { id: '0', symbol: 'BTC-DFI', totalLiquidityUsd: '174058812.06', dailyVolumeUsd30: '1213847.86', liquidity: '2851.29 BTC + 46161333.26 DFI', priceRatio: '16189.62 DFI/BTC', apr: '85.04' },
-        { id: '1', symbol: 'ETH-DFI', totalLiquidityUsd: '37161024.14', dailyVolumeUsd30: '411450.11', liquidity: '10143.25 ETH + 9825594.18 DFI', priceRatio: '968.68 DFI/ETH', apr: '74.69' }
-      ]
-      setPoolPairs(poolPairs)
-      setLoading(false)
-    }
-    if (loading) {
-      listPoolPairs()
-    }
-  }, [loading])
-
-  if (loading) {
-    return <Loader />
+interface DexPageProps {
+  poolPairs: {
+    items: poolpairs.PoolPairData[]
+    nextToken: string | null
   }
+}
+
+export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const [items] = useState(poolPairs.items)
+  // const [nextToken, setNextToken] = useState(poolPairs.nextToken)
 
   return (
-    <div className='container mx-auto px-4 py-6'>
-      <h1 className='text-2xl font-medium pb-8'>Liquidity Pool Pairs</h1>
-      <div className='table sm:shadow-2xl border-collapse w-full'>
-        <div className='table-row-group'>
-          <div className='table-row'>
-            <div className='table-cell px-4 py-4 font-medium text-left'>Name</div>
-            <div className='table-cell px-4 py-4 font-medium text-right'>Total Liquidity <span className='text-gray-500'>USD</span></div>
-            <div className='table-cell px-4 py-4 font-medium text-right'>Daily Volume USD <span className='text-gray-500'>(30d avg)</span></div>
-            <div className='table-cell px-4 py-4 font-medium text-right'>Liquidity</div>
-            <div className='table-cell px-4 py-4 font-medium text-right'>Price Ratio</div>
-            <div className='table-cell px-4 py-4 font-medium text-right'>APR</div>
-          </div>
-        </div>
-        <div className='table-row-group'>
-          {poolPairs.length !== 0 && (
-            poolPairs.map((p: any) => (
-              <div key={p.id} className='table-row'>
-                <div className='table-cell px-4 py-4 border-t text-left'>{p.symbol}</div>
-                <div className='table-cell px-4 py-4 border-t text-right'>{p.totalLiquidityUsd}</div>
-                <div className='table-cell px-4 py-4 border-t text-right'>{p.dailyVolumeUsd30}</div>
-                <div className='table-cell px-4 py-4 border-t text-right'>{p.liquidity}</div>
-                <div className='table-cell px-4 py-4 border-t text-right'>{p.priceRatio}</div>
-                <div className='table-cell px-4 py-4 border-t text-right'>{p.apr} %</div>
-              </div>
-            ))
-          )}
-        </div>
+    <div className='container mx-auto px-4 py-12'>
+      <div>
+        <h1 className='text-2xl font-semibold'>DEX Token Pairs</h1>
       </div>
+
+      <AdaptiveTable className='mt-6'>
+        <AdaptiveTable.Header>
+          <AdaptiveTable.Head>PAIR</AdaptiveTable.Head>
+          <AdaptiveTable.Head className='text-right'>TOTAL LIQUIDITY</AdaptiveTable.Head>
+          <AdaptiveTable.Head className='text-right'>LIQUIDITY</AdaptiveTable.Head>
+          <AdaptiveTable.Head className='text-right'>PRICE RATIO</AdaptiveTable.Head>
+          <AdaptiveTable.Head className='text-right'>APR</AdaptiveTable.Head>
+        </AdaptiveTable.Header>
+
+        {items.map((data) => (
+          <PoolPairRow key={data.id} data={data} />
+        ))}
+      </AdaptiveTable>
     </div>
   )
 }
 
-export default DexPage
+function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
+  const [symbolA, symbolB] = data.symbol.split('-')
+
+  return (
+    <AdaptiveTable.Row>
+      <AdaptiveTable.Cell className='text-primary font-medium'>{data.symbol}</AdaptiveTable.Cell>
+      <AdaptiveTable.Cell className='text-right'>
+        <NumberFormat
+          value={data.totalLiquidity.usd}
+          displayType='text'
+          thousandSeparator
+          decimalScale={0}
+          suffix=' USD'
+        />
+      </AdaptiveTable.Cell>
+      <AdaptiveTable.Cell className='text-right'>
+        <div>
+          <NumberFormat
+            value={data.tokenA.reserve}
+            displayType='text'
+            thousandSeparator
+            decimalScale={0}
+            suffix={` ${symbolA}`}
+          />
+        </div>
+        <div>
+          <NumberFormat
+            value={data.tokenB.reserve}
+            displayType='text'
+            thousandSeparator
+            decimalScale={0}
+            suffix={` ${symbolB}`}
+          />
+        </div>
+      </AdaptiveTable.Cell>
+      <AdaptiveTable.Cell className='text-right'>
+        <div>
+          <NumberFormat
+            value={new BigNumber(data.priceRatio.ab).toPrecision(4).toString()}
+            displayType='text'
+            thousandSeparator
+            suffix={` ${symbolA}/${symbolB}`}
+          />
+        </div>
+        <div>
+          <NumberFormat
+            value={new BigNumber(data.priceRatio.ba).toPrecision(4).toString()}
+            displayType='text'
+            thousandSeparator
+            suffix={` ${symbolB}/${symbolA}`}
+          />
+        </div>
+      </AdaptiveTable.Cell>
+      <AdaptiveTable.Cell className='text-right'>
+        {data.apr !== undefined ? (
+          <NumberFormat
+            value={data.apr.total * 100}
+            displayType='text'
+            thousandSeparator
+            decimalScale={2}
+            suffix=' %'
+          />
+        ) : (
+          <div className='text-yellow-500'>
+            Error
+          </div>
+        )}
+      </AdaptiveTable.Cell>
+    </AdaptiveTable.Row>
+  )
+}
+
+export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<DexPageProps>> {
+  const items = await getWhaleApiClient(context).poolpairs.list()
+  return {
+    props: {
+      poolPairs: {
+        items: items,
+        nextToken: items.nextToken ?? null
+      }
+    }
+  }
+}
