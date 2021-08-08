@@ -20,6 +20,7 @@
     "jsx": "preserve",
     "baseUrl": "src",
     "paths": {
+      "@content/*": ["../content/*"],
       "@components/*": ["components/*"],
       "@store/*": ["store/*"],
       "@contexts": ["layouts/contexts/index"]

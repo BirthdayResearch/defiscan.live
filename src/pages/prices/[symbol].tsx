@@ -3,10 +3,10 @@ import { Head } from '@components/commons/Head'
 import { PriceGraph } from '@components/prices/PriceGraph'
 import { PriceOracleTable } from '@components/prices/PriceOracleTable'
 import { PriceTickerDetail } from '@components/prices/PriceTickerDetail'
+import { getPriceCopy, PriceCopy } from '@content/prices'
 import { getWhaleApiClient } from '@contexts'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { getPriceCopy, PriceCopy } from '../../cms/prices'
 
 interface PricesPageProps {
   price: PriceTicker
