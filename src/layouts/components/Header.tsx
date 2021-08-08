@@ -98,7 +98,6 @@ function HeaderCountBar (props: { className: string }): JSX.Element {
       <HeaderCount className='px-2 py-1' text='Tokens' count={count.tokens} />
       <HeaderCount className='px-2 py-1' text='Price Feeds' count={count.prices} />
       <HeaderAmount className='px-2 py-1' text='Total Value Locked' count={tvl.total} />
-      <HeaderAmount className='px-2 py-1' text='Total Value Locked' count={tvl.total} />
     </ul>
   )
 }
