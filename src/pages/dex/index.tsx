@@ -1,4 +1,5 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
+import { getTokenIcon } from '@components/icons/tokens'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { poolpairs } from '@defichain/whale-api-client'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -43,11 +44,21 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
+  const IconA = getTokenIcon(symbolA)
+  const IconB = getTokenIcon(symbolB)
 
   return (
     <AdaptiveTable.Row>
-      <AdaptiveTable.Cell className='text-primary font-medium'>{data.symbol}</AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      <AdaptiveTable.Cell className='align-middle'>
+        <div className='flex items-center'>
+          <IconA className='absolute h-8 w-8' />
+          <IconB className='absolute h-8 w-8 ml-5' />
+          <div className='text-primary font-medium ml-16'>
+            {data.symbol}
+          </div>
+        </div>
+      </AdaptiveTable.Cell>
+      <AdaptiveTable.Cell className='align-middle text-right'>
         <NumberFormat
           value={data.totalLiquidity.usd}
           displayType='text'
@@ -56,7 +67,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           suffix=' USD'
         />
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      <AdaptiveTable.Cell className='align-middle text-right'>
         <div>
           <NumberFormat
             value={data.tokenA.reserve}
@@ -76,7 +87,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           />
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      <AdaptiveTable.Cell className='align-middle text-right'>
         <div>
           <NumberFormat
             value={new BigNumber(data.priceRatio.ab).toPrecision(4).toString()}
@@ -94,7 +105,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           />
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      <AdaptiveTable.Cell className='align-middle text-right'>
         {data.apr !== undefined ? (
           <NumberFormat
             value={data.apr.total * 100}
