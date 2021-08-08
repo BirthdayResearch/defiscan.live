@@ -1,4 +1,4 @@
-import { getWhaleApiClient } from '@contexts'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 

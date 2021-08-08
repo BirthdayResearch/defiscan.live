@@ -1,7 +1,7 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
 import { createContext, PropsWithChildren, useContext, useMemo } from 'react'
-import { EnvironmentNetwork, getEnvironment, isPlayground } from './api/Environment'
-import { useNetworkContext } from './NetworkContext'
+import { getEnvironment, isPlayground } from './Environment'
+import { Network, useNetwork } from './NetworkContext'
 
 interface Playground {
   rpc: PlaygroundRpcClient
@@ -23,7 +23,7 @@ export function usePlaygroundContext (): Playground {
 }
 
 export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element | null {
-  const { network } = useNetworkContext()
+  const network = useNetwork()
 
   const context = useMemo(() => {
     if (!isPlaygroundAvailable(network)) {
@@ -41,7 +41,7 @@ export function PlaygroundProvider (props: PropsWithChildren<any>): JSX.Element 
   )
 }
 
-function isPlaygroundAvailable (network: EnvironmentNetwork): boolean {
+function isPlaygroundAvailable (network: Network): boolean {
   const environment = getEnvironment()
   if (!isPlayground(network)) {
     return false
@@ -54,11 +54,11 @@ function isPlaygroundAvailable (network: EnvironmentNetwork): boolean {
   return true
 }
 
-function newPlaygroundClient (network: EnvironmentNetwork): PlaygroundApiClient {
+function newPlaygroundClient (network: Network): PlaygroundApiClient {
   switch (network) {
-    case EnvironmentNetwork.RemotePlayground:
+    case Network.RemotePlayground:
       return new PlaygroundApiClient({ url: 'https://playground.defichain.com' })
-    case EnvironmentNetwork.LocalPlayground:
+    case Network.LocalPlayground:
       return new PlaygroundApiClient({ url: 'http://localhost:19553' })
     default:
       throw new Error(`playground not available for '${network}'`)

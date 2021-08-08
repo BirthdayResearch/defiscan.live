@@ -2,17 +2,18 @@ import { JSX } from '@babel/types'
 import { isActive } from '@components/prices/PriceFeed'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format } from 'date-fns'
-import { InferGetServerSidePropsType } from 'next'
 import { IoAlertCircleOutline } from 'react-icons/io5'
 import { MdCheck } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
-import { getServerSideProps } from '../../pages/prices/[symbol]'
 
-export function PriceOracleTable (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { price, oracles } = props
+interface PriceOracleTableProps {
+  price: PriceTicker
+  oracles: PriceOracle[]
+}
 
+export function PriceOracleTable ({ price, oracles }: PriceOracleTableProps): JSX.Element {
   return (
-    <div className=''>
+    <div>
       <h2 className='text-2xl font-semibold'>
         Oracles
       </h2>

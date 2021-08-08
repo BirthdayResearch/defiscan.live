@@ -1,6 +1,7 @@
-import { EnvironmentNetwork, getEnvironment, useNetworkContext } from '@contexts'
-import { LinkProps as NextLinkProps } from 'next/dist/client/link'
 /* eslint-disable no-restricted-imports */
+import { getEnvironment } from '@contexts/Environment'
+import { useNetwork } from '@contexts/NetworkContext'
+import { LinkProps as NextLinkProps } from 'next/dist/client/link'
 import NextLink from 'next/link'
 import { PropsWithChildren } from 'react'
 import { UrlObject } from 'url'
@@ -23,9 +24,9 @@ interface LinkProps extends NextLinkProps {
  * @param {PropsWithChildren<LinkProps>} props
  */
 export function Link (props: PropsWithChildren<LinkProps>): JSX.Element {
-  const { network } = useNetworkContext()
+  const network = useNetwork()
 
-  if (!isDefaultNetwork(network)) {
+  if (!getEnvironment().isDefaultNetwork(network)) {
     props.href.query = {
       ...props.href.query ?? {},
       network: network
@@ -37,9 +38,4 @@ export function Link (props: PropsWithChildren<LinkProps>): JSX.Element {
       {props.children}
     </NextLink>
   )
-}
-
-function isDefaultNetwork (network: EnvironmentNetwork): boolean {
-  const env = getEnvironment()
-  return env.networks[0] === network
 }
