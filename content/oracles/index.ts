@@ -22,25 +22,25 @@ export interface OracleCopy {
 export const ORACLES: Record<string, OracleCopy> = {
   nasdaq: {
     name: 'Nasdaq',
-    image: require('cms/oracles/images/nasdaq.png'),
+    image: require('./images/nasdaq.png'),
     order: 0,
     url: 'https://www.nasdaq.com/'
   },
   finnhub: {
     name: 'Finnhub',
-    image: require('cms/oracles/images/finnhub.png'),
+    image: require('./images/finnhub.png'),
     order: 1,
     url: 'https://finnhub.io/'
   },
   tiingo: {
     name: 'Tiingo',
-    image: require('cms/oracles/images/tiingo.png'),
+    image: require('./images/tiingo.png'),
     order: 2,
     url: 'https://www.tiingo.com/'
   },
   iex: {
     name: 'IEX Cloud',
-    image: require('cms/oracles/images/iex.png'),
+    image: require('./images/iex.png'),
     order: 3,
     url: 'https://iexcloud.io/'
   }

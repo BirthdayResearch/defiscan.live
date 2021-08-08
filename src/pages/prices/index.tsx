@@ -1,11 +1,11 @@
 import { Head } from '@components/commons/Head'
 import { PriceFeed } from '@components/prices/PriceFeed'
+import { ORACLES } from '@content/oracles'
 import { getWhaleApiClient } from '@contexts'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import Image from 'next/image'
 import { useState } from 'react'
-import { ORACLES } from '../../cms/oracles'
 
 interface PricesPageProps {
   prices: {

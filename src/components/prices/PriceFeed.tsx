@@ -1,12 +1,12 @@
 import { Link } from '@components/commons/Link'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
+import { getPriceCopy, PriceCopy } from '@content/prices'
 import { prices } from '@defichain/whale-api-client'
 import { format } from 'date-fns'
 import Image from 'next/image'
 import { IoAlertCircleOutline, IoCheckmarkCircleOutline } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
-import { getPriceCopy, PriceCopy } from '../../cms/prices'
 
 interface PriceFeedProps {
   price: prices.PriceTicker
