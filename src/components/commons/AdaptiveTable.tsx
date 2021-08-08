@@ -23,7 +23,8 @@ function Header (props: PropsWithChildren<{ className?: string }>): JSX.Element 
 function Row (props: PropsWithChildren<{ className?: string }>): JSX.Element {
   return (
     <div
-      className={`overflow-hidden flex flex-wrap border rounded-lg lg:border-0 lg:rounded-none lg:table-row lg:border-t border-gray-200 ${props.className ?? ''}`}>
+      className={`overflow-hidden flex flex-wrap border rounded-lg lg:border-0 lg:rounded-none lg:table-row lg:border-t border-gray-200 ${props.className ?? ''}`}
+    >
       {props.children}
     </div>
   )
@@ -40,10 +41,10 @@ function Head (props: PropsWithChildren<{ className?: string }>): JSX.Element {
 function Cell (props: PropsWithChildren<{ className?: string, title?: string }>): JSX.Element {
   return (
     <div className={`table-cell w-full sm:w-auto flex-grow ${props.className ?? ''}`}>
-      <div className={'lg:hidden py-2 px-6 bg-gray-50 text-black text-opacity-60 text-xs font-semibold'}>
+      <div className='lg:hidden py-2 px-6 bg-gray-50 text-black text-opacity-60 text-xs font-semibold'>
         {props.title}
       </div>
-      <div className={`py-4 px-6`}>
+      <div className='py-4 px-6'>
         {props.children}
       </div>
     </div>
