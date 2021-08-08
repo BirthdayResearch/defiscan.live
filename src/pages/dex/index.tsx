@@ -20,9 +20,9 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
   // const [nextToken, setNextToken] = useState(poolPairs.nextToken)
 
   return (
-    <div className='container mx-auto px-4 py-12'>
+    <div className='container mx-auto px-4 pt-12 pb-20'>
       <div>
-        <h1 className='text-2xl font-semibold'>DEX Token Pairs</h1>
+        <h1 className='text-2xl font-semibold'>DEX Pool Pairs</h1>
       </div>
 
       <AdaptiveTable className='mt-6'>
@@ -49,7 +49,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
 
   return (
     <AdaptiveTable.Row>
-      <AdaptiveTable.Cell className='align-middle'>
+      <AdaptiveTable.Cell title='PAIR' className='align-middle'>
         <div className='flex items-center'>
           <IconA className='absolute h-8 w-8' />
           <IconB className='absolute h-8 w-8 ml-5' />
@@ -58,7 +58,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           </div>
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='align-middle text-right'>
+      <AdaptiveTable.Cell title='TOTAL LIQUIDITY' className='align-middle lg:text-right'>
         <NumberFormat
           value={data.totalLiquidity.usd}
           displayType='text'
@@ -67,7 +67,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           suffix=' USD'
         />
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='align-middle text-right'>
+      <AdaptiveTable.Cell title='LIQUIDITY' className='align-middle lg:text-right'>
         <div>
           <NumberFormat
             value={data.tokenA.reserve}
@@ -87,7 +87,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           />
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='align-middle text-right'>
+      <AdaptiveTable.Cell title='PRICE RATIO' className='align-middle lg:text-right'>
         <div>
           <NumberFormat
             value={new BigNumber(data.priceRatio.ab).toPrecision(4).toString()}
@@ -105,7 +105,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           />
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='align-middle text-right'>
+      <AdaptiveTable.Cell title='APR' className='align-middle lg:text-right'>
         {data.apr !== undefined ? (
           <NumberFormat
             value={data.apr.total * 100}
