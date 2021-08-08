@@ -1,6 +1,6 @@
 describe('header', () => {
   beforeEach(function () {
-    cy.visit('/')
+    cy.visit('/?network=MainNet')
   })
 
   it('should contain block count', function () {
