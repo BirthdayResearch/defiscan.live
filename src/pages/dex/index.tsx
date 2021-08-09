@@ -137,6 +137,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             displayType='text'
             thousandSeparator
             decimalScale={2}
+            fixedDecimalScale
             suffix=' %'
           />
         ) : (
