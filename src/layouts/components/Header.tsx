@@ -37,13 +37,18 @@ export function Header (): JSX.Element {
       <div className='border-b border-gray-100'>
         <div className='container mx-auto px-4 py-4 md:py-8'>
           <div className='flex items-center justify-between'>
-            <div>
+            <div className='flex'>
               <Link href={{ pathname: '/' }} passHref>
                 <div className='flex items-center cursor-pointer hover:text-primary'>
                   <DeFiChainLogo className='w-16 h-full' />
                   <h6 className='ml-3 text-xl font-medium'>Scan</h6>
                 </div>
               </Link>
+
+              <div className='hidden md:flex flex-wrap'>
+                <HeaderLink className='ml-12' text='Dex' pathname='/dex' />
+                <HeaderLink className='ml-4' text='Prices' pathname='/prices' />
+              </div>
             </div>
             <div className='md:hidden'>
               {menu ? (
@@ -60,6 +65,7 @@ export function Header (): JSX.Element {
         {menu && (
           <div className='container mx-auto px-4 pt-2 pb-4 border-b border-gray-100 shadow-sm'>
             <div className='flex flex-col'>
+              <HeaderLink className='flex justify-center border-b border-gray-100' text='Dex' pathname='/dex' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices' />
             </div>
             <HeaderCountBar className='mt-4 border border-gray-100 rounded p-2 bg-gray-50 flex flex-wrap' />
