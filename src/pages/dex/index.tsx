@@ -31,7 +31,7 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
       />
       <div>
         <h1 className='text-2xl font-semibold'>Decentralized Exchange</h1>
-        {tvl && (
+        {tvl !== undefined && (
           <div className='mt-1'>
             <h3 className='text-sm font-medium'>Total Value Locked:</h3>
             <NumberFormat
