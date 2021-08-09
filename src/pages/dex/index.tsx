@@ -84,13 +84,19 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         </div>
       </AdaptiveTable.Cell>
       <AdaptiveTable.Cell title='TOTAL LIQUIDITY' className='align-middle lg:text-right'>
-        <NumberFormat
-          value={data.totalLiquidity.usd}
-          displayType='text'
-          thousandSeparator
-          decimalScale={0}
-          suffix=' USD'
-        />
+        {data.totalLiquidity.usd !== undefined ? (
+          <NumberFormat
+            value={data.totalLiquidity.usd}
+            displayType='text'
+            thousandSeparator
+            decimalScale={0}
+            suffix=' USD'
+          />
+        ) : (
+          <div className='text-yellow-500'>
+            Error
+          </div>
+        )}
       </AdaptiveTable.Cell>
       <AdaptiveTable.Cell title='LIQUIDITY' className='align-middle lg:text-right'>
         <div>
