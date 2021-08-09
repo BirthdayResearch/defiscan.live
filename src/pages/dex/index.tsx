@@ -1,12 +1,15 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
+import { Head } from '@components/commons/Head'
 import { getTokenIcon } from '@components/icons/tokens'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { poolpairs } from '@defichain/whale-api-client'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { RootState } from '@store/index'
 import BigNumber from 'bignumber.js'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { useState } from 'react'
 import NumberFormat from 'react-number-format'
+import { useSelector } from 'react-redux'
 
 interface DexPageProps {
   poolPairs: {
@@ -16,28 +19,50 @@ interface DexPageProps {
 }
 
 export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const tvl = useSelector((state: RootState) => state.stats.tvl.dex)
   const [items] = useState(poolPairs.items)
   // const [nextToken, setNextToken] = useState(poolPairs.nextToken)
 
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
+      <Head
+        title='DEX'
+        description='Supply liquidity to BTC, ETH, USDT, USDC and many other pool pairs to power the Decentralized Exchange. Earn fees and block rewards in return for providing liquidity to the pool, you can withdraw your liquidity at any time.'
+      />
       <div>
-        <h1 className='text-2xl font-semibold'>DEX Pool Pairs</h1>
+        <h1 className='text-2xl font-semibold'>Decentralized Exchange</h1>
+        {tvl && (
+          <div className='mt-1'>
+            <h3 className='text-sm font-medium'>Total Value Locked:</h3>
+            <NumberFormat
+              className='font-medium text-black opacity-80'
+              value={tvl}
+              displayType='text'
+              decimalScale={0}
+              thousandSeparator
+              suffix=' USD'
+            />
+          </div>
+        )}
       </div>
 
-      <AdaptiveTable className='mt-6'>
-        <AdaptiveTable.Header>
-          <AdaptiveTable.Head>PAIR</AdaptiveTable.Head>
-          <AdaptiveTable.Head className='text-right'>TOTAL LIQUIDITY</AdaptiveTable.Head>
-          <AdaptiveTable.Head className='text-right'>LIQUIDITY</AdaptiveTable.Head>
-          <AdaptiveTable.Head className='text-right'>PRICE RATIO</AdaptiveTable.Head>
-          <AdaptiveTable.Head className='text-right'>APR</AdaptiveTable.Head>
-        </AdaptiveTable.Header>
+      <div className='mt-12'>
+        <h1 className='text-xl font-semibold'>DEX Pool Pairs</h1>
 
-        {items.map((data) => (
-          <PoolPairRow key={data.id} data={data} />
-        ))}
-      </AdaptiveTable>
+        <AdaptiveTable className='mt-6'>
+          <AdaptiveTable.Header>
+            <AdaptiveTable.Head>PAIR</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='text-right'>TOTAL LIQUIDITY</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='text-right'>LIQUIDITY</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='text-right'>PRICE RATIO</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='text-right'>APR</AdaptiveTable.Head>
+          </AdaptiveTable.Header>
+
+          {items.map((data) => (
+            <PoolPairRow key={data.id} data={data} />
+          ))}
+        </AdaptiveTable>
+      </div>
     </div>
   )
 }
@@ -53,7 +78,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         <div className='flex items-center'>
           <IconA className='absolute h-8 w-8' />
           <IconB className='absolute h-8 w-8 ml-5' />
-          <div className='text-primary font-medium ml-16'>
+          <div className='font-medium ml-16'>
             {data.symbol}
           </div>
         </div>
