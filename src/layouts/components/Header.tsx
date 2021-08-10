@@ -175,12 +175,12 @@ function HeaderNetworkMenu (): JSX.Element {
 
 function HeaderLink (props: { text: string, pathname: string, className: string }): JSX.Element {
   return (
-    <div className={props.className}>
-      <div className='p-2 text-lg hover:text-primary cursor-pointer'>
-        <Link href={{ pathname: props.pathname }}>
+    <Link href={{ pathname: props.pathname }}>
+      <div className={props.className}>
+        <div className='p-2 text-lg hover:text-primary cursor-pointer'>
           {props.text}
-        </Link>
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
