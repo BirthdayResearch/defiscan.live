@@ -40,7 +40,7 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
               displayType='text'
               decimalScale={0}
               thousandSeparator
-              suffix=' USD'
+              prefix='$'
             />
           </div>
         )}
@@ -90,7 +90,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             displayType='text'
             thousandSeparator
             decimalScale={0}
-            suffix=' USD'
+            prefix='$'
           />
         ) : (
           <div className='text-yellow-500'>

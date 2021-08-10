@@ -98,7 +98,13 @@ function HeaderCountBar (props: { className: string }): JSX.Element {
         <span className='text-sm'>{props.text}: </span>
         <span className='text-sm font-medium text-black opacity-60'>
           {props.count !== undefined ? (
-            <NumberFormat value={props.count} displayType='text' decimalScale={0} thousandSeparator suffix=' USD' />
+            <NumberFormat
+              value={props.count}
+              displayType='text'
+              decimalScale={0}
+              thousandSeparator
+              prefix='$'
+            />
           ) : (
             '...'
           )}
