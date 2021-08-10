@@ -16,7 +16,7 @@ interface HeadProps {
  */
 export function Head (props: PropsWithChildren<HeadProps>): JSX.Element {
   const title = props.title !== undefined ? `${props.title} • DeFi Scan – Native Decentralized Finance for Bitcoin` : undefined
-  const description = truncate(props.description, { length: 200 })
+  const description = truncate(props.description, { length: 220 })
 
   return (
     <NextHead>
