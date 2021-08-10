@@ -48,7 +48,7 @@ export function Header (): JSX.Element {
               <div className='hidden md:flex flex-wrap'>
                 <HeaderLink className='ml-12' text='DEX' pathname='/dex' />
                 <HeaderLink className='ml-4' text='Prices' pathname='/prices' />
-                <HeaderLink className='ml-4' text='Tokens' pathname='/Tokens' />
+                <HeaderLink className='ml-4' text='Tokens' pathname='/tokens' />
               </div>
             </div>
             <div className='md:hidden'>
