@@ -48,6 +48,7 @@ export function Header (): JSX.Element {
               <div className='hidden md:flex flex-wrap'>
                 <HeaderLink className='ml-12' text='DEX' pathname='/dex' />
                 <HeaderLink className='ml-4' text='Prices' pathname='/prices' />
+                <HeaderLink className='ml-4' text='Tokens' pathname='/Tokens' />
               </div>
             </div>
             <div className='md:hidden'>
@@ -67,6 +68,7 @@ export function Header (): JSX.Element {
             <div className='flex flex-col'>
               <HeaderLink className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices' />
+              <HeaderLink className='flex justify-center border-b border-gray-100' text='Tokens' pathname='/tokens' />
             </div>
             <HeaderCountBar className='mt-4 border border-gray-100 rounded p-2 bg-gray-50 flex flex-wrap' />
             <div className='mt-4'>
