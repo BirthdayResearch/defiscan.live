@@ -1,5 +1,6 @@
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { Head } from '@components/commons/Head'
+import { PricingFeedsBySection } from '@components/prices/PriceFeedBySection'
 import { PriceGraph } from '@components/prices/PriceGraph'
 import { PriceOracleTable } from '@components/prices/PriceOracleTable'
 import { PriceTickerDetail } from '@components/prices/PriceTickerDetail'
@@ -38,6 +39,9 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
 
       <div className='mt-12 py-12 border-t border-gray-100'>
         <PriceOracleTable {...props} />
+      </div>
+      <div className='mt-20'>
+        <PricingFeedsBySection />
       </div>
     </div>
   )
