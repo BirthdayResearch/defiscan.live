@@ -135,6 +135,54 @@ export const PRICES: Record<string, PriceCopy> = {
     type: 'STOCKS',
     description: 'CD Projekt S.A. ADR',
     icon: require('./images/otgly.png')
+  },
+  'BCH-USD': {
+    id: 'BCH-USD',
+    type: 'CRYPTO',
+    icon: require('./images/bch.png'),
+    description: 'As Bitcoin Cash is a result of a chain split from Bitcoin, it shares much of Bitcoin’s fundamental workings. In fact, they even share the same history.'
+  },
+  'BTC-USD': {
+    id: 'BTC-USD',
+    type: 'CRYPTO',
+    icon: require('./images/btc.png'),
+    description: 'Bitcoin is a cryptocurrency. It is a decentralized digital currency that is based on cryptography. As such, it can operate without the need of a central authority like a central bank or a company. It is unlike government-issued or fiat currencies such as US Dollars or Euro in which they are controlled by the country’s central bank. The decentralized nature allows it to operate on a peer-to-peer network whereby users are able to send funds to each other without going through intermediaries.'
+  },
+  'DFI-USD': {
+    id: 'DFI-USD',
+    type: 'CRYPTO',
+    icon: require('./images/dfi.png'),
+    description: 'DeFiChain is a decentralized blockchain platform dedicated to enable fast, intelligent, and transparent decentralized financial services.'
+  },
+  'DOGE-USD': {
+    id: 'DOGE-USD',
+    type: 'CRYPTO',
+    icon: require('./images/doge.png'),
+    description: 'Dogecoin is a cryptocurrency based on the popular "Doge" Internet meme and features a Shiba Inu on its logo. Dogecoin is a Litecoin fork. Introduced as a "joke currency" on 6 December 2013, Dogecoin quickly developed its own online community and reached a capitalization of US$60 million in January 2014. Compared with other cryptocurrencies, Dogecoin had a fast initial coin production schedule: 100 billion coins were in circulation by mid-2015, with an additional 5.256 billion coins every year thereafter. As of 30 June 2015, the 100 billionth Dogecoin had been mined.'
+  },
+  'ETH-USD': {
+    id: 'ETH-USD',
+    type: 'CRYPTO',
+    icon: require('./images/eth.png'),
+    description: 'Ethereum is a global, open-source platform for decentralized applications. In other words, the vision is to create a world computer that anyone can build applications in a decentralized manner; while all states and data are distributed and publicly accessible.'
+  },
+  'LTC-USD': {
+    id: 'LTC-USD',
+    type: 'CRYPTO',
+    icon: require('./images/ltc.png'),
+    description: 'Litecoin (LTC) is a cryptocurrency that is largely similar to Bitcoin. Fundamentally, Litecoin is also a decentralized cryptocurrency which utilizes similar protocols as Bitcoin except for a few parameter tweaks.'
+  },
+  'USDC-USD': {
+    id: 'USDC-USD',
+    type: 'CRYPTO',
+    icon: require('./images/usdc.png'),
+    description: 'USDC is a fully collateralized US dollar stablecoin. USDC is the bridge between dollars and trading on cryptocurrency exchanges. The technology behind CENTRE makes it possible to exchange value between people, businesses and financial institutions just like email between mail services and texts between SMS providers. We believe by removing artificial economic borders, we can create a more inclusive global economy.'
+  },
+  'USDT-USD': {
+    id: 'USDT-USD',
+    type: 'CRYPTO',
+    icon: require('./images/usdt.png'),
+    description: 'Tether is a stablecoin pegged to the US Dollar. A stablecoin is a type of cryptocurrency whose value is pegged to another fiat currency like the US Dollar or to a commodity like Gold.'
   }
 }
 
