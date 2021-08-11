@@ -8,7 +8,7 @@
     "next",
     "next/core-web-vitals"
   ],
-  "ignorePatterns": ["*.json", "*.png"],
+  "ignorePatterns": ["*.json"],
   "rules": {
     "func-style": [2, "declaration"],
     "no-void": "off",
