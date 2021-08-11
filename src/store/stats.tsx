@@ -62,7 +62,7 @@ export function StatsProvider (props: PropsWithChildren<{}>): JSX.Element {
     fetch()
     const intervalId = setInterval(fetch, interval)
     return () => clearInterval(intervalId)
-  }, [api, interval, dispatch])
+  }, [])
 
   return <>{props.children}</>
 }

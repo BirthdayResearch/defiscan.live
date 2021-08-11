@@ -10,12 +10,14 @@ import { stats } from '@store/stats'
  *
  * Non-global state should be managed independently within their own React Component/Page.
  */
-export function createStore () {
+export function initializeStore (preloadedState?: any) {
   return configureStore({
     reducer: {
       stats: stats.reducer
-    }
+    },
+    preloadedState: preloadedState
   })
 }
 
-export type RootState = ReturnType<ReturnType<typeof createStore>['getState']>
+export type RootStore = ReturnType<typeof initializeStore>
+export type RootState = ReturnType<RootStore['getState']>
