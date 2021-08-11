@@ -1,5 +1,6 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { Head } from '@components/commons/Head'
+import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { getTokenIcon } from '@components/icons/tokens'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { poolpairs } from '@defichain/whale-api-client'
@@ -8,6 +9,7 @@ import { RootState } from '@store/index'
 import BigNumber from 'bignumber.js'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { useState } from 'react'
+import { IoAlertCircle } from 'react-icons/io5'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 
@@ -55,7 +57,16 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
             <AdaptiveTable.Head className='text-right'>TOTAL LIQUIDITY</AdaptiveTable.Head>
             <AdaptiveTable.Head className='text-right'>LIQUIDITY</AdaptiveTable.Head>
             <AdaptiveTable.Head className='text-right'>PRICE RATIO</AdaptiveTable.Head>
-            <AdaptiveTable.Head className='text-right'>APR</AdaptiveTable.Head>
+            <AdaptiveTable.Head>
+              <div className='flex items-center justify-end'>
+                <div>APR</div>
+                <HoverPopover description='On defiscan.live, only block rewards are included in the APR calculation. With commission, the expected APR is much higher. We will update this soon.'>
+                  <div className='p-1 cursor-help'>
+                    <IoAlertCircle className='h-4 w-4 text-black opacity-60 group-hover:text-primary group-hover:opacity-100' />
+                  </div>
+                </HoverPopover>
+              </div>
+            </AdaptiveTable.Head>
           </AdaptiveTable.Header>
 
           {items.map((data) => (
