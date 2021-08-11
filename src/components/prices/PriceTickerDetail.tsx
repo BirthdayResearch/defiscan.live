@@ -90,7 +90,7 @@ export function PriceTickerDetail ({ price }: PriceTickerDetailProps): JSX.Eleme
             </>
           ) : (
             <>
-              <span>Inactive</span>
+              <span>Closed</span>
               <IoAlertCircleOutline className='ml-1 h-4 w-4 text-yellow-600' />
             </>
           )}
