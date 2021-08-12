@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { parseAge } from '../../utils'
-import { TableHeader, TableBody } from '../../components/Table/index'
-import { useWhaleApiClient } from '@contexts'
-import Link from 'next/link'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { AdaptiveTable } from '@components/commons/AdaptiveTable'
+import { Link } from '@components/commons/Link'
 
 export interface Block {
   id: string
@@ -35,14 +35,18 @@ export default function Blocks (): JSX.Element {
 
   function renderBlocks (): JSX.Element[] {
     return blocks.map(block => (
-      <div className='blocks-table-row flex justify-between' key={block.time}>
-        <div className='flex-1'>
-          <Link href={`/blocks/${block.id}/transactions`}><a>{block.height}</a></Link>
-        </div>
-        <div className='flex-1'>{parseAge(block.time)}</div>
-        <div className='flex-1 text-right'>{block.transactionCount}</div>
-        <div className='flex-1 text-right'>{block.size}</div>
-      </div>
+      <AdaptiveTable.Row key={block.id}>
+        <AdaptiveTable.Cell className='text-primary'>
+          <Link href={{ pathname: `/blocks/${block.id}/transactions` }}>
+            <a>{block.height}</a>
+          </Link>
+        </AdaptiveTable.Cell>
+        <AdaptiveTable.Cell>{parseAge(block.time)}</AdaptiveTable.Cell>
+        <AdaptiveTable.Cell>{block.transactionCount}</AdaptiveTable.Cell>
+        <AdaptiveTable.Cell>{block.size}</AdaptiveTable.Cell>
+        <AdaptiveTable.Cell />
+        <AdaptiveTable.Cell>{block.difficulty}</AdaptiveTable.Cell>
+      </AdaptiveTable.Row>
     ))
   }
   const api = useWhaleApiClient()
@@ -60,15 +64,20 @@ export default function Blocks (): JSX.Element {
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      <TableHeader className='justify-between w-screen md:w-2/3'>
-        <div className='flex-1'>Height</div>
-        <div className='flex-1'>Age</div>
-        <div className='flex-1 text-right'>Transactions</div>
-        <div className='flex-1 text-right'>Size</div>
-      </TableHeader>
-      <TableBody className='w-screen md:w-2/3'>
-        {renderBlocks()}
-      </TableBody>
+      <h1 className='font-bold text-2xl'>Blocks</h1>
+      <div className='my-6'>
+        <AdaptiveTable>
+          <AdaptiveTable.Header>
+            <AdaptiveTable.Head className='uppercase'>height</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='uppercase'>age</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='uppercase'>transactions</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='uppercase'>size</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='uppercase'>total value out</AdaptiveTable.Head>
+            <AdaptiveTable.Head className='uppercase'>difficulty</AdaptiveTable.Head>
+          </AdaptiveTable.Header>
+          {renderBlocks()}
+        </AdaptiveTable>
+      </div>
     </div>
   )
 }
