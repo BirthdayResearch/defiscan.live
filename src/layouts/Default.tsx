@@ -1,12 +1,12 @@
 /* eslint-disable no-restricted-imports */
 import { NetworkProvider } from '@contexts/NetworkContext'
 import { PlaygroundProvider } from '@contexts/PlaygroundContext'
+import { StoreProvider } from '@contexts/StoreProvider'
 import { WhaleProvider } from '@contexts/WhaleContext'
 import { StatsProvider } from '@store/stats'
 import Head from 'next/head'
 import { PropsWithChildren } from 'react'
-import { Provider as StoreProvider } from 'react-redux'
-import { createStore } from '../store'
+import { ScanAppProps } from '../pages/_app'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 
@@ -20,9 +20,7 @@ const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoi
  * Followed by <PlaygroundProvider> to automatically swatch between local and remote playground for debug environment.
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
-export function Default (props: PropsWithChildren<any>): JSX.Element | null {
-  const store = createStore()
-
+export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | null {
   return (
     <div className='flex flex-col min-h-screen'>
       <Head>
@@ -46,7 +44,7 @@ export function Default (props: PropsWithChildren<any>): JSX.Element | null {
       <NetworkProvider>
         <PlaygroundProvider>
           <WhaleProvider>
-            <StoreProvider store={store}>
+            <StoreProvider state={props.initialReduxState}>
               <StatsProvider>
                 <Header />
 
