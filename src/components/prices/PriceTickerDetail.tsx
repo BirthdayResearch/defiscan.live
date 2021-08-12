@@ -5,7 +5,7 @@ import { getPriceCopy, PriceCopy } from '@content/prices'
 import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format, formatDistanceToNow } from 'date-fns'
 import Image from 'next/image'
-import { IoAlertCircle, IoAlertCircleOutline, IoCheckmarkCircleOutline } from 'react-icons/io5'
+import { IoAlertCircleOutline } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 
@@ -86,12 +86,10 @@ export function PriceTickerDetail ({ price }: PriceTickerDetailProps): JSX.Eleme
           {isActive(price.price.block) ? (
             <>
               <span>Active</span>
-              <IoCheckmarkCircleOutline className='ml-1 h-4 w-4 text-green-600' />
             </>
           ) : (
             <>
               <span>Closed</span>
-              <IoAlertCircleOutline className='ml-1 h-4 w-4 text-yellow-600' />
             </>
           )}
         </div>
@@ -117,7 +115,7 @@ function H6AlertCircleHoverPopover (props: { name: string, description: string }
       <div className='flex items-center'>
         <HoverPopover description={props.description}>
           <div className='cursor-help group'>
-            <IoAlertCircle className='h-4 w-4 text-black opacity-60 group-hover:text-primary group-hover:opacity-100' />
+            <IoAlertCircleOutline className='h-4 w-4 text-grey-50' />
           </div>
         </HoverPopover>
       </div>
