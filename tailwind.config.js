@@ -7,18 +7,20 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      sans: ['"IBM Plex Sans"', 'sans-serif'],
+      sans: ['"IBM Plex Sans"', 'sans-serif']
     },
     extend: {
       colors: {
-        primary: '#ff00af',
+        primary: '#ff00af'
       }
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      borderRadius: ['first', 'last']
+    }
   },
   plugins: [
-    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/line-clamp')
   ]
 }

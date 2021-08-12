@@ -24,7 +24,6 @@ function parseTimestamp (timestamp: number): string {
 }
 
 export default function TransactionPage (props: TransactionPageProps): JSX.Element {
-  console.log('props', props)
   const {
     transaction: {
       hash,
@@ -36,6 +35,8 @@ export default function TransactionPage (props: TransactionPageProps): JSX.Eleme
       }
     }
   } = props
+
+  const parsedTime = parseTimestamp(time)
 
   return (
     <div className='container mx-auto px-4 py-6'>
@@ -73,7 +74,7 @@ export default function TransactionPage (props: TransactionPageProps): JSX.Eleme
             Mined Time
           </div>
           <div className='mr-8'>
-            {parseTimestamp(time)}
+            {parsedTime}
           </div>
         </ListItem>
         <ListItem>
@@ -98,9 +99,43 @@ export default function TransactionPage (props: TransactionPageProps): JSX.Eleme
             </div>
           </div>
         </ListItem>
+
+      </div>
+      <div className='details-container'>
+        <h2 className='text-xl font-medium' style={{ margin: '1.8rem 0 1rem 0' }}>
+          Details
+        </h2>
+        <div className='details-table rounded p-4 bg-gray-100 border border-gray-100'>
+          <div className='details-table-header flex justify-between pb-4'>
+            <div>
+              {hash}
+            </div>
+
+            <div>
+              Mined {parseTimestamp(time)}
+            </div>
+          </div>
+          <div className='details flex justify-between'>
+            <div className='details-list divide-y-2 divide-gray-100 w-5/12'>
+              <DetailsListItem>
+                hello
+              </DetailsListItem>
+              <DetailsListItem>
+                there
+              </DetailsListItem>
+              <DetailsListItem>
+                world
+              </DetailsListItem>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
+}
+
+function DetailsListItem ({ children }: { children: ReactNode }): JSX.Element {
+  return <div className='bg-white first:rounded-t last:rounded-b pl-4 h-12 flex items-center'>{children}</div>
 }
 
 function ListItem (props: { children: ReactNode }): JSX.Element {
@@ -113,11 +148,13 @@ function ListItem (props: { children: ReactNode }): JSX.Element {
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {
   const api = getWhaleApiClient(context)
-  const txid = context.params?.txid as string
+  // const txid = context.params?.txid as string
+  const [block] = await api.blocks.list()
+  const [transaction] = await api.blocks.getTransactions(block.hash)
 
   return {
     props: {
-      transaction: await api.transactions.get(txid)
+      transaction: await api.transactions.get(transaction.id)
     }
   }
 }
