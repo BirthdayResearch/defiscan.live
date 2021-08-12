@@ -19,7 +19,7 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
 
   return (
     <Link href={{ pathname: `/prices/${id}` }}>
-      <div className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4'>
+      <a className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4'>
         <div className='bg-gray-50 rounded p-6 cursor-pointer'>
           <div className='flex'>
             {copy !== undefined ? (
@@ -72,7 +72,7 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
             </button>
           </div>
         </div>
-      </div>
+      </a>
     </Link>
   )
 }

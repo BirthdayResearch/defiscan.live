@@ -34,7 +34,7 @@ export function Link (props: PropsWithChildren<LinkProps>): JSX.Element {
   }
 
   return (
-    <NextLink {...props}>
+    <NextLink passHref {...props}>
       {props.children}
     </NextLink>
   )

@@ -7,10 +7,10 @@ export function Footer (): JSX.Element {
   return (
     <footer className='mt-12 bg-gray-50'>
       <div className='container mx-auto px-4 py-12'>
-        <Link href={{ pathname: '/' }} passHref>
-          <div className='cursor-pointer'>
+        <Link href={{ pathname: '/' }}>
+          <a className='cursor-pointer'>
             <DeFiChainLogo className='w-28 h-full' />
-          </div>
+          </a>
         </Link>
 
         <div className='mt-4 flex flex-wrap'>
