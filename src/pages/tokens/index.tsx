@@ -8,11 +8,12 @@ import { tokens } from '@defichain/whale-api-client'
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { getTokenIcon } from '@components/icons/tokens'
 import { Head } from '@components/commons/Head'
+import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 
 interface TokensPageData {
   tokens: {
     items: tokens.TokenData[]
-    nextToken: string | null
+    pages: CursorPage[]
   }
 }
 
@@ -34,6 +35,9 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
           <TokenRow data={data} key={data.id} />
         ))}
       </AdaptiveTable>
+      <div className='flex justify-end mt-8'>
+        <CursorPagination pages={tokens.pages} path='/tokens' />
+      </div>
     </div>
   )
 }
@@ -62,12 +66,13 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TokensPageData>> {
-  const items = await getWhaleApiClient(context).tokens.list()
+  const next = CursorPagination.getNext(context)
+  const items = await getWhaleApiClient(context).tokens.list(30, next)
   return {
     props: {
       tokens: {
         items,
-        nextToken: items.nextToken ?? null
+        pages: CursorPagination.getPages(context, items)
       }
     }
   }
