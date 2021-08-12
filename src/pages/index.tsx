@@ -1,10 +1,14 @@
-import { GetServerSidePropsContext } from 'next'
-import PricesPage, { getServerSideProps as getSSP } from './prices'
+import { GetServerSidePropsResult } from 'next'
 
-export default function IndexPage (props: any): JSX.Element {
-  return PricesPage(props)
+export default function HomePage (): JSX.Element {
+  return <></>
 }
 
-export async function getServerSideProps (context: GetServerSidePropsContext): Promise<any> {
-  return await getSSP(context)
+export async function getServerSideProps (): Promise<GetServerSidePropsResult<any>> {
+  return {
+    redirect: {
+      statusCode: 302,
+      destination: '/prices'
+    }
+  }
 }
