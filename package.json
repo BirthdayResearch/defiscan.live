@@ -71,6 +71,6 @@
     "typescript": "4.3.2"
   },
   "lint-staged": {
-    "*.{ts,tsx,js}": "npm run lint"
+    "./src/**/*.{ts,tsx,js}": "npm run lint"
   }
 }
