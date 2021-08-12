@@ -1,4 +1,14 @@
-import PricesPage, { getServerSideProps as gSSP } from './prices'
+import { GetServerSidePropsResult } from 'next'
 
-export default PricesPage
-export const getServerSideProps = gSSP
+export default function HomePage (): JSX.Element {
+  return <></>
+}
+
+export async function getServerSideProps (): Promise<GetServerSidePropsResult<any>> {
+  return {
+    redirect: {
+      statusCode: 302,
+      destination: '/prices'
+    }
+  }
+}

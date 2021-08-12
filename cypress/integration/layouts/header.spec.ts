@@ -1,4 +1,4 @@
-describe('header', () => {
+context('<Header/>', () => {
   beforeEach(function () {
     cy.visit('/?network=MainNet')
   })
