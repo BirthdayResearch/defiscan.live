@@ -69,7 +69,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
               </>
             ) : (
               <>
-                <IoAlertCircleOutline className='h-4 w-4 mr-1 text-yellow-600' />
+                <IoAlertCircleOutline className='h-4 w-4 mr-1 text-gray-500' />
                 <div className='text-sm font-semibold text-black opacity-60'>
                   {aggActive ? 'No Response' : 'Inactive'}
                 </div>
@@ -112,7 +112,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
           {oracleId.substring(0, 8).toUpperCase()}
         </h6>
         <div className='flex items-center mt-1'>
-          <IoAlertCircleOutline className='h-4 w-4 mr-1 text-yellow-600' />
+          <IoAlertCircleOutline className='h-4 w-4 mr-1 text-gray-500' />
           <div className='text-sm font-semibold text-black opacity-60'>
             No Response
           </div>

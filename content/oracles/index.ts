@@ -34,7 +34,7 @@ export const ORACLES: Record<string, OracleCopy> = {
   },
   tiingo: {
     name: 'Tiingo',
-    image: require('./images/tiingo.png'),
+    image: require('./images/tiingo.svg'),
     order: 2,
     url: 'https://www.tiingo.com/'
   },

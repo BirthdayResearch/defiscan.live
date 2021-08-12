@@ -52,7 +52,7 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
               ) : (
                 <HoverPopover description={`Inactive since ${format(price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}>
                   <div className='p-1 cursor-help'>
-                    <IoAlertCircleOutline className='h-4 w-4 text-yellow-500' />
+                    <IoAlertCircleOutline className='h-4 w-4 text-gray-500' />
                   </div>
                 </HoverPopover>
               )}
