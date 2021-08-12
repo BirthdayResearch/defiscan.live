@@ -10,6 +10,7 @@
   ],
   "ignorePatterns": ["*.json"],
   "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off",
     "func-style": [2, "declaration"],
     "no-void": "off",
     "import/no-default-export": "error",

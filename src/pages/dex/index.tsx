@@ -1,4 +1,5 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
+import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { Head } from '@components/commons/Head'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { getTokenIcon } from '@components/icons/tokens'
@@ -8,7 +9,6 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { RootState } from '@store/index'
 import BigNumber from 'bignumber.js'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { useState } from 'react'
 import { IoAlertCircle } from 'react-icons/io5'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
@@ -16,14 +16,12 @@ import { useSelector } from 'react-redux'
 interface DexPageProps {
   poolPairs: {
     items: poolpairs.PoolPairData[]
-    nextToken: string | null
+    pages: CursorPage[]
   }
 }
 
 export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const tvl = useSelector((state: RootState) => state.stats.tvl.dex)
-  const [items] = useState(poolPairs.items)
-  // const [nextToken, setNextToken] = useState(poolPairs.nextToken)
 
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
@@ -69,10 +67,14 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
             </AdaptiveTable.Head>
           </AdaptiveTable.Header>
 
-          {items.map((data) => (
+          {poolPairs.items.map((data) => (
             <PoolPairRow key={data.id} data={data} />
           ))}
         </AdaptiveTable>
+
+        <div className='flex justify-end mt-8'>
+          <CursorPagination pages={poolPairs.pages} path='/dex' />
+        </div>
       </div>
     </div>
   )
@@ -168,12 +170,13 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<DexPageProps>> {
-  const items = await getWhaleApiClient(context).poolpairs.list()
+  const next = CursorPagination.getNext(context)
+  const items = await getWhaleApiClient(context).poolpairs.list(30, next)
   return {
     props: {
       poolPairs: {
         items: items,
-        nextToken: items.nextToken ?? null
+        pages: CursorPagination.getPages(context, items)
       }
     }
   }
