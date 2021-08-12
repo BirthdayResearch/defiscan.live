@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 
 export function AdaptiveTable (props: PropsWithChildren<{ className?: string }>): JSX.Element {
   return (
-    <div className={`lg:border lg:rounded-lg overflow-hidden w-full ${props.className ?? ''}`}>
+    <div data-testid='adaptive_table' className={`lg:border lg:rounded-lg overflow-hidden w-full ${props.className ?? ''}`}>
       <div className='table w-full border-collapse -mt-6 lg:mt-0'>
         <div className='table-row-group space-y-6'>
           {props.children}
@@ -14,7 +14,7 @@ export function AdaptiveTable (props: PropsWithChildren<{ className?: string }>)
 
 function Header (props: PropsWithChildren<{ className?: string }>): JSX.Element {
   return (
-    <div className={`hidden lg:table-row border-gray-200 bg-gray-50 ${props.className ?? ''}`}>
+    <div data-testid='adaptive_header' className={`hidden lg:table-row border-gray-200 bg-gray-50 ${props.className ?? ''}`}>
       {props.children}
     </div>
   )

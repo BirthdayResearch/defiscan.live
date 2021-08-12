@@ -21,8 +21,8 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
 
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
-      <Head title='Tokens'/>
-      <h1 className='text-2xl font-semibold'>Tokens</h1>
+      <Head title='Tokens' />
+      <h1 data-testid='page_title' className='text-2xl font-semibold'>Tokens</h1>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
           <AdaptiveTable.Head className='flex items-center'>TOKEN NAME</AdaptiveTable.Head>
