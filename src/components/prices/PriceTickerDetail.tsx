@@ -115,7 +115,7 @@ function H6AlertCircleHoverPopover (props: { name: string, description: string }
       <div className='flex items-center'>
         <HoverPopover description={props.description}>
           <div className='cursor-help group'>
-            <IoAlertCircleOutline className='h-4 w-4 text-grey-50' />
+            <IoAlertCircleOutline className='h-4 w-4 text-gray-500' />
           </div>
         </HoverPopover>
       </div>
