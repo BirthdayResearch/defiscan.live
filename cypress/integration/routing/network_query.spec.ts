@@ -1,11 +1,11 @@
-describe('querystring network', () => {
+context('<Link/> preserve querystring ?network=TestNet', () => {
   beforeEach(function () {
-    cy.visit('/?network=MainNet')
+    cy.visit('/dex?network=TestNet')
   })
 
-  it('should contain network querystring for /', function () {
+  it('should contain network querystring for /dex', function () {
     cy.location().should((loc) => {
-      expect(loc.search).to.contains('network=MainNet')
+      expect(loc.search).to.contains('network=TestNet')
     })
   })
 
@@ -17,7 +17,7 @@ describe('querystring network', () => {
 
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/prices')
-      expect(loc.search).to.contains('network=MainNet')
+      expect(loc.search).to.contains('network=TestNet')
     })
   })
 })
