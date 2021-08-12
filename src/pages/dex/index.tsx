@@ -171,7 +171,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<DexPageProps>> {
   const next = CursorPagination.getNext(context)
-  const items = await getWhaleApiClient(context).poolpairs.list(2, next)
+  const items = await getWhaleApiClient(context).poolpairs.list(30, next)
   return {
     props: {
       poolPairs: {
