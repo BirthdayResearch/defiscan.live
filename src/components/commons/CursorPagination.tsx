@@ -38,13 +38,13 @@ export function CursorPagination (props: CursorPaginationProps): JSX.Element {
   return (
     <div className={props.className}>
       <div className='flex space-x-2'>
-        <NavigateButton path={props.path} {...prev}>
+        <NavigateButton path={props.path} {...prev} type='prev'>
           <MdNavigateBefore className='h-6 w-6' />
         </NavigateButton>
         {pages.map(page => (
           <NumberButton key={page.n} path={props.path} {...page} />
         ))}
-        <NavigateButton path={props.path} {...next}>
+        <NavigateButton path={props.path} {...next} type='next'>
           <MdNavigateNext className='h-6 w-6' />
         </NavigateButton>
       </div>
@@ -74,7 +74,7 @@ function NumberButton (props: CursorPage & { path: string }): JSX.Element {
   )
 }
 
-function NavigateButton (props: PropsWithChildren<{ path: string, cursors: string[] | undefined }>): JSX.Element {
+function NavigateButton (props: PropsWithChildren<{ path: string, cursors: string[] | undefined, type: string }>): JSX.Element {
   if (props.cursors === undefined) {
     return (
       <div className='bg-gray-50 rounded border border-gray-200 text-gray-600 opacity-40 cursor-not-allowed'>
@@ -88,6 +88,7 @@ function NavigateButton (props: PropsWithChildren<{ path: string, cursors: strin
   return (
     <Link href={{ pathname: props.path, query: getQueryFromCursors(props.cursors) }}>
       <a
+        data-testid={`navigate_button_${props.type}`}
         className='bg-gray-50 rounded border border-gray-200 text-gray-600 hover:border-primary hover:text-primary cursor-pointer'
       >
         <div className='h-11 w-11 flex items-center justify-center'>
