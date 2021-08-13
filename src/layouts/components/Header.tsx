@@ -39,10 +39,10 @@ export function Header (): JSX.Element {
           <div className='flex items-center justify-between'>
             <div className='flex'>
               <Link href={{ pathname: '/' }} passHref>
-                <div className='flex items-center cursor-pointer hover:text-primary'>
+                <a className='flex items-center cursor-pointer hover:text-primary'>
                   <DeFiChainLogo className='w-16 h-full' />
                   <h6 className='ml-3 text-xl font-medium'>Scan</h6>
-                </div>
+                </a>
               </Link>
 
               <div className='hidden md:flex flex-wrap'>
@@ -176,11 +176,11 @@ function HeaderNetworkMenu (): JSX.Element {
 function HeaderLink (props: { text: string, pathname: string, className: string }): JSX.Element {
   return (
     <Link href={{ pathname: props.pathname }}>
-      <div className={props.className}>
+      <a className={props.className}>
         <div className='p-2 text-lg hover:text-primary cursor-pointer'>
           {props.text}
         </div>
-      </div>
+      </a>
     </Link>
   )
 }
