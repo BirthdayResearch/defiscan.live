@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { useState } from 'react'
 
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
@@ -18,8 +17,6 @@ interface TokensPageData {
 }
 
 export default function TokensPage ({ tokens }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const [items] = useState(tokens.items)
-
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
       <Head title='Tokens' />
@@ -31,7 +28,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
           <AdaptiveTable.Head className='text-right'>CATEGORY</AdaptiveTable.Head>
           <AdaptiveTable.Head className='text-right flex items-center'>MINTED</AdaptiveTable.Head>
         </AdaptiveTable.Header>
-        {items.map((data: TokenData) => (
+        {tokens.items.map((data: TokenData) => (
           <TokenRow data={data} key={data.id} />
         ))}
       </AdaptiveTable>
@@ -67,7 +64,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TokensPageData>> {
   const next = CursorPagination.getNext(context)
-  const items = await getWhaleApiClient(context).tokens.list(30, next)
+  const items = await getWhaleApiClient(context).tokens.list(20, next)
   return {
     props: {
       tokens: {
