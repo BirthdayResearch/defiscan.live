@@ -4,7 +4,7 @@ describe('blocks page', () => {
   })
 
   it('should have 6 column headers', function () {
-    cy.get('.table-row-group > .hidden > .table-cell').should('have.length', 6)
+    cy.get('.table-row-group > .hidden > .table-cell').should('have.length', 5)
   })
 
   it('should contain the appropriate headers', function () {
@@ -12,7 +12,10 @@ describe('blocks page', () => {
     cy.get('.table-row-group > .hidden > .table-cell:nth-child(2)').should('have.text', 'age')
     cy.get('.table-row-group > .hidden > .table-cell:nth-child(3)').should('have.text', 'transactions')
     cy.get('.table-row-group > .hidden > .table-cell:nth-child(4)').should('have.text', 'size')
-    cy.get('.table-row-group > .hidden > .table-cell:nth-child(5)').should('have.text', 'total value out')
-    cy.get('.table-row-group > .hidden > .table-cell:nth-child(6)').should('have.text', 'difficulty')
+    cy.get('.table-row-group > .hidden > .table-cell:nth-child(5)').should('have.text', 'difficulty')
+  })
+
+  it('should contain the appropriate headers', function () {
+    cy.get('[data-testid=loadMoreButton]').should('have.text', 'Load more')
   })
 })
