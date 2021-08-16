@@ -14,8 +14,4 @@ describe('blocks page', () => {
     cy.get('.table-row-group > .hidden > .table-cell:nth-child(4)').should('have.text', 'size')
     cy.get('.table-row-group > .hidden > .table-cell:nth-child(5)').should('have.text', 'difficulty')
   })
-
-  it('should contain the appropriate headers', function () {
-    cy.get('[data-testid=loadMoreButton]').should('have.text', 'Load more')
-  })
 })
