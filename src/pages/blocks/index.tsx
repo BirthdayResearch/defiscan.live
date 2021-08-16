@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { parseAge } from '../../utils'
-import { useWhaleApiClient } from '@contexts/WhaleContext'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { Link } from '@components/commons/Link'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
+import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 
 const largeNumberSymbols = ['K', 'M', 'B', 'T']
 
@@ -15,12 +16,16 @@ function getLargeNumberNotation (num: number, level: number): string {
   return num < 1000 ? `${num} ${largeNumberSymbols[level]}` : getLargeNumberNotation(num / 1000, level + 1)
 }
 
-export default function Blocks (): JSX.Element {
-  const [blocks, setBlocks] = useState<Block[]>([])
-  const [nextToken, setNextToken] = useState<string | undefined>(undefined)
+interface BlocksPageData {
+  blocks: {
+    items: Block[]
+    pages: CursorPage[]
+  }
+}
 
+export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   function renderBlocks (): JSX.Element[] {
-    return blocks.map(block => (
+    return blocks.items.map(block => (
       <AdaptiveTable.Row key={block.id}>
         <AdaptiveTable.Cell className='text-primary'>
           <Link href={{ pathname: `/blocks/${block.id}/transactions` }}>
@@ -34,17 +39,6 @@ export default function Blocks (): JSX.Element {
       </AdaptiveTable.Row>
     ))
   }
-  const api = useWhaleApiClient()
-
-  async function fetchBlocks (next: string | undefined = undefined): Promise<void> {
-    const res = await api.blocks.list(30, next)
-    setNextToken(res.nextToken)
-    setBlocks([...blocks, ...res])
-  }
-
-  useEffect(() => {
-    fetchBlocks(nextToken).then(() => {}, () => {})
-  }, [])
 
   return (
     <div className='container mx-auto px-4 py-8'>
@@ -61,17 +55,21 @@ export default function Blocks (): JSX.Element {
           {renderBlocks()}
         </AdaptiveTable>
       </div>
-      {
-        nextToken !== undefined &&
-          <button
-            data-testid='loadMoreButton'
-            className='text-primary'
-            type='button'
-            onClick={() => { fetchBlocks(nextToken).then(() => {}, () => {}) }}
-          >
-            Load more
-          </button>
-      }
+      <div className='flex justify-end mt-8'>
+        <CursorPagination pages={blocks.pages} path='/blocks' />
+      </div>
     </div>
   )
+}
+export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlocksPageData>> {
+  const next = CursorPagination.getNext(context)
+  const items = await getWhaleApiClient(context).blocks.list(30, next)
+  return {
+    props: {
+      blocks: {
+        items,
+        pages: CursorPagination.getPages(context, items)
+      }
+    }
+  }
 }
