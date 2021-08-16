@@ -3,32 +3,7 @@ import { parseAge } from '../../utils'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { Link } from '@components/commons/Link'
-
-export interface Block {
-  id: string
-  hash: string
-  previousHash: string
-
-  height: number
-  version: number
-  time: number
-  medianTime: number
-
-  transactionCount: number
-
-  difficulty: number
-
-  masternode: string
-  minter: string
-  minterBlockCount: number
-
-  stakeModifier: string
-  merkleroot: string
-
-  size: number
-  sizeStripped: number
-  weight: number
-}
+import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 
 const largeNumberSymbols = ['K', 'M', 'B', 'T']
 
