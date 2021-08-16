@@ -30,8 +30,19 @@ export interface Block {
   weight: number
 }
 
+const largeNumberSymbols = ['K', 'M', 'B', 'T']
+
+function convertToLargeNumberNotation (num: number): string {
+  return num < 1000 ? num.toString() : getLargeNumberNotation(num / 1000, 0)
+}
+
+function getLargeNumberNotation (num: number, level: number): string {
+  return num < 1000 ? `${num} ${largeNumberSymbols[level]}` : getLargeNumberNotation(num / 1000, level + 1)
+}
+
 export default function Blocks (): JSX.Element {
   const [blocks, setBlocks] = useState<Block[]>([])
+  const [nextToken, setNextToken] = useState<string | undefined>(undefined)
 
   function renderBlocks (): JSX.Element[] {
     return blocks.map(block => (
@@ -41,25 +52,23 @@ export default function Blocks (): JSX.Element {
             <a>{block.height}</a>
           </Link>
         </AdaptiveTable.Cell>
-        <AdaptiveTable.Cell>{parseAge(block.time)}</AdaptiveTable.Cell>
+        <AdaptiveTable.Cell>{parseAge(block.medianTime)}</AdaptiveTable.Cell>
         <AdaptiveTable.Cell>{block.transactionCount}</AdaptiveTable.Cell>
         <AdaptiveTable.Cell>{block.size}</AdaptiveTable.Cell>
-        <AdaptiveTable.Cell />
-        <AdaptiveTable.Cell>{block.difficulty}</AdaptiveTable.Cell>
+        <AdaptiveTable.Cell>{convertToLargeNumberNotation(block.difficulty)}</AdaptiveTable.Cell>
       </AdaptiveTable.Row>
     ))
   }
   const api = useWhaleApiClient()
 
-  const next = undefined
-
-  async function fetchBlocks (): Promise<void> {
+  async function fetchBlocks (next: string | undefined = undefined): Promise<void> {
     const res = await api.blocks.list(30, next)
-    setBlocks(res)
+    setNextToken(res.nextToken)
+    setBlocks([...blocks, ...res])
   }
 
   useEffect(() => {
-    fetchBlocks().then(() => {}, () => {})
+    fetchBlocks(nextToken).then(() => {}, () => {})
   }, [])
 
   return (
@@ -72,12 +81,21 @@ export default function Blocks (): JSX.Element {
             <AdaptiveTable.Head className='uppercase'>age</AdaptiveTable.Head>
             <AdaptiveTable.Head className='uppercase'>transactions</AdaptiveTable.Head>
             <AdaptiveTable.Head className='uppercase'>size</AdaptiveTable.Head>
-            <AdaptiveTable.Head className='uppercase'>total value out</AdaptiveTable.Head>
             <AdaptiveTable.Head className='uppercase'>difficulty</AdaptiveTable.Head>
           </AdaptiveTable.Header>
           {renderBlocks()}
         </AdaptiveTable>
       </div>
+      {
+        nextToken !== undefined &&
+          <button
+            className='text-primary'
+            type='button'
+            onClick={() => { fetchBlocks(nextToken).then(() => {}, () => {}) }}
+          >
+            Load more
+          </button>
+      }
     </div>
   )
 }
