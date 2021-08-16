@@ -127,6 +127,29 @@ export default function TransactionPage (props: TransactionPageProps): JSX.Eleme
                 world
               </DetailsListItem>
             </div>
+            <div className='py-3'>
+              -&gt;
+            </div>
+            <div className='details-list divide-y-2 divide-gray-100 w-5/12 p-1.5'>
+              <DetailsListItem>
+                hello
+              </DetailsListItem>
+              <DetailsListItem>
+                there
+              </DetailsListItem>
+              <DetailsListItem>
+                world
+              </DetailsListItem>
+            </div>
+          </div>
+          <div className='details-table-footer py-1.5 flex justify'>
+            <div className='flex-1 flex'>
+              <div className='bg-gray-300 p-1.5 rounded-sm uppercase'>FEE 0 DFI</div>
+            </div>
+            <div className='flex-1 flex justify-end'>
+              <div className='bg-gray-900 p-1.5 rounded-sm mr-1 text-white uppercase'>0 transactions</div>
+              <div className='bg-gray-300 p-1.5 rounded-sm uppercase'>0 DFI</div>
+            </div>
           </div>
         </div>
       </div>
