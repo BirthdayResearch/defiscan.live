@@ -89,6 +89,7 @@ export default function Blocks (): JSX.Element {
       {
         nextToken !== undefined &&
           <button
+            data-testid='loadMoreButton'
             className='text-primary'
             type='button'
             onClick={() => { fetchBlocks(nextToken).then(() => {}, () => {}) }}
