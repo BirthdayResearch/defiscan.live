@@ -39,18 +39,6 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
       </AdaptiveTable.Row>
     ))
   }
-  const api = useWhaleApiClient()
-
-  const next = undefined
-
-  async function fetchBlocks (): Promise<void> {
-    const res = await api.blocks.list(30, next)
-    setBlocks(res)
-  }
-
-  useEffect(() => {
-    fetchBlocks().then(() => {}, () => {})
-  }, [])
 
   return (
     <div className='container mx-auto px-4 py-8'>
