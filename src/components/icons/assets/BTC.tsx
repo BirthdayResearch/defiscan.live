@@ -1,8 +1,8 @@
 import { SVGProps } from 'react'
 
-export function IconBTC (props: SVGProps<SVGSVGElement>): JSX.Element {
+export function BTC (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <svg width={32} height={32} viewBox='0 0 32 32' {...props}>
+    <svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' {...props}>
       <path
         fill='#F7931A'
         d='M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z'

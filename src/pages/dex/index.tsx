@@ -2,7 +2,7 @@ import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { Head } from '@components/commons/Head'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
-import { getTokenIcon } from '@components/icons/tokens'
+import { getAssetIcon } from '@components/icons/assets'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { poolpairs } from '@defichain/whale-api-client'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -82,16 +82,16 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getTokenIcon(symbolA)
-  const IconB = getTokenIcon(symbolB)
+  const IconA = getAssetIcon(symbolA)
+  const IconB = getAssetIcon(symbolB)
 
   return (
     <AdaptiveTable.Row>
       <AdaptiveTable.Cell title='PAIR' className='align-middle'>
         <div className='flex items-center'>
+          <IconB className='absolute h-8 w-8 ml-6' />
           <IconA className='absolute h-8 w-8' />
-          <IconB className='absolute h-8 w-8 ml-5' />
-          <div className='font-medium ml-16'>
+          <div className='font-medium ml-16 pl-1'>
             {data.symbol}
           </div>
         </div>
