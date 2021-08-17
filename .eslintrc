@@ -8,7 +8,10 @@
     "next",
     "next/core-web-vitals"
   ],
-  "ignorePatterns": ["*.json"],
+  "ignorePatterns": [
+    "*.json",
+    "cypress/**/*.ts"
+  ],
   "rules": {
     "@typescript-eslint/no-non-null-assertion": "off",
     "func-style": [2, "declaration"],
