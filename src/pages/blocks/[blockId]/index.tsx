@@ -1,3 +1,4 @@
+import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
@@ -8,11 +9,16 @@ interface BlockDetailsPageProps {
 
 export default function BlockDetails ({ block }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   console.log('block', block)
+  const { height } = block
   return (
     <div className='container mx-auto px-4 py-8'>
-      <div className='block-details-breadcrumbs'>
-        breadcrumbs
-      </div>
+      <Breadcrumb items={[
+        { path: '/blocks', name: 'Blocks' },
+        { path: `/blocks/${height}`, name: `#${height}`, canonical: true }
+
+      ]}
+      />
+
       <div className='block-details-title'>Title #height</div>
       <div className='block-details-hash'>Hash: __hash__ copy button</div>
       <div className='block-details-table-1'>
