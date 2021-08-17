@@ -2,7 +2,7 @@ import { SVGProps } from 'react'
 
 export function dBTC (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' {...props}>
+    <svg width='1em' height='1em' {...props}>
       <path
         fill='#FDE9D1'
         d='M31.521 19.87c-2.137 8.572-10.82 13.788-19.393 11.651C3.558 29.384-1.659 20.702.479 12.131 2.616 3.56 11.298-1.659 19.87.48c8.573 2.137 13.79 10.82 11.652 19.392z'

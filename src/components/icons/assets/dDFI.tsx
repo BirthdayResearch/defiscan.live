@@ -2,7 +2,7 @@ import { SVGProps } from 'react'
 
 export function dDFI (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' {...props}>
+    <svg width='1em' height='1em' {...props}>
       <circle cx={16} cy={16} r={16} fill='#FFCCEF' />
       <path
         fill='#FF00AF'

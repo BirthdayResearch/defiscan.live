@@ -2,7 +2,7 @@ import { SVGProps } from 'react'
 
 export function dUSDT (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' {...props}>
+    <svg width='1em' height='1em' {...props}>
       <circle cx={16} cy={16} r={16} fill='#D4ECE5' />
       <path
         fill='#26A17B'
