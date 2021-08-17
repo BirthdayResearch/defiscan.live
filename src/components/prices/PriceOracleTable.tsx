@@ -13,7 +13,7 @@ interface PriceOracleTableProps {
 
 export function PriceOracleTable ({ price, oracles }: PriceOracleTableProps): JSX.Element {
   return (
-    <div>
+    <div data-testid='PriceOracleTable'>
       <h2 className='text-2xl font-semibold'>
         Oracles
       </h2>

@@ -4,7 +4,7 @@ import { getPriceCopy, PriceCopy } from '@content/prices'
 import { prices } from '@defichain/whale-api-client'
 import { format } from 'date-fns'
 import Image from 'next/image'
-import { IoAlertCircleOutline, IoCheckmarkCircleOutline } from 'react-icons/io5'
+import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 
@@ -19,7 +19,7 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
 
   return (
     <Link href={{ pathname: `/prices/${id}` }}>
-      <a className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4'>
+      <a className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4' data-testid='PriceFeed'>
         <div className='bg-gray-50 rounded p-6 cursor-pointer'>
           <div className='flex'>
             {copy !== undefined ? (
@@ -46,7 +46,7 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
               {isActive(price.block) ? (
                 <HoverPopover description='Verified by oracles'>
                   <div className='p-1 cursor-help'>
-                    <IoCheckmarkCircleOutline className='h-4 w-4 text-green-500' />
+                    <IoCheckmarkCircle className='h-4 w-4 text-green-500' />
                   </div>
                 </HoverPopover>
               ) : (

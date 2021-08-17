@@ -27,7 +27,7 @@ export function Breadcrumb (props: { items: BreadcrumbItem[] }): JSX.Element {
   const canonical = props.items.filter(value => value.canonical === true)
 
   return (
-    <div className='flex items-center text-black'>
+    <div className='flex items-center text-black' data-testid='Breadcrumb'>
       <Head>
         <SchemaOrgBreadcrumbList items={props.items} />
 

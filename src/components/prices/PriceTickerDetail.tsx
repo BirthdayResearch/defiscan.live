@@ -17,7 +17,7 @@ export function PriceTickerDetail ({ price }: PriceTickerDetailProps): JSX.Eleme
   const copy: PriceCopy | undefined = getPriceCopy(price.id)
 
   return (
-    <div className='pt-4 pb-12'>
+    <div className='pt-4 pb-12' data-testid='PriceTickerDetail'>
       <div className='flex items-start'>
         <div className='flex-shrink-0'>
           {copy !== undefined ? (
