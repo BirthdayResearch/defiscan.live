@@ -23,6 +23,7 @@ context('/prices', () => {
 
   it('should be able to click on a PriceFeed', () => {
     cy.get('[data-testid="PriceFeed"]').first().click()
+    cy.wait(5000)
 
     cy.location().should((loc) => {
       expect(loc.pathname).to.contains('/prices/')
