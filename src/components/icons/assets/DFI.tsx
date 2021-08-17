@@ -1,8 +1,8 @@
 import { SVGProps } from 'react'
 
-export function IconDFI (props: SVGProps<SVGSVGElement>): JSX.Element {
+export function DFI (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <svg width={32} height={32} viewBox='0 0 32 32' {...props}>
+    <svg width='1em' height='1em' {...props}>
       <circle cx={16} cy={16} r={16} fill='#FF00AF' />
       <path
         fill='#FFF'
