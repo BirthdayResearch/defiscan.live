@@ -38,13 +38,13 @@ export function CursorPagination (props: CursorPaginationProps): JSX.Element {
   return (
     <div className={props.className}>
       <div className='flex space-x-2'>
-        <NavigateButton.Prev path={props.path} cursors={prev.cursors}>
+        <NavigateButton.Prev path={props.path} cursors={prev?.cursors}>
           <MdNavigateBefore className='h-6 w-6' />
         </NavigateButton.Prev>
         {pages.map(page => (
           <NumberButton key={page.n} path={props.path} {...page} />
         ))}
-        <NavigateButton.Next path={props.path} cursors={next.cursors}>
+        <NavigateButton.Next path={props.path} cursors={next?.cursors}>
           <MdNavigateNext className='h-6 w-6' />
         </NavigateButton.Next>
       </div>

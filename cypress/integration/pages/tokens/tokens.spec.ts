@@ -12,17 +12,17 @@ describe('Tokens Page', () => {
   })
 
   it('should render tokens information', function () {
-    cy.get('div[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should('have.text', 'Tether USD')
-    cy.get('div[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(2)').should('have.text', 'USDT')
-    cy.get('div[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(2)').should('have.text', 'DAT')
-    cy.get('div[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(4) > div:nth-child(2)').should('exist')
+    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should('have.text', 'Tether USD')
+    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(2)').should('have.text', 'USDT')
+    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(2)').should('have.text', 'DAT')
+    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(4) > div:nth-child(2)').should('exist')
   })
 
   it('should render next list when next button is clicked', function () {
     const firstPage = cy.get('[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => $elem.text())
 
     cy.get('a[data-testid="NavigateButton.Next"]').click().wait(200)
-    cy.get('div[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => {
+    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => {
       expect($elem.text()).not.equals(firstPage)
     })
   })
@@ -34,7 +34,7 @@ describe('Tokens Page', () => {
 
     cy.get('a[data-testid="NavigateButton.Prev"]').click().wait(200)
 
-    cy.get('div[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => {
+    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => {
       expect($elem.text()).not.equals(nextPage)
     })
   })

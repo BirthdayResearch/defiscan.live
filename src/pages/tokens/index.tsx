@@ -1,13 +1,11 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-
-import { getWhaleApiClient } from '@contexts/WhaleContext'
-import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
-import { tokens } from '@defichain/whale-api-client'
-
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
-import { getTokenIcon } from '@components/icons/tokens'
-import { Head } from '@components/commons/Head'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
+import { Head } from '@components/commons/Head'
+import { getAssetIcon } from '@components/icons/assets'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { tokens } from '@defichain/whale-api-client'
+import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 
 interface TokensPageData {
   tokens: {
@@ -28,6 +26,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
           <AdaptiveTable.Head className='text-right'>CATEGORY</AdaptiveTable.Head>
           <AdaptiveTable.Head className='text-right flex items-center'>MINTED</AdaptiveTable.Head>
         </AdaptiveTable.Header>
+
         {tokens.items.map((data: TokenData) => (
           <TokenRow data={data} key={data.id} />
         ))}
@@ -40,7 +39,8 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
 }
 
 function TokenRow ({ data }: { data: TokenData }): JSX.Element {
-  const TokenIcon = getTokenIcon(data.symbol)
+  const TokenIcon = getAssetIcon(data.symbol)
+
   return (
     <AdaptiveTable.Row>
       <AdaptiveTable.Cell title='TOKEN NAME' className='align-middle'>
