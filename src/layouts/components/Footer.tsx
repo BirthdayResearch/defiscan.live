@@ -89,7 +89,7 @@ function FooterSectionSitemap (): JSX.Element {
         </div>
         {/* <FooterInternalLink pathname='/icx' text='ICX' /> */}
         <div className='space-x-2 py-2 w-1/2'>
-          <FooterExternalLink url='https://dex.defichain.com/mainnet/token' text='Tokens' />
+          <FooterInternalLink pathname='/tokens' text='Tokens' />
         </div>
         {/* <FooterInternalLink pathname='/masternodes' text='Masternodes' /> */}
         <div className='space-x-2 py-2 w-1/2'>
