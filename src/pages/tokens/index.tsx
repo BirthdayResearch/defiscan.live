@@ -45,21 +45,6 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
       <AdaptiveTable.Cell title='SYMBOL' className='align-middle'>
         <div className='flex items-center'>
           {(() => {
-            if (data.isLPS) {
-              const [a, b] = data.symbol.split('-')
-              const AssetIconA = getAssetIcon(a)
-              const AssetIconB = getAssetIcon(b)
-              return (
-                <div>
-                  <AssetIconA
-                    className='h-8 w-8 absolute'
-                    style={{ clipPath: 'inset(0 50% 0 0)' }}
-                  />
-                  <AssetIconB className='h-8 w-8' />
-                </div>
-              )
-            }
-
             if (data.isDAT) {
               const AssetIcon = getAssetIcon(data.symbol)
               return <AssetIcon className='h-8 w-8' />
