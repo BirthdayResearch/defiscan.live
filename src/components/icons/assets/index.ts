@@ -24,24 +24,27 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   dUSDC: dUSDC
 }
 
+// TODO(@defich): move assets into it's own repo where anyone can create pull request into.
+//  Following a vector specification guideline, this allows anyone to create PR into that repo.
+
 /**
- * ```ts
- * const Icon = getTokenIcon('DFI')
- * const dIcon = getTokenIcon('dDOGE')
- *
- * return (
- *  <dIcon />
- * )
- * ```
- *
- * TODO(@defich): move assets into it's own repo where anyone can create pull request into.
- *  Following a vector specification guideline, this allows anyone to create PR into that repo.
- *
  * @param {string} symbol of the asset icon
  * @return {(props: SVGProps<SVGSVGElement>) => JSX.Element}
  */
 export function getAssetIcon (symbol: string): (props: SVGProps<SVGSVGElement>) => JSX.Element {
-  return getNativeIcon(`d${symbol}`)
+  const Icon = mapping[`d${symbol}`]
+  if (Icon === undefined) {
+    return _Default(symbol)
+  }
+  return Icon
+}
+
+/**
+ * @param {string} symbol of the token icon, AKA DCT
+ * @return {(props: SVGProps<SVGSVGElement>) => JSX.Element}
+ */
+export function getTokenIcon (symbol: string): (props: { className: string }) => JSX.Element {
+  return _Default(symbol)
 }
 
 /**
