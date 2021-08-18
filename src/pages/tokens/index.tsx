@@ -45,7 +45,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
     <AdaptiveTable.Row>
       <AdaptiveTable.Cell title='TOKEN NAME' className='align-middle'>
         <div className='flex items-center'>
-          <TokenIcon className='mr-2' />
+          <TokenIcon className='h-8 w-8 mr-2' />
           {data.name}
         </div>
       </AdaptiveTable.Cell>
