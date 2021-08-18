@@ -1,11 +1,12 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { Head } from '@components/commons/Head'
-import { getAssetIcon } from '@components/icons/assets'
+import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { tokens } from '@defichain/whale-api-client'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
+import NumberFormat from 'react-number-format'
 
 interface TokensPageData {
   tokens: {
@@ -21,10 +22,10 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
       <h1 data-testid='page_title' className='text-2xl font-semibold'>Tokens</h1>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
-          <AdaptiveTable.Head className='flex items-center'>TOKEN NAME</AdaptiveTable.Head>
-          <AdaptiveTable.Head className='text-right'>SYMBOL</AdaptiveTable.Head>
-          <AdaptiveTable.Head className='text-right'>CATEGORY</AdaptiveTable.Head>
-          <AdaptiveTable.Head className='text-right flex items-center'>MINTED</AdaptiveTable.Head>
+          <AdaptiveTable.Head>TOKEN</AdaptiveTable.Head>
+          <AdaptiveTable.Head>NAME</AdaptiveTable.Head>
+          <AdaptiveTable.Head>CATEGORY</AdaptiveTable.Head>
+          <AdaptiveTable.Head>MINTED</AdaptiveTable.Head>
         </AdaptiveTable.Header>
 
         {tokens.items.map((data: TokenData) => (
@@ -39,24 +40,78 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
 }
 
 function TokenRow ({ data }: { data: TokenData }): JSX.Element {
-  const TokenIcon = getAssetIcon(data.symbol)
-
   return (
     <AdaptiveTable.Row>
-      <AdaptiveTable.Cell title='TOKEN NAME' className='align-middle'>
+      <AdaptiveTable.Cell title='SYMBOL' className='align-middle'>
         <div className='flex items-center'>
-          <TokenIcon className='h-8 w-8 mr-2' />
-          {data.name}
+          {(() => {
+            if (data.isLPS) {
+              const [a, b] = data.symbol.split('-')
+              const AssetIconA = getAssetIcon(a)
+              const AssetIconB = getAssetIcon(b)
+              return (
+                <div>
+                  <AssetIconA
+                    className='h-8 w-8 absolute'
+                    style={{ clipPath: 'inset(0 50% 0 0)' }}
+                  />
+                  <AssetIconB className='h-8 w-8' />
+                </div>
+              )
+            }
+
+            if (data.isDAT) {
+              const AssetIcon = getAssetIcon(data.symbol)
+              return <AssetIcon className='h-8 w-8' />
+            }
+
+            const TokenIcon = getTokenIcon(data.symbol)
+            return <TokenIcon className='h-8 w-8' />
+          })()}
+          <span className='font-medium ml-3'>{data.symbol}</span>
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='SYMBOL' className='align-middle lg:text-right'>
-        <div>{data.symbol}</div>
+      <AdaptiveTable.Cell title='NAME' className='align-middle'>
+        {(() => {
+          if (data.isDAT) {
+            return data.name.replace('Default Defi token', 'DeFi Token')
+          }
+
+          return data.name
+        })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='CATEGORIES' className='align-middle lg:text-right'>
-        <div>{data.isDAT ? 'DAT' : 'LPS'}</div>
+      <AdaptiveTable.Cell title='CATEGORIES' className='align-middle'>
+        {(() => {
+          if (data.isLPS) {
+            return 'LPS'
+          }
+
+          if (data.isDAT) {
+            return 'DAT'
+          }
+
+          return 'DCT'
+        })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='MINTED' className='align-middle lg:text-right'>
-        <div>{data.minted}</div>
+      <AdaptiveTable.Cell title='MINTED' className='align-middle'>
+        {(() => {
+          if (data.isLPS) {
+            return <div>...</div>
+          }
+
+          if (data.id === '0') {
+            return <div>...</div>
+          }
+
+          return (
+            <NumberFormat
+              value={data.minted}
+              displayType='text'
+              thousandSeparator
+              decimalScale={2}
+            />
+          )
+        })()}
       </AdaptiveTable.Cell>
     </AdaptiveTable.Row>
   )
