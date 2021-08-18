@@ -38,15 +38,15 @@ export function CursorPagination (props: CursorPaginationProps): JSX.Element {
   return (
     <div className={props.className}>
       <div className='flex space-x-2'>
-        <NavigateButton path={props.path} {...prev} type='prev'>
+        <NavigateButton.Prev path={props.path} cursors={prev.cursors}>
           <MdNavigateBefore className='h-6 w-6' />
-        </NavigateButton>
+        </NavigateButton.Prev>
         {pages.map(page => (
           <NumberButton key={page.n} path={props.path} {...page} />
         ))}
-        <NavigateButton path={props.path} {...next} type='next'>
+        <NavigateButton.Next path={props.path} cursors={next.cursors}>
           <MdNavigateNext className='h-6 w-6' />
-        </NavigateButton>
+        </NavigateButton.Next>
       </div>
     </div>
   )
@@ -74,7 +74,15 @@ function NumberButton (props: CursorPage & { path: string }): JSX.Element {
   )
 }
 
-function NavigateButton (props: PropsWithChildren<{ path: string, cursors: string[] | undefined, type: string }>): JSX.Element {
+NavigateButton.Prev = (props: PropsWithChildren<{ path: string, cursors: string[] | undefined }>) => {
+  return NavigateButton({ type: 'Prev', ...props })
+}
+
+NavigateButton.Next = (props: PropsWithChildren<{ path: string, cursors: string[] | undefined }>) => {
+  return NavigateButton({ type: 'Next', ...props })
+}
+
+function NavigateButton (props: PropsWithChildren<{ path: string, cursors: string[] | undefined, type: 'Next' | 'Prev' }>): JSX.Element {
   if (props.cursors === undefined) {
     return (
       <div className='bg-gray-50 rounded border border-gray-200 text-gray-600 opacity-40 cursor-not-allowed'>
@@ -88,7 +96,7 @@ function NavigateButton (props: PropsWithChildren<{ path: string, cursors: strin
   return (
     <Link href={{ pathname: props.path, query: getQueryFromCursors(props.cursors) }}>
       <a
-        data-testid={`navigate_button_${props.type}`}
+        data-testid={`NavigateButton${props.type}`}
         className='bg-gray-50 rounded border border-gray-200 text-gray-600 hover:border-primary hover:text-primary cursor-pointer'
       >
         <div className='h-11 w-11 flex items-center justify-center'>
