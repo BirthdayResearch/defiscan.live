@@ -1,41 +1,51 @@
-describe('Tokens Page', () => {
-  beforeEach(function () {
-    cy.visit('/tokens/?network=MainNet')
+context('/tokens on desktop', () => {
+  before(() => {
+    cy.visit('/tokens?network=MainNet')
   })
 
-  it('should render header information', function () {
-    cy.get('h1[data-testid="page_title"]').should('have.text', 'Tokens')
-    cy.get('div[data-testid="AdaptiveTable"] div[data-testid="AdaptiveTable.Header"] > div:nth-child(1)').should('have.text', 'TOKEN NAME')
-    cy.get('div[data-testid="AdaptiveTable"] div[data-testid="AdaptiveTable.Header"] > div:nth-child(2)').should('have.text', 'SYMBOL')
-    cy.get('div[data-testid="AdaptiveTable"] div[data-testid="AdaptiveTable.Header"] > div:nth-child(3)').should('have.text', 'CATEGORY')
-    cy.get('div[data-testid="AdaptiveTable"] div[data-testid="AdaptiveTable.Header"] > div:nth-child(4)').should('have.text', 'MINTED')
+  it('should have heading', () => {
+    cy.get('h1').should('have.text', 'Tokens')
   })
 
-  it('should render tokens information', function () {
-    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should('have.text', 'Tether USD')
-    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(2) > div:nth-child(2)').should('have.text', 'USDT')
-    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(3) > div:nth-child(2)').should('have.text', 'DAT')
-    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(4) > div:nth-child(2)').should('exist')
-  })
-
-  it('should render next list when next button is clicked', function () {
-    const firstPage = cy.get('[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => $elem.text())
-
-    cy.get('a[data-testid="NavigateButton.Next"]').click().wait(200)
-    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => {
-      expect($elem.text()).not.equals(firstPage)
+  it('should have AdaptiveTable header information', function () {
+    cy.findByTestId('AdaptiveTable.Header').then(ele => {
+      cy.wrap(ele).findByText('TOKEN').should('be.visible')
+      cy.wrap(ele).findByText('NAME').should('be.visible')
+      cy.wrap(ele).findByText('CATEGORY').should('be.visible')
+      cy.wrap(ele).findByText('MINTED').should('be.visible')
     })
   })
 
-  it('should render previous list when previous button is clicked', function () {
-    cy.get('a[data-testid="NavigateButton.Next"]').click().wait(200)
-
-    const nextPage = cy.get('[data-testid="AdaptiveTable"]  div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => $elem.text())
-
-    cy.get('a[data-testid="NavigateButton.Prev"]').click().wait(200)
-
-    cy.get('div[data-testid="AdaptiveTable"] div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > div:nth-child(1) > div:nth-child(2)').should(($elem) => {
-      expect($elem.text()).not.equals(nextPage)
+  it('should have Tether in AdaptiveTable', function () {
+    cy.findAllByTestId('AdaptiveTable.Row').eq(3).then(ele => {
+      cy.wrap(ele).findByText('USDT').should('be.visible')
+      cy.wrap(ele).findByText('Tether USD').should('be.visible')
+      cy.wrap(ele).findByText('DAT').should('be.visible')
     })
   })
+
+  it('should CursorPagination.Next and CursorPagination.Prev', function () {
+    const pages: Record<number, string> = {}
+
+    cy.findByTestId('AdaptiveTable').should((ele) => {
+      pages[0] = ele.text()
+    })
+
+    cy.findByTestId('CursorPagination.Next').click()
+    cy.findByTestId('AdaptiveTable').should((ele) => {
+      pages[1] = ele.text()
+
+      expect(pages[1]).not.equals(pages[0])
+    })
+
+    cy.findByTestId('CursorPagination.Prev').click()
+    cy.findByTestId('AdaptiveTable').should((ele) => {
+      expect(ele.text()).equals(pages[0])
+      expect(ele.text()).not.equals(pages[1])
+    })
+  })
+})
+
+context('/tokens on mobile', () => {
+  // TODO(suraj):
 })

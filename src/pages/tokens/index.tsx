@@ -19,7 +19,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
       <Head title='Tokens' />
-      <h1 data-testid='page_title' className='text-2xl font-semibold'>Tokens</h1>
+      <h1 className='text-2xl font-semibold'>Tokens</h1>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
           <AdaptiveTable.Head>TOKEN</AdaptiveTable.Head>
@@ -53,7 +53,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
             const TokenIcon = getTokenIcon(data.symbol)
             return <TokenIcon className='h-8 w-8' />
           })()}
-          <span className='font-medium ml-3'>{data.symbol}</span>
+          <div className='font-medium ml-3'>{data.symbol}</div>
         </div>
       </AdaptiveTable.Cell>
       <AdaptiveTable.Cell title='NAME' className='align-middle'>
@@ -65,7 +65,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
           return data.name
         })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='CATEGORIES' className='align-middle'>
+      <AdaptiveTable.Cell title='CATEGORY' className='align-middle'>
         {(() => {
           if (data.isLPS) {
             return 'LPS'

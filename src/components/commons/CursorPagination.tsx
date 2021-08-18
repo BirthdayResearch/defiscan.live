@@ -96,7 +96,7 @@ function NavigateButton (props: PropsWithChildren<{ path: string, cursors: strin
   return (
     <Link href={{ pathname: props.path, query: getQueryFromCursors(props.cursors) }}>
       <a
-        data-testid={`NavigateButton${props.type}`}
+        data-testid={`CursorPagination.${props.type}`}
         className='bg-gray-50 rounded border border-gray-200 text-gray-600 hover:border-primary hover:text-primary cursor-pointer'
       >
         <div className='h-11 w-11 flex items-center justify-center'>
