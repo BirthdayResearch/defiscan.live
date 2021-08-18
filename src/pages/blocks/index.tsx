@@ -1,20 +1,13 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { parseAge } from '../../utils'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
-import { AdaptiveTable } from '@components/commons/AdaptiveTable'
-import { Link } from '@components/commons/Link'
-import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
-
-const largeNumberSymbols = ['K', 'M', 'B', 'T']
-
-function convertToLargeNumberNotation (num: number): string {
-  return num < 1000 ? num.toString() : getLargeNumberNotation(num / 1000, 0)
-}
-
-function getLargeNumberNotation (num: number, level: number): string {
-  return num < 1000 ? `${num} ${largeNumberSymbols[level]}` : getLargeNumberNotation(num / 1000, level + 1)
-}
+import { Head } from '@components/commons/Head'
+import { Link } from '@components/commons/Link'
+import { OverflowTable } from '@components/commons/OverflowTable'
+import { UnitSuffix } from '@components/commons/UnitSuffix'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { Block } from '@defichain/whale-api-client/dist/api/blocks'
+import { formatDistanceToNow } from 'date-fns'
+import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
+import NumberFormat from 'react-number-format'
 
 interface BlocksPageData {
   blocks: {
@@ -24,36 +17,26 @@ interface BlocksPageData {
 }
 
 export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  function renderBlocks (): JSX.Element[] {
-    return blocks.items.map(block => (
-      <AdaptiveTable.Row key={block.id}>
-        <AdaptiveTable.Cell className='text-primary'>
-          <Link href={{ pathname: `/blocks/${block.id}/transactions` }}>
-            <a>{block.height}</a>
-          </Link>
-        </AdaptiveTable.Cell>
-        <AdaptiveTable.Cell>{parseAge(block.medianTime)}</AdaptiveTable.Cell>
-        <AdaptiveTable.Cell>{block.transactionCount}</AdaptiveTable.Cell>
-        <AdaptiveTable.Cell>{block.size}</AdaptiveTable.Cell>
-        <AdaptiveTable.Cell>{convertToLargeNumberNotation(block.difficulty)}</AdaptiveTable.Cell>
-      </AdaptiveTable.Row>
-    ))
-  }
-
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <h1 className='font-bold text-2xl'>Blocks</h1>
+    <div className='container mx-auto px-4 pt-12 pb-20'>
+      <Head title='Blocks' />
+      <h1 className='text-2xl font-semibold'>Blocks</h1>
+
       <div className='my-6'>
-        <AdaptiveTable>
-          <AdaptiveTable.Header>
-            <AdaptiveTable.Head className='uppercase'>height</AdaptiveTable.Head>
-            <AdaptiveTable.Head className='uppercase'>age</AdaptiveTable.Head>
-            <AdaptiveTable.Head className='uppercase'>transactions</AdaptiveTable.Head>
-            <AdaptiveTable.Head className='uppercase'>size</AdaptiveTable.Head>
-            <AdaptiveTable.Head className='uppercase'>difficulty</AdaptiveTable.Head>
-          </AdaptiveTable.Header>
-          {renderBlocks()}
-        </AdaptiveTable>
+        <OverflowTable>
+          <OverflowTable.Header>
+            <OverflowTable.Head sticky>HEIGHT</OverflowTable.Head>
+            <OverflowTable.Head>AGE</OverflowTable.Head>
+            <OverflowTable.Head>TRANSACTIONS</OverflowTable.Head>
+            <OverflowTable.Head>MASTERNODE</OverflowTable.Head>
+            <OverflowTable.Head>SIZE (B)</OverflowTable.Head>
+            <OverflowTable.Head>DIFFICULTY</OverflowTable.Head>
+          </OverflowTable.Header>
+
+          {blocks.items.map(block => (
+            <BlockRow block={block} key={block.height} />
+          ))}
+        </OverflowTable>
       </div>
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={blocks.pages} path='/blocks' />
@@ -61,9 +44,37 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
     </div>
   )
 }
+
+function BlockRow ({ block }: { block: Block }): JSX.Element {
+  return (
+    <OverflowTable.Row key={block.id}>
+      <OverflowTable.Cell sticky>
+        <Link href={{ pathname: `/blocks/${block.id}/transactions` }}>
+          <a>{block.height}</a>
+        </Link>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='whitespace-nowrap'>
+        {formatDistanceToNow(block.medianTime * 1000)} ago
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>{block.transactionCount}</OverflowTable.Cell>
+      <OverflowTable.Cell>{block.minter}</OverflowTable.Cell>
+      <OverflowTable.Cell>
+        <NumberFormat
+          value={block.size}
+          fixedDecimalScale
+          thousandSeparator=','
+        />
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
+        <UnitSuffix value={block.difficulty} units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }} />
+      </OverflowTable.Cell>
+    </OverflowTable.Row>
+  )
+}
+
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlocksPageData>> {
   const next = CursorPagination.getNext(context)
-  const items = await getWhaleApiClient(context).blocks.list(30, next)
+  const items = await getWhaleApiClient(context).blocks.list(50, next)
   return {
     props: {
       blocks: {
