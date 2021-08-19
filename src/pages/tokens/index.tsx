@@ -59,7 +59,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
       <AdaptiveTable.Cell title='NAME' className='align-middle'>
         {(() => {
           if (data.isDAT) {
-            return data.name.replace('Default Defi token', 'DeFi Token')
+            return data.name.replace('Default Defi token', 'DeFiChain')
           }
 
           return data.name
