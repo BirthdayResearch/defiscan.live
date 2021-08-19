@@ -19,6 +19,14 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
       <Head title='Tokens' />
+
+      <div className='flex items-center justify-center pb-6'>
+        <div className='bg-pink-50 rounded p-3'>
+          🚧 Work in progress, this is an early iteration of defiscan.live/tokens. Some features are not available and
+          may not work as expected.
+        </div>
+      </div>
+
       <h1 className='text-2xl font-semibold'>Tokens</h1>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
