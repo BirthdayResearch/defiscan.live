@@ -3,8 +3,8 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { MasternodeData } from '@defichain/whale-api-client/dist/api/masternodes'
 import { Head } from '@components/commons/Head'
-import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import NumberFormat from 'react-number-format'
+import { OverflowTable } from '@components/commons/OverflowTable'
 
 interface MasternodesPageProps {
   masternodes: {
@@ -18,20 +18,19 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
     <div className='container mx-auto px-4 pt-12 pb-20'>
       <Head title='Masternodes' />
       <h1 className='text-2xl font-semibold'>Masternodes</h1>
-      <AdaptiveTable className='mt-6'>
-        <AdaptiveTable.Header>
-          <AdaptiveTable.Head>OWNER</AdaptiveTable.Head>
-          <AdaptiveTable.Head>OPERATOR</AdaptiveTable.Head>
-          <AdaptiveTable.Head>CREATION HEIGHT</AdaptiveTable.Head>
-          <AdaptiveTable.Head>RESIGN HEIGHT</AdaptiveTable.Head>
-          <AdaptiveTable.Head>MINTED BLOCKS</AdaptiveTable.Head>
-          <AdaptiveTable.Head>STATE</AdaptiveTable.Head>
-          <AdaptiveTable.Head>TIMELOCK</AdaptiveTable.Head>
-        </AdaptiveTable.Header>
+      <OverflowTable className='mt-6'>
+        <OverflowTable.Header>
+          <OverflowTable.Head sticky>OWNER</OverflowTable.Head>
+          <OverflowTable.Head>OPERATOR</OverflowTable.Head>
+          <OverflowTable.Head>CREATION HEIGHT</OverflowTable.Head>
+          <OverflowTable.Head>RESIGN HEIGHT</OverflowTable.Head>
+          <OverflowTable.Head>MINTED BLOCKS</OverflowTable.Head>
+          <OverflowTable.Head>STATE</OverflowTable.Head>
+        </OverflowTable.Header>
         {masternodes.items.map((mn) => (
           <MasternodeRow data={mn} key={mn.id} />
         ))}
-      </AdaptiveTable>
+      </OverflowTable>
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={masternodes.pages} path='/masternodes' />
       </div>
@@ -41,31 +40,41 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
 
 function MasternodeRow ({ data }: {data: MasternodeData}): JSX.Element {
   return (
-    <AdaptiveTable.Row>
-      <AdaptiveTable.Cell title='OWNER' className='break-all'>
+    <OverflowTable.Row>
+      <OverflowTable.Cell sticky>
         {data.owner.address}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='OPERATOR' className='break-all'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
         {data.operator.address}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='CREATION HEIGHT' className='align-middle'>
-        {data.creation.height}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='RESIGN HEIGHT' className='align-middle'>
-        {data.resign.height}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='MINTED BLOCKS' className='align-middle'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-center'>
+        <NumberFormat
+          value={data.creation.height}
+          fixedDecimalScale
+          displayType='text'
+          thousandSeparator=','
+        />
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
+        <NumberFormat
+          value={data.resign.height}
+          fixedDecimalScale
+          displayType='text'
+          thousandSeparator=','
+        />
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
         <NumberFormat
           value={data.mintedBlocks}
+          fixedDecimalScale
+          thousandSeparator=','
           displayType='text'
-          thousandSeparator
-          decimalScale={2}
         />
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='align-middle'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
         {data.state}
-      </AdaptiveTable.Cell>
-    </AdaptiveTable.Row>
+      </OverflowTable.Cell>
+    </OverflowTable.Row>
   )
 }
 
