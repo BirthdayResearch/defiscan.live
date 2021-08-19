@@ -1,6 +1,5 @@
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { Head } from '@components/commons/Head'
-import { Link } from '@components/commons/Link'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { UnitSuffix } from '@components/commons/UnitSuffix'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
@@ -20,6 +19,14 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
       <Head title='Blocks' />
+
+      <div className='flex items-center justify-center pb-6'>
+        <div className='bg-pink-50 rounded p-3'>
+          🚧 Work in progress, this is an early iteration of defiscan.live/blocks. Some features are not available and
+          may not work as expected.
+        </div>
+      </div>
+
       <h1 className='text-2xl font-semibold'>Blocks</h1>
 
       <div className='my-6'>
@@ -28,7 +35,7 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
             <OverflowTable.Head sticky>HEIGHT</OverflowTable.Head>
             <OverflowTable.Head>AGE</OverflowTable.Head>
             <OverflowTable.Head>TRANSACTIONS</OverflowTable.Head>
-            <OverflowTable.Head>MASTERNODE</OverflowTable.Head>
+            <OverflowTable.Head>MINTER</OverflowTable.Head>
             <OverflowTable.Head>SIZE (B)</OverflowTable.Head>
             <OverflowTable.Head>DIFFICULTY</OverflowTable.Head>
           </OverflowTable.Header>
@@ -49,9 +56,10 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
   return (
     <OverflowTable.Row key={block.id}>
       <OverflowTable.Cell sticky>
-        <Link href={{ pathname: `/blocks/${block.id}/transactions` }}>
-          <a>{block.height}</a>
-        </Link>
+        {block.height}
+        {/* <Link href={{ pathname: `/blocks/${block.id}/transactions` }}> */}
+        {/*  <a>{block.height}</a> */}
+        {/* </Link> */}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='whitespace-nowrap'>
         {formatDistanceToNow(block.medianTime * 1000)} ago
