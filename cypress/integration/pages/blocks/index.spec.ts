@@ -30,10 +30,11 @@ context('/blocks on desktop', () => {
 
   it('should CursorPagination.Next and CursorPagination.Prev', function () {
     cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+      const pageOneFirstCell = ele[0].innerText
       cy.findByTestId('CursorPagination.Next').click()
       cy.wait(300)
       cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
-        expect(pageTwoCells[0].innerText).not.equals(ele[0].innerText)
+        expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
     })
   })
@@ -64,10 +65,11 @@ context('/blocks on mobile', () => {
 
   it('should CursorPagination.Next and CursorPagination.Prev', function () {
     cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+      const pageOneFirstCell = ele[0].innerText
       cy.findByTestId('CursorPagination.Next').click()
       cy.wait(300)
       cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
-        expect(pageTwoCells[0].innerText).not.equals(ele[0].innerText)
+        expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
     })
   })
