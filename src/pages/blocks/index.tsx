@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { Head } from '@components/commons/Head'
 import { OverflowTable } from '@components/commons/OverflowTable'
@@ -52,7 +53,27 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
   )
 }
 
+function OverflowTableIntervalUpdateCell (props: { callback: (setState: (value: any) => void) => () => void, interval: number }): JSX.Element {
+  const { callback, interval } = props
+  const [value, setValue] = useState()
+
+  useEffect(() => {
+    const i = setInterval(callback(setValue), interval)
+    return () => {
+      clearInterval(i)
+    }
+  })
+
+  return <OverflowTable.Cell>{value}</OverflowTable.Cell>
+}
+
 function BlockRow ({ block }: { block: Block }): JSX.Element {
+  function intervalDistanceToNowUpdate (setState: (value: any) => void) {
+    return () => {
+      setState(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
+    }
+  }
+
   return (
     <OverflowTable.Row key={block.id}>
       <OverflowTable.Cell sticky>
@@ -61,9 +82,10 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
         {/*  <a>{block.height}</a> */}
         {/* </Link> */}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='whitespace-nowrap'>
-        {formatDistanceToNow(block.medianTime * 1000)} ago
-      </OverflowTable.Cell>
+      <OverflowTableIntervalUpdateCell
+        callback={intervalDistanceToNowUpdate}
+        interval={3000}
+      />
       <OverflowTable.Cell>{block.transactionCount}</OverflowTable.Cell>
       <OverflowTable.Cell>{block.minter}</OverflowTable.Cell>
       <OverflowTable.Cell>
