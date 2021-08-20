@@ -47,7 +47,7 @@ function MasternodeRow ({ data }: {data: MasternodeData}): JSX.Element {
       <OverflowTable.Cell>
         {data.operator.address}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-center'>
+      <OverflowTable.Cell>
         <NumberFormat
           value={data.creation.height}
           fixedDecimalScale
