@@ -32,7 +32,7 @@ context('/blocks on desktop', () => {
     cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
       const pageOneFirstCell = ele[0].innerText
       cy.findByTestId('CursorPagination.Next').click()
-      cy.wait(300)
+      cy.wait(500)
       cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
         expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
@@ -67,7 +67,7 @@ context('/blocks on mobile', () => {
     cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
       const pageOneFirstCell = ele[0].innerText
       cy.findByTestId('CursorPagination.Next').click()
-      cy.wait(300)
+      cy.wait(500)
       cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
         expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
