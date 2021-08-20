@@ -17,6 +17,14 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
       <Head title='Masternodes' />
+
+      <div className='flex items-center justify-center pb-6'>
+        <div className='bg-pink-50 rounded p-3'>
+          🚧 Work in progress, this is an early iteration of defiscan.live/masternodes. Some features are not available and
+          may not work as expected.
+        </div>
+      </div>
+
       <h1 className='text-2xl font-semibold'>Masternodes</h1>
       <OverflowTable className='mt-6'>
         <OverflowTable.Header>
