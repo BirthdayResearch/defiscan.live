@@ -54,7 +54,7 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
 }
 
 function BlockRow ({ block }: { block: Block }): JSX.Element {
-  const [age, setAge] = useState('')
+  const [age, setAge] = useState(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
   useEffect(() => {
     const interval = setInterval(() => {
       setAge(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
