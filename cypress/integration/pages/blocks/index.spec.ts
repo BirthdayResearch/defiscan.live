@@ -29,17 +29,12 @@ context('/blocks on desktop', () => {
   })
 
   it('should CursorPagination.Next and CursorPagination.Prev', function () {
-    const pages: Record<number, string> = {}
-
-    cy.findByTestId('OverflowTable').should((ele) => {
-      pages[0] = ele.text()
-    })
-
-    cy.findByTestId('CursorPagination.Next').click()
-    cy.findByTestId('OverflowTable').should((ele) => {
-      pages[1] = ele.text()
-
-      expect(pages[1]).not.equals(pages[0])
+    cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+      cy.findByTestId('CursorPagination.Next').click()
+      cy.wait(300)
+      cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
+        expect(pageTwoCells[0].innerText).not.equals(ele[0].innerText)
+      })
     })
   })
 })
@@ -68,18 +63,12 @@ context('/blocks on mobile', () => {
   })
 
   it('should CursorPagination.Next and CursorPagination.Prev', function () {
-    const pages: Record<number, string> = {}
-
-    cy.findByTestId('OverflowTable').should((ele) => {
-      pages[0] = ele.text()
-    })
-
-    cy.findByTestId('CursorPagination.Next').click()
-    cy.wait(1000)
-    cy.findByTestId('OverflowTable').should((ele) => {
-      pages[1] = ele.text()
-
-      expect(pages[1]).not.equals(pages[0])
+    cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+      cy.findByTestId('CursorPagination.Next').click()
+      cy.wait(300)
+      cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
+        expect(pageTwoCells[0].innerText).not.equals(ele[0].innerText)
+      })
     })
   })
 })
