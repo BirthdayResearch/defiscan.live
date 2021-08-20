@@ -4,14 +4,14 @@ context('/prices/TSLA-USD', () => {
   })
 
   it('should have <Breadcrumb>', () => {
-    cy.get('[data-testid="Breadcrumb"]')
+    cy.findByTestId('Breadcrumb')
       .should('have.length', 1)
       .should('contain.text', 'Scan')
       .should('contain.text', 'Prices')
   })
 
   it('should have price details in <PriceTickerDetail>', () => {
-    cy.get('[data-testid="PriceTickerDetail"]')
+    cy.findByTestId('PriceTickerDetail')
       .should('contain.text', 'TSLA / USD')
       .should('contain.text', 'STOCKS')
       .should('contain.text', 'Trusted answer')
@@ -27,12 +27,12 @@ context('/prices/TSLA-USD', () => {
 
   context('<PriceOracleTable>', () => {
     it('should have heading', () => {
-      cy.get('[data-testid="PriceOracleTable"]')
+      cy.findByTestId('PriceOracleTable')
         .should('contain.text', 'Oracles')
     })
 
     it('should have table header', () => {
-      cy.get('[data-testid="PriceOracleTable"] thead')
+      cy.findByTestId('PriceOracleTable').get('thead')
         .should('contain.text', "DATE LAST UPDATED")
         .should('contain.text', "ORACLE")
         .should('contain.text', "PRICE")
@@ -41,13 +41,13 @@ context('/prices/TSLA-USD', () => {
     })
 
     it('should have table data', () => {
-      cy.get('[data-testid="PriceOracleTable"] td')
+      cy.findByTestId('PriceOracleTable').get('td')
         .contains(/[a-zA-Z]{3} [0-9]{1,2}, [0-9]{2}:[0-9]{2}:[0-9]{2} (AM|PM)/)
 
-      cy.get('[data-testid="PriceOracleTable"] td')
+      cy.findByTestId('PriceOracleTable').get('td')
         .should('contain.text', '$')
 
-      cy.get('[data-testid="PriceOracleTable"] td')
+      cy.findByTestId('PriceOracleTable').get('td')
         .contains(/[0-f]{64}/)
     })
   })
