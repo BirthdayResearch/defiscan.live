@@ -53,26 +53,16 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
   )
 }
 
-function OverflowTableIntervalUpdateCell (props: { callback: (setState: (value: any) => void) => () => void, interval: number }): JSX.Element {
-  const { callback, interval } = props
-  const [value, setValue] = useState()
-
-  useEffect(() => {
-    const i = setInterval(callback(setValue), interval)
-    return () => {
-      clearInterval(i)
-    }
-  })
-
-  return <OverflowTable.Cell>{value}</OverflowTable.Cell>
-}
-
 function BlockRow ({ block }: { block: Block }): JSX.Element {
-  function intervalDistanceToNowUpdate (setState: (value: any) => void) {
+  const [age, setAge] = useState('')
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAge(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
+    }, 3000)
     return () => {
-      setState(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
+      clearInterval(interval)
     }
-  }
+  }, [])
 
   return (
     <OverflowTable.Row key={block.id}>
@@ -82,10 +72,9 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
         {/*  <a>{block.height}</a> */}
         {/* </Link> */}
       </OverflowTable.Cell>
-      <OverflowTableIntervalUpdateCell
-        callback={intervalDistanceToNowUpdate}
-        interval={3000}
-      />
+      <OverflowTable.Cell>
+        {age}
+      </OverflowTable.Cell>
       <OverflowTable.Cell>{block.transactionCount}</OverflowTable.Cell>
       <OverflowTable.Cell>{block.minter}</OverflowTable.Cell>
       <OverflowTable.Cell>
