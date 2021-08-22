@@ -22,7 +22,9 @@ context('/prices', () => {
   })
 
   it('should be able to click on a PriceFeed', () => {
-    cy.findAllByTestId('PriceFeed').eq(0).click()
+    cy.interceptServerSideWait(() => {
+      cy.findAllByTestId('PriceFeed').eq(0).click()
+    })
 
     cy.location().should((loc) => {
       expect(loc.pathname).to.contains('/prices/')

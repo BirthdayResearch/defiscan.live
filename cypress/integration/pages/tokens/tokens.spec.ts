@@ -31,14 +31,20 @@ context('/tokens on desktop', () => {
       pages[0] = ele.text()
     })
 
-    cy.findByTestId('CursorPagination.Next').click()
+    cy.interceptServerSideWait(() => {
+      cy.findByTestId('CursorPagination.Next').click()
+    })
+
     cy.findByTestId('AdaptiveTable').should((ele) => {
       pages[1] = ele.text()
 
       expect(pages[1]).not.equals(pages[0])
     })
 
-    cy.findByTestId('CursorPagination.Prev').click()
+    cy.interceptServerSideWait(() => {
+      cy.findByTestId('CursorPagination.Prev').click()
+    })
+
     cy.findByTestId('AdaptiveTable').should((ele) => {
       expect(ele.text()).equals(pages[0])
       expect(ele.text()).not.equals(pages[1])
