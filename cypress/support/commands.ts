@@ -13,7 +13,7 @@ declare global {
 }
 
 Cypress.Commands.add('interceptServerSideWait', (exec: () => void) => {
-  cy.intercept('GET', '/_next/data/*').as('nextData')
+  cy.intercept('GET', '/_next/data/**').as('nextData')
   exec()
   cy.wait('@nextData')
 })
