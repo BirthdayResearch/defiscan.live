@@ -28,11 +28,12 @@ context('/blocks on desktop', () => {
     })
   })
 
-  it('should CursorPagination.Next and CursorPagination.Prev', function () {
+  it('should CursorPagination.Next', function () {
     cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
       const pageOneFirstCell = ele[0].innerText
-      cy.findByTestId('CursorPagination.Next').click()
-      cy.wait(500)
+      cy.interceptServerSideWait(() => {
+        cy.findByTestId('CursorPagination.Next').click()
+      })
       cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
         expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
@@ -41,7 +42,6 @@ context('/blocks on desktop', () => {
 })
 
 context('/blocks on mobile', () => {
-
   before(() => {
     cy.visit('/blocks?network=MainNet')
   })
@@ -66,8 +66,9 @@ context('/blocks on mobile', () => {
   it('should CursorPagination.Next and CursorPagination.Prev', function () {
     cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
       const pageOneFirstCell = ele[0].innerText
-      cy.findByTestId('CursorPagination.Next').click()
-      cy.wait(500)
+      cy.interceptServerSideWait(() => {
+        cy.findByTestId('CursorPagination.Next').click()
+      })
       cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
         expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
