@@ -68,7 +68,9 @@ export function Header (): JSX.Element {
           <div className='container mx-auto px-4 pt-2 pb-4 border-b border-gray-100 shadow-sm'>
             <div className='flex flex-col'>
               <HeaderLink className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex' />
+              <HeaderLink className='flex justify-center border-b border-gray-100' text='Blocks' pathname='/blocks' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices' />
+              <HeaderLink className='flex justify-center border-b border-gray-100' text='Tokens' pathname='/tokens' />
             </div>
             <HeaderCountBar className='mt-4 border border-gray-100 rounded p-2 bg-gray-50 flex flex-wrap' />
             <div className='mt-4'>
