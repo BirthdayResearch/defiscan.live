@@ -5,7 +5,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 
-import { getTokenIcon } from '@components/icons/tokens'
+import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 import { IoAlertCircleOutline, IoCheckmarkCircleOutline, IoCopyOutline } from 'react-icons/io5'
 import { useCallback } from 'react'
 import { PoolPairsTable } from '@components/commons/tables/PoolPairs'
@@ -16,8 +16,6 @@ interface TokenAssetPageProps {
 }
 
 export default function TokenAssetPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const TokenIcon = getTokenIcon(props.token.symbol)
-
   const getPoolPairs = useCallback(() => {
     return props.poolPair.filter((pair) => pair.symbol.includes(props.token.symbol))
   }, [props.poolPair, props.token])
@@ -29,11 +27,8 @@ export default function TokenAssetPage (props: InferGetServerSidePropsType<typeo
         { path: `/tokens/${props.token.id}`, name: `${props.token.name}`, hide: false, canonical: true }
       ]}
       />
-      <div className='flex flex-row flex-wrap items-center my-4'>
-        <TokenIcon className='mr-2' />
-        <h1 className='text-2xl font-semibold'>{props.token.name}</h1>
-      </div>
-      <div className='flex flex-col md:flex-row space-x-8'>
+      <PageHeading token={props.token} />
+      <div className='flex flex-col md:flex-row md:space-x-8'>
         <ListLeft token={props.token} />
         <ListRight token={props.token} />
       </div>
@@ -45,40 +40,58 @@ export default function TokenAssetPage (props: InferGetServerSidePropsType<typeo
   )
 }
 
+function PageHeading ({ token }: { token: TokenData }): JSX.Element {
+  if (token.isDAT) {
+    const AssetIcon = getAssetIcon(token.symbol)
+    return (
+      <div className='flex flex-row flex-wrap items-center my-4'>
+        <AssetIcon className='h-8 w-8 mr-2' />
+        <h1 className='text-2xl font-semibold'>{token.name.replace('Default Defi token', 'DeFiChain')}</h1>
+      </div>
+    )
+  }
+  const TokenIcon = getTokenIcon(token.symbol)
+  return (
+    <div className='flex flex-row flex-wrap items-center my-4'>
+      <TokenIcon className='h-8 w-8 mr-2' />
+      <h1 className='text-2xl font-semibold'>{token.name}</h1>
+    </div>
+  )
+}
+
 function ListRight ({ token }: { token: TokenData }): JSX.Element {
   return (
     <AdaptiveList>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Decimal'>
-          {token.decimal}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Decimal'>{token.decimal}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Limit'>
-          {token.limit}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Limit'>{token.limit}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='LPS'>
-          {token.isLPS ? 'Yes' : 'No'}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='LPS'>{token.isLPS ? 'Yes' : 'No'}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
         <AdaptiveList.Cell name='Tradable'>
-          {token.tradeable
-            ? <span className='flex flex-wrap items-center'>Yes <IoCheckmarkCircleOutline className='h-4 w-4 text-green-500 ml-1' /></span>
-            : <span className='flex flex-wrap items-center'>No <IoAlertCircleOutline className='h-4 w-4 text-gray-500 ml-1' /></span>}
+          {(() => {
+            if (token.tradeable) {
+              return (
+                <span className='flex flex-wrap items-center'>Yes <IoCheckmarkCircleOutline className='h-4 w-4 text-green-500 ml-1' />
+                </span>
+              )
+            }
+            return (
+              <span className='flex flex-wrap items-center'>No <IoAlertCircleOutline className='h-4 w-4 text-gray-500 ml-1' />
+              </span>
+            )
+          })()}
         </AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Finalized'>
-          {token.finalized ? 'Yes' : 'No'}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Finalized'>{token.finalized ? 'Yes' : 'No'}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Destruction Height'>
-          {token.destruction.height}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Destruction Height'>{token.destruction.height}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
         <AdaptiveList.Cell name='Destruction TX' className='flex space-x-3 items-center'>
@@ -94,42 +107,33 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
   return (
     <AdaptiveList>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Category'>
-          {token.isDAT ? 'DAT' : 'LPS'}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Category'>{token.isDAT ? 'DAT' : 'LPS'}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Symbol'>
-          {token.symbolKey}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Symbol'>{token.symbolKey}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Net Supply'>
-          {token.limit}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Net Supply'>{token.limit}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
         <AdaptiveList.Cell name='Mintable'>
-          {token.mintable
-            ? <span className='flex flex-wrap items-center'>Yes <IoCheckmarkCircleOutline className='h-4 w-4 text-green-500 ml-1' /></span>
-            : <span className='flex flex-wrap items-center'>No <IoAlertCircleOutline className='h-4 w-4 text-gray-500 ml-1' /></span>}
+          {(() => {
+            if (token.mintable) {
+              return (
+                <span className='flex flex-wrap items-center'>Yes <IoCheckmarkCircleOutline className='h-4 w-4 text-green-500 ml-1' /></span>
+              )
+            }
+            return (
+              <span className='flex flex-wrap items-center'>No <IoAlertCircleOutline className='h-4 w-4 text-gray-500 ml-1' /></span>
+            )
+          })()}
         </AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Minted'>
-          {token.minted}
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Minted'>{token.minted}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Creation Height'>
-          {token.creation.height}
-        </AdaptiveList.Cell>
-      </AdaptiveList.Row>
-      <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Creation Tx' className='flex space-x-3 items-center'>
-          <div className='break-all'>{token.creation.tx}</div>
-          <CopyButton text={token.creation.tx} />
-        </AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Creation Height'>{token.creation.height}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
         <AdaptiveList.Cell name='Creation Tx' className='flex space-x-3 items-center'>

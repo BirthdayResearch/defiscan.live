@@ -7,6 +7,7 @@ import { tokens } from '@defichain/whale-api-client'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
+import { Link } from '@components/commons/Link'
 
 interface TokensPageData {
   tokens: {
@@ -61,7 +62,9 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
             const TokenIcon = getTokenIcon(data.symbol)
             return <TokenIcon className='h-8 w-8' />
           })()}
-          <div className='font-medium ml-3'>{data.symbol}</div>
+          <div className='font-medium ml-3 text-primary'>
+            <Link href={{ pathname: `/tokens/${data.id}` }}>{data.symbol}</Link>
+          </div>
         </div>
       </AdaptiveTable.Cell>
       <AdaptiveTable.Cell title='NAME' className='align-middle'>

@@ -2,7 +2,7 @@ import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { IoAlertCircle } from 'react-icons/io5'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { getTokenIcon } from '@components/icons/tokens'
+import { getTokenIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 
