@@ -46,7 +46,7 @@ function PageHeading ({ token }: { token: TokenData }): JSX.Element {
     return (
       <div className='flex flex-row flex-wrap items-center my-4'>
         <AssetIcon className='h-8 w-8 mr-2' />
-        <h1 className='text-2xl font-semibold'>{token.name.replace('Default Defi token', 'DeFiChain')}</h1>
+        <h1 data-testid='PageHeading' className='text-2xl font-semibold'>{token.name.replace('Default Defi token', 'DeFiChain')}</h1>
       </div>
     )
   }

@@ -3,6 +3,10 @@ context('/tokens/1 (Ether) Desktop', () => {
     cy.visit('/tokens/1?network=MainNet')
   })
 
+  it('should have page header', function () {
+  cy.findByTestId('PageHeading').should('contain.text', 'Ether')
+  })
+
   it('should have <BreadCrums />', function () {
     cy.findByTestId('Breadcrumb')
       .should('have.length', 1)
@@ -41,6 +45,11 @@ context('/tokens/1 (Ether) Mobile', () => {
     cy.viewport('iphone-6')
     cy.visit('/tokens/1?network=MainNet')
   })
+
+  it('should have page header', function () {
+    cy.findByTestId('PageHeading').should('contain.text', 'Ether')
+  })
+
   it('should have <BreadCrums />', function () {
     cy.findByTestId('Breadcrumb')
       .should('have.length', 1)
