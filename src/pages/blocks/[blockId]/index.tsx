@@ -137,6 +137,38 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
       <div className='flex justify-end mt-4'>
         <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}`} />
       </div>
+      <div className='my-6'>
+        <OverflowTable>
+          <OverflowTable.Header>
+            <OverflowTable.Head>HASH</OverflowTable.Head>
+            <OverflowTable.Head>VALUE OUT</OverflowTable.Head>
+            <OverflowTable.Head>TIMESTAMP</OverflowTable.Head>
+            <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
+          </OverflowTable.Header>
+
+          {transactions.map(transaction => {
+            return (
+              <OverflowTable.Row key={transaction.hash}>
+                <OverflowTable.Cell>
+                  {transaction.hash}
+                </OverflowTable.Cell>
+                <OverflowTable.Cell>
+                  {transaction.voutCount}
+                </OverflowTable.Cell>
+                <OverflowTable.Cell>
+                  {transaction.size}
+                </OverflowTable.Cell>
+                <OverflowTable.Cell>
+                  {transaction.weight}
+                </OverflowTable.Cell>
+              </OverflowTable.Row>
+            )
+          })}
+        </OverflowTable>
+      </div>
+      <div className='flex justify-end mt-8'>
+        <CursorPagination pages={pages} path={`/blocks/${block.hash}/transactions`} />
+      </div>
     </div>
   )
 }
