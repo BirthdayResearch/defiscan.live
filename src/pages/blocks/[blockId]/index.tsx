@@ -1,12 +1,19 @@
-import { Fragment, useState, ReactNode } from 'react'
-import { Breadcrumb } from '@components/commons/Breadcrumb'
-import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
-import { Block } from '@defichain/whale-api-client/dist/api/blocks'
+import { useState, ReactNode } from 'react'
 import { MdContentCopy } from 'react-icons/md'
+import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
+
+import { Block } from '@defichain/whale-api-client/dist/api/blocks'
+import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
+
+import { Breadcrumb } from '@components/commons/Breadcrumb'
+import { OverflowTable } from '@components/commons/OverflowTable'
+import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
 
 interface BlockDetailsPageProps {
   block: Block
+  transactions: Transaction[]
+  pages: CursorPage[]
 }
 
 function CopyButton ({ value }: { value: string }): JSX.Element {
@@ -51,9 +58,8 @@ function BlockDetail (props: { children: ReactNode }): JSX.Element {
   )
 }
 
-export default function BlockDetails ({ block }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function BlockDetails ({ block, transactions, pages }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { height, hash } = block
-  console.log('block', block)
 
   const leftBlockDetails = [
     {
@@ -146,6 +152,38 @@ export default function BlockDetails ({ block }: InferGetServerSidePropsType<typ
           {renderBlockDetails(rightBlockDetails)}
         </div>
       </div>
+      <div className='my-6'>
+        <OverflowTable>
+          <OverflowTable.Header>
+            <OverflowTable.Head>HASH</OverflowTable.Head>
+            <OverflowTable.Head>VALUE OUT</OverflowTable.Head>
+            <OverflowTable.Head>TIMESTAMP</OverflowTable.Head>
+            <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
+          </OverflowTable.Header>
+
+          {transactions.map(transaction => {
+            return (
+              <OverflowTable.Row key={transaction.hash}>
+                <OverflowTable.Cell>
+                  {transaction.hash}
+                </OverflowTable.Cell>
+                <OverflowTable.Cell>
+                  {transaction.voutCount}
+                </OverflowTable.Cell>
+                <OverflowTable.Cell>
+                  {transaction.size}
+                </OverflowTable.Cell>
+                <OverflowTable.Cell>
+                  {transaction.weight}
+                </OverflowTable.Cell>
+              </OverflowTable.Row>
+            )
+          })}
+        </OverflowTable>
+      </div>
+      <div className='flex justify-end mt-8'>
+        <CursorPagination pages={pages} path={`/blocks/${block.hash}/transactions`} />
+      </div>
     </div>
   )
 }
@@ -157,9 +195,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const blockId = context.params?.blockId?.toString() as string
   const block = await api.blocks.get(blockId)
 
+  const next = CursorPagination.getNext(context)
+  const transactions = await api.blocks.getTransactions(block.id, 50, next)
+
   return {
     props: {
-      block
+      block,
+      transactions,
+      pages: CursorPagination.getPages(context, transactions)
     }
   }
 }
