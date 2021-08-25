@@ -1,6 +1,6 @@
 context('/blocks/[blockId] on desktop', () => {
   before(() => {
-    cy.visit('/blocks/d912f04251ba8410af8e7056da1a9d495b2bcf21ff70e503ad7c8423c1d7f6e9?network=MainNet')
+    cy.visit('/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet')
   })
 
   beforeEach(() => {
@@ -11,6 +11,10 @@ context('/blocks/[blockId] on desktop', () => {
     cy.get('h1').contains('Block #')
   })
 
+  it('should have heading', () => {
+    cy.findByTestId('block-hash').should('have.text', 'f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7')
+  })
+
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('HASH').should('be.visible')
@@ -18,11 +22,24 @@ context('/blocks/[blockId] on desktop', () => {
       cy.wrap(ele).findByText('CONFIRMATIONS').should('be.visible')
     })
   })
+
+  // it('should CursorPagination.Next', function () {
+  //   cy.wait(500)
+  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+  //     const pageOneFirstCell = ele[0].innerText
+  //     cy.interceptServerSideWait(() => {
+  //       cy.findByTestId('CursorPagination.Next').click()
+  //     })
+  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
+  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
+  //     })
+  //   })
+  // })
 });
 
 context('/blocks/[blockId] on mobile', () => {
   before(() => {
-    cy.visit('/blocks/d912f04251ba8410af8e7056da1a9d495b2bcf21ff70e503ad7c8423c1d7f6e9?network=MainNet')
+    cy.visit('/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet')
   })
 
   beforeEach(() => {
@@ -33,10 +50,27 @@ context('/blocks/[blockId] on mobile', () => {
     cy.get('h1').contains('Block #')
   })
 
+  it('should have heading', () => {
+    cy.findByTestId('block-hash').should('have.text', 'f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7')
+  })
+
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('HASH').should('be.visible')
       cy.wrap(ele).findByText('TIMESTAMP').should('not.be.visible')
     })
   })
+
+  // it('should CursorPagination.Next', function () {
+  //   cy.wait(500)
+  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+  //     const pageOneFirstCell = ele[0].innerText
+  //     cy.interceptServerSideWait(() => {
+  //       cy.findByTestId('CursorPagination.Next').click()
+  //     })
+  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
+  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
+  //     })
+  //   })
+  // })
 })
