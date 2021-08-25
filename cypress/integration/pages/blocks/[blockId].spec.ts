@@ -23,6 +23,10 @@ context('/blocks/[blockId] on desktop', () => {
     cy.findByTestId('block-detail-transactions').should('have.text', '64')
   })
 
+  it('should have block detail timestamp', () => {
+    cy.findByTestId('block-detail-timestamp').should('have.text', 'Aug 25, 2021, 11:33:51 AM')
+  })
+
   it('should have block detail confirmations', () => {
     cy.findByTestId('block-detail-confirmations').should('be.visible')
   })
@@ -97,6 +101,10 @@ context('/blocks/[blockId] on mobile', () => {
 
   it('should have block detail transactions', () => {
     cy.findByTestId('block-detail-transactions').should('have.text', '64')
+  })
+
+  it('should have block detail timestamp', () => {
+    cy.findByTestId('block-detail-timestamp').should('have.text', 'Aug 25, 2021, 11:33:51 AM')
   })
 
   it('should have block detail confirmations', () => {

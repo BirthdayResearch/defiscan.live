@@ -10,7 +10,7 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 
-import { fromUnixTime, format } from 'date-fns'
+import { format } from 'date-fns';
 
 interface BlockDetailsPageProps {
   block: Block
@@ -76,7 +76,7 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
     },
     {
       label: 'Timestamp:',
-      value: `${format(fromUnixTime(block.medianTime), 'PPpp')}`,
+      value: `${block.medianTime}`,
       testId: 'block-detail-timestamp'
     },
     {
