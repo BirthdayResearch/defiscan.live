@@ -205,7 +205,6 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
         <OverflowTable>
           <OverflowTable.Header>
             <OverflowTable.Head>HASH</OverflowTable.Head>
-            <OverflowTable.Head>VALUE OUT</OverflowTable.Head>
             <OverflowTable.Head>TIMESTAMP</OverflowTable.Head>
             <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
           </OverflowTable.Header>
@@ -216,15 +215,12 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
                 <OverflowTable.Cell>
                   {transaction.hash}
                 </OverflowTable.Cell>
-                <OverflowTable.Cell>
-                  {transaction.voutCount}
-                </OverflowTable.Cell>
-                <OverflowTable.Cell>
-                  {transaction.size}
-                </OverflowTable.Cell>
-                <OverflowTable.Cell>
-                  {transaction.weight}
-                </OverflowTable.Cell>
+                {/* <OverflowTable.Cell> */}
+                {/*   {transaction.timestamp */}
+                {/* </OverflowTable.Cell> */}
+                {/* <OverflowTable.Cell> */}
+                {/*   {transaction.confirmations */}
+                {/* </OverflowTable.Cell> */}
               </OverflowTable.Row>
             )
           })}
@@ -248,6 +244,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const next = CursorPagination.getNext(context)
   const transactions = await api.blocks.getTransactions(block.id, 50, next)
+  const blocks = await api.blocks.list()
 
   return {
     props: {
