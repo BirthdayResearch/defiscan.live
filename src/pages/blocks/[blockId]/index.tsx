@@ -163,7 +163,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
         </OverflowTable>
       </div>
       <div className='flex justify-end mt-8'>
-        <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}/transactions`} />
+        <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}`} />
       </div>
     </div>
   )
