@@ -209,7 +209,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
             <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
           </OverflowTable.Header>
 
-          {transactions.map(transaction => {
+          {transactions.items.map(transaction => {
             return (
               <OverflowTable.Row key={transaction.hash}>
                 <OverflowTable.Cell>
@@ -227,7 +227,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
         </OverflowTable>
       </div>
       <div className='flex justify-end mt-8'>
-        <CursorPagination pages={pages} path={`/blocks/${block.hash}/transactions`} />
+        <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}/transactions`} />
       </div>
     </div>
   )
