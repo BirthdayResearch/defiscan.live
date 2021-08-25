@@ -147,6 +147,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const next = CursorPagination.getNext(context)
   const transactions = await api.blocks.getTransactions(block.id, 50, next)
+  const blocks = await api.blocks.list()
 
   return {
     props: {
