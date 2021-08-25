@@ -36,8 +36,8 @@ export function PoolPairsTable ({ poolPairs }: {poolPairs: PoolPairData[]}): JSX
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getTokenIcon(symbolA)
-  const IconB = getTokenIcon(symbolB)
+  const IconA = getAssetIcon(symbolA)
+  const IconB = getAssetIcon(symbolB)
 
   return (
     <AdaptiveTable.Row>
