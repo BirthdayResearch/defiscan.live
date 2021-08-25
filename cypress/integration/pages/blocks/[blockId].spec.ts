@@ -140,4 +140,17 @@ context('/blocks/[blockId] on mobile', () => {
       })
     })
   })
+
+  // it('should CursorPagination.Next', function () {
+  //   cy.wait(500)
+  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+  //     const pageOneFirstCell = ele[0].innerText
+  //     cy.interceptServerSideWait(() => {
+  //       cy.findByTestId('CursorPagination.Next').click()
+  //     })
+  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
+  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
+  //     })
+  //   })
+  // })
 })
