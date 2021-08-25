@@ -13,6 +13,8 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { CopyButton } from '@components/commons/CopyButton'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 
+import { fromUnixTime, format } from 'date-fns'
+
 interface BlockDetailsPageProps {
   block: Block
   transactions: {
