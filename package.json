@@ -27,7 +27,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --headless --browser chrome",
+    "cypress:run": "TZ=UTC cypress run --headless --browser chrome",
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
