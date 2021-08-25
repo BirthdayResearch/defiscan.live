@@ -13,8 +13,10 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 interface BlockDetailsPageProps {
   block: Block
   confirmations: number
-  transactions: Transaction[]
-  pages: CursorPage[]
+  transactions: {
+    items: Transaction[]
+    pages: CursorPage[]
+  }
 }
 
 function CopyButton ({ value }: { value: string }): JSX.Element {
@@ -53,7 +55,7 @@ function CopyButton ({ value }: { value: string }): JSX.Element {
   )
 }
 
-export default function BlockDetails ({ block, confirmations, transactions, pages }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function BlockDetails ({ block, confirmations, transactions }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const leftBlockDetails = [
     // {
     //   label: 'Block Reward:',
@@ -136,7 +138,7 @@ export default function BlockDetails ({ block, confirmations, transactions, page
       ]}
       />
       <h1 className='font-semibold text-2xl'>Block #{block.height}</h1>
-      <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary'> {block.hash} </span> <CopyButton value={block.hash} /></div>
+      <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary' data-testid='block-hash'>{block.hash}</span> <CopyButton value={block.hash} /></div>
       <div className='flex mt-6 gap-x-6'>
         <div className='flex flex-col w-5/12 flex-grow'>
           {renderBlockDetails(leftBlockDetails)}
@@ -153,7 +155,7 @@ export default function BlockDetails ({ block, confirmations, transactions, page
             <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
           </OverflowTable.Header>
 
-          {transactions.map(transaction => {
+          {transactions.items.map(transaction => {
             return (
               <OverflowTable.Row key={transaction.hash}>
                 <OverflowTable.Cell>
@@ -171,7 +173,7 @@ export default function BlockDetails ({ block, confirmations, transactions, page
         </OverflowTable>
       </div>
       <div className='flex justify-end mt-8'>
-        <CursorPagination pages={pages} path={`/blocks/${block.hash}/transactions`} />
+        <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}/transactions`} />
       </div>
     </div>
   )
@@ -192,8 +194,10 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     props: {
       block,
       confirmations: blocks[0].height - block.height,
-      transactions,
-      pages: CursorPagination.getPages(context, transactions)
+      transactions: {
+        items: transactions,
+        pages: CursorPagination.getPages(context, transactions)
+      }
     }
   }
 }
