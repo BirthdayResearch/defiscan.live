@@ -11,8 +11,36 @@ context('/blocks/[blockId] on desktop', () => {
     cy.get('h1').contains('Block #')
   })
 
-  it('should have heading', () => {
+  it('should have block hash', () => {
     cy.findByTestId('block-hash').should('have.text', 'f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7')
+  })
+
+  it('should have block detail height', () => {
+    cy.findByTestId('block-detail-height').should('have.text', '1130580')
+  })
+
+  it('should have block detail transactions', () => {
+    cy.findByTestId('block-detail-transactions').should('have.text', '64')
+  })
+
+  it('should have block detail confirmations', () => {
+    cy.findByTestId('block-detail-confirmations').should('be.visible')
+  })
+
+  it('should have block detail difficulty', () => {
+    cy.findByTestId('block-detail-difficulty').should('have.text', '16893394709.78455')
+  })
+
+  it('should have block detail size', () => {
+    cy.findByTestId('block-detail-size').should('have.text', '18713')
+  })
+  
+  it('should have block detail version', () => {
+    cy.findByTestId('block-detail-version').should('have.text', '536870912')
+  })
+
+  it('should have block detail merkle root', () => {
+    cy.findByTestId('block-detail-merkle-root').should('have.text', 'c0bf8aa08389c89f17296ba1d813f4741e25b7096ba924e0a141b6ea7d48f39e')
   })
 
   it('should have OverflowTable header information', function () {
@@ -23,18 +51,6 @@ context('/blocks/[blockId] on desktop', () => {
     })
   })
 
-  // it('should CursorPagination.Next', function () {
-  //   cy.wait(500)
-  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
-  //     const pageOneFirstCell = ele[0].innerText
-  //     cy.interceptServerSideWait(() => {
-  //       cy.findByTestId('CursorPagination.Next').click()
-  //     })
-  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
-  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
-  //     })
-  //   })
-  // })
 });
 
 context('/blocks/[blockId] on mobile', () => {
@@ -61,16 +77,4 @@ context('/blocks/[blockId] on mobile', () => {
     })
   })
 
-  // it('should CursorPagination.Next', function () {
-  //   cy.wait(500)
-  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
-  //     const pageOneFirstCell = ele[0].innerText
-  //     cy.interceptServerSideWait(() => {
-  //       cy.findByTestId('CursorPagination.Next').click()
-  //     })
-  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
-  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
-  //     })
-  //   })
-  // })
 })

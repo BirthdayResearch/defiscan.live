@@ -63,25 +63,30 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
     // },
     {
       label: 'Height:',
-      value: `${block.height}`
+      value: `${block.height}`,
+      testId: 'block-detail-height'
+
     },
     {
       label: 'Transactions:',
-      value: `${block.transactionCount}`
+      value: `${block.transactionCount}`,
+      testId: 'block-detail-transactions'
     },
     {
       label: 'Timestamp:',
-      value: `${block.medianTime}`
+      value: `${block.medianTime}`,
+      testId: 'block-detail-timestamp'
     },
     {
       label: 'Confirmations:',
-      value: `${confirmations}`
+      value: `${confirmations}`,
+      testId: 'block-detail-confirmations'
     },
     {
       label: 'Merkle Root:',
       content: (
         <>
-          <span className='flex-grow break-all'>{block.merkleroot}</span>
+          <span className='flex-grow break-all' data-testid='block-detail-merkle-root'>{block.merkleroot}</span>
           <CopyButton value={block.merkleroot} />
         </>
       )
@@ -90,16 +95,16 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
 
   const rightBlockDetails = [
     {
-      label: 'Difficult:', value: `${block.difficulty}`
+      label: 'Difficulty:', value: `${block.difficulty}`, testId: 'block-detail-difficulty'
     },
     // {
     //   label: 'Bits:', value: `${block.weight}`
     // },
     {
-      label: 'Size (bytes):', value: `${block.size}`
+      label: 'Size (bytes):', value: `${block.size}`, testId: 'block-detail-size'
     },
     {
-      label: 'Version:', value: `${block.version}`
+      label: 'Version:', value: `${block.version}`, testId: 'block-detail-version'
     }
     // {
     //   label: 'Next Block:', value: `${block.nextBlock.height}`
@@ -110,7 +115,7 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
 
   ]
 
-  function renderBlockDetails (details: Array<{ label: string, content?: JSX.Element, value?: string }>): JSX.Element[] {
+  function renderBlockDetails (details: Array<{ label: string, content?: JSX.Element, value?: string, testId?: string }>): JSX.Element[] {
     return details.map((d) => (
       <div className='px-6 py-4 border first:rounded-t-md last:rounded-b-md flex justify-between' key={d.label}>
         <span className='w-1/3 flex-shrink-0'>
@@ -120,7 +125,7 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
           (d.content != null)
             ? d.content
             : (
-              <span className='flex-grow'>
+              <span className='flex-grow' data-testid={d.testId}>
                 {d.value}
               </span>
             )
