@@ -28,7 +28,7 @@ context('/blocks/[blockId] on desktop', () => {
   })
 
   it('should have block detail timestamp', () => {
-    cy.findByTestId('block-detail-timestamp').should('have.text', 'Aug 25, 2021, 11:33:51 AM')
+    cy.findByTestId('block-detail-timestamp').should('have.text', 'Aug 25, 2021, 3:33:51 AM')
   })
 
   it('should have block detail confirmations', () => {
@@ -125,7 +125,7 @@ context('/blocks/[blockId] on mobile', () => {
   })
 
   it('should have block detail timestamp', () => {
-    cy.findByTestId('block-detail-timestamp').should('have.text', 'Aug 25, 2021, 11:33:51 AM')
+    cy.findByTestId('block-detail-timestamp').should('have.text', 'Aug 25, 2021, 3:33:51 AM')
   })
 
   it('should have block detail confirmations', () => {
