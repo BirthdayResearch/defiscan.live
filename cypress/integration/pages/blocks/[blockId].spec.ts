@@ -1,10 +1,14 @@
 context('/blocks/[blockId] on desktop', () => {
   before(() => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     cy.visit('/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet')
 =======
     cy.visit('/blocks/d912f04251ba8410af8e7056da1a9d495b2bcf21ff70e503ad7c8423c1d7f6e9?network=MainNet')
 >>>>>>> c886189 (Added some tests for block details page.)
+=======
+    cy.visit('/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet')
+>>>>>>> 6cd4324 (Added a test for the hash appear on the screen.)
   })
 
   beforeEach(() => {
@@ -16,6 +20,7 @@ context('/blocks/[blockId] on desktop', () => {
   })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   it('should have block hash', () => {
     cy.findByTestId('block-hash').should('have.text', 'f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7')
   })
@@ -54,6 +59,12 @@ context('/blocks/[blockId] on desktop', () => {
 
 =======
 >>>>>>> c886189 (Added some tests for block details page.)
+=======
+  it('should have heading', () => {
+    cy.findByTestId('block-hash').should('have.text', 'f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7')
+  })
+
+>>>>>>> 6cd4324 (Added a test for the hash appear on the screen.)
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('HASH').should('be.visible')
@@ -61,6 +72,7 @@ context('/blocks/[blockId] on desktop', () => {
       cy.wrap(ele).findByText('CONFIRMATIONS').should('be.visible')
     })
   })
+<<<<<<< HEAD
 <<<<<<< HEAD
 
   it('should CursorPagination.Next', function () {
@@ -77,15 +89,34 @@ context('/blocks/[blockId] on desktop', () => {
   })
 =======
 >>>>>>> c886189 (Added some tests for block details page.)
+=======
+
+  // it('should CursorPagination.Next', function () {
+  //   cy.wait(500)
+  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+  //     const pageOneFirstCell = ele[0].innerText
+  //     cy.interceptServerSideWait(() => {
+  //       cy.findByTestId('CursorPagination.Next').click()
+  //     })
+  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
+  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
+  //     })
+  //   })
+  // })
+>>>>>>> 6cd4324 (Added a test for the hash appear on the screen.)
 });
 
 context('/blocks/[blockId] on mobile', () => {
   before(() => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     cy.visit('/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet')
 =======
     cy.visit('/blocks/d912f04251ba8410af8e7056da1a9d495b2bcf21ff70e503ad7c8423c1d7f6e9?network=MainNet')
 >>>>>>> c886189 (Added some tests for block details page.)
+=======
+    cy.visit('/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet')
+>>>>>>> 6cd4324 (Added a test for the hash appear on the screen.)
   })
 
   beforeEach(() => {
@@ -97,18 +128,25 @@ context('/blocks/[blockId] on mobile', () => {
   })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6cd4324 (Added a test for the hash appear on the screen.)
   it('should have heading', () => {
     cy.findByTestId('block-hash').should('have.text', 'f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7')
   })
 
+<<<<<<< HEAD
 =======
 >>>>>>> c886189 (Added some tests for block details page.)
+=======
+>>>>>>> 6cd4324 (Added a test for the hash appear on the screen.)
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('HASH').should('be.visible')
       cy.wrap(ele).findByText('TIMESTAMP').should('not.be.visible')
     })
   })
+<<<<<<< HEAD
 <<<<<<< HEAD
   it('should have block hash', () => {
     cy.findByTestId('block-hash').should('have.text', 'f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7')
@@ -161,4 +199,19 @@ context('/blocks/[blockId] on mobile', () => {
   })
 =======
 >>>>>>> c886189 (Added some tests for block details page.)
+=======
+
+  // it('should CursorPagination.Next', function () {
+  //   cy.wait(500)
+  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+  //     const pageOneFirstCell = ele[0].innerText
+  //     cy.interceptServerSideWait(() => {
+  //       cy.findByTestId('CursorPagination.Next').click()
+  //     })
+  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
+  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
+  //     })
+  //   })
+  // })
+>>>>>>> 6cd4324 (Added a test for the hash appear on the screen.)
 })
