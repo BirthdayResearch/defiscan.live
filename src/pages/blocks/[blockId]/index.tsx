@@ -15,6 +15,8 @@ import { BsArrowRight } from 'react-icons/bs'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Link } from '@components/commons/Link'
 
+import { fromUnixTime, format } from 'date-fns'
+
 interface BlockDetailsPageProps {
   block: Block
   transactions: {
