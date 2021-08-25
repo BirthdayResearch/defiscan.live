@@ -1,4 +1,4 @@
-import { useState, ReactNode } from 'react'
+import { useState } from 'react'
 import { MdContentCopy } from 'react-icons/md'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 
@@ -12,6 +12,7 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 
 interface BlockDetailsPageProps {
   block: Block
+  confirmations: number
   transactions: Transaction[]
   pages: CursorPage[]
 }
@@ -52,20 +53,12 @@ function CopyButton ({ value }: { value: string }): JSX.Element {
   )
 }
 
-function BlockDetail (props: { children: ReactNode }): JSX.Element {
-  return (
-    <div className='pl-6 py-4 border first:rounded-t-md last:rounded-b-md flex justify-between'>{props.children}</div>
-  )
-}
-
-export default function BlockDetails ({ block, transactions, pages }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { height, hash } = block
-
+export default function BlockDetails ({ block, confirmations, transactions, pages }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const leftBlockDetails = [
-    {
-      label: 'Block Reward:',
-      value: 'xxxx DFI'
-    },
+    // {
+    //   label: 'Block Reward:',
+    //   value: 'xxxx DFI'
+    // },
     {
       label: 'Height:',
       value: `${block.height}`
@@ -80,7 +73,7 @@ export default function BlockDetails ({ block, transactions, pages }: InferGetSe
     },
     {
       label: 'Confirmations:',
-      value: '2712 (placeholder)'
+      value: `${confirmations}`
     },
     {
       label: 'Merkle Root:',
@@ -97,27 +90,27 @@ export default function BlockDetails ({ block, transactions, pages }: InferGetSe
     {
       label: 'Difficult:', value: `${block.difficulty}`
     },
-    {
-      label: 'Bits:', value: `${block.weight}`
-    },
+    // {
+    //   label: 'Bits:', value: `${block.weight}`
+    // },
     {
       label: 'Size (bytes):', value: `${block.size}`
     },
     {
       label: 'Version:', value: `${block.version}`
-    },
-    {
-      label: 'Next Block:', value: `${block.height + 1}`
-    },
-    {
-      label: 'Previous Block:', value: `${block.height - 1}`
     }
+    // {
+    //   label: 'Next Block:', value: `${block.nextBlock.height}`
+    // },
+    // {
+    //   label: 'Previous Block:', value: `${block.prevBlock.height}`
+    // }
 
   ]
 
   function renderBlockDetails (details: Array<{ label: string, content?: JSX.Element, value?: string }>): JSX.Element[] {
     return details.map((d) => (
-      <BlockDetail key={d.label}>
+      <div className='px-6 py-4 border first:rounded-t-md last:rounded-b-md flex justify-between' key={d.label}>
         <span className='w-1/3 flex-shrink-0'>
           {d.label}
         </span>
@@ -130,7 +123,7 @@ export default function BlockDetails ({ block, transactions, pages }: InferGetSe
               </span>
             )
         }
-      </BlockDetail>
+      </div>
     ))
   }
 
@@ -138,12 +131,12 @@ export default function BlockDetails ({ block, transactions, pages }: InferGetSe
     <div className='container mx-auto px-4 py-8'>
       <Breadcrumb items={[
         { path: '/blocks', name: 'Blocks' },
-        { path: `/blocks/${height}`, name: `#${height}`, canonical: true }
+        { path: `/blocks/${block.height}`, name: `#${block.height}`, canonical: true }
 
       ]}
       />
-      <h1 className='font-semibold text-2xl'>Block #{height}</h1>
-      <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary'> {hash} </span> <CopyButton value={hash} /></div>
+      <h1 className='font-semibold text-2xl'>Block #{block.height}</h1>
+      <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary'> {block.hash} </span> <CopyButton value={block.hash} /></div>
       <div className='flex mt-6 gap-x-6'>
         <div className='flex flex-col w-5/12 flex-grow'>
           {renderBlockDetails(leftBlockDetails)}
@@ -156,7 +149,6 @@ export default function BlockDetails ({ block, transactions, pages }: InferGetSe
         <OverflowTable>
           <OverflowTable.Header>
             <OverflowTable.Head>HASH</OverflowTable.Head>
-            <OverflowTable.Head>VALUE OUT</OverflowTable.Head>
             <OverflowTable.Head>TIMESTAMP</OverflowTable.Head>
             <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
           </OverflowTable.Header>
@@ -167,15 +159,12 @@ export default function BlockDetails ({ block, transactions, pages }: InferGetSe
                 <OverflowTable.Cell>
                   {transaction.hash}
                 </OverflowTable.Cell>
-                <OverflowTable.Cell>
-                  {transaction.voutCount}
-                </OverflowTable.Cell>
-                <OverflowTable.Cell>
-                  {transaction.size}
-                </OverflowTable.Cell>
-                <OverflowTable.Cell>
-                  {transaction.weight}
-                </OverflowTable.Cell>
+                {/* <OverflowTable.Cell> */}
+                {/*   {transaction.timestamp */}
+                {/* </OverflowTable.Cell> */}
+                {/* <OverflowTable.Cell> */}
+                {/*   {transaction.confirmations */}
+                {/* </OverflowTable.Cell> */}
               </OverflowTable.Row>
             )
           })}
@@ -197,10 +186,12 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const next = CursorPagination.getNext(context)
   const transactions = await api.blocks.getTransactions(block.id, 50, next)
+  const blocks = await api.blocks.list()
 
   return {
     props: {
       block,
+      confirmations: blocks[0].height - block.height,
       transactions,
       pages: CursorPagination.getPages(context, transactions)
     }
