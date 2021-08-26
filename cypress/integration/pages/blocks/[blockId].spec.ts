@@ -61,6 +61,7 @@ context('/blocks/[blockId] on desktop', () => {
 
   it('should CursorPagination.Next', function () {
     cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
+      cy.scrollTo('bottom')
       const pageOneFirstCell = ele[0].innerText
       cy.interceptServerSideWait(() => {
         cy.findByTestId('CursorPagination.Next').click()
