@@ -57,7 +57,7 @@
     "@cypress/code-coverage": "^3.9.10",
     "@testing-library/cypress": "^8.0.0",
     "@types/lodash": "^4.14.172",
-    "@types/node": "^14.17.10",
+    "@types/node": "^14.17.12",
     "@types/react": "^17.0.19",
     "autoprefixer": "^10.3.1",
     "babel-plugin-istanbul": "^6.0.0",
