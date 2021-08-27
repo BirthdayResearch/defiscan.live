@@ -132,12 +132,19 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
 
   return (
     <div className='container mx-auto px-4 py-8'>
+      <div className='flex items-center justify-center pb-6'>
+        <div className='bg-pink-50 rounded p-3'>
+          🚧 Work in progress, this is an early iteration of defiscan.live/blocks/[blockHash]. Some features are not available and
+          may not work as expected.
+        </div>
+      </div>
       <Breadcrumb items={[
         { path: '/blocks', name: 'Blocks' },
         { path: `/blocks/${block.height}`, name: `#${block.height}`, canonical: true }
 
       ]}
       />
+
       <h1 className='font-semibold text-2xl'>Block #{block.height}</h1>
       <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary' data-testid='block-hash'>{block.hash}</span> <CopyButton text={block.hash} /></div>
       <div className='flex mt-6 gap-x-6'>
