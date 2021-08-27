@@ -1,6 +1,10 @@
-context('/masternodes on desktop', () => {
+context('/masternodes on macbook-16', () => {
   before(() => {
     cy.visit('/masternodes?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('macbook-16')
   })
 
   it('should have heading', () => {
@@ -14,20 +18,18 @@ context('/masternodes on desktop', () => {
       cy.wrap(ele).findByText('CREATION HEIGHT').should('be.visible')
       cy.wrap(ele).findByText('RESIGN HEIGHT').should('be.visible')
       cy.wrap(ele).findByText('MINTED BLOCKS').should('be.visible')
-
-      //should not be visble due to overflow table
-      cy.wrap(ele).findByText('STATE').should('not.be.visible')
+      cy.wrap(ele).findByText('STATE').should('be.visible')
     })
   })
 
   it('should have masternode info in OverflowTable', function () {
     cy.findAllByTestId('OverflowTable.Row').eq(1).then(ele => {
-      cy.wrap(ele).children().should('have.length', 6)
+      cy.wrap(ele).children().should('have.length', 7)
     })
   })
 
-  it('should have 20 masternodes listed', function () {
-    cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 20)
+  it('should have 30 masternodes listed', function () {
+    cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 30)
   })
 
   it('should CursorPagination.Next and CursorPagination.Prev', function () {
@@ -52,10 +54,13 @@ context('/masternodes on desktop', () => {
   })
 })
 
-context('/masternodes on mobile', () => {
+context('/masternodes on iphone-x', () => {
   before(() => {
-    cy.viewport('iphone-x')
     cy.visit('/masternodes?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('iphone-x')
   })
 
   it('should have heading', () => {
@@ -66,19 +71,15 @@ context('/masternodes on mobile', () => {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('OWNER').should('be.visible')
       cy.wrap(ele).findByText('OPERATOR').should('be.visible')
-      cy.wrap(ele).findByText('CREATION HEIGHT').should('be.visible')
-      cy.wrap(ele).findByText('RESIGN HEIGHT').should('be.visible')
-      cy.wrap(ele).findByText('MINTED BLOCKS').should('be.visible')
+      cy.wrap(ele).findByText('CREATION HEIGHT').should('not.be.visible')
+      cy.wrap(ele).findByText('RESIGN HEIGHT').should('not.be.visible')
+      cy.wrap(ele).findByText('MINTED BLOCKS').should('not.be.visible')
       cy.wrap(ele).findByText('STATE').should('not.be.visible')
     })
   })
 
-  it('should have masternode info in OverflowTable', function () {
-    cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 20)
-  })
-
-  it('should have 20 masternodes listed', function () {
-    cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 20)
+  it('should have 30 masternodes listed', function () {
+    cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 30)
   })
 
   it('should CursorPagination.Next and CursorPagination.Prev', function () {
