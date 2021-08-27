@@ -58,9 +58,13 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
             <AdaptiveTable.Head>
               <div className='flex items-center justify-end'>
                 <div>APR</div>
-                <HoverPopover popover='On defiscan.live, only block rewards are included in the APR calculation. With commission, the expected APR is much higher. We will update this soon.'>
+                <HoverPopover
+                  popover='On defiscan.live, only block rewards are included in the APR calculation. With commission, the expected APR is much higher. We will update this soon.'
+                >
                   <div className='p-1 cursor-help'>
-                    <IoAlertCircle className='h-4 w-4 text-black opacity-60 group-hover:text-primary group-hover:opacity-100' />
+                    <IoAlertCircle
+                      className='h-4 w-4 text-black opacity-60 group-hover:text-primary group-hover:opacity-100'
+                    />
                   </div>
                 </HoverPopover>
               </div>
@@ -81,9 +85,8 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
 }
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
-  const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getAssetIcon(symbolA)
-  const IconB = getAssetIcon(symbolB)
+  const IconA = getAssetIcon(data.tokenA.symbol)
+  const IconB = getAssetIcon(data.tokenB.symbol)
 
   return (
     <AdaptiveTable.Row>
@@ -118,7 +121,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             displayType='text'
             thousandSeparator
             decimalScale={0}
-            suffix={` ${symbolA}`}
+            suffix={` ${data.tokenA.symbol}`}
           />
         </div>
         <div>
@@ -127,7 +130,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             displayType='text'
             thousandSeparator
             decimalScale={0}
-            suffix={` ${symbolB}`}
+            suffix={` ${data.tokenB.symbol}`}
           />
         </div>
       </AdaptiveTable.Cell>
@@ -137,7 +140,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             value={new BigNumber(data.priceRatio.ab).toPrecision(4).toString()}
             displayType='text'
             thousandSeparator
-            suffix={` ${symbolA}/${symbolB}`}
+            suffix={` ${data.tokenA.symbol}/${data.tokenB.symbol}`}
           />
         </div>
         <div>
@@ -145,7 +148,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             value={new BigNumber(data.priceRatio.ba).toPrecision(4).toString()}
             displayType='text'
             thousandSeparator
-            suffix={` ${symbolB}/${symbolA}`}
+            suffix={` ${data.tokenA.symbol}/${data.tokenB.symbol}`}
           />
         </div>
       </AdaptiveTable.Cell>
@@ -172,10 +175,15 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<DexPageProps>> {
   const next = CursorPagination.getNext(context)
   const items = await getWhaleApiClient(context).poolpairs.list(30, next)
+  const sorted = items.map(value => ({ sort: Number.parseFloat(value.totalLiquidity.usd ?? '0'), value }))
+    .sort((a, b) => a.sort - b.sort)
+    .reverse()
+    .map(value => value.value)
+
   return {
     props: {
       poolPairs: {
-        items: items,
+        items: sorted,
         pages: CursorPagination.getPages(context, items)
       }
     }
