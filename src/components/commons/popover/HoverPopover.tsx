@@ -1,10 +1,10 @@
 import { JSX } from '@babel/types'
 import { Transition } from '@headlessui/react'
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, ReactNode, useState } from 'react'
 import { usePopper } from 'react-popper'
 
 interface IconPopoverProps {
-  description: string
+  popover: string | ReactNode
 }
 
 export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.Element {
@@ -33,15 +33,25 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
         leaveTo='opacity-0 translate-y-1'
         show
       >
-        {isHover && (
-          <div ref={setPopperEle} style={styles.popper} {...attributes.popper}>
-            <div className='p-2'>
-              <div className='p-3 font-normal text-sm bg-black text-white rounded shadow-md ring-1 ring-gray-200 max-w-xs'>
-                {props.description}
+        {(() => {
+          if (!isHover) {
+            return null
+          }
+
+          return (
+            <div ref={setPopperEle} style={styles.popper} {...attributes.popper}>
+              <div className='p-2'>
+                {typeof props.popover === 'string' ? (
+                  <div
+                    className='p-3 font-normal text-sm bg-black text-white rounded shadow-md ring-1 ring-gray-200 max-w-xs'
+                  >
+                    {props.popover}
+                  </div>
+                ) : props.popover}
               </div>
             </div>
-          </div>
-        )}
+          )
+        })()}
       </Transition>
     </div>
   )
