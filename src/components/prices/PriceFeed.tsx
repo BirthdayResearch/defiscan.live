@@ -44,13 +44,13 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
             </h3>
             <div>
               {isActive(price.block) ? (
-                <HoverPopover description='Verified by oracles'>
+                <HoverPopover popover='Verified by oracles'>
                   <div className='p-1 cursor-help'>
                     <IoCheckmarkCircle className='h-4 w-4 text-green-500' />
                   </div>
                 </HoverPopover>
               ) : (
-                <HoverPopover description={`Inactive since ${format(price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}>
+                <HoverPopover popover={`Inactive since ${format(price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}>
                   <div className='p-1 cursor-help'>
                     <IoAlertCircleOutline className='h-4 w-4 text-gray-500' />
                   </div>

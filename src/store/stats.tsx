@@ -11,10 +11,12 @@ interface StatsState {
     blocks?: number
     tokens?: number
     prices?: number
+    masternodes?: number
   }
   tvl: {
     total?: number
     dex?: number
+    masternodes?: number
   }
   burned: {
     total?: number
@@ -25,13 +27,21 @@ interface StatsState {
   price: {
     usdt?: number
   }
+  masternodes: {
+    locked?: Array<{
+      weeks: number
+      tvl: number
+      count: number
+    }>
+  }
 }
 
 const initialState: StatsState = {
   count: {},
   tvl: {},
   burned: {},
-  price: {}
+  price: {},
+  masternodes: {}
 }
 
 export const stats = createSlice({
@@ -43,6 +53,7 @@ export const stats = createSlice({
       state.tvl = action.payload.tvl
       state.burned = action.payload.burned
       state.price = action.payload.price
+      state.masternodes = action.payload.masternodes
     }
   }
 })
