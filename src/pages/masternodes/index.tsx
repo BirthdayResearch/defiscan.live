@@ -51,11 +51,15 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
 function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
   return (
     <OverflowTable.Row>
-      <OverflowTable.Cell sticky className='break-all' width='w-64'>
-        {data.owner.address}
+      <OverflowTable.Cell sticky>
+        <div className='break-all w-24 md:w-64'>
+          {data.owner.address}
+        </div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='break-all' width='w-64'>
-        {data.operator.address}
+      <OverflowTable.Cell>
+        <div className='break-all w-64'>
+          {data.operator.address}
+        </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <NumberFormat

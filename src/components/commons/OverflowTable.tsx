@@ -58,18 +58,18 @@ function Head (props: PropsWithChildren<{ className?: string, sticky?: boolean }
   )
 }
 
-function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean, width?: string}>): JSX.Element {
+function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean }>): JSX.Element {
   return (
     <OverflowTableContext.Consumer>
       {(left) => (
         <div
           data-testid='OverflowTable.Cell'
-          className={classNames('table-cell py-4 px-6', props.className, props.width, {
+          className={classNames('table-cell py-4 px-6', props.className, {
             'sticky left-0 bg-white': props.sticky!
           })}
         >
           {props.children}
-          <div className={classNames(props.width, {
+          <div className={classNames({
             'h-full absolute inset-y-0 right-0 border-r border-gray-200': props.sticky! && left > 0
           })}
           />
