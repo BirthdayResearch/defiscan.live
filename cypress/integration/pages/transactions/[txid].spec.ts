@@ -31,6 +31,7 @@ context('/transactions/[txid] on desktop', () => {
   it('should have transaction-size', () => {
     cy.findByTestId('transaction-size').should('have.text', '208')
   })
+
 });
 
 context('/transactions/[txid] on mobile', () => {
@@ -48,6 +49,23 @@ context('/transactions/[txid] on mobile', () => {
 
   it('should have summary subtitle', () => {
     cy.findByTestId('summary-subtitle').should('have.text', 'Summary')
+  })
+
+  it('should have details subtitle', () => {
+    cy.findByTestId('details-subtitle').should('have.text', 'Details')
+  })
+  
+  it('should have raw transaction subtitle', () => {
+    cy.findByTestId('raw-transaction-subtitle').should('have.text', 'Raw Transaction')
+  })
+
+  it('should have raw transaction', () => {
+    cy.scrollTo('bottom')
+    cy.findByTestId('raw-transaction').should('be.visible')
+  })
+
+  it('should have transaction-size', () => {
+    cy.findByTestId('transaction-size').should('have.text', '208')
   })
 
 })
