@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { MdContentCopy } from 'react-icons/md'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
@@ -9,6 +8,7 @@ import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { IoCopyOutline } from 'react-icons/io5'
 
 import { fromUnixTime, format } from 'date-fns'
 
@@ -21,16 +21,11 @@ interface BlockDetailsPageProps {
   }
 }
 
-function CopyButton ({ value }: { value: string }): JSX.Element {
+function CopyButton ({ text }: { text: string }): JSX.Element {
   const [open, setOpen] = useState<Boolean>(false)
-  function copy (): void {
-    const input = document.createElement('input')
-    input.value = value
-    document.body.appendChild(input)
-    input.select()
-    document.execCommand('copy')
-    document.body.removeChild(input)
 
+  async function copy (): Promise<void> {
+    await navigator.clipboard.writeText(text)
     setOpen(true)
 
     setTimeout(() => {
@@ -40,9 +35,8 @@ function CopyButton ({ value }: { value: string }): JSX.Element {
 
   return (
     <div className='ml-1'>
-
-      <button className='p-2 rounded bg-gray-100' type='button' onClick={() => { copy() }}>
-        <MdContentCopy />
+      <button className='cursor-pointer outline-none p-1 bg-gray-100 rounded shadow-sm' onClick={copy}>
+        <IoCopyOutline className='h-5 w-5 text-gray-500' />
       </button>
       {
         open === true
@@ -89,7 +83,7 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
       content: (
         <>
           <span className='flex-grow break-all' data-testid='block-detail-merkle-root'>{block.merkleroot}</span>
-          <CopyButton value={block.merkleroot} />
+          <CopyButton text={block.merkleroot} />
         </>
       )
     }
@@ -145,7 +139,7 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
       ]}
       />
       <h1 className='font-semibold text-2xl'>Block #{block.height}</h1>
-      <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary' data-testid='block-hash'>{block.hash}</span> <CopyButton value={block.hash} /></div>
+      <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary' data-testid='block-hash'>{block.hash}</span> <CopyButton text={block.hash} /></div>
       <div className='flex mt-6 gap-x-6'>
         <div className='flex flex-col w-5/12 flex-grow'>
           {renderBlockDetails(leftBlockDetails)}
