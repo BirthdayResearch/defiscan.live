@@ -1,6 +1,6 @@
 context('<Header/>', () => {
   beforeEach(function () {
-    cy.visit('/?network=MainNet')
+    cy.visit('/blocks?network=MainNet')
   })
 
   it('should not contain empty block count', function () {
