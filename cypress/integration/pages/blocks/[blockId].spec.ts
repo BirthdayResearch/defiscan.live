@@ -67,6 +67,7 @@ context('/blocks/[blockId] on desktop', () => {
       cy.interceptServerSideWait(() => {
         cy.findByTestId('CursorPagination.Next').click()
       })
+      cy.wait(500)
       cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
         expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
@@ -188,6 +189,7 @@ context('/blocks/[blockId] on mobile', () => {
       cy.interceptServerSideWait(() => {
         cy.findByTestId('CursorPagination.Next').click()
       })
+      cy.wait(500)
       cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
         expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
