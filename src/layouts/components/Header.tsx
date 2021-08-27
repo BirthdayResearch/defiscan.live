@@ -52,6 +52,7 @@ export function Header (): JSX.Element {
                 <HeaderLink className='ml-4' text='Blocks' pathname='/blocks' />
                 <HeaderLink className='ml-4' text='Prices' pathname='/prices' />
                 <HeaderLink className='ml-4' text='Tokens' pathname='/tokens' />
+                <HeaderLink className='ml-4' text='Masternodes' pathname='/masternodes' />
               </div>
             </div>
             <div className='md:hidden'>
@@ -73,6 +74,7 @@ export function Header (): JSX.Element {
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Blocks' pathname='/blocks' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Tokens' pathname='/tokens' />
+              <HeaderLink className='flex justify-center border-b border-gray-100' text='Masternodes' pathname='/masternodes' />
             </div>
             <HeaderCountBar className='mt-4 border border-gray-100 rounded p-2 bg-gray-50 flex flex-wrap' />
             <div className='mt-4'>
