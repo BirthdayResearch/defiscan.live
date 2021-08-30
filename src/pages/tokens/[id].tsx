@@ -1,24 +1,50 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 import { IoAlertCircleOutline, IoCheckmarkCircleOutline, IoCopyOutline } from 'react-icons/io5'
-import { useCallback } from 'react'
 import { PoolPairsTable } from '@components/commons/tables/PoolPairs'
 
 interface TokenAssetPageProps {
   token: TokenData
-  poolPair: PoolPairData[]
 }
 
 export default function TokenAssetPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const getPoolPairs = useCallback(() => {
-    return props.poolPair.filter((pair) => pair.symbol.includes(props.token.symbol))
-  }, [props.poolPair, props.token])
+  // TODO(@siradji) Fetch poolpairs in upcoming upstreaming
+  const poolpairs: any = [
+    {
+      id: '4',
+      symbol: 'ETH-DFI',
+      name: 'Ether-Default Defi token',
+      status: true,
+      tokenA: {
+        symbol: 'ETH',
+        id: '1',
+        reserve: '9780.54512445',
+        blockCommission: '0'
+      },
+      tokenB: {
+        symbol: 'DFI',
+        id: '0',
+        reserve: '11036692.66519257',
+        blockCommission: '0'
+      },
+      priceRatio: { ab: '0.00088618', ba: '1128.43328513' },
+      commission: '0.002',
+      totalLiquidity: { token: '328409.39535062', usd: '62057496.7252094383473678' },
+      tradeEnabled: true,
+      ownerAddress: '8UAhRuUFCyFUHEPD7qvtj8Zy2HxF5HH5nb',
+      rewardPct: '0.14549',
+      creation: {
+        tx: '9827894c083b77938d13884f0404539daa054a818e0c5019afa1eeff0437a51b',
+        height: 466822
+      },
+      apr: { reward: 0.6353433769288943, total: 0.6353433769288943 }
+    }
+  ]
 
   return (
     <div className='container mx-auto px-4 pt-12 pb-20'>
@@ -34,7 +60,7 @@ export default function TokenAssetPage (props: InferGetServerSidePropsType<typeo
       </div>
       <div className='mt-10'>
         <h1 className='text-2xl font-semibold'>Token Pairs</h1>
-        <PoolPairsTable poolPairs={getPoolPairs()} />
+        <PoolPairsTable poolPairs={poolpairs} />
       </div>
     </div>
   )
@@ -168,11 +194,10 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
   const id = context.params?.id?.toString() as string
   const token = await api.tokens.get(id)
-  const poolPair = await api.poolpairs.list()
+
   return {
     props: {
-      token,
-      poolPair
+      token
     }
   }
 }
