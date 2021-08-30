@@ -17,7 +17,7 @@ export function PoolPairsTable ({ poolPairs }: {poolPairs: PoolPairData[]}): JSX
         <AdaptiveTable.Head>
           <div className='flex items-center justify-end'>
             <div>APR</div>
-            <HoverPopover description='On defiscan.live, only block rewards are included in the APR calculation. With commission, the expected APR is much higher. We will update this soon.'>
+            <HoverPopover popover='On defiscan.live, only block rewards are included in the APR calculation. With commission, the expected APR is much higher. We will update this soon.'>
               <div className='p-1 cursor-help'>
                 <IoAlertCircle className='h-4 w-4 text-black opacity-60 group-hover:text-primary group-hover:opacity-100' />
               </div>
