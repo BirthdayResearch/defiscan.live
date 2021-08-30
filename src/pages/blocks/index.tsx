@@ -82,6 +82,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
           value={block.size}
           fixedDecimalScale
           thousandSeparator=','
+          displayType='text'
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
