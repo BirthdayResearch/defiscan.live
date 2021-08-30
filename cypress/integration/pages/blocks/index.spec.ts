@@ -1,4 +1,4 @@
-context('/blocks on desktop', () => {
+context('/blocks on macbook-13', () => {
   before(() => {
     cy.visit('/blocks?network=MainNet')
   })
@@ -41,7 +41,7 @@ context('/blocks on desktop', () => {
   })
 })
 
-context('/blocks on mobile', () => {
+context('/blocks on iphone-x', () => {
   before(() => {
     cy.visit('/blocks?network=MainNet')
   })

@@ -55,10 +55,15 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<DexPageProps>> {
   const next = CursorPagination.getNext(context)
   const items = await getWhaleApiClient(context).poolpairs.list(30, next)
+  const sorted = items.map(value => ({ sort: Number.parseFloat(value.totalLiquidity.usd ?? '0'), value }))
+    .sort((a, b) => a.sort - b.sort)
+    .reverse()
+    .map(value => value.value)
+
   return {
     props: {
       poolPairs: {
-        items: items,
+        items: sorted,
         pages: CursorPagination.getPages(context, items)
       }
     }
