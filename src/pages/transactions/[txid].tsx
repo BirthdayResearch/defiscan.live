@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { MdContentCopy } from 'react-icons/md'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
-import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
+import { IoArrowForwardOutline } from 'react-icons/io5'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { Container } from '@components/commons/Container'
+import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
+import { Link } from '@components/commons/Link'
+import { VinVoutBlock } from './TransactionDetailBlock'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
 
 interface TransactionPageProps {
   transaction: Transaction
+  confirmations: number
 }
 
 function CopyButton ({ value }: { value: string }): JSX.Element {
@@ -45,22 +49,47 @@ function CopyButton ({ value }: { value: string }): JSX.Element {
   )
 }
 
-export default function TransactionPage ({ transaction }: TransactionPageProps): JSX.Element {
+export default function TransactionPage ({ transaction, confirmations }: TransactionPageProps): JSX.Element {
+  console.log('transaction', transaction)
   const leftDetails = [
     {
-      label: 'Size', value: `${transaction.size}`, testId: 'transaction-size'
+      label: 'Total Amount:', value: ''
     },
     {
-      label: 'Fee Rate', value: ''
+      label: 'Fee:', value: ''
     },
     {
-      label: 'Received Time', value: ''
+      label: 'Confirmations:', value: `${confirmations}`
     },
     {
-      label: 'Included in Block', value: ''
+      label: 'Block Height:',
+      content: (
+        <div className='flex-grow'>
+          <Link href={{ pathname: `/blocks/${transaction.block.height}` }}>
+            <a className='cursor-pointer text-primary'>
+              {transaction.block.height}
+            </a>
+          </Link>
+        </div>
+      )
     },
     {
-      label: 'Custom Transaction Info', value: ''
+      label: 'Custom Transaction:', value: ''
+    }
+  ]
+
+  const rightDetails = [
+    {
+      label: 'Fee Rate:', value: ''
+    },
+    {
+      label: 'Size', value: `${transaction.size} (bytes)`
+    },
+    {
+      label: 'Received Time:', value: ''
+    },
+    {
+      label: 'Mined Time:', value: ''
     }
   ]
 
@@ -90,14 +119,45 @@ export default function TransactionPage ({ transaction }: TransactionPageProps):
       </h1>
       <h2 className='text-xl font-medium mb-6' data-testid='summary-subtitle'>Summary</h2>
       <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary' data-testid='block-hash'>{transaction.hash}</span> <CopyButton value={transaction.hash} /></div>
-      <div className='my-4'>
-        {renderBlockDetails(leftDetails)}
+      <div className='flex mt-6 gap-x-6'>
+        <div className='flex flex-col w-5/12 flex-grow'>
+          {renderBlockDetails(leftDetails)}
+        </div>
+        <div className='flex flex-col w-5/12 flex-grow'>
+          {renderBlockDetails(rightDetails)}
+        </div>
+      </div>
+      <h2 className='text-xl font-medium mt-6' data-testid='details-subtitle'>Details</h2>
+      <div className='flex justify-between mt-4'>
+        <div className='flex-1'>
+          <VinVoutBlock type='INPUT' />
+        </div>
+        <div className='h-20 flex items-center justify-center w-16 flex-grow-0'>
+          <IoArrowForwardOutline size={25} />
+        </div>
+        <div className='flex-1'>
+          <VinVoutBlock
+            type='OUTPUT'
+            descriptionTextPrimary
+            description='dm6EUeoYyVDV6HUcVeSxJGfRapN3wsctVk'
+            amount={62.6433832}
+          />
+        </div>
       </div>
 
-      <h2 className='text-xl font-medium mb-6' data-testid='details-subtitle'>Details</h2>
+      <div className='flex justify-end mt-4 gap-x-4'>
+        <div>
+          <div>Fees: </div>
+          <div>Total: </div>
+        </div>
+        <div className='w-min-content'>
+          <div className='flex justify-end'>0 DFI</div>
+          <div className='flex justify-end'>62.6433832 DFI</div>
+        </div>
+      </div>
 
-      <div className='my-4'>
-        <h2 className='text-xl font-medium mb-6' data-testid='raw-transaction-subtitle'>Raw Transaction</h2>
+      <div className='my-4 mt-6'>
+        <h2 className='text-xl font-medium' data-testid='raw-transaction-subtitle'>Raw Transaction</h2>
       </div>
 
       <div className='font-mono'>
@@ -129,10 +189,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   //     }
   //   }
   // }
+  const transaction = await api.transactions.get(txid)
+  const [block] = await api.blocks.list()
+  const confirmations = block.height - transaction.block.height
 
   return {
     props: {
-      transaction: await api.transactions.get(txid)
+      transaction,
+      confirmations
     }
   }
 }
