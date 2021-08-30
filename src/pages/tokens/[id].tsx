@@ -89,7 +89,7 @@ function ListRight ({ token }: { token: TokenData }): JSX.Element {
   return (
     <AdaptiveList>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Decimal'>{token.decimal}</AdaptiveList.Cell>
+        <AdaptiveList.Cell name='Decimal'>{token.decimal} Places</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
         <AdaptiveList.Cell name='Limit'>{token.limit}</AdaptiveList.Cell>
@@ -183,9 +183,9 @@ function CopyButton ({ text }: { text: string }): JSX.Element {
   return (
     <button
       onClick={async () => await navigator.clipboard.writeText(text)}
-      className='cursor-pointer outline-none p-1 bg-gray-100 rounded shadow-sm'
+      className='cursor-pointer outline-none p-2 bg-gray-100 border border-gray-200 rounded-lg shadow-sm'
     >
-      <IoCopyOutline className='h-5 w-5 text-gray-500' />
+      <IoCopyOutline className='h-6 w-6 text-gray-500' />
     </button>
   )
 }

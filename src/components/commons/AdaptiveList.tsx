@@ -29,7 +29,7 @@ function Cell (props: PropsWithChildren<{ name: string, className?: string }>): 
       <div className='w-24 lg:w-56 flex-shrink-0'>
         {props.name}:
       </div>
-      <div className={classNames(props.className)}>
+      <div className={classNames('text-gray-500', props.className)}>
         {props.children}
       </div>
     </div>
