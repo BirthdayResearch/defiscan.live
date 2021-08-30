@@ -151,7 +151,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
             return (
               <OverflowTable.Row key={transaction.hash}>
                 <OverflowTable.Cell>
-                  {transaction.hash}
+                  {transaction.id}
                 </OverflowTable.Cell>
                 {/* <OverflowTable.Cell> */}
                 {/*   {transaction.timestamp */}
