@@ -1,5 +1,17 @@
 <!--  Thanks for sending a pull request! -->
 
+#### Developer Checklist:
+<!--  Before requesting for code review, please ensure that the following tasks are completed. -->
+
+- [ ] Read your code changes at least once
+- [ ] Tested on multiple web browsers
+- [ ] Tested display responsiveness
+- [ ] No console errors
+- [ ] Unit tests*
+- [ ] Added e2e tests*
+
+_* If applicable_
+
 #### What kind of PR is this?:
 <!-- Use one of the following kinds:
 /kind feature
