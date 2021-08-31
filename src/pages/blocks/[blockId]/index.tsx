@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
@@ -51,84 +51,90 @@ function CopyButton ({ text }: { text: string }): JSX.Element {
   )
 }
 
+function BlockDetail (props: { label: string, text: string, children?: ReactNode, testId?: string }): JSX.Element {
+  const { label, text, children, testId } = props
+  return (
+    <div className='px-6 py-4 flex justify-between'>
+      <span className='w-1/3 flex-shrink-0'>
+        {label}
+      </span>
+      {
+        (children !== undefined)
+          ? children
+          : (
+            <span className='flex-grow' data-testid={testId}>
+              {text}
+            </span>
+          )
+      }
+    </div>
+
+  )
+}
+
+BlockDetail.defaultProps = {
+  text: '',
+  label: ''
+}
+
 export default function BlockDetails ({ block, confirmations, transactions }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const leftBlockDetails = [
-    // {
-    //   label: 'Block Reward:',
-    //   value: 'xxxx DFI'
-    // },
+    {
+      label: 'Block Reward:',
+      text: 'xxxx DFI'
+    },
     {
       label: 'Height:',
-      value: `${block.height}`,
+      text: `${block.height}`,
       testId: 'block-detail-height'
 
     },
     {
       label: 'Transactions:',
-      value: `${block.transactionCount}`,
+      text: `${block.transactionCount}`,
       testId: 'block-detail-transactions'
     },
     {
-      label: 'Timestamp:',
-      value: `${format(fromUnixTime(block.medianTime), 'PPpp')}`,
+      abel: 'Timestamp:',
+      text: `${format(fromUnixTime(block.medianTime), 'PPpp')}`,
       testId: 'block-detail-timestamp'
     },
     {
       label: 'Confirmations:',
-      value: `${confirmations}`,
+      text: `${confirmations}`,
       testId: 'block-detail-confirmations'
     },
     {
       label: 'Merkle Root:',
-      content: (
-        <>
-          <span className='flex-grow break-all' data-testid='block-detail-merkle-root'>{block.merkleroot}</span>
-          <CopyButton text={block.merkleroot} />
-        </>
-      )
+      children:
+  <>
+    <span className='flex-grow break-all' data-testid='block-detail-merkle-root'>{block.merkleroot}</span>
+    <CopyButton text={block.merkleroot} />
+  </>
     }
   ]
 
   const rightBlockDetails = [
     {
-      label: 'Difficulty:', value: `${block.difficulty}`, testId: 'block-detail-difficulty'
-    },
-    // {
-    //   label: 'Bits:', value: `${block.weight}`
-    // },
-    {
-      label: 'Size (bytes):', value: `${block.size}`, testId: 'block-detail-size'
+      label: 'Difficulty:', text: `${block.difficulty}`, testId: 'block-detail-difficulty'
     },
     {
-      label: 'Version:', value: `${block.version}`, testId: 'block-detail-version'
+      label: 'Bits:', text: `${block.weight}`
+    },
+    {
+      label: 'Size (bytes):', text: `${block.size}`, testId: 'block-detail-size'
+    },
+    {
+      label: 'Version:', text: `${block.version}`, testId: 'block-detail-version'
+    },
+    {
+      label: 'Next Block:', text: 'next block (placeholder)'
+    },
+    {
+      label: 'Previous Block:', text: 'previous block (placeholder)'
     }
-    // {
-    //   label: 'Next Block:', value: `${block.nextBlock.height}`
-    // },
-    // {
-    //   label: 'Previous Block:', value: `${block.prevBlock.height}`
-    // }
 
   ]
-
-  function renderBlockDetails (details: Array<{ label: string, content?: JSX.Element, value?: string, testId?: string }>): JSX.Element[] {
-    return details.map((d) => (
-      <div className='px-6 py-4 border first:rounded-t-md last:rounded-b-md flex justify-between' key={d.label}>
-        <span className='w-1/3 flex-shrink-0'>
-          {d.label}
-        </span>
-        {
-          (d.content != null)
-            ? d.content
-            : (
-              <span className='flex-grow' data-testid={d.testId}>
-                {d.value}
-              </span>
-            )
-        }
-      </div>
-    ))
-  }
 
   return (
     <div className='container mx-auto px-4 py-8'>
@@ -148,11 +154,15 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
       <h1 className='font-semibold text-2xl'>Block #{block.height}</h1>
       <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary' data-testid='block-hash'>{block.hash}</span> <CopyButton text={block.hash} /></div>
       <div className='flex mt-6 gap-x-6'>
-        <div className='flex flex-col w-5/12 flex-grow'>
-          {renderBlockDetails(leftBlockDetails)}
+        <div className='flex flex-col w-5/12 flex-grow rounded border divide-solid divide-y-2'>
+          {
+            leftBlockDetails.map(detail => <BlockDetail {...detail} key={detail.label} />)
+          }
         </div>
-        <div className='flex flex-col w-5/12 flex-grow'>
-          {renderBlockDetails(rightBlockDetails)}
+        <div className='flex flex-col w-5/12 flex-grow rounded border divide-solid divide-y-2'>
+          {
+            rightBlockDetails.map(detail => <BlockDetail {...detail} key={detail.label} />)
+          }
         </div>
       </div>
       <div className='my-6'>
@@ -169,12 +179,12 @@ export default function BlockDetails ({ block, confirmations, transactions }: In
                 <OverflowTable.Cell>
                   {transaction.hash}
                 </OverflowTable.Cell>
-                {/* <OverflowTable.Cell> */}
-                {/*   {transaction.timestamp */}
-                {/* </OverflowTable.Cell> */}
-                {/* <OverflowTable.Cell> */}
-                {/*   {transaction.confirmations */}
-                {/* </OverflowTable.Cell> */}
+                <OverflowTable.Cell>
+                  timestamp (placeholder)
+                </OverflowTable.Cell>
+                <OverflowTable.Cell>
+                  {confirmations}
+                </OverflowTable.Cell>
               </OverflowTable.Row>
             )
           })}
