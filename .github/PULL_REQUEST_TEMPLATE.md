@@ -1,5 +1,20 @@
 <!--  Thanks for sending a pull request! -->
 
+#### Developer Checklist:
+<!--  
+Merging into the main branch implies your code is ready for production. Before requesting for code review, 
+please ensure that the following tasks are completed. Otherwise, keep the PR drafted.
+-->
+
+- [ ] Read your code changes at least once
+- [ ] Tested on multiple web browsers
+- [ ] Tested responsiveness (e.g, iPhone, iPad, Desktop)
+- [ ] No console errors
+- [ ] Unit tests*
+- [ ] Added e2e tests*
+
+_* If applicable_
+
 #### What kind of PR is this?:
 <!-- Use one of the following kinds:
 /kind feature
