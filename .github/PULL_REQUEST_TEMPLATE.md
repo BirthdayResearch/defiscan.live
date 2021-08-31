@@ -5,7 +5,7 @@
 
 - [ ] Read your code changes at least once
 - [ ] Tested on multiple web browsers
-- [ ] Tested display responsiveness
+- [ ] Tested responsiveness (e.g, iPhone, iPad, Desktop)
 - [ ] No console errors
 - [ ] Unit tests*
 - [ ] Added e2e tests*
