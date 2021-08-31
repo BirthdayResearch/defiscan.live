@@ -12,7 +12,7 @@ interface TokenAssetPageProps {
   token: TokenData
 }
 
-export default function TokenAssetPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function TokenIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   // TODO(@siradji) Fetch poolpairs in upcoming upstreaming
   const poolpairs: any = [
     {
@@ -71,7 +71,7 @@ function PageHeading ({ token }: { token: TokenData }): JSX.Element {
     const AssetIcon = getAssetIcon(token.symbol)
     return (
       <div className='flex flex-row flex-wrap items-center my-4'>
-        <AssetIcon className='h-8 w-8 mr-2' />
+        <AssetIcon className='h-8 w-8 mr-4' />
         <h1 data-testid='PageHeading' className='text-2xl font-semibold'>{token.name.replace('Default Defi token', 'DeFiChain')}</h1>
       </div>
     )
@@ -120,7 +120,7 @@ function ListRight ({ token }: { token: TokenData }): JSX.Element {
         <AdaptiveList.Cell name='Destruction Height'>{token.destruction.height}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Destruction TX' className='flex space-x-3 items-center'>
+        <AdaptiveList.Cell name='Destruction TX' className='flex space-x-10 items-center'>
           <div className='break-all'>{token.destruction.tx}</div>
           <CopyButton text={token.destruction.tx} />
         </AdaptiveList.Cell>
@@ -162,14 +162,14 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
         <AdaptiveList.Cell name='Creation Height'>{token.creation.height}</AdaptiveList.Cell>
       </AdaptiveList.Row>
       <AdaptiveList.Row>
-        <AdaptiveList.Cell name='Creation Tx' className='flex space-x-3 items-center'>
+        <AdaptiveList.Cell name='Creation Tx' className='flex space-x-10 items-center'>
           <div className='break-all'>{token.creation.tx}</div>
           <CopyButton text={token.creation.tx} />
         </AdaptiveList.Cell>
       </AdaptiveList.Row>
       {(token.collateralAddress !== undefined) && (
         <AdaptiveList.Row>
-          <AdaptiveList.Cell name='Collateral Address' className='flex space-x-3 items-center'>
+          <AdaptiveList.Cell name='Collateral Address' className='flex space-x-10 items-center'>
             <div className='break-all'>{token.collateralAddress}</div>
             <CopyButton text={token.collateralAddress} />
           </AdaptiveList.Cell>
@@ -183,9 +183,9 @@ function CopyButton ({ text }: { text: string }): JSX.Element {
   return (
     <button
       onClick={async () => await navigator.clipboard.writeText(text)}
-      className='cursor-pointer outline-none p-2 bg-gray-100 border border-gray-200 rounded-lg shadow-sm'
+      className='cursor-pointer outline-none p-2 bg-gray-100 border border-black border-opacity-60 rounded'
     >
-      <IoCopyOutline className='h-6 w-6 text-gray-500' />
+      <IoCopyOutline className='h-5 w-5 text-black opacity-60' />
     </button>
   )
 }
