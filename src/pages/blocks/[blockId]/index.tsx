@@ -24,7 +24,7 @@ interface BlockDetailsPageProps {
 function BlockDetail (props: PropsWithChildren<{ label: string, children?: ReactNode, testId?: string }>): JSX.Element {
   const { label, children, testId } = props
   return (
-    <div className='px-6 py-4 flex justify-between'>
+    <div className='px-6 py-3 flex justify-between'>
       <span className='w-1/3 flex-shrink-0'>
         {label}
       </span>
@@ -54,13 +54,13 @@ export default function BlockDetails ({ block, transactions }: InferGetServerSid
         { path: `/blocks/${block.height}`, name: `#${block.height}`, canonical: true }
       ]}
       />
-      <h1 className='font-semibold text-2xl'>Block #{block.height}</h1>
-      <div className='flex items-center'>
+      <h1 className='font-semibold text-2xl mt-1'>Block #{block.height}</h1>
+      <div className='flex items-center my-0.5'>
         <span className='font-semibold'>Hash:&nbsp;</span>
         <span className='text-primary' data-testid='block-hash'>{block.hash}</span>
         <CopyButton text={block.hash} />
       </div>
-      <div className='flex mt-6 gap-x-6'>
+      <div className='flex mt-4 gap-x-6'>
         <div className='flex flex-col flex-1 rounded-md border divide-solid divide-y'>
           <BlockDetail label='Block Reward:' testId='block-detail-block-reward'>
             xxxx DFI
