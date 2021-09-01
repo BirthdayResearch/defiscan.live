@@ -19,8 +19,8 @@ context('/blocks/[blockId] on desktop', () => {
     cy.findByTestId('block-detail-height').should('have.text', '1130580')
   })
 
-  it('should have block detail transactions', () => {
-    cy.findByTestId('block-detail-transactions').should('have.text', '64')
+  it('should have block detail transaction-count', () => {
+    cy.findByTestId('block-detail-transaction-count').should('have.text', '64')
   })
 
   it('should have block detail timestamp', () => {
@@ -100,8 +100,8 @@ context('/blocks/[blockId] on mobile', () => {
     cy.findByTestId('block-detail-height').should('have.text', '1130580')
   })
 
-  it('should have block detail transactions', () => {
-    cy.findByTestId('block-detail-transactions').should('have.text', '64')
+  it('should have block detail transaction-count', () => {
+    cy.findByTestId('block-detail-transaction-count').should('have.text', '64')
   })
 
   it('should have block detail timestamp', () => {
