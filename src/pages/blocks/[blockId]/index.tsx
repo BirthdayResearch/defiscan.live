@@ -13,7 +13,6 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { CopyButton } from '@components/commons/CopyButton'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 
-
 interface BlockDetailsPageProps {
   block: Block
   transactions: {
@@ -148,7 +147,6 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const next = CursorPagination.getNext(context)
   const transactions = await api.blocks.getTransactions(block.id, 50, next)
-  const blocks = await api.blocks.list()
 
   return {
     props: {
