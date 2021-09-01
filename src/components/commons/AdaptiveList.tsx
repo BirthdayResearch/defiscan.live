@@ -12,21 +12,10 @@ export function AdaptiveList (props: PropsWithChildren<{ className?: string }>):
   )
 }
 
-function Row (props: PropsWithChildren<{ className?: string }>): JSX.Element {
+function Row (props: PropsWithChildren<{ name: string, className?: string }>): JSX.Element {
   return (
-    <div
-      data-testid='AdaptiveList.Row'
-      className={classNames('py-3 pl-6 pr-4', props.className)}
-    >
-      {props.children}
-    </div>
-  )
-}
-
-function Cell (props: PropsWithChildren<{ name: string, className?: string }>): JSX.Element {
-  return (
-    <div className='flex items-center'>
-      <div className='w-24 lg:w-56 flex-shrink-0'>
+    <div className='flex items-center py-3 pl-6 pr-4'>
+      <div className='min-w-24 lg:min-w-56 flex-shrink-0'>
         {props.name}:
       </div>
       <div className={classNames('text-black opacity-60', props.className)}>
@@ -37,4 +26,3 @@ function Cell (props: PropsWithChildren<{ name: string, className?: string }>): 
 }
 
 AdaptiveList.Row = Row
-AdaptiveList.Cell = Cell

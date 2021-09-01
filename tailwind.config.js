@@ -12,6 +12,10 @@ module.exports = {
     extend: {
       colors: {
         primary: '#ff00af',
+      },
+      minWidth: {
+        '24':'6rem',
+        '56': '14rem'
       }
     }
   },
