@@ -115,7 +115,7 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
         <div className='break-all'>{token.creation.tx}</div>
         <CopyButton text={token.creation.tx} />
       </AdaptiveList.Row>
-      {(token.collateralAddress !== undefined) && (
+      {(token.collateralAddress !== 'undefined') && (
         <AdaptiveList.Row name='Collateral Address' className='flex space-x-10 items-center'>
           <div className='break-all'>{token.collateralAddress}</div>
           <CopyButton text={token.collateralAddress} />
