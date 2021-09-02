@@ -8,28 +8,47 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have heading', () => {
-    cy.findByTestId('title').contains('Transaction')
+    cy.findByTestId('title').contains('Transaction Hash')
   })
 
-  it('should have summary subtitle', () => {
-    cy.findByTestId('summary-subtitle').should('have.text', 'Summary')
+  it('should have hash', () => {
+    cy.findByTestId('transaction-hash').should('have.text', 'f5f619011d0c79747ae269b545156d2b3dcba2045dec05f5568181452bbcbe02')
   })
 
   it('should have details subtitle', () => {
-    cy.findByTestId('details-subtitle').should('have.text', 'Details')
+    cy.findByTestId('block-reward').should('have.text', 'xxxx DFI')
   })
   
-  it('should have raw transaction subtitle', () => {
-    cy.findByTestId('raw-transaction-subtitle').should('have.text', 'Raw Transaction')
+  it('should have fee', () => {
+    cy.findByTestId('fee').should('have.text', 'xxxx DFI')
   })
 
-  it('should have raw transaction', () => {
-    cy.scrollTo('bottom')
-    cy.findByTestId('raw-transaction').should('be.visible')
+  it('should have confirmations', () => {
+    cy.findByTestId('confirmations').should('be.visible')
   })
 
-  it('should have transaction-size', () => {
-    cy.findByTestId('transaction-size').should('have.text', '208')
+  it('should have block height', () => {
+    cy.findByTestId('block-height').should('have.text', '1133915')
+  })
+
+  it('should have custom transaction', () => {
+    cy.findByTestId('custom-transaction').should('have.text', 'xxxx')
+  })
+
+  it('should have fee rate', () => {
+    cy.findByTestId('fee-rate').should('have.text', 'xxxx DFI')
+  })
+
+  it('should have size', () => {
+    cy.findByTestId('size').should('have.text', '208')
+  })
+  
+  it('should have received time', () => {
+    cy.findByTestId('received-time').should('have.text', '(received time)')
+  })
+
+  it('should have mined time', () => {
+    cy.findByTestId('mined-time').should('have.text', '(mined time)')
   })
 
 });
@@ -44,28 +63,48 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have heading', () => {
-    cy.findByTestId('title').contains('Transaction')
+    cy.findByTestId('title').contains('Transaction Hash')
   })
 
-  it('should have summary subtitle', () => {
-    cy.findByTestId('summary-subtitle').should('have.text', 'Summary')
+  it('should have hash', () => {
+    cy.findByTestId('transaction-hash').should('have.text', 'f5f619011d0c79747ae269b545156d2b3dcba2045dec05f5568181452bbcbe02')
   })
 
   it('should have details subtitle', () => {
-    cy.findByTestId('details-subtitle').should('have.text', 'Details')
+    cy.findByTestId('block-reward').should('have.text', 'xxxx DFI')
   })
   
-  it('should have raw transaction subtitle', () => {
-    cy.findByTestId('raw-transaction-subtitle').should('have.text', 'Raw Transaction')
+  it('should have fee', () => {
+    cy.findByTestId('fee').should('have.text', 'xxxx DFI')
   })
 
-  it('should have raw transaction', () => {
-    cy.scrollTo('bottom')
-    cy.findByTestId('raw-transaction').should('be.visible')
+  it('should have confirmations', () => {
+    cy.findByTestId('confirmations').should('be.visible')
   })
 
-  it('should have transaction-size', () => {
-    cy.findByTestId('transaction-size').should('have.text', '208')
+  it('should have block height', () => {
+    cy.findByTestId('block-height').should('have.text', '1133915')
   })
+
+  it('should have custom transaction', () => {
+    cy.findByTestId('custom-transaction').should('have.text', 'xxxx')
+  })
+
+  it('should have fee rate', () => {
+    cy.findByTestId('fee-rate').should('have.text', 'xxxx DFI')
+  })
+
+  it('should have size', () => {
+    cy.findByTestId('size').should('have.text', '208')
+  })
+  
+  it('should have received time', () => {
+    cy.findByTestId('received-time').should('have.text', '(received time)')
+  })
+
+  it('should have mined time', () => {
+    cy.findByTestId('mined-time').should('have.text', '(mined time)')
+  })
+
 
 })
