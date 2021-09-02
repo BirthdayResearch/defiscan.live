@@ -118,17 +118,17 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
       {(token.collateralAddress !== 'undefined') && (
         <AdaptiveList.Row name='Collateral Address' className='flex space-x-10 items-center'>
           <div className='break-all'>{token.collateralAddress}</div>
-          <CopyButton text={token.collateralAddress} />
+          <CopyButton value={token.collateralAddress!} />
         </AdaptiveList.Row>
       )}
     </AdaptiveList>
   )
 }
 
-function CopyButton ({ text }: { text: string }): JSX.Element {
+function CopyButton ({ value }: { value: string }): JSX.Element {
   return (
     <button
-      onClick={async () => await navigator.clipboard.writeText(text)}
+      onClick={async () => await navigator.clipboard.writeText(value)}
       className='cursor-pointer outline-none p-2 bg-gray-100 border border-black border-opacity-60 rounded'
     >
       <IoCopyOutline className='h-5 w-5 text-black opacity-60' />
