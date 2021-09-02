@@ -83,7 +83,7 @@ function ListRight ({ token }: { token: TokenData }): JSX.Element {
       <AdaptiveList.Row name='Destruction Height'>{token.destruction.height}</AdaptiveList.Row>
       <AdaptiveList.Row name='Destruction TX' className='flex space-x-10 items-center'>
         <div className='break-all'>{token.destruction.tx}</div>
-        <CopyButton text={token.destruction.tx} />
+        <CopyButton value={token.destruction.tx} />
       </AdaptiveList.Row>
     </AdaptiveList>
   )
@@ -113,7 +113,7 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
       <AdaptiveList.Row name='Creation Height'>{token.creation.height}</AdaptiveList.Row>
       <AdaptiveList.Row name='Creation Tx' className='flex space-x-10 items-center'>
         <div className='break-all'>{token.creation.tx}</div>
-        <CopyButton text={token.creation.tx} />
+        <CopyButton value={token.creation.tx} />
       </AdaptiveList.Row>
       {(token.collateralAddress !== 'undefined') && (
         <AdaptiveList.Row name='Collateral Address' className='flex space-x-10 items-center'>
