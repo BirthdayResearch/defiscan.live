@@ -1,16 +1,16 @@
-import { useState } from 'react'
+import { ReactNode, useState, PropsWithChildren } from 'react'
+import { useSelector } from 'react-redux'
 import { MdContentCopy } from 'react-icons/md'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { Container } from '@components/commons/Container'
+import { RootState } from '@store/index'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { Link } from '@components/commons/Link'
-import { VinVoutBlock } from './TransactionDetailBlock'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 
 interface TransactionPageProps {
   transaction: Transaction
-  confirmations: number
 }
 
 function CopyButton ({ value }: { value: string }): JSX.Element {
@@ -31,9 +31,13 @@ function CopyButton ({ value }: { value: string }): JSX.Element {
   }
 
   return (
-    <div className='ml-1'>
+    <div>
 
-      <button className='p-2 rounded bg-gray-100' type='button' onClick={() => { copy() }}>
+      <button
+        className='p-2 rounded bg-gray-100' type='button' onClick={() => {
+          copy()
+        }}
+      >
         <MdContentCopy />
       </button>
       {
@@ -49,69 +53,39 @@ function CopyButton ({ value }: { value: string }): JSX.Element {
   )
 }
 
-export default function TransactionPage ({ transaction, confirmations }: TransactionPageProps): JSX.Element {
-  console.log('transaction', transaction)
-  const leftDetails = [
-    {
-      label: 'Total Amount:', value: ''
-    },
-    {
-      label: 'Fee:', value: ''
-    },
-    {
-      label: 'Confirmations:', value: `${confirmations}`
-    },
-    {
-      label: 'Block Height:',
-      content: (
-        <div className='flex-grow'>
-          <Link href={{ pathname: `/blocks/${transaction.block.height}` }}>
-            <a className='cursor-pointer text-primary'>
-              {transaction.block.height}
-            </a>
-          </Link>
-        </div>
-      )
-    },
-    {
-      label: 'Custom Transaction:', value: ''
-    }
-  ]
+function BlockDetail (props: PropsWithChildren<{ label: string, children?: ReactNode, testId?: string }>): JSX.Element {
+  const { label, children, testId } = props
+  return (
+    <div className='px-6 py-3 flex justify-between'>
+      <span className='w-1/3 flex-shrink-0'>
+        {label}
+      </span>
+      <span className='flex-grow' data-testid={testId}>
+        {children}
+      </span>
+    </div>
 
-  const rightDetails = [
-    {
-      label: 'Fee Rate:', value: ''
-    },
-    {
-      label: 'Size', value: `${transaction.size} (bytes)`
-    },
-    {
-      label: 'Received Time:', value: ''
-    },
-    {
-      label: 'Mined Time:', value: ''
-    }
-  ]
+  )
+}
 
-  function renderBlockDetails (details: Array<{ label: string, content?: JSX.Element, value?: string, testId?: string }>): JSX.Element[] {
-    return details.map((d) => (
-      <div className='px-6 py-4 border first:rounded-t-md last:rounded-b-md flex justify-between' key={d.label}>
-        <span className='w-1/3 flex-shrink-0'>
-          {d.label}
+function InputOutputBlock ({ label, children }: PropsWithChildren<{label: 'INPUT'|'OUTPUT', children: ReactNode}>): JSX.Element {
+  return (
+    <div className='bg-gray-100 h-20 p-3 rounded flex justify-between'>
+      <div className='flex flex-col justify-between h-full w-full'>
+        <span className='bg-gray-200 rounded text-xs px-2 py-1 font-medium w-min'>
+          {label}
         </span>
-        {
-          (d.content != null)
-            ? d.content
-            : (
-              <span className='flex-grow break-all' data-testid={d.testId}>
-                {d.value}
-              </span>
-            )
-        }
+        <div className='flex justify-between'>
+          {children}
+        </div>
       </div>
-    ))
-  }
+    </div>
+  )
+}
 
+export default function TransactionPage ({ transaction }: TransactionPageProps): JSX.Element {
+  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
+  const confirmations = blocks !== undefined ? blocks - transaction.block.height : blocks
   return (
     <Container className='py-6'>
       <h1 className='text-2xl font-medium mb-6'>
@@ -123,36 +97,57 @@ export default function TransactionPage ({ transaction, confirmations }: Transac
         <div className='flex flex-col w-5/12 flex-grow'>
           {renderBlockDetails(leftDetails)}
         </div>
-        <div className='flex flex-col w-5/12 flex-grow'>
-          {renderBlockDetails(rightDetails)}
+        <div className='flex-1'>
+          <div className='flex flex-col rounded-md border divide-solid divide-y'>
+            <BlockDetail label='Fee Rate:' testId='fee-rate'>
+              xxxx DFI
+            </BlockDetail>
+            <BlockDetail label='Size:' testId='size'>
+              {transaction.size}
+            </BlockDetail>
+            <BlockDetail label='Received time:' testId='received-time'>
+              (received time)
+            </BlockDetail>
+            <BlockDetail label='Mined time:' testId='mined-time'>
+              (mined time)
+            </BlockDetail>
+          </div>
         </div>
       </div>
       <h2 className='text-xl font-medium mt-6' data-testid='details-subtitle'>Details</h2>
-      <div className='flex justify-between mt-4'>
-        <div className='flex-1'>
-          <VinVoutBlock type='INPUT' />
+      <div className='flex justify-between mt-2'>
+        <div className='flex-1 flex flex-col gap-y-0.5'>
+          <InputOutputBlock label='INPUT'>
+            <span className='opacity-60'>No Inputs (Newly generated coins)</span>
+          </InputOutputBlock>
         </div>
-        <div className='h-20 flex items-center justify-center w-16 flex-grow-0'>
-          <IoArrowForwardOutline size={25} />
+        <div className='h-20 flex items-center justify-center w-14 flex-grow-0'>
+          <IoArrowForwardOutline size={16} />
         </div>
-        <div className='flex-1'>
-          <VinVoutBlock
-            type='OUTPUT'
-            descriptionTextPrimary
-            description='dm6EUeoYyVDV6HUcVeSxJGfRapN3wsctVk'
-            amount={62.6433832}
-          />
+        <div className='flex-1 flex flex-col gap-y-0.5'>
+          <InputOutputBlock
+            label='OUTPUT'
+          >
+            <span className='text-primary'>dm6EUeoYyVDV6HUcVeSxJGfRapN3wsctVk</span>
+            <span>100 DFI (U)</span>
+          </InputOutputBlock>
+          <InputOutputBlock
+            label='OUTPUT'
+          >
+            <span className='text-primary'>dm6EUeoYyVDV6HUcVeSxJGfRapN3wsctVk</span>
+            <span>100 DFI (U)</span>
+          </InputOutputBlock>
         </div>
       </div>
 
-      <div className='flex justify-end mt-4 gap-x-4'>
-        <div>
+      <div className='flex flex-col items-end justify-between h-16 mt-8'>
+        <div className='flex justify-between  gap-x-3'>
           <div>Fees: </div>
-          <div>Total: </div>
+          <div>0.00004404 DFI</div>
         </div>
-        <div className='w-min-content'>
-          <div className='flex justify-end'>0 DFI</div>
-          <div className='flex justify-end'>62.6433832 DFI</div>
+        <div className='flex justify-between gap-x-3'>
+          <div>Total: </div>
+          <div>140.0123245 DFI</div>
         </div>
       </div>
 
@@ -169,34 +164,11 @@ export default function TransactionPage ({ transaction, confirmations }: Transac
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {
   const api = getWhaleApiClient(context)
-  // const network = context.query.network?.toString()
   const txid = context.params?.txid as string
-
-  // if (network === undefined) {
-  //   return {
-  //     redirect: {
-  //       statusCode: 302,
-  //       destination: `https://mainnet.defichain.io/#/DFI/mainnet/tx/${txid}`
-  //     }
-  //   }
-  // }
-  //
-  // if (network === 'TestNet') {
-  //   return {
-  //     redirect: {
-  //       statusCode: 302,
-  //       destination: `https://testnet.defichain.io/#/DFI/testnet/tx/${txid}`
-  //     }
-  //   }
-  // }
-  const transaction = await api.transactions.get(txid)
-  const [block] = await api.blocks.list()
-  const confirmations = block.height - transaction.block.height
 
   return {
     props: {
-      transaction,
-      confirmations
+      transaction: await api.transactions.get(txid)
     }
   }
 }
