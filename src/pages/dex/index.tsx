@@ -148,7 +148,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             value={new BigNumber(data.priceRatio.ba).toPrecision(4).toString()}
             displayType='text'
             thousandSeparator
-            suffix={` ${data.tokenA.symbol}/${data.tokenB.symbol}`}
+            suffix={` ${data.tokenB.symbol}/${data.tokenA.symbol}`}
           />
         </div>
       </AdaptiveTable.Cell>
