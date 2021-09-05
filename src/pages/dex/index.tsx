@@ -6,7 +6,7 @@ import { RootState } from '@store/index'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
-import { PoolPairsTable } from '@components/commons/tables/PoolPairs'
+import { PoolPairsTable } from '@components/dex/PoolPairs'
 
 interface DexPageProps {
   poolPairs: {
