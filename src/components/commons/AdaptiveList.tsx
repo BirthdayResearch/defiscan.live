@@ -6,23 +6,25 @@ export function AdaptiveList (props: PropsWithChildren<{ className?: string }>):
     <div
       data-testid='AdaptiveList'
       className={classNames(
-        'divide-y divide-gray-200 border-gray-200',
-        'lg:border lg:rounded-lg',
-        props.className
+        'rounded-lg border overflow-hidden', props.className
       )}
     >
-      {props.children}
+      <div className='table w-full border-collapse'>
+        <div className='table-row-group'>
+          {props.children}
+        </div>
+      </div>
     </div>
   )
 }
 
 function Row (props: PropsWithChildren<{ name: string, className?: string }>): JSX.Element {
   return (
-    <div className='flex items-center py-3 pl-6 pr-4'>
-      <div className='min-w-24 lg:min-w-56 flex-shrink-0'>
+    <div className='table-row border-b last:border-b-0'>
+      <div className='table-cell px-6 py-3'>
         {props.name}:
       </div>
-      <div className={classNames('text-gray-600', props.className)}>
+      <div className={classNames('table-cell px-6 py-3 text-gray-600', props.className)}>
         {props.children}
       </div>
     </div>

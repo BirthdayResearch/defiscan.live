@@ -15,7 +15,7 @@ export default function TokenIdPage (props: InferGetServerSidePropsType<typeof g
     <div className='container mx-auto px-4 pt-12 pb-24'>
       <TokenPageHeading token={props.token} />
 
-      <div className='flex flex-col md:flex-row md:space-x-8 mt-6'>
+      <div className='flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <ListLeft token={props.token} />
         <ListRight token={props.token} />
       </div>
