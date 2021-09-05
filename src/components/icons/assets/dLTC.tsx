@@ -2,7 +2,7 @@ import { SVGProps } from 'react'
 
 export function dLTC (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <svg width='1em' height='1em' {...props}>
+    <svg width='1em' height='1em' viewBox='0 0 32 32' {...props}>
       <path
         fill='#D6DFEB'
         d='M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16c8.838 0 16-7.163 16-16S24.838 0 16 0z'
