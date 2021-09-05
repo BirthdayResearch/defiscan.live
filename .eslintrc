@@ -14,7 +14,18 @@
   ],
   "rules": {
     "@typescript-eslint/no-non-null-assertion": "off",
-    "func-style": [2, "declaration"],
+    "curly": [
+      "error",
+      "all"
+    ],
+    "brace-style": [
+      "error",
+      "1tbs"
+    ],
+    "func-style": [
+      2,
+      "declaration"
+    ],
     "no-void": "off",
     "import/no-default-export": "error",
     "no-restricted-imports": [
@@ -31,7 +42,9 @@
   },
   "overrides": [
     {
-      "files": ["src/pages/**/*.tsx"],
+      "files": [
+        "src/pages/**/*.tsx"
+      ],
       "rules": {
         "import/no-default-export": "off",
         "import/prefer-default-export": "error"
