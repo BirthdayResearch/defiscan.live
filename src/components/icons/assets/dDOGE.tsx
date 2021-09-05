@@ -2,7 +2,7 @@ import { SVGProps } from 'react'
 
 export function dDOGE (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <svg width='1em' height='1em' {...props}>
+    <svg width='1em' height='1em' viewBox='0 0 32 32' {...props}>
       <defs>
         <path id='dDOGE_svg__a' d='M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16 16-7.163 16-16S24.837 0 16 0z' />
         <path id='dDOGE_svg__c' d='M0 .217h1v.566H0z' />

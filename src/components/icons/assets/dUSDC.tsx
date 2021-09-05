@@ -2,7 +2,7 @@ import { SVGProps } from 'react'
 
 export function dUSDC (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <svg width='1em' height='1em' {...props}>
+    <svg width='1em' height='1em' viewBox='0 0 32 32' {...props}>
       <path
         fill='#DDEDFF'
         d='M16 0c8.837 0 16 7.163 16 16 0 8.836-7.163 16-16 16S0 24.836 0 16C0 7.163 7.163 0 16 0z'
