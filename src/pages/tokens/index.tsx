@@ -1,6 +1,7 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { Head } from '@components/commons/Head'
+import { Link } from '@components/commons/Link'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { tokens } from '@defichain/whale-api-client'
@@ -36,9 +37,15 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
           <AdaptiveTable.Head>MINTED</AdaptiveTable.Head>
         </AdaptiveTable.Header>
 
-        {tokens.items.map((data: TokenData) => (
-          <TokenRow data={data} key={data.id} />
-        ))}
+        {tokens.items.map((data: TokenData) => {
+          return (
+            <Link href={{ pathname: `/tokens/${data.id}` }} key={data.id}>
+              <a className='contents'>
+                <TokenRow data={data} />
+              </a>
+            </Link>
+          )
+        })}
       </AdaptiveTable>
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={tokens.pages} path='/tokens' />
@@ -49,7 +56,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
 
 function TokenRow ({ data }: { data: TokenData }): JSX.Element {
   return (
-    <AdaptiveTable.Row>
+    <AdaptiveTable.Row className='group cursor-pointer'>
       <AdaptiveTable.Cell title='SYMBOL' className='align-middle'>
         <div className='flex items-center'>
           {(() => {
@@ -61,10 +68,12 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
             const TokenIcon = getTokenIcon(data.symbol)
             return <TokenIcon className='h-8 w-8' />
           })()}
-          <div className='font-medium ml-3'>{data.symbol}</div>
+          <div className='font-medium ml-3 group-hover:text-primary'>
+            {data.symbol}
+          </div>
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='NAME' className='align-middle'>
+      <AdaptiveTable.Cell title='NAME' className='align-middle group-hover:text-primary'>
         {(() => {
           if (data.isDAT) {
             return data.name.replace('Default Defi token', 'DeFiChain')
@@ -73,7 +82,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
           return data.name
         })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='CATEGORY' className='align-middle'>
+      <AdaptiveTable.Cell title='CATEGORY' className='align-middle group-hover:text-primary'>
         {(() => {
           if (data.isLPS) {
             return 'LPS'
@@ -86,7 +95,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
           return 'DCT'
         })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='MINTED' className='align-middle'>
+      <AdaptiveTable.Cell title='MINTED' className='align-middle group-hover:text-primary'>
         {(() => {
           if (data.isLPS) {
             return <div>...</div>
