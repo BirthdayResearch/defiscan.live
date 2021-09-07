@@ -8,7 +8,7 @@ import BigNumber from 'bignumber.js'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
-    <AdaptiveTable className='mt-6'>
+    <AdaptiveTable>
       <AdaptiveTable.Header>
         <AdaptiveTable.Head>PAIR</AdaptiveTable.Head>
         <AdaptiveTable.Head className='text-right'>TOTAL LIQUIDITY</AdaptiveTable.Head>

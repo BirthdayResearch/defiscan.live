@@ -6,7 +6,7 @@ export function PricingFeedsBySection (): JSX.Element {
 
   return (
     <section>
-      <h1 className='text-2xl font-semibold'>
+      <h1 className='text-2xl font-medium'>
         Pricing feeds by
       </h1>
 

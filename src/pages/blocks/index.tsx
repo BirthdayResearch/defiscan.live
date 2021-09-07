@@ -29,7 +29,7 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
         </div>
       </div>
 
-      <h1 className='text-2xl font-semibold'>Blocks</h1>
+      <h1 className='text-2xl font-medium'>Blocks</h1>
 
       <div className='my-6'>
         <OverflowTable>

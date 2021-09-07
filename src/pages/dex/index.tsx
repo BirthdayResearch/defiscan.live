@@ -20,36 +20,33 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
   const tvl = useSelector((state: RootState) => state.stats.tvl.dex)
 
   return (
-    <Container className='pt-12 pb-20'>
+    <>
       <Head
         title='DEX'
         description='Supply liquidity to BTC, ETH, USDT, USDC and many other pool pairs to power the Decentralized Exchange. Earn fees and block rewards in return for providing liquidity to the pool, you can withdraw your liquidity at any time.'
       />
-      <div>
-        <h1 className='text-2xl font-semibold'>Decentralized Exchange</h1>
-        {tvl !== undefined && (
-          <div className='mt-1'>
-            <h3 className='text-sm font-medium'>Total Value Locked:</h3>
-            <NumberFormat
-              className='font-medium text-black opacity-80'
-              value={tvl}
-              displayType='text'
-              decimalScale={0}
-              thousandSeparator
-              prefix='$'
-            />
-          </div>
-        )}
+      <div className='bg-orange-50 py-3'>
+        <Container className='flex'>
+          <div className='text-gray-900'>Total value locked in pool pairs:</div>
+          <NumberFormat
+            className='ml-2 text-orange-600 font-medium'
+            value={tvl}
+            displayType='text'
+            decimalScale={0}
+            thousandSeparator
+            prefix='$'
+          />
+        </Container>
       </div>
-
-      <div className='mt-12'>
-        <h1 className='text-xl font-semibold'>DEX Pool Pairs</h1>
+      <Container className='pt-12 pb-20'>
+        <h1 className='text-2xl font-medium mb-6'>DEX Pool Pairs</h1>
         <PoolPairsTable poolPairs={poolPairs.items} />
+
         <div className='flex justify-end mt-8'>
           <CursorPagination pages={poolPairs.pages} path='/dex' />
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   )
 }
 
