@@ -110,7 +110,7 @@ function FooterSectionAbout (): JSX.Element {
         DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
         and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services,
         accessible by everyone. For more info,
-        visit <a className='text-primary cursor-pointer' href='https://defichain.com' target='_blank' rel='noreferrer'>DeFiChain.com</a>
+        visit <a className='text-primary-500 cursor-pointer' href='https://defichain.com' target='_blank' rel='noreferrer'>DeFiChain.com</a>
       </p>
       <div className='mt-3 -mx-2 flex flex-wrap'>
         <div className='px-2'>
@@ -133,7 +133,7 @@ function FooterSectionAbout (): JSX.Element {
 function FooterTinyLink (props: { text: string, url: string }): JSX.Element {
   return (
     <a
-      className='text-xs text-gray-700 font-semibold hover:text-primary cursor-pointer'
+      className='text-xs text-gray-700 font-semibold hover:text-primary-500 cursor-pointer'
       href={props.url}
       target='_blank' rel='noreferrer'
     >
@@ -144,7 +144,7 @@ function FooterTinyLink (props: { text: string, url: string }): JSX.Element {
 
 function FooterInternalLink (props: { text: string, pathname: string }): JSX.Element {
   return (
-    <div className='text-lg hover:text-primary cursor-pointer'>
+    <div className='text-lg hover:text-primary-500 cursor-pointer'>
       <Link href={{ pathname: props.pathname }}>
         {props.text}
       </Link>
@@ -154,7 +154,7 @@ function FooterInternalLink (props: { text: string, pathname: string }): JSX.Ele
 
 function FooterExternalLink (props: { text: string, url: string }): JSX.Element {
   return (
-    <div className='text-lg hover:text-primary cursor-pointer'>
+    <div className='text-lg hover:text-primary-500 cursor-pointer'>
       <a href={props.url} target='_blank' rel='noreferrer'>
         {props.text}
       </a>

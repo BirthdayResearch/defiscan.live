@@ -20,7 +20,7 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
       <Head title='Masternodes' />
 
       <div className='flex items-center justify-center pb-6'>
-        <div className='bg-pink-50 rounded p-3'>
+        <div className='bg-orange-100 rounded p-3'>
           🚧 Work in progress, this is an early iteration of defiscan.live/masternodes. Some features are not available
           and
           may not work as expected.
@@ -71,12 +71,16 @@ function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <NumberFormat
-          value={data.resign?.height}
-          fixedDecimalScale
-          displayType='text'
-          thousandSeparator=','
-        />
+        {data.resign?.height !== undefined ? (
+          <NumberFormat
+            value={data.resign?.height}
+            fixedDecimalScale
+            displayType='text'
+            thousandSeparator=','
+          />
+        ) : (
+          <>-</>
+        )}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <NumberFormat
@@ -110,11 +114,11 @@ function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
         {(() => {
           switch (data.timelock) {
             case 0:
-              return <div>0 year</div>
+              return <div>0 Yrs</div>
             case 260:
-              return <div>5 years</div>
+              return <div>5 Yrs</div>
             case 520:
-              return <div>10 years</div>
+              return <div>10 Yrs</div>
             default:
               return <div>{data.timelock} Weeks</div>
           }

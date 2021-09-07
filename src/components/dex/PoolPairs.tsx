@@ -22,7 +22,7 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
             >
               <div className='p-1 cursor-help'>
                 <IoAlertCircle
-                  className='h-4 w-4 text-black opacity-60 group-hover:text-primary group-hover:opacity-100'
+                  className='h-4 w-4 text-black opacity-60 group-hover:text-primary-500 group-hover:opacity-100'
                 />
               </div>
             </HoverPopover>

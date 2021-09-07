@@ -5,7 +5,7 @@ export function AdaptiveTable (props: PropsWithChildren<{ className?: string }>)
   return (
     <div
       data-testid='AdaptiveTable'
-      className={classNames('lg:border lg:rounded-lg overflow-hidden w-full', props.className)}
+      className={classNames('lg:border lg:border-gray-00 lg:rounded-lg overflow-hidden w-full', props.className)}
     >
       <div className='table w-full border-collapse -mt-6 lg:mt-0'>
         <div className='table-row-group space-y-6'>
@@ -20,7 +20,7 @@ function Header (props: PropsWithChildren<{ className?: string }>): JSX.Element 
   return (
     <div
       data-testid='AdaptiveTable.Header'
-      className={classNames('hidden lg:table-row border-gray-200 bg-gray-50', props.className)}
+      className={classNames('hidden lg:table-row border-gray-100 bg-gray-50', props.className)}
     >
       {props.children}
     </div>
@@ -32,7 +32,7 @@ function Row (props: PropsWithChildren<{ className?: string }>): JSX.Element {
     <div
       data-testid='AdaptiveTable.Row'
       className={classNames(
-        'overflow-hidden flex flex-wrap border rounded-lg border-gray-200',
+        'overflow-hidden flex flex-wrap border rounded-lg border-gray-100',
         'lg:border-0 lg:rounded-none lg:table-row lg:border-t',
         props.className
       )}
@@ -62,7 +62,7 @@ function Cell (props: PropsWithChildren<{ className?: string, title?: string }>)
       <div className='lg:hidden py-2 px-6 bg-gray-50 text-black text-opacity-60 text-xs font-semibold'>
         {props.title}
       </div>
-      <div className='py-4 px-6'>
+      <div className='py-5 px-6'>
         {props.children}
       </div>
     </div>
