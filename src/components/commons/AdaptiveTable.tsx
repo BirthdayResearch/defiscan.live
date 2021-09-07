@@ -5,7 +5,7 @@ export function AdaptiveTable (props: PropsWithChildren<{ className?: string }>)
   return (
     <div
       data-testid='AdaptiveTable'
-      className={classNames('lg:border lg:border-gray-00 lg:rounded-lg overflow-hidden w-full', props.className)}
+      className={classNames('lg:border lg:border-gray-200 lg:rounded-lg overflow-hidden w-full', props.className)}
     >
       <div className='table w-full border-collapse -mt-6 lg:mt-0'>
         <div className='table-row-group space-y-6'>
