@@ -8,6 +8,7 @@ import { getPriceCopy, PriceCopy } from '@content/prices'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
+import { Container } from '@components/commons/Container'
 
 interface PricesPageProps {
   price: PriceTicker
@@ -19,7 +20,7 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
   const copy: PriceCopy | undefined = getPriceCopy(props.price.id)
 
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <Container className='pt-12 pb-20'>
       <Head title={`${token}/${currency}`} description={copy?.description} />
       <Breadcrumb items={[
         { path: '/prices', name: 'Prices' },
@@ -43,7 +44,7 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
       <div className='mt-20'>
         <PricingFeedsBySection />
       </div>
-    </div>
+    </Container>
   )
 }
 

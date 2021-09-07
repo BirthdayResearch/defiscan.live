@@ -8,7 +8,10 @@ export interface ScanAppProps {
   initialReduxState: RootState
 }
 
-export default function ScanApp ({ Component, pageProps }): JSX.Element {
+export default function ScanApp ({
+  Component,
+  pageProps
+}): JSX.Element {
   return (
     <Default {...pageProps}>
       <NextNProgress color='#ff00af' height={2} />

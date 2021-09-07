@@ -1,6 +1,7 @@
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { Container } from '@components/commons/Container'
 
 interface TransactionPageProps {
   transaction: Transaction
@@ -8,7 +9,7 @@ interface TransactionPageProps {
 
 export default function TransactionPage (props: TransactionPageProps): JSX.Element {
   return (
-    <div className='container mx-auto px-4 py-6'>
+    <Container className='py-6'>
       <h1 className='text-2xl font-medium mb-6'>
         Transaction (Playground Temporary Page)
       </h1>
@@ -16,7 +17,7 @@ export default function TransactionPage (props: TransactionPageProps): JSX.Eleme
       <div className='font-mono'>
         <pre>{JSON.stringify(props.transaction, null, 2)}</pre>
       </div>
-    </div>
+    </Container>
   )
 }
 

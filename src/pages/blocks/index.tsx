@@ -8,6 +8,7 @@ import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { formatDistanceToNow } from 'date-fns'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
+import { Container } from '@components/commons/Container'
 
 interface BlocksPageData {
   blocks: {
@@ -18,7 +19,7 @@ interface BlocksPageData {
 
 export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <Container className='pt-12 pb-20'>
       <Head title='Blocks' />
 
       <div className='flex items-center justify-center pb-6'>
@@ -49,7 +50,7 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={blocks.pages} path='/blocks' />
       </div>
-    </div>
+    </Container>
   )
 }
 

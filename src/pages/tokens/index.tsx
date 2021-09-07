@@ -8,6 +8,7 @@ import { tokens } from '@defichain/whale-api-client'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
+import { Container } from '@components/commons/Container'
 
 interface TokensPageData {
   tokens: {
@@ -18,15 +19,8 @@ interface TokensPageData {
 
 export default function TokensPage ({ tokens }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <Container className='pt-12 pb-20'>
       <Head title='Tokens' />
-
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-pink-50 rounded p-3'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/tokens. Some features are not available and
-          may not work as expected.
-        </div>
-      </div>
 
       <h1 className='text-2xl font-semibold'>Tokens</h1>
       <AdaptiveTable className='mt-6'>
@@ -50,7 +44,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={tokens.pages} path='/tokens' />
       </div>
-    </div>
+    </Container>
   )
 }
 
