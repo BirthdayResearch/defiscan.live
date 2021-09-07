@@ -119,6 +119,12 @@ function FooterSectionAbout (): JSX.Element {
           <FooterTinyLink url='https://defichain.com/privacy-policy/' text='Privacy Policy' />
         </div>
       </div>
+
+      <div className='mt-6'>
+        <a href='https://www.netlify.com' target='_blank' rel='nofollow noopener noreferrer'>
+          <img src='https://www.netlify.com/img/global/badges/netlify-light.svg' alt='Deploys by Netlify' />
+        </a>
+      </div>
     </section>
   )
 }
