@@ -69,7 +69,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
             return <TokenIcon className='h-8 w-8' />
           })()}
           <div className='font-medium ml-3 group-hover:text-primary'>
-            {data.symbol}
+            {data.symbol}{!data.isDAT && `#${data.id}`}
           </div>
         </div>
       </AdaptiveTable.Cell>
