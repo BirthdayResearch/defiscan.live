@@ -28,7 +28,7 @@ function getName (token: TokenData): string {
     return token.name.replace('Default Defi token', 'DeFiChain')
   }
 
-  return token.name
+  return `${token.name}#${token.id}`
 }
 
 function TokenPageHeading ({ token }: { token: TokenData }): JSX.Element {
