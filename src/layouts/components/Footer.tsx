@@ -2,11 +2,12 @@ import { Link } from '@components/commons/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { PropsWithChildren } from 'react'
 import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube } from 'react-icons/fa'
+import { Container } from '@components/commons/Container'
 
 export function Footer (): JSX.Element {
   return (
     <footer className='mt-12 bg-gray-50'>
-      <div className='container mx-auto px-4 py-12'>
+      <Container className='py-12'>
         <Link href={{ pathname: '/' }}>
           <a className='cursor-pointer'>
             <DeFiChainLogo className='w-28 h-full' />
@@ -28,7 +29,7 @@ export function Footer (): JSX.Element {
             <FooterSectionAbout />
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   )
 }

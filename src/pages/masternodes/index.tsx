@@ -5,6 +5,7 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { MasternodeData, MasternodeState } from '@defichain/whale-api-client/dist/api/masternodes'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
+import { Container } from '@components/commons/Container'
 
 interface MasternodesPageProps {
   masternodes: {
@@ -15,7 +16,7 @@ interface MasternodesPageProps {
 
 export default function MasternodesPage ({ masternodes }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <Container className='pt-12 pb-20'>
       <Head title='Masternodes' />
 
       <div className='flex items-center justify-center pb-6'>
@@ -44,7 +45,7 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={masternodes.pages} path='/masternodes' />
       </div>
-    </div>
+    </Container>
   )
 }
 

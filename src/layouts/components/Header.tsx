@@ -11,6 +11,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { MdArrowDropDown, MdClose, MdMenu } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
+import { Container } from '@components/commons/Container'
 
 export function Header (): JSX.Element {
   const [menu, setMenu] = useState(false)
@@ -28,16 +29,16 @@ export function Header (): JSX.Element {
   return (
     <header className='bg-white'>
       <div className='hidden md:block border-b border-gray-100'>
-        <div className='container mx-auto px-4 py-1'>
+        <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
             <HeaderCountBar className='h-full flex flex-wrap -m-2 overflow-hidden' />
             <HeaderNetworkMenu />
           </div>
-        </div>
+        </Container>
       </div>
 
       <div className='border-b border-gray-100'>
-        <div className='container mx-auto px-4 py-4 md:py-8'>
+        <Container className='py-4 md:py-8'>
           <div className='flex items-center justify-between'>
             <div className='flex'>
               <Link href={{ pathname: '/' }} passHref>
@@ -63,24 +64,27 @@ export function Header (): JSX.Element {
               )}
             </div>
           </div>
-        </div>
+        </Container>
       </div>
 
       <div>
         {menu && (
-          <div className='container mx-auto px-4 pt-2 pb-4 border-b border-gray-100 shadow-sm'>
+          <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm'>
             <div className='flex flex-col'>
               <HeaderLink className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Blocks' pathname='/blocks' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Tokens' pathname='/tokens' />
-              <HeaderLink className='flex justify-center border-b border-gray-100' text='Masternodes' pathname='/masternodes' />
+              <HeaderLink
+                className='flex justify-center border-b border-gray-100' text='Masternodes'
+                pathname='/masternodes'
+              />
             </div>
             <HeaderCountBar className='mt-4 border border-gray-100 rounded p-2 bg-gray-50 flex flex-wrap' />
             <div className='mt-4'>
               <HeaderNetworkMenu />
             </div>
-          </div>
+          </Container>
         )}
       </div>
     </header>
@@ -88,7 +92,10 @@ export function Header (): JSX.Element {
 }
 
 function HeaderCountBar (props: { className: string }): JSX.Element {
-  const { count, tvl } = useSelector((state: RootState) => state.stats)
+  const {
+    count,
+    tvl
+  } = useSelector((state: RootState) => state.stats)
 
   function HeaderCount (props: { text: string, count?: number, className: string }): JSX.Element {
     return (

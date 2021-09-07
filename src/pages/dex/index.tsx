@@ -7,6 +7,7 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { PoolPairsTable } from '@components/dex/PoolPairs'
+import { Container } from '@components/commons/Container'
 
 interface DexPageProps {
   poolPairs: {
@@ -19,7 +20,7 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
   const tvl = useSelector((state: RootState) => state.stats.tvl.dex)
 
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <Container className='pt-12 pb-20'>
       <Head
         title='DEX'
         description='Supply liquidity to BTC, ETH, USDT, USDC and many other pool pairs to power the Decentralized Exchange. Earn fees and block rewards in return for providing liquidity to the pool, you can withdraw your liquidity at any time.'
@@ -48,14 +49,17 @@ export default function DexPage ({ poolPairs }: InferGetServerSidePropsType<type
           <CursorPagination pages={poolPairs.pages} path='/dex' />
         </div>
       </div>
-    </div>
+    </Container>
   )
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<DexPageProps>> {
   const next = CursorPagination.getNext(context)
   const items = await getWhaleApiClient(context).poolpairs.list(30, next)
-  const sorted = items.map(value => ({ sort: Number.parseFloat(value.totalLiquidity.usd ?? '0'), value }))
+  const sorted = items.map(value => ({
+    sort: Number.parseFloat(value.totalLiquidity.usd ?? '0'),
+    value
+  }))
     .sort((a, b) => a.sort - b.sort)
     .reverse()
     .map(value => value.value)
