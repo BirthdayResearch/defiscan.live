@@ -12,15 +12,13 @@ module.exports = {
     extend: {
       colors: {
         primary: '#ff00af',
-      },
-      minWidth: {
-        '24':'6rem',
-        '56': '14rem'
       }
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      borderWidth: ['last'],
+    }
   },
   plugins: [
     require('@tailwindcss/line-clamp'),

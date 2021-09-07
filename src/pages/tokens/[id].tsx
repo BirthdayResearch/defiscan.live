@@ -1,11 +1,10 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
-import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
-
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
-import { IoAlertCircleOutline, IoCheckmarkCircleOutline, IoCopyOutline } from 'react-icons/io5'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
+import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
+import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 
 interface TokenAssetPageProps {
   token: TokenData
@@ -13,9 +12,10 @@ interface TokenAssetPageProps {
 
 export default function TokenIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <div className='container mx-auto px-4 pt-12 pb-24'>
       <TokenPageHeading token={props.token} />
-      <div className='flex flex-col md:flex-row md:space-x-8'>
+
+      <div className='flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <ListLeft token={props.token} />
         <ListRight token={props.token} />
       </div>
@@ -23,38 +23,45 @@ export default function TokenIdPage (props: InferGetServerSidePropsType<typeof g
   )
 }
 
+function getName (token: TokenData): string {
+  if (token.isDAT) {
+    return token.name.replace('Default Defi token', 'DeFiChain')
+  }
+
+  return token.name
+}
+
 function TokenPageHeading ({ token }: { token: TokenData }): JSX.Element {
-  const TokenIcon = getTokenIcon(token.symbol)
+  const name = getName(token)
+
   return (
     <div>
       <Breadcrumb items={[
-        { path: '/tokens', name: 'Tokens' },
-        { path: `/tokens/${token.id}`, name: `${token.name}`, hide: false, canonical: true }
+        {
+          path: '/tokens',
+          name: 'Tokens'
+        },
+        {
+          path: `/tokens/${token.id}`,
+          name: `${name}`,
+          hide: false,
+          canonical: true
+        }
       ]}
       />
-      <div className='flex flex-row flex-wrap items-center my-4'>
-        {(() => {
-          const AssetIcon = getAssetIcon(token.symbol)
-          if (token.isDAT) {
-            return (
-              <>
-                <AssetIcon className='h-8 w-8 mr-4' />
-                <h1
-                  data-testid='PageHeading'
-                  className='text-2xl font-semibold'
-                >{token.name.replace('Default Defi token', 'DeFiChain')}
-                </h1>
-              </>
-            )
-          }
-          return (
-            <>
-              <TokenIcon className='h-8 w-8 mr-4' />
-              <h1 data-test-id='PageHeading' className='text-2xl font-semibold'>{token.name}</h1>
-            </>
-          )
-        })()}
-      </div>
+
+      {(() => {
+        const Icon = token.isDAT ? getAssetIcon(token.symbol) : getTokenIcon(token.symbol)
+
+        return (
+          <div className='flex flex-row flex-wrap items-center mt-4'>
+            <Icon className='h-10 w-10 mr-4' />
+            <h1 data-testid='PageHeading' className='text-2xl font-semibold'>
+              {name}
+            </h1>
+          </div>
+        )
+      })()}
     </div>
   )
 }
@@ -69,13 +76,17 @@ function ListRight ({ token }: { token: TokenData }): JSX.Element {
         {(() => {
           if (token.tradeable) {
             return (
-              <span className='flex flex-wrap items-center'>Yes <IoCheckmarkCircleOutline className='h-4 w-4 text-green-500 ml-1' />
-              </span>
+              <div className='flex flex-wrap items-center'>
+                <div>Yes</div>
+                <IoCheckmarkCircle className='h-4 w-4 text-green-500 ml-1' />
+              </div>
             )
           }
           return (
-            <span className='flex flex-wrap items-center'>No <IoAlertCircleOutline className='h-4 w-4 text-gray-500 ml-1' />
-            </span>
+            <div className='flex flex-wrap items-center'>
+              <div>No</div>
+              <IoAlertCircleOutline className='h-4 w-4 text-gray-500 ml-1' />
+            </div>
           )
         })()}
       </AdaptiveList.Row>
@@ -83,7 +94,6 @@ function ListRight ({ token }: { token: TokenData }): JSX.Element {
       <AdaptiveList.Row name='Destruction Height'>{token.destruction.height}</AdaptiveList.Row>
       <AdaptiveList.Row name='Destruction TX' className='flex space-x-10 items-center'>
         <div className='break-all'>{token.destruction.tx}</div>
-        <CopyButton value={token.destruction.tx} />
       </AdaptiveList.Row>
     </AdaptiveList>
   )
@@ -99,13 +109,17 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
         {(() => {
           if (token.mintable) {
             return (
-              <span className='flex flex-wrap items-center'>Yes <IoCheckmarkCircleOutline className='h-4 w-4 text-green-500 ml-1' />
-              </span>
+              <div className='flex flex-wrap items-center'>
+                <div>Yes</div>
+                <IoCheckmarkCircle className='h-4 w-4 text-green-500 ml-1' />
+              </div>
             )
           }
           return (
-            <span className='flex flex-wrap items-center'>No <IoAlertCircleOutline className='h-4 w-4 text-gray-500 ml-1' />
-            </span>
+            <div className='flex flex-wrap items-center'>
+              <div>No</div>
+              <IoAlertCircleOutline className='h-4 w-4 text-gray-500 ml-1' />
+            </div>
           )
         })()}
       </AdaptiveList.Row>
@@ -113,26 +127,13 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
       <AdaptiveList.Row name='Creation Height'>{token.creation.height}</AdaptiveList.Row>
       <AdaptiveList.Row name='Creation Tx' className='flex space-x-10 items-center'>
         <div className='break-all'>{token.creation.tx}</div>
-        <CopyButton value={token.creation.tx} />
       </AdaptiveList.Row>
-      {(token.collateralAddress !== 'undefined') && (
+      {(token.collateralAddress !== undefined && token.collateralAddress !== 'undefined') && (
         <AdaptiveList.Row name='Collateral Address' className='flex space-x-10 items-center'>
           <div className='break-all'>{token.collateralAddress}</div>
-          <CopyButton value={token.collateralAddress!} />
         </AdaptiveList.Row>
       )}
     </AdaptiveList>
-  )
-}
-
-function CopyButton ({ value }: { value: string }): JSX.Element {
-  return (
-    <button
-      onClick={async () => await navigator.clipboard.writeText(value)}
-      className='cursor-pointer outline-none p-2 bg-gray-100 border border-black border-opacity-60 rounded'
-    >
-      <IoCopyOutline className='h-5 w-5 text-black opacity-60' />
-    </button>
   )
 }
 

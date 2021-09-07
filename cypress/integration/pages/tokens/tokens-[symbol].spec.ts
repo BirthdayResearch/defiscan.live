@@ -4,7 +4,7 @@ context('/tokens/1 (Ether) Desktop', () => {
   })
 
   it('should have page header', function () {
-  cy.findByTestId('PageHeading').should('contain.text', 'Ether')
+    cy.findByTestId('PageHeading').should('contain.text', 'Ether')
   })
 
   it('should have <BreadCrums />', function () {
