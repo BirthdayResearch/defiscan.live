@@ -22,7 +22,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
     <Container className='pt-12 pb-20'>
       <Head title='Tokens' />
 
-      <h1 className='text-2xl font-semibold'>Tokens</h1>
+      <h1 className='text-2xl font-medium'>Tokens</h1>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
           <AdaptiveTable.Head>TOKEN</AdaptiveTable.Head>
@@ -62,12 +62,12 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
             const TokenIcon = getTokenIcon(data.symbol)
             return <TokenIcon className='h-8 w-8' />
           })()}
-          <div className='font-medium ml-3 group-hover:text-primary'>
+          <div className='font-medium ml-3 group-hover:text-primary-500'>
             {data.symbol}
           </div>
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='NAME' className='align-middle group-hover:text-primary'>
+      <AdaptiveTable.Cell title='NAME' className='align-middle group-hover:text-primary-500'>
         {(() => {
           if (data.isDAT) {
             return data.name.replace('Default Defi token', 'DeFiChain')
@@ -76,7 +76,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
           return data.name
         })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='CATEGORY' className='align-middle group-hover:text-primary'>
+      <AdaptiveTable.Cell title='CATEGORY' className='align-middle group-hover:text-primary-500'>
         {(() => {
           if (data.isLPS) {
             return 'LPS'
@@ -89,7 +89,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
           return 'DCT'
         })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='MINTED' className='align-middle group-hover:text-primary'>
+      <AdaptiveTable.Cell title='MINTED' className='align-middle group-hover:text-primary-500'>
         {(() => {
           if (data.isLPS) {
             return <div>...</div>

@@ -40,7 +40,7 @@ export function Breadcrumb (props: { items: BreadcrumbItem[] }): JSX.Element {
       </Head>
 
       <Link href={{ pathname: '/' }}>
-        <a className='cursor-pointer hover:text-primary opacity-60 hover:opacity-100'>Scan</a>
+        <a className='cursor-pointer hover:text-primary-500 opacity-60 hover:opacity-100'>Scan</a>
       </Link>
 
       {props.items
@@ -57,7 +57,7 @@ function BreadcrumbNext (props: BreadcrumbItem): JSX.Element {
         <MdChevronRight className='h-6 w-6 opacity-60' />
       </div>
       <Link href={{ pathname: props.path }}>
-        <a className='cursor-pointer hover:text-primary opacity-60 hover:opacity-100'>{props.name}</a>
+        <a className='cursor-pointer hover:text-primary-500 opacity-60 hover:opacity-100'>{props.name}</a>
       </Link>
     </div>
   )

@@ -42,7 +42,7 @@ export function Header (): JSX.Element {
           <div className='flex items-center justify-between'>
             <div className='flex'>
               <Link href={{ pathname: '/' }} passHref>
-                <a className='flex items-center cursor-pointer hover:text-primary'>
+                <a className='flex items-center cursor-pointer hover:text-primary-500'>
                   <DeFiChainLogo className='w-16 h-full' />
                   <h6 className='ml-3 text-xl font-medium'>Scan</h6>
                 </a>
@@ -58,9 +58,9 @@ export function Header (): JSX.Element {
             </div>
             <div className='md:hidden'>
               {menu ? (
-                <MdClose className='h-6 w-6 text-primary' onClick={() => setMenu(false)} />
+                <MdClose className='h-6 w-6 text-primary-500' onClick={() => setMenu(false)} />
               ) : (
-                <MdMenu className='h-6 w-6 text-primary' onClick={() => setMenu(true)} />
+                <MdMenu className='h-6 w-6 text-primary-500' onClick={() => setMenu(true)} />
               )}
             </div>
           </div>
@@ -101,7 +101,7 @@ function HeaderCountBar (props: { className: string }): JSX.Element {
     return (
       <li className={props.className}>
         <span className='text-sm'>{props.text}: </span>
-        <span className='text-sm text-primary font-semibold'>
+        <span className='text-sm text-primary-500 font-semibold'>
           {props.count !== undefined
             ? <NumberFormat value={props.count} displayType='text' thousandSeparator /> : '...'}
         </span>
@@ -182,7 +182,7 @@ function HeaderNetworkMenu (): JSX.Element {
 
   return (
     <Menu as='div' className='relative inline-block'>
-      <Menu.Button className='bg-gray-100 px-2 py-1 rounded flex items-center'>
+      <Menu.Button className='bg-gray-50 px-2 py-1 rounded flex items-center'>
         <div className='bg-green-500 h-2 w-2 rounded-full' />
         <div className='text-xs ml-2 font-medium leading-none'>
           {network}
@@ -211,7 +211,7 @@ function HeaderNetworkMenu (): JSX.Element {
                     className='block px-4 py-2 text-sm font-medium cursor-pointer'
                     href={`/?network=${item}`}
                   >
-                    <div className={active || network === item ? 'text-primary' : ''}>
+                    <div className={active || network === item ? 'text-primary-500' : ''}>
                       {item}
                     </div>
                   </a>}
@@ -228,7 +228,7 @@ function HeaderLink (props: { text: string, pathname: string, className: string 
   return (
     <Link href={{ pathname: props.pathname }}>
       <a className={props.className}>
-        <div className='p-2 text-lg hover:text-primary cursor-pointer'>
+        <div className='p-2 text-lg hover:text-primary-500 cursor-pointer'>
           {props.text}
         </div>
       </a>

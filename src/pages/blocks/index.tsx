@@ -23,13 +23,13 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
       <Head title='Blocks' />
 
       <div className='flex items-center justify-center pb-6'>
-        <div className='bg-pink-50 rounded p-3'>
+        <div className='bg-orange-100 rounded p-3'>
           🚧 Work in progress, this is an early iteration of defiscan.live/blocks. Some features are not available and
           may not work as expected.
         </div>
       </div>
 
-      <h1 className='text-2xl font-semibold'>Blocks</h1>
+      <h1 className='text-2xl font-medium'>Blocks</h1>
 
       <div className='my-6'>
         <OverflowTable>

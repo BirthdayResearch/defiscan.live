@@ -33,7 +33,7 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
           </div>
 
           <div className='flex items-center mt-2'>
-            <h3 className='text-3xl font-bold'>
+            <h3 className='text-2xl font-medium'>
               <NumberFormat
                 value={price.aggregated.amount}
                 displayType='text'
@@ -50,24 +50,25 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
                   </div>
                 </HoverPopover>
               ) : (
-                <HoverPopover popover={`Inactive since ${format(price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}>
+                <HoverPopover
+                  popover={`Inactive since ${format(price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}
+                >
                   <div className='p-1 cursor-help'>
                     <IoAlertCircleOutline className='h-4 w-4 text-gray-500' />
                   </div>
                 </HoverPopover>
               )}
             </div>
-
           </div>
 
-          <div className='flex justify-between items-center mt-2'>
+          <div className='flex justify-between items-center mt-5'>
             {copy !== undefined && (
               <div className='bg-gray-200 p-1 rounded'>
-                <div className='text-xs font-medium'>{copy.type}</div>
+                <div className='text-xs font-medium text-gray-600'>{copy.type}</div>
               </div>
             )}
             <div className='flex-grow' />
-            <button className='text-primary font-semibold'>
+            <button className='text-primary-500'>
               View
             </button>
           </div>

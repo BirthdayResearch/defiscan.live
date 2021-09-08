@@ -23,7 +23,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
       <Head title='Prices' />
 
       <div>
-        <h1 className='text-2xl font-semibold'>
+        <h1 className='text-2xl font-medium'>
           Price Feeds
         </h1>
 

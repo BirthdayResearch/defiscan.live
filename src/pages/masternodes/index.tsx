@@ -6,6 +6,8 @@ import { MasternodeData, MasternodeState } from '@defichain/whale-api-client/dis
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
 import { Container } from '@components/commons/Container'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/index'
 
 interface MasternodesPageProps {
   masternodes: {
@@ -15,37 +17,83 @@ interface MasternodesPageProps {
 }
 
 export default function MasternodesPage ({ masternodes }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const tvl = useSelector((state: RootState) => state.stats.tvl)
+  const locked = useSelector((state: RootState) => state.stats.masternodes.locked)
+
   return (
-    <Container className='pt-12 pb-20'>
+    <>
       <Head title='Masternodes' />
 
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-pink-50 rounded p-3'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/masternodes. Some features are not available
-          and
-          may not work as expected.
-        </div>
+      <div className='bg-orange-50 py-3'>
+        <Container>
+          <div className='flex flex-wrap -mx-3'>
+            <div className='flex mx-3 my-1'>
+              <div className='text-gray-900'>Total value locked in Masternodes:</div>
+              <NumberFormat
+                className='ml-2 text-orange-600 font-medium'
+                value={tvl?.masternodes}
+                displayType='text'
+                decimalScale={0}
+                thousandSeparator
+                prefix='$'
+              />
+            </div>
+            <div className='flex mx-3 my-1'>
+              <div className='text-gray-900'>0 year locked:</div>
+              <NumberFormat
+                className='ml-2 text-orange-600 font-medium'
+                value={locked?.find(l => l.weeks === 0)?.count}
+                displayType='text'
+                decimalScale={0}
+                thousandSeparator
+              />
+            </div>
+            <div className='flex mx-3 my-1'>
+              <div className='text-gray-900'>5 year locked:</div>
+              <NumberFormat
+                className='ml-2 text-orange-600 font-medium'
+                value={locked?.find(l => l.weeks === 260)?.count}
+                displayType='text'
+                decimalScale={0}
+                thousandSeparator
+              />
+            </div>
+            <div className='flex mx-3 my-1'>
+              <div className='text-gray-900'>10 year locked:</div>
+              <NumberFormat
+                className='ml-2 text-orange-600 font-medium'
+                value={locked?.find(l => l.weeks === 520)?.count}
+                displayType='text'
+                decimalScale={0}
+                thousandSeparator
+              />
+            </div>
+          </div>
+        </Container>
       </div>
 
-      <h1 className='text-2xl font-semibold'>Masternodes</h1>
-      <OverflowTable className='mt-6'>
-        <OverflowTable.Header>
-          <OverflowTable.Head sticky>OWNER</OverflowTable.Head>
-          <OverflowTable.Head>OPERATOR</OverflowTable.Head>
-          <OverflowTable.Head>CREATION HEIGHT</OverflowTable.Head>
-          <OverflowTable.Head>RESIGN HEIGHT</OverflowTable.Head>
-          <OverflowTable.Head>MINTED BLOCKS</OverflowTable.Head>
-          <OverflowTable.Head>STATE</OverflowTable.Head>
-          <OverflowTable.Head>TIMELOCK</OverflowTable.Head>
-        </OverflowTable.Header>
-        {masternodes.items.map((mn) => (
-          <MasternodeRow data={mn} key={mn.id} />
-        ))}
-      </OverflowTable>
-      <div className='flex justify-end mt-8'>
-        <CursorPagination pages={masternodes.pages} path='/masternodes' />
-      </div>
-    </Container>
+      <Container className='pt-12 pb-20'>
+        <h1 className='text-2xl font-medium'>Masternodes</h1>
+
+        <OverflowTable className='mt-6'>
+          <OverflowTable.Header>
+            <OverflowTable.Head sticky>OWNER</OverflowTable.Head>
+            <OverflowTable.Head>OPERATOR</OverflowTable.Head>
+            <OverflowTable.Head>CREATION HEIGHT</OverflowTable.Head>
+            <OverflowTable.Head>RESIGN HEIGHT</OverflowTable.Head>
+            <OverflowTable.Head>MINTED BLOCKS</OverflowTable.Head>
+            <OverflowTable.Head>STATE</OverflowTable.Head>
+            <OverflowTable.Head>TIMELOCK</OverflowTable.Head>
+          </OverflowTable.Header>
+          {masternodes.items.map((mn) => (
+            <MasternodeRow data={mn} key={mn.id} />
+          ))}
+        </OverflowTable>
+        <div className='flex justify-end mt-8'>
+          <CursorPagination pages={masternodes.pages} path='/masternodes' />
+        </div>
+      </Container>
+    </>
   )
 }
 
@@ -71,12 +119,16 @@ function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <NumberFormat
-          value={data.resign?.height}
-          fixedDecimalScale
-          displayType='text'
-          thousandSeparator=','
-        />
+        {data.resign?.height !== undefined ? (
+          <NumberFormat
+            value={data.resign?.height}
+            fixedDecimalScale
+            displayType='text'
+            thousandSeparator=','
+          />
+        ) : (
+          <>-</>
+        )}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <NumberFormat
@@ -110,11 +162,11 @@ function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
         {(() => {
           switch (data.timelock) {
             case 0:
-              return <div>0 year</div>
+              return <div>0 Yrs</div>
             case 260:
-              return <div>5 years</div>
+              return <div>5 Yrs</div>
             case 520:
-              return <div>10 years</div>
+              return <div>10 Yrs</div>
             default:
               return <div>{data.timelock} Weeks</div>
           }
