@@ -101,6 +101,7 @@ function BlockDetailTable (props: InferGetServerSidePropsType<typeof getServerSi
               {block.masternode}
             </div>
           </AdaptiveList.Row>
+          {/* TODO(fuxingloh): need to properly expose this variable on whale */}
           {/* <AdaptiveList.Row name='Block Reward' testId='block-detail-block-reward'> */}
           {/*  {reward} DFI */}
           {/* </AdaptiveList.Row> */}
@@ -208,6 +209,10 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
   const idOrHeight = context.params?.blockId?.toString() as string
   const block = await api.blocks.get(idOrHeight)
+
+  if (block === undefined) {
+    return { notFound: true }
+  }
 
   const next = CursorPagination.getNext(context)
   const transactions = await api.blocks.getTransactions(block.id, 50, next)
