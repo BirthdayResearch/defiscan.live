@@ -31,7 +31,7 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
-    "@defichain/playground-api-client": ">=0.9.0",
+    "@defichain/playground-api-client": ">=0.9.1",
     "@defichain/whale-api-client": ">=0.9.3",
     "@headlessui/react": "^1.4.1",
     "@popperjs/core": "^2.10.0",
