@@ -1,17 +1,18 @@
-import { ReactNode, PropsWithChildren } from 'react'
 import { useSelector } from 'react-redux'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { fromUnixTime, format } from 'date-fns'
-
+import { format, fromUnixTime } from 'date-fns'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
-
 import { RootState } from '@store/index'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { CopyButton } from '@components/commons/CopyButton'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { Head } from '@components/commons/Head'
+import { Container } from '@components/commons/Container'
+import { BsArrowRight } from 'react-icons/bs'
+import { AdaptiveList } from '@components/commons/AdaptiveList'
 
 interface BlockDetailsPageProps {
   block: Block
@@ -21,118 +22,162 @@ interface BlockDetailsPageProps {
   }
 }
 
-function BlockDetail (props: PropsWithChildren<{ label: string, children?: ReactNode, testId?: string }>): JSX.Element {
-  const { label, children, testId } = props
+export default function BlockDetails (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='px-6 py-3 flex justify-between'>
-      <span className='w-1/3 flex-shrink-0'>
-        {label}
-      </span>
-      <span className='flex-grow' data-testid={testId}>
-        {children}
-      </span>
-    </div>
-
+    <Container className='pt-8 pb-20'>
+      <BlockHeading {...props} />
+      <BlockDetailTable {...props} />
+      <BlockTransactions {...props} />
+    </Container>
   )
 }
 
-export default function BlockDetails ({ block, transactions }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+function BlockHeading ({ block }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  return (
+    <>
+      <Head title={`Block #${block.height}`} />
+
+      <Breadcrumb items={[
+        {
+          path: '/blocks',
+          name: 'Blocks'
+        },
+        {
+          path: `/blocks/${block.height}`,
+          name: `#${block.height}`,
+          canonical: true
+        }
+      ]}
+      />
+
+      <h1 className='font-medium text-2xl mt-1'>Block #{block.height}</h1>
+
+      <div className='flex items-center my-1'>
+        <div className='font-semibold'>Hash:&nbsp;</div>
+        <div className='ml-1 text-primary-500 text-lg' data-testid='block-hash'>{block.hash}</div>
+        <CopyButton className='ml-2' content={block.hash} />
+      </div>
+
+      <div className='flex items-center justify-center py-4'>
+        <div className='bg-orange-100 rounded p-3'>
+          🚧 Work in progress, this is an early iteration of defiscan.live/blocks/*. Some features are not available and
+          may not work as expected.
+        </div>
+      </div>
+    </>
+  )
+}
+
+function BlockDetailTable (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const { block } = props
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   const confirmations = blocks !== undefined ? blocks - block.height : blocks
   const blockTime = format(fromUnixTime(block.medianTime), 'PPpp')
 
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-pink-50 rounded p-3'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/blocks/*. Some features are not available and
-          may not work as expected.
-        </div>
-      </div>
-      <Breadcrumb items={[
-        { path: '/blocks', name: 'Blocks' },
-        { path: `/blocks/${block.height}`, name: `#${block.height}`, canonical: true }
-      ]}
-      />
-      <h1 className='font-semibold text-2xl mt-1'>Block #{block.height}</h1>
-      <div className='flex items-center my-0.5'>
-        <span className='font-semibold'>Hash:&nbsp;</span>
-        <span className='text-primary' data-testid='block-hash'>{block.hash}</span>
-        <CopyButton text={block.hash} />
-      </div>
-      <div className='flex mt-4 gap-x-6'>
-        <div className='flex flex-col flex-1 rounded-md border divide-solid divide-y'>
-          <BlockDetail label='Block Reward:' testId='block-detail-block-reward'>
+    <div className='mt-5 flex flex-wrap -mx-3'>
+      <div className='w-1/2 px-3'>
+        <AdaptiveList>
+          <AdaptiveList.Row name='Block Reward' testId='block-detail-block-reward'>
             xxxx DFI
-          </BlockDetail>
-          <BlockDetail label='Height:' testId='block-detail-height'>
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Height' testId='block-detail-height'>
             {block.height}
-          </BlockDetail>
-          <BlockDetail label='Transactions:' testId='block-detail-transaction-count'>
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Transactions' testId='block-detail-transaction-count'>
             {block.transactionCount}
-          </BlockDetail>
-          <BlockDetail label='Timestamp:' testId='block-detail-timestamp'>
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Timestamp' testId='block-detail-timestamp'>
             {blockTime}
-          </BlockDetail>
-          <BlockDetail label='Confirmations:' testId='block-detail-confirmations'>
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Confirmations' testId='block-detail-confirmations'>
             {confirmations}
-          </BlockDetail>
-          <BlockDetail label='Merkle Root:'>
-            <div className='flex'>
-              <span className='break-all' data-testid='block-detail-merkle-root'>{block.merkleroot}</span>
-              <CopyButton text={block.merkleroot} />
-            </div>
-          </BlockDetail>
-        </div>
-        <div className='flex-1'>
-          <div className='flex flex-col rounded-md border divide-solid divide-y w-100'>
-            <BlockDetail label='Difficulty:' testId='block-detail-difficulty'>
-              {block.difficulty}
-            </BlockDetail>
-            <BlockDetail label='Bits:' testId='block-detail-bits'>
-              {block.weight}
-            </BlockDetail>
-            <BlockDetail label='Size (bytes):' testId='block-detail-size'>
-              {block.size}
-            </BlockDetail>
-            <BlockDetail label='Version:' testId='block-detail-version'>
-              {block.version}
-            </BlockDetail>
-            <BlockDetail label='Next Block:' testId='block-detail-next-block'>
-              next block (placeholder)
-            </BlockDetail>
-            <BlockDetail label='Previous Block:' testId='block-detail-previous-block'>
-              previous block (placeholder)
-            </BlockDetail>
-          </div>
-        </div>
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Merkle Root'>
+            <div className='break-all' data-testid='block-detail-merkle-root'>{block.merkleroot}</div>
+          </AdaptiveList.Row>
+        </AdaptiveList>
       </div>
-      <h1 className='font-semibold text-2xl mt-6'>Transactions</h1>
-      <div className='my-3'>
-        <OverflowTable>
-          <OverflowTable.Header>
-            <OverflowTable.Head>HASH</OverflowTable.Head>
-            <OverflowTable.Head>TIMESTAMP</OverflowTable.Head>
-            <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
-          </OverflowTable.Header>
 
-          {transactions.items.map(transaction => {
-            return (
-              <OverflowTable.Row key={transaction.hash}>
-                <OverflowTable.Cell>
-                  {transaction.hash}
-                </OverflowTable.Cell>
-                <OverflowTable.Cell>
-                  {blockTime}
-                </OverflowTable.Cell>
-                <OverflowTable.Cell>
-                  {confirmations}
-                </OverflowTable.Cell>
-              </OverflowTable.Row>
-            )
-          })}
-        </OverflowTable>
+      <div className='w-1/2 px-3'>
+        <AdaptiveList>
+          <AdaptiveList.Row name='Difficulty' testId='block-detail-difficulty'>
+            {block.difficulty}
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Bits' testId='block-detail-bits'>
+            {block.weight}
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Size (bytes)' testId='block-detail-size'>
+            {block.size}
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Version' testId='block-detail-version'>
+            {block.version}
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Next Block' testId='block-detail-next-block'>
+            next block (placeholder)
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Previous Block' testId='block-detail-previous-block'>
+            previous block (placeholder)
+          </AdaptiveList.Row>
+        </AdaptiveList>
       </div>
+    </div>
+  )
+}
+
+function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const {
+    block,
+    transactions
+  } = props
+  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
+  const confirmations = blocks !== undefined ? blocks - block.height : blocks
+  const blockTime = format(fromUnixTime(block.medianTime), 'PPpp')
+
+  function TransactionRow ({ transaction }: { transaction: Transaction }): JSX.Element {
+    return (
+      <OverflowTable.Row key={transaction.txid}>
+        <OverflowTable.Cell>
+          <div className='break-all w-80 md:w-full'>
+            {transaction.txid}
+          </div>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell>
+          <div className='flex items-center space-x-1'>
+            <div>{transaction.vinCount}</div>
+            <div><BsArrowRight /></div>
+            <div>{transaction.voutCount}</div>
+          </div>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell>
+          <div className='w-24 md:w-full'>
+            {blockTime}
+          </div>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell>
+          {confirmations}
+        </OverflowTable.Cell>
+      </OverflowTable.Row>
+    )
+  }
+
+  return (
+    <div>
+      <h1 className='font-medium text-2xl mt-6'>Transactions</h1>
+
+      <OverflowTable className='mt-3'>
+        <OverflowTable.Header>
+          <OverflowTable.Head>TXID</OverflowTable.Head>
+          <OverflowTable.Head>VIN/VOUT</OverflowTable.Head>
+          <OverflowTable.Head>TIMESTAMP</OverflowTable.Head>
+          <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
+        </OverflowTable.Header>
+
+        {transactions.items.map(transaction => {
+          return <TransactionRow transaction={transaction} key={transaction.txid} />
+        })}
+      </OverflowTable>
+
       <div className='flex justify-end mt-4'>
         <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}`} />
       </div>
@@ -142,8 +187,8 @@ export default function BlockDetails ({ block, transactions }: InferGetServerSid
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
   const api = getWhaleApiClient(context)
-  const blockId = context.params?.blockId?.toString() as string
-  const block = await api.blocks.get(blockId)
+  const idOrHeight = context.params?.blockId?.toString() as string
+  const block = await api.blocks.get(idOrHeight)
 
   const next = CursorPagination.getNext(context)
   const transactions = await api.blocks.getTransactions(block.id, 50, next)
