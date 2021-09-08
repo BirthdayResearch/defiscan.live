@@ -13,6 +13,7 @@ import { Head } from '@components/commons/Head'
 import { Container } from '@components/commons/Container'
 import { BsArrowRight } from 'react-icons/bs'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
+import { Link } from '@components/commons/Link'
 
 interface BlockDetailsPageProps {
   block: Block
@@ -35,6 +36,13 @@ export default function BlockDetails (props: InferGetServerSidePropsType<typeof 
 function BlockHeading ({ block }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <>
+      <div className='flex items-center justify-center pb-6'>
+        <div className='bg-orange-100 rounded p-3'>
+          🚧 Work in progress, this is an early iteration of defiscan.live/blocks/*. Some features are not available and
+          may not work as expected.
+        </div>
+      </div>
+
       <Head title={`Block #${block.height}`} />
 
       <Breadcrumb items={[
@@ -57,13 +65,6 @@ function BlockHeading ({ block }: InferGetServerSidePropsType<typeof getServerSi
         <div className='ml-1 text-primary-500 text-lg' data-testid='block-hash'>{block.hash}</div>
         <CopyButton className='ml-2' content={block.hash} />
       </div>
-
-      <div className='flex items-center justify-center py-4'>
-        <div className='bg-orange-100 rounded p-3'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/blocks/*. Some features are not available and
-          may not work as expected.
-        </div>
-      </div>
     </>
   )
 }
@@ -78,9 +79,6 @@ function BlockDetailTable (props: InferGetServerSidePropsType<typeof getServerSi
     <div className='mt-5 flex flex-wrap -mx-3'>
       <div className='w-1/2 px-3'>
         <AdaptiveList>
-          <AdaptiveList.Row name='Block Reward' testId='block-detail-block-reward'>
-            xxxx DFI
-          </AdaptiveList.Row>
           <AdaptiveList.Row name='Height' testId='block-detail-height'>
             {block.height}
           </AdaptiveList.Row>
@@ -93,9 +91,19 @@ function BlockDetailTable (props: InferGetServerSidePropsType<typeof getServerSi
           <AdaptiveList.Row name='Confirmations' testId='block-detail-confirmations'>
             {confirmations}
           </AdaptiveList.Row>
-          <AdaptiveList.Row name='Merkle Root'>
-            <div className='break-all' data-testid='block-detail-merkle-root'>{block.merkleroot}</div>
+          <AdaptiveList.Row name='Minter' testId='block-detail-minter'>
+            <div className='break-all'>
+              {block.minter}
+            </div>
           </AdaptiveList.Row>
+          <AdaptiveList.Row name='Masternode' testId='block-detail-masternode'>
+            <div className='break-all'>
+              {block.masternode}
+            </div>
+          </AdaptiveList.Row>
+          {/* <AdaptiveList.Row name='Block Reward' testId='block-detail-block-reward'> */}
+          {/*  {reward} DFI */}
+          {/* </AdaptiveList.Row> */}
         </AdaptiveList>
       </div>
 
@@ -113,11 +121,22 @@ function BlockDetailTable (props: InferGetServerSidePropsType<typeof getServerSi
           <AdaptiveList.Row name='Version' testId='block-detail-version'>
             {block.version}
           </AdaptiveList.Row>
-          <AdaptiveList.Row name='Next Block' testId='block-detail-next-block'>
-            next block (placeholder)
+          <AdaptiveList.Row name='Merkle Root' testId='block-detail-merkle-root'>
+            <div className='break-all'>
+              {block.merkleroot}
+            </div>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Previous Block' testId='block-detail-previous-block'>
-            previous block (placeholder)
+            <Link href={{ pathname: `/blocks/${block.previousHash}` }}>
+              <a className='cursor-pointer hover:text-primary-500 break-all'>
+                {block.previousHash}
+              </a>
+            </Link>
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Next Block' testId='block-detail-next-block'>
+            <Link href={{ pathname: `/blocks/${block.height + 1}` }}>
+              <a className='cursor-pointer hover:text-primary-500'>#{block.height + 1}</a>
+            </Link>
           </AdaptiveList.Row>
         </AdaptiveList>
       </div>
