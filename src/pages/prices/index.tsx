@@ -5,6 +5,7 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { useState } from 'react'
+import { Container } from '@components/commons/Container'
 
 interface PricesPageProps {
   prices: {
@@ -18,11 +19,11 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
   // const [nextToken, setNextToken] = useState(prices.nextToken)
 
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <Container className='pt-12 pb-20'>
       <Head title='Prices' />
 
       <div>
-        <h1 className='text-2xl font-semibold'>
+        <h1 className='text-2xl font-medium'>
           Price Feeds
         </h1>
 
@@ -36,7 +37,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
       <div className='mt-20'>
         <PricingFeedsBySection />
       </div>
-    </div>
+    </Container>
   )
 }
 

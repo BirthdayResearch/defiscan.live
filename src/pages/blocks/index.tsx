@@ -8,6 +8,7 @@ import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { formatDistanceToNow } from 'date-fns'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
+import { Container } from '@components/commons/Container'
 
 interface BlocksPageData {
   blocks: {
@@ -18,17 +19,17 @@ interface BlocksPageData {
 
 export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <Container className='pt-12 pb-20'>
       <Head title='Blocks' />
 
       <div className='flex items-center justify-center pb-6'>
-        <div className='bg-pink-50 rounded p-3'>
+        <div className='bg-orange-100 rounded p-3'>
           🚧 Work in progress, this is an early iteration of defiscan.live/blocks. Some features are not available and
           may not work as expected.
         </div>
       </div>
 
-      <h1 className='text-2xl font-semibold'>Blocks</h1>
+      <h1 className='text-2xl font-medium'>Blocks</h1>
 
       <div className='my-6'>
         <OverflowTable>
@@ -49,7 +50,7 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={blocks.pages} path='/blocks' />
       </div>
-    </div>
+    </Container>
   )
 }
 

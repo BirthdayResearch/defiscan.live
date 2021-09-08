@@ -9,7 +9,7 @@ export function OverflowTable (props: PropsWithChildren<{ className?: string }>)
   return (
     <div
       data-testid='OverflowTable'
-      className={classNames('relative border rounded-lg overflow-x-auto', props.className)}
+      className={classNames('relative border border-gray-200 rounded-lg overflow-x-auto', props.className)}
       onScroll={(ele: any) => setScroll(ele.target?.scrollLeft)}
     >
       <div className='table table-auto border-collapse w-full'>
@@ -27,7 +27,7 @@ function Header (props: PropsWithChildren<{ className?: string }>): JSX.Element 
   return (
     <div
       data-testid='OverflowTable.Header'
-      className={classNames('table-row border-gray-200 bg-gray-50', props.className)}
+      className={classNames('table-row border-gray-100 bg-gray-50', props.className)}
     >
       {props.children}
     </div>
@@ -38,7 +38,7 @@ function Row (props: PropsWithChildren<{ className?: string }>): JSX.Element {
   return (
     <div
       data-testid='OverflowTable.Row'
-      className={classNames('table-row border-t', props.className)}
+      className={classNames('table-row border-t border-gray-100', props.className)}
     >
       {props.children}
     </div>
@@ -70,7 +70,7 @@ function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean }
         >
           {props.children}
           <div className={classNames({
-            'h-full absolute inset-y-0 right-0 border-r border-gray-200': props.sticky! && left > 0
+            'h-full absolute inset-y-0 right-0 border-r border-gray-100': props.sticky! && left > 0
           })}
           />
         </div>

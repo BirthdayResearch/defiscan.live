@@ -8,6 +8,7 @@ import { tokens } from '@defichain/whale-api-client'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
+import { Container } from '@components/commons/Container'
 
 interface TokensPageData {
   tokens: {
@@ -18,17 +19,10 @@ interface TokensPageData {
 
 export default function TokensPage ({ tokens }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='container mx-auto px-4 pt-12 pb-20'>
+    <Container className='pt-12 pb-20'>
       <Head title='Tokens' />
 
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-pink-50 rounded p-3'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/tokens. Some features are not available and
-          may not work as expected.
-        </div>
-      </div>
-
-      <h1 className='text-2xl font-semibold'>Tokens</h1>
+      <h1 className='text-2xl font-medium'>Tokens</h1>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
           <AdaptiveTable.Head>TOKEN</AdaptiveTable.Head>
@@ -50,7 +44,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={tokens.pages} path='/tokens' />
       </div>
-    </div>
+    </Container>
   )
 }
 
@@ -68,12 +62,12 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
             const TokenIcon = getTokenIcon(data.symbol)
             return <TokenIcon className='h-8 w-8' />
           })()}
-          <div className='font-medium ml-3 group-hover:text-primary'>
+          <div className='font-medium ml-3 group-hover:text-primary-500'>
             {data.symbol}{!data.isDAT && `#${data.id}`}
           </div>
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='NAME' className='align-middle group-hover:text-primary'>
+      <AdaptiveTable.Cell title='NAME' className='align-middle group-hover:text-primary-500'>
         {(() => {
           if (data.isDAT) {
             return data.name.replace('Default Defi token', 'DeFiChain')
@@ -82,7 +76,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
           return data.name
         })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='CATEGORY' className='align-middle group-hover:text-primary'>
+      <AdaptiveTable.Cell title='CATEGORY' className='align-middle group-hover:text-primary-500'>
         {(() => {
           if (data.isLPS) {
             return 'LPS'
@@ -95,7 +89,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
           return 'DCT'
         })()}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='MINTED' className='align-middle group-hover:text-primary'>
+      <AdaptiveTable.Cell title='MINTED' className='align-middle group-hover:text-primary-500'>
         {(() => {
           if (data.isLPS) {
             return <div>...</div>

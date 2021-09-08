@@ -5,6 +5,7 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
+import { Container } from '@components/commons/Container'
 
 interface TokenAssetPageProps {
   token: TokenData
@@ -12,14 +13,14 @@ interface TokenAssetPageProps {
 
 export default function TokenIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='container mx-auto px-4 pt-12 pb-24'>
+    <Container className='pt-12 pb-24'>
       <TokenPageHeading token={props.token} />
 
       <div className='flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <ListLeft token={props.token} />
         <ListRight token={props.token} />
       </div>
-    </div>
+    </Container>
   )
 }
 

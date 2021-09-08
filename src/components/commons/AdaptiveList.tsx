@@ -6,7 +6,7 @@ export function AdaptiveList (props: PropsWithChildren<{ className?: string }>):
     <div
       data-testid='AdaptiveList'
       className={classNames(
-        'rounded-lg border overflow-hidden', props.className
+        'rounded-lg border border-gray-100 overflow-hidden', props.className
       )}
     >
       <div className='table w-full border-collapse'>
@@ -20,7 +20,7 @@ export function AdaptiveList (props: PropsWithChildren<{ className?: string }>):
 
 function Row (props: PropsWithChildren<{ name: string, className?: string }>): JSX.Element {
   return (
-    <div className='table-row border-b last:border-b-0'>
+    <div className='table-row border-b border-gray-100 last:border-b-0'>
       <div className='table-cell px-6 py-3'>
         {props.name}:
       </div>

@@ -11,6 +11,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { MdArrowDropDown, MdClose, MdMenu } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
+import { Container } from '@components/commons/Container'
 
 export function Header (): JSX.Element {
   const [menu, setMenu] = useState(false)
@@ -28,20 +29,20 @@ export function Header (): JSX.Element {
   return (
     <header className='bg-white'>
       <div className='hidden md:block border-b border-gray-100'>
-        <div className='container mx-auto px-4 py-1'>
+        <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
             <HeaderCountBar className='h-full flex flex-wrap -m-2 overflow-hidden' />
             <HeaderNetworkMenu />
           </div>
-        </div>
+        </Container>
       </div>
 
       <div className='border-b border-gray-100'>
-        <div className='container mx-auto px-4 py-4 md:py-8'>
+        <Container className='py-4 md:py-8'>
           <div className='flex items-center justify-between'>
             <div className='flex'>
               <Link href={{ pathname: '/' }} passHref>
-                <a className='flex items-center cursor-pointer hover:text-primary'>
+                <a className='flex items-center cursor-pointer hover:text-primary-500'>
                   <DeFiChainLogo className='w-16 h-full' />
                   <h6 className='ml-3 text-xl font-medium'>Scan</h6>
                 </a>
@@ -57,30 +58,33 @@ export function Header (): JSX.Element {
             </div>
             <div className='md:hidden'>
               {menu ? (
-                <MdClose className='h-6 w-6 text-primary' onClick={() => setMenu(false)} />
+                <MdClose className='h-6 w-6 text-primary-500' onClick={() => setMenu(false)} />
               ) : (
-                <MdMenu className='h-6 w-6 text-primary' onClick={() => setMenu(true)} />
+                <MdMenu className='h-6 w-6 text-primary-500' onClick={() => setMenu(true)} />
               )}
             </div>
           </div>
-        </div>
+        </Container>
       </div>
 
       <div>
         {menu && (
-          <div className='container mx-auto px-4 pt-2 pb-4 border-b border-gray-100 shadow-sm'>
+          <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm'>
             <div className='flex flex-col'>
               <HeaderLink className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Blocks' pathname='/blocks' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Tokens' pathname='/tokens' />
-              <HeaderLink className='flex justify-center border-b border-gray-100' text='Masternodes' pathname='/masternodes' />
+              <HeaderLink
+                className='flex justify-center border-b border-gray-100' text='Masternodes'
+                pathname='/masternodes'
+              />
             </div>
             <HeaderCountBar className='mt-4 border border-gray-100 rounded p-2 bg-gray-50 flex flex-wrap' />
             <div className='mt-4'>
               <HeaderNetworkMenu />
             </div>
-          </div>
+          </Container>
         )}
       </div>
     </header>
@@ -88,13 +92,16 @@ export function Header (): JSX.Element {
 }
 
 function HeaderCountBar (props: { className: string }): JSX.Element {
-  const { count, tvl } = useSelector((state: RootState) => state.stats)
+  const {
+    count,
+    tvl
+  } = useSelector((state: RootState) => state.stats)
 
   function HeaderCount (props: { text: string, count?: number, className: string }): JSX.Element {
     return (
       <li className={props.className}>
         <span className='text-sm'>{props.text}: </span>
-        <span className='text-sm text-primary font-semibold'>
+        <span className='text-sm text-primary-500 font-semibold'>
           {props.count !== undefined
             ? <NumberFormat value={props.count} displayType='text' thousandSeparator /> : '...'}
         </span>
@@ -175,7 +182,7 @@ function HeaderNetworkMenu (): JSX.Element {
 
   return (
     <Menu as='div' className='relative inline-block'>
-      <Menu.Button className='bg-gray-100 px-2 py-1 rounded flex items-center'>
+      <Menu.Button className='bg-gray-50 px-2 py-1 rounded flex items-center'>
         <div className='bg-green-500 h-2 w-2 rounded-full' />
         <div className='text-xs ml-2 font-medium leading-none'>
           {network}
@@ -204,7 +211,7 @@ function HeaderNetworkMenu (): JSX.Element {
                     className='block px-4 py-2 text-sm font-medium cursor-pointer'
                     href={`/?network=${item}`}
                   >
-                    <div className={active || network === item ? 'text-primary' : ''}>
+                    <div className={active || network === item ? 'text-primary-500' : ''}>
                       {item}
                     </div>
                   </a>}
@@ -221,7 +228,7 @@ function HeaderLink (props: { text: string, pathname: string, className: string 
   return (
     <Link href={{ pathname: props.pathname }}>
       <a className={props.className}>
-        <div className='p-2 text-lg hover:text-primary cursor-pointer'>
+        <div className='p-2 text-lg hover:text-primary-500 cursor-pointer'>
           {props.text}
         </div>
       </a>
