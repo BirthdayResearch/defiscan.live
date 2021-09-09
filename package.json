@@ -60,7 +60,7 @@
     "@testing-library/cypress": "^8.0.1",
     "@types/lodash": "^4.14.172",
     "@types/node": "^14.17.14",
-    "@types/react": "^17.0.19",
+    "@types/react": "^17.0.20",
     "autoprefixer": "^10.3.4",
     "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^8.3.1",
