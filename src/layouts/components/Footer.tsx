@@ -96,6 +96,9 @@ function FooterSectionSitemap (): JSX.Element {
           <FooterInternalLink pathname='/masternodes' text='Masternodes' />
         </div>
         <div className='space-x-2 py-2 w-1/2'>
+          <FooterInternalLink pathname='/anchors' text='Anchors' />
+        </div>
+        <div className='space-x-2 py-2 w-1/2'>
           <FooterExternalLink url='https://dex.defichain.com/mainnet/anchors' text='BTC Anchors' />
         </div>
       </div>
