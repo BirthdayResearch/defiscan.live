@@ -50,7 +50,7 @@
     "react-icons": "^4.2.0",
     "react-number-format": "^4.7.3",
     "react-popper": "^2.2.5",
-    "react-redux": "^7.2.4",
+    "react-redux": "^7.2.5",
     "react-schemaorg": "^2.0.0",
     "recharts": "^2.1.2",
     "schema-dts": "^1.0.0"
