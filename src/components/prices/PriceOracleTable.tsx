@@ -24,7 +24,7 @@ export function PriceOracleTable ({
       <OverflowTable>
         <OverflowTable.Header>
           <OverflowTable.Head>DATE LAST UPDATED</OverflowTable.Head>
-          <OverflowTable.Head>ORACLES</OverflowTable.Head>
+          <OverflowTable.Head>ORACLE</OverflowTable.Head>
           <OverflowTable.Head>PRICE</OverflowTable.Head>
           <OverflowTable.Head>AGGREGATED PRICE</OverflowTable.Head>
           <OverflowTable.Head>TXID</OverflowTable.Head>
