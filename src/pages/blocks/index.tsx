@@ -9,6 +9,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
 import { Container } from '@components/commons/Container'
+import { Link } from '@components/commons/Link'
 
 interface BlocksPageData {
   blocks: {
@@ -43,7 +44,11 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
           </OverflowTable.Header>
 
           {blocks.items.map(block => (
-            <BlockRow block={block} key={block.height} />
+            <Link href={{ pathname: `/blocks/${block.height}` }} key={block.height}>
+              <a className='contents'>
+                <BlockRow block={block} />
+              </a>
+            </Link>
           ))}
         </OverflowTable>
       </div>
@@ -66,12 +71,9 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
   }, [])
 
   return (
-    <OverflowTable.Row key={block.id}>
+    <OverflowTable.Row key={block.id} className='hover:text-primary-500'>
       <OverflowTable.Cell sticky>
         {block.height}
-        {/* <Link href={{ pathname: `/blocks/${block.id}/transactions` }}> */}
-        {/*  <a>{block.height}</a> */}
-        {/* </Link> */}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         {age}

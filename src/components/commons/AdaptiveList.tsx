@@ -18,13 +18,13 @@ export function AdaptiveList (props: PropsWithChildren<{ className?: string }>):
   )
 }
 
-function Row (props: PropsWithChildren<{ name: string, className?: string }>): JSX.Element {
+function Row (props: PropsWithChildren<{ name: string, className?: string, testId?: string }>): JSX.Element {
   return (
     <div className='table-row border-b border-gray-100 last:border-b-0'>
       <div className='table-cell px-6 py-3'>
         {props.name}:
       </div>
-      <div className={classNames('table-cell px-6 py-3 text-gray-600', props.className)}>
+      <div className={classNames('table-cell px-6 py-3 text-gray-600', props.className)} data-testId={props.testId}>
         {props.children}
       </div>
     </div>
