@@ -68,19 +68,6 @@ context('/blocks/[blockId] on desktop', () => {
       })
     })
   })
-
-  // it('should CursorPagination.Next', function () {
-  //   cy.wait(500)
-  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
-  //     const pageOneFirstCell = ele[0].innerText
-  //     cy.interceptServerSideWait(() => {
-  //       cy.findByTestId('CursorPagination.Next').click()
-  //     })
-  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
-  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
-  //     })
-  //   })
-  // })
 });
 
 context('/blocks/[blockId] on mobile', () => {
@@ -141,7 +128,6 @@ context('/blocks/[blockId] on mobile', () => {
     cy.findByTestId('block-detail-merkle-root').should('have.text', 'c0bf8aa08389c89f17296ba1d813f4741e25b7096ba924e0a141b6ea7d48f39e')
   })
 
-
   it('should CursorPagination.Next', function () {
     cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
       cy.scrollTo('bottom')
@@ -154,16 +140,4 @@ context('/blocks/[blockId] on mobile', () => {
       })
     })
   })
-  // it('should CursorPagination.Next', function () {
-  //   cy.wait(500)
-  //   cy.findAllByTestId('OverflowTable.Cell').then((ele) => {
-  //     const pageOneFirstCell = ele[0].innerText
-  //     cy.interceptServerSideWait(() => {
-  //       cy.findByTestId('CursorPagination.Next').click()
-  //     })
-  //     cy.findAllByTestId('OverflowTable.Cell').then((pageTwoCells) => {
-  //       expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
-  //     })
-  //   })
-  // })
 })
