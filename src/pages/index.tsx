@@ -44,6 +44,12 @@ function SummaryCardHeader ({ children, className }: PropsWithChildren<{children
   )
 }
 
+function SummaryCardSubHeader ({ children, className }: PropsWithChildren<{children: ReactNode, className?: string}>): JSX.Element {
+  return (
+    <div className={classnames('text-xs text-gray-500 leading-4', className)}>{children}</div>
+  )
+}
+
 function SummaryCardHeadModifier ({ children, className }: PropsWithChildren<{children: ReactNode, className?: string}>): JSX.Element {
   return <span className={classnames('text-base ml-3', className)}>{children}</span>
 }
@@ -56,6 +62,7 @@ function Summary (): JSX.Element {
         <SummaryCard>
           <SummaryCardTitle>Price</SummaryCardTitle>
           <SummaryCardHeader className='text-4xl leading-10'>$2.97<SummaryCardHeadModifier className='text-green-500'><IoCaretUp className='inline' /> 23.10%</SummaryCardHeadModifier></SummaryCardHeader>
+          <SummaryCardSubHeader>Updated 50 minutes ago</SummaryCardSubHeader>
         </SummaryCard>
         <SummaryCard>
           <SummaryCardTitle>Total Value Locked</SummaryCardTitle>
