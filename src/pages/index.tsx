@@ -81,11 +81,37 @@ function Summary (): JSX.Element {
   )
 }
 
+function Stats (): JSX.Element {
+  return (
+    <div className='mt-12'>
+      <div className='flex flex-wrap gap-x-4  gap-y-1'>
+        <StatItem label='24h Volume:' value='999,999,999,999 USD' />
+        <StatItem label='Blocks:' value='999,999,999,999' />
+        <StatItem label='Burn Rate:' value='130.75 per block' />
+        <StatItem label='Total DFI Burned:' value='2,202K DFI' />
+        <StatItem label='Tokens:' value='80' />
+        <StatItem label='Difficulty:' value='627,982.46 GH/s' />
+        <StatItem label='Emission Rate:' value='999,999,999,999' />
+      </div>
+    </div>
+  )
+}
+
+function StatItem ({ label, value }: { label: string, value: string }): JSX.Element {
+  return (
+    <div className='flex gap-x-8'>
+      <div className='text-black w-36 text-ms'>{label}</div>
+      <div className='w-44 text-black text-ms font-semibold'>{value}</div>
+    </div>
+  )
+}
+
 export default function HomePage (): JSX.Element {
   return (
     <Container>
       <Banner />
       <Summary />
+      <Stats />
     </Container>
   )
 }
