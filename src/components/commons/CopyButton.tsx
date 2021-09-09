@@ -1,32 +1,36 @@
 import { useState } from 'react'
-import { IoCopyOutline } from 'react-icons/io5'
+import { MdContentCopy } from 'react-icons/md'
+import classNames from 'classnames'
 
-export function CopyButton ({ text }: { text: string }): JSX.Element {
-  const [open, setOpen] = useState<Boolean>(false)
+interface CopyButtonProps {
+  content: string
+  className?: string
+}
+
+export function CopyButton (props: CopyButtonProps): JSX.Element {
+  const [open, setOpen] = useState<boolean>(false)
 
   async function copy (): Promise<void> {
-    await navigator.clipboard.writeText(text)
+    await navigator.clipboard.writeText(props.content)
     setOpen(true)
 
     setTimeout(() => {
       setOpen(false)
-    }, 500)
+    }, 1000)
   }
 
   return (
-    <div className='ml-1'>
-      <button className='cursor-pointer outline-none p-1 bg-gray-100 rounded shadow-sm' onClick={copy}>
-        <IoCopyOutline className='h-5 w-5 text-gray-500' />
+    <div className={classNames('relative', props.className)}>
+      <button className='cursor-pointer border border-gray-200 p-1 bg-gray-100 rounded' onClick={copy}>
+        <MdContentCopy className='h-4 w-4 text-gray-600' />
       </button>
-      {
-        open === true
-          ? (
-            <span className='bg-gray-100 p-1 rounded absolute mr-4'>
-              Copied!
-            </span>
-          )
-          : null
-      }
+      <div className='absolute'>
+        {open && (
+          <div className='mt-2 text-sm font-medium rounded shadow-md ring-1 ring-gray-100 bg-white p-2'>
+            COPIED!
+          </div>
+        )}
+      </div>
     </div>
   )
 }
