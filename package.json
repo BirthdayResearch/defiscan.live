@@ -34,7 +34,7 @@
     "@defichain/playground-api-client": ">=0.9.1",
     "@defichain/whale-api-client": ">=0.9.3",
     "@headlessui/react": "^1.4.1",
-    "@popperjs/core": "^2.10.0",
+    "@popperjs/core": "^2.10.1",
     "@reduxjs/toolkit": "^1.6.1",
     "@tailwindcss/line-clamp": "^0.2.1",
     "bignumber.js": "^9.0.1",
