@@ -28,7 +28,7 @@ context('/blocks/[blockId] on desktop', () => {
   })
 
   it('should have block detail confirmations', () => {
-    cy.findByTestId('block-detail-confirmations').should('be.visible')
+    cy.findByTestId('block-detail-confirmations').contains(/\d+/)
   })
 
   it('should have block detail difficulty', () => {
@@ -49,7 +49,8 @@ context('/blocks/[blockId] on desktop', () => {
 
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('HASH').should('be.visible')
+      cy.wrap(ele).findByText('TXID').should('be.visible')
+      cy.wrap(ele).findByText('VIN/VOUT').should('be.visible')
       cy.wrap(ele).findByText('TIMESTAMP').should('be.visible')
       cy.wrap(ele).findByText('CONFIRMATIONS').should('be.visible')
     })
@@ -101,8 +102,7 @@ context('/blocks/[blockId] on mobile', () => {
 
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('HASH').should('be.visible')
-      cy.wrap(ele).findByText('TIMESTAMP').should('not.be.visible')
+      cy.wrap(ele).findByText('TXID').should('be.visible')
     })
   })
   it('should have block hash', () => {
@@ -122,7 +122,7 @@ context('/blocks/[blockId] on mobile', () => {
   })
 
   it('should have block detail confirmations', () => {
-    cy.findByTestId('block-detail-confirmations').should('be.visible')
+    cy.findByTestId('block-detail-confirmations').contains(/\d+/)
   })
 
   it('should have block detail difficulty', () => {
