@@ -1,8 +1,9 @@
 import classnames from 'classnames'
 import { ReactNode, PropsWithChildren } from 'react'
-import { Container } from '@components/commons/Container'
 import { GetServerSidePropsResult } from 'next'
-import { IoCaretUp, IoSearchOutline } from 'react-icons/io5'
+import { IoCaretUp, IoSearchOutline, IoChevronForward } from 'react-icons/io5'
+import { Container } from '@components/commons/Container'
+import { Link } from '@components/commons/Link'
 
 function Banner (): JSX.Element {
   return (
@@ -106,12 +107,114 @@ function StatItem ({ label, value }: { label: string, value: string }): JSX.Elem
   )
 }
 
+function BlockDetails (): JSX.Element {
+  return (
+    <div className='h-20 border border-gray-200 p-4'>
+      <div className='flex flex-col gap-y-2'>
+        <span className='text-xl text-gray-900 font-semibold'>#102320123</span>
+        <span className='text-xs text-opacity-40 text-black font-medium'>#102320123</span>
+      </div>
+    </div>
+  )
+}
+
+function BlocksAndTransactions (): JSX.Element {
+  return (
+    <div className='mt-10'>
+      <div className='mt-12 flex gap-x-8'>
+        <div className='flex-1'>
+          <div className='flex justify-between'>
+            <h1 className='text-xl font-semibold leading-6'>Blocks</h1>
+            <Link href={{ pathname: '/blocks' }}>
+              <a
+                className={`
+                font-medium 
+                leading-6 
+                cursor-pointer 
+                text-primary-500 
+                hover:text-primary-500 
+                opacity-60 
+                hover:opacity-100'`}
+              >
+                <div className='flex items-center'>
+                  VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
+                </div>
+              </a>
+            </Link>
+          </div>
+          <div className='mt-6 flex flex-col gap-y-2 h-2/6 overflow-scroll'>
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+            <BlockDetails />
+          </div>
+          <button type='button' className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'>VIEW ALL BLOCKS</button>
+        </div>
+        <div className='flex-1'>
+          <div className='flex justify-between'>
+            <h1 className='text-xl font-semibold leading-6'>Transactions</h1>
+            <Link href={{ pathname: '/blocks' }}>
+              <a
+                className={`
+                font-medium 
+                leading-6 
+                cursor-pointer 
+                text-primary-500 
+                hover:text-primary-500 
+                opacity-60 
+                hover:opacity-100'`}
+              >
+                <div className='flex items-center'>
+                  LATEST TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
+                </div>
+              </a>
+            </Link>
+          </div>
+          <div className='mt-6 flex flex-col gap-y-2 h-auto'>
+            <BlockDetails />
+            <BlockDetails />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function HomePage (): JSX.Element {
   return (
     <Container>
       <Banner />
       <Summary />
       <Stats />
+      <BlocksAndTransactions />
     </Container>
   )
 }
