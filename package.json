@@ -21,7 +21,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint src content --fix",
+    "lint": "eslint src content cypress --fix",
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
@@ -66,11 +66,13 @@
     "cypress": "^8.3.1",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.2",
+    "eslint-config-standard-jsx": "^10.0.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-cypress": "^2.11.3",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "postcss": "^8.3.6",
     "tailwindcss": "^2.2.14",
-    "ts-standard": "^10.0.0",
     "typescript": "4.3.2"
   },
   "lint-staged": {
