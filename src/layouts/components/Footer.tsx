@@ -3,6 +3,7 @@ import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { PropsWithChildren } from 'react'
 import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube } from 'react-icons/fa'
 import { Container } from '@components/commons/Container'
+import { NetlifyLightLogo } from '@components/icons/NetlifyLightLogo'
 
 export function Footer (): JSX.Element {
   return (
@@ -123,7 +124,7 @@ function FooterSectionAbout (): JSX.Element {
 
       <div className='mt-6'>
         <a href='https://www.netlify.com' target='_blank' rel='nofollow noopener noreferrer'>
-          <img src='https://www.netlify.com/img/global/badges/netlify-light.svg' alt='Deploys by Netlify' />
+          <NetlifyLightLogo />
         </a>
       </div>
     </section>

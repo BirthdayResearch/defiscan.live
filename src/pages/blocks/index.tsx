@@ -68,7 +68,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [block.medianTime])
 
   return (
     <OverflowTable.Row key={block.id} className='hover:text-primary-500'>

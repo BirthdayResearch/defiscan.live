@@ -20,19 +20,19 @@ export function Head (props: PropsWithChildren<HeadProps>): JSX.Element {
 
   return (
     <NextHead>
-      {title !== undefined ? (
+      {title !== undefined && (
         <>
           <title key='title'>{title}</title>
           <meta key='og:title' name='og:title' content={title} />
         </>
-      ) : null}
+      )}
 
-      {description !== undefined ? (
+      {description !== undefined && (
         <>
           <meta key='description' name='description' content={description} />
           <meta key='og:description' name='og:description' content={description} />
         </>
-      ) : null}
+      )}
 
       {props.children}
     </NextHead>

@@ -53,14 +53,14 @@ export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | nul
 
 function newWhaleClient (network?: string): WhaleApiClient {
   switch (network) {
+    case Network.LocalPlayground:
+      return new WhaleApiClient({ url: 'http://localhost:19553', network: 'regtest' })
+    case Network.RemotePlayground:
+      return new WhaleApiClient({ url: 'https://playground.defichain.com', network: 'regtest' })
+    case Network.TestNet:
+      return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'testnet' })
     case Network.MainNet:
     default:
       return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet' })
-    case Network.TestNet:
-      return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'testnet' })
-    case Network.RemotePlayground:
-      return new WhaleApiClient({ url: 'https://playground.defichain.com', network: 'regtest' })
-    case Network.LocalPlayground:
-      return new WhaleApiClient({ url: 'http://localhost:19553', network: 'regtest' })
   }
 }
