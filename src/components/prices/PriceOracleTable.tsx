@@ -11,7 +11,10 @@ interface PriceOracleTableProps {
   oracles: PriceOracle[]
 }
 
-export function PriceOracleTable ({ price, oracles }: PriceOracleTableProps): JSX.Element {
+export function PriceOracleTable ({
+  price,
+  oracles
+}: PriceOracleTableProps): JSX.Element {
   return (
     <div data-testid='PriceOracleTable'>
       <h2 className='text-2xl font-semibold'>
@@ -44,7 +47,13 @@ export function PriceOracleTable ({ price, oracles }: PriceOracleTableProps): JS
 }
 
 function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.Element {
-  const { oracle: { oracleId, feed }, price } = props
+  const {
+    oracle: {
+      oracleId,
+      feed
+    },
+    price
+  } = props
 
   if (feed !== undefined) {
     const aggActive = isActive(price.price.block)

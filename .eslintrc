@@ -27,8 +27,7 @@
     ],
     "no-void": "off",
     "import/no-default-export": "error",
-    "indent": "off",
-    "@typescript-eslint/indent": "off",
+    "multiline-ternary": "off",
     "no-restricted-imports": [
       "error",
       {
