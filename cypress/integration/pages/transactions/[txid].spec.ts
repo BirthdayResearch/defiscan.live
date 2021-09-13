@@ -17,8 +17,8 @@ context('/transactions/[txid] on desktop', () => {
 
   it('should have transaction-detail-total-amount', () => {
     cy.findByTestId('transaction-detail-total-amount').should('have.text', '')
-  })
-  
+  }) 
+
   it('should have transaction-detail-fee', () => {
     cy.findByTestId('transaction-detail-fee').should('have.text', '')
   })
@@ -50,7 +50,7 @@ context('/transactions/[txid] on desktop', () => {
   it('should have transaction-detail-mined-time', () => {
     cy.findByTestId('transaction-detail-mined-time').should('have.text', '')
   })
-});
+})
 
 context('/transactions/[txid] on mobile', () => {
   before(() => {
@@ -72,7 +72,7 @@ context('/transactions/[txid] on mobile', () => {
   it('should have transaction-detail-total-amount', () => {
     cy.findByTestId('transaction-detail-total-amount').should('have.text', '')
   })
-  
+
   it('should have transaction-detail-fee', () => {
     cy.findByTestId('transaction-detail-fee').should('have.text', '')
   })
