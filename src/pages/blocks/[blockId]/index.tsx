@@ -15,8 +15,6 @@ import { BsArrowRight } from 'react-icons/bs'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Link } from '@components/commons/Link'
 
-import { fromUnixTime, format } from 'date-fns'
-
 interface BlockDetailsPageProps {
   block: Block
   transactions: {
@@ -139,34 +137,6 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
       <div className='flex justify-end mt-4'>
         <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}`} />
       </div>
-      <div className='my-6'>
-        <OverflowTable>
-          <OverflowTable.Header>
-            <OverflowTable.Head>HASH</OverflowTable.Head>
-            <OverflowTable.Head>TIMESTAMP</OverflowTable.Head>
-            <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
-          </OverflowTable.Header>
-
-          {transactions.items.map(transaction => {
-            return (
-              <OverflowTable.Row key={transaction.hash}>
-                <OverflowTable.Cell>
-                  {transaction.id}
-                </OverflowTable.Cell>
-                {/* <OverflowTable.Cell> */}
-                {/*   {transaction.timestamp */}
-                {/* </OverflowTable.Cell> */}
-                {/* <OverflowTable.Cell> */}
-                {/*   {transaction.confirmations */}
-                {/* </OverflowTable.Cell> */}
-              </OverflowTable.Row>
-            )
-          })}
-        </OverflowTable>
-      </div>
-      <div className='flex justify-end mt-8'>
-        <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}`} />
-      </div>
     </div>
   )
 }
@@ -253,7 +223,6 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const next = CursorPagination.getNext(context)
   const transactions = await api.blocks.getTransactions(block.id, 50, next)
-  const blocks = await api.blocks.list()
 
   return {
     props: {
