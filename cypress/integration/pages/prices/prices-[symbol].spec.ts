@@ -36,8 +36,8 @@ context('/prices/TSLA-USD', () => {
                 cy.wrap(ele).findByText('DATE LAST UPDATED').should('be.visible')
                 cy.wrap(ele).findByText('ORACLE').should('be.visible')
                 cy.wrap(ele).findByText('PRICE').should('be.visible')
-                cy.wrap(ele).findByText('AGGREGATED PRICE').should('be.visible')
                 cy.wrap(ele).findByText('TXID').should('be.visible')
+                cy.wrap(ele).findByText('AGGREGATED PRICE').should('be.visible')
             })
         })
 
