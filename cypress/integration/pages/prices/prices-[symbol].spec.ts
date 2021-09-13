@@ -33,11 +33,11 @@ context('/prices/TSLA-USD', () => {
 
     it('should have table header', () => {
       cy.findByTestId('PriceOracleTable').get('thead')
-        .should('contain.text', "DATE LAST UPDATED")
-        .should('contain.text', "ORACLE")
-        .should('contain.text', "PRICE")
-        .should('contain.text', "AGGREGATED PRICE")
-        .should('contain.text', "TXID")
+        .should('contain.text', 'DATE LAST UPDATED')
+        .should('contain.text', 'ORACLE')
+        .should('contain.text', 'PRICE')
+        .should('contain.text', 'AGGREGATED PRICE')
+        .should('contain.text', 'TXID')
     })
 
     it('should have table data', () => {
@@ -54,6 +54,6 @@ context('/prices/TSLA-USD', () => {
 
   it('should have section: Pricing feeds by', () => {
     cy.get('main section')
-      .should('contain.text', "Pricing feeds by")
+      .should('contain.text', 'Pricing feeds by')
   })
 })

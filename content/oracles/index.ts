@@ -32,12 +32,6 @@ export const ORACLES: Record<string, OracleCopy> = {
     order: 1,
     url: 'https://finnhub.io/'
   },
-  tiingo: {
-    name: 'Tiingo',
-    image: require('./images/tiingo.svg'),
-    order: 2,
-    url: 'https://www.tiingo.com/'
-  },
   iex: {
     name: 'IEX Cloud',
     image: require('./images/iex.png'),

@@ -67,9 +67,8 @@ export function PriceTickerDetail ({ price }: PriceTickerDetailProps): JSX.Eleme
 
       <div className='mt-6'>
         <H6AlertCircleHoverPopover
-          name='Last update' description={
-          `${format(price.price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`
-          }
+          name='Last update'
+          description={`${format(price.price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}
         />
         <div className='text-lg font-semibold'>
           {formatDistanceToNow(price.price.block.medianTime * 1000)} ago
@@ -78,19 +77,16 @@ export function PriceTickerDetail ({ price }: PriceTickerDetailProps): JSX.Eleme
 
       <div className='mt-6'>
         <H6AlertCircleHoverPopover
-          name='Status' description={
+          name='Status'
+          description={
             isActive(price.price.block) ? 'Pricing oracles is active with at least one oracles responding.' : 'Pricing oracles is inactive as market is currently closed.'
           }
         />
         <div className='text-lg font-semibold flex items-center'>
           {isActive(price.price.block) ? (
-            <>
-              <span>Active</span>
-            </>
+            <span>Active</span>
           ) : (
-            <>
-              <span>Closed</span>
-            </>
+            <span>Closed</span>
           )}
         </div>
       </div>

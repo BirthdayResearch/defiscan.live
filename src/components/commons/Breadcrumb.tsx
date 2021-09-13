@@ -31,12 +31,12 @@ export function Breadcrumb (props: { items: BreadcrumbItem[] }): JSX.Element {
       <Head>
         <SchemaOrgBreadcrumbList items={props.items} />
 
-        {canonical.length > 0 ? (
+        {canonical.length > 0 && (
           <>
             <link key='canonical' rel='canonical' href={`${DOMAIN}${canonical[0].path}`} />
             <meta key='og:url' name='og:url' content={`${DOMAIN}${canonical[0].path}`} />
           </>
-        ) : null}
+        )}
       </Head>
 
       <Link href={{ pathname: '/' }}>

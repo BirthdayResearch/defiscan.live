@@ -38,7 +38,7 @@ context('/blocks/[blockId] on desktop', () => {
   it('should have block detail size', () => {
     cy.findByTestId('block-detail-size').should('have.text', '18713')
   })
-  
+
   it('should have block detail version', () => {
     cy.findByTestId('block-detail-version').should('have.text', '536870912')
   })
@@ -68,7 +68,7 @@ context('/blocks/[blockId] on desktop', () => {
       })
     })
   })
-});
+})
 
 context('/blocks/[blockId] on mobile', () => {
   before(() => {
@@ -119,7 +119,7 @@ context('/blocks/[blockId] on mobile', () => {
   it('should have block detail size', () => {
     cy.findByTestId('block-detail-size').should('have.text', '18713')
   })
-  
+
   it('should have block detail version', () => {
     cy.findByTestId('block-detail-version').should('have.text', '536870912')
   })

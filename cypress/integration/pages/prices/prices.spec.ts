@@ -4,11 +4,11 @@ context('/prices', () => {
   })
 
   it('should have section: Price Feeds', () => {
-    cy.get('main').should('contain.text', "Price Feeds")
+    cy.get('main').should('contain.text', 'Price Feeds')
   })
 
   it('should have section: Pricing feeds by', () => {
-    cy.get('main section').should('contain.text', "Pricing feeds by")
+    cy.get('main section').should('contain.text', 'Pricing feeds by')
   })
 
   it('should contain at least 20 price feed', function () {

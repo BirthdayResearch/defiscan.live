@@ -9,8 +9,7 @@
     "next/core-web-vitals"
   ],
   "ignorePatterns": [
-    "*.json",
-    "cypress/**/*.ts"
+    "*.json"
   ],
   "rules": {
     "@typescript-eslint/no-non-null-assertion": "off",
@@ -28,6 +27,7 @@
     ],
     "no-void": "off",
     "import/no-default-export": "error",
+    "multiline-ternary": "off",
     "no-restricted-imports": [
       "error",
       {
