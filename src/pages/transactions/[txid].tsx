@@ -3,14 +3,18 @@ import { useSelector } from 'react-redux'
 import { MdContentCopy } from 'react-icons/md'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import { Container } from '@components/commons/Container'
+import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
+
 import { RootState } from '@store/index'
-import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
-import { Link } from '@components/commons/Link'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
+
+import { Container } from '@components/commons/Container'
+import { AdaptiveList } from '@components/commons/AdaptiveList'
 
 interface TransactionPageProps {
   transaction: Transaction
+  vins: TransactionVin[]
+  vouts: TransactionVout[]
 }
 
 function CopyButton ({ value }: { value: string }): JSX.Element {
@@ -53,21 +57,6 @@ function CopyButton ({ value }: { value: string }): JSX.Element {
   )
 }
 
-function BlockDetail (props: PropsWithChildren<{ label: string, children?: ReactNode, testId?: string }>): JSX.Element {
-  const { label, children, testId } = props
-  return (
-    <div className='px-6 py-3 flex justify-between'>
-      <span className='w-1/3 flex-shrink-0'>
-        {label}
-      </span>
-      <span className='flex-grow' data-testid={testId}>
-        {children}
-      </span>
-    </div>
-
-  )
-}
-
 function InputOutputBlock ({ label, children }: PropsWithChildren<{label: 'INPUT'|'OUTPUT', children: ReactNode}>): JSX.Element {
   return (
     <div className='bg-gray-100 h-20 p-3 rounded flex justify-between'>
@@ -83,71 +72,92 @@ function InputOutputBlock ({ label, children }: PropsWithChildren<{label: 'INPUT
   )
 }
 
-export default function TransactionPage ({ transaction }: TransactionPageProps): JSX.Element {
+export default function TransactionPage ({ transaction, vins, vouts }: TransactionPageProps): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   const confirmations = blocks !== undefined ? blocks - transaction.block.height : blocks
+
   return (
     <Container className='py-6'>
-      <h1 className='text-2xl font-medium mb-6'>
-        Transaction (Playground Temporary Page)
+      <h1 className='leading-6 mb-6 opacity-60' data-testid='title'>
+        Transaction Hash
       </h1>
       <h2 className='text-xl font-medium mb-6' data-testid='summary-subtitle'>Summary</h2>
-      <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary' data-testid='block-hash'>{transaction.hash}</span> <CopyButton value={transaction.hash} /></div>
-      <div className='flex mt-6 gap-x-6'>
-        <div className='flex flex-col w-5/12 flex-grow'>
-          {renderBlockDetails(leftDetails)}
+      <div className='flex items-center'><span className='font-semibold'>Hash:&nbsp;</span> <span className='text-primary' data-testid='transaction-hash'>{transaction.hash}</span> <CopyButton value={transaction.hash} /></div>
+      <div className='flex mt-4 gap-x-4'>
+        <div className='flex-1'>
+          <AdaptiveList>
+            <AdaptiveList.Row name='Total Amount' testId='transaction-detail-total-amount'>
+              {/* @TODO (aikchun) - Get total amount */}
+            </AdaptiveList.Row>
+            <AdaptiveList.Row name='Fee' testId='transaction-detail-fee'>
+              {/* @TODO (aikchun) - Get fee */}
+            </AdaptiveList.Row>
+            <AdaptiveList.Row name='Confirmations' testId='transaction-detail-confirmations'>
+              {confirmations}
+            </AdaptiveList.Row>
+            <AdaptiveList.Row name='Block Height' testId='transaction-detail-block-height'>
+              {transaction.block.height}
+            </AdaptiveList.Row>
+            <AdaptiveList.Row name='Custom Transaction' testId='transaction-detail-custom-transaction'>
+              {/* @TODO (aikchun) - custom transaction */}
+            </AdaptiveList.Row>
+          </AdaptiveList>
         </div>
         <div className='flex-1'>
-          <div className='flex flex-col rounded-md border divide-solid divide-y'>
-            <BlockDetail label='Fee Rate:' testId='fee-rate'>
-              xxxx DFI
-            </BlockDetail>
-            <BlockDetail label='Size:' testId='size'>
+          <AdaptiveList>
+            <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
+              {/* @TODO (aikchun) - fee rate */}
+            </AdaptiveList.Row>
+            <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
               {transaction.size}
-            </BlockDetail>
-            <BlockDetail label='Received time:' testId='received-time'>
-              (received time)
-            </BlockDetail>
-            <BlockDetail label='Mined time:' testId='mined-time'>
-              (mined time)
-            </BlockDetail>
-          </div>
+            </AdaptiveList.Row>
+            <AdaptiveList.Row name='Received Time' testId='transaction-detail-received-time'>
+              {/* @TODO (aikchun) - received time */}
+            </AdaptiveList.Row>
+            <AdaptiveList.Row name='Mined Time' testId='transaction-detail-mined-time'>
+              {/* @TODO (aikchun) - mined time */}
+            </AdaptiveList.Row>
+          </AdaptiveList>
         </div>
       </div>
       <h2 className='text-xl font-medium mt-6' data-testid='details-subtitle'>Details</h2>
       <div className='flex justify-between mt-2'>
         <div className='flex-1 flex flex-col gap-y-0.5'>
-          <InputOutputBlock label='INPUT'>
-            <span className='opacity-60'>No Inputs (Newly generated coins)</span>
-          </InputOutputBlock>
+          {vins.map((vin) => {
+            return (
+              <InputOutputBlock label='INPUT' key={vin.sequence}>
+                <span className='opacity-60'>{/* @TODO (aikchun) - some description */}</span>
+                <span>{/* @TODO (aikchun) - in value */}</span>
+              </InputOutputBlock>
+            )
+          })}
         </div>
         <div className='h-20 flex items-center justify-center w-14 flex-grow-0'>
           <IoArrowForwardOutline size={16} />
         </div>
         <div className='flex-1 flex flex-col gap-y-0.5'>
-          <InputOutputBlock
-            label='OUTPUT'
-          >
-            <span className='text-primary'>dm6EUeoYyVDV6HUcVeSxJGfRapN3wsctVk</span>
-            <span>100 DFI (U)</span>
-          </InputOutputBlock>
-          <InputOutputBlock
-            label='OUTPUT'
-          >
-            <span className='text-primary'>dm6EUeoYyVDV6HUcVeSxJGfRapN3wsctVk</span>
-            <span>100 DFI (U)</span>
-          </InputOutputBlock>
+          {vouts.map((vout) => {
+            return (
+              <InputOutputBlock
+                label='OUTPUT'
+                key={vout.script.hex}
+              >
+                <span className='text-primary'>{/* @TODO (aikchun) - some OP_CODE or hash */}</span>
+                <span>{vout.value}</span>
+              </InputOutputBlock>
+            )
+          })}
         </div>
       </div>
 
       <div className='flex flex-col items-end justify-between h-16 mt-8'>
         <div className='flex justify-between  gap-x-3'>
           <div>Fees: </div>
-          <div>0.00004404 DFI</div>
+          {/* @TODO (aikchun) - sum up fees */}
         </div>
         <div className='flex justify-between gap-x-3'>
           <div>Total: </div>
-          <div>140.0123245 DFI</div>
+          {/* @TODO (aikchun) - sum up total */}
         </div>
       </div>
 
@@ -166,9 +176,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
   const txid = context.params?.txid as string
 
+  const vins = await api.transactions.getVins(txid)
+  const vouts = await api.transactions.getVouts(txid)
+
   return {
     props: {
-      transaction: await api.transactions.get(txid)
+      transaction: await api.transactions.get(txid),
+      vins,
+      vouts
     }
   }
 }
