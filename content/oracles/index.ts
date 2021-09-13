@@ -37,6 +37,24 @@ export const ORACLES: Record<string, OracleCopy> = {
     image: require('./images/iex.png'),
     order: 3,
     url: 'https://iexcloud.io/'
+  },
+  coingecko: {
+    name: 'CoinGecko',
+    image: require('./images/coingecko.png'),
+    order: 3,
+    url: 'https://coingecko.com/'
+  },
+  cmc: {
+    name: 'CoinMarketCap',
+    image: require('./images/cmc.png'),
+    order: 3,
+    url: 'https://coinmarketcap.com/'
+  },
+  dex: {
+    name: 'Defichain DEX',
+    image: require('./images/defichain.png'),
+    order: 3,
+    url: 'https://defichain.com/dex/'
   }
 }
 
