@@ -17,7 +17,7 @@ context('/transactions/[txid] on desktop', () => {
 
   it('should have transaction-detail-total-amount', () => {
     cy.findByTestId('transaction-detail-total-amount').should('have.text', '')
-  }) 
+  })
 
   it('should have transaction-detail-fee', () => {
     cy.findByTestId('transaction-detail-fee').should('have.text', '')
