@@ -45,12 +45,11 @@ function CopyButton ({ value }: { value: string }): JSX.Element {
         <MdContentCopy />
       </button>
       {
-        open === true
-          ? (
-            <span className='bg-gray-100 p-1 rounded absolute mr-4'>
-              Copied!
-            </span>
-          )
+        open === true ? (
+          <span className='bg-gray-100 p-1 rounded absolute mr-4'>
+            Copied!
+          </span>
+        )
           : null
       }
     </div>
