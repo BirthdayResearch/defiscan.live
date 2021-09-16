@@ -207,6 +207,112 @@ function BlocksAndTransactions (): JSX.Element {
     </div>
   )
 }
+function LiquidityPairCard ({ title, children }: PropsWithChildren<{ title: string, children: ReactNode }>): JSX.Element {
+  return (
+    <div className='p-6 border border-gray-300 w-80 h-40'>
+      <div className='flex justify-between'>
+        <div className='flex'>
+          <div className='mr-2' />
+          <h1 className='font-semibold text-lg leading-6'>{title}</h1>
+        </div>
+        <Link href={{ pathname: '/#' }}>
+          <a
+            className={`
+            text-sm 
+            font-medium 
+            leading-4 
+            cursor-pointer 
+            text-primary-500 
+            hover:text-primary-500 
+            opacity-60 
+            hover:opacity-100'`}
+          >
+            <div className='flex items-center'>
+              VIEW<IoChevronForward size={15} className='ml-px inline' />
+            </div>
+          </a>
+        </Link>
+      </div>
+      <div className='mt-4'>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+function LiquidityCardStat ({ label, value }: {label: string, value: string}): JSX.Element {
+  return (
+    <div className='flex gap-x-4'>
+      <div className='font-normal text-sm opacity-40 leading-5 w-24'>
+        {label}:
+      </div>
+      <div className='text-sm leading-5'>{value}</div>
+    </div>
+  )
+}
+
+function LiquidityPools (): JSX.Element {
+  return (
+    <div className='mt-12'>
+      <div className='flex justify-between'>
+        <h1 className='text-xl leading-8 font-semibold'>Liquidity Pools</h1>
+        <Link href={{ pathname: '/#' }}>
+          <a
+            className={`
+            font-medium 
+            leading-6 
+            cursor-pointer 
+            text-primary-500 
+            hover:text-primary-500 
+            opacity-60 
+            hover:opacity-100'`}
+          >
+            <div className='flex items-center'>
+              VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' />
+            </div>
+          </a>
+        </Link>
+      </div>
+      <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6'>
+        <LiquidityPairCard title='BTC-DFI'>
+          <LiquidityCardStat label='APR' value='78.23%' />
+          <LiquidityCardStat label='Total Liquidity' value='289,860,929.34 USD' />
+          <LiquidityCardStat label='Price Ratio' value='16,770.48 DFI/BTC' />
+        </LiquidityPairCard>
+        <LiquidityPairCard title='ETH-DFI'>
+          <LiquidityCardStat label='APR' value='71.49%' />
+          <LiquidityCardStat label='Total Liquidity' value='67,065,097.75 USD' />
+          <LiquidityCardStat label='Price Ratio' value='1,294.15 DFI/ETH' />
+        </LiquidityPairCard>
+        <LiquidityPairCard title='USDT-DFI'>
+          <LiquidityCardStat label='APR' value='78.04%' />
+          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
+          <LiquidityCardStat label='Price Ratio' value='3.03 USDT/DFI' />
+        </LiquidityPairCard>
+        <LiquidityPairCard title='LTC-DFI'>
+          <LiquidityCardStat label='APR' value='78.23%' />
+          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
+          <LiquidityCardStat label='Price Ratio' value='3.03 DFI/LTC' />
+        </LiquidityPairCard>
+        <LiquidityPairCard title='USDC-DFI'>
+          <LiquidityCardStat label='APR' value='78.23%' />
+          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
+          <LiquidityCardStat label='Price Ratio' value='3.03 USDC/DFI' />
+        </LiquidityPairCard>
+        <LiquidityPairCard title='BCH-DFI'>
+          <LiquidityCardStat label='APR' value='78.23%' />
+          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
+          <LiquidityCardStat label='Price Ratio' value='3.03 DFI/BCH' />
+        </LiquidityPairCard>
+        <LiquidityPairCard title='DOGE-DFI'>
+          <LiquidityCardStat label='APR' value='78.23%' />
+          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
+          <LiquidityCardStat label='Price Ratio' value='3.03 DFI/DOGE' />
+        </LiquidityPairCard>
+      </div>
+    </div>
+  )
+}
 
 export default function HomePage (): JSX.Element {
   return (
@@ -215,6 +321,7 @@ export default function HomePage (): JSX.Element {
       <Summary />
       <Stats />
       <BlocksAndTransactions />
+      <LiquidityPools />
     </Container>
   )
 }
