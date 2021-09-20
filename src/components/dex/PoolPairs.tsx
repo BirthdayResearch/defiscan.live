@@ -92,7 +92,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
       <AdaptiveTable.Cell title='PRICE RATIO' className='align-middle lg:text-right'>
         <div>
           <NumberFormat
-            value={new BigNumber(data.priceRatio.ab).toPrecision(4).toString()}
+            value={Number(new BigNumber(data.priceRatio.ab).toPrecision(4))}
             displayType='text'
             thousandSeparator
             suffix={` ${symbolA}/${symbolB}`}
@@ -100,7 +100,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         </div>
         <div>
           <NumberFormat
-            value={new BigNumber(data.priceRatio.ba).toPrecision(4).toString()}
+            value={Number(new BigNumber(data.priceRatio.ba).toPrecision(4))}
             displayType='text'
             thousandSeparator
             suffix={` ${symbolB}/${symbolA}`}
