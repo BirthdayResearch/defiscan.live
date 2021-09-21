@@ -1,9 +1,25 @@
 import classnames from 'classnames'
 import { ReactNode, PropsWithChildren } from 'react'
-import { GetServerSidePropsResult } from 'next'
-import { IoCaretUp, IoSearchOutline, IoChevronForward } from 'react-icons/io5'
+import { useSelector } from 'react-redux'
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  InferGetServerSidePropsType
+} from 'next'
+import { formatDistanceToNow } from 'date-fns'
+import { IoCaretUp, IoSearchOutline, IoChevronForward, IoTimeOutline } from 'react-icons/io5'
+import NumberFormat from 'react-number-format'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { RootState } from '@store/index'
 import { Container } from '@components/commons/Container'
 import { Link } from '@components/commons/Link'
+import { Block } from '@defichain/whale-api-client/dist/api/blocks'
+import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
+
+interface HomePageProps {
+  blocks: Block[]
+  transactions: Transaction[]
+}
 
 function Banner (): JSX.Element {
   return (
@@ -107,18 +123,95 @@ function StatItem ({ label, value }: { label: string, value: string }): JSX.Elem
   )
 }
 
-function BlockDetails (): JSX.Element {
+function BlockDetails ({ height, medianTime, mintedBy, transactionCount }: {height: string, medianTime: number, mintedBy?: string, transactionCount: number}): JSX.Element {
   return (
-    <div className='h-20 border border-gray-200 p-4'>
-      <div className='flex flex-col gap-y-2'>
-        <span className='text-xl text-gray-900 font-semibold'>#102320123</span>
-        <span className='text-xs text-opacity-40 text-black font-medium'>#102320123</span>
+    <div className='h-20 border border-gray-200 p-4 flex'>
+      <div className='flex flex-col'>
+        <span className='text-xl text-gray-900 font-semibold'>#{height}</span>
+        <div className='text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'><IoTimeOutline size={15} /><span>{formatDistanceToNow(medianTime * 1000)} ago</span></div>
+      </div>
+      <div className='ml-8'>
+        <div className='text-sm leading-5 flex gap-x-6'>
+          <span className='text-right w-28 text-gray-400'>
+            Minted by:
+          </span>
+          <span>
+            {mintedBy}
+          </span>
+        </div>
+        <div className='text-sm leading-5 flex gap-x-6'>
+          <span className='text-right w-28 text-gray-400'>
+            Transactions:
+          </span>
+          <span className=''>
+            {transactionCount} Txns
+          </span>
+        </div>
       </div>
     </div>
   )
 }
 
-function BlocksAndTransactions (): JSX.Element {
+function TransactionDetails ({ hash, medianTime, from, to, confirmations }: {hash: string, medianTime: number, from: string, to: string, confirmations: number|undefined}): JSX.Element {
+  return (
+    <div className='h-40 border border-gray-200 p-4'>
+      <div className='flex justify-between'>
+        <div
+          className='w-7/12 leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
+        >
+          {hash}
+        </div>
+        <div>
+          <span
+            className='ml-8 text-xs text-opacity-40 text-black font-medium mt-1'
+          >
+            <IoTimeOutline size={15} className='inline' />
+            <span className='ml-1.5'>{formatDistanceToNow(medianTime * 1000)} ago</span>
+          </span>
+          <NumberFormat
+            className='ml-1 h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100'
+            value={24200.032}
+            displayType='text'
+            decimalScale={3}
+            thousandSeparator
+            suffix=' DFI'
+          />
+        </div>
+      </div>
+      <div className='mt-4'>
+        <div className='flex gap-x-1.5 text-sm leading-5'>
+          <span className='w-28 text-gray-400'>
+            From:
+          </span>
+          <span className='overflow-hidden overflow-ellipsis'>
+            {from}
+          </span>
+        </div>
+        <div className='flex gap-x-1.5 mt-2 text-sm leading-5'>
+          <span className='w-28 text-gray-400'>
+            To:
+          </span>
+          <span className='overflow-hidden overflow-ellipsis'>
+            {to}
+          </span>
+        </div>
+        <div className='flex gap-x-1.5 mt-2 text-sm leading-5'>
+          <span className='w-28 text-gray-400'>
+            Confirmations:
+          </span>
+          <span className='overflow-hidden overflow-ellipsis'>
+            {confirmations}
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const { blocks, transactions } = props
+
+  const { count: { blocks: blockCount } } = useSelector((state: RootState) => state.stats)
   return (
     <div className='mt-10'>
       <div className='mt-12 flex gap-x-8'>
@@ -143,40 +236,26 @@ function BlocksAndTransactions (): JSX.Element {
             </Link>
           </div>
           <div className='mt-6 flex flex-col gap-y-2 h-2/6 overflow-scroll'>
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
-            <BlockDetails />
+            {
+              blocks.map((block) => {
+                return (
+                  <BlockDetails
+                    key={block.id}
+                    height={block.height.toString()}
+                    mintedBy={block.minter}
+                    transactionCount={block.transactionCount}
+                    medianTime={block.medianTime}
+                  />
+                )
+              })
+            }
           </div>
-          <button type='button' className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'>VIEW ALL BLOCKS</button>
+          <button
+            type='button'
+            className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+          >
+            VIEW ALL BLOCKS
+          </button>
         </div>
         <div className='flex-1'>
           <div className='flex justify-between'>
@@ -198,9 +277,23 @@ function BlocksAndTransactions (): JSX.Element {
               </a>
             </Link>
           </div>
-          <div className='mt-6 flex flex-col gap-y-2 h-auto'>
-            <BlockDetails />
-            <BlockDetails />
+          <div className='mt-6 flex flex-col gap-y-2 h-2/6 overflow-scroll'>
+            {
+              transactions.map(t => {
+                return (
+                  <TransactionDetails
+                    key={t.hash}
+                    hash='4afe36e8222f84f9ba5ba1c6f259a6bd1fc1accebf704487c97383fbec7bf496'
+                    medianTime={1632102904}
+                    from=''
+                    to=''
+                    confirmations={
+                    blockCount !== undefined ? blockCount - t.block.height : blockCount
+                  }
+                  />
+                )
+              })
+            }
           </div>
         </div>
       </div>
@@ -314,24 +407,29 @@ function LiquidityPools (): JSX.Element {
   )
 }
 
-export default function HomePage (): JSX.Element {
+export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <Container>
       <Banner />
       <Summary />
       <Stats />
-      <BlocksAndTransactions />
+      <BlocksAndTransactions {...props} />
       <LiquidityPools />
     </Container>
   )
 }
 
-export async function getServerSideProps (): Promise<GetServerSidePropsResult<any>> {
+export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<HomePageProps>> {
+  const api = getWhaleApiClient(context)
+  const blocks = await api.blocks.list(30)
+
+  /* @TODO (aikchun) get latest transactions */
+  const transactions = await api.blocks.getTransactions(blocks[0].id)
+
   return {
-    props: {}
-    // redirect: {
-    //   statusCode: 302,
-    //   destination: '/prices'
-    // }
+    props: {
+      blocks,
+      transactions
+    }
   }
 }
