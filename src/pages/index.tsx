@@ -15,10 +15,12 @@ import { Container } from '@components/commons/Container'
 import { Link } from '@components/commons/Link'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
 interface HomePageProps {
   blocks: Block[]
   transactions: Transaction[]
+  liquidityPools: PoolPairData[]
 }
 
 function Banner (): JSX.Element {
@@ -250,12 +252,25 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
               })
             }
           </div>
-          <button
-            type='button'
-            className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
-          >
-            VIEW ALL BLOCKS
-          </button>
+          <Link href={{ pathname: '/blocks' }}>
+            <a
+              className={`
+              font-medium 
+              leading-6 
+              cursor-pointer 
+              text-primary-500 
+              hover:text-primary-500 
+              opacity-60 
+              hover:opacity-100'`}
+            >
+              <button
+                type='button'
+                className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+              >
+                VIEW ALL BLOCKS
+              </button>
+            </a>
+          </Link>
         </div>
         <div className='flex-1'>
           <div className='flex justify-between'>
@@ -344,7 +359,7 @@ function LiquidityCardStat ({ label, value }: {label: string, value: string}): J
   )
 }
 
-function LiquidityPools (): JSX.Element {
+function LiquidityPools ({ liquidityPools }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <div className='mt-12'>
       <div className='flex justify-between'>
@@ -367,41 +382,17 @@ function LiquidityPools (): JSX.Element {
         </Link>
       </div>
       <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6'>
-        <LiquidityPairCard title='BTC-DFI'>
-          <LiquidityCardStat label='APR' value='78.23%' />
-          <LiquidityCardStat label='Total Liquidity' value='289,860,929.34 USD' />
-          <LiquidityCardStat label='Price Ratio' value='16,770.48 DFI/BTC' />
-        </LiquidityPairCard>
-        <LiquidityPairCard title='ETH-DFI'>
-          <LiquidityCardStat label='APR' value='71.49%' />
-          <LiquidityCardStat label='Total Liquidity' value='67,065,097.75 USD' />
-          <LiquidityCardStat label='Price Ratio' value='1,294.15 DFI/ETH' />
-        </LiquidityPairCard>
-        <LiquidityPairCard title='USDT-DFI'>
-          <LiquidityCardStat label='APR' value='78.04%' />
-          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
-          <LiquidityCardStat label='Price Ratio' value='3.03 USDT/DFI' />
-        </LiquidityPairCard>
-        <LiquidityPairCard title='LTC-DFI'>
-          <LiquidityCardStat label='APR' value='78.23%' />
-          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
-          <LiquidityCardStat label='Price Ratio' value='3.03 DFI/LTC' />
-        </LiquidityPairCard>
-        <LiquidityPairCard title='USDC-DFI'>
-          <LiquidityCardStat label='APR' value='78.23%' />
-          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
-          <LiquidityCardStat label='Price Ratio' value='3.03 USDC/DFI' />
-        </LiquidityPairCard>
-        <LiquidityPairCard title='BCH-DFI'>
-          <LiquidityCardStat label='APR' value='78.23%' />
-          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
-          <LiquidityCardStat label='Price Ratio' value='3.03 DFI/BCH' />
-        </LiquidityPairCard>
-        <LiquidityPairCard title='DOGE-DFI'>
-          <LiquidityCardStat label='APR' value='78.23%' />
-          <LiquidityCardStat label='Total Liquidity' value='12,033,846.49 USD' />
-          <LiquidityCardStat label='Price Ratio' value='3.03 DFI/DOGE' />
-        </LiquidityPairCard>
+        {
+          liquidityPools.map(pool => {
+            return (
+              <LiquidityPairCard title={pool.symbol} key={pool.symbol}>
+                <LiquidityCardStat label='APR' value={`${(pool.apr != null) ? pool.apr.total : '-'}%`} />
+                <LiquidityCardStat label='Total Liquidity' value={`${pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''} USD`} />
+                <LiquidityCardStat label='Price Ratio' value={`${pool.priceRatio.ba} ${pool.tokenB.symbol}/${pool.tokenA.symbol}`} />
+              </LiquidityPairCard>
+            )
+          })
+        }
       </div>
     </div>
   )
@@ -414,7 +405,7 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
       <Summary />
       <Stats />
       <BlocksAndTransactions {...props} />
-      <LiquidityPools />
+      <LiquidityPools {...props} />
     </Container>
   )
 }
@@ -426,10 +417,13 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   /* @TODO (aikchun) get latest transactions */
   const transactions = await api.blocks.getTransactions(blocks[0].id)
 
+  const liquidityPools = await api.poolpairs.list()
+
   return {
     props: {
       blocks,
-      transactions
+      transactions,
+      liquidityPools
     }
   }
 }
