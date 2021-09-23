@@ -52,7 +52,7 @@
     "react-popper": "^2.2.5",
     "react-redux": "^7.2.5",
     "react-schemaorg": "^2.0.0",
-    "recharts": "^2.1.2",
+    "recharts": "^2.1.4",
     "schema-dts": "^1.0.0"
   },
   "devDependencies": {
