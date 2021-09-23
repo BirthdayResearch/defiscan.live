@@ -13,6 +13,7 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { RootState } from '@store/index'
 import { Container } from '@components/commons/Container'
 import { Link } from '@components/commons/Link'
+import { UnitSuffix } from '@components/commons/UnitSuffix'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -37,7 +38,6 @@ function Banner (): JSX.Element {
             placeholder='Search by address / Txn hash / Block / Token'
           />
         </div>
-
       </div>
     </div>
   )
@@ -74,22 +74,42 @@ function SummaryCardHeadModifier ({ children, className }: PropsWithChildren<{ch
 }
 
 function Summary (): JSX.Element {
+  const {
+    count: {
+      masternodes
+    },
+    tvl: {
+      total
+    },
+    price: {
+      usdt
+    }
+  } = useSelector((state: RootState) => state.stats)
+
   return (
     <div className='mt-12'>
       <span className='text-xl font-semibold'>DeFiChain in numbers</span>
       <div className='flex mt-4 gap-x-4'>
         <SummaryCard>
           <SummaryCardTitle>Price</SummaryCardTitle>
-          <SummaryCardHeader className='text-4xl leading-10'>$2.97<SummaryCardHeadModifier className='text-green-500'><IoCaretUp className='inline' /> 23.10%</SummaryCardHeadModifier></SummaryCardHeader>
+          <SummaryCardHeader className='text-4xl leading-10'>${usdt}<SummaryCardHeadModifier className='text-green-500'><IoCaretUp className='inline' /> 23.10%</SummaryCardHeadModifier></SummaryCardHeader>
           <SummaryCardSubHeader>Updated 50 minutes ago</SummaryCardSubHeader>
         </SummaryCard>
         <SummaryCard>
           <SummaryCardTitle>Total Value Locked</SummaryCardTitle>
-          <SummaryCardHeader>$999,999,999</SummaryCardHeader>
+          <SummaryCardHeader>
+            <NumberFormat
+              value={total}
+              displayType='text'
+              decimalScale={2}
+              thousandSeparator
+              prefix='$'
+            />
+          </SummaryCardHeader>
         </SummaryCard>
         <SummaryCard>
           <SummaryCardTitle>Masternodes</SummaryCardTitle>
-          <SummaryCardHeader>222,397,682 DFI</SummaryCardHeader>
+          <SummaryCardHeader>{masternodes}</SummaryCardHeader>
         </SummaryCard>
         <SummaryCard>
           <SummaryCardTitle>Transaction Activity</SummaryCardTitle>
@@ -100,27 +120,66 @@ function Summary (): JSX.Element {
   )
 }
 
-function Stats (): JSX.Element {
+function Stats (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const { blocks } = props
+  const {
+    count: { blocks: blockCount },
+    burned: {
+      total,
+      emission
+    }
+  } = useSelector((state: RootState) => state.stats)
   return (
     <div className='mt-12'>
       <div className='flex flex-wrap gap-x-4  gap-y-1'>
-        <StatItem label='24h Volume:' value='999,999,999,999 USD' />
-        <StatItem label='Blocks:' value='999,999,999,999' />
-        <StatItem label='Burn Rate:' value='130.75 per block' />
-        <StatItem label='Total DFI Burned:' value='2,202K DFI' />
-        <StatItem label='Tokens:' value='80' />
-        <StatItem label='Difficulty:' value='627,982.46 GH/s' />
-        <StatItem label='Emission Rate:' value='999,999,999,999' />
+        <StatItem label='24h Volume:'>
+          -
+        </StatItem>
+        <StatItem label='Blocks:'>
+          <NumberFormat
+            value={blockCount}
+            displayType='text'
+            thousandSeparator
+          />
+        </StatItem>
+        <StatItem label='Burn Rate:'>
+          - per block
+        </StatItem>
+        <StatItem label='Total DFI Burned:'>
+          <UnitSuffix
+            value={total as number}
+            units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
+          />
+        </StatItem>
+        <StatItem label='Tokens:'>
+          -
+        </StatItem>
+        <StatItem label='Difficulty:'>
+          <UnitSuffix
+            value={blocks[0].difficulty}
+            units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
+          />
+          GH/s
+        </StatItem>
+        <StatItem label='Emission Rate:'>
+          <NumberFormat
+            value={emission}
+            displayType='text'
+            decimalScale={2}
+            thousandSeparator
+          />
+        </StatItem>
+
       </div>
     </div>
   )
 }
 
-function StatItem ({ label, value }: { label: string, value: string }): JSX.Element {
+function StatItem ({ label, children }: PropsWithChildren<{ label: string, children: ReactNode }>): JSX.Element {
   return (
-    <div className='flex gap-x-8'>
-      <div className='text-black w-36 text-ms'>{label}</div>
-      <div className='w-44 text-black text-ms font-semibold'>{value}</div>
+    <div className='flex gap-x-8 text-sm'>
+      <div className='text-gray-400 w-36'>{label}</div>
+      <div className='w-44 text-black font-semibold'>{children}</div>
     </div>
   )
 }
@@ -157,28 +216,28 @@ function BlockDetails ({ height, medianTime, mintedBy, transactionCount }: {heig
 function TransactionDetails ({ hash, medianTime, from, to, confirmations }: {hash: string, medianTime: number, from: string, to: string, confirmations: number|undefined}): JSX.Element {
   return (
     <div className='h-40 border border-gray-200 p-4'>
-      <div className='flex justify-between'>
-        <div
-          className='w-7/12 leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
+      <div className='w-full'>
+        <span
+          className='w-5/12 inline-block leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
         >
           {hash}
-        </div>
-        <div>
+        </span>
+        <span>
           <span
-            className='ml-8 text-xs text-opacity-40 text-black font-medium mt-1'
+            className='text-xs text-opacity-40 text-black font-medium'
           >
             <IoTimeOutline size={15} className='inline' />
             <span className='ml-1.5'>{formatDistanceToNow(medianTime * 1000)} ago</span>
           </span>
           <NumberFormat
-            className='ml-1 h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100'
+            className='h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100'
             value={24200.032}
             displayType='text'
             decimalScale={3}
             thousandSeparator
             suffix=' DFI'
           />
-        </div>
+        </span>
       </div>
       <div className='mt-4'>
         <div className='flex gap-x-1.5 text-sm leading-5'>
@@ -272,7 +331,7 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
             </a>
           </Link>
         </div>
-        <div className='flex-1'>
+        <div className='h-96'>
           <div className='flex justify-between'>
             <h1 className='text-xl font-semibold leading-6'>Transactions</h1>
             <Link href={{ pathname: '/blocks' }}>
@@ -292,7 +351,7 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
               </a>
             </Link>
           </div>
-          <div className='mt-6 flex flex-col gap-y-2 h-2/6 overflow-scroll'>
+          <div className='mt-6 overflow-auto h-96'>
             {
               transactions.map(t => {
                 return (
@@ -310,6 +369,25 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
               })
             }
           </div>
+          <Link href={{ pathname: '/#' }}>
+            <a
+              className={`
+              font-medium 
+              leading-6 
+              cursor-pointer 
+              text-primary-500 
+              hover:text-primary-500 
+              opacity-60 
+              hover:opacity-100'`}
+            >
+              <button
+                type='button'
+                className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+              >
+                VIEW ALL TRANSACTIONS
+              </button>
+            </a>
+          </Link>
         </div>
       </div>
     </div>
@@ -403,7 +481,7 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
     <Container>
       <Banner />
       <Summary />
-      <Stats />
+      <Stats {...props} />
       <BlocksAndTransactions {...props} />
       <LiquidityPools {...props} />
     </Container>
