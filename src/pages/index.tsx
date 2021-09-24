@@ -276,7 +276,7 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
   return (
     <div className='mt-10 flex justify-between'>
       <div className='w-5/12 min-w-min'>
-        <div className='flex justify-between'> {/* Start of blocks */}
+        <div className='flex justify-between'>
           <h1 className='text-xl font-semibold leading-6'>Blocks</h1> {/* start of title and link */}
           <Link href={{ pathname: '/blocks' }}>
             <a
@@ -294,7 +294,7 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
               </div>
             </a>
           </Link>
-        </div> {/* end of blocks */}
+        </div>
         <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
           {
             blocks.map((block) => {
@@ -331,24 +331,27 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
         </Link>
       </div>
       <div className='w-5/12 min-w-min'>
-        <div className='flex justify-between'> {/* Start of blocks */}
-          <h1 className='text-xl font-semibold leading-6'>Blocks</h1> {/* start of title and link */}
-          <Link href={{ pathname: '/blocks' }}>
-            <a
-              className={`
-              font-medium 
-              leading-6 
-              cursor-pointer 
-              text-primary-500 
-              hover:text-primary-500 
-              opacity-60 
-              hover:opacity-100'`}
-            >
-              <div className='flex items-center'>
-                VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
-              </div>
-            </a>
-          </Link>
+        <div className='flex justify-between'>
+          <h1
+            className='text-xl font-semibold leading-6'
+          >
+            Transactions
+          </h1>
+          <a
+            className={`
+            font-medium 
+            leading-6 
+            cursor-pointer 
+            text-primary-500 
+            hover:text-primary-500 
+            opacity-60 
+            hover:opacity-100'`}
+            href='https://mainnet.defichain.io/#/DFI/mainnet/home'
+          >
+            <div className='flex items-center'>
+              VIEW ALL TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
+            </div>
+          </a>
         </div> {/* end of blocks */}
         <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
           {
@@ -368,25 +371,24 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
             })
           }
         </div>
-        <Link href={{ pathname: '/#' }}>
-          <a
-            className={`
-            font-medium 
-            leading-6 
-            cursor-pointer 
-            text-primary-500 
-            hover:text-primary-500 
-            opacity-60 
-            hover:opacity-100'`}
+        <a
+          className={`
+          font-medium 
+          leading-6 
+          cursor-pointer 
+          text-primary-500 
+          hover:text-primary-500 
+          opacity-60 
+          hover:opacity-100'`}
+          href='https://mainnet.defichain.io/#/DFI/mainnet/home'
+        >
+          <button
+            type='button'
+            className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
           >
-            <button
-              type='button'
-              className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
-            >
-              VIEW ALL TRANSACTIONS
-            </button>
-          </a>
-        </Link>
+            VIEW ALL TRANSACTIONS
+          </button>
+        </a>
       </div>
 
     </div>
