@@ -274,43 +274,10 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
 
   const { count: { blocks: blockCount } } = useSelector((state: RootState) => state.stats)
   return (
-    <div className='mt-10'>
-      <div className='mt-12 flex gap-x-8'>
-        <div className='flex-1'>
-          <div className='flex justify-between'>
-            <h1 className='text-xl font-semibold leading-6'>Blocks</h1>
-            <Link href={{ pathname: '/blocks' }}>
-              <a
-                className={`
-                font-medium 
-                leading-6 
-                cursor-pointer 
-                text-primary-500 
-                hover:text-primary-500 
-                opacity-60 
-                hover:opacity-100'`}
-              >
-                <div className='flex items-center'>
-                  VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
-                </div>
-              </a>
-            </Link>
-          </div>
-          <div className='mt-6 flex flex-col gap-y-2 h-2/6 overflow-scroll'>
-            {
-              blocks.map((block) => {
-                return (
-                  <BlockDetails
-                    key={block.id}
-                    height={block.height.toString()}
-                    mintedBy={block.minter}
-                    transactionCount={block.transactionCount}
-                    medianTime={block.medianTime}
-                  />
-                )
-              })
-            }
-          </div>
+    <div className='mt-10 flex justify-between'>
+      <div className='w-5/12 min-w-min'>
+        <div className='flex justify-between'> {/* Start of blocks */}
+          <h1 className='text-xl font-semibold leading-6'>Blocks</h1> {/* start of title and link */}
           <Link href={{ pathname: '/blocks' }}>
             <a
               className={`
@@ -322,54 +289,51 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
               opacity-60 
               hover:opacity-100'`}
             >
-              <button
-                type='button'
-                className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
-              >
-                VIEW ALL BLOCKS
-              </button>
+              <div className='flex items-center'>
+                VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
+              </div>
             </a>
           </Link>
+        </div> {/* end of blocks */}
+        <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
+          {
+            blocks.map((block) => {
+              return (
+                <BlockDetails
+                  key={block.id}
+                  height={block.height.toString()}
+                  mintedBy={block.minter}
+                  transactionCount={block.transactionCount}
+                  medianTime={block.medianTime}
+                />
+              )
+            })
+          }
         </div>
-        <div className='h-96'>
-          <div className='flex justify-between'>
-            <h1 className='text-xl font-semibold leading-6'>Transactions</h1>
-            <Link href={{ pathname: '/blocks' }}>
-              <a
-                className={`
-                font-medium 
-                leading-6 
-                cursor-pointer 
-                text-primary-500 
-                hover:text-primary-500 
-                opacity-60 
-                hover:opacity-100'`}
-              >
-                <div className='flex items-center'>
-                  LATEST TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
-                </div>
-              </a>
-            </Link>
-          </div>
-          <div className='mt-6 overflow-auto h-96'>
-            {
-              transactions.map(t => {
-                return (
-                  <TransactionDetails
-                    key={t.hash}
-                    hash='4afe36e8222f84f9ba5ba1c6f259a6bd1fc1accebf704487c97383fbec7bf496'
-                    medianTime={1632102904}
-                    from=''
-                    to=''
-                    confirmations={
-                    blockCount !== undefined ? blockCount - t.block.height : blockCount
-                  }
-                  />
-                )
-              })
-            }
-          </div>
-          <Link href={{ pathname: '/#' }}>
+        <Link href={{ pathname: '/blocks' }}>
+          <a
+            className={`
+            font-medium 
+            leading-6 
+            cursor-pointer 
+            text-primary-500 
+            hover:text-primary-500 
+            opacity-60 
+            hover:opacity-100'`}
+          >
+            <button
+              type='button'
+              className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+            >
+              VIEW ALL BLOCKS
+            </button>
+          </a>
+        </Link>
+      </div>
+      <div className='w-5/12 min-w-min'>
+        <div className='flex justify-between'> {/* Start of blocks */}
+          <h1 className='text-xl font-semibold leading-6'>Blocks</h1> {/* start of title and link */}
+          <Link href={{ pathname: '/blocks' }}>
             <a
               className={`
               font-medium 
@@ -380,19 +344,55 @@ function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getSer
               opacity-60 
               hover:opacity-100'`}
             >
-              <button
-                type='button'
-                className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
-              >
-                VIEW ALL TRANSACTIONS
-              </button>
+              <div className='flex items-center'>
+                VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
+              </div>
             </a>
           </Link>
+        </div> {/* end of blocks */}
+        <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
+          {
+            transactions.map(t => {
+              return (
+                <TransactionDetails
+                  key={t.hash}
+                  hash='4afe36e8222f84f9ba5ba1c6f259a6bd1fc1accebf704487c97383fbec7bf496'
+                  medianTime={1632102904}
+                  from=''
+                  to=''
+                  confirmations={
+                  blockCount !== undefined ? blockCount - t.block.height : blockCount
+                }
+                />
+              )
+            })
+          }
         </div>
+        <Link href={{ pathname: '/#' }}>
+          <a
+            className={`
+            font-medium 
+            leading-6 
+            cursor-pointer 
+            text-primary-500 
+            hover:text-primary-500 
+            opacity-60 
+            hover:opacity-100'`}
+          >
+            <button
+              type='button'
+              className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+            >
+              VIEW ALL TRANSACTIONS
+            </button>
+          </a>
+        </Link>
       </div>
+
     </div>
   )
 }
+
 function LiquidityPairCard ({ title, children }: PropsWithChildren<{ title: string, children: ReactNode }>): JSX.Element {
   return (
     <div className='p-6 border border-gray-300 w-80 h-40'>
