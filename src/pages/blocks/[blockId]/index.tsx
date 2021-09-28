@@ -76,8 +76,8 @@ function BlockDetailTable (props: InferGetServerSidePropsType<typeof getServerSi
   const blockTime = format(fromUnixTime(block.medianTime), 'PPpp')
 
   return (
-    <div className='mt-5 flex flex-wrap -mx-3'>
-      <div className='w-1/2 px-3'>
+    <div className='mt-5 flex flex-wrap -m-3'>
+      <div className='w-full md:w-1/2 p-3'>
         <AdaptiveList>
           <AdaptiveList.Row name='Height' testId='block-detail-height'>
             {block.height}
@@ -108,7 +108,7 @@ function BlockDetailTable (props: InferGetServerSidePropsType<typeof getServerSi
         </AdaptiveList>
       </div>
 
-      <div className='w-1/2 px-3'>
+      <div className='w-full md:w-1/2 p-3'>
         <AdaptiveList>
           <AdaptiveList.Row name='Difficulty' testId='block-detail-difficulty'>
             {block.difficulty}
@@ -156,7 +156,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
 
   function TransactionRow ({ transaction }: { transaction: Transaction }): JSX.Element {
     return (
-      <OverflowTable.Row key={transaction.txid}>
+      <OverflowTable.Row key={transaction.txid} className='hover:text-primary-500'>
         <OverflowTable.Cell>
           <div className='break-all w-80 md:w-full'>
             {transaction.txid}
@@ -194,7 +194,13 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
         </OverflowTable.Header>
 
         {transactions.items.map(transaction => {
-          return <TransactionRow transaction={transaction} key={transaction.txid} />
+          return (
+            <Link href={{ pathname: `/transactions/${transaction.txid}` }} key={transaction.txid}>
+              <a className='contents'>
+                <TransactionRow transaction={transaction} />
+              </a>
+            </Link>
+          )
         })}
       </OverflowTable>
 
