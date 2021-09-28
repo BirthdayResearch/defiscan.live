@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { IoAlertCircleOutline } from 'react-icons/io5'
 import { MdCheck } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
+import { OverflowTable } from '@components/commons/OverflowTable'
 
 interface PriceOracleTableProps {
   price: PriceTicker
@@ -21,27 +22,18 @@ export function PriceOracleTable ({
         Oracles
       </h2>
 
-      <div className='rounded-lg border mt-6 overflow-x-auto'>
-        <table className='table-fixed w-full' style={{ minWidth: '1024px' }}>
-          <thead>
-            <tr className='border-gray-100 bg-gray-50'>
-              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>DATE LAST UPDATED
-              </th>
-              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>ORACLE</th>
-              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>PRICE</th>
-              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-1/5'>AGGREGATED PRICE
-              </th>
-              <th className='py-3 px-6 text-left text-black text-opacity-60 text-sm font-semibold w-2/5'>TXID</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {oracles
-              .sort((a, b) => ((b.feed?.time ?? 0) - (a.feed?.time ?? 0)))
-              .map(item => <OracleFeed oracle={item} price={price} key={item.oracleId} />)}
-          </tbody>
-        </table>
-      </div>
+      <OverflowTable className='mt-6'>
+        <OverflowTable.Header>
+          <OverflowTable.Head>DATE LAST UPDATED</OverflowTable.Head>
+          <OverflowTable.Head>ORACLE</OverflowTable.Head>
+          <OverflowTable.Head>PRICE</OverflowTable.Head>
+          <OverflowTable.Head>AGGREGATED PRICE</OverflowTable.Head>
+          <OverflowTable.Head>TXID</OverflowTable.Head>
+        </OverflowTable.Header>
+        {oracles
+          .sort((a, b) => ((b.feed?.time ?? 0) - (a.feed?.time ?? 0)))
+          .map(item => <OracleFeed oracle={item} price={price} key={item.oracleId} />)}
+      </OverflowTable>
     </div>
   )
 }
@@ -60,11 +52,11 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
     const feedActive = isActive(feed.block)
 
     return (
-      <tr className='border-t'>
-        <td className='py-4 px-6 font-medium text-gray-700'>
+      <OverflowTable.Row>
+        <OverflowTable.Cell sticky className='align-middle'>
           {format(feed.time * 1000, 'MMM dd, hh:mm:ss aa')}
-        </td>
-        <td className='py-4 px-6'>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell className='align-middle'>
           <h6 className='text-xl font-semibold'>
             {oracleId.substring(0, 8).toUpperCase()}
           </h6>
@@ -79,14 +71,14 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
             ) : (
               <>
                 <IoAlertCircleOutline className='h-4 w-4 mr-1 text-gray-500' />
-                <div className='text-sm font-semibold text-black opacity-60'>
+                <div className='text-sm font-semibold text-gray-500'>
                   {aggActive ? 'No Response' : 'Inactive'}
                 </div>
               </>
             )}
           </div>
-        </td>
-        <td className='py-4 px-6 font-medium text-gray-700'>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell className='align-middle'>
           <NumberFormat
             value={feed.amount}
             displayType='text'
@@ -94,8 +86,8 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
             decimalScale={2}
             prefix='$'
           />
-        </td>
-        <td className='py-4 px-6 font-medium text-gray-700'>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell className='align-middle'>
           <NumberFormat
             value={price.price.aggregated.amount}
             displayType='text'
@@ -103,20 +95,19 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
             decimalScale={2}
             prefix='$'
           />
-        </td>
-        <td className='py-4 px-6 font-medium text-gray-700 break-all'>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell className='align-middle md:w-1/3 md:break-all'>
           {feed.txid}
-        </td>
-      </tr>
+        </OverflowTable.Cell>
+      </OverflowTable.Row>
     )
   }
-
   return (
-    <tr className='border-t'>
-      <td className='py-4 px-6 font-medium text-gray-700'>
+    <OverflowTable.Row>
+      <OverflowTable.Cell>
         No response yet
-      </td>
-      <td className='py-4 px-6'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
         <h6 className='text-xl font-semibold'>
           {oracleId.substring(0, 8).toUpperCase()}
         </h6>
@@ -126,7 +117,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
             No Response
           </div>
         </div>
-      </td>
-    </tr>
+      </OverflowTable.Cell>
+    </OverflowTable.Row>
   )
 }

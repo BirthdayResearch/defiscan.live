@@ -32,23 +32,21 @@ context('/prices/TSLA-USD', () => {
     })
 
     it('should have table header', () => {
-      cy.findByTestId('PriceOracleTable').get('thead')
-        .should('contain.text', 'DATE LAST UPDATED')
-        .should('contain.text', 'ORACLE')
-        .should('contain.text', 'PRICE')
-        .should('contain.text', 'AGGREGATED PRICE')
-        .should('contain.text', 'TXID')
+      cy.findByTestId('OverflowTable.Header').then(ele => {
+        cy.wrap(ele).findByText('DATE LAST UPDATED').should('be.visible')
+        cy.wrap(ele).findByText('ORACLE').should('be.visible')
+        cy.wrap(ele).findByText('PRICE').should('be.visible')
+        cy.wrap(ele).findByText('TXID').should('be.visible')
+        cy.wrap(ele).findByText('AGGREGATED PRICE').should('be.visible')
+      })
     })
 
-    it('should have table data', () => {
-      cy.findByTestId('PriceOracleTable').get('td')
-        .contains(/[a-zA-Z]{3} [0-9]{1,2}, [0-9]{2}:[0-9]{2}:[0-9]{2} (AM|PM)/)
-
-      cy.findByTestId('PriceOracleTable').get('td')
-        .should('contain.text', '$')
-
-      cy.findByTestId('PriceOracleTable').get('td')
-        .contains(/[0-f]{64}/)
+    it('should have Oracle data', () => {
+      cy.findAllByTestId('OverflowTable.Row').eq(1).then(ele => {
+        cy.wrap(ele).contains(/[a-zA-Z]{3} [0-9]{1,2}, [0-9]{2}:[0-9]{2}:[0-9]{2} (AM|PM)/)
+        cy.wrap(ele).contains(/[0-f]{64}/)
+        cy.wrap(ele).should('contain.text', '$')
+      })
     })
   })
 
