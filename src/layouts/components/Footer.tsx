@@ -15,7 +15,7 @@ export function Footer (): JSX.Element {
           </a>
         </Link>
 
-        <div className='mt-4 flex flex-wrap'>
+        <div className='mt-4 flex flex-wrap lg:flex-nowrap'>
           <div className='py-4 flex-grow max-w-sm'>
             <FooterSectionSitemap />
           </div>
@@ -26,7 +26,7 @@ export function Footer (): JSX.Element {
 
           <div className='flex-grow' />
 
-          <div className='py-4'>
+          <div className='py-4 self-end'>
             <FooterSectionAbout />
           </div>
         </div>
