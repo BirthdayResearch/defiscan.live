@@ -21,7 +21,8 @@ export function PriceOracleTable ({
       <h2 className='text-2xl font-semibold'>
         Oracles
       </h2>
-      <OverflowTable>
+
+      <OverflowTable className='mt-6'>
         <OverflowTable.Header>
           <OverflowTable.Head>DATE LAST UPDATED</OverflowTable.Head>
           <OverflowTable.Head>ORACLE</OverflowTable.Head>
@@ -52,10 +53,10 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
 
     return (
       <OverflowTable.Row>
-        <OverflowTable.Cell sticky>
+        <OverflowTable.Cell sticky className='align-middle'>
           {format(feed.time * 1000, 'MMM dd, hh:mm:ss aa')}
         </OverflowTable.Cell>
-        <OverflowTable.Cell>
+        <OverflowTable.Cell className='align-middle'>
           <h6 className='text-xl font-semibold'>
             {oracleId.substring(0, 8).toUpperCase()}
           </h6>
@@ -77,7 +78,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
             )}
           </div>
         </OverflowTable.Cell>
-        <OverflowTable.Cell>
+        <OverflowTable.Cell className='align-middle'>
           <NumberFormat
             value={feed.amount}
             displayType='text'
@@ -86,7 +87,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
             prefix='$'
           />
         </OverflowTable.Cell>
-        <OverflowTable.Cell>
+        <OverflowTable.Cell className='align-middle'>
           <NumberFormat
             value={price.price.aggregated.amount}
             displayType='text'
@@ -95,7 +96,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
             prefix='$'
           />
         </OverflowTable.Cell>
-        <OverflowTable.Cell className='md:w-1/3 md:break-all'>
+        <OverflowTable.Cell className='align-middle md:w-1/3 md:break-all'>
           {feed.txid}
         </OverflowTable.Cell>
       </OverflowTable.Row>
