@@ -62,7 +62,7 @@ function BlockHeading ({ block }: InferGetServerSidePropsType<typeof getServerSi
 
       <div className='flex items-center my-1'>
         <div className='font-semibold'>Hash:&nbsp;</div>
-        <div className='ml-1 text-primary-500 text-lg' data-testid='block-hash'>{block.hash}</div>
+        <div className='ml-1 text-primary-500 text-lg break-all' data-testid='block-hash'>{block.hash}</div>
         <CopyButton className='ml-2' content={block.hash} />
       </div>
     </>
@@ -72,75 +72,11 @@ function BlockHeading ({ block }: InferGetServerSidePropsType<typeof getServerSi
 function BlockDetailTable (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { block } = props
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-  const confirmations = blocks !== undefined ? blocks - block.height : blocks
-  const blockTime = format(fromUnixTime(block.medianTime), 'PPpp')
 
   return (
-    <div className='mt-5 flex flex-wrap -mx-3'>
-      <div className='w-1/2 px-3'>
-        <AdaptiveList>
-          <AdaptiveList.Row name='Height' testId='block-detail-height'>
-            {block.height}
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Transactions' testId='block-detail-transaction-count'>
-            {block.transactionCount}
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Timestamp' testId='block-detail-timestamp'>
-            {blockTime}
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Confirmations' testId='block-detail-confirmations'>
-            {confirmations}
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Minter' testId='block-detail-minter'>
-            <div className='break-all'>
-              {block.minter}
-            </div>
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Masternode' testId='block-detail-masternode'>
-            <div className='break-all'>
-              {block.masternode}
-            </div>
-          </AdaptiveList.Row>
-          {/* TODO(fuxingloh): need to properly expose this variable on whale */}
-          {/* <AdaptiveList.Row name='Block Reward' testId='block-detail-block-reward'> */}
-          {/*  {reward} DFI */}
-          {/* </AdaptiveList.Row> */}
-        </AdaptiveList>
-      </div>
-
-      <div className='w-1/2 px-3'>
-        <AdaptiveList>
-          <AdaptiveList.Row name='Difficulty' testId='block-detail-difficulty'>
-            {block.difficulty}
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Bits' testId='block-detail-bits'>
-            {block.weight}
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Size (bytes)' testId='block-detail-size'>
-            {block.size}
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Version' testId='block-detail-version'>
-            {block.version}
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Merkle Root' testId='block-detail-merkle-root'>
-            <div className='break-all'>
-              {block.merkleroot}
-            </div>
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Previous Block' testId='block-detail-previous-block'>
-            <Link href={{ pathname: `/blocks/${block.previousHash}` }}>
-              <a className='cursor-pointer hover:text-primary-500 break-all'>
-                {block.previousHash}
-              </a>
-            </Link>
-          </AdaptiveList.Row>
-          <AdaptiveList.Row name='Next Block' testId='block-detail-next-block'>
-            <Link href={{ pathname: `/blocks/${block.height + 1}` }}>
-              <a className='cursor-pointer hover:text-primary-500'>#{block.height + 1}</a>
-            </Link>
-          </AdaptiveList.Row>
-        </AdaptiveList>
-      </div>
+    <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+      <ListLeft block={block} nBlocks={blocks} />
+      <ListRight block={block} />
     </div>
   )
 }
@@ -202,6 +138,77 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
         <CursorPagination pages={transactions.pages} path={`/blocks/${block.hash}`} />
       </div>
     </div>
+  )
+}
+
+function ListLeft (props: {block: Block, nBlocks: number | undefined}): JSX.Element {
+  const confirmations = props.nBlocks !== undefined ? props.nBlocks - props.block.height : props.nBlocks
+  const blockTime = format(fromUnixTime(props.block.medianTime), 'PPpp')
+  return (
+    <AdaptiveList>
+      <AdaptiveList.Row name='Height' testId='block-detail-height'>
+        {props.block.height}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Transactions' testId='block-detail-transaction-count'>
+        {props.block.transactionCount}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Timestamp' testId='block-detail-timestamp'>
+        {blockTime}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Confirmations' testId='block-detail-confirmations'>
+        {confirmations}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Minter' testId='block-detail-minter'>
+        <div className='break-all'>
+          {props.block.minter}
+        </div>
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Masternode' testId='block-detail-masternode'>
+        <div className='break-all'>
+          {props.block.masternode}
+        </div>
+      </AdaptiveList.Row>
+      {/* TODO(fuxingloh): need to properly expose this variable on whale */}
+      {/* <AdaptiveList.Row name='Block Reward' testId='block-detail-block-reward'> */}
+      {/*  {reward} DFI */}
+      {/* </AdaptiveList.Row> */}
+    </AdaptiveList>
+  )
+}
+
+function ListRight (props: {block: Block}): JSX.Element {
+  return (
+    <AdaptiveList>
+      <AdaptiveList.Row name='Difficulty' testId='block-detail-difficulty'>
+        {props.block.difficulty}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Bits' testId='block-detail-bits'>
+        {props.block.weight}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Size (bytes)' testId='block-detail-size'>
+        {props.block.size}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Version' testId='block-detail-version'>
+        {props.block.version}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Merkle Root' testId='block-detail-merkle-root'>
+        <div className='break-all'>
+          {props.block.merkleroot}
+        </div>
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Previous Block' testId='block-detail-previous-block'>
+        <Link href={{ pathname: `/blocks/${props.block.previousHash}` }}>
+          <a className='cursor-pointer hover:text-primary-500 break-all'>
+            {props.block.previousHash}
+          </a>
+        </Link>
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Next Block' testId='block-detail-next-block'>
+        <Link href={{ pathname: `/blocks/${props.block.height + 1}` }}>
+          <a className='cursor-pointer hover:text-primary-500'>#{props.block.height + 1}</a>
+        </Link>
+      </AdaptiveList.Row>
+    </AdaptiveList>
   )
 }
 
