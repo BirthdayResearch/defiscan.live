@@ -92,7 +92,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
 
   function TransactionRow ({ transaction }: { transaction: Transaction }): JSX.Element {
     return (
-      <OverflowTable.Row key={transaction.txid}>
+      <OverflowTable.Row key={transaction.txid} className='hover:text-primary-500'>
         <OverflowTable.Cell>
           <div className='break-all w-80 md:w-full'>
             {transaction.txid}
@@ -130,7 +130,13 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
         </OverflowTable.Header>
 
         {transactions.items.map(transaction => {
-          return <TransactionRow transaction={transaction} key={transaction.txid} />
+          return (
+            <Link href={{ pathname: `/transactions/${transaction.txid}` }} key={transaction.txid}>
+              <a className='contents'>
+                <TransactionRow transaction={transaction} />
+              </a>
+            </Link>
+          )
         })}
       </OverflowTable>
 
