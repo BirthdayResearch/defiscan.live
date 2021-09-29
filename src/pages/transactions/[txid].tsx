@@ -9,6 +9,7 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 
 import { Container } from '@components/commons/Container'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
+import { CopyButton } from '@components/commons/CopyButton'
 
 interface TransactionPageProps {
   transaction: Transaction
@@ -63,6 +64,7 @@ function TransactionHeading ({ transaction }: InferGetServerSidePropsType<typeof
 
       <div className='flex items-center mt-1'>
         <h1 className='text-2xl font-medium' data-testid='transaction-hash'>{transaction.hash}</h1>
+        <CopyButton className='ml-2' content={transaction.hash} />
       </div>
     </>
   )
