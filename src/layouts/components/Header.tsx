@@ -227,7 +227,7 @@ function HeaderNetworkMenu (): JSX.Element {
   )
 }
 
-function HeaderLink (props: { text: string, pathname: string, className: string}): JSX.Element {
+function HeaderLink (props: { text: string, pathname: string, className: string }): JSX.Element {
   const router = useRouter()
   return (
     <Link href={{ pathname: props.pathname }}>
