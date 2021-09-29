@@ -1,6 +1,4 @@
-import { ReactNode, PropsWithChildren } from 'react'
 import { useSelector } from 'react-redux'
-import { IoArrowForwardOutline } from 'react-icons/io5'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 
@@ -17,40 +15,11 @@ interface TransactionPageProps {
   vouts: TransactionVout[]
 }
 
-function InputOutputBlock ({
-  label,
-  children
-}: PropsWithChildren<{ label: 'INPUT' | 'OUTPUT', children: ReactNode }>): JSX.Element {
-  return (
-    <div className='bg-gray-100 h-20 p-3 rounded flex justify-between'>
-      <div className='flex flex-col justify-between h-full w-full'>
-        <span className='bg-gray-200 rounded text-xs px-2 py-1 font-medium w-min'>
-          {label}
-        </span>
-        <div className='flex justify-between'>
-          {children}
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <Container className='pt-12 pb-20'>
       <TransactionHeading {...props} />
       <TransactionSummaryTable {...props} />
-      <TransactionDetails {...props} />
-
-      <div className='my-4 mt-6'>
-        <h2 className='text-xl font-medium' data-testid='raw-transaction-subtitle'>Raw Transaction</h2>
-      </div>
-
-      <div className='font-mono'>
-        <pre data-testid='raw-transaction'>{JSON.stringify(props.transaction, null, 2)}</pre>
-        <pre data-testid='raw-vins'>VIN {JSON.stringify(props.vins, null, 2)}</pre>
-        <pre data-testid='raw-vouts'>VOUT {JSON.stringify(props.vouts, null, 2)}</pre>
-      </div>
     </Container>
   )
 }
@@ -89,53 +58,6 @@ function TransactionSummaryTable (props: InferGetServerSidePropsType<typeof getS
       <SummaryTableListLeft transaction={transaction} />
       <SummaryTableListRight transaction={transaction} />
     </div>
-  )
-}
-
-function TransactionDetails (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  return (
-    <>
-      <h1 className='font-medium text-2xl mt-6' data-testid='details-subtitle'>Details</h1>
-      <div className='flex justify-between mt-2'>
-        <div className='flex-1 flex flex-col gap-y-0.5'>
-          {props.vins.map((vin) => {
-            return (
-              <InputOutputBlock label='INPUT' key={vin.sequence}>
-                <span className='opacity-60'>{/* @TODO (aikchun) - some description */}</span>
-                <span>{/* @TODO (aikchun) - in value */}</span>
-              </InputOutputBlock>
-            )
-          })}
-        </div>
-        <div className='h-20 flex items-center justify-center w-14 flex-grow-0'>
-          <IoArrowForwardOutline size={16} />
-        </div>
-        <div className='flex-1 flex flex-col gap-y-0.5'>
-          {props.vouts.map((vout) => {
-            return (
-              <InputOutputBlock
-                label='OUTPUT'
-                key={vout.script.hex}
-              >
-                <span className='text-primary'>{/* @TODO (aikchun) - some OP_CODE or hash */}</span>
-                <span>{vout.value}</span>
-              </InputOutputBlock>
-            )
-          })}
-        </div>
-      </div>
-
-      <div className='flex flex-col items-end justify-between h-16 mt-8'>
-        <div className='flex justify-between  gap-x-3'>
-          <div>Fees:</div>
-          {/* @TODO (aikchun) - sum up fees */}
-        </div>
-        <div className='flex justify-between gap-x-3'>
-          <div>Total:</div>
-          {/* @TODO (aikchun) - sum up total */}
-        </div>
-      </div>
-    </>
   )
 }
 
