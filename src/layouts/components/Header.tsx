@@ -49,11 +49,11 @@ export function Header (): JSX.Element {
               </Link>
 
               <div className='hidden md:flex flex-wrap'>
-                <HeaderLink className='ml-12' text='DEX' pathname='/dex' route={router.pathname} />
-                <HeaderLink className='ml-4' text='Blocks' pathname='/blocks' route={router.pathname} />
-                <HeaderLink className='ml-4' text='Prices' pathname='/prices' route={router.pathname} />
-                <HeaderLink className='ml-4' text='Tokens' pathname='/tokens' route={router.pathname} />
-                <HeaderLink className='ml-4' text='Masternodes' pathname='/masternodes' route={router.pathname} />
+                <HeaderLink className='ml-12' text='DEX' pathname='/dex' />
+                <HeaderLink className='ml-4' text='Blocks' pathname='/blocks' />
+                <HeaderLink className='ml-4' text='Prices' pathname='/prices' />
+                <HeaderLink className='ml-4' text='Tokens' pathname='/tokens' />
+                <HeaderLink className='ml-4' text='Masternodes' pathname='/masternodes' />
               </div>
             </div>
             <div className='md:hidden'>
@@ -227,10 +227,11 @@ function HeaderNetworkMenu (): JSX.Element {
   )
 }
 
-function HeaderLink (props: { text: string, pathname: string, className: string, route?: string }): JSX.Element {
+function HeaderLink (props: { text: string, pathname: string, className: string}): JSX.Element {
+  const router = useRouter()
   return (
     <Link href={{ pathname: props.pathname }}>
-      <a className={classNames(props.className, props.route === props.pathname && 'text-primary-500')}>
+      <a className={classNames(props.className, router.pathname === props.pathname && 'text-primary-500')}>
         <div className='p-2 text-lg hover:text-primary-500 cursor-pointer'>
           {props.text}
         </div>
