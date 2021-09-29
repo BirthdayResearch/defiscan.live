@@ -74,7 +74,7 @@ function TransactionHeading ({ transaction }: InferGetServerSidePropsType<typeof
       </span>
 
       <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium' data-testid='transaction-hash'>{transaction.hash}</h1>
+        <h1 className='text-2xl font-medium break-all' data-testid='transaction-hash'>{transaction.hash}</h1>
         <CopyButton className='ml-2' content={transaction.hash} />
       </div>
     </>
