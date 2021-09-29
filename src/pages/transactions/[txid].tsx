@@ -1,4 +1,3 @@
-
 import { ReactNode, PropsWithChildren } from 'react'
 import { useSelector } from 'react-redux'
 import { IoArrowForwardOutline } from 'react-icons/io5'
@@ -52,52 +51,6 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
         <pre data-testid='raw-vins'>VIN {JSON.stringify(props.vins, null, 2)}</pre>
         <pre data-testid='raw-vouts'>VOUT {JSON.stringify(props.vouts, null, 2)}</pre>
       </div>
-
-      <h3 className='text-2xl font-semibold mt-10' data-testid='details-subtitle'>Details</h3>
-
-      <div className='flex justify-between mt-2'>
-        <div className='flex-1 flex flex-col gap-y-0.5'>
-          {vins.map((vin) => {
-            return (
-              <InputOutputBlock label='INPUT' key={vin.sequence}>
-                <div className='opacity-60'>{/* @TODO (aikchun) - some description */}</div>
-                <div>{vin.vout?.value}</div>
-              </InputOutputBlock>
-            )
-          })}
-        </div>
-
-        <div className='h-20 flex items-center justify-center w-14 flex-grow-0'>
-          <IoArrowForwardOutline size={16} />
-        </div>
-
-        <div className='flex-1 flex flex-col gap-y-0.5'>
-          {vouts.map((vout) => {
-            return (
-              <InputOutputBlock
-                label='OUTPUT'
-                key={vout.script.hex}
-              >
-                <div className='text-primary'>
-                  {/* @TODO (aikchun) - some OP_CODE or hash */}
-                </div>
-                <div>{vout.value}</div>
-              </InputOutputBlock>
-            )
-          })}
-        </div>
-      </div>
-
-      {/*<div className='flex flex-col items-end justify-between h-16 mt-8'>*/}
-      {/*  <div className='flex justify-between  gap-x-3'>*/}
-      {/*    <div>Fees:</div>*/}
-      {/*    /!* @TODO (aikchun) - sum up fees *!/*/}
-      {/*  </div>*/}
-      {/*  <div className='flex justify-between gap-x-3'>*/}
-      {/*    <div>Total:</div>*/}
-      {/*    /!* @TODO (aikchun) - sum up total *!/*/}
-      {/*  </div>*/}
-      {/*</div>*/}
     </Container>
   )
 }
