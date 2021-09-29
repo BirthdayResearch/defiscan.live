@@ -228,9 +228,13 @@ function HeaderNetworkMenu (): JSX.Element {
 }
 
 function HeaderLink (props: { text: string, pathname: string, className: string }): JSX.Element {
+  const router = useRouter()
   return (
     <Link href={{ pathname: props.pathname }}>
-      <a className={props.className}>
+      <a className={classNames(props.className, {
+        'text-primary-500': router.pathname === props.pathname
+      })}
+      >
         <div className='p-2 text-lg hover:text-primary-500 cursor-pointer'>
           {props.text}
         </div>
