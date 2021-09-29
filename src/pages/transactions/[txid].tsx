@@ -1,8 +1,7 @@
-import { ReactNode, useState, PropsWithChildren } from 'react'
+import { ReactNode, PropsWithChildren } from 'react'
 import { useSelector } from 'react-redux'
-import { MdContentCopy } from 'react-icons/md'
 import { IoArrowForwardOutline } from 'react-icons/io5'
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 
 import { RootState } from '@store/index'
@@ -10,7 +9,6 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 
 import { Container } from '@components/commons/Container'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { format, fromUnixTime } from 'date-fns'
 
 interface TransactionPageProps {
   transaction: Transaction
@@ -36,99 +34,139 @@ function InputOutputBlock ({
   )
 }
 
-export default function TransactionPage ({
-  transaction,
-  vins,
-  vouts
-}: TransactionPageProps): JSX.Element {
-  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-  const confirmations = blocks !== undefined ? blocks - transaction.block.height : blocks
+export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  return (
+    <Container className='pt-12 pb-20'>
+      <TransactionHeading {...props} />
+      <TransactionSummaryTable {...props} />
+      <TransactionDetails {...props} />
+
+      <div className='my-4 mt-6'>
+        <h2 className='text-xl font-medium' data-testid='raw-transaction-subtitle'>Raw Transaction</h2>
+      </div>
+
+      <div className='font-mono'>
+        <pre data-testid='raw-transaction'>{JSON.stringify(props.transaction, null, 2)}</pre>
+        <pre data-testid='raw-vins'>VIN {JSON.stringify(props.vins, null, 2)}</pre>
+        <pre data-testid='raw-vouts'>VOUT {JSON.stringify(props.vouts, null, 2)}</pre>
+      </div>
+    </Container>
+  )
+}
+
+function TransactionHeading ({ transaction }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  return (
+    <>
+      <span className='leading-6 opacity-60' data-testid='title'>
+        Transaction Hash
+      </span>
+
+      <div className='flex items-center mt-1'>
+        <h1 className='text-2xl font-medium' data-testid='transaction-hash'>{transaction.hash}</h1>
+      </div>
+    </>
+  )
+}
+
+function TransactionSummaryTable (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const transaction = props.transaction
 
   return (
-    <Container className='py-6'>
-      <div className='pb-1' data-testid='title'>
-        Transaction
-      </div>
-      <h2 className='text-xl font-medium' data-testid='transaction-hash'>{transaction.txid}</h2>
+    <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+      <SummaryTableListLeft transaction={transaction} />
+      <SummaryTableListRight transaction={transaction} />
+    </div>
+  )
+}
 
-      <div className='mt-5 flex flex-wrap -m-3'>
-        <div className='w-full md:w-1/2 p-3'>
-          <AdaptiveList>
-            {/*<AdaptiveList.Row name='Total Amount' testId='transaction-detail-total-amount'>*/}
-            {/*  /!* @TODO (aikchun) - Get total amount *!/*/}
-            {/*</AdaptiveList.Row>*/}
-            {/*<AdaptiveList.Row name='Fee' testId='transaction-detail-fee'>*/}
-            {/*  /!* @TODO (aikchun) - Get fee *!/*/}
-            {/*</AdaptiveList.Row>*/}
-            <AdaptiveList.Row name='Confirmations' testId='transaction-detail-confirmations'>
-              {confirmations}
-            </AdaptiveList.Row>
-            <AdaptiveList.Row name='Block Height' testId='transaction-detail-block-height'>
-              {transaction.block.height}
-            </AdaptiveList.Row>
-          </AdaptiveList>
-        </div>
-        <div className='w-full md:w-1/2 p-3'>
-          <AdaptiveList>
-            {/*<AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>*/}
-            {/*  /!* @TODO (aikchun) - fee rate *!/*/}
-            {/*</AdaptiveList.Row>*/}
-            <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
-              {transaction.size} (bytes)
-            </AdaptiveList.Row>
-            <AdaptiveList.Row name='Mined Time' testId='transaction-detail-mined-time'>
-              {format(fromUnixTime(transaction.block.medianTime), 'PPpp')}
-            </AdaptiveList.Row>
-          </AdaptiveList>
-        </div>
-      </div>
-
-      <h3 className='text-2xl font-semibold mt-10' data-testid='details-subtitle'>Details</h3>
-
+function TransactionDetails (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  return (
+    <>
+      <h1 className='font-medium text-2xl mt-6' data-testid='details-subtitle'>Details</h1>
       <div className='flex justify-between mt-2'>
         <div className='flex-1 flex flex-col gap-y-0.5'>
-          {vins.map((vin) => {
+          {props.vins.map((vin) => {
             return (
               <InputOutputBlock label='INPUT' key={vin.sequence}>
-                <div className='opacity-60'>{/* @TODO (aikchun) - some description */}</div>
-                <div>{vin.vout?.value}</div>
+                <span className='opacity-60'>{/* @TODO (aikchun) - some description */}</span>
+                <span>{/* @TODO (aikchun) - in value */}</span>
               </InputOutputBlock>
             )
           })}
         </div>
-
         <div className='h-20 flex items-center justify-center w-14 flex-grow-0'>
           <IoArrowForwardOutline size={16} />
         </div>
-
         <div className='flex-1 flex flex-col gap-y-0.5'>
-          {vouts.map((vout) => {
+          {props.vouts.map((vout) => {
             return (
               <InputOutputBlock
                 label='OUTPUT'
                 key={vout.script.hex}
               >
-                <div className='text-primary'>
-                  {/* @TODO (aikchun) - some OP_CODE or hash */}
-                </div>
-                <div>{vout.value}</div>
+                <span className='text-primary'>{/* @TODO (aikchun) - some OP_CODE or hash */}</span>
+                <span>{vout.value}</span>
               </InputOutputBlock>
             )
           })}
         </div>
       </div>
 
-      {/*<div className='flex flex-col items-end justify-between h-16 mt-8'>*/}
-      {/*  <div className='flex justify-between  gap-x-3'>*/}
-      {/*    <div>Fees:</div>*/}
-      {/*    /!* @TODO (aikchun) - sum up fees *!/*/}
-      {/*  </div>*/}
-      {/*  <div className='flex justify-between gap-x-3'>*/}
-      {/*    <div>Total:</div>*/}
-      {/*    /!* @TODO (aikchun) - sum up total *!/*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-    </Container>
+      <div className='flex flex-col items-end justify-between h-16 mt-8'>
+        <div className='flex justify-between  gap-x-3'>
+          <div>Fees:</div>
+          {/* @TODO (aikchun) - sum up fees */}
+        </div>
+        <div className='flex justify-between gap-x-3'>
+          <div>Total:</div>
+          {/* @TODO (aikchun) - sum up total */}
+        </div>
+      </div>
+    </>
+  )
+}
+
+function SummaryTableListLeft (props: { transaction: Transaction }): JSX.Element {
+  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
+  const confirmations = blocks !== undefined ? blocks - props.transaction.block.height : blocks
+
+  return (
+    <AdaptiveList className='w-1/2'>
+      <AdaptiveList.Row name='Total Amount' testId='transaction-detail-total-amount'>
+        {/* @TODO (aikchun) - Get total amount */}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Fee' testId='transaction-detail-fee'>
+        {/* @TODO (aikchun) - Get fee */}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Confirmations' testId='transaction-detail-confirmations'>
+        {confirmations}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Block Height' testId='transaction-detail-block-height'>
+        {props.transaction.block.height}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Custom Transaction' testId='transaction-detail-custom-transaction'>
+        {/* @TODO (aikchun) - custom transaction */}
+      </AdaptiveList.Row>
+    </AdaptiveList>
+  )
+}
+
+function SummaryTableListRight (props: { transaction: Transaction }): JSX.Element {
+  return (
+    <AdaptiveList className='w-1/2'>
+      <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
+        {/* @TODO (aikchun) - fee rate */}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
+        {props.transaction.size}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Received Time' testId='transaction-detail-received-time'>
+        {/* @TODO (aikchun) - received time */}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Mined Time' testId='transaction-detail-mined-time'>
+        {/* @TODO (aikchun) - mined time */}
+      </AdaptiveList.Row>
+    </AdaptiveList>
   )
 }
 
