@@ -233,7 +233,8 @@ function HeaderLink (props: { text: string, pathname: string, className: string 
     <Link href={{ pathname: props.pathname }}>
       <a className={classNames(props.className, {
         'text-primary-500': router.pathname === props.pathname
-      })}>
+      })}
+      >
         <div className='p-2 text-lg hover:text-primary-500 cursor-pointer'>
           {props.text}
         </div>
