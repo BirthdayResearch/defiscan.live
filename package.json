@@ -42,7 +42,7 @@
     "date-fns": "^2.24.0",
     "lodash": "^4.17.21",
     "next": "11.1.2",
-    "next-sitemap": "^1.6.168",
+    "next-sitemap": "^1.6.173",
     "nextjs-progressbar": "^0.0.11",
     "randomcolor": "^0.6.2",
     "react": "17.0.2",
