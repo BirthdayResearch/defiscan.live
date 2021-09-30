@@ -36,15 +36,18 @@ export function useWhaleRpcClient (): WhaleRpcClient {
 export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const network = useNetwork()
 
-  const { api, rpc } = useMemo(() => {
+  const memo = useMemo(() => {
     const api = newWhaleClient(network)
     const rpc = new WhaleRpcClient(api)
-    return { api, rpc }
+    return {
+      api: api,
+      rpc: rpc
+    }
   }, [network])
 
   return (
-    <WhaleApiClientContext.Provider value={api}>
-      <WhaleRpcClientContext.Provider value={rpc}>
+    <WhaleApiClientContext.Provider value={memo.api}>
+      <WhaleRpcClientContext.Provider value={memo.rpc}>
         {props.children}
       </WhaleRpcClientContext.Provider>
     </WhaleApiClientContext.Provider>
@@ -54,13 +57,27 @@ export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | nul
 function newWhaleClient (network?: string): WhaleApiClient {
   switch (network) {
     case Network.LocalPlayground:
-      return new WhaleApiClient({ url: 'http://localhost:19553', network: 'regtest' })
+      return new WhaleApiClient({
+        url: 'http://localhost:19553',
+        network: 'regtest',
+        version: 'v0'
+      })
     case Network.RemotePlayground:
-      return new WhaleApiClient({ url: 'https://playground.defichain.com', network: 'regtest' })
+      return new WhaleApiClient({
+        url: 'https://playground.defichain.com',
+        network: 'regtest',
+        version: 'v0'
+      })
     case Network.TestNet:
-      return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'testnet' })
+      return new WhaleApiClient({
+        url: 'https://ocean.defichain.com',
+        network: 'testnet'
+      })
     case Network.MainNet:
     default:
-      return new WhaleApiClient({ url: 'https://ocean.defichain.com', network: 'mainnet' })
+      return new WhaleApiClient({
+        url: 'https://ocean.defichain.com',
+        network: 'mainnet'
+      })
   }
 }
