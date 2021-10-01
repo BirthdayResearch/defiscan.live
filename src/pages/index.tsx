@@ -7,7 +7,12 @@ import {
   InferGetServerSidePropsType
 } from 'next'
 import { formatDistanceToNow } from 'date-fns'
-import { IoCaretUp, IoSearchOutline, IoChevronForward, IoTimeOutline } from 'react-icons/io5'
+import {
+//  IoCaretUp,
+  IoSearchOutline,
+  IoChevronForward,
+  IoTimeOutline
+} from 'react-icons/io5'
 import NumberFormat from 'react-number-format'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { RootState } from '@store/index'
@@ -36,6 +41,8 @@ function Banner (): JSX.Element {
           <input
             className='text-lg text-gray-600 placeholder-gray-400 rounded-r-full border-primary-100 h-12 border-t border-r border-b w-full focus:outline-none'
             placeholder='Search by address / Txn hash / Block / Token'
+            data-testid='search'
+
           />
         </div>
       </div>
@@ -63,15 +70,15 @@ function SummaryCardHeader ({ children, className }: PropsWithChildren<{children
   )
 }
 
-function SummaryCardSubHeader ({ children, className }: PropsWithChildren<{children: ReactNode, className?: string}>): JSX.Element {
-  return (
-    <div className={classnames('text-xs text-gray-500 leading-4', className)}>{children}</div>
-  )
-}
-
-function SummaryCardHeadModifier ({ children, className }: PropsWithChildren<{children: ReactNode, className?: string}>): JSX.Element {
-  return <span className={classnames('text-base ml-3', className)}>{children}</span>
-}
+// function SummaryCardSubHeader ({ children, className }: PropsWithChildren<{children: ReactNode, className?: string}>): JSX.Element {
+//   return (
+//     <div className={classnames('text-xs text-gray-500 leading-4', className)}>{children}</div>
+//   )
+// }
+//
+// function SummaryCardHeadModifier ({ children, className }: PropsWithChildren<{children: ReactNode, className?: string}>): JSX.Element {
+//   return <span className={classnames('text-base ml-3', className)}>{children}</span>
+// }
 
 function Summary (): JSX.Element {
   const {
@@ -92,8 +99,14 @@ function Summary (): JSX.Element {
       <div className='flex mt-4 gap-x-4'>
         <SummaryCard testId='summary-price'>
           <SummaryCardTitle>Price</SummaryCardTitle>
-          <SummaryCardHeader className='text-4xl leading-10'>${usdt}<SummaryCardHeadModifier className='text-green-500'><IoCaretUp className='inline' /> 23.10%</SummaryCardHeadModifier></SummaryCardHeader>
-          <SummaryCardSubHeader>Updated 50 minutes ago</SummaryCardSubHeader>
+          <SummaryCardHeader className='text-4xl leading-10'>
+            ${usdt}
+            {/* <SummaryCardHeadModifier className='text-green-500'> */}
+            {/*   <IoCaretUp className='inline' /> */}
+            {/*     23.10% */}
+            {/* </SummaryCardHeadModifier> */}
+          </SummaryCardHeader>
+          {/* <SummaryCardSubHeader>Updated 50 minutes ago</SummaryCardSubHeader> */}
         </SummaryCard>
         <SummaryCard testId='summary-tvl'>
           <SummaryCardTitle>Total Value Locked</SummaryCardTitle>
