@@ -445,9 +445,9 @@ function LiquidityCardStat ({ label, value }: {label: string, value: string}): J
 
 function LiquidityPools ({ liquidityPools }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className='mt-12'>
+    <div className='mt-12' data-testid='liquidity-pools'>
       <div className='flex justify-between'>
-        <h1 className='text-xl leading-8 font-semibold'>Liquidity Pools</h1>
+        <h1 className='text-xl leading-8 font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
         <Link href={{ pathname: '/#' }}>
           <a
             className={`

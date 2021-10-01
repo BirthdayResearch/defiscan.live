@@ -43,4 +43,11 @@ context('/blocks on macbook-13', () => {
   it('should have latest-transactions-button', () => {
     cy.findByTestId('latest-transactions-button').should('have.attr', 'href', 'https://mainnet.defichain.io/#/DFI/mainnet/home')
   })
+
+  it('should have liquidity-pools ', () => {
+    cy.findByTestId('liquidity-pools').should('be.visible')
+  })
+  it('should have liquidity-pools-title ', () => {
+    cy.findByTestId('liquidity-pools-title').should('have.text', 'Liquidity Pools')
+  })
 })
