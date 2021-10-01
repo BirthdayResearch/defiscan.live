@@ -57,7 +57,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
 
       <div className='flex justify-between mt-2'>
         <div className='flex-1 flex flex-col gap-y-0.5'>
-          {vins.map((vin) => {
+          {props.vins.map((vin) => {
             return (
               <InputOutputBlock label='INPUT' key={vin.sequence}>
                 <div className='opacity-60'>{/* @TODO (aikchun) - some description */}</div>
@@ -72,7 +72,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
         </div>
 
         <div className='flex-1 flex flex-col gap-y-0.5'>
-          {vouts.map((vout) => {
+          {props.vouts.map((vout) => {
             return (
               <InputOutputBlock
                 label='OUTPUT'
@@ -88,16 +88,16 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
         </div>
       </div>
 
-      {/*<div className='flex flex-col items-end justify-between h-16 mt-8'>*/}
-      {/*  <div className='flex justify-between  gap-x-3'>*/}
-      {/*    <div>Fees:</div>*/}
-      {/*    /!* @TODO (aikchun) - sum up fees *!/*/}
-      {/*  </div>*/}
-      {/*  <div className='flex justify-between gap-x-3'>*/}
-      {/*    <div>Total:</div>*/}
-      {/*    /!* @TODO (aikchun) - sum up total *!/*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      {/* <div className='flex flex-col items-end justify-between h-16 mt-8'> */}
+      {/*  <div className='flex justify-between  gap-x-3'> */}
+      {/*    <div>Fees:</div> */}
+      {/*    /!* @TODO (aikchun) - sum up fees *!/ */}
+      {/*  </div> */}
+      {/*  <div className='flex justify-between gap-x-3'> */}
+      {/*    <div>Total:</div> */}
+      {/*    /!* @TODO (aikchun) - sum up total *!/ */}
+      {/*  </div> */}
+      {/* </div> */}
     </Container>
   )
 }
