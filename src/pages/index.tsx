@@ -43,7 +43,7 @@ function Banner (): JSX.Element {
   )
 }
 
-function SummaryCard ({ children, testId }: PropsWithChildren<{ children: ReactNode, testId: string}>): JSX.Element {
+function SummaryCard ({ children, testId }: PropsWithChildren<{ children: ReactNode, testId?: string}>): JSX.Element {
   return (
     <div className='border border-gray-50 rounded-lg shadow-lg flex-1 h-64 pt-6 px-7 pb-7' data-testid={testId}>
       {children}
@@ -95,7 +95,7 @@ function Summary (): JSX.Element {
           <SummaryCardHeader className='text-4xl leading-10'>${usdt}<SummaryCardHeadModifier className='text-green-500'><IoCaretUp className='inline' /> 23.10%</SummaryCardHeadModifier></SummaryCardHeader>
           <SummaryCardSubHeader>Updated 50 minutes ago</SummaryCardSubHeader>
         </SummaryCard>
-        <SummaryCard>
+        <SummaryCard testId='summary-tvl'>
           <SummaryCardTitle>Total Value Locked</SummaryCardTitle>
           <SummaryCardHeader>
             <NumberFormat
@@ -107,15 +107,15 @@ function Summary (): JSX.Element {
             />
           </SummaryCardHeader>
         </SummaryCard>
-        <SummaryCard>
+        <SummaryCard testId='summary-masternodes'>
           <SummaryCardTitle>Masternodes</SummaryCardTitle>
           <SummaryCardHeader>{masternodes}</SummaryCardHeader>
         </SummaryCard>
-        <SummaryCard>
-          <SummaryCardTitle>Transaction Activity</SummaryCardTitle>
-          <SummaryCardHeader>-</SummaryCardHeader>
-          {/* @TODO (aikchun) - transaction activity */}
-        </SummaryCard>
+        {/* @TODO (aikchun) - transaction activity */}
+        {/* <SummaryCard> */}
+        {/*   <SummaryCardTitle>Transaction Activity</SummaryCardTitle> */}
+        {/*   <SummaryCardHeader>-</SummaryCardHeader> */}
+        {/* </SummaryCard> */}
       </div>
     </div>
   )
@@ -133,36 +133,36 @@ function Stats (props: InferGetServerSidePropsType<typeof getServerSideProps>): 
   return (
     <div className='mt-12'>
       <div className='flex flex-wrap gap-x-4  gap-y-1'>
-        <StatItem label='24h Volume:'>
-          -
-        </StatItem>
-        <StatItem label='Blocks:'>
+        {/* <StatItem label='24h Volume:'> */}
+        {/*   - */}
+        {/* </StatItem> */}
+        <StatItem label='Blocks:' testId='stat-blocks'>
           <NumberFormat
             value={blockCount}
             displayType='text'
             thousandSeparator
           />
         </StatItem>
-        <StatItem label='Burn Rate:'>
-          - per block
-        </StatItem>
-        <StatItem label='Total DFI Burned:'>
+        {/* <StatItem label='Burn Rate:'> */}
+        {/*   - per block */}
+        {/* </StatItem> */}
+        <StatItem label='Total DFI Burned:' testId='stat-total-dfi-burned'>
           <UnitSuffix
             value={total as number}
             units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
           />
         </StatItem>
-        <StatItem label='Tokens:'>
-          -
-        </StatItem>
-        <StatItem label='Difficulty:'>
+        {/* <StatItem label='Tokens:'> */}
+        {/*   -                        */}
+        {/* </StatItem>                */}
+        <StatItem label='Difficulty:' testId='stat-difficulty'>
           <UnitSuffix
             value={blocks[0].difficulty}
             units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
           />
           GH/s
         </StatItem>
-        <StatItem label='Emission Rate:'>
+        <StatItem label='Emission Rate:' testId='stat-emission-rate'>
           <NumberFormat
             value={emission}
             displayType='text'
@@ -176,9 +176,9 @@ function Stats (props: InferGetServerSidePropsType<typeof getServerSideProps>): 
   )
 }
 
-function StatItem ({ label, children }: PropsWithChildren<{ label: string, children: ReactNode }>): JSX.Element {
+function StatItem ({ label, children, testId }: PropsWithChildren<{ label: string, children: ReactNode, testId?: string }>): JSX.Element {
   return (
-    <div className='flex gap-x-8 text-sm'>
+    <div className='flex gap-x-8 text-sm' data-testid={testId}>
       <div className='text-gray-400 w-36'>{label}</div>
       <div className='w-44 text-black font-semibold'>{children}</div>
     </div>
