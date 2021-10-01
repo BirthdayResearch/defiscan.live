@@ -319,7 +319,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
             opacity-60 
             hover:opacity-100'`}
           >
-            <div className='flex items-center'>
+            <div className='flex items-center' data-testid='view-all-blocks-link'>
               VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
             </div>
           </a>
@@ -354,6 +354,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
           <button
             type='button'
             className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+            data-testid='view-all-blocks-button'
           >
             VIEW ALL BLOCKS
           </button>
@@ -383,9 +384,10 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
           opacity-60 
           hover:opacity-100'`}
           href='https://mainnet.defichain.io/#/DFI/mainnet/home'
+          data-testid='latest-transactions-link'
         >
           <div className='flex items-center'>
-            VIEW ALL TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
+            LATEST TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
           </div>
         </a>
       </div> {/* end of blocks */}
@@ -417,12 +419,13 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
         opacity-60 
         hover:opacity-100'`}
         href='https://mainnet.defichain.io/#/DFI/mainnet/home'
+        data-testid='latest-transactions-button'
       >
         <button
           type='button'
           className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
         >
-          VIEW ALL TRANSACTIONS
+          LATEST TRANSACTIONS
         </button>
       </a>
     </div>
