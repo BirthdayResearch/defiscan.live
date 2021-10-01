@@ -50,4 +50,7 @@ context('/blocks on macbook-13', () => {
   it('should have liquidity-pools-title ', () => {
     cy.findByTestId('liquidity-pools-title').should('have.text', 'Liquidity Pools')
   })
+  it('should have search', () => {
+    cy.findByTestId('search').should('be.visible')
+  })
 })
