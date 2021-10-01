@@ -269,132 +269,6 @@ function TransactionDetails ({ hash, medianTime, from, to, confirmations }: {has
   )
 }
 
-function BlocksAndTransactions (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { blocks, transactions } = props
-
-  const { count: { blocks: blockCount } } = useSelector((state: RootState) => state.stats)
-  return (
-    <div className='mt-10 flex justify-between'>
-      <div className='w-5/12 min-w-min'>
-        <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold leading-6'>Blocks</h1> {/* start of title and link */}
-          <Link href={{ pathname: '/blocks' }}>
-            <a
-              className={`
-              font-medium 
-              leading-6 
-              cursor-pointer 
-              text-primary-500 
-              hover:text-primary-500 
-              opacity-60 
-              hover:opacity-100'`}
-            >
-              <div className='flex items-center'>
-                VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
-              </div>
-            </a>
-          </Link>
-        </div>
-        <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
-          {
-            blocks.map((block) => {
-              return (
-                <BlockDetails
-                  key={block.id}
-                  height={block.height.toString()}
-                  mintedBy={block.minter}
-                  transactionCount={block.transactionCount}
-                  medianTime={block.medianTime}
-                />
-              )
-            })
-          }
-        </div>
-        <Link href={{ pathname: '/blocks' }}>
-          <a
-            className={`
-            font-medium 
-            leading-6 
-            cursor-pointer 
-            text-primary-500 
-            hover:text-primary-500 
-            opacity-60 
-            hover:opacity-100'`}
-          >
-            <button
-              type='button'
-              className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
-            >
-              VIEW ALL BLOCKS
-            </button>
-          </a>
-        </Link>
-      </div>
-      <div className='w-5/12 min-w-min'>
-        <div className='flex justify-between'>
-          <h1
-            className='text-xl font-semibold leading-6'
-          >
-            Transactions
-          </h1>
-          <a
-            className={`
-            font-medium 
-            leading-6 
-            cursor-pointer 
-            text-primary-500 
-            hover:text-primary-500 
-            opacity-60 
-            hover:opacity-100'`}
-            href='https://mainnet.defichain.io/#/DFI/mainnet/home'
-          >
-            <div className='flex items-center'>
-              VIEW ALL TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
-            </div>
-          </a>
-        </div> {/* end of blocks */}
-        <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
-          {
-            transactions.map(t => {
-              return (
-                <TransactionDetails
-                  key={t.hash}
-                  hash='4afe36e8222f84f9ba5ba1c6f259a6bd1fc1accebf704487c97383fbec7bf496'
-                  medianTime={1632102904}
-                  from=''
-                  to=''
-                  confirmations={
-                  blockCount !== undefined ? blockCount - t.block.height : blockCount
-                }
-                />
-              )
-            })
-          }
-        </div>
-        <a
-          className={`
-          font-medium 
-          leading-6 
-          cursor-pointer 
-          text-primary-500 
-          hover:text-primary-500 
-          opacity-60 
-          hover:opacity-100'`}
-          href='https://mainnet.defichain.io/#/DFI/mainnet/home'
-        >
-          <button
-            type='button'
-            className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
-          >
-            VIEW ALL TRANSACTIONS
-          </button>
-        </a>
-      </div>
-
-    </div>
-  )
-}
-
 function LiquidityPairCard ({ title, children }: PropsWithChildren<{ title: string, children: ReactNode }>): JSX.Element {
   return (
     <div className='p-6 border border-gray-300 w-80 h-40'>
@@ -424,6 +298,132 @@ function LiquidityPairCard ({ title, children }: PropsWithChildren<{ title: stri
       <div className='mt-4'>
         {children}
       </div>
+    </div>
+  )
+}
+
+function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
+  return (
+    <div className='w-5/12 min-w-min'>
+      <div className='flex justify-between'>
+        <h1 className='text-xl font-semibold leading-6'>Blocks</h1> {/* start of title and link */}
+        <Link href={{ pathname: '/blocks' }}>
+          <a
+            className={`
+            font-medium 
+            leading-6 
+            cursor-pointer 
+            text-primary-500 
+            hover:text-primary-500 
+            opacity-60 
+            hover:opacity-100'`}
+          >
+            <div className='flex items-center'>
+              VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
+            </div>
+          </a>
+        </Link>
+      </div>
+      <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
+        {
+          blocks.map((block) => {
+            return (
+              <BlockDetails
+                key={block.id}
+                height={block.height.toString()}
+                mintedBy={block.minter}
+                transactionCount={block.transactionCount}
+                medianTime={block.medianTime}
+              />
+            )
+          })
+        }
+      </div>
+      <Link href={{ pathname: '/blocks' }}>
+        <a
+          className={`
+          font-medium 
+          leading-6 
+          cursor-pointer 
+          text-primary-500 
+          hover:text-primary-500 
+          opacity-60 
+          hover:opacity-100'`}
+        >
+          <button
+            type='button'
+            className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+          >
+            VIEW ALL BLOCKS
+          </button>
+        </a>
+      </Link>
+    </div>
+  )
+}
+
+function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
+  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
+  return (
+    <div className='w-5/12 min-w-min'>
+      <div className='flex justify-between'>
+        <h1
+          className='text-xl font-semibold leading-6'
+        >
+          Transactions
+        </h1>
+        <a
+          className={`
+          font-medium 
+          leading-6 
+          cursor-pointer 
+          text-primary-500 
+          hover:text-primary-500 
+          opacity-60 
+          hover:opacity-100'`}
+          href='https://mainnet.defichain.io/#/DFI/mainnet/home'
+        >
+          <div className='flex items-center'>
+            VIEW ALL TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
+          </div>
+        </a>
+      </div> {/* end of blocks */}
+      <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
+        {
+          transactions.map(t => {
+            return (
+              <TransactionDetails
+                key={t.hash}
+                hash='4afe36e8222f84f9ba5ba1c6f259a6bd1fc1accebf704487c97383fbec7bf496'
+                medianTime={1632102904}
+                from=''
+                to=''
+                confirmations={
+                blocks !== undefined ? blocks - t.block.height : blocks
+              }
+              />
+            )
+          })
+        }
+      </div>
+      <a
+        className={`
+        font-medium 
+        leading-6 
+        cursor-pointer 
+        text-primary-500 
+        hover:text-primary-500 
+        opacity-60 
+        hover:opacity-100'`}
+        href='https://mainnet.defichain.io/#/DFI/mainnet/home'
+      >
+        <button
+          type='button'
+          className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+        >
+          VIEW ALL TRANSACTIONS
+        </button>
+      </a>
     </div>
   )
 }
@@ -484,7 +484,10 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
       <Banner />
       <Summary />
       <Stats {...props} />
-      <BlocksAndTransactions {...props} />
+      <div className='mt-10 flex justify-between'>
+        <BlocksList {...props} />
+        <TransactionsList {...props} />
+      </div>
       <LiquidityPools {...props} />
     </Container>
   )
