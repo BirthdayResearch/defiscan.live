@@ -7,6 +7,10 @@ context('/blocks on macbook-13', () => {
     cy.viewport('macbook-13')
   })
 
+  it('should have banner-title is DeFiChain Blockchain Explorer', () => {
+    cy.findByTestId('banner-title').should('have.text', 'DeFiChain Blockchain Explorer')
+  })
+
   it('should have summary-price', () => {
     cy.findByTestId('summary-price').should('be.visible')
   })

@@ -33,7 +33,7 @@ function Banner (): JSX.Element {
   return (
     <div className='h-52 flex flex-col items-center'>
       <div className='pt-11'>
-        <h1 className='text-4xl font-semibold'>DeFiChain Blockchain Explorer</h1>
+        <h1 className='text-4xl font-semibold' data-testid='banner-title'>DeFiChain Blockchain Explorer</h1>
       </div>
       <div className='mt-6 w-9/12'>
         <div className='flex'>
@@ -42,7 +42,6 @@ function Banner (): JSX.Element {
             className='text-lg text-gray-600 placeholder-gray-400 rounded-r-full border-primary-100 h-12 border-t border-r border-b w-full focus:outline-none'
             placeholder='Search by address / Txn hash / Block / Token'
             data-testid='search'
-
           />
         </div>
       </div>
