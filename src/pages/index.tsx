@@ -43,9 +43,9 @@ function Banner (): JSX.Element {
   )
 }
 
-function SummaryCard ({ children }: PropsWithChildren<{ children: ReactNode }>): JSX.Element {
+function SummaryCard ({ children, testId }: PropsWithChildren<{ children: ReactNode, testId: string}>): JSX.Element {
   return (
-    <div className='border border-gray-50 rounded-lg shadow-lg flex-1 h-64 pt-6 px-7 pb-7'>
+    <div className='border border-gray-50 rounded-lg shadow-lg flex-1 h-64 pt-6 px-7 pb-7' data-testid={testId}>
       {children}
     </div>
   )
@@ -90,7 +90,7 @@ function Summary (): JSX.Element {
     <div className='mt-12'>
       <span className='text-xl font-semibold'>DeFiChain in numbers</span>
       <div className='flex mt-4 gap-x-4'>
-        <SummaryCard>
+        <SummaryCard testId='summary-price'>
           <SummaryCardTitle>Price</SummaryCardTitle>
           <SummaryCardHeader className='text-4xl leading-10'>${usdt}<SummaryCardHeadModifier className='text-green-500'><IoCaretUp className='inline' /> 23.10%</SummaryCardHeadModifier></SummaryCardHeader>
           <SummaryCardSubHeader>Updated 50 minutes ago</SummaryCardSubHeader>
@@ -113,7 +113,8 @@ function Summary (): JSX.Element {
         </SummaryCard>
         <SummaryCard>
           <SummaryCardTitle>Transaction Activity</SummaryCardTitle>
-          <SummaryCardHeader>11,106,158,292,201</SummaryCardHeader>
+          <SummaryCardHeader>-</SummaryCardHeader>
+          {/* @TODO (aikchun) - transaction activity */}
         </SummaryCard>
       </div>
     </div>
