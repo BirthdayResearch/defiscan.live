@@ -56,10 +56,10 @@ function TransactionHeading (props: { transaction: Transaction }): JSX.Element {
               <a
                 target='_blank'
                 href={`https://explorer.defichain.io/#/DFI/mainnet/tx/${props.transaction.id}`}
-                className='cursor-pointer hover:text-primary-500 break-all ml-1' rel='noreferrer'
+                className='cursor-pointer hover:underline text-primary-500 break-all ml-1' rel='noreferrer'
               >
-                DeFi Blockchain Explorer.
-              </a>
+                https://explorer.defichain.com
+              </a>.
             </>
           )}
         </div>
