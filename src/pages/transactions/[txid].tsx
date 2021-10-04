@@ -111,7 +111,7 @@ function SummaryTableListLeft (props: { transaction: Transaction, vins: Transact
         {props.transaction.totalVoutValue} DFI
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Fee' testId='transaction-detail-fee'>
-        {props.vins[0].vout === undefined ? 'No Inputs' : `${(getTransactionFee(props.transaction, props.vins)).decimalPlaces(8).toString()} mDFI`}
+        {props.vins[0].vout === undefined ? 'Coinbase' : `${(getTransactionFee(props.transaction, props.vins)).decimalPlaces(8).toString()} mDFI`}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Confirmations' testId='transaction-detail-confirmations'>
         {confirmations}
@@ -133,7 +133,7 @@ function SummaryTableListRight (props: { transaction: Transaction, vins: Transac
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
       <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
-        {props.vins[0].vout === undefined ? 'No Inputs' : `${(getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)).decimalPlaces(8).toString()} mDFI/byte`}
+        {props.vins[0].vout === undefined ? 'Coinbase' : `${(getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)).decimalPlaces(8).toString()} mDFI/byte`}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
         {props.transaction.size} bytes
