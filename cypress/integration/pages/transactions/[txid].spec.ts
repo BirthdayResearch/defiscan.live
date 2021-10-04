@@ -29,7 +29,6 @@ context('/transactions/[txid] on desktop', () => {
 
   it('should have transaction-detail-block-height', () => {
     cy.findByTestId('transaction-detail-block-height').should('have.text', '1171695')
-    cy.findByTestId('transaction-detail-block-height').should('have.attr', 'href', '/blocks/1171695')
   })
 
   it('should have transaction-detail-fee-rate', () => {
@@ -42,6 +41,20 @@ context('/transactions/[txid] on desktop', () => {
 
   it('should have transaction-detail-received-time', () => {
     cy.findByTestId('transaction-detail-received-time').should('have.text', 'Sep 8, 2021, 10:00:24 AM') // UTC Time
+  })
+})
+
+context('/transactions/[txid] on desktop - invalid txn id', () => {
+  before(() => {
+    cy.visit('/transactions/9693a839caeeb5c161bf5768d9b64cf7d7c1704f1e8e5caf3d9c08b18599ddba?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('macbook-13')
+  })
+
+  it('should have warning banner', () => {
+    cy.findByTestId('transaction-not-found-banner').should('have.text', 'The requested transaction 9693a839caeeb5c161bf5768d9b64cf7d7c1704f1e8e5caf3d9c08b18599ddba could not be found, it is most likely still being confirmed, please try again in a few minutes.')
   })
 })
 
@@ -76,7 +89,6 @@ context('/transactions/[txid] on mobile', () => {
 
   it('should have transaction-detail-block-height', () => {
     cy.findByTestId('transaction-detail-block-height').should('have.text', '1171695')
-    cy.findByTestId('transaction-detail-block-height').should('have.attr', 'href', '/blocks/1171695')
   })
 
   it('should have transaction-detail-fee-rate', () => {
@@ -89,5 +101,19 @@ context('/transactions/[txid] on mobile', () => {
 
   it('should have transaction-detail-received-time', () => {
     cy.findByTestId('transaction-detail-received-time').should('have.text', 'Sep 8, 2021, 10:00:24 AM') // UTC Time
+  })
+})
+
+context('/transactions/[txid] on mobile - invalid txn id', () => {
+  before(() => {
+    cy.visit('/transactions/9693a839caeeb5c161bf5768d9b64cf7d7c1704f1e8e5caf3d9c08b18599ddba?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('iphone-x')
+  })
+
+  it('should have warning banner', () => {
+    cy.findByTestId('transaction-not-found-banner').should('have.text', 'The requested transaction 9693a839caeeb5c161bf5768d9b64cf7d7c1704f1e8e5caf3d9c08b18599ddba could not be found, it is most likely still being confirmed, please try again in a few minutes.')
   })
 })
