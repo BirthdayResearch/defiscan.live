@@ -512,21 +512,21 @@ function LiquidityPools ({ liquidityPools }: InferGetServerSidePropsType<typeof 
     <div className='mt-12' data-testid='liquidity-pools'>
       <div className='flex justify-between'>
         <h1 className='text-xl leading-8 font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
-        <a
-          className={`
-            font-medium 
-            leading-6 
-            cursor-pointer 
-            text-primary-500 
-            hover:text-primary-500 
-            opacity-60 
-            hover:opacity-100'`}
-          href='https://mainnet.defichain.io/#/DFI/mainnet/home'
-        >
-          <div className='flex items-center'>
-            VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' />
-          </div>
-        </a>
+        {/* <a */}
+        {/*   className={` */}
+        {/*     font-medium  */}
+        {/*     leading-6  */}
+        {/*     cursor-pointer  */}
+        {/*     text-primary-500  */}
+        {/*     hover:text-primary-500  */}
+        {/*     opacity-60  */}
+        {/*     hover:opacity-100'`} */}
+        {/*   href='https://mainnet.defichain.io/#/DFI/mainnet/home' */}
+        {/* > */}
+        {/*   <div className='flex items-center'> */}
+        {/*     VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' /> */}
+        {/*   </div> */}
+        {/* </a> */}
       </div>
       <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6'>
         {
