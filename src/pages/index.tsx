@@ -9,7 +9,7 @@ import {
 import { formatDistanceToNow } from 'date-fns'
 import {
 //  IoCaretUp,
-  IoSearchOutline,
+//  IoSearchOutline,
   IoChevronForward,
   IoTimeOutline
 } from 'react-icons/io5'
@@ -35,16 +35,16 @@ function Banner (): JSX.Element {
       <div className='pt-11'>
         <h1 className='text-4xl font-semibold' data-testid='banner-title'>DeFiChain Blockchain Explorer</h1>
       </div>
-      <div className='mt-6 w-9/12'>
-        <div className='flex'>
-          <button type='button' className='rounded-l-full h-12 border-primary-100 w-12 border-t border-l border-b flex justify-center items-center bg-white'><IoSearchOutline size={17} className='text-gray-400' /></button>
-          <input
-            className='text-lg text-gray-600 placeholder-gray-400 rounded-r-full border-primary-100 h-12 border-t border-r border-b w-full focus:outline-none'
-            placeholder='Search by address / Txn hash / Block / Token'
-            data-testid='search'
-          />
-        </div>
-      </div>
+      {/* <div className='mt-6 w-9/12'> */}
+      {/*   <div className='flex'> */}
+      {/*     <button type='button' className='rounded-l-full h-12 border-primary-100 w-12 border-t border-l border-b flex justify-center items-center bg-white'><IoSearchOutline size={17} className='text-gray-400' /></button> */}
+      {/*     <input */}
+      {/*       className='text-lg text-gray-600 placeholder-gray-400 rounded-r-full border-primary-100 h-12 border-t border-r border-b w-full focus:outline-none' */}
+      {/*       placeholder='Search by address / Txn hash / Block / Token' */}
+      {/*       data-testid='search' */}
+      {/*     /> */}
+      {/*   </div> */}
+      {/* </div> */}
     </div>
   )
 }
@@ -74,7 +74,7 @@ function SummaryCardHeader ({ children, className }: PropsWithChildren<{children
 //     <div className={classnames('text-xs text-gray-500 leading-4', className)}>{children}</div>
 //   )
 // }
-//
+
 // function SummaryCardHeadModifier ({ children, className }: PropsWithChildren<{children: ReactNode, className?: string}>): JSX.Element {
 //   return <span className={classnames('text-base ml-3', className)}>{children}</span>
 // }
@@ -444,13 +444,13 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
   )
 }
 
-function LiquidityCardStat ({ label, value }: {label: string, value: string}): JSX.Element {
+function LiquidityCardStat ({ label, children }: PropsWithChildren<{label: string, children: ReactNode}>): JSX.Element {
   return (
     <div className='flex gap-x-4'>
       <div className='font-normal text-sm opacity-40 leading-5 w-24'>
         {label}:
       </div>
-      <div className='text-sm leading-5'>{value}</div>
+      <div className='text-sm leading-5'>{children}</div>
     </div>
   )
 }
@@ -482,9 +482,35 @@ function LiquidityPools ({ liquidityPools }: InferGetServerSidePropsType<typeof 
           liquidityPools.map(pool => {
             return (
               <LiquidityPairCard title={pool.symbol} key={pool.symbol}>
-                <LiquidityCardStat label='APR' value={`${(pool.apr != null) ? pool.apr.total : '-'}%`} />
-                <LiquidityCardStat label='Total Liquidity' value={`${pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''} USD`} />
-                <LiquidityCardStat label='Price Ratio' value={`${pool.priceRatio.ba} ${pool.tokenB.symbol}/${pool.tokenA.symbol}`} />
+                <LiquidityCardStat label='APR'>
+                  <NumberFormat
+                    value={(pool.apr != null) ? pool.apr.total * 100 : undefined}
+                    displayType='text'
+                    decimalScale={2}
+                    thousandSeparator
+                    suffix='%'
+                  />
+                </LiquidityCardStat>
+                <LiquidityCardStat label='Total Liquidity' value={`${pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''} USD`}>
+                  <NumberFormat
+                    value={pool.totalLiquidity.usd}
+                    displayType='text'
+                    decimalScale={2}
+                    thousandSeparator
+                    suffix=' USD'
+                  />
+                </LiquidityCardStat>
+                <LiquidityCardStat
+                  label='Price Ratio'
+                >
+                  <NumberFormat
+                    value={pool.priceRatio.ba}
+                    displayType='text'
+                    decimalScale={2}
+                    thousandSeparator
+                    suffix={` ${pool.tokenB.symbol}/${pool.tokenA.symbol}`}
+                  />
+                </LiquidityCardStat>
               </LiquidityPairCard>
             )
           })
