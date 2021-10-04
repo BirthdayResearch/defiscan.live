@@ -23,6 +23,7 @@ import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
+import { getAssetIcon } from '@components/icons/assets'
 interface HomePageProps {
   blocks: Block[]
   transactions: Transaction[]
@@ -282,13 +283,35 @@ function TransactionDetails ({ hash, medianTime, from, to, confirmations }: {has
   )
 }
 
-function LiquidityPairCard ({ title, children }: PropsWithChildren<{ title: string, children: ReactNode }>): JSX.Element {
+function LiquidityPool (
+  {
+    poolSymbol,
+    apr,
+    totalLiquidity,
+    priceRatio,
+    tokenASymbol,
+    tokenBSymbol
+  }: {
+    poolSymbol: string
+    apr: number | undefined
+    totalLiquidity: string
+    priceRatio: string
+    tokenASymbol: string
+    tokenBSymbol: string
+  }): JSX.Element {
+  const SymbolBIcon = getAssetIcon(tokenBSymbol)
+  const SymbolAIcon = getAssetIcon(tokenASymbol)
   return (
+
     <div className='p-6 border border-gray-300 w-80 h-40'>
       <div className='flex justify-between'>
         <div className='flex'>
+          <div className='icons flex flex-row-reverse'>
+            <SymbolBIcon className='h-6 w-6 -ml-2' />
+            <SymbolAIcon className='h-6 w-6' />
+          </div>
           <div className='mr-2' />
-          <h1 className='font-semibold text-lg leading-6'>{title}</h1>
+          <h1 className='font-semibold text-lg leading-6'>{poolSymbol}</h1>
         </div>
         {/* <Link href={{ pathname: '/#' }}> */}
         {/*   <a */}
@@ -309,9 +332,38 @@ function LiquidityPairCard ({ title, children }: PropsWithChildren<{ title: stri
         {/* </Link> */}
       </div>
       <div className='mt-4'>
-        {children}
+        <LiquidityCardStat label='APR'>
+          <NumberFormat
+            value={apr}
+            displayType='text'
+            decimalScale={2}
+            thousandSeparator
+            suffix='%'
+          />
+        </LiquidityCardStat>
+        <LiquidityCardStat label='Total Liquidity'>
+          <NumberFormat
+            value={totalLiquidity}
+            displayType='text'
+            decimalScale={2}
+            thousandSeparator
+            suffix=' USD'
+          />
+        </LiquidityCardStat>
+        <LiquidityCardStat
+          label='Price Ratio'
+        >
+          <NumberFormat
+            value={priceRatio}
+            displayType='text'
+            decimalScale={2}
+            thousandSeparator
+            suffix={` ${tokenBSymbol}/${tokenASymbol}`}
+          />
+        </LiquidityCardStat>
       </div>
     </div>
+
   )
 }
 
@@ -480,37 +532,15 @@ function LiquidityPools ({ liquidityPools }: InferGetServerSidePropsType<typeof 
         {
           liquidityPools.map(pool => {
             return (
-              <LiquidityPairCard title={pool.symbol} key={pool.symbol}>
-                <LiquidityCardStat label='APR'>
-                  <NumberFormat
-                    value={(pool.apr != null) ? pool.apr.total * 100 : undefined}
-                    displayType='text'
-                    decimalScale={2}
-                    thousandSeparator
-                    suffix='%'
-                  />
-                </LiquidityCardStat>
-                <LiquidityCardStat label='Total Liquidity' value={`${pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''} USD`}>
-                  <NumberFormat
-                    value={pool.totalLiquidity.usd}
-                    displayType='text'
-                    decimalScale={2}
-                    thousandSeparator
-                    suffix=' USD'
-                  />
-                </LiquidityCardStat>
-                <LiquidityCardStat
-                  label='Price Ratio'
-                >
-                  <NumberFormat
-                    value={pool.priceRatio.ba}
-                    displayType='text'
-                    decimalScale={2}
-                    thousandSeparator
-                    suffix={` ${pool.tokenB.symbol}/${pool.tokenA.symbol}`}
-                  />
-                </LiquidityCardStat>
-              </LiquidityPairCard>
+              <LiquidityPool
+                key={pool.symbol}
+                poolSymbol={pool.symbol}
+                apr={pool.apr != null ? pool.apr.total * 100 : undefined}
+                totalLiquidity={pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''}
+                priceRatio={pool.priceRatio.ba}
+                tokenASymbol={pool.tokenA.symbol}
+                tokenBSymbol={pool.tokenB.symbol}
+              />
             )
           })
         }
