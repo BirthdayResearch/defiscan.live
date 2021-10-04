@@ -15,8 +15,7 @@ import { CopyButton } from '@components/commons/CopyButton'
 import { Link } from '@components/commons/Link'
 import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
-import { getEnvironment } from '@contexts/Environment'
-import { useRouter } from 'next/router'
+import { useNetwork } from '@contexts/NetworkContext'
 
 interface TransactionPageProps {
   txid: string
@@ -43,20 +42,26 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
 }
 
 function TransactionHeading (props: { transaction: Transaction }): JSX.Element {
+  const network = useNetwork()
+
   return (
     <>
       <div className='flex items-center justify-center pb-6'>
         <div className='bg-orange-100 rounded p-3 text-center'>
           🚧 Work in progress, this is an early iteration of defiscan.live/transactions/*. Some features are not
           available and may not work as expected.
-          <br />In the meantime, you can use
-          <a
-            target='_blank'
-            href={`https://explorer.defichain.io/#/DFI/${useRouter().query.network?.toString().toLowerCase() ?? getEnvironment().networks[0].toLowerCase()}/tx/${props.transaction.id}`}
-            className='cursor-pointer hover:text-primary-500 break-all ml-1' rel='noreferrer'
-          >
-            DeFi Blockchain Explorer
-          </a>
+          {network === 'MainNet' && (
+            <>
+              <br />In the meantime, you can use
+              <a
+                target='_blank'
+                href={`https://explorer.defichain.io/#/DFI/mainnet/tx/${props.transaction.id}`}
+                className='cursor-pointer hover:text-primary-500 break-all ml-1' rel='noreferrer'
+              >
+                DeFi Blockchain Explorer.
+              </a>
+            </>
+          )}
         </div>
       </div>
 
