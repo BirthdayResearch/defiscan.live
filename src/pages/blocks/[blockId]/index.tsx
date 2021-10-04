@@ -92,7 +92,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
 
   function TransactionRow ({ transaction }: { transaction: Transaction }): JSX.Element {
     return (
-      <OverflowTable.Row key={transaction.txid}>
+      <OverflowTable.Row key={transaction.txid} className='hover:text-primary-500'>
         <OverflowTable.Cell>
           <div className='break-all w-80 md:w-full'>
             {transaction.txid}
@@ -130,7 +130,13 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
         </OverflowTable.Header>
 
         {transactions.items.map(transaction => {
-          return <TransactionRow transaction={transaction} key={transaction.txid} />
+          return (
+            <Link href={{ pathname: `/transactions/${transaction.txid}` }} key={transaction.txid}>
+              <a className='contents'>
+                <TransactionRow transaction={transaction} />
+              </a>
+            </Link>
+          )
         })}
       </OverflowTable>
 
@@ -141,7 +147,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
   )
 }
 
-function ListLeft (props: {block: Block, nBlocks: number | undefined}): JSX.Element {
+function ListLeft (props: { block: Block, nBlocks: number | undefined }): JSX.Element {
   const confirmations = props.nBlocks !== undefined ? props.nBlocks - props.block.height : props.nBlocks
   const blockTime = format(fromUnixTime(props.block.medianTime), 'PPpp')
   return (
@@ -176,7 +182,7 @@ function ListLeft (props: {block: Block, nBlocks: number | undefined}): JSX.Elem
   )
 }
 
-function ListRight (props: {block: Block}): JSX.Element {
+function ListRight (props: { block: Block }): JSX.Element {
   return (
     <AdaptiveList>
       <AdaptiveList.Row name='Difficulty' testId='block-detail-difficulty'>
