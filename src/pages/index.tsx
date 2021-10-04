@@ -290,23 +290,23 @@ function LiquidityPairCard ({ title, children }: PropsWithChildren<{ title: stri
           <div className='mr-2' />
           <h1 className='font-semibold text-lg leading-6'>{title}</h1>
         </div>
-        <Link href={{ pathname: '/#' }}>
-          <a
-            className={`
-            text-sm 
-            font-medium 
-            leading-4 
-            cursor-pointer 
-            text-primary-500 
-            hover:text-primary-500 
-            opacity-60 
-            hover:opacity-100'`}
-          >
-            <div className='flex items-center'>
-              VIEW<IoChevronForward size={15} className='ml-px inline' />
-            </div>
-          </a>
-        </Link>
+        {/* <Link href={{ pathname: '/#' }}> */}
+        {/*   <a */}
+        {/*     className={` */}
+        {/*     text-sm  */}
+        {/*     font-medium */}
+        {/*     leading-4 */}
+        {/*     cursor-pointer */}
+        {/*     text-primary-500 */}
+        {/*     hover:text-primary-500 */}
+        {/*     opacity-60 */}
+        {/*     hover:opacity-100'`} */}
+        {/*   > */}
+        {/*     <div className='flex items-center'> */}
+        {/*       VIEW<IoChevronForward size={15} className='ml-px inline' /> */}
+        {/*     </div> */}
+        {/*   </a> */}
+        {/* </Link> */}
       </div>
       <div className='mt-4'>
         {children}
@@ -460,9 +460,8 @@ function LiquidityPools ({ liquidityPools }: InferGetServerSidePropsType<typeof 
     <div className='mt-12' data-testid='liquidity-pools'>
       <div className='flex justify-between'>
         <h1 className='text-xl leading-8 font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
-        <Link href={{ pathname: '/#' }}>
-          <a
-            className={`
+        <a
+          className={`
             font-medium 
             leading-6 
             cursor-pointer 
@@ -470,12 +469,12 @@ function LiquidityPools ({ liquidityPools }: InferGetServerSidePropsType<typeof 
             hover:text-primary-500 
             opacity-60 
             hover:opacity-100'`}
-          >
-            <div className='flex items-center'>
-              VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' />
-            </div>
-          </a>
-        </Link>
+          href='https://mainnet.defichain.io/#/DFI/mainnet/home'
+        >
+          <div className='flex items-center'>
+            VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' />
+          </div>
+        </a>
       </div>
       <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6'>
         {
