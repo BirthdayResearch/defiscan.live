@@ -11,6 +11,7 @@ context('/blocks on macbook-13', () => {
     cy.findByTestId('banner-title').should('have.text', 'DeFiChain Blockchain Explorer')
   })
 
+
   it('should have summary-price', () => {
     cy.findByTestId('summary-price').should('be.visible')
   })
@@ -56,5 +57,6 @@ context('/blocks on macbook-13', () => {
   })
   it('should have search', () => {
     cy.findByTestId('search').should('be.visible')
+    cy.findByTestId('search').type('Hello, World')
   })
 })
