@@ -19,21 +19,30 @@ import { getEnvironment } from '@contexts/Environment'
 import { useRouter } from 'next/router'
 
 interface TransactionPageProps {
-  transaction: Transaction
-  vins: TransactionVin[]
-  vouts: TransactionVout[]
+  txid: string
+  transaction?: Transaction
+  vins?: TransactionVin[]
+  vouts?: TransactionVout[]
 }
 
 export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  return (
-    <Container className='pt-12 pb-20'>
-      <TransactionHeading {...props} />
-      <TransactionSummaryTable {...props} />
-    </Container>
-  )
+  if (props.transaction !== undefined && props.vins !== undefined && props.vouts !== undefined) {
+    return (
+      <Container className='pt-12 pb-20'>
+        <TransactionHeading transaction={props.transaction} />
+        <TransactionSummaryTable transaction={props.transaction} vins={props.vins} vouts={props.vouts} />
+      </Container>
+    )
+  } else {
+    return (
+      <Container className='pt-12 pb-20'>
+        <TransactionNotFoundHeading txid={props.txid} />
+      </Container>
+    )
+  }
 }
 
-function TransactionHeading ({ transaction }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+function TransactionHeading (props: { transaction: Transaction }): JSX.Element {
   return (
     <>
       <div className='flex items-center justify-center pb-6'>
@@ -41,7 +50,11 @@ function TransactionHeading ({ transaction }: InferGetServerSidePropsType<typeof
           🚧 Work in progress, this is an early iteration of defiscan.live/transactions/*. Some features are not
           available and may not work as expected.
           <br />In the meantime, you can use
-          <a target='_blank' href={`https://explorer.defichain.io/#/DFI/${useRouter().query.network?.toString().toLowerCase() ?? getEnvironment().networks[0].toLowerCase()}/tx/${transaction.id}`} className='cursor-pointer hover:text-primary-500 break-all ml-1' rel='noreferrer'>
+          <a
+            target='_blank'
+            href={`https://explorer.defichain.io/#/DFI/${useRouter().query.network?.toString().toLowerCase() ?? getEnvironment().networks[0].toLowerCase()}/tx/${props.transaction.id}`}
+            className='cursor-pointer hover:text-primary-500 break-all ml-1' rel='noreferrer'
+          >
             DeFi Blockchain Explorer
           </a>
         </div>
@@ -52,14 +65,25 @@ function TransactionHeading ({ transaction }: InferGetServerSidePropsType<typeof
       </span>
 
       <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium break-all' data-testid='transaction-hash'>{transaction.hash}</h1>
-        <CopyButton className='ml-2' content={transaction.hash} />
+        <h1 className='text-2xl font-medium break-all' data-testid='transaction-hash'>{props.transaction.hash}</h1>
+        <CopyButton className='ml-2' content={props.transaction.hash} />
       </div>
     </>
   )
 }
 
-function TransactionSummaryTable (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+function TransactionNotFoundHeading (props: { txid: string }): JSX.Element {
+  const txid = props.txid
+
+  return (
+    <div className='bg-red-100 rounded p-3 text-center' data-testid='transaction-not-found-banner'>
+      The requested transaction <code className='break-all'>{txid}</code> could not be found, it is most likely still
+      being confirmed, please try again in a few minutes.
+    </div>
+  )
+}
+
+function TransactionSummaryTable (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
   const transaction = props.transaction
   const vins = props.vins
   const vouts = props.vouts
@@ -135,6 +159,22 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
   const txid = context.params?.txid as string
 
+  let transaction: Transaction | undefined
+
+  try {
+    transaction = await api.transactions.get(txid)
+  } catch (WhaleApiException) {
+    transaction = undefined
+  }
+
+  if (transaction === undefined) {
+    return {
+      props: {
+        txid: txid
+      }
+    }
+  }
+
   // Will improve with newer iteration of whale api
   const vins: TransactionVin[] = []
   let vinsResponse = await api.transactions.getVins(txid, 60)
@@ -154,7 +194,8 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   return {
     props: {
-      transaction: await api.transactions.get(txid),
+      txid,
+      transaction,
       vins,
       vouts
     }
