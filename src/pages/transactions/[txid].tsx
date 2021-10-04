@@ -15,6 +15,8 @@ import { CopyButton } from '@components/commons/CopyButton'
 import { Link } from '@components/commons/Link'
 import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
+import { getEnvironment } from '@contexts/Environment'
+import { useRouter } from 'next/router'
 
 interface TransactionPageProps {
   transaction: Transaction
@@ -39,7 +41,7 @@ function TransactionHeading ({ transaction }: InferGetServerSidePropsType<typeof
           🚧 Work in progress, this is an early iteration of defiscan.live/transactions/*. Some features are not
           available and may not work as expected.
           <br />In the meantime, you can use
-          <a href='https://explorer.defichain.io/' className='cursor-pointer hover:text-primary-500 break-all ml-1'>
+          <a target='_blank' href={`https://explorer.defichain.io/#/DFI/${useRouter().query.network?.toString().toLowerCase() ?? getEnvironment().networks[0].toLowerCase()}/tx/${transaction.id}`} className='cursor-pointer hover:text-primary-500 break-all ml-1' rel='noreferrer'>
             DeFi Blockchain Explorer
           </a>
         </div>
