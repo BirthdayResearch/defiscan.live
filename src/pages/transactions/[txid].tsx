@@ -27,13 +27,6 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
     <Container className='pt-12 pb-20'>
       <TransactionHeading {...props} />
       <TransactionSummaryTable {...props} />
-
-      {/* <div className='font-mono'> */}
-      {/*  <pre data-testid='raw-transaction'>{JSON.stringify(props.transaction, null, 2)}</pre> */}
-      {/*  <pre data-testid='raw-vins'>VIN {JSON.stringify(props.vins, null, 2)}</pre> */}
-      {/*  <pre data-testid='raw-vouts'>VOUT {JSON.stringify(props.vouts, null, 2)}</pre> */}
-      {/* </div> */}
-
     </Container>
   )
 }
@@ -82,7 +75,7 @@ function SummaryTableListLeft (props: { transaction: Transaction, vins: Transact
   const confirmations = blocks !== undefined ? blocks - props.transaction.block.height : blocks
 
   return (
-    <AdaptiveList className=''>
+    <AdaptiveList className='w-full lg:w-1/2'>
       <AdaptiveList.Row name='Total Amount' testId='transaction-detail-total-amount'>
         {props.transaction.totalVoutValue} DFI
       </AdaptiveList.Row>
@@ -107,7 +100,7 @@ function SummaryTableListRight (props: { transaction: Transaction, vins: Transac
   const blockTime = format(fromUnixTime(props.transaction.block.medianTime), 'PPpp')
 
   return (
-    <AdaptiveList className='w-full md:w-1/2'>
+    <AdaptiveList className='w-full lg:w-1/2'>
       <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
         {props.vins[0].vout === undefined ? 'No Inputs' : `${(getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)).decimalPlaces(8).toString()} mDFI/byte`}
       </AdaptiveList.Row>
