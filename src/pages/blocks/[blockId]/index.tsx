@@ -95,7 +95,11 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
       <OverflowTable.Row key={transaction.txid}>
         <OverflowTable.Cell>
           <div className='break-all w-80 md:w-full'>
-            {transaction.txid}
+            <Link href={{ pathname: `/transactions/${transaction.txid}` }}>
+              <a className='cursor-pointer hover:text-primary-500'>
+                {transaction.txid}
+              </a>
+            </Link>
           </div>
         </OverflowTable.Cell>
         <OverflowTable.Cell>
@@ -141,7 +145,7 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
   )
 }
 
-function ListLeft (props: {block: Block, nBlocks: number | undefined}): JSX.Element {
+function ListLeft (props: { block: Block, nBlocks: number | undefined }): JSX.Element {
   const confirmations = props.nBlocks !== undefined ? props.nBlocks - props.block.height : props.nBlocks
   const blockTime = format(fromUnixTime(props.block.medianTime), 'PPpp')
   return (
@@ -176,7 +180,7 @@ function ListLeft (props: {block: Block, nBlocks: number | undefined}): JSX.Elem
   )
 }
 
-function ListRight (props: {block: Block}): JSX.Element {
+function ListRight (props: { block: Block }): JSX.Element {
   return (
     <AdaptiveList>
       <AdaptiveList.Row name='Difficulty' testId='block-detail-difficulty'>
