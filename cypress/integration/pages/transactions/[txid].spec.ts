@@ -29,7 +29,7 @@ context('/transactions/[txid] on desktop', () => {
 
   it('should have transaction-detail-block-height', () => {
     cy.findByTestId('transaction-detail-block-height').should('have.text', '1171695')
-    cy.findByTestId('transaction-detail-block-height').should('have.attr', 'href', '/blocks/1171695?network=MainNet')
+    cy.findByTestId('transaction-detail-block-height').should('have.attr', 'href', '/blocks/1171695')
   })
 
   it('should have transaction-detail-fee-rate', () => {
@@ -76,7 +76,7 @@ context('/transactions/[txid] on mobile', () => {
 
   it('should have transaction-detail-block-height', () => {
     cy.findByTestId('transaction-detail-block-height').should('have.text', '1171695')
-    cy.findByTestId('transaction-detail-block-height').should('have.attr', 'href', '/blocks/1171695?network=MainNet')
+    cy.findByTestId('transaction-detail-block-height').should('have.attr', 'href', '/blocks/1171695')
   })
 
   it('should have transaction-detail-fee-rate', () => {
