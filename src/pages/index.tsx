@@ -31,7 +31,7 @@ interface HomePageProps {
 
 function Banner (): JSX.Element {
   return (
-    <div className='h-52 flex flex-col items-center' style={{ backgroundImage: 'linear-gradient(to bottom left, #FFFFFF, #f7e6f0' }}>
+    <div className='h-52 flex flex-col items-center' style={{ backgroundImage: 'linear-gradient(to bottom left, #FFFFFF, #fff7f4,  #f7e6f0' }}>
       <div className='pt-11'>
         <h1 className='text-4xl font-semibold' data-testid='banner-title'>DeFiChain Blockchain Explorer</h1>
       </div>
