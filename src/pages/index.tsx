@@ -351,7 +351,7 @@ function TransactionDetails ({ hash, medianTime, from, to, confirmations }: {has
             className='text-xs text-opacity-40 text-black font-medium'
           >
             <IoTimeOutline size={15} className='inline' />
-            <span className='ml-1.5'>{formatDistanceToNow(medianTime * 1000)} ago</span>
+            <span className='ml-1.5'>{formatDistanceToNow(medianTime * 1000, { locale })}</span>
           </span>
           <NumberFormat
             className='h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100'
@@ -540,7 +540,6 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
 
 function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-  console.log('transactions', transactions)
   return (
     <div className='w-5/12 min-w-min'>
       <div className='flex justify-between'>
