@@ -8,7 +8,6 @@ import {
 
 import { RootState } from '@store/index'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
-
 import { Container } from '@components/commons/Container'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { CopyButton } from '@components/commons/CopyButton'
@@ -16,6 +15,9 @@ import { Link } from '@components/commons/Link'
 import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
 import { useNetwork } from '@contexts/NetworkContext'
+import { PropsWithChildren, ReactNode } from 'react'
+import { IoArrowForwardOutline } from 'react-icons/io5'
+import { fromScriptHex } from '@defichain/jellyfish-address'
 
 interface TransactionPageProps {
   txid: string
@@ -30,6 +32,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
       <Container className='pt-12 pb-20'>
         <TransactionHeading transaction={props.transaction} />
         <TransactionSummaryTable transaction={props.transaction} vins={props.vins} vouts={props.vouts} />
+        <TransactionDetails transaction={props.transaction} vins={props.vins} vouts={props.vouts} />
       </Container>
     )
   } else {
@@ -104,6 +107,7 @@ function TransactionSummaryTable (props: { transaction: Transaction, vins: Trans
 function SummaryTableListLeft (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   const confirmations = blocks !== undefined ? blocks - props.transaction.block.height : blocks
+  const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${(getTransactionFee(props.transaction, props.vins)).decimalPlaces(8).toString()} mDFI`
 
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
@@ -111,7 +115,7 @@ function SummaryTableListLeft (props: { transaction: Transaction, vins: Transact
         {props.transaction.totalVoutValue} DFI
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Fee' testId='transaction-detail-fee'>
-        {props.vins[0].vout === undefined ? 'Coinbase' : `${(getTransactionFee(props.transaction, props.vins)).decimalPlaces(8).toString()} mDFI`}
+        {fee}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Confirmations' testId='transaction-detail-confirmations'>
         {confirmations}
@@ -158,6 +162,105 @@ function getTotalVinsValue (vins: TransactionVin[]): number {
     }
   })
   return value
+}
+
+function TransactionDetails (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
+  const transaction = props.transaction
+  const vins = props.vins
+  const vouts = props.vouts
+
+  return (
+    <>
+      <h1 className='font-medium text-2xl mt-6' data-testid='details-subtitle'>Details</h1>
+
+      <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+        <TransactionDetailsLeft transaction={transaction} vins={vins} vouts={vouts} />
+        <div className='flex items-center justify-center text-gray-600 w-full lg:w-auto lg:h-20'>
+          <IoArrowForwardOutline className='transform rotate-90 lg:rotate-0' size={24} />
+        </div>
+        <TransactionDetailsRight transaction={transaction} vins={vins} vouts={vouts} />
+      </div>
+
+      <TransactionDetailsSummary transaction={transaction} vins={vins} />
+    </>
+  )
+}
+
+function TransactionDetailsLeft (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
+  return (
+    <div className='w-full lg:w-1/2 max-h-screen overflow-y-auto'>
+      <div className='flex flex-col gap-y-1'>
+        {props.vins.map((vin) => {
+          let address: string | undefined
+          if (vin.script !== undefined) {
+            address = fromScriptHex(vin.script.hex, 'mainnet')?.address
+          }
+
+          return (
+            <InputOutputBlock label='INPUT' key={vin.sequence}>
+              <span className='opacity-60'>{address}</span>
+              <span>{vin.vout?.value} DFI</span>
+            </InputOutputBlock>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function TransactionDetailsRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
+  return (
+    <div className='w-full lg:w-1/2'>
+      <div className='flex flex-col gap-y-1'>
+        {props.vouts.map((vout) => {
+          return (
+            <InputOutputBlock
+              label='OUTPUT'
+              key={vout.script.hex}
+            >
+              <span className='text-primary'>{vout.script.type}</span>
+              <span>{vout.value} DFI</span>
+            </InputOutputBlock>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function TransactionDetailsSummary (props: { transaction: Transaction, vins: TransactionVin[] }): JSX.Element {
+  const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${(getTransactionFee(props.transaction, props.vins)).decimalPlaces(8).toString()} mDFI`
+
+  return (
+    <div className='flex flex-col items-end justify-between h-16 mt-8'>
+      <div className='flex justify-between gap-x-3'>
+        <div>Fees:</div>
+        <div>{fee}</div>
+      </div>
+      <div className='flex justify-between gap-x-3'>
+        <div>Total:</div>
+        <div>{props.transaction.totalVoutValue} DFI</div>
+      </div>
+    </div>
+  )
+}
+
+function InputOutputBlock ({
+  label,
+  children
+}: PropsWithChildren<{ label: 'INPUT' | 'OUTPUT', children: ReactNode }>): JSX.Element {
+  return (
+    <div className='bg-gray-50 h-20 p-3 rounded flex justify-between'>
+      <div className='flex flex-col justify-between h-full w-full'>
+        <span className='bg-gray-200 rounded text-xs px-2 py-1 font-medium w-min'>
+          {label}
+        </span>
+        <div className='flex justify-between'>
+          {children}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {
