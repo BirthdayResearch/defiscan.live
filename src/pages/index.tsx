@@ -283,7 +283,6 @@ function Stats (props: InferGetServerSidePropsType<typeof getServerSideProps>): 
             value={blocks[0].difficulty}
             units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
           />
-          GH/s
         </StatItem>
         <StatItem label='Emission Rate:' testId='stat-emission-rate'>
           <NumberFormat
