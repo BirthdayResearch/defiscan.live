@@ -7,6 +7,7 @@ import {
   InferGetServerSidePropsType
 } from 'next'
 import { formatDistanceToNow } from 'date-fns'
+import USLocale from 'date-fns/locale/en-US'
 import {
 //  IoCaretUp,
 //  IoSearchOutline,
@@ -28,6 +29,115 @@ interface HomePageProps {
   blocks: Block[]
   transactions: Transaction[]
   liquidityPools: PoolPairData[]
+}
+
+const formatDistanceLocale = {
+  lessThanXSeconds: {
+    one: 'less than a sec',
+    other: 'less than {{count}} secs'
+  },
+
+  xSeconds: {
+    one: '1 sec',
+    other: '{{count}} secs'
+  },
+
+  halfAMinute: 'half a min',
+
+  lessThanXMinutes: {
+    one: 'less than a min',
+    other: 'less than {{count}} mins'
+  },
+
+  xMinutes: {
+    one: '1 min',
+    other: '{{count}} mins'
+  },
+
+  aboutXHours: {
+    one: 'about 1 hour',
+    other: 'about {{count}} hours'
+  },
+
+  xHours: {
+    one: '1 hour',
+    other: '{{count}} hours'
+  },
+
+  xDays: {
+    one: '1 day',
+    other: '{{count}} days'
+  },
+
+  aboutXWeeks: {
+    one: 'about 1 week',
+    other: 'about {{count}} weeks'
+  },
+
+  xWeeks: {
+    one: '1 week',
+    other: '{{count}} weeks'
+  },
+
+  aboutXMonths: {
+    one: 'about 1 month',
+    other: 'about {{count}} months'
+  },
+
+  xMonths: {
+    one: '1 month',
+    other: '{{count}} months'
+  },
+
+  aboutXYears: {
+    one: 'about 1 year',
+    other: 'about {{count}} years'
+  },
+
+  xYears: {
+    one: '1 year',
+    other: '{{count}} years'
+  },
+
+  overXYears: {
+    one: 'over 1 year',
+    other: 'over {{count}} years'
+  },
+
+  almostXYears: {
+    one: 'almost 1 year',
+    other: 'almost {{count}} years'
+  }
+}
+
+function formatDistance (
+  token: string,
+  count: number,
+  options: {
+    addSuffix?: boolean
+    comparison?: -1 | 0 | 1
+  }): string {
+  let result: string
+
+  const tokenValue = formatDistanceLocale[token]
+  if (typeof tokenValue === 'string') {
+    result = tokenValue
+  } else if (count === 1) {
+    result = tokenValue.one
+  } else {
+    result = tokenValue.other.replace('{{count}}', count.toString())
+  }
+
+  if (options.comparison !== undefined && options.comparison > 0) {
+    return 'in ' + result
+  }
+
+  return result + ' ago'
+}
+
+const locale = {
+  ...USLocale,
+  formatDistance
 }
 
 function Banner (): JSX.Element {
@@ -203,7 +313,7 @@ function BlockDetails ({ height, medianTime, mintedBy, transactionCount }: {heig
     <div className='h-20 border border-gray-200 p-4 flex'>
       <div className='flex flex-col'>
         <span className='text-xl text-gray-900 font-semibold'>#{height}</span>
-        <div className='text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'><IoTimeOutline size={15} /><span>{formatDistanceToNow(medianTime * 1000)} ago</span></div>
+        <div className='text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'><IoTimeOutline size={15} /><span>{formatDistanceToNow(medianTime * 1000, { locale })}</span></div>
       </div>
       <div className='ml-8'>
         <div className='text-sm leading-5 flex gap-x-6'>
@@ -430,6 +540,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
 
 function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
+  console.log('transactions', transactions)
   return (
     <div className='w-5/12 min-w-min'>
       <div className='flex justify-between'>
@@ -461,8 +572,8 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
             return (
               <TransactionDetails
                 key={t.hash}
-                hash='4afe36e8222f84f9ba5ba1c6f259a6bd1fc1accebf704487c97383fbec7bf496'
-                medianTime={1632102904}
+                hash={t.txid}
+                medianTime={t.block.medianTime}
                 from=''
                 to=''
                 confirmations={
