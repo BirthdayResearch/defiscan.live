@@ -44,10 +44,10 @@ export function getEnvironment (): Environment {
     case 'development':
     default:
       return new Environment('Development', true, [
+        Network.MainNet,
         Network.RemotePlayground,
         Network.LocalPlayground,
-        Network.TestNet,
-        Network.MainNet
+        Network.TestNet
       ])
   }
 }
