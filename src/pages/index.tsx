@@ -309,7 +309,7 @@ function StatItem ({ label, children, testId }: PropsWithChildren<{ label: strin
 
 function BlockDetails ({ height, medianTime, mintedBy, transactionCount }: {height: string, medianTime: number, mintedBy?: string, transactionCount: number}): JSX.Element {
   return (
-    <div className='h-20 border border-gray-200 p-4 flex'>
+    <div className='w-166 flex p-4 h-20 border border-gray-200'>
       <div className='flex flex-col'>
         <span className='text-xl text-gray-900 font-semibold'>#{height}</span>
         <div className='text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'><IoTimeOutline size={15} /><span>{formatDistanceToNow(medianTime * 1000, { locale })}</span></div>
@@ -338,7 +338,7 @@ function BlockDetails ({ height, medianTime, mintedBy, transactionCount }: {heig
 
 function TransactionDetails ({ hash, medianTime, from, to, confirmations }: {hash: string, medianTime: number, from: string, to: string, confirmations: number|undefined}): JSX.Element {
   return (
-    <div className='h-40 border border-gray-200 p-4'>
+    <div className='w-166 h-40 border border-gray-200 p-4'>
       <div className='w-full'>
         <span
           className='w-5/12 inline-block leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
@@ -478,7 +478,7 @@ function LiquidityPool (
 
 function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
   return (
-    <div className='w-5/12 min-w-min'>
+    <div className='w-166 overflow-hidden'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold leading-6'>Blocks</h1> {/* start of title and link */}
         <Link href={{ pathname: '/blocks' }}>
@@ -498,7 +498,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
           </a>
         </Link>
       </div>
-      <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
+      <div className='mt-6 h-166 overflow-y-auto w-full pr-4 box-content space-y-2'>
         {
           blocks.map((block) => {
             return (
@@ -526,7 +526,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
         >
           <button
             type='button'
-            className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 text-'
+            className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200 '
             data-testid='view-all-blocks-button'
           >
             VIEW ALL BLOCKS
@@ -540,7 +540,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
 function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   return (
-    <div className='w-5/12 min-w-min'>
+    <div className='w-166 overflow-hidden'>
       <div className='flex justify-between'>
         <h1
           className='text-xl font-semibold leading-6'
@@ -564,7 +564,7 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
           </div>
         </a>
       </div> {/* end of blocks */}
-      <div className='mt-6 h-166 min-h-0 overflow-y-auto'>
+      <div className='mt-6 h-166 overflow-y-auto w-full pr-4 box-content space-y-2'>
         {
           transactions.map(t => {
             return (
@@ -664,9 +664,11 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
       <Banner />
       <Summary />
       <Stats {...props} />
-      <div className='mt-10 flex justify-between'>
-        <BlocksList {...props} />
-        <TransactionsList {...props} />
+      <div className='mt-20'>
+        <div className='pt-2 flex justify-between flex-wrap gap-y-4'>
+          <BlocksList {...props} />
+          <TransactionsList {...props} />
+        </div>
       </div>
       <LiquidityPools {...props} />
     </Container>
