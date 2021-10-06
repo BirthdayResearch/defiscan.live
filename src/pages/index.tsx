@@ -40,7 +40,7 @@ function Banner (): JSX.Element {
   return (
     <div className='h-52 flex flex-col items-center' style={{ backgroundImage: 'linear-gradient(to bottom left, #FFFFFF, #fff7f4,  #f7e6f0' }}>
       <div className='pt-11'>
-        <h1 className='text-4xl font-semibold' data-testid='banner-title'>DeFiChain Blockchain Explorer</h1>
+        <h1 className='text-4xl font-semibold text-center sm:text-left' data-testid='banner-title'>DeFiChain Blockchain Explorer</h1>
       </div>
       {/* <div className='mt-6 w-9/12'> */}
       {/*   <div className='flex'> */}
@@ -58,7 +58,10 @@ function Banner (): JSX.Element {
 
 function SummaryCard ({ children, testId }: PropsWithChildren<{ children: ReactNode, testId?: string}>): JSX.Element {
   return (
-    <div className='border border-gray-50 rounded-lg shadow-lg flex-1 h-64 pt-6 px-7 pb-7' data-testid={testId}>
+    <div
+      className='sm:h-64 pt-6 px-7 pb-7 flex-1 border border-gray-50 rounded-lg shadow-lg overflow-hidden min-w-min'
+      data-testid={testId}
+    >
       {children}
     </div>
   )
@@ -107,7 +110,7 @@ function Summary (): JSX.Element {
         <Dfi className='h-6 w-6' />
         <span className='text-xl font-semibold'>DeFiChain in numbers</span>
       </div>
-      <div className='flex mt-4 gap-x-4'>
+      <div className='flex flex-wrap gap-y-2 mt-4 gap-x-4'>
         <SummaryCard testId='summary-price'>
           <SummaryCardTitle>Price</SummaryCardTitle>
           <SummaryCardHeader className='text-4xl leading-10'>
@@ -210,12 +213,12 @@ function StatItem ({ label, children, testId }: PropsWithChildren<{ label: strin
 
 function BlockDetails ({ height, medianTime, mintedBy, transactionCount }: {height: string, medianTime: number, mintedBy?: string, transactionCount: number}): JSX.Element {
   return (
-    <div className='w-166 flex p-4 h-20 border border-gray-200'>
+    <div className='flex p-4 h-20 border border-gray-200'>
       <div className='flex flex-col'>
         <span className='text-xl text-gray-900 font-semibold'>#{height}</span>
         <div className='text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'><IoTimeOutline size={15} /><span>{formatDistanceToNow(medianTime * 1000, { locale: enUSShort })}</span></div>
       </div>
-      <div className='ml-8'>
+      <div className='lg:ml-8'>
         <div className='text-sm leading-5 flex gap-x-6'>
           <span className='text-right w-28 text-gray-400'>
             Minted by:
@@ -239,7 +242,7 @@ function BlockDetails ({ height, medianTime, mintedBy, transactionCount }: {heig
 
 function TransactionDetails ({ hash, medianTime, from, to, confirmations }: {hash: string, medianTime: number, from: string, to: string, confirmations: number|undefined}): JSX.Element {
   return (
-    <div className='w-166 h-40 border border-gray-200 p-4'>
+    <div className='h-40 border border-gray-200 p-4'>
       <div className='w-full'>
         <span
           className='w-5/12 inline-block leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
