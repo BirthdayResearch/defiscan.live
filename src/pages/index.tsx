@@ -7,7 +7,6 @@ import {
   InferGetServerSidePropsType
 } from 'next'
 import { formatDistanceToNow } from 'date-fns'
-import USLocale from 'date-fns/locale/en-US'
 import {
 //  IoCaretUp,
 //  IoSearchOutline,
@@ -15,129 +14,26 @@ import {
   IoTimeOutline
 } from 'react-icons/io5'
 import NumberFormat from 'react-number-format'
+
+import { Block } from '@defichain/whale-api-client/dist/api/blocks'
+import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
+
 import { getWhaleApiClient } from '@contexts/WhaleContext'
-import { RootState } from '@store/index'
+
 import { Container } from '@components/commons/Container'
 import { Link } from '@components/commons/Link'
 import { UnitSuffix } from '@components/commons/UnitSuffix'
-import { Block } from '@defichain/whale-api-client/dist/api/blocks'
-import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { getAssetIcon, getNativeIcon } from '@components/icons/assets'
 
-import { getAssetIcon } from '@components/icons/assets'
+import { RootState } from '@store/index'
+
+import { enUSShort } from '@utils/locale/en-US-short'
+
 interface HomePageProps {
   blocks: Block[]
   transactions: Transaction[]
   liquidityPools: PoolPairData[]
-}
-
-const formatDistanceLocale = {
-  lessThanXSeconds: {
-    one: 'less than a sec',
-    other: 'less than {{count}} secs'
-  },
-
-  xSeconds: {
-    one: '1 sec',
-    other: '{{count}} secs'
-  },
-
-  halfAMinute: 'half a min',
-
-  lessThanXMinutes: {
-    one: 'less than a min',
-    other: 'less than {{count}} mins'
-  },
-
-  xMinutes: {
-    one: '1 min',
-    other: '{{count}} mins'
-  },
-
-  aboutXHours: {
-    one: 'about 1 hour',
-    other: 'about {{count}} hours'
-  },
-
-  xHours: {
-    one: '1 hour',
-    other: '{{count}} hours'
-  },
-
-  xDays: {
-    one: '1 day',
-    other: '{{count}} days'
-  },
-
-  aboutXWeeks: {
-    one: 'about 1 week',
-    other: 'about {{count}} weeks'
-  },
-
-  xWeeks: {
-    one: '1 week',
-    other: '{{count}} weeks'
-  },
-
-  aboutXMonths: {
-    one: 'about 1 month',
-    other: 'about {{count}} months'
-  },
-
-  xMonths: {
-    one: '1 month',
-    other: '{{count}} months'
-  },
-
-  aboutXYears: {
-    one: 'about 1 year',
-    other: 'about {{count}} years'
-  },
-
-  xYears: {
-    one: '1 year',
-    other: '{{count}} years'
-  },
-
-  overXYears: {
-    one: 'over 1 year',
-    other: 'over {{count}} years'
-  },
-
-  almostXYears: {
-    one: 'almost 1 year',
-    other: 'almost {{count}} years'
-  }
-}
-
-function formatDistance (
-  token: string,
-  count: number,
-  options: {
-    addSuffix?: boolean
-    comparison?: -1 | 0 | 1
-  }): string {
-  let result: string
-
-  const tokenValue = formatDistanceLocale[token]
-  if (typeof tokenValue === 'string') {
-    result = tokenValue
-  } else if (count === 1) {
-    result = tokenValue.one
-  } else {
-    result = tokenValue.other.replace('{{count}}', count.toString())
-  }
-
-  if (options.comparison !== undefined && options.comparison > 0) {
-    return 'in ' + result
-  }
-
-  return result + ' ago'
-}
-
-const locale = {
-  ...USLocale,
-  formatDistance
 }
 
 function Banner (): JSX.Element {
@@ -203,9 +99,14 @@ function Summary (): JSX.Element {
     }
   } = useSelector((state: RootState) => state.stats)
 
+  const Dfi = getNativeIcon('DFI')
+
   return (
     <div className='mt-12'>
-      <span className='text-xl font-semibold'>DeFiChain in numbers</span>
+      <div className='flex items-center gap-x-2'>
+        <Dfi className='h-6 w-6' />
+        <span className='text-xl font-semibold'>DeFiChain in numbers</span>
+      </div>
       <div className='flex mt-4 gap-x-4'>
         <SummaryCard testId='summary-price'>
           <SummaryCardTitle>Price</SummaryCardTitle>
@@ -312,7 +213,7 @@ function BlockDetails ({ height, medianTime, mintedBy, transactionCount }: {heig
     <div className='w-166 flex p-4 h-20 border border-gray-200'>
       <div className='flex flex-col'>
         <span className='text-xl text-gray-900 font-semibold'>#{height}</span>
-        <div className='text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'><IoTimeOutline size={15} /><span>{formatDistanceToNow(medianTime * 1000, { locale })}</span></div>
+        <div className='text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'><IoTimeOutline size={15} /><span>{formatDistanceToNow(medianTime * 1000, { locale: enUSShort })}</span></div>
       </div>
       <div className='ml-8'>
         <div className='text-sm leading-5 flex gap-x-6'>
@@ -350,7 +251,7 @@ function TransactionDetails ({ hash, medianTime, from, to, confirmations }: {has
             className='text-xs text-opacity-40 text-black font-medium'
           >
             <IoTimeOutline size={15} className='inline' />
-            <span className='ml-1.5'>{formatDistanceToNow(medianTime * 1000, { locale })}</span>
+            <span className='ml-1.5'>{formatDistanceToNow(medianTime * 1000, { locale: enUSShort })}</span>
           </span>
           <NumberFormat
             className='h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100'
