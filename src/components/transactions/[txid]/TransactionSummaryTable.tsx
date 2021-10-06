@@ -20,7 +20,12 @@ export function TransactionSummaryTable (props: { transaction: Transaction, vins
   )
 }
 
-function SummaryTableListLeft (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], fee: BigNumber }): JSX.Element {
+function SummaryTableListLeft (props: { 
+  transaction: Transaction, 
+  vins: TransactionVin[], 
+  vouts: TransactionVout[], 
+  fee: BigNumber 
+}): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   const confirmations = blocks !== undefined ? blocks - props.transaction.block.height : blocks
   const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.decimalPlaces(8).toString()} mDFI`

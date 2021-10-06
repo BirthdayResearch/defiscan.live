@@ -91,7 +91,7 @@ function TransactionDetailsSummary (props: { transaction: Transaction, vins: Tra
   )
 }
 
-function InputOutputBlock (props: { label: 'INPUT' | 'OUTPUT', address: string | undefined, value: string | undefined }): JSX.Element {
+function InputOutputBlock (props: { label: 'INPUT' | 'OUTPUT', address?: string, value?: string }): JSX.Element {
   return (
     <div className='bg-gray-50 h-20 p-3 rounded flex justify-between'>
       <div className='flex flex-col justify-between h-full w-full'>
