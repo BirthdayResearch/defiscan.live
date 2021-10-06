@@ -11,6 +11,7 @@ interface TransactionSummaryTableProps {
   vins: TransactionVin[]
   vouts: TransactionVout[]
   fee: BigNumber
+  feeRate: BigNumber
 }
 
 export function TransactionSummaryTable (props: TransactionSummaryTableProps): JSX.Element {
@@ -18,11 +19,12 @@ export function TransactionSummaryTable (props: TransactionSummaryTableProps): J
   const vins = props.vins
   const vouts = props.vouts
   const fee = props.fee
+  const feeRate = props.feeRate
 
   return (
     <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
       <SummaryTableListLeft transaction={transaction} vins={vins} vouts={vouts} fee={fee} />
-      <SummaryTableListRight transaction={transaction} vins={vins} vouts={vouts} fee={fee} />
+      <SummaryTableListRight transaction={transaction} vins={vins} vouts={vouts} feeRate={feeRate} />
     </div>
   )
 }
@@ -59,13 +61,13 @@ function SummaryTableListLeft (props: {
   )
 }
 
-function SummaryTableListRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], fee: BigNumber }): JSX.Element {
+function SummaryTableListRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], feeRate: BigNumber }): JSX.Element {
   const blockTime = format(fromUnixTime(props.transaction.block.medianTime), 'PPpp')
 
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
       <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
-        {props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.decimalPlaces(8).toString()} mDFI/byte`}
+        {props.vins[0].vout === undefined ? 'Coinbase' : `${props.feeRate.decimalPlaces(8).toString()} mDFI/byte`}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
         {props.transaction.size} bytes

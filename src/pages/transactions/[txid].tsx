@@ -22,11 +22,12 @@ interface TransactionPageProps {
 export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   if (props.transaction !== undefined && props.vins !== undefined && props.vouts !== undefined) {
     const fee = getTransactionFee(props.transaction, props.vins)
+    const feeRate = getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)
 
     return (
       <Container className='pt-12 pb-20'>
         <TransactionHeading transaction={props.transaction} />
-        <TransactionSummaryTable transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} />
+        <TransactionSummaryTable transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} feeRate={feeRate} />
         <TransactionDetails transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} />
       </Container>
     )
