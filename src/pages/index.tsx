@@ -541,7 +541,7 @@ function LiquidityPools ({ liquidityPools }: InferGetServerSidePropsType<typeof 
         {/*   </div> */}
         {/* </a> */}
       </div>
-      <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6'>
+      <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6 justify-center sm:justify-start'>
         {
           liquidityPools.map(pool => {
             return (
