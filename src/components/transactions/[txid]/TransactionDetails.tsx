@@ -38,7 +38,7 @@ export function TransactionDetails (props: TransactionDetailsProps): JSX.Element
 function TransactionDetailsLeft (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], networkName: NetworkName }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2 max-h-screen overflow-y-auto pr-1'>
-      <div className='flex flex-col gap-y-1'>
+      <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsLeft.List'>
         {props.vins
           .map((vin) => {
             if (vin.vout === undefined) {
@@ -63,7 +63,7 @@ function TransactionDetailsLeft (props: { transaction: Transaction, vins: Transa
 function TransactionDetailsRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], networkName: NetworkName }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
-      <div className='flex flex-col gap-y-1'>
+      <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsRight.List'>
         {props.vouts.map((vout) => {
           const address = fromScriptHex(vout.script.hex, props.networkName)?.address
 
@@ -86,11 +86,11 @@ function TransactionDetailsSummary (props: { transaction: Transaction, vins: Tra
 
   return (
     <div className='flex flex-col items-end justify-between mt-8'>
-      <div className='flex justify-between gap-x-3'>
+      <div className='flex justify-between gap-x-3' data-testid='TransactionDetailsSummary.fee'>
         <span>Fees:</span>
         <span>{fee}</span>
       </div>
-      <div className='flex justify-between gap-x-3 mt-2'>
+      <div className='flex justify-between gap-x-3 mt-2' data-testid='TransactionDetailsSummary.total'>
         <span>Total:</span>
         <span>{props.transaction.totalVoutValue} DFI</span>
       </div>
