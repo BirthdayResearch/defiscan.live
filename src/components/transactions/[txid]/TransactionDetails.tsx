@@ -4,7 +4,14 @@ import { IoArrowForwardOutline } from 'react-icons/io5'
 import { fromScriptHex } from '@defichain/jellyfish-address'
 import BigNumber from 'bignumber.js'
 
-export function TransactionDetails (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], fee: BigNumber }): JSX.Element {
+interface TransactionDetailsProps {
+  transaction: Transaction
+  vins: TransactionVin[]
+  vouts: TransactionVout[]
+  fee: BigNumber
+}
+
+export function TransactionDetails (props: TransactionDetailsProps): JSX.Element {
   const transaction = props.transaction
   const vins = props.vins
   const vouts = props.vouts

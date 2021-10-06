@@ -6,7 +6,14 @@ import { Link } from '@components/commons/Link'
 import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
 
-export function TransactionSummaryTable (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], fee: BigNumber }): JSX.Element {
+interface TransactionSummaryTableProps {
+  transaction: Transaction
+  vins: TransactionVin[]
+  vouts: TransactionVout[]
+  fee: BigNumber
+}
+
+export function TransactionSummaryTable (props: TransactionSummaryTableProps): JSX.Element {
   const transaction = props.transaction
   const vins = props.vins
   const vouts = props.vouts
@@ -20,11 +27,11 @@ export function TransactionSummaryTable (props: { transaction: Transaction, vins
   )
 }
 
-function SummaryTableListLeft (props: { 
-  transaction: Transaction, 
-  vins: TransactionVin[], 
-  vouts: TransactionVout[], 
-  fee: BigNumber 
+function SummaryTableListLeft (props: {
+  transaction: Transaction
+  vins: TransactionVin[]
+  vouts: TransactionVout[]
+  fee: BigNumber
 }): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   const confirmations = blocks !== undefined ? blocks - props.transaction.block.height : blocks

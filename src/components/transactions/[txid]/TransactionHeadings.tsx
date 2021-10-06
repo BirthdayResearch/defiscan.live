@@ -2,7 +2,15 @@ import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { useNetwork } from '@contexts/NetworkContext'
 import { CopyButton } from '@components/commons/CopyButton'
 
-export function TransactionHeading (props: { transaction: Transaction }): JSX.Element {
+interface TransactionHeadingProps {
+  transaction: Transaction
+}
+
+interface TransactionNotFoundHeadingProps {
+  txid: string
+}
+
+export function TransactionHeading (props: TransactionHeadingProps): JSX.Element {
   const network = useNetwork()
 
   return (
@@ -38,7 +46,7 @@ export function TransactionHeading (props: { transaction: Transaction }): JSX.El
   )
 }
 
-export function TransactionNotFoundHeading (props: { txid: string }): JSX.Element {
+export function TransactionNotFoundHeading (props: TransactionNotFoundHeadingProps): JSX.Element {
   const txid = props.txid
 
   return (
