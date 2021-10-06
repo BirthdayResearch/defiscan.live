@@ -14,10 +14,9 @@ import { CopyButton } from '@components/commons/CopyButton'
 import { Link } from '@components/commons/Link'
 import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
-import { useNetwork } from '@contexts/NetworkContext'
+import { NetworkName, useNetwork, useNetworkObject } from '@contexts/NetworkContext'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import { fromScriptHex } from '@defichain/jellyfish-address'
-import { NetworkName } from '@defichain/jellyfish-network'
 
 interface TransactionPageProps {
   txid: string
@@ -168,16 +167,7 @@ function TransactionDetails (props: { transaction: Transaction, vins: Transactio
   const transaction = props.transaction
   const vins = props.vins
   const vouts = props.vouts
-  const network = useNetwork()
-
-  let networkName: NetworkName
-  if (network.toString() === 'MainNet') {
-    networkName = 'mainnet'
-  } else if (network.toString() === 'TestNet') {
-    networkName = 'testnet'
-  } else {
-    networkName = 'regtest'
-  }
+  const networkName = useNetworkObject().name
 
   return (
     <>
