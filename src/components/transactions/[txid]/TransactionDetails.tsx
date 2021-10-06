@@ -37,7 +37,7 @@ export function TransactionDetails (props: TransactionDetailsProps): JSX.Element
 
 function TransactionDetailsLeft (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], networkName: NetworkName }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2 max-h-screen overflow-y-auto pr-1'>
+    <div className='w-full lg:w-1/2 max-h-screen'>
       <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsLeft.List'>
         {props.vins
           .map((vin) => {
