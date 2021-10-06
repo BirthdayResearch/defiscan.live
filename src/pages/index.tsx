@@ -8,7 +8,7 @@ export async function getServerSideProps (): Promise<GetServerSidePropsResult<an
   return {
     redirect: {
       statusCode: 302,
-      destination: '/prices'
+      destination: '/dex'
     }
   }
 }
