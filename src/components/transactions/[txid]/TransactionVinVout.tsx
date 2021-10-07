@@ -4,14 +4,14 @@ import { IoArrowForwardOutline } from 'react-icons/io5'
 import { fromScriptHex } from '@defichain/jellyfish-address'
 import BigNumber from 'bignumber.js'
 
-interface TransactionDetailsProps {
+interface TransactionVinVoutProps {
   transaction: Transaction
   vins: TransactionVin[]
   vouts: TransactionVout[]
   fee: BigNumber
 }
 
-export function TransactionDetails (props: TransactionDetailsProps): JSX.Element {
+export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element {
   const transaction = props.transaction
   const vins = props.vins
   const vouts = props.vouts
@@ -23,19 +23,19 @@ export function TransactionDetails (props: TransactionDetailsProps): JSX.Element
       <h1 className='font-medium text-2xl mt-6' data-testid='details-subtitle'>Details</h1>
 
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <TransactionDetailsLeft transaction={transaction} vins={vins} vouts={vouts} networkName={networkName} />
+        <TransactionVinList transaction={transaction} vins={vins} vouts={vouts} networkName={networkName} />
         <div className='flex items-center justify-center text-gray-600 w-full lg:w-auto lg:h-20'>
           <IoArrowForwardOutline className='transform rotate-90 lg:rotate-0' size={24} />
         </div>
-        <TransactionDetailsRight transaction={transaction} vins={vins} vouts={vouts} networkName={networkName} />
+        <TransactionVoutList transaction={transaction} vins={vins} vouts={vouts} networkName={networkName} />
       </div>
 
-      <TransactionDetailsSummary transaction={transaction} vins={vins} fee={fee} />
+      <TransactionSummary transaction={transaction} vins={vins} fee={fee} />
     </>
   )
 }
 
-function TransactionDetailsLeft (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], networkName: NetworkName }): JSX.Element {
+function TransactionVinList (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], networkName: NetworkName }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2 max-h-screen'>
       <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsLeft.List'>
@@ -60,7 +60,7 @@ function TransactionDetailsLeft (props: { transaction: Transaction, vins: Transa
   )
 }
 
-function TransactionDetailsRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], networkName: NetworkName }): JSX.Element {
+function TransactionVoutList (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], networkName: NetworkName }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
       <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsRight.List'>
@@ -81,8 +81,8 @@ function TransactionDetailsRight (props: { transaction: Transaction, vins: Trans
   )
 }
 
-function TransactionDetailsSummary (props: { transaction: Transaction, vins: TransactionVin[], fee: BigNumber }): JSX.Element {
-  const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.decimalPlaces(8).toString()} fi`
+function TransactionSummary (props: { transaction: Transaction, vins: TransactionVin[], fee: BigNumber }): JSX.Element {
+  const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.decimalPlaces(8).toString()} mDFI`
 
   return (
     <div className='flex flex-col items-end justify-between mt-8'>
@@ -98,7 +98,11 @@ function TransactionDetailsSummary (props: { transaction: Transaction, vins: Tra
   )
 }
 
-function InputOutputBlock (props: { label: 'INPUT' | 'OUTPUT', address?: string, value?: string }): JSX.Element {
+function InputOutputBlock (props: {
+  label: 'INPUT' | 'OUTPUT'
+  address?: string
+  value?: string
+}): JSX.Element {
   return (
     <div className='bg-gray-50 h-20 p-3 rounded flex justify-between'>
       <div className='flex flex-col justify-between h-full w-full'>
