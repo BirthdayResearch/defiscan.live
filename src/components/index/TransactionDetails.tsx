@@ -10,6 +10,19 @@ interface TransactionDetailsProps {
   totalVoutValue: string
 }
 
+function TransactionDetailsField ({ label, value }: { label: string, value: string|undefined }): JSX.Element {
+  return (
+    <div className='flex gap-x-1.5 text-sm leading-5'>
+      <span className='w-28 text-gray-400'>
+        {label}
+      </span>
+      <span className='overflow-hidden overflow-ellipsis'>
+        {value}
+      </span>
+    </div>
+  )
+}
+
 export function TransactionDetails (props: TransactionDetailsProps): JSX.Element {
   return (
     <div className='h-40 p-4 border border-gray-200 '>
@@ -37,30 +50,9 @@ export function TransactionDetails (props: TransactionDetailsProps): JSX.Element
         </div>
       </div>
       <div className='mt-4'>
-        <div className='flex gap-x-1.5 text-sm leading-5'>
-          <span className='w-28 text-gray-400'>
-            From:
-          </span>
-          <span className='overflow-hidden overflow-ellipsis'>
-            {props.from}
-          </span>
-        </div>
-        <div className='flex gap-x-1.5 mt-2 text-sm leading-5'>
-          <span className='w-28 text-gray-400'>
-            To:
-          </span>
-          <span className='overflow-hidden overflow-ellipsis'>
-            {props.to}
-          </span>
-        </div>
-        <div className='flex gap-x-1.5 mt-2 text-sm leading-5'>
-          <span className='w-28 text-gray-400'>
-            Confirmations:
-          </span>
-          <span className='overflow-hidden overflow-ellipsis'>
-            {props.confirmations}
-          </span>
-        </div>
+        <TransactionDetailsField label='From:' value={props.from} />
+        <TransactionDetailsField label='To:' value={props.to} />
+        <TransactionDetailsField label='Confirmations:' value={props.confirmations !== undefined ? props.confirmations.toString() : undefined} />
       </div>
     </div>
   )
