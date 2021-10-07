@@ -38,7 +38,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                 <TransactionVectorRow
                   label='INPUT'
                   script={vin.vout.script}
-                  value={vin.vout.value}
+                  value={`${vin.vout.value} DFI`}
                   key={vin.id}
                   network={network}
                 />
