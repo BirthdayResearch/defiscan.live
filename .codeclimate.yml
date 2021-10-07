@@ -7,7 +7,7 @@ checks:
       threshold: 150
   method-lines:
     config:
-      threshold: 50
+      threshold: 100
 
 exclude_patterns:
   - "dist/"
