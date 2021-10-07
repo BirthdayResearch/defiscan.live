@@ -42,13 +42,13 @@ export function PoolAddLiquidityTable (props: PoolLiquidityTableProps): JSX.Elem
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='signature' testId='DfTxPoolAddLiquidity.signature'>
+        <AdaptiveList.Row name='Signature' testId='DfTxPoolAddLiquidity.signature'>
           {props.signature}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='name' testId='DfTxPoolAddLiquidity.name' className='break-all'>
+        <AdaptiveList.Row name='Name' testId='DfTxPoolAddLiquidity.name' className='break-all'>
           {props.name}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='type' testId='DfTxPoolAddLiquidity.type'>
+        <AdaptiveList.Row name='Type' testId='DfTxPoolAddLiquidity.type'>
           {props.type}
         </AdaptiveList.Row>
       </AdaptiveList>
@@ -56,10 +56,10 @@ export function PoolAddLiquidityTable (props: PoolLiquidityTableProps): JSX.Elem
         <AdaptiveList.Row name='Share Address' testId='DfTxPoolAddLiquidity.shareAddress' className='break-all'>
           {props.shareAddress}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='ID Token 1'>
+        <AdaptiveList.Row name='Token 1 ID'>
           {props.balances[0].token}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='ID Token 2'>
+        <AdaptiveList.Row name='Token 2 ID'>
           {props.balances[1].token}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Token 1 amount'>
