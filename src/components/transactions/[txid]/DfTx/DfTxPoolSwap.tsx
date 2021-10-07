@@ -41,13 +41,13 @@ function TableLeft (props: {
 }): JSX.Element {
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
-      <AdaptiveList.Row name='From' testId='transaction-detail-total-amount'>
+      <AdaptiveList.Row name='From' testId='DfTxPoolSwap.fromAddress'>
         {props.fromAddress ?? 'N/A'}
       </AdaptiveList.Row>
-      <AdaptiveList.Row name='ID Token from' testId='transaction-detail-total-amount'>
+      <AdaptiveList.Row name='ID Token from' testId='DfTxPoolSwap.fromTokenId'>
         {props.fromTokenId}
       </AdaptiveList.Row>
-      <AdaptiveList.Row name='Amount from' testId='transaction-detail-total-amount'>
+      <AdaptiveList.Row name='Amount from' testId='DfTxPoolSwap.fromAmount'>
         {`${props.fromAmount.toString()} DFI`}
       </AdaptiveList.Row>
     </AdaptiveList>
@@ -61,13 +61,13 @@ function TableRight (props: {
 }): JSX.Element {
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
-      <AdaptiveList.Row name='To' testId='transaction-detail-total-amount'>
+      <AdaptiveList.Row name='To' testId='DfTxPoolSwap.toAddress'>
         {props.toAddress ?? 'N/A'}
       </AdaptiveList.Row>
-      <AdaptiveList.Row name='ID Token from' testId='transaction-detail-total-amount'>
+      <AdaptiveList.Row name='ID Token from' testId='DfTxPoolSwap.toTokenId'>
         {props.toTokenId}
       </AdaptiveList.Row>
-      <AdaptiveList.Row name='Max Price' testId='transaction-detail-total-amount'>
+      <AdaptiveList.Row name='Max Price' testId='DfTxPoolSwap.maxPrice'>
         {`${props.maxPrice.toString()} DFI`}
       </AdaptiveList.Row>
     </AdaptiveList>
