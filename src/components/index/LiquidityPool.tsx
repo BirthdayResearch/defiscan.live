@@ -1,5 +1,4 @@
-
-import NumberFormat from 'react-number-format'
+import { NumberFormat } from './NumberFormat'
 import { ReactNode, PropsWithChildren } from 'react'
 import { getAssetIcon } from '@components/icons/assets'
 
@@ -55,18 +54,14 @@ export function LiquidityPool (
         <LiquidityCardStat label='APR'>
           <NumberFormat
             value={apr}
-            displayType='text'
             decimalScale={2}
-            thousandSeparator
             suffix='%'
           />
         </LiquidityCardStat>
         <LiquidityCardStat label='Total Liquidity'>
           <NumberFormat
             value={totalLiquidity}
-            displayType='text'
             decimalScale={2}
-            thousandSeparator
             suffix=' USD'
           />
         </LiquidityCardStat>
@@ -75,9 +70,7 @@ export function LiquidityPool (
         >
           <NumberFormat
             value={priceRatio}
-            displayType='text'
             decimalScale={2}
-            thousandSeparator
             suffix={` ${tokenBSymbol}/${tokenASymbol}`}
           />
         </LiquidityCardStat>
