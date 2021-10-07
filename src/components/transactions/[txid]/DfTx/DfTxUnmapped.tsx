@@ -1,4 +1,5 @@
 import { DfTx } from '@defichain/jellyfish-transaction'
+import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 
 interface DfTxUnmappedProps {
   dftx: DfTx<any>
@@ -6,8 +7,11 @@ interface DfTxUnmappedProps {
 
 export function DfTxUnmapped (props: DfTxUnmappedProps): JSX.Element {
   return (
-    <div>
-      <pre>{JSON.stringify(props.dftx, null, 2)}</pre>
-    </div>
+    <>
+      <DfTxHeader name={props.dftx.name} />
+      <div className='mt-5 bg-gray-100 p-6 border-gray-500 text-gray-600 rounded'>
+        <pre>{JSON.stringify(props.dftx, null, 2)}</pre>
+      </div>
+    </>
   )
 }
