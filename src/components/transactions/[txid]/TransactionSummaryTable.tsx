@@ -37,7 +37,7 @@ function SummaryTableListLeft (props: {
 }): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   const confirmations = blocks !== undefined ? blocks - props.transaction.block.height : blocks
-  const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.decimalPlaces(8).toString()} mDFI`
+  const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.decimalPlaces(8).toString()} fi`
 
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
@@ -67,7 +67,7 @@ function SummaryTableListRight (props: { transaction: Transaction, vins: Transac
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
       <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
-        {props.vins[0].vout === undefined ? 'Coinbase' : `${props.feeRate.decimalPlaces(8).toString()} mDFI/byte`}
+        {props.vins[0].vout === undefined ? 'Coinbase' : `${props.feeRate.decimalPlaces(8).toString()} fi/byte`}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
         {props.transaction.size} bytes

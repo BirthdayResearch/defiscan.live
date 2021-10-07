@@ -82,7 +82,7 @@ function TransactionDetailsRight (props: { transaction: Transaction, vins: Trans
 }
 
 function TransactionDetailsSummary (props: { transaction: Transaction, vins: TransactionVin[], fee: BigNumber }): JSX.Element {
-  const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.decimalPlaces(8).toString()} mDFI`
+  const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.decimalPlaces(8).toString()} fi`
 
   return (
     <div className='flex flex-col items-end justify-between mt-8'>

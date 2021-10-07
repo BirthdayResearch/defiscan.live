@@ -42,7 +42,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
 
 function getTransactionFee (transaction: Transaction, vins: TransactionVin[]): BigNumber {
   const fee = getTotalVinsValue(vins) - parseFloat(transaction.totalVoutValue)
-  return new BigNumber(fee).multipliedBy(1000)
+  return new BigNumber(fee).multipliedBy(100000000)
 }
 
 function getTotalVinsValue (vins: TransactionVin[]): number {
