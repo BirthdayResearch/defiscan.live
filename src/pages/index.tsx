@@ -112,6 +112,7 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
                 confirmations={
                   blocks !== undefined ? blocks - t.block.height : blocks
                 }
+                totalVoutValue={t.totalVoutValue}
               />
             )
           })

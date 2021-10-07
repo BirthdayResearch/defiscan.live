@@ -1,7 +1,25 @@
 import { NumberFormat } from './NumberFormat'
 import { IoTimeOutline } from 'react-icons/io5'
 
-export function TransactionDetails ({ hash, age, from, to, confirmations }: {hash: string, age: string, from: string, to: string, confirmations: number|undefined}): JSX.Element {
+interface TransactionDetailsProps {
+  hash: string
+  age: string
+  from: string
+  to: string
+  confirmations: number|undefined
+  totalVoutValue: string
+}
+
+export function TransactionDetails (props: TransactionDetailsProps): JSX.Element {
+  const {
+    hash,
+    age,
+    from,
+    to,
+    confirmations,
+    totalVoutValue
+  } = props
+
   return (
     <div className='h-40 p-4 border border-gray-200 '>
       <div className='w-full flex justify-between'>
@@ -19,8 +37,8 @@ export function TransactionDetails ({ hash, age, from, to, confirmations }: {has
               <span className='ml-1.5'>{age}</span>
             </span>
             <NumberFormat
-              className='h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100'
-              value={24200.032}
+              className='h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100 ml-1'
+              value={totalVoutValue}
               decimalScale={3}
               suffix=' DFI'
             />
