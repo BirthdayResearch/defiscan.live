@@ -1,9 +1,9 @@
+import BigNumber from 'bignumber.js'
 import { DfTx, PoolAddLiquidity } from '@defichain/jellyfish-transaction'
-import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetworkObject } from '@contexts/NetworkContext'
-import BigNumber from 'bignumber.js'
+import { AdaptiveList } from '@components/commons/AdaptiveList'
+import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 
 interface DfTxPoolAddLiquidityProps {
   dftx: DfTx<PoolAddLiquidity>
