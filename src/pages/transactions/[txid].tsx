@@ -6,6 +6,7 @@ import BigNumber from 'bignumber.js'
 import { TransactionHeading, TransactionNotFoundHeading } from '@components/transactions/[txid]/TransactionHeadings'
 import { TransactionVinVout } from '@components/transactions/[txid]/TransactionVinVout'
 import { TransactionSummaryTable } from '@components/transactions/[txid]/TransactionSummaryTable'
+import { TransactionDfTx } from '@components/transactions/[txid]/TransactionDfTx'
 
 interface TransactionPageProps {
   txid: string
@@ -15,27 +16,41 @@ interface TransactionPageProps {
 }
 
 export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  if (props.transaction !== undefined && props.vins !== undefined && props.vouts !== undefined) {
-    const fee = getTransactionFee(props.transaction, props.vins)
-    const feeRate = getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)
-
-    return (
-      <Container className='pt-12 pb-20'>
-        <TransactionHeading transaction={props.transaction} />
-        <TransactionSummaryTable
-          transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee}
-          feeRate={feeRate}
-        />
-        <TransactionVinVout transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} />
-      </Container>
-    )
-  } else {
+  if (props.transaction === undefined || props.vins === undefined || props.vouts === undefined) {
     return (
       <Container className='pt-12 pb-20'>
         <TransactionNotFoundHeading txid={props.txid} />
       </Container>
     )
   }
+
+  const fee = getTransactionFee(props.transaction, props.vins)
+  const feeRate = getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)
+
+  return (
+    <Container className='pt-12 pb-20'>
+      <TransactionHeading transaction={props.transaction} />
+      <TransactionSummaryTable
+        transaction={props.transaction}
+        vins={props.vins}
+        vouts={props.vouts}
+        fee={fee}
+        feeRate={feeRate}
+      />
+      <TransactionVinVout
+        transaction={props.transaction}
+        vins={props.vins}
+        vouts={props.vouts}
+        fee={fee}
+      />
+
+      <TransactionDfTx
+        transaction={props.transaction}
+        vins={props.vins}
+        vouts={props.vouts}
+      />
+    </Container>
+  )
 }
 
 function getTransactionFee (transaction: Transaction, vins: TransactionVin[]): BigNumber {
