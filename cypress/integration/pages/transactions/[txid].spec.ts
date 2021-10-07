@@ -20,7 +20,7 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have transaction-detail-fee', () => {
-    cy.findByTestId('transaction-detail-fee').should('have.text', '0.00205 mDFI')
+    cy.findByTestId('transaction-detail-fee').should('have.text', '205 fi')
   })
 
   it('should have transaction-detail-confirmations', () => {
@@ -33,7 +33,7 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have transaction-detail-fee-rate', () => {
-    cy.findByTestId('transaction-detail-fee-rate').should('have.text', '0.00000717 mDFI/byte')
+    cy.findByTestId('transaction-detail-fee-rate').should('have.text', '0.71678322 fi/byte')
   })
 
   it('should have transaction-detail-size', () => {
@@ -77,7 +77,7 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have details summary', () => {
-    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:0.00205 mDFI')
+    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:205 fi')
     cy.findByTestId('TransactionDetailsSummary.total').should('have.text', 'Total:3.59205320 DFI')
   })
 })
@@ -118,7 +118,7 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have transaction-detail-fee', () => {
-    cy.findByTestId('transaction-detail-fee').should('have.text', '0.00205 mDFI')
+    cy.findByTestId('transaction-detail-fee').should('have.text', '205 fi')
   })
 
   it('should have transaction-detail-confirmations', () => {
@@ -131,7 +131,7 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have transaction-detail-fee-rate', () => {
-    cy.findByTestId('transaction-detail-fee-rate').should('have.text', '0.00000717 mDFI/byte')
+    cy.findByTestId('transaction-detail-fee-rate').should('have.text', '0.71678322 fi/byte')
   })
 
   it('should have transaction-detail-size', () => {
@@ -175,7 +175,7 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have details summary', () => {
-    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:0.00205 mDFI')
+    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:205 fi')
     cy.findByTestId('TransactionDetailsSummary.total').should('have.text', 'Total:3.59205320 DFI')
   })
 })
