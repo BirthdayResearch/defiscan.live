@@ -2,7 +2,7 @@ import classnames from 'classnames'
 
 import { ReactNode, PropsWithChildren } from 'react'
 import { useSelector } from 'react-redux'
-import NumberFormat from 'react-number-format'
+import { NumberFormat } from './NumberFormat'
 
 import { getNativeIcon } from '@components/icons/assets'
 
@@ -79,16 +79,18 @@ export function Summary (): JSX.Element {
           <SummaryCardHeader>
             <NumberFormat
               value={total}
-              displayType='text'
               decimalScale={2}
-              thousandSeparator
               prefix='$'
             />
           </SummaryCardHeader>
         </SummaryCard>
         <SummaryCard testId='summary-masternodes'>
           <SummaryCardTitle>Masternodes</SummaryCardTitle>
-          <SummaryCardHeader>{masternodes}</SummaryCardHeader>
+          <SummaryCardHeader>
+            <NumberFormat
+              value={masternodes}
+            />
+          </SummaryCardHeader>
         </SummaryCard>
         {/* @TODO (aikchun) - transaction activity */}
         {/* <SummaryCard> */}

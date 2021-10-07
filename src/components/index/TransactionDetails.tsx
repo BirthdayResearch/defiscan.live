@@ -1,4 +1,4 @@
-import NumberFormat from 'react-number-format'
+import { NumberFormat } from './NumberFormat'
 import { IoTimeOutline } from 'react-icons/io5'
 
 export function TransactionDetails ({ hash, age, from, to, confirmations }: {hash: string, age: string, from: string, to: string, confirmations: number|undefined}): JSX.Element {
@@ -20,9 +20,7 @@ export function TransactionDetails ({ hash, age, from, to, confirmations }: {has
           <NumberFormat
             className='h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100'
             value={24200.032}
-            displayType='text'
             decimalScale={3}
-            thousandSeparator
             suffix=' DFI'
           />
         </span>

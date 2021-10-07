@@ -10,7 +10,6 @@ import {
 //  IoSearchOutline,
   IoChevronForward
 } from 'react-icons/io5'
-import NumberFormat from 'react-number-format'
 
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -27,6 +26,7 @@ import { StatItem } from '@components/index/StatItem'
 import { BlockDetails } from '@components/index/BlockDetails'
 import { TransactionDetails } from '@components/index/TransactionDetails'
 import { LiquidityPool } from '@components/index/LiquidityPool'
+import { NumberFormat } from '@components/index/NumberFormat'
 
 import { RootState } from '@store/index'
 
@@ -128,7 +128,7 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
   )
 }
 
-export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+function Stats (props: { blocks: Block[] }): JSX.Element {
   const {
     count: { blocks: blockCount },
     burned: {
@@ -137,50 +137,53 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
     }
   } = useSelector((state: RootState) => state.stats)
   return (
+    <div className='mt-12'>
+      <div className='flex flex-wrap gap-x-4  gap-y-1'>
+        {/* <StatItem label='24h Volume:'> */}
+        {/*   - */}
+        {/* </StatItem> */}
+        <StatItem label='Blocks:' testId='stat-blocks'>
+          <NumberFormat
+            value={blockCount}
+          />
+        </StatItem>
+        {/* <StatItem label='Burn Rate:'> */}
+        {/*   - per block */}
+        {/* </StatItem> */}
+        <StatItem label='Total DFI Burned:' testId='stat-total-dfi-burned'>
+          <UnitSuffix
+            value={total as number}
+            units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
+          />
+        </StatItem>
+        {/* <StatItem label='Tokens:'> */}
+        {/*   -                        */}
+        {/* </StatItem>                */}
+        <StatItem label='Difficulty:' testId='stat-difficulty'>
+          <UnitSuffix
+            value={props.blocks[0].difficulty}
+            units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
+          />
+        </StatItem>
+        <StatItem label='Emission Rate:' testId='stat-emission-rate'>
+          <NumberFormat
+            value={emission}
+            decimalScale={2}
+          />
+        </StatItem>
+
+      </div>
+    </div>
+  )
+}
+
+export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  return (
     <Container>
       <Banner />
       <Summary />
-      <div className='mt-12'>
-        <div className='flex flex-wrap gap-x-4  gap-y-1'>
-          {/* <StatItem label='24h Volume:'> */}
-          {/*   - */}
-          {/* </StatItem> */}
-          <StatItem label='Blocks:' testId='stat-blocks'>
-            <NumberFormat
-              value={blockCount}
-              displayType='text'
-              thousandSeparator
-            />
-          </StatItem>
-          {/* <StatItem label='Burn Rate:'> */}
-          {/*   - per block */}
-          {/* </StatItem> */}
-          <StatItem label='Total DFI Burned:' testId='stat-total-dfi-burned'>
-            <UnitSuffix
-              value={total as number}
-              units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
-            />
-          </StatItem>
-          {/* <StatItem label='Tokens:'> */}
-          {/*   -                        */}
-          {/* </StatItem>                */}
-          <StatItem label='Difficulty:' testId='stat-difficulty'>
-            <UnitSuffix
-              value={props.blocks[0].difficulty}
-              units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
-            />
-          </StatItem>
-          <StatItem label='Emission Rate:' testId='stat-emission-rate'>
-            <NumberFormat
-              value={emission}
-              displayType='text'
-              decimalScale={2}
-              thousandSeparator
-            />
-          </StatItem>
+      <Stats {...props} />
 
-        </div>
-      </div>
       <div className='mt-20'>
         <div className='pt-2 flex justify-between flex-wrap gap-y-4'>
           <BlocksList {...props} />
@@ -190,21 +193,13 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
       <div className='mt-12' data-testid='liquidity-pools'>
         <div className='flex justify-between'>
           <h1 className='text-xl leading-8 font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
-          {/* <a */}
-          {/*   className={` */}
-          {/*     font-medium  */}
-          {/*     leading-6  */}
-          {/*     cursor-pointer  */}
-          {/*     text-primary-500  */}
-          {/*     hover:text-primary-500  */}
-          {/*     opacity-60  */}
-          {/*     hover:opacity-100'`} */}
-          {/*   href='https://mainnet.defichain.io/#/DFI/mainnet/home' */}
+          {/* <ExternalLink */}
+          {/*   url='https://mainnet.defichain.io/#/DFI/mainnet/home' */}
           {/* > */}
           {/*   <div className='flex items-center'> */}
           {/*     VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' /> */}
           {/*   </div> */}
-          {/* </a> */}
+          {/* </ExternalLink> */}
         </div>
         <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6 justify-center sm:justify-start'>
           {
