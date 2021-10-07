@@ -6,7 +6,7 @@ export function TransactionDetails ({ hash, age, from, to, confirmations }: {has
     <div className='h-40 p-4 border border-gray-200 '>
       <div className='w-full flex justify-between'>
         <span
-          className='w-5/12 inline-block leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
+          className='w-7/12 inline-block leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
         >
           {hash}
         </span>
