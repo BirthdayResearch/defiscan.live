@@ -1,9 +1,5 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import {
-  Transaction,
-  TransactionVin,
-  TransactionVout
-} from '@defichain/whale-api-client/dist/api/transactions'
+import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Container } from '@components/commons/Container'
 import BigNumber from 'bignumber.js'
