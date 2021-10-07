@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import {
   Transaction,
@@ -6,16 +5,12 @@ import {
   TransactionVout
 } from '@defichain/whale-api-client/dist/api/transactions'
 
-import { RootState } from '@store/index'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
-
 import { Container } from '@components/commons/Container'
-import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { CopyButton } from '@components/commons/CopyButton'
-import { Link } from '@components/commons/Link'
-import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
-import { useNetwork } from '@contexts/NetworkContext'
+import { TransactionHeading, TransactionNotFoundHeading } from '@components/transactions/[txid]/TransactionHeadings'
+import { TransactionDetails } from '@components/transactions/[txid]/TransactionDetails'
+import { TransactionSummaryTable } from '@components/transactions/[txid]/TransactionSummaryTable'
 
 interface TransactionPageProps {
   txid: string
@@ -26,10 +21,14 @@ interface TransactionPageProps {
 
 export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   if (props.transaction !== undefined && props.vins !== undefined && props.vouts !== undefined) {
+    const fee = getTransactionFee(props.transaction, props.vins)
+    const feeRate = getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)
+
     return (
       <Container className='pt-12 pb-20'>
         <TransactionHeading transaction={props.transaction} />
-        <TransactionSummaryTable transaction={props.transaction} vins={props.vins} vouts={props.vouts} />
+        <TransactionSummaryTable transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} feeRate={feeRate} />
+        <TransactionDetails transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} />
       </Container>
     )
   } else {
@@ -39,110 +38,6 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
       </Container>
     )
   }
-}
-
-function TransactionHeading (props: { transaction: Transaction }): JSX.Element {
-  const network = useNetwork()
-
-  return (
-    <>
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-orange-100 rounded p-3 text-center'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/transactions/*. Some features are not
-          available and may not work as expected.
-          {network === 'MainNet' && (
-            <>
-              <br />In the meantime, you can use
-              <a
-                target='_blank'
-                href={`https://explorer.defichain.io/#/DFI/mainnet/tx/${props.transaction.id}`}
-                className='cursor-pointer hover:underline text-primary-500 break-all ml-1' rel='noreferrer'
-              >
-                https://explorer.defichain.com
-              </a>.
-            </>
-          )}
-        </div>
-      </div>
-
-      <span className='leading-6 opacity-60' data-testid='title'>
-        Transaction Hash
-      </span>
-
-      <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium break-all' data-testid='transaction-hash'>{props.transaction.hash}</h1>
-        <CopyButton className='ml-2' content={props.transaction.hash} />
-      </div>
-    </>
-  )
-}
-
-function TransactionNotFoundHeading (props: { txid: string }): JSX.Element {
-  const txid = props.txid
-
-  return (
-    <div className='bg-red-100 rounded p-3 text-center' data-testid='transaction-not-found-banner'>
-      The requested transaction <code className='break-all'>{txid}</code> could not be found, it is most likely still
-      being confirmed, please try again in a few minutes.
-    </div>
-  )
-}
-
-function TransactionSummaryTable (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
-  const transaction = props.transaction
-  const vins = props.vins
-  const vouts = props.vouts
-
-  return (
-    <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-      <SummaryTableListLeft transaction={transaction} vins={vins} vouts={vouts} />
-      <SummaryTableListRight transaction={transaction} vins={vins} vouts={vouts} />
-    </div>
-  )
-}
-
-function SummaryTableListLeft (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
-  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-  const confirmations = blocks !== undefined ? blocks - props.transaction.block.height : blocks
-
-  return (
-    <AdaptiveList className='w-full lg:w-1/2'>
-      <AdaptiveList.Row name='Total Amount' testId='transaction-detail-total-amount'>
-        {props.transaction.totalVoutValue} DFI
-      </AdaptiveList.Row>
-      <AdaptiveList.Row name='Fee' testId='transaction-detail-fee'>
-        {props.vins[0].vout === undefined ? 'Coinbase' : `${(getTransactionFee(props.transaction, props.vins)).decimalPlaces(8).toString()} mDFI`}
-      </AdaptiveList.Row>
-      <AdaptiveList.Row name='Confirmations' testId='transaction-detail-confirmations'>
-        {confirmations}
-      </AdaptiveList.Row>
-      <AdaptiveList.Row name='Block Height'>
-        <Link href={{ pathname: `/blocks/${props.transaction.block.height}` }}>
-          <a className='cursor-pointer hover:text-primary-500' data-testid='transaction-detail-block-height'>
-            {props.transaction.block.height}
-          </a>
-        </Link>
-      </AdaptiveList.Row>
-    </AdaptiveList>
-  )
-}
-
-function SummaryTableListRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
-  const blockTime = format(fromUnixTime(props.transaction.block.medianTime), 'PPpp')
-
-  return (
-    <AdaptiveList className='w-full lg:w-1/2'>
-      <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
-        {props.vins[0].vout === undefined ? 'Coinbase' : `${(getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)).decimalPlaces(8).toString()} mDFI/byte`}
-      </AdaptiveList.Row>
-      <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
-        {props.transaction.size} bytes
-      </AdaptiveList.Row>
-      <AdaptiveList.Row name='Received Time' testId='transaction-detail-received-time'>
-        {blockTime}
-      </AdaptiveList.Row>
-    </AdaptiveList>
-  )
 }
 
 function getTransactionFee (transaction: Transaction, vins: TransactionVin[]): BigNumber {

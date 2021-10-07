@@ -1,6 +1,6 @@
 context('/transactions/[txid] on desktop', () => {
   before(() => {
-    cy.visit('/transactions/8f7d241126636c79e17317eef0f84eb565a1886147f0dfdcfbe7a168f095f351?network=MainNet')
+    cy.visit('/transactions/c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4?network=MainNet')
   })
 
   beforeEach(() => {
@@ -12,15 +12,15 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have hash', () => {
-    cy.findByTestId('transaction-hash').should('have.text', '8f7d241126636c79e17317eef0f84eb565a1886147f0dfdcfbe7a168f095f351')
+    cy.findByTestId('transaction-hash').should('have.text', '43c6c694354a2ce94722d5256b0bc05e8545da3c12d264fe8184e1c6327552dc')
   })
 
   it('should have transaction-detail-total-amount', () => {
-    cy.findByTestId('transaction-detail-total-amount').should('have.text', '85063.91431759 DFI')
+    cy.findByTestId('transaction-detail-total-amount').should('have.text', '3.59205320 DFI')
   })
 
   it('should have transaction-detail-fee', () => {
-    cy.findByTestId('transaction-detail-fee').should('have.text', '0.97889014 mDFI')
+    cy.findByTestId('transaction-detail-fee').should('have.text', '0.00205 mDFI')
   })
 
   it('should have transaction-detail-confirmations', () => {
@@ -28,19 +28,57 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have transaction-detail-block-height', () => {
-    cy.findByTestId('transaction-detail-block-height').should('have.text', '1171695')
+    cy.findByTestId('transaction-detail-block-height').should('have.text', '1230681')
+    cy.findByTestId('transaction-detail-block-height').should('have.attr', 'href', '/blocks/1230681')
   })
 
   it('should have transaction-detail-fee-rate', () => {
-    cy.findByTestId('transaction-detail-fee-rate').should('have.text', '0.00001024 mDFI/byte')
+    cy.findByTestId('transaction-detail-fee-rate').should('have.text', '0.00000717 mDFI/byte')
   })
 
   it('should have transaction-detail-size', () => {
-    cy.findByTestId('transaction-detail-size').should('have.text', '95592 bytes')
+    cy.findByTestId('transaction-detail-size').should('have.text', '286 bytes')
   })
 
   it('should have transaction-detail-received-time', () => {
-    cy.findByTestId('transaction-detail-received-time').should('have.text', 'Sep 8, 2021, 10:00:24 AM') // UTC Time
+    cy.findByTestId('transaction-detail-received-time').should('have.text', 'Sep 28, 2021, 9:09:44 PM') // UTC Time
+  })
+
+  it('should have details heading', () => {
+    cy.findByTestId('details-subtitle').should('have.text', 'Details')
+  })
+
+  it('should have details input list', () => {
+    cy.findByTestId('TransactionDetailsLeft.List').children('div').should('have.length', 1)
+    cy.findByTestId('TransactionDetailsLeft.List').within(() => {
+      cy.get('div').first().within(() => {
+        cy.get('span').eq(0).should('have.text', 'INPUT')
+        cy.get('span').eq(1).should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
+        cy.get('span').eq(2).should('have.text', '3.59205525 DFI')
+      })
+    })
+  })
+
+  it('should have details output list', () => {
+    cy.findByTestId('TransactionDetailsRight.List').children('div').should('have.length', 2)
+    cy.findByTestId('TransactionDetailsRight.List').within(() => {
+      cy.get('div').first().within(() => {
+        cy.get('span').eq(0).should('have.text', 'OUTPUT')
+        cy.get('span').eq(1).should('have.text', 'N/A')
+        cy.get('span').eq(2).should('have.text', '0.00000000 DFI')
+      })
+
+      cy.get('div').next().within(() => {
+        cy.get('span').eq(0).should('have.text', 'OUTPUT')
+        cy.get('span').eq(1).should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
+        cy.get('span').eq(2).should('have.text', '3.59205320 DFI')
+      })
+    })
+  })
+
+  it('should have details summary', () => {
+    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:0.00205 mDFI')
+    cy.findByTestId('TransactionDetailsSummary.total').should('have.text', 'Total:3.59205320 DFI')
   })
 })
 
@@ -60,7 +98,7 @@ context('/transactions/[txid] on desktop - invalid txn id', () => {
 
 context('/transactions/[txid] on mobile', () => {
   before(() => {
-    cy.visit('/transactions/8f7d241126636c79e17317eef0f84eb565a1886147f0dfdcfbe7a168f095f351?network=MainNet')
+    cy.visit('/transactions/c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4?network=MainNet')
   })
 
   beforeEach(() => {
@@ -72,15 +110,15 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have hash', () => {
-    cy.findByTestId('transaction-hash').should('have.text', '8f7d241126636c79e17317eef0f84eb565a1886147f0dfdcfbe7a168f095f351')
+    cy.findByTestId('transaction-hash').should('have.text', '43c6c694354a2ce94722d5256b0bc05e8545da3c12d264fe8184e1c6327552dc')
   })
 
   it('should have transaction-detail-total-amount', () => {
-    cy.findByTestId('transaction-detail-total-amount').should('have.text', '85063.91431759 DFI')
+    cy.findByTestId('transaction-detail-total-amount').should('have.text', '3.59205320 DFI')
   })
 
   it('should have transaction-detail-fee', () => {
-    cy.findByTestId('transaction-detail-fee').should('have.text', '0.97889014 mDFI')
+    cy.findByTestId('transaction-detail-fee').should('have.text', '0.00205 mDFI')
   })
 
   it('should have transaction-detail-confirmations', () => {
@@ -88,19 +126,57 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have transaction-detail-block-height', () => {
-    cy.findByTestId('transaction-detail-block-height').should('have.text', '1171695')
+    cy.findByTestId('transaction-detail-block-height').should('have.text', '1230681')
+    cy.findByTestId('transaction-detail-block-height').should('have.attr', 'href', '/blocks/1230681')
   })
 
   it('should have transaction-detail-fee-rate', () => {
-    cy.findByTestId('transaction-detail-fee-rate').should('have.text', '0.00001024 mDFI/byte')
+    cy.findByTestId('transaction-detail-fee-rate').should('have.text', '0.00000717 mDFI/byte')
   })
 
   it('should have transaction-detail-size', () => {
-    cy.findByTestId('transaction-detail-size').should('have.text', '95592 bytes')
+    cy.findByTestId('transaction-detail-size').should('have.text', '286 bytes')
   })
 
   it('should have transaction-detail-received-time', () => {
-    cy.findByTestId('transaction-detail-received-time').should('have.text', 'Sep 8, 2021, 10:00:24 AM') // UTC Time
+    cy.findByTestId('transaction-detail-received-time').should('have.text', 'Sep 28, 2021, 9:09:44 PM') // UTC Time
+  })
+
+  it('should have details heading', () => {
+    cy.findByTestId('details-subtitle').should('have.text', 'Details')
+  })
+
+  it('should have details input list', () => {
+    cy.findByTestId('TransactionDetailsLeft.List').children('div').should('have.length', 1)
+    cy.findByTestId('TransactionDetailsLeft.List').within(() => {
+      cy.get('div').first().within(() => {
+        cy.get('span').eq(0).should('have.text', 'INPUT')
+        cy.get('span').eq(1).should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
+        cy.get('span').eq(2).should('have.text', '3.59205525 DFI')
+      })
+    })
+  })
+
+  it('should have details output list', () => {
+    cy.findByTestId('TransactionDetailsRight.List').children('div').should('have.length', 2)
+    cy.findByTestId('TransactionDetailsRight.List').within(() => {
+      cy.get('div').first().within(() => {
+        cy.get('span').eq(0).should('have.text', 'OUTPUT')
+        cy.get('span').eq(1).should('have.text', 'N/A')
+        cy.get('span').eq(2).should('have.text', '0.00000000 DFI')
+      })
+
+      cy.get('div').next().within(() => {
+        cy.get('span').eq(0).should('have.text', 'OUTPUT')
+        cy.get('span').eq(1).should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
+        cy.get('span').eq(2).should('have.text', '3.59205320 DFI')
+      })
+    })
+  })
+
+  it('should have details summary', () => {
+    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:0.00205 mDFI')
+    cy.findByTestId('TransactionDetailsSummary.total').should('have.text', 'Total:3.59205320 DFI')
   })
 })
 
