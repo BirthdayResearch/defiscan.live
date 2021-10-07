@@ -87,7 +87,9 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
   return (
     <div className='w-166 overflow-hidden'>
       <div className='flex justify-between'>
-        <h1 className='text-xl font-semibold leading-6'>Transactions</h1>
+        <h1 className='text-xl font-semibold leading-6'>
+          Transactions
+        </h1>
         <ExternalLink
           url='https://mainnet.defichain.io/#/DFI/mainnet/home'
           testId='latest-transactions-link'

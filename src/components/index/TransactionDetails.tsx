@@ -3,7 +3,7 @@ import { IoTimeOutline } from 'react-icons/io5'
 
 export function TransactionDetails ({ hash, age, from, to, confirmations }: {hash: string, age: string, from: string, to: string, confirmations: number|undefined}): JSX.Element {
   return (
-    <div className='h-40 border border-gray-200 p-4'>
+    <div className='h-40 p-4 border border-gray-200 '>
       <div className='w-full'>
         <span
           className='w-5/12 inline-block leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
