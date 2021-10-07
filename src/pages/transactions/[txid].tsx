@@ -1,15 +1,10 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import {
-  Transaction,
-  TransactionVin,
-  TransactionVout
-} from '@defichain/whale-api-client/dist/api/transactions'
-
+import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Container } from '@components/commons/Container'
 import BigNumber from 'bignumber.js'
 import { TransactionHeading, TransactionNotFoundHeading } from '@components/transactions/[txid]/TransactionHeadings'
-import { TransactionDetails } from '@components/transactions/[txid]/TransactionDetails'
+import { TransactionVinVout } from '@components/transactions/[txid]/TransactionVinVout'
 import { TransactionSummaryTable } from '@components/transactions/[txid]/TransactionSummaryTable'
 
 interface TransactionPageProps {
@@ -27,8 +22,11 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
     return (
       <Container className='pt-12 pb-20'>
         <TransactionHeading transaction={props.transaction} />
-        <TransactionSummaryTable transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} feeRate={feeRate} />
-        <TransactionDetails transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} />
+        <TransactionSummaryTable
+          transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee}
+          feeRate={feeRate}
+        />
+        <TransactionVinVout transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={fee} />
       </Container>
     )
   } else {
