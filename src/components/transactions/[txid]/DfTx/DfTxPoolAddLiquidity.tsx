@@ -11,27 +11,25 @@ interface DfTxPoolAddLiquidityProps {
 
 interface PoolLiquidityTableProps {
   shareAddress: string | undefined
-  signature: number
-  type: number
-  name: string
-  balances: Array<{ token: number, amount: BigNumber }>
+  token1Amount: BigNumber
+  token2Amount: BigNumber
+  token1Id: number
+  token2Id: number
 }
 
 export function DfTxPoolAddLiquidity (props: DfTxPoolAddLiquidityProps): JSX.Element {
   const network = useNetworkObject().name
-
   const to = props.dftx.data.shareAddress !== undefined ? fromScript(props.dftx.data.shareAddress, network) : undefined
-
   return (
     <div>
       <DfTxHeader name='Pool Add Liquidity' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <PoolAddLiquidityTable
-          signature={props.dftx.signature}
-          type={props.dftx.type}
-          name={props.dftx.name}
           shareAddress={to?.address}
-          balances={props.dftx.data.from[0].balances}
+          token1Amount={props.dftx.data.from[0].balances[0].amount}
+          token2Amount={props.dftx.data.from[0].balances[1].amount}
+          token1Id={props.dftx.data.from[0].balances[0].token}
+          token2Id={props.dftx.data.from[0].balances[1].token}
         />
       </div>
     </div>
@@ -42,31 +40,22 @@ export function PoolAddLiquidityTable (props: PoolLiquidityTableProps): JSX.Elem
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='Signature' testId='DfTxPoolAddLiquidity.signature'>
-          {props.signature}
+        <AdaptiveList.Row name='Share Address' testId='DfTxPoolAddLiquidity.shareAddress' className='break-all'>
+          {props.shareAddress ?? 'N/A'}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Name' testId='DfTxPoolAddLiquidity.name' className='break-all'>
-          {props.name}
+        <AdaptiveList.Row name='Token 1 ID' testId='DfTxPoolAddLiquidity.tokenId1'>
+          {props.token1Id}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Type' testId='DfTxPoolAddLiquidity.type'>
-          {props.type}
+        <AdaptiveList.Row name='Token 1 amount' testId='DfTxPoolAddLiquidity.tokenAmount1'>
+          {props.token1Amount.toString()} DFI
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='Share Address' testId='DfTxPoolAddLiquidity.shareAddress' className='break-all'>
-          {props.shareAddress}
+        <AdaptiveList.Row name='Token 2 ID' testId='DfTxPoolAddLiquidity.tokenId2'>
+          {props.token2Id}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token 1 ID'>
-          {props.balances[0].token}
-        </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token 2 ID'>
-          {props.balances[1].token}
-        </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token 1 amount'>
-          {props.balances[0].amount.toString()}
-        </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token 2 amount'>
-          {props.balances[1].amount.toString()}
+        <AdaptiveList.Row name='Token 2 amount' testId='DfTxPoolAddLiquidity.tokenAmount2'>
+          {props.token2Amount.toString()} DFI
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
