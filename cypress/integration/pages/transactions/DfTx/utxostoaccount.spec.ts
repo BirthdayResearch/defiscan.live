@@ -16,7 +16,7 @@ context('/transactions/[txid] - DfTx Utxos to Account on desktop', () => {
   })
 
   it('should have DfTxUtxosToAccount.to', () => {
-    cy.findByTestId('DfTxUtxosToAccount.to').should('have.text', '370.89997304 DFI')
+    cy.findByTestId('DfTxUtxosToAccount.to').should('have.text', 'dbsUzdJkF2ebnj1AkKAV9XY31FZSud37Cf: ["370.89997304@DFI"]')
   })
 })
 
@@ -38,6 +38,6 @@ context('/transactions/[txid] - DfTx Utxos to Account on mobile', () => {
   })
 
   it('should have DfTxUtxosToAccount.to', () => {
-    cy.findByTestId('DfTxUtxosToAccount.to').should('have.text', '370.89997304 DFI')
+    cy.findByTestId('DfTxUtxosToAccount.to').should('have.text', 'dbsUzdJkF2ebnj1AkKAV9XY31FZSud37Cf: ["370.89997304@DFI"]')
   })
 })

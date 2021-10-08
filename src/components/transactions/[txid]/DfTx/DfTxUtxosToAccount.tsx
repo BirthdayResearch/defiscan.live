@@ -1,6 +1,8 @@
 import { DfTx, UtxosToAccount, ScriptBalances } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
+import { fromScript } from '@defichain/jellyfish-address'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
+import { useNetworkObject } from '@contexts/NetworkContext'
 
 interface DfTxUtxoToAccountProps {
   dftx: DfTx<UtxosToAccount>
@@ -8,7 +10,6 @@ interface DfTxUtxoToAccountProps {
 
 export function DfTxUtxosToAccount (props: DfTxUtxoToAccountProps): JSX.Element {
   const { dftx: { data: { to } } } = props
-  console.log('props', props)
   return (
     <div>
       <DfTxHeader name='Utxos To Account' />
@@ -20,23 +21,27 @@ export function DfTxUtxosToAccount (props: DfTxUtxoToAccountProps): JSX.Element 
 }
 
 function DetailsTable ({ to }: { to: ScriptBalances[] }): JSX.Element {
-  console.log('to', to)
+  const network = useNetworkObject().name
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
       {to.map(scriptBalances => (
-        scriptBalances.balances.map(balance => (
-          <AdaptiveList.Row
-            name='To'
-            testId='DfTxUtxosToAccount.to'
-            key={balance.amount.toString()}
-          >
-            {
-              balance.amount.c !== null
-                ? `${balance.amount.toString()} DFI`
-                : 'N/A DFI'
-            }
-          </AdaptiveList.Row>
-        ))
+        scriptBalances.balances.map(balance => {
+          const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
+          const toAddress = to !== undefined ? `${to.address}: ` : ''
+          return (
+            <AdaptiveList.Row
+              name='To'
+              testId='DfTxUtxosToAccount.to'
+              key={balance.amount.toString()}
+            >
+              {
+                balance.amount !== null
+                  ? `${toAddress}["${balance.amount.toString()}@DFI"]`
+                  : 'N/A DFI'
+              }
+            </AdaptiveList.Row>
+          )
+        })
       ))}
     </AdaptiveList>
   )
