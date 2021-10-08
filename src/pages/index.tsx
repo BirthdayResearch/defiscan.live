@@ -51,9 +51,8 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
             VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
           </div>
         </InternalLink>
-
       </div>
-      <div className='mt-6 h-166 overflow-y-auto w-full pr-4 box-content space-y-2'>
+      <div className='mt-6 w-full box-content space-y-1'>
         {
           blocks.map((block) => {
             return (
@@ -71,7 +70,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
       <InternalLink pathname='/blocks'>
         <button
           type='button'
-          className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200'
+          className='text-primary-500 hover:text-primary-500 w-full mt-2 py-3 border border-gray-200'
           data-testid='view-all-blocks-button'
         >
           VIEW ALL BLOCKS
@@ -228,7 +227,7 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<HomePageProps>> {
   const api = getWhaleApiClient(context)
-  const blocks = await api.blocks.list(30)
+  const blocks = await api.blocks.list(10)
 
   /* @TODO (aikchun) get latest transactions */
   const transactions = await api.blocks.getTransactions(blocks[0].id)
