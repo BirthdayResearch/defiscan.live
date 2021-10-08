@@ -11,7 +11,7 @@ export function BlockDetails ({
       <div className='my-auto'>
         <span className='text-xl text-gray-900 font-semibold'>#{height}</span>
         <div
-          className='text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'
+          className='min-w-max text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'
         >
           <IoTimeOutline size={15} />
           <span>{age}</span>

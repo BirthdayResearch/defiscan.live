@@ -38,9 +38,55 @@ interface HomePageProps {
   liquidityPools: PoolPairData[]
 }
 
+export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  return (
+    <Container>
+      <Banner />
+      <Summary />
+      <Stats {...props} />
+
+      <div className='mt-20'>
+        <div className='flex flex-col space-y-12 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+          <BlocksList {...props} />
+          <TransactionsList {...props} />
+        </div>
+      </div>
+      <div className='mt-12' data-testid='liquidity-pools'>
+        <div className='flex justify-between'>
+          <h1 className='text-xl leading-8 font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
+          {/* <ExternalLink */}
+          {/*   url='https://mainnet.defichain.io/#/DFI/mainnet/home' */}
+          {/* > */}
+          {/*   <div className='flex items-center'> */}
+          {/*     VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' /> */}
+          {/*   </div> */}
+          {/* </ExternalLink> */}
+        </div>
+        <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6 justify-center sm:justify-start'>
+          {
+            props.liquidityPools.map(pool => {
+              return (
+                <LiquidityPool
+                  key={pool.symbol}
+                  poolSymbol={pool.symbol}
+                  apr={pool.apr != null ? pool.apr.total * 100 : undefined}
+                  totalLiquidity={pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''}
+                  priceRatio={pool.priceRatio.ba}
+                  tokenASymbol={pool.tokenA.symbol}
+                  tokenBSymbol={pool.tokenB.symbol}
+                />
+              )
+            })
+          }
+        </div>
+      </div>
+    </Container>
+  )
+}
+
 function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
-    <div className='w-166 overflow-hidden'>
+    <div className='w-full lg:w-1/2'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold leading-6'>Blocks</h1>
         <InternalLink
@@ -76,7 +122,6 @@ function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
           VIEW ALL BLOCKS
         </button>
       </InternalLink>
-
     </div>
   )
 }
@@ -84,7 +129,7 @@ function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   return (
-    <div className='w-166 overflow-hidden'>
+    <div className='w-full lg:w-1/2'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold leading-6'>
           Transactions
@@ -102,6 +147,7 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
       <div className='mt-6 w-full space-y-1'>
         {
           transactions.map(t => {
+            console.log(t)
             return (
               <TransactionDetails
                 key={t.hash}
@@ -156,7 +202,12 @@ function Stats (props: { blocks: Block[] }): JSX.Element {
         <StatItem label='Total DFI Burned:' testId='stat-total-dfi-burned'>
           <UnitSuffix
             value={total as number}
-            units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
+            units={{
+              0: 'K',
+              3: 'M',
+              6: 'B',
+              9: 'T'
+            }}
           />
         </StatItem>
         {/* <StatItem label='Tokens:'> */}
@@ -165,7 +216,12 @@ function Stats (props: { blocks: Block[] }): JSX.Element {
         <StatItem label='Difficulty:' testId='stat-difficulty'>
           <UnitSuffix
             value={props.blocks[0].difficulty}
-            units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
+            units={{
+              0: 'K',
+              3: 'M',
+              6: 'B',
+              9: 'T'
+            }}
           />
         </StatItem>
         <StatItem label='Emission Rate:' testId='stat-emission-rate'>
@@ -180,59 +236,13 @@ function Stats (props: { blocks: Block[] }): JSX.Element {
   )
 }
 
-export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  return (
-    <Container>
-      <Banner />
-      <Summary />
-      <Stats {...props} />
-
-      <div className='mt-20'>
-        <div className='pt-2 flex justify-between flex-wrap gap-y-4'>
-          <BlocksList {...props} />
-          <TransactionsList {...props} />
-        </div>
-      </div>
-      <div className='mt-12' data-testid='liquidity-pools'>
-        <div className='flex justify-between'>
-          <h1 className='text-xl leading-8 font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
-          {/* <ExternalLink */}
-          {/*   url='https://mainnet.defichain.io/#/DFI/mainnet/home' */}
-          {/* > */}
-          {/*   <div className='flex items-center'> */}
-          {/*     VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' /> */}
-          {/*   </div> */}
-          {/* </ExternalLink> */}
-        </div>
-        <div className='mt-6 flex flex-wrap gap-x-4 gap-y-6 justify-center sm:justify-start'>
-          {
-            props.liquidityPools.map(pool => {
-              return (
-                <LiquidityPool
-                  key={pool.symbol}
-                  poolSymbol={pool.symbol}
-                  apr={pool.apr != null ? pool.apr.total * 100 : undefined}
-                  totalLiquidity={pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''}
-                  priceRatio={pool.priceRatio.ba}
-                  tokenASymbol={pool.tokenA.symbol}
-                  tokenBSymbol={pool.tokenB.symbol}
-                />
-              )
-            })
-          }
-        </div>
-      </div>
-    </Container>
-  )
-}
-
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<HomePageProps>> {
   const api = getWhaleApiClient(context)
   const blocks = await api.blocks.list(10)
 
   /* @TODO (aikchun) get latest transactions */
-  const transactions = await api.blocks.getTransactions(blocks[0].id)
-
+  let transactions: Transaction[] = await api.blocks.getTransactions('b946a7c59dea289489af68a644309641e86df40687f0486ebabe71ecb013b747')
+  transactions = transactions.slice(0, 6)
   const liquidityPools = await api.poolpairs.list()
 
   return {
