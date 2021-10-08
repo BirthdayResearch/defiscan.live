@@ -1,9 +1,10 @@
 import { SmartBuffer } from 'smart-buffer'
-import { CPoolSwap, OP_DEFI_TX, toOPCodes, CPoolAddLiquidity } from '@defichain/jellyfish-transaction'
+import { CPoolSwap, OP_DEFI_TX, toOPCodes, CPoolAddLiquidity, CPoolRemoveLiquidity } from '@defichain/jellyfish-transaction'
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 import { DfTxPoolSwap } from '@components/transactions/[txid]/DfTx/DfTxPoolSwap'
 import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
+import { DfTxPoolRemoveLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolRemoveLiquidity'
 
 interface TransactionDfTxProps {
   transaction: Transaction
@@ -30,6 +31,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxPoolSwap dftx={tx} />
     case CPoolAddLiquidity.OP_CODE:
       return <DfTxPoolAddLiquidity dftx={tx} />
+    case CPoolRemoveLiquidity.OP_CODE:
+      return <DfTxPoolRemoveLiquidity dftx={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
