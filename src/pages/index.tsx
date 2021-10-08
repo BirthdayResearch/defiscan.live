@@ -38,7 +38,7 @@ interface HomePageProps {
   liquidityPools: PoolPairData[]
 }
 
-function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
+function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
     <div className='w-166 overflow-hidden'>
       <div className='flex justify-between'>
@@ -52,7 +52,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
           </div>
         </InternalLink>
       </div>
-      <div className='mt-6 w-full box-content space-y-1'>
+      <div className='mt-6 w-full space-y-1'>
         {
           blocks.map((block) => {
             return (
@@ -97,8 +97,9 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
             LATEST TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
           </div>
         </ExternalLink>
-      </div> {/* end of blocks */}
-      <div className='mt-6 h-166 overflow-y-auto w-full pr-4 box-content space-y-2'>
+      </div>
+      {/* end of blocks */}
+      <div className='mt-6 w-full space-y-1'>
         {
           transactions.map(t => {
             return (
@@ -120,7 +121,7 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
       <ExternalLink url='https://mainnet.defichain.io/#/DFI/mainnet/home' testId='latest-transactions-button'>
         <button
           type='button'
-          className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200'
+          className='text-primary-500 w-full mt-2 py-3 border border-gray-200'
         >
           LATEST TRANSACTIONS
         </button>

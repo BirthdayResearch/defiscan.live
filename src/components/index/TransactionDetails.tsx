@@ -6,11 +6,14 @@ interface TransactionDetailsProps {
   age: string
   from: string
   to: string
-  confirmations: number|undefined
+  confirmations: number | undefined
   totalVoutValue: string
 }
 
-function TransactionDetailsField ({ label, value }: { label: string, value: string|undefined }): JSX.Element {
+function TransactionDetailsField ({
+  label,
+  value
+}: { label: string, value: string | undefined }): JSX.Element {
   return (
     <div className='flex gap-x-1.5 text-sm leading-5'>
       <span className='w-28 text-gray-400'>
@@ -25,34 +28,37 @@ function TransactionDetailsField ({ label, value }: { label: string, value: stri
 
 export function TransactionDetails (props: TransactionDetailsProps): JSX.Element {
   return (
-    <div className='h-40 p-4 border border-gray-200 '>
+    <div className='p-4 border border-gray-200'>
       <div className='w-full flex justify-between'>
-        <span
-          className='w-7/12 inline-block leading-6 text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
+        <div
+          className='text-gray-900 font-semibold overflow-ellipsis overflow-hidden'
         >
           {props.hash}
-        </span>
-        <div className='flex items-center'>
-          <span>
-            <span
-              className='text-xs text-opacity-40 text-black font-medium'
-            >
-              <IoTimeOutline size={15} className='inline' />
-              <span className='ml-1.5'>{props.age}</span>
-            </span>
+        </div>
+        <div className='flex items-center ml-4'>
+          <div
+            className='flex min-w-max text-xs text-opacity-40 text-black font-medium'
+          >
+            <IoTimeOutline size={15} />
+            <span className='ml-1.5'>{props.age}</span>
+          </div>
+          <div className='flex min-w-max'>
             <NumberFormat
-              className='h-5 text-xs leading-4 font-medium px-2 py-0.5 rounded bg-gray-100 ml-1'
+              className='text-xs font-medium px-2 py-0.5 rounded bg-gray-100 ml-1'
               value={props.totalVoutValue}
               decimalScale={3}
               suffix=' DFI'
             />
-          </span>
+          </div>
         </div>
       </div>
       <div className='mt-4'>
         <TransactionDetailsField label='From:' value={props.from} />
         <TransactionDetailsField label='To:' value={props.to} />
-        <TransactionDetailsField label='Confirmations:' value={props.confirmations !== undefined ? props.confirmations.toString() : undefined} />
+        <TransactionDetailsField
+          label='Confirmations:'
+          value={props.confirmations !== undefined ? props.confirmations.toString() : undefined}
+        />
       </div>
     </div>
   )
