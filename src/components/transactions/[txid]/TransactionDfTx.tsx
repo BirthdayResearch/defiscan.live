@@ -1,9 +1,17 @@
 import { SmartBuffer } from 'smart-buffer'
-import { CPoolSwap, OP_DEFI_TX, CUtxosToAccount, CAccountToAccount, toOPCodes } from '@defichain/jellyfish-transaction'
+import {
+  CPoolSwap,
+  OP_DEFI_TX,
+  CUtxosToAccount,
+  CAccountToAccount,
+  CAnyAccountToAccount,
+  toOPCodes
+} from '@defichain/jellyfish-transaction'
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 import { DfTxPoolSwap } from '@components/transactions/[txid]/DfTx/DfTxPoolSwap'
 import { DfTxUtxosToAccount } from '@components/transactions/[txid]/DfTx/DfTxUtxosToAccount'
 import { DfTxAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAccountToAccount'
+import { DfTxAnyAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAnyAccountToAccount'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
 
 interface TransactionDfTxProps {
@@ -33,6 +41,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxUtxosToAccount dftx={tx} />
     case CAccountToAccount.OP_CODE:
       return <DfTxAccountToAccount dftx={tx} />
+    case CAnyAccountToAccount.OP_CODE:
+      return <DfTxAnyAccountToAccount dftx={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
