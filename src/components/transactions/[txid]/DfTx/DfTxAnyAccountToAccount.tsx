@@ -9,7 +9,6 @@ interface DfTxAnyAccountToAccountProps {
 }
 
 export function DfTxAnyAccountToAccount (props: DfTxAnyAccountToAccountProps): JSX.Element {
-  console.log('props', props)
   return (
     <div>
       <DfTxHeader name='Any Account To Account' />

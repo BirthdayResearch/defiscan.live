@@ -13,8 +13,6 @@ export function DfTxAccountToAccount (props: DfTxAccountToAccountProps): JSX.Ele
 
   const from = props.dftx.data.from !== undefined ? fromScript(props.dftx.data.from, network) : undefined
 
-  console.log('props.dftx.data.to', props.dftx.data.to)
-
   return (
     <div>
       <DfTxHeader name='Account To Account' />
