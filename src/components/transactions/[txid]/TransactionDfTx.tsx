@@ -55,6 +55,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxAccountToAccount dftx={tx} />
     case CAnyAccountToAccount.OP_CODE:
       return <DfTxAnyAccountToAccount dftx={tx} />
+    case CUtxosToAccount.OP_CODE:
+      return <DfTxUtxosToAccount dftx={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
