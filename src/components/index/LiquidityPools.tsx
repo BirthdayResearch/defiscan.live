@@ -7,16 +7,9 @@ export function LiquidityPools ({ liquidityPools }: { liquidityPools: PoolPairDa
   return (
     <div className='mt-12' data-testid='liquidity-pools'>
       <div className='flex justify-between'>
-        <h1 className='text-xl leading-8 font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
-        {/* <ExternalLink */}
-        {/*   url='https://mainnet.defichain.io/#/DFI/mainnet/home' */}
-        {/* > */}
-        {/*   <div className='flex items-center'> */}
-        {/*     VIEW FULL DETAILS <IoChevronForward size={18} className='ml-px inline' /> */}
-        {/*   </div> */}
-        {/* </ExternalLink> */}
+        <h1 className='text-xl font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-1 lg:gap-2'>
+      <div className='mt-6 grid gap-1 lg:gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
         {
           liquidityPools.map(pool => {
             return (
@@ -56,10 +49,10 @@ function LiquidityPoolDetails (
   const SymbolBIcon = getAssetIcon(tokenBSymbol)
   const SymbolAIcon = getAssetIcon(tokenASymbol)
   return (
-    <div className='p-4 md:p-6 border border-gray-300 h-30 flex'>
+    <div className='flex p-4 md:p-6 border border-gray-300 h-30'>
       <div className='flex justify-between w-1/4'>
         <div className='flex my-auto flex-col'>
-          <div className='icons flex'>
+          <div className='flex icons'>
             <SymbolAIcon className='h-6 w-6 z-10' />
             <SymbolBIcon className='h-6 w-6 -ml-2' />
           </div>
