@@ -2,8 +2,8 @@ import { DfTx, SetOracleData, TokenPrice } from '@defichain/jellyfish-transactio
 import BigNumber from 'bignumber.js'
 import { format, fromUnixTime } from 'date-fns'
 
-import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
+import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 
 interface DfTxSetOracleDataProps {
   dftx: DfTx<SetOracleData>
