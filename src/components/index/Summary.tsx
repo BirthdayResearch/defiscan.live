@@ -92,11 +92,6 @@ export function Summary (): JSX.Element {
             />
           </SummaryCardHeader>
         </SummaryCard>
-        {/* @TODO (aikchun) - transaction activity */}
-        {/* <SummaryCard> */}
-        {/*   <SummaryCardTitle>Transaction Activity</SummaryCardTitle> */}
-        {/*   <SummaryCardHeader>-</SummaryCardHeader> */}
-        {/* </SummaryCard> */}
       </div>
     </div>
   )
