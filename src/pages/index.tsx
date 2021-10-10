@@ -42,9 +42,16 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
   const blocks = await api.blocks.list(8)
 
-  /* @TODO (aikchun) get latest transactions */
-  let transactions: Transaction[] = await api.blocks.getTransactions('b946a7c59dea289489af68a644309641e86df40687f0486ebabe71ecb013b747')
-  transactions = transactions.slice(0, 5)
+  // TODO: Update this..
+  let index = 0
+  let transactions: Transaction[] = []
+  while (transactions.length < 6 && index < 8) {
+    const _txn: Transaction[] = await api.blocks.getTransactions(blocks[index].id)
+    transactions = transactions.concat(_txn)
+    index += 1
+  }
+  transactions = transactions.slice(0, 6)
+
   const liquidityPools = await api.poolpairs.list()
 
   return {

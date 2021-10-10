@@ -6,7 +6,7 @@ import { enUSShort } from '@utils/locale/en-US-short'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2'>
+    <div className='w-full lg:w-1/2 flex-1'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold'>Blocks</h1>
         <InternalLink
@@ -25,7 +25,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
               <BlockDetails
                 key={block.id}
                 height={block.height.toString()}
-                mintedBy={block.minter}
+                mintedBy={block.id}
                 transactionCount={block.transactionCount}
                 age={formatDistanceToNow(block.medianTime * 1000, { locale: enUSShort })}
               />

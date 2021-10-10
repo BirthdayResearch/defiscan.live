@@ -88,7 +88,7 @@ function TransactionDetails (props: {
           </div>
         </div>
       </div>
-      <div className='mt-4'>
+      <div className='mt-3.5'>
         <TransactionDetailsField label='From:' value={props.from} />
         <TransactionDetailsField label='To:' value={props.to} />
         <TransactionDetailsField
