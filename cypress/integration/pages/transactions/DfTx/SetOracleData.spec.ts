@@ -20,7 +20,7 @@ context('/transactions/[txid] - DfTx Set Oracle Data on desktop', () => {
   })
 
   it('should have DfTxSetOracleData Received Time', () => {
-    cy.findByTestId('DfTxSetOracleData.Timestamp').should('have.text', 'Oct 7, 2021, 5:43:25 PM')
+    cy.findByTestId('DfTxSetOracleData.Timestamp').should('have.text', 'Oct 7, 2021, 4:43:25 PM')
   })
 
   it('should have DfTxSetOracleData Token DFI Amount', () => {
@@ -54,7 +54,7 @@ context('/transactions/[txid] - DfTx Set Oracle Data on mobile', () => {
   })
 
   it('should have DfTxSetOracleData Received Time', () => {
-    cy.findByTestId('DfTxSetOracleData.Timestamp').should('have.text', 'Oct 7, 2021, 5:43:25 PM')
+    cy.findByTestId('DfTxSetOracleData.Timestamp').should('have.text', 'Oct 7, 2021, 4:43:25 PM')
   })
 
   it('should have DfTxSetOracleData Token DFI Amount', () => {
