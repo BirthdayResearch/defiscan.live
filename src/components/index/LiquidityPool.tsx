@@ -2,6 +2,15 @@ import { NumberFormat } from './NumberFormat'
 import { ReactNode, PropsWithChildren } from 'react'
 import { getAssetIcon } from '@components/icons/assets'
 
+interface LiquidityPoolProps {
+  poolSymbol: string
+  apr: number | undefined
+  totalLiquidity: string
+  priceRatio: string
+  tokenASymbol: string
+  tokenBSymbol: string
+}
+
 export function LiquidityPool (
   {
     poolSymbol,
@@ -10,14 +19,7 @@ export function LiquidityPool (
     priceRatio,
     tokenASymbol,
     tokenBSymbol
-  }: {
-    poolSymbol: string
-    apr: number | undefined
-    totalLiquidity: string
-    priceRatio: string
-    tokenASymbol: string
-    tokenBSymbol: string
-  }): JSX.Element {
+  }: LiquidityPoolProps): JSX.Element {
   const SymbolBIcon = getAssetIcon(tokenBSymbol)
   const SymbolAIcon = getAssetIcon(tokenASymbol)
   return (
