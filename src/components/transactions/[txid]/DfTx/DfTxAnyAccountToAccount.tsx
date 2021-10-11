@@ -34,35 +34,47 @@ function DetailsTable (props: {
   const network = useNetworkObject().name
   return (
     <>
-      <AdaptiveList className='w-full lg:w-1/2'>
+      <div className='w-full lg:w-1/2'>
         {
           from?.map(scriptBalances => (
             scriptBalances.balances.map(balance => {
               const scriptFrom = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-              const scriptFromAddress = scriptFrom !== undefined ? `${scriptFrom.address}: ` : ''
+              const scriptFromAddress = scriptFrom !== undefined ? `${scriptFrom.address}` : ''
               return (
-                <AdaptiveList.Row name='From' testId='DfTxAnyAccountToAccount.from' key={balance.amount.toString()}>
-                  {`${scriptFromAddress}["${balance.amount.toString()}@DFI"]`}
-                </AdaptiveList.Row>
+                <AdaptiveList key={balance.amount.toString()}>
+                  <AdaptiveList.Row name='From' testId='DfTxAnyAccountToAccount.from'>
+                    {`${scriptFromAddress}`}
+                  </AdaptiveList.Row>
+                  <AdaptiveList.Row name='Amount' testId='DfTxAnyAccountToAccount.fromAmount'>
+                    {`${balance.amount.toFixed(8)} DFI`}
+                  </AdaptiveList.Row>
+                </AdaptiveList>
               )
             })
           ))
         }
-
+      </div>
+      <div className='w-full lg:w-1/2'>
         {
           to?.map(scriptBalances => (
             scriptBalances.balances.map(balance => {
               const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-              const toAddress = to !== undefined ? `${to.address}: ` : ''
+              const toAddress = to !== undefined ? `${to.address}` : ''
+
               return (
-                <AdaptiveList.Row name='To' testId='DfTxAnyAccountToAccount.to' key={balance.amount.toString()}>
-                  {`${toAddress}["${balance.amount.toString()}@DFI"]`}
-                </AdaptiveList.Row>
+                <AdaptiveList key={balance.amount.toString()}>
+                  <AdaptiveList.Row name='To' testId='DfTxAnyAccountToAccount.to'>
+                    {`${toAddress}`}
+                  </AdaptiveList.Row>
+                  <AdaptiveList.Row name='Amount' testId='DfTxAnyAccountToAccount.toAmount'>
+                    {`${balance.amount.toFixed(8)} DFI`}
+                  </AdaptiveList.Row>
+                </AdaptiveList>
               )
             })
           ))
         }
-      </AdaptiveList>
+      </div>
     </>
   )
 }
