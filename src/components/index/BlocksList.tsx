@@ -3,10 +3,11 @@ import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { InternalLink } from '@components/index/Link'
 import { formatDistanceToNow } from 'date-fns'
 import { enUSShort } from '@utils/locale/en-US-short'
+import { Link } from '@components/commons/Link'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2 flex-1'>
+    <div className='w-full lg:w-3/5'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold'>Blocks</h1>
         <InternalLink
@@ -55,7 +56,9 @@ function BlockDetails ({
   return (
     <div className='flex p-4 border border-gray-200'>
       <div className='my-auto'>
-        <span className='text-xl text-gray-900 font-semibold'>#{height}</span>
+        <Link href={{ pathname: `/blocks/${height}` }}>
+          <a className='text-xl text-gray-900 hover:text-primary-500 font-semibold'>#{height}</a>
+        </Link>
         <div
           className='min-w-max text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'
         >
