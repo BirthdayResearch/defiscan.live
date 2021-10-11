@@ -10,7 +10,6 @@ interface DfTxAccountToAccountProps {
 
 export function DfTxAccountToAccount (props: DfTxAccountToAccountProps): JSX.Element {
   const network = useNetworkObject().name
-
   const from = props.dftx.data.from !== undefined ? fromScript(props.dftx.data.from, network) : undefined
 
   return (
@@ -34,24 +33,30 @@ function DetailsTable (props: {
     fromAddress,
     to
   } = props
-
   const network = useNetworkObject().name
+
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='From' testId='DfTxAccountToAccount.fromAddress'>
           {fromAddress ?? 'N/A'}
         </AdaptiveList.Row>
-
+      </AdaptiveList>
+      <AdaptiveList className='w-full lg:w-1/2'>
         {
           to?.map(scriptBalances => (
             scriptBalances.balances.map(balance => {
               const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-              const toAddress = to !== undefined ? `${to.address}: ` : ''
+              const toAddress = to !== undefined ? `${to.address}` : ''
               return (
-                <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to' key={balance.amount.toString()}>
-                  {`${toAddress}["${balance.amount.toString()}@DFI"]`}
-                </AdaptiveList.Row>
+                <div key={balance.amount.toString()}>
+                  <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
+                    {`${toAddress}`}
+                  </AdaptiveList.Row>
+                  <AdaptiveList.Row name='Amount' testId='DfTxAccountToAccount.amount'>
+                    {`${balance.amount.toFixed(8)} DFI`}
+                  </AdaptiveList.Row>
+                </div>
               )
             })
           ))
