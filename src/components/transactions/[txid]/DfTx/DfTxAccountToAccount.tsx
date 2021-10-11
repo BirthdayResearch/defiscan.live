@@ -53,7 +53,7 @@ function DetailsTable (props: {
                   <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
                     {`${toAddress}`}
                   </AdaptiveList.Row>
-                  <AdaptiveList.Row name='Amount' testId='DfTxAccountToAccount.amount'>
+                  <AdaptiveList.Row name='Amount' testId='DfTxAccountToAccount.toAmount'>
                     {`${balance.amount.toFixed(8)} DFI`}
                   </AdaptiveList.Row>
                 </AdaptiveList>
