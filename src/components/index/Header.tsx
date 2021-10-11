@@ -8,7 +8,7 @@ export function Header (): JSX.Element {
     >
       <Container className='h-full'>
         <div className='h-full flex items-center'>
-          <h1 className='text-4xl font-semibold -mt-4' data-testid='banner-title'>
+          <h1 className='text-4xl font-semibold -mt-4' data-testid='Header.title'>
             DeFiChain Blockchain Explorer
           </h1>
         </div>

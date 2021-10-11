@@ -5,9 +5,9 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
 export function LiquidityPools ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {
   return (
-    <div className='mt-12' data-testid='liquidity-pools'>
+    <div className='mt-12' data-testid='LiquidityPools'>
       <div className='flex justify-between'>
-        <h1 className='text-xl font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
+        <h1 className='text-xl font-semibold' data-testid='LiquidityPools.title'>Liquidity Pools</h1>
       </div>
       <div className='mt-6 grid gap-1 lg:gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
         {

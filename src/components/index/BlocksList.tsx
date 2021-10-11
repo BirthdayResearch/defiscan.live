@@ -11,7 +11,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold'>Blocks</h1>
         <InternalLink
-          testId='view-all-blocks-link'
+          testId='InternalLink.viewAllBlocksLink'
           pathname='/blocks'
         >
           <div className='flex items-center'>
@@ -38,7 +38,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
         <button
           type='button'
           className='w-full mt-2 py-3 border border-gray-200'
-          data-testid='view-all-blocks-button'
+          data-testid='InternalLink.viewAllBlocksButton'
         >
           VIEW ALL BLOCKS
         </button>

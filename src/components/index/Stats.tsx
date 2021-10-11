@@ -21,7 +21,7 @@ export function Stats (props: { blocks: Block[] }): JSX.Element {
           {/* <StatItem label='24h Volume:'> */}
           {/*   - */}
           {/* </StatItem> */}
-          <StatItem label='Blocks:' testId='stat-blocks'>
+          <StatItem label='Blocks:' testId='StatItem.blocks'>
             <NumberFormat
               value={blockCount}
             />
@@ -29,7 +29,7 @@ export function Stats (props: { blocks: Block[] }): JSX.Element {
           {/* <StatItem label='Burn Rate:'> */}
           {/*   - per block */}
           {/* </StatItem> */}
-          <StatItem label='Total DFI Burned:' testId='stat-total-dfi-burned'>
+          <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
             <UnitSuffix
               value={total as number}
               units={{
@@ -43,7 +43,7 @@ export function Stats (props: { blocks: Block[] }): JSX.Element {
           {/* <StatItem label='Tokens:'> */}
           {/*   -                        */}
           {/* </StatItem>                */}
-          <StatItem label='Difficulty:' testId='stat-difficulty'>
+          <StatItem label='Difficulty:' testId='StatItem.difficulty'>
             <UnitSuffix
               value={props.blocks[0].difficulty}
               units={{
@@ -54,7 +54,7 @@ export function Stats (props: { blocks: Block[] }): JSX.Element {
               }}
             />
           </StatItem>
-          <StatItem label='Emission Rate:' testId='stat-emission-rate'>
+          <StatItem label='Emission Rate:' testId='StatItem.emissionRate'>
             <NumberFormat
               value={emission}
               decimalScale={2}
