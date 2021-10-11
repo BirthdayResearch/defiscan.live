@@ -20,7 +20,11 @@ context('/transactions/[txid] - DfTx account to account on desktop', () => {
   })
 
   it('should have DfTxAccountToAccount to', () => {
-    cy.findByTestId('DfTxAccountToAccount.to').should('have.text', 'dYQw2KcELYeqEezYZHFGuvQJMLYLjr1tmt: ["0.03761657@DFI"]')
+    cy.findByTestId('DfTxAccountToAccount.to').should('have.text', 'dYQw2KcELYeqEezYZHFGuvQJMLYLjr1tmt')
+  })
+
+  it('should have DfTxAccountToAccount toAmount', () => {
+    cy.findByTestId('DfTxAccountToAccount.toAmount').should('have.text', '0.03761657 DFI')
   })
 })
 
@@ -44,7 +48,12 @@ context('/transactions/[txid] - DfTx account to account on mobile', () => {
   it('should have DfTxAccountToAccount fromAddress', () => {
     cy.findByTestId('DfTxAccountToAccount.fromAddress').should('have.text', 'dc6pHWvWNwaqy68xn7SKEVbJFSefGspQ3C')
   })
+
   it('should have DfTxAccountToAccount to', () => {
-    cy.findByTestId('DfTxAccountToAccount.to').should('have.text', 'dYQw2KcELYeqEezYZHFGuvQJMLYLjr1tmt: ["0.03761657@DFI"]')
+    cy.findByTestId('DfTxAccountToAccount.to').should('have.text', 'dYQw2KcELYeqEezYZHFGuvQJMLYLjr1tmt')
+  })
+
+  it('should have DfTxAccountToAccount toAmount', () => {
+    cy.findByTestId('DfTxAccountToAccount.toAmount').should('have.text', '0.03761657 DFI')
   })
 })
