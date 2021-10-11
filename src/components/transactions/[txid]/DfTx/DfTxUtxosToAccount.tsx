@@ -23,26 +23,24 @@ export function DfTxUtxosToAccount (props: DfTxUtxoToAccountProps): JSX.Element 
 function DetailsTable ({ to }: { to: ScriptBalances[] }): JSX.Element {
   const network = useNetworkObject().name
   return (
-    <AdaptiveList className='w-full lg:w-1/2'>
+    <div className='w-full lg:w-1/2'>
       {to.map(scriptBalances => (
         scriptBalances.balances.map(balance => {
           const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-          const toAddress = to !== undefined ? `${to.address}: ` : ''
+          const toAddress = to !== undefined ? `${to.address}` : ''
+
           return (
-            <AdaptiveList.Row
-              name='To'
-              testId='DfTxUtxosToAccount.to'
-              key={balance.amount.toString()}
-            >
-              {
-                balance.amount !== null
-                  ? `${toAddress}["${balance.amount.toString()}@DFI"]`
-                  : 'N/A DFI'
-              }
-            </AdaptiveList.Row>
+            <AdaptiveList key={balance.amount.toString()}>
+              <AdaptiveList.Row name='To' testId='DfTxUtxosToAccount.to'>
+                {toAddress}
+              </AdaptiveList.Row>
+              <AdaptiveList.Row name='Amount' testId='DfTxUtxosToAccount.toAmount'>
+                {balance.amount !== null ? balance.amount.toFixed(8) : 'N/A'} DFI
+              </AdaptiveList.Row>
+            </AdaptiveList>
           )
         })
       ))}
-    </AdaptiveList>
+    </div>
   )
 }
