@@ -55,9 +55,9 @@ function BlockDetails ({
 }: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
     <div className='flex p-4 border border-gray-200'>
-      <div className='my-auto'>
+      <div className='w-1/3 md:w-1/6'>
         <Link href={{ pathname: `/blocks/${height}` }}>
-          <a className='text-xl text-gray-900 hover:text-primary-500 font-semibold'>#{height}</a>
+          <a className='text-base md:text-xl text-gray-900 hover:text-primary-500 font-semibold'>#{height}</a>
         </Link>
         <div
           className='min-w-max text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'
@@ -66,20 +66,20 @@ function BlockDetails ({
           <span>{age}</span>
         </div>
       </div>
-      <div className='table my-auto ml-4 w-full border-collapse'>
-        <div className='table-row text-sm'>
-          <span className='table-cell text-right text-gray-400'>
+      <div className='flex flex-wrap w-2/3 md:w-5/6 my-auto'>
+        <div className='flex w-full text-sm'>
+          <span className='min-w-max text-right text-gray-400'>
             Minted by:
           </span>
-          <span className='table-cell pl-4 break-all'>
+          <span className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'>
             {mintedBy}
           </span>
         </div>
-        <div className='table-row text-sm'>
-          <span className='table-cell pt-1 text-right text-gray-400'>
+        <div className='flex w-full text-sm mt-1'>
+          <span className='min-w-max text-right text-gray-400'>
             Transactions:
           </span>
-          <span className='table-cell pl-4 break-all'>
+          <span className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'>
             {transactionCount} Txns
           </span>
         </div>
