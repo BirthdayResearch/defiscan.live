@@ -38,7 +38,7 @@ context('/transactions/[txid] - DfTx any account to account on mobile', () => {
   })
 
   beforeEach(() => {
-    cy.viewport('macbook-13')
+    cy.viewport('iphone-x')
   })
 
   it('should have heading', () => {
