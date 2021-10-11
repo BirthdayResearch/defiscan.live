@@ -42,26 +42,26 @@ function DetailsTable (props: {
           {fromAddress ?? 'N/A'}
         </AdaptiveList.Row>
       </AdaptiveList>
-      <AdaptiveList className='w-full lg:w-1/2'>
+      <div className='w-full lg:w-1/2'>
         {
           to?.map(scriptBalances => (
             scriptBalances.balances.map(balance => {
               const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
               const toAddress = to !== undefined ? `${to.address}` : ''
               return (
-                <div key={balance.amount.toString()}>
+                <AdaptiveList key={balance.amount.toString()}>
                   <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
                     {`${toAddress}`}
                   </AdaptiveList.Row>
                   <AdaptiveList.Row name='Amount' testId='DfTxAccountToAccount.amount'>
                     {`${balance.amount.toFixed(8)} DFI`}
                   </AdaptiveList.Row>
-                </div>
+                </AdaptiveList>
               )
             })
           ))
         }
-      </AdaptiveList>
+      </div>
     </>
   )
 }
