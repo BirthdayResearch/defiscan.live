@@ -51,7 +51,7 @@ function SetOracleDataTable ({
             key={`${token.token}amount`} name={`Token ${token.token} Amount`}
             testId={`DfTxSetOracleData.${token.token}Amount`}
           >
-            {token.prices[0].amount.toString()} {token.token}
+            {token.prices[0].amount.toFixed(8)} {token.token}
           </AdaptiveList.Row>
 
         ))}

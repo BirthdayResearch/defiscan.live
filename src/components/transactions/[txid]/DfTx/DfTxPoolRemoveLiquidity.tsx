@@ -34,7 +34,7 @@ function PoolRemoveLiquidityTable ({ address, amount, tokenId }: {address: strin
         {address}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Amount' testId='DfTxPoolRemoveLiquidity.Amount'>
-        {amount.toString()} DFI
+        {amount.toFixed(8)} DFI
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Token ID' testId='DfTxPoolRemoveLiquidity.Token'>
         {tokenId}

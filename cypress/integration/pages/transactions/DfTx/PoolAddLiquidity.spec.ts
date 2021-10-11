@@ -28,7 +28,7 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on desktop', () => {
   })
 
   it('should have DfTxAddPoolLiquidity Token 1 Amount', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.TokenAmount1').should('have.text', '6.3e-7 DFI')
+    cy.findByTestId('DfTxPoolAddLiquidity.TokenAmount1').should('have.text', '0.00000063 DFI')
   })
 
   it('should have DfTxAddPoolLiquidity Token 2 Amount', () => {
@@ -64,9 +64,9 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on mobile', () => {
   it('should have DfTxAddPoolLiquidity Token 2 ID', () => {
     cy.findByTestId('DfTxPoolAddLiquidity.TokenId2').should('have.text', '3')
   })
-
+  
   it('should have DfTxAddPoolLiquidity Token 1 Amount', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.TokenAmount1').should('have.text', '6.3e-7 DFI')
+    cy.findByTestId('DfTxPoolAddLiquidity.TokenAmount1').should('have.text', '0.00000063 DFI')
   })
 
   it('should have DfTxAddPoolLiquidity Token 2 Amount', () => {

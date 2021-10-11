@@ -47,7 +47,7 @@ function PoolAddLiquidityTable (props: PoolLiquidityTableProps): JSX.Element {
           {props.token1Id}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Token 1 amount' testId='DfTxPoolAddLiquidity.TokenAmount1'>
-          {props.token1Amount.toString()} DFI
+          {props.token1Amount.toFixed(8)} DFI
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
@@ -55,7 +55,7 @@ function PoolAddLiquidityTable (props: PoolLiquidityTableProps): JSX.Element {
           {props.token2Id}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Token 2 amount' testId='DfTxPoolAddLiquidity.TokenAmount2'>
-          {props.token2Amount.toString()} DFI
+          {props.token2Amount.toFixed(8)} DFI
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
