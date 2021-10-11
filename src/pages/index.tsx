@@ -44,7 +44,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold leading-6'>Blocks</h1>
         <InternalLink
-          testId='view-all-blocks-link'
+          testId='InternalLink.viewAllBlocksLink'
           pathname='/blocks'
         >
           <div className='flex items-center'>
@@ -72,7 +72,7 @@ function BlocksList ({ blocks }: { blocks: Block[]}): JSX.Element {
         <button
           type='button'
           className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200'
-          data-testid='view-all-blocks-button'
+          data-testid='InternalLink.viewAllBlocksButton'
         >
           VIEW ALL BLOCKS
         </button>
@@ -92,7 +92,7 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
         </h1>
         <ExternalLink
           url='https://mainnet.defichain.io/#/DFI/mainnet/home'
-          testId='latest-transactions-link'
+          testId='ExternalLink.latestTransactionsLink'
         >
           <div className='flex items-center'>
             LATEST TRANSACTIONS <IoChevronForward size={18} className='ml-px inline' />
@@ -118,7 +118,7 @@ function TransactionsList ({ transactions }: { transactions: Transaction[] }): J
           })
         }
       </div>
-      <ExternalLink url='https://mainnet.defichain.io/#/DFI/mainnet/home' testId='latest-transactions-button'>
+      <ExternalLink url='https://mainnet.defichain.io/#/DFI/mainnet/home' testId='ExternalLink.latestTransactionsButton'>
         <button
           type='button'
           className='text-primary-500 hover:text-primary-500 w-full h-12 border border-gray-200'
@@ -145,7 +145,7 @@ function Stats (props: { blocks: Block[] }): JSX.Element {
         {/* <StatItem label='24h Volume:'> */}
         {/*   - */}
         {/* </StatItem> */}
-        <StatItem label='Blocks:' testId='stat-blocks'>
+        <StatItem label='Blocks:' testId='StatItem.blocks'>
           <NumberFormat
             value={blockCount}
           />
@@ -153,7 +153,7 @@ function Stats (props: { blocks: Block[] }): JSX.Element {
         {/* <StatItem label='Burn Rate:'> */}
         {/*   - per block */}
         {/* </StatItem> */}
-        <StatItem label='Total DFI Burned:' testId='stat-total-dfi-burned'>
+        <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
           <UnitSuffix
             value={total as number}
             units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
@@ -162,13 +162,13 @@ function Stats (props: { blocks: Block[] }): JSX.Element {
         {/* <StatItem label='Tokens:'> */}
         {/*   -                        */}
         {/* </StatItem>                */}
-        <StatItem label='Difficulty:' testId='stat-difficulty'>
+        <StatItem label='Difficulty:' testId='StatItem.difficulty'>
           <UnitSuffix
             value={props.blocks[0].difficulty}
             units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }}
           />
         </StatItem>
-        <StatItem label='Emission Rate:' testId='stat-emission-rate'>
+        <StatItem label='Emission Rate:' testId='StatIem.emissionRate'>
           <NumberFormat
             value={emission}
             decimalScale={2}
@@ -193,9 +193,9 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
           <TransactionsList {...props} />
         </div>
       </div>
-      <div className='mt-12' data-testid='liquidity-pools'>
+      <div className='mt-12' data-testid='LiquidityPools'>
         <div className='flex justify-between'>
-          <h1 className='text-xl leading-8 font-semibold' data-testid='liquidity-pools-title'>Liquidity Pools</h1>
+          <h1 className='text-xl leading-8 font-semibold' data-testid='LiquidityPools.title'>Liquidity Pools</h1>
           {/* <ExternalLink */}
           {/*   url='https://mainnet.defichain.io/#/DFI/mainnet/home' */}
           {/* > */}

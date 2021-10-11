@@ -63,7 +63,7 @@ export function Summary (): JSX.Element {
         <span className='text-xl font-semibold'>DeFiChain in numbers</span>
       </div>
       <div className='flex flex-wrap gap-y-2 mt-4 gap-x-4'>
-        <SummaryCard testId='summary-price'>
+        <SummaryCard testId='SummaryCard.price'>
           <SummaryCardTitle>Price</SummaryCardTitle>
           <SummaryCardHeader className='text-4xl leading-10'>
             ${usdt}
@@ -74,7 +74,7 @@ export function Summary (): JSX.Element {
           </SummaryCardHeader>
           {/* <SummaryCardSubHeader>Updated 50 minutes ago</SummaryCardSubHeader> */}
         </SummaryCard>
-        <SummaryCard testId='summary-tvl'>
+        <SummaryCard testId='SummaryCard.tvl'>
           <SummaryCardTitle>Total Value Locked</SummaryCardTitle>
           <SummaryCardHeader>
             <NumberFormat
@@ -84,7 +84,7 @@ export function Summary (): JSX.Element {
             />
           </SummaryCardHeader>
         </SummaryCard>
-        <SummaryCard testId='summary-masternodes'>
+        <SummaryCard testId='SummaryCard.masternodes'>
           <SummaryCardTitle>Masternodes</SummaryCardTitle>
           <SummaryCardHeader>
             <NumberFormat

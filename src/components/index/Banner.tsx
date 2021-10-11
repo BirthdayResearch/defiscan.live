@@ -2,7 +2,7 @@ export function Banner (): JSX.Element {
   return (
     <div className='h-52 flex flex-col items-center' style={{ backgroundImage: 'linear-gradient(to bottom left, #FFFFFF, #fff7f4,  #f7e6f0' }}>
       <div className='pt-11'>
-        <h1 className='text-4xl font-semibold text-center sm:text-left' data-testid='banner-title'>DeFiChain Blockchain Explorer</h1>
+        <h1 className='text-4xl font-semibold text-center sm:text-left' data-testid='Banner'>DeFiChain Blockchain Explorer</h1>
       </div>
       {/* <div className='mt-6 w-9/12'> */}
       {/*   <div className='flex'> */}
