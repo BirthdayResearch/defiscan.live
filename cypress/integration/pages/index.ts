@@ -46,6 +46,12 @@ context('/ on macbook-13', () => {
   it('should have LiquidityPools.title', () => {
     cy.findByTestId('LiquidityPools.title').should('have.text', 'Liquidity Pools')
   })
+
+  it('should have LiquidityPools.viewLiquidityPools', () => {
+    cy.findByTestId('InternalLink.viewLiquidityPools').click()
+    cy.location('pathname').should('eq', '/dex')
+    cy.go('back')
+  })
 })
 
 context('/ on iphone-x', () => {
@@ -95,5 +101,11 @@ context('/ on iphone-x', () => {
 
   it('should have LiquidityPools.title', () => {
     cy.findByTestId('LiquidityPools.title').should('have.text', 'Liquidity Pools')
+  })
+
+  it('should have LiquidityPools.viewLiquidityPools', () => {
+    cy.findByTestId('InternalLink.viewLiquidityPools').click()
+    cy.location('pathname').should('eq', '/dex')
+    cy.go('back')
   })
 })
