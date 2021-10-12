@@ -57,7 +57,7 @@ function BlockDetails ({
     <div className='flex p-4 border border-gray-200'>
       <div className='w-1/3 md:w-1/6'>
         <Link href={{ pathname: `/blocks/${height}` }}>
-          <a className='text-base md:text-xl text-gray-900 hover:text-primary-500 font-semibold'>#{height}</a>
+          <a className='text-lg md:text-xl text-gray-900 hover:text-primary-500 font-semibold'>#{height}</a>
         </Link>
         <div
           className='min-w-max text-xs text-opacity-40 text-black font-medium flex gap-x-1.5 mt-1'
@@ -66,7 +66,7 @@ function BlockDetails ({
           <span>{age}</span>
         </div>
       </div>
-      <div className='flex flex-wrap w-2/3 md:w-5/6 my-auto'>
+      <div className='flex flex-wrap my-auto w-2/3 md:w-5/6'>
         <div className='flex w-full text-sm'>
           <span className='min-w-max text-right text-gray-400'>
             Minted by:
