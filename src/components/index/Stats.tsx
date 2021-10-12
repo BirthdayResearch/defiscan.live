@@ -18,17 +18,11 @@ export function Stats (props: { blocks: Block[] }): JSX.Element {
     <div className='bg-orange-50 py-3'>
       <Container>
         <div className='flex flex-wrap gap-x-8 gap-y-1'>
-          {/* <StatItem label='24h Volume:'> */}
-          {/*   - */}
-          {/* </StatItem> */}
           <StatItem label='Blocks:' testId='StatItem.blocks'>
             <NumberFormat
               value={blockCount}
             />
           </StatItem>
-          {/* <StatItem label='Burn Rate:'> */}
-          {/*   - per block */}
-          {/* </StatItem> */}
           <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
             <UnitSuffix
               value={total as number}
@@ -40,9 +34,6 @@ export function Stats (props: { blocks: Block[] }): JSX.Element {
               }}
             />
           </StatItem>
-          {/* <StatItem label='Tokens:'> */}
-          {/*   -                        */}
-          {/* </StatItem>                */}
           <StatItem label='Difficulty:' testId='StatItem.difficulty'>
             <UnitSuffix
               value={props.blocks[0].difficulty}
@@ -60,7 +51,6 @@ export function Stats (props: { blocks: Block[] }): JSX.Element {
               decimalScale={2}
             />
           </StatItem>
-
         </div>
       </Container>
     </div>

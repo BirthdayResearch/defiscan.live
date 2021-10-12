@@ -43,7 +43,6 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const blocks = await api.blocks.list(8)
 
   let transactions: Transaction[] = []
-
   await Promise.all(
     blocks.map(async block =>
       await api.blocks.getTransactions(block.id, 8)
