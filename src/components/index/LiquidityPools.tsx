@@ -2,14 +2,26 @@ import { NumberFormat } from './NumberFormat'
 import { ReactNode, PropsWithChildren } from 'react'
 import { getAssetIcon } from '@components/icons/assets'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { InternalLink } from '@components/index/Link'
+import { IoChevronForward } from 'react-icons/io5'
 
 export function LiquidityPools ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {
   return (
     <div className='mt-12' data-testid='LiquidityPools'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold' data-testid='LiquidityPools.title'>Liquidity Pools</h1>
+        <InternalLink pathname='/dex'>
+          <a
+            className='flex items-center'
+            data-testid='InternalLink.viewLiquidityPools'
+          >
+            VIEW FULL DETAILS <IoChevronForward size={18} className='inline' />
+          </a>
+        </InternalLink>
       </div>
-      <div className='mt-6 grid gap-1 lg:gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
+      <div
+        className='mt-6 grid gap-1 lg:gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'
+      >
         {
           liquidityPools.map(pool => {
             return (
@@ -50,14 +62,12 @@ function LiquidityPoolDetails (
   const SymbolAIcon = getAssetIcon(tokenASymbol)
   return (
     <div className='flex p-4 md:p-6 border border-gray-300 h-30'>
-      <div className='flex justify-between w-1/4'>
-        <div className='flex my-auto flex-col'>
-          <div className='flex icons'>
-            <SymbolAIcon className='h-6 w-6 z-10' />
-            <SymbolBIcon className='h-6 w-6 -ml-2' />
-          </div>
-          <h1 className='font-semibold text-sm md:text-base'>{poolSymbol}</h1>
+      <div className='flex flex-col justify-between my-auto w-1/4'>
+        <div className='flex icons'>
+          <SymbolAIcon className='h-6 w-6 z-10' />
+          <SymbolBIcon className='h-6 w-6 -ml-2' />
         </div>
+        <h1 className='font-semibold text-sm md:text-base'>{poolSymbol}</h1>
       </div>
       <div className='w-3/4 my-auto ml-2'>
         <LiquidityCardStat label='APR'>
