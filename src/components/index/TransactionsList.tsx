@@ -69,7 +69,7 @@ function TransactionDetails (props: {
       <div className='mt-1'>
         <div className='inline text-sm'>
           <span className='text-right text-gray-400'>Amount:</span>
-          <span className='ml-3 text-gray-900 opacity-90 font-medium break-all'>{new BigNumber(props.totalVoutValue).toFixed(8)} DFI</span>
+          <span className='pl-3 text-gray-900 opacity-90 font-medium break-all'>{new BigNumber(props.totalVoutValue).toFixed(8)} DFI</span>
         </div>
       </div>
     </div>

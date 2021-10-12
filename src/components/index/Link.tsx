@@ -25,7 +25,7 @@ export function InternalLink ({
   return (
     <Link href={{ pathname }}>
       <a
-        className='font-medium cursor-pointer text-primary-500 opacity-60 hover:opacity-100'
+        className='flex items-center font-medium cursor-pointer text-primary-500 opacity-60 hover:opacity-100'
         data-testid={testId}
       >
         {children}

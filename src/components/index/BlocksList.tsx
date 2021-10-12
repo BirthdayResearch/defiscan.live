@@ -15,7 +15,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
           pathname='/blocks'
         >
           <div className='flex items-center'>
-            VIEW ALL BLOCKS <IoChevronForward size={18} className='ml-px inline' />
+            VIEW ALL BLOCKS <IoChevronForward size={18} className='inline' />
           </div>
         </InternalLink>
       </div>
@@ -79,8 +79,8 @@ function BlockDetails ({
           <span className='min-w-max text-right text-gray-400'>
             Transactions:
           </span>
-          <span className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'>
-            {transactionCount} Txns
+          <span className='pl-2 md:pl-3 overflow-ellipsis overflow-hidden'>
+            {transactionCount}
           </span>
         </div>
       </div>
