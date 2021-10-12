@@ -10,6 +10,7 @@ import {
   OP_DEFI_TX,
   CAccountToUtxos,
   CCreateMasternode,
+  CResignMasternode,
   toOPCodes
 } from '@defichain/jellyfish-transaction'
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
@@ -20,6 +21,7 @@ import { DfTxAccountToUtxos } from '@components/transactions/[txid]/DfTx/DfTxAcc
 import { DfTxAnyAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAnyAccountToAccount'
 import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
 import { DfTxCreateMasternode } from '@components/transactions/[txid]/DfTx/DfTxCreateMasternode'
+import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxResignMasternode'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
 import { DfTxPoolRemoveLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolRemoveLiquidity'
 import { DfTxSetOracleData } from '@components/transactions/[txid]/DfTx/DfTxSetOracleData'
@@ -65,6 +67,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxAccountToUtxos dftx={tx} />
     case CCreateMasternode.OP_CODE:
       return <DfTxCreateMasternode dftx={tx} />
+    case CResignMasternode.OP_CODE:
+      return <DfTxResignMasternode dftx={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
