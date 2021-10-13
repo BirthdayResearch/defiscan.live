@@ -7,6 +7,7 @@ import {
   CPoolSwap,
   CSetOracleData,
   CUtxosToAccount,
+  CPoolCreatePair,
   OP_DEFI_TX,
   CAccountToUtxos,
   CCreateMasternode,
@@ -25,6 +26,7 @@ import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxR
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
 import { DfTxPoolRemoveLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolRemoveLiquidity'
 import { DfTxSetOracleData } from '@components/transactions/[txid]/DfTx/DfTxSetOracleData'
+import { DfTxPoolCreatePair } from '@components/transactions/[txid]/DfTx/DfTxPoolCreatePair'
 
 interface TransactionDfTxProps {
   transaction: Transaction
@@ -33,6 +35,10 @@ interface TransactionDfTxProps {
 }
 
 export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | null {
+  if (props.vouts.length !== 2) {
+    return null
+  }
+
   const hex = props.vouts[0].script.hex
   const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
   const stack = toOPCodes(buffer)
@@ -63,6 +69,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxCreateMasternode dftx={tx} />
     case CResignMasternode.OP_CODE:
       return <DfTxResignMasternode dftx={tx} />
+    case CPoolCreatePair.OP_CODE:
+      return <DfTxPoolCreatePair dftx={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
