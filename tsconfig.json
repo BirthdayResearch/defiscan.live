@@ -23,7 +23,7 @@
       "@content/*": ["../content/*"],
       "@contexts/*": ["layouts/contexts/*"],
       "@components/*": ["components/*"],
-      "@store/*": ["store/*"]
+      "@store/*": ["store/*"],
     }
   },
   "include": [
