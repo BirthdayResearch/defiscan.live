@@ -18,7 +18,6 @@ interface DetailsTableProps {
 }
 
 export function DfTxPoolCreatePair (props: DfTxPoolCreatePairProps): JSX.Element {
-  console.log('props', props)
   const {
     dftx: {
       data: {
