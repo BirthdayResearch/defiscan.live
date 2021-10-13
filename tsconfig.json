@@ -24,7 +24,6 @@
       "@contexts/*": ["layouts/contexts/*"],
       "@components/*": ["components/*"],
       "@store/*": ["store/*"],
-      "@utils/*": ["utils/*"]
     }
   },
   "include": [

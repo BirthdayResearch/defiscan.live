@@ -6,15 +6,6 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {
-      spacing: {
-        240: '60rem',
-        166: '41.5rem'
-      }
-    },
-    maxHeight: {
-      '2/6': '33%'
-    },
     fontFamily: {
       sans: ['"IBM Plex Sans"', 'sans-serif']
     },

@@ -1,23 +1,23 @@
-import { NumberFormat } from './NumberFormat'
-import { ReactNode, PropsWithChildren } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 import { getAssetIcon } from '@components/icons/assets'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { InternalLink } from '@components/index/Link'
 import { IoChevronForward } from 'react-icons/io5'
+import { Link } from '@components/commons/Link'
+import ReactNumberFormat from 'react-number-format'
 
-export function LiquidityPools ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {
+export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {
   return (
     <div className='mt-12' data-testid='LiquidityPools'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold' data-testid='LiquidityPools.title'>Liquidity Pools</h1>
-        <InternalLink pathname='/dex'>
+        <Link href={{ pathname: '/dex' }}>
           <a
-            className='flex items-center'
-            data-testid='InternalLink.viewLiquidityPools'
+            className='flex items-center font-medium cursor-pointer text-primary-500 opacity-60 hover:opacity-100'
+            data-testid='LiquidityPools.viewLiquidityPools'
           >
             VIEW FULL DETAILS <IoChevronForward size={18} className='inline' />
           </a>
-        </InternalLink>
+        </Link>
       </div>
       <div
         className='mt-6 grid gap-1 lg:gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'
@@ -25,7 +25,7 @@ export function LiquidityPools ({ liquidityPools }: { liquidityPools: PoolPairDa
         {
           liquidityPools.map(pool => {
             return (
-              <LiquidityPoolDetails
+              <LiquidityPoolCard
                 key={pool.symbol}
                 poolSymbol={pool.symbol}
                 apr={pool.apr != null ? pool.apr.total * 100 : undefined}
@@ -42,15 +42,8 @@ export function LiquidityPools ({ liquidityPools }: { liquidityPools: PoolPairDa
   )
 }
 
-function LiquidityPoolDetails (
-  {
-    poolSymbol,
-    apr,
-    totalLiquidity,
-    priceRatio,
-    tokenASymbol,
-    tokenBSymbol
-  }: {
+function LiquidityPoolCard (
+  props: {
     poolSymbol: string
     apr: number | undefined
     totalLiquidity: string
@@ -58,8 +51,8 @@ function LiquidityPoolDetails (
     tokenASymbol: string
     tokenBSymbol: string
   }): JSX.Element {
-  const SymbolBIcon = getAssetIcon(tokenBSymbol)
-  const SymbolAIcon = getAssetIcon(tokenASymbol)
+  const SymbolBIcon = getAssetIcon(props.tokenBSymbol)
+  const SymbolAIcon = getAssetIcon(props.tokenASymbol)
   return (
     <div className='flex p-4 md:p-6 border border-gray-300 h-30'>
       <div className='flex flex-col justify-between my-auto w-1/4'>
@@ -67,19 +60,23 @@ function LiquidityPoolDetails (
           <SymbolAIcon className='h-6 w-6 z-10' />
           <SymbolBIcon className='h-6 w-6 -ml-2' />
         </div>
-        <h1 className='font-semibold text-sm md:text-base'>{poolSymbol}</h1>
+        <h1 className='font-semibold text-sm md:text-base'>{props.poolSymbol}</h1>
       </div>
       <div className='w-3/4 my-auto ml-2'>
         <LiquidityCardStat label='APR'>
-          <NumberFormat
-            value={apr}
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={props.apr}
             decimalScale={2}
             suffix='%'
           />
         </LiquidityCardStat>
         <LiquidityCardStat label='Liquidity'>
-          <NumberFormat
-            value={totalLiquidity}
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={props.totalLiquidity}
             decimalScale={0}
             suffix=' USD'
           />
@@ -87,10 +84,12 @@ function LiquidityPoolDetails (
         <LiquidityCardStat
           label='Ratio'
         >
-          <NumberFormat
-            value={priceRatio}
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={props.priceRatio}
             decimalScale={2}
-            suffix={` ${tokenBSymbol}/${tokenASymbol}`}
+            suffix={` ${props.tokenBSymbol}/${props.tokenASymbol}`}
           />
         </LiquidityCardStat>
       </div>

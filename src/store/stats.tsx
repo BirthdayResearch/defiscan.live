@@ -34,6 +34,17 @@ interface StatsState {
       count: number
     }>
   }
+  emission: {
+    total?: number
+    masternode?: number
+    dex?: number
+    community?: number
+    anchor?: number
+    burned?: number
+  }
+  blockchain: {
+    difficulty?: number
+  }
 }
 
 const initialState: StatsState = {
@@ -41,7 +52,9 @@ const initialState: StatsState = {
   tvl: {},
   burned: {},
   price: {},
-  masternodes: {}
+  masternodes: {},
+  emission: {},
+  blockchain: {}
 }
 
 export const stats = createSlice({
@@ -54,6 +67,8 @@ export const stats = createSlice({
       state.burned = action.payload.burned
       state.price = action.payload.price
       state.masternodes = action.payload.masternodes
+      state.emission = action.payload.emission
+      state.blockchain = action.payload.blockchain
     }
   }
 })

@@ -10,9 +10,8 @@ import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 
 import { Container } from '@components/commons/Container'
-import { Header } from '@components/index/Header'
-import { Stats } from '@components/index/Stats'
-import { LiquidityPools } from '@components/index/LiquidityPools'
+import { IndexHeader } from '@components/index/IndexHeader'
+import { LiquidityPoolList } from '@components/index/LiquidityPoolList'
 import { BlocksList } from '@components/index/BlocksList'
 import { TransactionsList } from '@components/index/TransactionsList'
 
@@ -25,14 +24,13 @@ interface HomePageProps {
 export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <>
-      <Header />
-      <Stats blocks={props.blocks} />
+      <IndexHeader />
       <Container className='mt-12 pb-20'>
         <div className='flex flex-col space-y-12 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
           <BlocksList blocks={props.blocks} />
           <TransactionsList transactions={props.transactions} />
         </div>
-        <LiquidityPools liquidityPools={props.liquidityPools} />
+        <LiquidityPoolList liquidityPools={props.liquidityPools} />
       </Container>
     </>
   )

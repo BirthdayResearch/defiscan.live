@@ -1,13 +1,10 @@
 import { IoTimeOutline } from 'react-icons/io5'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store/index'
 import { formatDistanceToNow } from 'date-fns'
 import BigNumber from 'bignumber.js'
 import { Link } from '@components/commons/Link'
 
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
-  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   return (
     <div className='w-full lg:w-2/5'>
       <div className='flex justify-between'>
@@ -16,43 +13,33 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
         </h1>
       </div>
       <div className='mt-6 w-full space-y-1'>
-        {
-          transactions.map(t => {
-            return (
-              <TransactionDetails
-                key={t.hash}
-                hash={t.txid}
-                age={formatDistanceToNow(t.block.medianTime * 1000, { addSuffix: true })}
-                from={undefined}
-                to={undefined}
-                confirmations={
-                  blocks !== undefined ? blocks - t.block.height : blocks
-                }
-                totalVoutValue={t.totalVoutValue}
-              />
-            )
-          })
-        }
+        {transactions.map(t => {
+          return (
+            <TransactionDetails
+              key={t.hash}
+              txid={t.txid}
+              age={formatDistanceToNow(t.block.medianTime * 1000, { addSuffix: true })}
+              totalVoutValue={t.totalVoutValue}
+            />
+          )
+        })}
       </div>
     </div>
   )
 }
 
 function TransactionDetails (props: {
-  hash: string
+  txid: string
   age: string
-  from?: string
-  to?: string
-  confirmations?: number
   totalVoutValue: string
 }): JSX.Element {
   return (
     <div className='p-4 pb-3 border border-gray-200'>
       <div className='w-full flex justify-between'>
-        <Link href={{ pathname: `/transactions/${props.hash}` }}>
+        <Link href={{ pathname: `/transactions/${props.txid}` }}>
           <a
             className='text-gray-900 hover:text-primary-500 font-medium overflow-ellipsis overflow-hidden'
-          >{props.hash}
+          >{props.txid}
           </a>
         </Link>
         <div className='flex items-center ml-3'>
