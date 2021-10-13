@@ -2,7 +2,6 @@ import { IoChevronForward, IoTimeOutline } from 'react-icons/io5'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { InternalLink } from '@components/index/Link'
 import { formatDistanceToNow } from 'date-fns'
-import { enUSShort } from '@utils/locale/en-US-short'
 import { Link } from '@components/commons/Link'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
@@ -28,7 +27,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
                 height={block.height.toString()}
                 mintedBy={block.id}
                 transactionCount={block.transactionCount}
-                age={formatDistanceToNow(block.medianTime * 1000, { locale: enUSShort })}
+                age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
               />
             )
           })

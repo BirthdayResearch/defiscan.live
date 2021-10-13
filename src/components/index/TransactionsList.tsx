@@ -3,7 +3,6 @@ import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { formatDistanceToNow } from 'date-fns'
-import { enUSShort } from '@utils/locale/en-US-short'
 import BigNumber from 'bignumber.js'
 import { Link } from '@components/commons/Link'
 
@@ -23,7 +22,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
               <TransactionDetails
                 key={t.hash}
                 hash={t.txid}
-                age={formatDistanceToNow(t.block.medianTime * 1000, { locale: enUSShort })}
+                age={formatDistanceToNow(t.block.medianTime * 1000, { addSuffix: true })}
                 from={undefined}
                 to={undefined}
                 confirmations={
@@ -67,7 +66,10 @@ function TransactionDetails (props: {
       </div>
       <div className='mt-1 inline text-sm'>
         <span className='text-right text-gray-400'>Amount:</span>
-        <span className='pl-3 text-gray-900 opacity-90 font-medium break-all'>{new BigNumber(props.totalVoutValue).toFixed(8)} DFI</span>
+        <span
+          className='pl-3 text-gray-900 opacity-90 font-medium break-all'
+        >{new BigNumber(props.totalVoutValue).toFixed(8)} DFI
+        </span>
       </div>
     </div>
   )
