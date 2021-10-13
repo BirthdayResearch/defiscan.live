@@ -24,56 +24,68 @@ export function IndexHeader (): JSX.Element {
 }
 
 function Stats (): JSX.Element {
-  const {
-    count: { blocks: blockCount },
-    burned: {
-      total,
-      emission
-    },
-    blockchain: {
-      difficulty
-    }
-  } = useSelector((state: RootState) => state.stats)
+  const stats = useSelector((state: RootState) => state.stats)
+
   return (
     <div className='w-full bg-orange-50 py-3'>
       <Container>
         <div className='flex flex-wrap gap-x-8 gap-y-1'>
+          <StatItem label='Price:' testId='StatItem.priceUsdt'>
+            <ReactNumberFormat
+              displayType='text'
+              thousandSeparator
+              value={stats.price.usdt}
+              decimalScale={2}
+              prefix='$'
+              suffix=' USD'
+            />
+          </StatItem>
+          <StatItem label='Total Value Locked (TVL):' testId='StatItem.tvlTotal'>
+            <ReactNumberFormat
+              displayType='text'
+              thousandSeparator
+              value={stats.tvl.total}
+              decimalScale={0}
+              prefix='$'
+              suffix=' USD'
+            />
+          </StatItem>
           <StatItem label='Blocks:' testId='StatItem.blocks'>
             <ReactNumberFormat
               displayType='text'
               thousandSeparator
-              value={blockCount}
+              value={stats.count.blocks}
+              decimalScale={2}
+            />
+          </StatItem>
+          <StatItem label='Difficulty:' testId='StatItem.difficulty'>
+            <UnitSuffix
+              value={stats.blockchain.difficulty}
+              units={{
+                0: 'K',
+                3: 'M',
+                6: 'B',
+                9: 'T'
+              }}
+            />
+          </StatItem>
+          <StatItem label='Block Reward:' testId='StatItem.blockReward'>
+            <ReactNumberFormat
+              displayType='text'
+              thousandSeparator
+              value={stats.emission.total}
               decimalScale={2}
             />
           </StatItem>
           <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
             <UnitSuffix
-              value={total}
+              value={stats.burned.total}
               units={{
                 0: 'K',
                 3: 'M',
                 6: 'B',
                 9: 'T'
               }}
-            />
-          </StatItem>
-          <StatItem label='Difficulty:' testId='StatItem.difficulty'>
-            <UnitSuffix
-              value={difficulty}
-              units={{
-                0: 'K',
-                3: 'M',
-                6: 'B',
-                9: 'T'
-              }}
-            />
-          </StatItem>
-          <StatItem label='Block Reward:' testId='StatItem.emissionRate'>
-            <ReactNumberFormat
-              displayType='text'
-              thousandSeparator
-              value={emission}
-              decimalScale={2}
             />
           </StatItem>
         </div>

@@ -7,13 +7,13 @@ import ReactNumberFormat from 'react-number-format'
 
 export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {
   return (
-    <div className='mt-12' data-testid='LiquidityPools'>
+    <div className='mt-12' data-testid='LiquidityPoolList'>
       <div className='flex justify-between'>
-        <h1 className='text-xl font-semibold' data-testid='LiquidityPools.title'>Liquidity Pools</h1>
+        <h1 className='text-xl font-semibold' data-testid='LiquidityPoolList.title'>Liquidity Pools</h1>
         <Link href={{ pathname: '/dex' }}>
           <a
             className='flex items-center font-medium cursor-pointer text-primary-500 opacity-60 hover:opacity-100'
-            data-testid='LiquidityPools.viewLiquidityPools'
+            data-testid='LiquidityPoolList.viewLiquidityPools'
           >
             VIEW FULL DETAILS <IoChevronForward size={18} className='inline' />
           </a>

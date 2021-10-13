@@ -11,46 +11,48 @@ context('/ on macbook-13', () => {
     cy.findByTestId('Header.title').should('have.text', 'DeFiChain Blockchain Explorer')
   })
 
-  it('should have StatItem.blocks', () => {
-    cy.findByTestId('StatItem.blocks').should('be.visible')
+  it('should have StatItem.priceUsdt', () => {
+    cy.findByTestId('StatItem.priceUsdt').should('be.visible')
   })
 
-  it('should have StatItem.totalDFIBurned', () => {
-    cy.findByTestId('StatItem.totalDFIBurned').should('be.visible')
+  it('should have StatItem.tvlTotal', () => {
+    cy.findByTestId('StatItem.tvlTotal').should('be.visible')
+  })
+
+  it('should have StatItem.blocks', () => {
+    cy.findByTestId('StatItem.blocks').should('be.visible')
   })
 
   it('should have StatItem.difficulty', () => {
     cy.findByTestId('StatItem.difficulty').should('be.visible')
   })
 
-  it('should have StatItem.emissionRate', () => {
-    cy.findByTestId('StatItem.emissionRate').should('be.visible')
+  it('should have StatItem.blockReward', () => {
+    cy.findByTestId('StatItem.blockReward').should('be.visible')
   })
 
-  it('should have InternalLink.viewAllBlocksLink', () => {
-    cy.findByTestId('InternalLink.viewAllBlocksLink').click()
-    cy.location('pathname').should('eq', '/blocks')
-    cy.go('back')
+  it('should have StatItem.totalDFIBurned', () => {
+    cy.findByTestId('StatItem.totalDFIBurned').should('be.visible')
   })
 
-  it('should have InternalLink.viewAllBlocksButton', () => {
-    cy.findByTestId('InternalLink.viewAllBlocksButton').click()
-    cy.location('pathname').should('eq', '/blocks')
-    cy.go('back')
+  it('should have BlocksList.viewAllBlocksLink', () => {
+    cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
+  })
+
+  it('should have BlocksList.viewAllBlocksButton', () => {
+    cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
   })
 
   it('should have LiquidityPools', () => {
-    cy.findByTestId('LiquidityPools').should('be.visible')
+    cy.findByTestId('LiquidityPoolList').should('be.visible')
   })
 
   it('should have LiquidityPools.title', () => {
-    cy.findByTestId('LiquidityPools.title').should('have.text', 'Liquidity Pools')
+    cy.findByTestId('LiquidityPoolList.title').should('have.text', 'Liquidity Pools')
   })
 
-  it('should have LiquidityPools.viewLiquidityPools', () => {
-    cy.findByTestId('InternalLink.viewLiquidityPools').click()
-    cy.location('pathname').should('eq', '/dex')
-    cy.go('back')
+  it('should have LiquidityPoolList.viewLiquidityPools', () => {
+    cy.findByTestId('LiquidityPoolList.viewLiquidityPools').should('have.attr', 'href', '/dex')
   })
 })
 
@@ -67,45 +69,47 @@ context('/ on iphone-x', () => {
     cy.findByTestId('Header.title').should('have.text', 'DeFiChain Blockchain Explorer')
   })
 
-  it('should have StatItem.blocks', () => {
-    cy.findByTestId('StatItem.blocks').should('be.visible')
+  it('should have StatItem.priceUsdt', () => {
+    cy.findByTestId('StatItem.priceUsdt').should('be.visible')
   })
 
-  it('should have StatItem.totalDFIBurned', () => {
-    cy.findByTestId('StatItem.totalDFIBurned').should('be.visible')
+  it('should have StatItem.tvlTotal', () => {
+    cy.findByTestId('StatItem.tvlTotal').should('be.visible')
+  })
+
+  it('should have StatItem.blocks', () => {
+    cy.findByTestId('StatItem.blocks').should('be.visible')
   })
 
   it('should have StatItem.difficulty', () => {
     cy.findByTestId('StatItem.difficulty').should('be.visible')
   })
 
-  it('should have StatItem.emissionRate', () => {
-    cy.findByTestId('StatItem.emissionRate').should('be.visible')
+  it('should have StatItem.blockReward', () => {
+    cy.findByTestId('StatItem.blockReward').should('be.visible')
   })
 
-  it('should have InternalLink.viewAllBlocksLink', () => {
-    cy.findByTestId('InternalLink.viewAllBlocksLink').click()
-    cy.location('pathname').should('eq', '/blocks')
-    cy.go('back')
+  it('should have StatItem.totalDFIBurned', () => {
+    cy.findByTestId('StatItem.totalDFIBurned').should('be.visible')
   })
 
-  it('should have InternalLink.viewAllBlocksButton', () => {
-    cy.findByTestId('InternalLink.viewAllBlocksButton').click()
-    cy.location('pathname').should('eq', '/blocks')
-    cy.go('back')
+  it('should have BlocksList.viewAllBlocksLink', () => {
+    cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
+  })
+
+  it('should have BlocksList.viewAllBlocksButton', () => {
+    cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
   })
 
   it('should have LiquidityPools', () => {
-    cy.findByTestId('LiquidityPools').should('be.visible')
+    cy.findByTestId('LiquidityPoolList').should('be.visible')
   })
 
   it('should have LiquidityPools.title', () => {
-    cy.findByTestId('LiquidityPools.title').should('have.text', 'Liquidity Pools')
+    cy.findByTestId('LiquidityPoolList.title').should('have.text', 'Liquidity Pools')
   })
 
-  it('should have LiquidityPools.viewLiquidityPools', () => {
-    cy.findByTestId('InternalLink.viewLiquidityPools').click()
-    cy.location('pathname').should('eq', '/dex')
-    cy.go('back')
+  it('should have LiquidityPoolList.viewLiquidityPools', () => {
+    cy.findByTestId('LiquidityPoolList.viewLiquidityPools').should('have.attr', 'href', '/dex')
   })
 })

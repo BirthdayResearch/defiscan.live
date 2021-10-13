@@ -36,12 +36,11 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
       <Link href={{ pathname: '/blocks' }}>
         <a
           className='flex items-center font-medium cursor-pointer text-primary-500 opacity-60 hover:opacity-100'
-          data-testid='BlocksList.viewAllBlocksLink'
+          data-testid='BlocksList.viewAllBlocksButton'
         >
           <button
             type='button'
             className='w-full mt-2 py-3 border border-gray-200'
-            data-testid='InternalLink.viewAllBlocksButton'
           >
             VIEW ALL BLOCKS
           </button>

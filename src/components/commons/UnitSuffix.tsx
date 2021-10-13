@@ -7,7 +7,7 @@ interface UnitSuffixProps {
 
 export function UnitSuffix (props: UnitSuffixProps): JSX.Element {
   if (props.value === undefined) {
-    return (<>NA</>)
+    return (<span>...</span>)
   }
 
   const value = new BigNumber(props.value)
