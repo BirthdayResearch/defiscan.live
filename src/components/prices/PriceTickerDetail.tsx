@@ -2,7 +2,7 @@ import { JSX } from '@babel/types'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { isActive } from '@components/prices/PriceFeed'
 import { getPriceCopy, PriceCopy } from '@content/prices'
-import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
+import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format, formatDistanceToNow } from 'date-fns'
 import Image from 'next/image'
 import { IoAlertCircleOutline } from 'react-icons/io5'
@@ -11,9 +11,10 @@ import NumberFormat from 'react-number-format'
 
 interface PriceTickerDetailProps {
   price: PriceTicker
+  oracles: PriceOracle[]
 }
 
-export function PriceTickerDetail ({ price }: PriceTickerDetailProps): JSX.Element {
+export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): JSX.Element {
   const copy: PriceCopy | undefined = getPriceCopy(price.id)
 
   return (
@@ -97,7 +98,7 @@ export function PriceTickerDetail ({ price }: PriceTickerDetailProps): JSX.Eleme
           description='Pricing oracles collect price feed from other chains and non-crypto markets.'
         />
         <div className='text-lg font-semibold'>
-          {price.price.aggregated.oracles.active} of {price.price.aggregated.oracles.total} responded
+          {price.price.aggregated.oracles.active} of {oracles.filter(oracle => oracle.feed !== undefined).length} responded
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
 
       <div className='flex flex-wrap -mx-6'>
         <div className='w-full lg:w-1/3 px-6'>
-          <PriceTickerDetail price={props.price} />
+          <PriceTickerDetail {...props} />
         </div>
 
         <div className='w-full lg:w-2/3 lg:px-6' style={{ height: '32rem', maxHeight: '80vh' }}>
