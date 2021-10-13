@@ -7,6 +7,7 @@ import {
   CPoolSwap,
   CSetOracleData,
   CUtxosToAccount,
+  CAppointOracle,
   CPoolCreatePair,
   CTokenCreate,
   OP_DEFI_TX,
@@ -29,6 +30,7 @@ import { DfTxPoolRemoveLiquidity } from '@components/transactions/[txid]/DfTx/Df
 import { DfTxSetOracleData } from '@components/transactions/[txid]/DfTx/DfTxSetOracleData'
 import { DfTxPoolCreatePair } from '@components/transactions/[txid]/DfTx/DfTxPoolCreatePair'
 import { DfTxTokenCreate } from '@components/transactions/[txid]/DfTx/DfTxTokenCreate'
+import { DfTxAppointOracle } from '@components/transactions/[txid]/DfTx/DfTxAppointOracle'
 
 interface TransactionDfTxProps {
   transaction: Transaction
@@ -37,6 +39,10 @@ interface TransactionDfTxProps {
 }
 
 export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | null {
+  if (props.vouts.length !== 2) {
+    return null
+  }
+
   const hex = props.vouts[0].script.hex
   const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
   const stack = toOPCodes(buffer)
@@ -71,6 +77,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxPoolCreatePair dftx={tx} />
     case CTokenCreate.OP_CODE:
       return <DfTxTokenCreate dftx={tx} />
+    case CAppointOracle.OP_CODE:
+      return <DfTxAppointOracle dfxt={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
