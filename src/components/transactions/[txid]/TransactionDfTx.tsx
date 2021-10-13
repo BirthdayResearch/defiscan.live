@@ -10,6 +10,7 @@ import {
   CAppointOracle,
   CPoolCreatePair,
   CTokenCreate,
+  CSetGovernance,
   OP_DEFI_TX,
   CAccountToUtxos,
   CCreateMasternode,
@@ -31,6 +32,7 @@ import { DfTxSetOracleData } from '@components/transactions/[txid]/DfTx/DfTxSetO
 import { DfTxPoolCreatePair } from '@components/transactions/[txid]/DfTx/DfTxPoolCreatePair'
 import { DfTxTokenCreate } from '@components/transactions/[txid]/DfTx/DfTxTokenCreate'
 import { DfTxAppointOracle } from '@components/transactions/[txid]/DfTx/DfTxAppointOracle'
+import { DfTxSetGovernance } from '@components/transactions/[txid]/DfTx/DfTxSetGovernance'
 
 interface TransactionDfTxProps {
   transaction: Transaction
@@ -79,6 +81,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxTokenCreate dftx={tx} />
     case CAppointOracle.OP_CODE:
       return <DfTxAppointOracle dfxt={tx} />
+    case CSetGovernance.OP_CODE:
+      return <DfTxSetGovernance dftx={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
