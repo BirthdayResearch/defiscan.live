@@ -103,21 +103,6 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
     )
   }
   return (
-    <OverflowTable.Row>
-      <OverflowTable.Cell>
-        No response yet
-      </OverflowTable.Cell>
-      <OverflowTable.Cell>
-        <h6 className='text-xl font-semibold'>
-          {oracleId.substring(0, 8).toUpperCase()}
-        </h6>
-        <div className='flex items-center mt-1'>
-          <IoAlertCircleOutline className='h-4 w-4 mr-1 text-gray-500' />
-          <div className='text-sm font-semibold text-black opacity-60'>
-            No Response
-          </div>
-        </div>
-      </OverflowTable.Cell>
-    </OverflowTable.Row>
+    <></>
   )
 }
