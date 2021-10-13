@@ -1,33 +1,36 @@
 import { SmartBuffer } from 'smart-buffer'
 import {
   CAccountToAccount,
-  CAccountToUtxos,
   CAnyAccountToAccount,
-  CCreateMasternode,
   CPoolAddLiquidity,
-  CPoolCreatePair, CPoolRemoveLiquidity,
+  CPoolRemoveLiquidity,
   CPoolSwap,
-  CResignMasternode,
   CSetOracleData,
-  CTokenCreate,
   CUtxosToAccount,
+  CAppointOracle,
+  CPoolCreatePair,
+  CTokenCreate,
   OP_DEFI_TX,
+  CAccountToUtxos,
+  CCreateMasternode,
+  CResignMasternode,
   toOPCodes
 } from '@defichain/jellyfish-transaction'
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
-import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
-import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
-import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxResignMasternode'
 import { DfTxPoolSwap } from '@components/transactions/[txid]/DfTx/DfTxPoolSwap'
-import { DfTxPoolCreatePair } from '@components/transactions/[txid]/DfTx/DfTxPoolCreatePair'
 import { DfTxUtxosToAccount } from '@components/transactions/[txid]/DfTx/DfTxUtxosToAccount'
-import { DfTxAccountToUtxos } from '@components/transactions/[txid]/DfTx/DfTxAccountToUtxos'
-import { DfTxCreateMasternode } from '@components/transactions/[txid]/DfTx/DfTxCreateMasternode'
-import { DfTxPoolRemoveLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolRemoveLiquidity'
-import { DfTxTokenCreate } from '@components/transactions/[txid]/DfTx/DfTxTokenCreate'
-import { DfTxSetOracleData } from '@components/transactions/[txid]/DfTx/DfTxSetOracleData'
 import { DfTxAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAccountToAccount'
+import { DfTxAccountToUtxos } from '@components/transactions/[txid]/DfTx/DfTxAccountToUtxos'
 import { DfTxAnyAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAnyAccountToAccount'
+import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
+import { DfTxCreateMasternode } from '@components/transactions/[txid]/DfTx/DfTxCreateMasternode'
+import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxResignMasternode'
+import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
+import { DfTxPoolRemoveLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolRemoveLiquidity'
+import { DfTxSetOracleData } from '@components/transactions/[txid]/DfTx/DfTxSetOracleData'
+import { DfTxPoolCreatePair } from '@components/transactions/[txid]/DfTx/DfTxPoolCreatePair'
+import { DfTxTokenCreate } from '@components/transactions/[txid]/DfTx/DfTxTokenCreate'
+import { DfTxAppointOracle } from '@components/transactions/[txid]/DfTx/DfTxAppointOracle'
 
 interface TransactionDfTxProps {
   transaction: Transaction
@@ -36,6 +39,10 @@ interface TransactionDfTxProps {
 }
 
 export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | null {
+  if (props.vouts.length !== 2) {
+    return null
+  }
+
   const hex = props.vouts[0].script.hex
   const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
   const stack = toOPCodes(buffer)
@@ -70,6 +77,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxPoolCreatePair dftx={tx} />
     case CTokenCreate.OP_CODE:
       return <DfTxTokenCreate dftx={tx} />
+    case CAppointOracle.OP_CODE:
+      return <DfTxAppointOracle dfxt={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
