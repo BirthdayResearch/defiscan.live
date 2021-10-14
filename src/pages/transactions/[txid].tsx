@@ -71,11 +71,15 @@ function getTotalVinsValue (vins: TransactionVin[]): BigNumber {
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {
   const api = getWhaleApiClient(context)
   const txid = context.params?.txid as string
+  const limit = 100
 
   let transaction: Transaction | undefined
+  const vins: TransactionVin[] = []
+  const vouts: TransactionVout[] = []
 
   try {
-    transaction = await api.transactions.get(txid)
+    const [transactions] = await Promise.all([api.transactions.get(txid), getVins(), getVouts()])
+    transaction = transactions
   } catch (WhaleApiException) {
     transaction = undefined
   }
@@ -89,20 +93,22 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   }
 
   // Will improve with newer iteration of whale api
-  const vins: TransactionVin[] = []
-  let vinsResponse = await api.transactions.getVins(txid, 60)
-  vins.push(...vinsResponse)
-  while (vinsResponse.hasNext) {
-    vinsResponse = await api.transactions.getVins(txid, 60, vinsResponse.nextToken)
+  async function getVins (): Promise<void> {
+    let vinsResponse = await api.transactions.getVins(txid, limit)
     vins.push(...vinsResponse)
+    while (vinsResponse.hasNext) {
+      vinsResponse = await api.transactions.getVins(txid, limit, vinsResponse.nextToken)
+      vins.push(...vinsResponse)
+    }
   }
 
-  const vouts: TransactionVout[] = []
-  let voutsResponse = await api.transactions.getVouts(txid, 60)
-  vouts.push(...voutsResponse)
-  while (voutsResponse.hasNext) {
-    voutsResponse = await api.transactions.getVouts(txid, 60, voutsResponse.nextToken)
+  async function getVouts (): Promise<void> {
+    let voutsResponse = await api.transactions.getVouts(txid, limit)
     vouts.push(...voutsResponse)
+    while (voutsResponse.hasNext) {
+      voutsResponse = await api.transactions.getVouts(txid, limit, voutsResponse.nextToken)
+      vouts.push(...voutsResponse)
+    }
   }
 
   return {
