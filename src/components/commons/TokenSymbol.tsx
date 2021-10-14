@@ -17,9 +17,17 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
   const [hide, setHide] = useState<boolean>(false)
 
   useEffect(() => {
+    if (typeof props.token !== 'number') {
+      return
+    }
+
     const timeoutId = setTimeout(() => setHide(true), props?.timeout ?? 10000)
     void fetchToken(api, props.token).then(data => {
       setTokenData(data)
+    }).catch(() => {
+      setTokenData(undefined)
+      setHide(true)
+    }).finally(() => {
       clearTimeout(timeoutId)
     })
   }, [])
