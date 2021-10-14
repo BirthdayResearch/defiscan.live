@@ -4,6 +4,7 @@ import { fromScript } from '@defichain/jellyfish-address'
 import { useNetworkObject } from '@contexts/NetworkContext'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxPoolAddLiquidityProps {
   dftx: DfTx<PoolAddLiquidity>
@@ -43,19 +44,25 @@ function PoolAddLiquidityTable (props: PoolLiquidityTableProps): JSX.Element {
         <AdaptiveList.Row name='Share Address' testId='DfTxPoolAddLiquidity.ShareAddress' className='break-all'>
           {props.shareAddress ?? 'N/A'}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token 1 ID' testId='DfTxPoolAddLiquidity.TokenId1'>
+        <AdaptiveList.Row name='Token 1 ID' testId='DfTxPoolAddLiquidity.Token1Id'>
           {props.token1Id}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token 1 amount' testId='DfTxPoolAddLiquidity.TokenAmount1'>
-          {props.token1Amount.toFixed(8)} DFI
+        <AdaptiveList.Row name='Token 1 Amount'>
+          <div className='flex flex-row'>
+            <span data-testid='DfTxPoolAddLiquidity.Token1Amount'>{props.token1Amount.toFixed(8)}</span>
+            <TokenSymbol tokenId={props.token1Id} className='ml-1' testId='DfTxPoolAddLiquidity.Token1Symbol' />
+          </div>
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='Token 2 ID' testId='DfTxPoolAddLiquidity.TokenId2'>
+        <AdaptiveList.Row name='Token 2 ID' testId='DfTxPoolAddLiquidity.Token2Id'>
           {props.token2Id}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token 2 amount' testId='DfTxPoolAddLiquidity.TokenAmount2'>
-          {props.token2Amount.toFixed(8)} DFI
+        <AdaptiveList.Row name='Token 2 Amount'>
+          <div className='flex flex-row'>
+            <span data-testid='DfTxPoolAddLiquidity.Token2Amount'>{props.token2Amount.toFixed(8)}</span>
+            <TokenSymbol tokenId={props.token2Id} className='ml-1' testId='DfTxPoolAddLiquidity.Token2Symbol' />
+          </div>
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
