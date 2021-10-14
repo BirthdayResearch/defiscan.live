@@ -9,12 +9,6 @@ interface DfTxSetOracleDataProps {
   dftx: DfTx<SetOracleData>
 }
 
-interface SetOracleDataProps {
-  oracleId: string
-  timestamp: BigNumber
-  tokens: TokenPrice[]
-}
-
 export function DfTxSetOracleData (props: DfTxSetOracleDataProps): JSX.Element {
   return (
     <div>
@@ -30,33 +24,32 @@ export function DfTxSetOracleData (props: DfTxSetOracleDataProps): JSX.Element {
   )
 }
 
-function SetOracleDataTable ({
-  oracleId,
-  timestamp,
-  tokens
-}: SetOracleDataProps): JSX.Element {
+function SetOracleDataTable (props: { oracleId: string, timestamp: BigNumber, tokens: TokenPrice[] }): JSX.Element {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='Oracle ID' className='break-all' testId='DfTxSetOracleData.OracleId'>
-          {oracleId}
+          {props.oracleId}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Received Time' testId='DfTxSetOracleData.Timestamp'>
-          {format(fromUnixTime(timestamp.toNumber()), 'PPpp')}
+          {format(fromUnixTime(props.timestamp.toNumber()), 'PPpp')}
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
-        {tokens.map(token => (
+        {props.tokens.map(token => (
           <AdaptiveList.Row
             key={`${token.token}amount`} name={`Token ${token.token} Amount`}
             testId={`DfTxSetOracleData.${token.token}Amount`}
           >
             {token.prices[0].amount.toFixed(8)} {token.token}
           </AdaptiveList.Row>
-
         ))}
-        {tokens.map(token => (
-          <AdaptiveList.Row key={`${token.token}currency`} name={`Token ${token.token} Currency`} testId={`DfTxSetOracleData.${token.token}Currency`}>
+
+        {props.tokens.map(token => (
+          <AdaptiveList.Row
+            key={`${token.token}currency`} name={`Token ${token.token} Currency`}
+            testId={`DfTxSetOracleData.${token.token}Currency`}
+          >
             {token.prices[0].currency}
           </AdaptiveList.Row>
         ))}
