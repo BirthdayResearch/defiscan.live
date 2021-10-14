@@ -52,13 +52,13 @@ function DetailsTable (props: DetailsTableProps): JSX.Element {
         <AdaptiveList.Row name='Symbol' testId='DfTxTokenCreate.symbol'>
           {symbol}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Decimal' testId='DfTxTokenCreate.decimal'>
-          {decimal}
+        <AdaptiveList.Row name='Name' testId='DfTxTokenCreate.name'>
+          {name}
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='name' testId='DfTxTokenCreate.name'>
-          {name}
+        <AdaptiveList.Row name='Decimal' testId='DfTxTokenCreate.decimal'>
+          {decimal}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Limit' testId='DfTxTokenCreate.limit'>
           {limit}
