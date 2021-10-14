@@ -28,11 +28,11 @@ export function DfTxPoolRemoveLiquidity (props: DfTxPoolRemoveLiquidityProps): J
   )
 }
 
-function PoolRemoveLiquidityTable (props: { address: string | undefined, amount: BigNumber, tokenId: number }): JSX.Element {
+function PoolRemoveLiquidityTable (props: { address?: string, amount: BigNumber, tokenId: number }): JSX.Element {
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
       <AdaptiveList.Row name='Address' testId='DfTxPoolRemoveLiquidity.Address' className='break-all'>
-        {props.address}
+        {props.address ?? 'N/A'}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Amount'>
         <div className='flex flex-row'>
