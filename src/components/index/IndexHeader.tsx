@@ -64,8 +64,8 @@ function Stats (): JSX.Element {
               units={{
                 3: 'K',
                 6: 'M',
-                9: 'B',
-                11: 'T'
+                9: 'G',
+                12: 'T'
               }}
             />
           </StatItem>
@@ -83,8 +83,8 @@ function Stats (): JSX.Element {
               units={{
                 3: 'K',
                 6: 'M',
-                9: 'B',
-                11: 'T'
+                9: 'G',
+                12: 'T'
               }}
             />
           </StatItem>

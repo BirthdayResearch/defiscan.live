@@ -89,7 +89,15 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <UnitSuffix value={block.difficulty} units={{ 0: 'K', 3: 'M', 6: 'B', 9: 'T' }} />
+        <UnitSuffix
+          value={block.difficulty}
+          units={{
+            3: 'K',
+            6: 'M',
+            9: 'G',
+            12: 'T'
+          }}
+        />
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
