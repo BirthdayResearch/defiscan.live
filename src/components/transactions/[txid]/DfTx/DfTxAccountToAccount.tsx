@@ -3,6 +3,7 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetworkObject } from '@contexts/NetworkContext'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxAccountToAccountProps {
   dftx: DfTx<AccountToAccount>
@@ -53,8 +54,11 @@ function DetailsTable (props: {
                   <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
                     {`${toAddress}`}
                   </AdaptiveList.Row>
-                  <AdaptiveList.Row name='Amount' testId='DfTxAccountToAccount.toAmount'>
-                    {`${balance.amount.toFixed(8)} DFI`}
+                  <AdaptiveList.Row name='Amount'>
+                    <div className='flex flex-row'>
+                      <span data-testid='DfTxAccountToAccount.toAmount'>{balance.amount.toFixed(8)}</span>
+                      <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAccountToAccount.toSymbol' />
+                    </div>
                   </AdaptiveList.Row>
                 </AdaptiveList>
               )
