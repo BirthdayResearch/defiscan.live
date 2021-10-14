@@ -8,11 +8,11 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have heading', () => {
-    cy.findByTestId('title').contains('Transaction Hash')
+    cy.findByTestId('title').contains('Transaction ID')
   })
 
-  it('should have hash', () => {
-    cy.findByTestId('transaction-hash').should('have.text', '43c6c694354a2ce94722d5256b0bc05e8545da3c12d264fe8184e1c6327552dc')
+  it('should have txid', () => {
+    cy.findByTestId('transaction-txid').should('have.text', 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4')
   })
 
   it('should have transaction-detail-total-amount', () => {
@@ -106,11 +106,11 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have heading', () => {
-    cy.findByTestId('title').contains('Transaction Hash')
+    cy.findByTestId('title').contains('Transaction ID')
   })
 
-  it('should have hash', () => {
-    cy.findByTestId('transaction-hash').should('have.text', '43c6c694354a2ce94722d5256b0bc05e8545da3c12d264fe8184e1c6327552dc')
+  it('should have txid', () => {
+    cy.findByTestId('transaction-txid').should('have.text', 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4')
   })
 
   it('should have transaction-detail-total-amount', () => {
