@@ -21,7 +21,6 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
   return (
     <Container className='pt-12 pb-20'>
       <Head title='Tokens' />
-
       <h1 className='text-2xl font-medium'>Tokens</h1>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
@@ -50,7 +49,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
 
 function TokenRow ({ data }: { data: TokenData }): JSX.Element {
   return (
-    <AdaptiveTable.Row className='group cursor-pointer'>
+    <AdaptiveTable.Row className='group cursor-pointer my-4'>
       <AdaptiveTable.Cell title='SYMBOL' className='align-middle'>
         <div className='flex items-center'>
           {(() => {

@@ -13,7 +13,7 @@ export function IndexHeader (): JSX.Element {
     >
       <Container className='h-full'>
         <div className='h-full flex items-center'>
-          <h1 className='text-4xl font-semibold -mt-4' data-testid='Header.title'>
+          <h1 className='text-4xl font-semibold -mt-4 py-4' data-testid='Header.title'>
             DeFiChain Blockchain Explorer
           </h1>
         </div>
