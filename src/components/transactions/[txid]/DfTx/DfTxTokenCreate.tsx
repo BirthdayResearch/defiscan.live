@@ -1,67 +1,58 @@
 import { DfTx, TokenCreate } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
+import BigNumber from 'bignumber.js'
+import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 
 interface DfTxTokenCreateProps {
   dftx: DfTx<TokenCreate>
 }
 
-interface DetailsTableProps {
-  symbol: string
-  decimal: number
-  name: string
-  limit: string
-}
-
 export function DfTxTokenCreate (props: DfTxTokenCreateProps): JSX.Element {
-  const {
-    dftx: {
-      data: {
-        symbol,
-        decimal,
-        name,
-        limit
-      }
-    }
-  } = props
   return (
     <div>
       <DfTxHeader name='Token Create' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <DetailsTable
-          symbol={symbol}
-          decimal={decimal}
-          name={name}
-          limit={limit.toString()}
+          symbol={props.dftx.data.symbol}
+          decimal={props.dftx.data.decimal}
+          name={props.dftx.data.name}
+          limit={props.dftx.data.limit}
+          isDAT={props.dftx.data.isDAT}
         />
       </div>
     </div>
   )
 }
 
-function DetailsTable (props: DetailsTableProps): JSX.Element {
-  const {
-    symbol,
-    decimal,
-    name,
-    limit
-  } = props
+function DetailsTable (props: { symbol: string, decimal: number, name: string, limit: BigNumber, isDAT: boolean }): JSX.Element {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='Symbol' testId='DfTxTokenCreate.symbol'>
-          {symbol}
+          <div className='flex gap-x-1'>
+            {props.symbol}
+            {(() => {
+              if (props.isDAT) {
+                const AssetIcon = getAssetIcon(props.symbol)
+                return <AssetIcon className='h-6 w-6' />
+              }
+
+              const TokenIcon = getTokenIcon(props.symbol)
+              return <TokenIcon className='h-6 w-6' />
+            })()}
+          </div>
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Name' testId='DfTxTokenCreate.name'>
-          {name}
+          {props.name}
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='Decimal' testId='DfTxTokenCreate.decimal'>
-          {decimal}
+          {props.decimal}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Limit' testId='DfTxTokenCreate.limit'>
-          {limit}
+          {props.limit.toString()}
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
