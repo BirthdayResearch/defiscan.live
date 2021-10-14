@@ -10,14 +10,6 @@ interface DfTxPoolAddLiquidityProps {
   dftx: DfTx<PoolAddLiquidity>
 }
 
-interface PoolLiquidityTableProps {
-  shareAddress: string | undefined
-  token1Amount: BigNumber
-  token2Amount: BigNumber
-  token1Id: number
-  token2Id: number
-}
-
 export function DfTxPoolAddLiquidity (props: DfTxPoolAddLiquidityProps): JSX.Element {
   const network = useNetworkObject().name
   const to = props.dftx.data.shareAddress !== undefined ? fromScript(props.dftx.data.shareAddress, network) : undefined
@@ -37,7 +29,7 @@ export function DfTxPoolAddLiquidity (props: DfTxPoolAddLiquidityProps): JSX.Ele
   )
 }
 
-function PoolAddLiquidityTable (props: PoolLiquidityTableProps): JSX.Element {
+function PoolAddLiquidityTable (props: { shareAddress?: string, token1Amount: BigNumber, token2Amount: BigNumber, token1Id: number, token2Id: number }): JSX.Element {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
@@ -66,6 +58,5 @@ function PoolAddLiquidityTable (props: PoolLiquidityTableProps): JSX.Element {
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
-
   )
 }
