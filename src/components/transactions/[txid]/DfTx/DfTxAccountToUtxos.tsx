@@ -3,6 +3,7 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetworkObject } from '@contexts/NetworkContext'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxAccountToUtxosProps {
   dftx: DfTx<AccountToUtxos>
@@ -47,16 +48,21 @@ function DetailsTable (props: {
         {
           balances.map(
             balance => (
-              <AdaptiveList.Row name='Balances' testId='DfTxAccountToUtxos.balances' key={`${balance.amount.toString()}`}>
-                {`${balance.amount.toFixed(8)} DFI`}
+              <AdaptiveList.Row name='Balances' key={`${balance.amount.toString()}`}>
+                <div className='flex flex-row'>
+                  <span data-testid='DfTxAccountToUtxos.balances'>{balance.amount.toFixed(8)}</span>
+                  <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAccountToUtxos.symbol' />
+                </div>
               </AdaptiveList.Row>
             )
           )
         }
-        <AdaptiveList.Row name='Minting outputs start' testId='DfTxAccountToUtxos.mintingOutputsStart'>
+      </AdaptiveList>
+
+      <AdaptiveList className='w-full lg:w-1/2'>
+        <AdaptiveList.Row name='Minting Outputs Start' testId='DfTxAccountToUtxos.mintingOutputsStart'>
           {mintingOutputsStart ?? '-'}
         </AdaptiveList.Row>
-
       </AdaptiveList>
     </>
   )
