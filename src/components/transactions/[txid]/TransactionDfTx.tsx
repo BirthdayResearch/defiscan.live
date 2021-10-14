@@ -80,7 +80,7 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
     case CTokenCreate.OP_CODE:
       return <DfTxTokenCreate dftx={tx} />
     case CAppointOracle.OP_CODE:
-      return <DfTxAppointOracle dfxt={tx} />
+      return <DfTxAppointOracle dftx={tx} />
     case CSetGovernance.OP_CODE:
       return <DfTxSetGovernance dftx={tx} />
     default:

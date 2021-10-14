@@ -6,7 +6,7 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 
 interface DfTxAppointOracleProps {
-  dfxt: DfTx<AppointOracle>
+  dftx: DfTx<AppointOracle>
 }
 
 interface AppointOracleProps {
@@ -17,15 +17,15 @@ interface AppointOracleProps {
 
 export function DfTxAppointOracle (props: DfTxAppointOracleProps): JSX.Element {
   const network = useNetworkObject().name
-  const script = fromScript(props.dfxt.data.script, network)
+  const script = fromScript(props.dftx.data.script, network)
   return (
     <div>
       <DfTxHeader name='Appoint Oracle' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AppointOracleTable
           address={script?.address}
-          weightage={props.dfxt.data.weightage}
-          priceFeeds={props.dfxt.data.priceFeeds}
+          weightage={props.dftx.data.weightage}
+          priceFeeds={props.dftx.data.priceFeeds}
         />
       </div>
     </div>
