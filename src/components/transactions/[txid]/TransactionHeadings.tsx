@@ -35,12 +35,12 @@ export function TransactionHeading (props: TransactionHeadingProps): JSX.Element
       </div>
 
       <span className='leading-6 opacity-60' data-testid='title'>
-        Transaction Hash
+        Transaction ID
       </span>
 
       <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium break-all' data-testid='transaction-hash'>{props.transaction.hash}</h1>
-        <CopyButton className='ml-2' content={props.transaction.hash} />
+        <h1 className='text-2xl font-medium break-all' data-testid='transaction-txid'>{props.transaction.txid}</h1>
+        <CopyButton className='ml-2' content={props.transaction.txid} />
       </div>
     </>
   )
