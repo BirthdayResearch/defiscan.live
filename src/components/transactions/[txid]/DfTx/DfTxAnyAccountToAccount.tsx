@@ -24,23 +24,18 @@ export function DfTxAnyAccountToAccount (props: DfTxAnyAccountToAccountProps): J
 }
 
 function DetailsTable (props: {
-  from?: ScriptBalances[]
-  to?: ScriptBalances[]
+  from: ScriptBalances[]
+  to: ScriptBalances[]
 }): JSX.Element {
-  const {
-    from,
-    to
-  } = props
-
   const network = useNetworkObject().name
   return (
     <>
       <div className='w-full lg:w-1/2'>
         {
-          from?.map(scriptBalances => (
+          props.from.map(scriptBalances => (
             scriptBalances.balances.map(balance => {
-              const scriptFrom = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-              const scriptFromAddress = scriptFrom !== undefined ? `${scriptFrom.address}` : 'N/A'
+              const scriptFromAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
+
               return (
                 <AdaptiveList key={balance.amount.toString()}>
                   <AdaptiveList.Row name='From' testId='DfTxAnyAccountToAccount.from'>
@@ -63,10 +58,9 @@ function DetailsTable (props: {
       </div>
       <div className='w-full lg:w-1/2'>
         {
-          to?.map(scriptBalances => (
+          props.to.map(scriptBalances => (
             scriptBalances.balances.map(balance => {
-              const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-              const toAddress = to !== undefined ? `${to.address}` : 'N/A'
+              const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
 
               return (
                 <AdaptiveList key={balance.amount.toString()}>
