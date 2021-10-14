@@ -26,9 +26,7 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
 
   if (tokenData === undefined && !hide) {
     return (
-      <>
-        <div className='animate-pulse py-2.5 w-10 rounded-md bg-gray-100 inline' />
-      </>
+      <div className='animate-pulse py-2.5 w-10 rounded-md bg-gray-200 inline ml-1' />
     )
   } else if (tokenData === undefined) {
     return <></>
