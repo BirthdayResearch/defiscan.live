@@ -33,20 +33,14 @@ function DetailsTable (props: {
   balances: TokenBalance[]
   mintingOutputsStart: number
 }): JSX.Element {
-  const {
-    fromAddress,
-    balances,
-    mintingOutputsStart
-  } = props
-
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='From' testId='DfTxAccountToUtxos.fromAddress'>
-          {fromAddress ?? 'N/A'}
+          {props.fromAddress ?? 'N/A'}
         </AdaptiveList.Row>
         {
-          balances.map(
+          props.balances.map(
             balance => (
               <AdaptiveList.Row name='Balances' key={`${balance.amount.toString()}`}>
                 <div className='flex flex-row'>
@@ -61,7 +55,7 @@ function DetailsTable (props: {
 
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='Minting Outputs Start' testId='DfTxAccountToUtxos.mintingOutputsStart'>
-          {mintingOutputsStart ?? '-'}
+          {props.mintingOutputsStart ?? '-'}
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
