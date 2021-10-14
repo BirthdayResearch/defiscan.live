@@ -62,10 +62,10 @@ function Stats (): JSX.Element {
             <UnitSuffix
               value={stats.blockchain.difficulty}
               units={{
-                0: 'K',
-                3: 'M',
-                6: 'B',
-                9: 'T'
+                3: 'K',
+                6: 'M',
+                9: 'G',
+                12: 'T'
               }}
             />
           </StatItem>
@@ -81,10 +81,10 @@ function Stats (): JSX.Element {
             <UnitSuffix
               value={stats.burned.total}
               units={{
-                0: 'K',
-                3: 'M',
-                6: 'B',
-                9: 'T'
+                3: 'K',
+                6: 'M',
+                9: 'G',
+                12: 'T'
               }}
             />
           </StatItem>
