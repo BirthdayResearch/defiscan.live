@@ -6,7 +6,6 @@ import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 
 interface TokenSymbolProps {
   tokenId: number
-  timeout?: number
   className?: string
   testId: string
 }
