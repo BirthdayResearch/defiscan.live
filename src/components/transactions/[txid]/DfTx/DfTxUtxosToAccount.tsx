@@ -27,8 +27,7 @@ function DetailsTable (props: { to: ScriptBalances[] }): JSX.Element {
     <div className='w-full lg:w-1/2'>
       {props.to.map(scriptBalances => (
         scriptBalances.balances.map(balance => {
-          const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-          const toAddress = to !== undefined ? `${to.address}` : ''
+          const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
 
           return (
             <AdaptiveList key={balance.amount.toString()}>
