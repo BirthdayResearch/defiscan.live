@@ -20,7 +20,7 @@ context('/transactions/[txid] - DfTx account to utxos on desktop', () => {
   })
 
   it('should have DfTxAccountToUtxos balances', () => {
-    cy.findByTestId('DfTxAccountToUtxos.balances').should('have.text', '361.65527311@DFI')
+    cy.findByTestId('DfTxAccountToUtxos.balances').should('have.text', '361.65527311 DFI')
   })
 
   it('should have DfTxAccountToUtxos mintingOutputsStart', () => {
@@ -50,7 +50,7 @@ context('/transactions/[txid] - DfTx account to utxos on mobile', () => {
   })
 
   it('should have DfTxAccountToUtxos balances', () => {
-    cy.findByTestId('DfTxAccountToUtxos.balances').should('have.text', '361.65527311@DFI')
+    cy.findByTestId('DfTxAccountToUtxos.balances').should('have.text', '361.65527311 DFI')
   })
 
   it('should have DfTxAccountToUtxos mintingOutputsStart', () => {

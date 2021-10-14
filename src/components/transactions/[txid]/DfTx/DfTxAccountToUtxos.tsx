@@ -48,7 +48,7 @@ function DetailsTable (props: {
           balances.map(
             balance => (
               <AdaptiveList.Row name='Balances' testId='DfTxAccountToUtxos.balances' key={`${balance.amount.toString()}`}>
-                {`${balance.amount.toString()}@DFI`}
+                {`${balance.amount.toFixed(8)} DFI`}
               </AdaptiveList.Row>
             )
           )
