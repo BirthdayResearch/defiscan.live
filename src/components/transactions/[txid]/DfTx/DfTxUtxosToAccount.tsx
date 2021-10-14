@@ -3,6 +3,7 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { fromScript } from '@defichain/jellyfish-address'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { useNetworkObject } from '@contexts/NetworkContext'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxUtxoToAccountProps {
   dftx: DfTx<UtxosToAccount>
@@ -20,11 +21,11 @@ export function DfTxUtxosToAccount (props: DfTxUtxoToAccountProps): JSX.Element 
   )
 }
 
-function DetailsTable ({ to }: { to: ScriptBalances[] }): JSX.Element {
+function DetailsTable (props: { to: ScriptBalances[] }): JSX.Element {
   const network = useNetworkObject().name
   return (
     <div className='w-full lg:w-1/2'>
-      {to.map(scriptBalances => (
+      {props.to.map(scriptBalances => (
         scriptBalances.balances.map(balance => {
           const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
           const toAddress = to !== undefined ? `${to.address}` : ''
@@ -34,8 +35,11 @@ function DetailsTable ({ to }: { to: ScriptBalances[] }): JSX.Element {
               <AdaptiveList.Row name='To' testId='DfTxUtxosToAccount.to'>
                 {toAddress}
               </AdaptiveList.Row>
-              <AdaptiveList.Row name='Amount' testId='DfTxUtxosToAccount.toAmount'>
-                {balance.amount !== null ? balance.amount.toFixed(8) : 'N/A'} DFI
+              <AdaptiveList.Row name='Amount'>
+                <div className='flex flex-row'>
+                  <span data-testid='DfTxUtxosToAccount.toAmount'>{balance.amount.toFixed(8)}</span>
+                  <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxUtxosToAccount.toSymbol' />
+                </div>
               </AdaptiveList.Row>
             </AdaptiveList>
           )
