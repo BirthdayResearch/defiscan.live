@@ -4,6 +4,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import BigNumber from 'bignumber.js'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetworkObject } from '@contexts/NetworkContext'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxPoolSwapProps {
   dftx: DfTx<PoolSwap>
@@ -46,22 +47,28 @@ function PoolSwapDetailsTable (props: {
         <AdaptiveList.Row name='From' testId='DfTxPoolSwap.fromAddress'>
           {props.fromAddress ?? 'N/A'}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='ID Token from' testId='DfTxPoolSwap.fromTokenId'>
+        <AdaptiveList.Row name='From ID Token' testId='DfTxPoolSwap.fromTokenId'>
           {props.fromTokenId}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Amount from' testId='DfTxPoolSwap.fromAmount'>
-          {`${props.fromAmount.toString()} DFI`}
+        <AdaptiveList.Row name='From Amount'>
+          <div className='flex flex-row'>
+            <span data-testid='DfTxPoolSwap.fromAmount'>{props.fromAmount.toFixed(8)}</span>
+            <TokenSymbol tokenId={props.fromTokenId} className='ml-1' testId='DfTxPoolSwap.fromAmountSymbol' />
+          </div>
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='To' testId='DfTxPoolSwap.toAddress'>
           {props.toAddress ?? 'N/A'}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='ID Token from' testId='DfTxPoolSwap.toTokenId'>
+        <AdaptiveList.Row name='To ID Token' testId='DfTxPoolSwap.toTokenId'>
           {props.toTokenId}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Max Price' testId='DfTxPoolSwap.maxPrice'>
-          {`${props.maxPrice.toString()} DFI`}
+        <AdaptiveList.Row name='Max Price'>
+          <div className='flex flex-row'>
+            <span data-testid='DfTxPoolSwap.maxPrice'>{props.maxPrice.toFixed(8)}</span>
+            <TokenSymbol tokenId={props.toTokenId} className='ml-1' testId='DfTxPoolSwap.maxPriceSymbol' />
+          </div>
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
