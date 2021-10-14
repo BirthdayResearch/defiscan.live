@@ -1,0 +1,44 @@
+import { DfTx, CreateMasternode } from '@defichain/jellyfish-transaction'
+import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
+import { AdaptiveList } from '@components/commons/AdaptiveList'
+
+interface DfTxCreateMasternodeProps {
+  dftx: DfTx<CreateMasternode>
+}
+
+export function DfTxCreateMasternode (props: DfTxCreateMasternodeProps): JSX.Element {
+  return (
+    <div>
+      <DfTxHeader name='Create Masternode' />
+      <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+        <DetailsTable
+          operatorType={props.dftx.data.operatorType}
+          operatorAuthAddress={props.dftx.data.operatorPubKeyHash}
+        />
+      </div>
+    </div>
+  )
+}
+
+function DetailsTable (props: {
+  operatorType: number
+  operatorAuthAddress: string
+}): JSX.Element {
+  const {
+    operatorType,
+    operatorAuthAddress
+  } = props
+
+  return (
+    <>
+      <AdaptiveList className='w-full lg:w-1/2'>
+        <AdaptiveList.Row name='Operator Type' testId='DfTxCreateMasternode.operatorType'>
+          {operatorType}
+        </AdaptiveList.Row>
+        <AdaptiveList.Row name='Operator Auth Address' testId='DfTxCreateMasternode.operatorAuthAddress'>
+          {operatorAuthAddress}
+        </AdaptiveList.Row>
+      </AdaptiveList>
+    </>
+  )
+}

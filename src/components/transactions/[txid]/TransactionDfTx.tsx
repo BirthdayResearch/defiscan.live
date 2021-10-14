@@ -8,14 +8,20 @@ import {
   CSetOracleData,
   CUtxosToAccount,
   OP_DEFI_TX,
+  CAccountToUtxos,
+  CCreateMasternode,
+  CResignMasternode,
   toOPCodes
 } from '@defichain/jellyfish-transaction'
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 import { DfTxPoolSwap } from '@components/transactions/[txid]/DfTx/DfTxPoolSwap'
 import { DfTxUtxosToAccount } from '@components/transactions/[txid]/DfTx/DfTxUtxosToAccount'
 import { DfTxAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAccountToAccount'
+import { DfTxAccountToUtxos } from '@components/transactions/[txid]/DfTx/DfTxAccountToUtxos'
 import { DfTxAnyAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAnyAccountToAccount'
 import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
+import { DfTxCreateMasternode } from '@components/transactions/[txid]/DfTx/DfTxCreateMasternode'
+import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxResignMasternode'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
 import { DfTxPoolRemoveLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolRemoveLiquidity'
 import { DfTxSetOracleData } from '@components/transactions/[txid]/DfTx/DfTxSetOracleData'
@@ -27,10 +33,6 @@ interface TransactionDfTxProps {
 }
 
 export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | null {
-  if (props.vouts.length !== 2) {
-    return null
-  }
-
   const hex = props.vouts[0].script.hex
   const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
   const stack = toOPCodes(buffer)
@@ -55,6 +57,12 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxAccountToAccount dftx={tx} />
     case CAnyAccountToAccount.OP_CODE:
       return <DfTxAnyAccountToAccount dftx={tx} />
+    case CAccountToUtxos.OP_CODE:
+      return <DfTxAccountToUtxos dftx={tx} />
+    case CCreateMasternode.OP_CODE:
+      return <DfTxCreateMasternode dftx={tx} />
+    case CResignMasternode.OP_CODE:
+      return <DfTxResignMasternode dftx={tx} />
     default:
       return <DfTxUnmapped dftx={tx} />
   }
