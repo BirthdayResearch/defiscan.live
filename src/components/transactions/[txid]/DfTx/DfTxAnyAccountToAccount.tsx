@@ -3,6 +3,7 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetworkObject } from '@contexts/NetworkContext'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxAnyAccountToAccountProps {
   dftx: DfTx<AnyAccountToAccount>
@@ -39,14 +40,20 @@ function DetailsTable (props: {
           from?.map(scriptBalances => (
             scriptBalances.balances.map(balance => {
               const scriptFrom = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-              const scriptFromAddress = scriptFrom !== undefined ? `${scriptFrom.address}` : ''
+              const scriptFromAddress = scriptFrom !== undefined ? `${scriptFrom.address}` : 'N/A'
               return (
                 <AdaptiveList key={balance.amount.toString()}>
                   <AdaptiveList.Row name='From' testId='DfTxAnyAccountToAccount.from'>
                     {`${scriptFromAddress}`}
                   </AdaptiveList.Row>
-                  <AdaptiveList.Row name='Amount' testId='DfTxAnyAccountToAccount.fromAmount'>
-                    {`${balance.amount.toFixed(8)} DFI`}
+                  <AdaptiveList.Row name='Amount'>
+                    <div className='flex flex-row'>
+                      <span data-testid='DfTxAnyAccountToAccount.fromAmount'>{balance.amount.toFixed(8)}</span>
+                      <TokenSymbol
+                        tokenId={balance.token} className='ml-1'
+                        testId='DfTxAnyAccountToAccount.fromSymbol'
+                      />
+                    </div>
                   </AdaptiveList.Row>
                 </AdaptiveList>
               )
@@ -59,15 +66,18 @@ function DetailsTable (props: {
           to?.map(scriptBalances => (
             scriptBalances.balances.map(balance => {
               const to = scriptBalances.script !== undefined ? fromScript(scriptBalances.script, network) : undefined
-              const toAddress = to !== undefined ? `${to.address}` : ''
+              const toAddress = to !== undefined ? `${to.address}` : 'N/A'
 
               return (
                 <AdaptiveList key={balance.amount.toString()}>
                   <AdaptiveList.Row name='To' testId='DfTxAnyAccountToAccount.to'>
                     {`${toAddress}`}
                   </AdaptiveList.Row>
-                  <AdaptiveList.Row name='Amount' testId='DfTxAnyAccountToAccount.toAmount'>
-                    {`${balance.amount.toFixed(8)} DFI`}
+                  <AdaptiveList.Row name='Amount'>
+                    <div className='flex flex-row'>
+                      <span data-testid='DfTxAnyAccountToAccount.toAmount'>{balance.amount.toFixed(8)}</span>
+                      <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAnyAccountToAccount.toSymbol' />
+                    </div>
                   </AdaptiveList.Row>
                 </AdaptiveList>
               )
