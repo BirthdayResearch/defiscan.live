@@ -1,7 +1,8 @@
 import { Link } from '@components/commons/Link'
+import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { PropsWithChildren } from 'react'
-import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube } from 'react-icons/fa'
+import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube, FaWeixin } from 'react-icons/fa'
 import { Container } from '@components/commons/Container'
 import { NetlifyLightLogo } from '@components/icons/NetlifyLightLogo'
 
@@ -36,12 +37,30 @@ export function Footer (): JSX.Element {
 }
 
 function FooterSectionSocial (): JSX.Element {
-  function FooterSocialRow (props: PropsWithChildren<{ url: string, text: string }>): JSX.Element {
+  function FooterSocialRow (props: PropsWithChildren<{}>): JSX.Element {
     return (
       <div className='flex flex-row space-x-2 py-2 items-center w-1/2'>
         {props.children}
-        <FooterExternalLink url={props.url} text={props.text} />
       </div>
+    )
+  }
+  function FooterSocialRowWithLink (props: PropsWithChildren<{ url: string, text: string }>): JSX.Element {
+    return (
+      <FooterSocialRow>
+        {props.children}
+        <FooterExternalLink url={props.url} text={props.text} />
+      </FooterSocialRow>
+    )
+  }
+
+  function WeChatQR (): JSX.Element {
+    return (
+      <div
+        className='p-3 font-normal text-sm bg-white text-black rounded shadow-md ring-1 ring-gray-200 max-w-xs'
+      >
+        <img src='/img/social/defichain_wechat.jpg' alt='wechat' />
+      </div>
+
     )
   }
 
@@ -49,27 +68,35 @@ function FooterSectionSocial (): JSX.Element {
     <section>
       <h3 className='text-2xl font-semibold'>Social</h3>
       <div className='flex flex-wrap mt-3'>
-        <FooterSocialRow url='https://twitter.com/defichain' text='Twitter'>
+        <FooterSocialRowWithLink url='https://twitter.com/defichain' text='Twitter'>
           <FaTwitterSquare size={24} />
-        </FooterSocialRow>
-        <FooterSocialRow url='https://github.com/DeFiCh/ain' text='Github'>
+        </FooterSocialRowWithLink>
+        <HoverPopover
+          popover={<WeChatQR />}
+        >
+          <FooterSocialRow>
+            <div><FaWeixin size={24} /></div>
+            <span className='text-lg'>WeChat</span>
+          </FooterSocialRow>
+        </HoverPopover>
+        <FooterSocialRowWithLink url='https://github.com/DeFiCh/ain' text='Github'>
           <FaGithub size={24} />
-        </FooterSocialRow>
-        <FooterSocialRow url='https://www.youtube.com/DeFiChain' text='Youtube'>
+        </FooterSocialRowWithLink>
+        <FooterSocialRowWithLink url='https://www.youtube.com/DeFiChain' text='Youtube'>
           <FaYoutube size={24} />
-        </FooterSocialRow>
-        <FooterSocialRow url='https://www.linkedin.com/company/defichain' text='Linkedin'>
+        </FooterSocialRowWithLink>
+        <FooterSocialRowWithLink url='https://www.linkedin.com/company/defichain' text='Linkedin'>
           <FaLinkedin size={24} />
-        </FooterSocialRow>
-        <FooterSocialRow url='https://www.reddit.com/r/defiblockchain/' text='Reddit'>
+        </FooterSocialRowWithLink>
+        <FooterSocialRowWithLink url='https://www.reddit.com/r/defiblockchain/' text='Reddit'>
           <FaReddit size={24} />
-        </FooterSocialRow>
-        <FooterSocialRow url='https://www.facebook.com/defichain.official' text='Facebook'>
+        </FooterSocialRowWithLink>
+        <FooterSocialRowWithLink url='https://www.facebook.com/defichain.official' text='Facebook'>
           <FaFacebook size={24} />
-        </FooterSocialRow>
-        <FooterSocialRow url='https://t.me/defiblockchain' text='Telegram'>
+        </FooterSocialRowWithLink>
+        <FooterSocialRowWithLink url='https://t.me/defiblockchain' text='Telegram'>
           <FaTelegram size={24} />
-        </FooterSocialRow>
+        </FooterSocialRowWithLink>
       </div>
     </section>
   )
