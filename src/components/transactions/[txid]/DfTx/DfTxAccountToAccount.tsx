@@ -17,51 +17,52 @@ export function DfTxAccountToAccount (props: DfTxAccountToAccountProps): JSX.Ele
     <div>
       <DfTxHeader name='Account To Account' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <DetailsTable
-          fromAddress={from?.address}
-          to={props.dftx.data.to}
-        />
+        <DetailsFromTable fromAddress={from?.address} />
+        <DetailsToTable to={props.dftx.data.to} />
       </div>
     </div>
   )
 }
 
-function DetailsTable (props: {
+function DetailsFromTable (props: {
   fromAddress?: string
+}): JSX.Element {
+  return (
+    <AdaptiveList className='w-full lg:w-1/2'>
+      <AdaptiveList.Row name='From' testId='DfTxAccountToAccount.fromAddress'>
+        {props.fromAddress ?? 'N/A'}
+      </AdaptiveList.Row>
+    </AdaptiveList>
+  )
+}
+
+function DetailsToTable (props: {
   to: ScriptBalances[]
 }): JSX.Element {
   const network = useNetworkObject().name
 
   return (
-    <>
-      <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='From' testId='DfTxAccountToAccount.fromAddress'>
-          {props.fromAddress ?? 'N/A'}
-        </AdaptiveList.Row>
-      </AdaptiveList>
-      <div className='w-full lg:w-1/2'>
-        {
-          props.to.map(scriptBalances => (
-            scriptBalances.balances.map(balance => {
-              const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
-
+    <div className='w-full lg:w-1/2'>
+      {props.to.map(scriptBalances => {
+        const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
+        return (
+          <AdaptiveList key={toAddress} className='mb-1'>
+            <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
+              {toAddress}
+            </AdaptiveList.Row>
+            {scriptBalances.balances.map(balance => {
               return (
-                <AdaptiveList key={balance.amount.toString()}>
-                  <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
-                    {`${toAddress}`}
-                  </AdaptiveList.Row>
-                  <AdaptiveList.Row name='Amount'>
-                    <div className='flex flex-row'>
-                      <span data-testid='DfTxAccountToAccount.toAmount'>{balance.amount.toFixed(8)}</span>
-                      <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAccountToAccount.toSymbol' />
-                    </div>
-                  </AdaptiveList.Row>
-                </AdaptiveList>
+                <AdaptiveList.Row name='Amount' key={`${balance.amount.toString()}-${balance.token}`}>
+                  <div className='flex flex-row'>
+                    <span data-testid='DfTxAccountToAccount.toAmount'>{balance.amount.toFixed(8)}</span>
+                    <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAccountToAccount.toSymbol' />
+                  </div>
+                </AdaptiveList.Row>
               )
-            })
-          ))
-        }
-      </div>
-    </>
+            })}
+          </AdaptiveList>
+        )
+      })}
+    </div>
   )
 }
