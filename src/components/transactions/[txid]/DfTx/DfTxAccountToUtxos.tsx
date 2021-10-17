@@ -11,24 +11,27 @@ interface DfTxAccountToUtxosProps {
 
 export function DfTxAccountToUtxos (props: DfTxAccountToUtxosProps): JSX.Element {
   const network = useNetworkObject().name
-
   const from = props.dftx.data.from !== undefined ? fromScript(props.dftx.data.from, network) : undefined
 
   return (
     <div>
       <DfTxHeader name='Account To Utxos' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <DetailsTable
-          fromAddress={from?.address}
-          mintingOutputsStart={props.dftx.data.mintingOutputsStart}
-        />
-        <AdaptiveList className='w-full lg:w-1/2'>
-          {props.dftx.data.balances.map(
-            balance => (
-              <BalanceRow balance={balance} key={`${balance.amount.toString()}-${balance.token}`} />
-            )
-          )}
-        </AdaptiveList>
+        <div className='w-full lg:w-1/2'>
+          <DetailsTable
+            fromAddress={from?.address}
+            mintingOutputsStart={props.dftx.data.mintingOutputsStart}
+          />
+        </div>
+        <div className='w-full lg:w-1/2'>
+          <AdaptiveList>
+            {props.dftx.data.balances.map(
+              balance => (
+                <BalanceRow balance={balance} key={`${balance.amount.toString()}-${balance.token}`} />
+              )
+            )}
+          </AdaptiveList>
+        </div>
       </div>
     </div>
   )
@@ -39,7 +42,7 @@ function DetailsTable (props: {
   mintingOutputsStart: number
 }): JSX.Element {
   return (
-    <AdaptiveList className='w-full lg:w-1/2'>
+    <AdaptiveList>
       <AdaptiveList.Row name='From' testId='DfTxAccountToUtxos.fromAddress'>
         {props.fromAddress ?? 'N/A'}
       </AdaptiveList.Row>

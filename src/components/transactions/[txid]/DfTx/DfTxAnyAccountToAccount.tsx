@@ -20,7 +20,6 @@ export function DfTxAnyAccountToAccount (props: DfTxAnyAccountToAccountProps): J
         <div className='w-full lg:w-1/2'>
           {props.dftx.data.from.map(scriptBalances => {
             const scriptFromAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
-
             return (
               <AdaptiveList key={`from-${scriptFromAddress}`} className='mb-1'>
                 <AdaptiveList.Row name='From' testId='DfTxAnyAccountToAccount.from'>
@@ -39,7 +38,6 @@ export function DfTxAnyAccountToAccount (props: DfTxAnyAccountToAccountProps): J
         <div className='w-full lg:w-1/2'>
           {props.dftx.data.to.map(scriptBalances => {
             const scriptToAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
-
             return (
               <AdaptiveList key={`to-${scriptToAddress}`} className='mb-1'>
                 <AdaptiveList.Row name='To' testId='DfTxAnyAccountToAccount.to'>

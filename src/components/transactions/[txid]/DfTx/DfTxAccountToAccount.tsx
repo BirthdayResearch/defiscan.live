@@ -18,7 +18,9 @@ export function DfTxAccountToAccount (props: DfTxAccountToAccountProps): JSX.Ele
     <div>
       <DfTxHeader name='Account To Account' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <FromTable fromAddress={from?.address} />
+        <div className='w-full lg:w-1/2'>
+          <FromTable fromAddress={from?.address} />
+        </div>
         <div className='w-full lg:w-1/2'>
           {props.dftx.data.to.map(scriptBalances => {
             const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
@@ -45,7 +47,7 @@ function FromTable (props: {
   fromAddress?: string
 }): JSX.Element {
   return (
-    <AdaptiveList className='w-full lg:w-1/2'>
+    <AdaptiveList>
       <AdaptiveList.Row name='From' testId='DfTxAccountToAccount.fromAddress'>
         {props.fromAddress ?? 'N/A'}
       </AdaptiveList.Row>
