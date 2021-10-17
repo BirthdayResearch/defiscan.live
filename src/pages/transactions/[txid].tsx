@@ -72,45 +72,43 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
   const txid = context.params?.txid as string
 
-  let transaction: Transaction | undefined
-
-  try {
-    transaction = await api.transactions.get(txid)
-  } catch (WhaleApiException) {
-    transaction = undefined
+  // Will improve with newer iteration of whale api
+  async function getVins (): Promise<TransactionVin[]> {
+    const vins: TransactionVin[] = []
+    let vinsResponse = await api.transactions.getVins(txid, 100)
+    vins.push(...vinsResponse)
+    while (vinsResponse.hasNext) {
+      vinsResponse = await api.transactions.getVins(txid, 100, vinsResponse.nextToken)
+      vins.push(...vinsResponse)
+    }
+    return vins
   }
 
-  if (transaction === undefined) {
+  async function getVouts (): Promise<TransactionVout[]> {
+    const vouts: TransactionVout[] = []
+    let voutsResponse = await api.transactions.getVouts(txid, 100)
+    vouts.push(...voutsResponse)
+    while (voutsResponse.hasNext) {
+      voutsResponse = await api.transactions.getVouts(txid, 100, voutsResponse.nextToken)
+      vouts.push(...voutsResponse)
+    }
+    return vouts
+  }
+
+  try {
+    return {
+      props: {
+        txid: txid,
+        transaction: await api.transactions.get(txid),
+        vins: await getVins(),
+        vouts: await getVouts()
+      }
+    }
+  } catch (e) {
     return {
       props: {
         txid: txid
       }
-    }
-  }
-
-  // Will improve with newer iteration of whale api
-  const vins: TransactionVin[] = []
-  let vinsResponse = await api.transactions.getVins(txid, 60)
-  vins.push(...vinsResponse)
-  while (vinsResponse.hasNext) {
-    vinsResponse = await api.transactions.getVins(txid, 60, vinsResponse.nextToken)
-    vins.push(...vinsResponse)
-  }
-
-  const vouts: TransactionVout[] = []
-  let voutsResponse = await api.transactions.getVouts(txid, 60)
-  vouts.push(...voutsResponse)
-  while (voutsResponse.hasNext) {
-    voutsResponse = await api.transactions.getVouts(txid, 60, voutsResponse.nextToken)
-    vouts.push(...voutsResponse)
-  }
-
-  return {
-    props: {
-      txid,
-      transaction,
-      vins,
-      vouts
     }
   }
 }
