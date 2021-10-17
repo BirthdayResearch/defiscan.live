@@ -22,9 +22,13 @@ export function DfTxAccountToUtxos (props: DfTxAccountToUtxosProps): JSX.Element
           fromAddress={from?.address}
           mintingOutputsStart={props.dftx.data.mintingOutputsStart}
         />
-        <BalancesTable
-          balances={props.dftx.data.balances}
-        />
+        <AdaptiveList className='w-full lg:w-1/2'>
+          {props.dftx.data.balances.map(
+            balance => (
+              <BalanceRow balance={balance} key={`${balance.amount.toString()}-${balance.token}`} />
+            )
+          )}
+        </AdaptiveList>
       </div>
     </div>
   )
@@ -46,21 +50,15 @@ function DetailsTable (props: {
   )
 }
 
-function BalancesTable (props: {
-  balances: TokenBalance[]
+function BalanceRow (props: {
+  balance: TokenBalance
 }): JSX.Element {
   return (
-    <AdaptiveList className='w-full lg:w-1/2'>
-      {props.balances.map(
-        balance => (
-          <AdaptiveList.Row name='Balances' key={`${balance.amount.toString()}`}>
-            <div className='flex flex-row'>
-              <span data-testid='DfTxAccountToUtxos.balances'>{balance.amount.toFixed(8)}</span>
-              <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAccountToUtxos.symbol' />
-            </div>
-          </AdaptiveList.Row>
-        )
-      )}
-    </AdaptiveList>
+    <AdaptiveList.Row name='Balance'>
+      <div className='flex flex-row'>
+        <span data-testid='DfTxAccountToUtxos.balances'>{props.balance.amount.toFixed(8)}</span>
+        <TokenSymbol tokenId={props.balance.token} className='ml-1' testId='DfTxAccountToUtxos.symbol' />
+      </div>
+    </AdaptiveList.Row>
   )
 }
