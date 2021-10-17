@@ -4,6 +4,7 @@ import { format, fromUnixTime } from 'date-fns'
 
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
+import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 
 interface DfTxSetOracleDataProps {
   dftx: DfTx<SetOracleData>
@@ -14,7 +15,12 @@ export function DfTxSetOracleData (props: DfTxSetOracleDataProps): JSX.Element {
     <div>
       <DfTxHeader name='Set Oracle Data' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <SetOracleDataTable
+        <SetOracleDataDetails
+          oracleId={props.dftx.data.oracleId}
+          timestamp={props.dftx.data.timestamp}
+          tokens={props.dftx.data.tokens}
+        />
+        <SetOracleDataTokenList
           oracleId={props.dftx.data.oracleId}
           timestamp={props.dftx.data.timestamp}
           tokens={props.dftx.data.tokens}
@@ -24,7 +30,7 @@ export function DfTxSetOracleData (props: DfTxSetOracleDataProps): JSX.Element {
   )
 }
 
-function SetOracleDataTable (props: { oracleId: string, timestamp: BigNumber, tokens: TokenPrice[] }): JSX.Element {
+function SetOracleDataDetails (props: { oracleId: string, timestamp: BigNumber, tokens: TokenPrice[] }): JSX.Element {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
@@ -35,25 +41,48 @@ function SetOracleDataTable (props: { oracleId: string, timestamp: BigNumber, to
           {format(fromUnixTime(props.timestamp.toNumber()), 'PPpp')}
         </AdaptiveList.Row>
       </AdaptiveList>
-      <AdaptiveList className='w-full lg:w-1/2'>
-        {props.tokens.map(token => (
-          <AdaptiveList.Row
-            key={`${token.token}amount`} name={`Token ${token.token} Amount`}
-            testId={`DfTxSetOracleData.${token.token}Amount`}
-          >
-            {token.prices[0].amount.toFixed(8)} {token.token}
-          </AdaptiveList.Row>
-        ))}
+    </>
+  )
+}
 
-        {props.tokens.map(token => (
-          <AdaptiveList.Row
-            key={`${token.token}currency`} name={`Token ${token.token} Currency`}
-            testId={`DfTxSetOracleData.${token.token}Currency`}
-          >
-            {token.prices[0].currency}
-          </AdaptiveList.Row>
-        ))}
-      </AdaptiveList>
+function SetOracleDataTokenList (props: { oracleId: string, timestamp: BigNumber, tokens: TokenPrice[] }): JSX.Element {
+  if (props.tokens.length === 0) {
+    return (
+      <div className='w-full lg:w-1/2 rounded-lg border border-gray-100'>
+        <div className='text-center p-3'>
+          No Tokens
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <AdaptiveTable className='w-full lg:w-1/2'>
+        <AdaptiveTable.Header>
+          <AdaptiveTable.Head>TOKEN</AdaptiveTable.Head>
+          <AdaptiveTable.Head>AMOUNT</AdaptiveTable.Head>
+          <AdaptiveTable.Head>CURRENCY</AdaptiveTable.Head>
+        </AdaptiveTable.Header>
+
+        {props.tokens.map(token => {
+          return (
+            <AdaptiveTable.Row key={token.token}>
+              <AdaptiveTable.Cell title='TOKEN' className='align-middle'>
+                <div className='flex items-center' data-testid='DfTxSetOracleData.Token'>
+                  {token.token}
+                </div>
+              </AdaptiveTable.Cell>
+              <AdaptiveTable.Cell title='AMOUNT' className='align-middle'>
+                <span data-testid='DfTxSetOracleData.Amount'>{token.prices[0].amount.toFixed(8)}</span>
+              </AdaptiveTable.Cell>
+              <AdaptiveTable.Cell title='CURRENCY' className='align-middle'>
+                <span data-testid='DfTxSetOracleData.Currency'>{token.prices[0].currency}</span>
+              </AdaptiveTable.Cell>
+            </AdaptiveTable.Row>
+          )
+        })}
+      </AdaptiveTable>
     </>
   )
 }
