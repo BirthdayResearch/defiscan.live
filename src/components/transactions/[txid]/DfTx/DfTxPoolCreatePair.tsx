@@ -19,7 +19,6 @@ export function DfTxPoolCreatePair (props: DfTxPoolCreatePairProps): JSX.Element
     <div>
       <DfTxHeader name='Pool Create Pair' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-
         <PoolCreatePairDetailsTable
           tokenA={props.dftx.data.tokenA}
           tokenB={props.dftx.data.tokenB}
