@@ -48,11 +48,7 @@ function SetOracleDataDetails (props: { oracleId: string, timestamp: BigNumber, 
 function SetOracleDataTokenList (props: { oracleId: string, timestamp: BigNumber, tokens: TokenPrice[] }): JSX.Element {
   if (props.tokens.length === 0) {
     return (
-      <div className='w-full lg:w-1/2 rounded-lg border border-gray-100'>
-        <div className='text-center p-3'>
-          No Tokens
-        </div>
-      </div>
+      <></>
     )
   }
 
