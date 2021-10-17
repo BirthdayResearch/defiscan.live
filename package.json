@@ -15,8 +15,8 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
-    "@defichain/jellyfish-address": "0.47.0",
-    "@defichain/jellyfish-transaction": "0.47.0",
+    "@defichain/jellyfish-address": "0.47.1",
+    "@defichain/jellyfish-transaction": "0.47.1",
     "@defichain/playground-api-client": "0.10.0",
     "@defichain/whale-api-client": "0.11.4",
     "@headlessui/react": "^1.4.1",
