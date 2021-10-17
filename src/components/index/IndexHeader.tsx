@@ -8,12 +8,12 @@ import { PropsWithChildren } from 'react'
 export function IndexHeader (): JSX.Element {
   return (
     <div
-      className='h-60 flex flex-col items-center'
+      className='flex flex-col items-center'
       style={{ backgroundImage: 'linear-gradient(to bottom left, #FFFFFF, #fff7f4,  #f7e6f0' }}
     >
       <Container className='h-full'>
         <div className='h-full flex items-center'>
-          <h1 className='text-4xl font-semibold -mt-4 py-4' data-testid='Header.title'>
+          <h1 className='text-3xl lg:text-4xl font-semibold py-12 md:py-16' data-testid='Header.title'>
             DeFiChain Blockchain Explorer
           </h1>
         </div>
