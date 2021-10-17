@@ -1,9 +1,10 @@
-import { DfTx, AccountToAccount, ScriptBalances } from '@defichain/jellyfish-transaction'
+import { DfTx, AccountToAccount } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetworkObject } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenBalance } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance'
 
 interface DfTxAccountToAccountProps {
   dftx: DfTx<AccountToAccount>
@@ -17,14 +18,30 @@ export function DfTxAccountToAccount (props: DfTxAccountToAccountProps): JSX.Ele
     <div>
       <DfTxHeader name='Account To Account' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <DetailsFromTable fromAddress={from?.address} />
-        <DetailsToTable to={props.dftx.data.to} />
+        <FromTable fromAddress={from?.address} />
+        <div className='w-full lg:w-1/2'>
+          {props.dftx.data.to.map(scriptBalances => {
+            const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
+            return (
+              <AdaptiveList key={toAddress} className='mb-1'>
+                <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
+                  {toAddress}
+                </AdaptiveList.Row>
+                {scriptBalances.balances.map(balance => {
+                  return (
+                    <BalanceRow balance={balance} key={`${balance.amount.toString()}-${balance.token}`} />
+                  )
+                })}
+              </AdaptiveList>
+            )
+          })}
+        </div>
       </div>
     </div>
   )
 }
 
-function DetailsFromTable (props: {
+function FromTable (props: {
   fromAddress?: string
 }): JSX.Element {
   return (
@@ -36,33 +53,15 @@ function DetailsFromTable (props: {
   )
 }
 
-function DetailsToTable (props: {
-  to: ScriptBalances[]
+function BalanceRow (props: {
+  balance: TokenBalance
 }): JSX.Element {
-  const network = useNetworkObject().name
-
   return (
-    <div className='w-full lg:w-1/2'>
-      {props.to.map(scriptBalances => {
-        const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
-        return (
-          <AdaptiveList key={toAddress} className='mb-1'>
-            <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
-              {toAddress}
-            </AdaptiveList.Row>
-            {scriptBalances.balances.map(balance => {
-              return (
-                <AdaptiveList.Row name='Amount' key={`${balance.amount.toString()}-${balance.token}`}>
-                  <div className='flex flex-row'>
-                    <span data-testid='DfTxAccountToAccount.toAmount'>{balance.amount.toFixed(8)}</span>
-                    <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAccountToAccount.toSymbol' />
-                  </div>
-                </AdaptiveList.Row>
-              )
-            })}
-          </AdaptiveList>
-        )
-      })}
-    </div>
+    <AdaptiveList.Row name='Amount'>
+      <div className='flex flex-row'>
+        <span data-testid='DfTxAccountToAccount.toAmount'>{props.balance.amount.toFixed(8)}</span>
+        <TokenSymbol tokenId={props.balance.token} className='ml-1' testId='DfTxAccountToAccount.toSymbol' />
+      </div>
+    </AdaptiveList.Row>
   )
 }
