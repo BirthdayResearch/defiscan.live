@@ -21,6 +21,8 @@ export function DfTxAccountToUtxos (props: DfTxAccountToUtxosProps): JSX.Element
         <DetailsTable
           fromAddress={from?.address}
           mintingOutputsStart={props.dftx.data.mintingOutputsStart}
+        />
+        <BalancesTable
           balances={props.dftx.data.balances}
         />
       </div>
@@ -30,34 +32,35 @@ export function DfTxAccountToUtxos (props: DfTxAccountToUtxosProps): JSX.Element
 
 function DetailsTable (props: {
   fromAddress?: string
-  balances: TokenBalance[]
   mintingOutputsStart: number
 }): JSX.Element {
   return (
-    <>
-      <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='From' testId='DfTxAccountToUtxos.fromAddress'>
-          {props.fromAddress ?? 'N/A'}
-        </AdaptiveList.Row>
-        {
-          props.balances.map(
-            balance => (
-              <AdaptiveList.Row name='Balances' key={`${balance.amount.toString()}`}>
-                <div className='flex flex-row'>
-                  <span data-testid='DfTxAccountToUtxos.balances'>{balance.amount.toFixed(8)}</span>
-                  <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAccountToUtxos.symbol' />
-                </div>
-              </AdaptiveList.Row>
-            )
-          )
-        }
-      </AdaptiveList>
+    <AdaptiveList className='w-full lg:w-1/2'>
+      <AdaptiveList.Row name='From' testId='DfTxAccountToUtxos.fromAddress'>
+        {props.fromAddress ?? 'N/A'}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Minting Outputs Start' testId='DfTxAccountToUtxos.mintingOutputsStart'>
+        {props.mintingOutputsStart ?? '-'}
+      </AdaptiveList.Row>
+    </AdaptiveList>
+  )
+}
 
-      <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='Minting Outputs Start' testId='DfTxAccountToUtxos.mintingOutputsStart'>
-          {props.mintingOutputsStart ?? '-'}
-        </AdaptiveList.Row>
-      </AdaptiveList>
-    </>
+function BalancesTable (props: {
+  balances: TokenBalance[]
+}): JSX.Element {
+  return (
+    <AdaptiveList className='w-full lg:w-1/2'>
+      {props.balances.map(
+        balance => (
+          <AdaptiveList.Row name='Balances' key={`${balance.amount.toString()}`}>
+            <div className='flex flex-row'>
+              <span data-testid='DfTxAccountToUtxos.balances'>{balance.amount.toFixed(8)}</span>
+              <TokenSymbol tokenId={balance.token} className='ml-1' testId='DfTxAccountToUtxos.symbol' />
+            </div>
+          </AdaptiveList.Row>
+        )
+      )}
+    </AdaptiveList>
   )
 }
