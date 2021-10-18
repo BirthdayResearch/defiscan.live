@@ -41,10 +41,6 @@ interface TransactionDfTxProps {
 }
 
 export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | null {
-  if (props.vouts.length !== 2) {
-    return null
-  }
-
   const hex = props.vouts[0].script.hex
   const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
   const stack = toOPCodes(buffer)
