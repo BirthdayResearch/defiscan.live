@@ -34,12 +34,12 @@ function TransactionDetails (props: {
   totalVoutValue: string
 }): JSX.Element {
   return (
-    <div className='p-4 pb-3 border border-gray-200 cursor-pointer'>
+    <div className='p-4 pb-3 border border-gray-200'>
       <div className='w-full flex flex-wrap justify-between'>
         <div className='flex w-1/2 sm:w-4/6 xl:w-3/4 2xl:w-4/5'>
           <Link href={{ pathname: `/transactions/${props.txid}` }}>
             <a
-              className='text-gray-900 font-medium overflow-ellipsis overflow-hidden'
+              className='text-gray-900 hover:text-primary-500 font-medium overflow-ellipsis overflow-hidden'
             >{props.txid}
             </a>
           </Link>
