@@ -77,7 +77,7 @@ function PoolCreatePairDetailsTable (props: {
 }
 
 function PoolCreatePairList (props: { customRewards: TokenBalance[] }): JSX.Element {
-  if (props.customRewards.length === 0) {
+  if (props.customRewards === undefined || props.customRewards.length === 0) {
     return (
       <></>
     )
