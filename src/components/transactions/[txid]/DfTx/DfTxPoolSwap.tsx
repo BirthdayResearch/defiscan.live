@@ -4,6 +4,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import BigNumber from 'bignumber.js'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetworkObject } from '@contexts/NetworkContext'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxPoolSwapProps {
   dftx: DfTx<PoolSwap>
@@ -46,22 +47,28 @@ function PoolSwapDetailsTable (props: {
         <AdaptiveList.Row name='From' testId='DfTxPoolSwap.fromAddress'>
           {props.fromAddress ?? 'N/A'}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='ID Token from' testId='DfTxPoolSwap.fromTokenId'>
-          {props.fromTokenId}
+        <AdaptiveList.Row name='Token'>
+          <div className='flex flex-row'>
+            <TokenSymbol tokenId={props.fromTokenId} testId='DfTxPoolSwap.fromAmountSymbol' />
+            <span className='ml-1' data-testid='DfTxPoolSwap.fromTokenId'>(ID: {props.fromTokenId})</span>
+          </div>
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Amount from' testId='DfTxPoolSwap.fromAmount'>
-          {`${props.fromAmount.toString()} DFI`}
+        <AdaptiveList.Row name='Amount'>
+          <span data-testid='DfTxPoolSwap.fromAmount'>{props.fromAmount.toFixed(8)}</span>
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='To' testId='DfTxPoolSwap.toAddress'>
           {props.toAddress ?? 'N/A'}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='ID Token from' testId='DfTxPoolSwap.toTokenId'>
-          {props.toTokenId}
+        <AdaptiveList.Row name='Token'>
+          <div className='flex flex-row'>
+            <TokenSymbol tokenId={props.toTokenId} testId='DfTxPoolSwap.maxPriceSymbol' />
+            <span className='ml-1' data-testid='DfTxPoolSwap.toTokenId'>(ID: {props.toTokenId})</span>
+          </div>
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Max Price' testId='DfTxPoolSwap.maxPrice'>
-          {`${props.maxPrice.toString()} DFI`}
+        <AdaptiveList.Row name='Max Price'>
+          <span data-testid='DfTxPoolSwap.maxPrice'>{props.maxPrice.toFixed(8)}</span>
         </AdaptiveList.Row>
       </AdaptiveList>
     </>

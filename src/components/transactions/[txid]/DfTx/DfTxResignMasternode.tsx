@@ -19,18 +19,12 @@ export function DfTxResignMasternode (props: DfTxResignMasternodeProps): JSX.Ele
   )
 }
 
-function DetailsTable (props: {
-  nodeId: string
-}): JSX.Element {
-  const {
-    nodeId
-  } = props
-
+function DetailsTable (props: { nodeId: string }): JSX.Element {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='Node Id' testId='DfTxResignMasternode.nodeId'>
-          {nodeId}
+          {props.nodeId}
         </AdaptiveList.Row>
       </AdaptiveList>
     </>

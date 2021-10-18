@@ -24,19 +24,14 @@ function DetailsTable (props: {
   operatorType: number
   operatorAuthAddress: string
 }): JSX.Element {
-  const {
-    operatorType,
-    operatorAuthAddress
-  } = props
-
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='Operator Type' testId='DfTxCreateMasternode.operatorType'>
-          {operatorType}
+          {props.operatorType}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Operator Auth Address' testId='DfTxCreateMasternode.operatorAuthAddress'>
-          {operatorAuthAddress}
+          {props.operatorAuthAddress}
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
