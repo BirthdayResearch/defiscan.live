@@ -33,7 +33,7 @@ export function DfTxAppointOracle (props: DfTxAppointOracleProps): JSX.Element {
                 <OverflowTable.Head>Currency</OverflowTable.Head>
               </OverflowTable.Header>
               {props.dftx.data.priceFeeds.map((priceFeed) => (
-                <AppointOracleRow priceFeed={priceFeed} key={`${priceFeed.token}-${priceFeed.currency}`} />
+                <AppointOracleTableRow priceFeed={priceFeed} key={`${priceFeed.token}-${priceFeed.currency}`} />
               )
               )}
             </OverflowTable>
@@ -44,7 +44,7 @@ export function DfTxAppointOracle (props: DfTxAppointOracleProps): JSX.Element {
   )
 }
 
-function AppointOracleRow (props: { priceFeed: CurrencyPair }): JSX.Element {
+function AppointOracleTableRow (props: { priceFeed: CurrencyPair }): JSX.Element {
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
