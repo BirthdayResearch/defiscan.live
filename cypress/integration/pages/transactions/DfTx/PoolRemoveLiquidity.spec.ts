@@ -20,7 +20,7 @@ context('/transactions/[txid] - DfTx Pool Remove Liquidity on desktop', () => {
   })
 
   it('should have DfTxPoolRemoveLiquidity Token ID', () => {
-    cy.findByTestId('DfTxPoolRemoveLiquidity.Token').should('have.text', '6')
+    cy.findByTestId('DfTxPoolRemoveLiquidity.Token').should('have.text', '(ID: 6)')
   })
 
   it('should have DfTxPoolRemoveLiquidity Amount', () => {
@@ -54,7 +54,7 @@ context('/transactions/[txid] - DfTx Pool Removed Liquidity on mobile', () => {
   })
 
   it('should have DfTxPoolRemoveLiquidity Token ID', () => {
-    cy.findByTestId('DfTxPoolRemoveLiquidity.Token').should('have.text', '6')
+    cy.findByTestId('DfTxPoolRemoveLiquidity.Token').should('have.text', '(ID: 6)')
   })
 
   it('should have DfTxPoolRemoveLiquidity Amount', () => {
