@@ -12,7 +12,7 @@ interface TransactionSummaryTableProps {
   vouts: TransactionVout[]
   fee: BigNumber
   feeRate: BigNumber
-  isCustomTransaction: boolean
+  isDeFiTransaction: boolean
 }
 
 export function TransactionSummaryTable (props: TransactionSummaryTableProps): JSX.Element {
@@ -21,7 +21,7 @@ export function TransactionSummaryTable (props: TransactionSummaryTableProps): J
       <SummaryTableListLeft transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={props.fee} />
       <SummaryTableListRight
         transaction={props.transaction} vins={props.vins} vouts={props.vouts}
-        feeRate={props.feeRate} isCustomTransaction={props.isCustomTransaction}
+        feeRate={props.feeRate} isDeFiTransaction={props.isDeFiTransaction}
       />
     </div>
   )
@@ -59,7 +59,7 @@ function SummaryTableListLeft (props: {
   )
 }
 
-function SummaryTableListRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], feeRate: BigNumber, isCustomTransaction: boolean }): JSX.Element {
+function SummaryTableListRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], feeRate: BigNumber, isDeFiTransaction: boolean }): JSX.Element {
   const blockTime = format(fromUnixTime(props.transaction.block.medianTime), 'PPpp')
 
   return (
@@ -73,8 +73,8 @@ function SummaryTableListRight (props: { transaction: Transaction, vins: Transac
       <AdaptiveList.Row name='Received Time' testId='transaction-detail-received-time'>
         {blockTime}
       </AdaptiveList.Row>
-      <AdaptiveList.Row name='Custom Transaction' testId='transaction-custom'>
-        {props.isCustomTransaction ? 'Yes' : 'No'}
+      <AdaptiveList.Row name='DeFi Transaction' testId='transaction-custom'>
+        {props.isDeFiTransaction ? 'Yes' : 'No'}
       </AdaptiveList.Row>
     </AdaptiveList>
   )

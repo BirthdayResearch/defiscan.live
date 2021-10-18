@@ -33,7 +33,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
   }
 
   const dftx: DfTx<any> | undefined = getDfTx(props.vouts)
-  const isCustomTransaction = dftx !== undefined
+  const isDeFiTransaction = dftx !== undefined
   const fee = getTransactionFee(props.transaction, props.vins, dftx)
   const feeRate = fee.dividedBy(props.transaction.size)
 
@@ -46,7 +46,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
         vouts={props.vouts}
         fee={fee}
         feeRate={feeRate}
-        isCustomTransaction={isCustomTransaction}
+        isDeFiTransaction={isDeFiTransaction}
       />
       <TransactionVinVout
         transaction={props.transaction}
