@@ -48,11 +48,8 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
         vouts={props.vouts}
         fee={fee}
       />
-
       <TransactionDfTx
-        transaction={props.transaction}
-        vins={props.vins}
-        vouts={props.vouts}
+        dftx={dftx}
       />
     </Container>
   )
