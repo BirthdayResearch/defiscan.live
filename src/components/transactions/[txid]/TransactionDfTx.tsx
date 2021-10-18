@@ -1,4 +1,3 @@
-import { SmartBuffer } from 'smart-buffer'
 import {
   CAccountToAccount,
   CAccountToUtxos,
@@ -14,10 +13,8 @@ import {
   CSetOracleData,
   CTokenCreate,
   CUtxosToAccount,
-  OP_DEFI_TX,
-  toOPCodes
+  DfTx
 } from '@defichain/jellyfish-transaction'
-import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
 import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
 import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxResignMasternode'
@@ -35,51 +32,44 @@ import { DfTxAppointOracle } from '@components/transactions/[txid]/DfTx/DfTxAppo
 import { DfTxSetGovernance } from '@components/transactions/[txid]/DfTx/DfTxSetGovernance'
 
 interface TransactionDfTxProps {
-  transaction: Transaction
-  vins: TransactionVin[]
-  vouts: TransactionVout[]
+  dftx?: DfTx<any>
 }
 
 export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | null {
-  const hex = props.vouts[0].script.hex
-  const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
-  const stack = toOPCodes(buffer)
-
-  if (stack.length !== 2 || stack[1].type !== 'OP_DEFI_TX') {
+  if (props.dftx === undefined) {
     return null
   }
 
-  const tx = (stack[1] as OP_DEFI_TX).tx
-  switch (tx.type) {
+  switch (props.dftx.type) {
     case CPoolSwap.OP_CODE:
-      return <DfTxPoolSwap dftx={tx} />
+      return <DfTxPoolSwap dftx={props.dftx} />
     case CPoolAddLiquidity.OP_CODE:
-      return <DfTxPoolAddLiquidity dftx={tx} />
+      return <DfTxPoolAddLiquidity dftx={props.dftx} />
     case CPoolRemoveLiquidity.OP_CODE:
-      return <DfTxPoolRemoveLiquidity dftx={tx} />
+      return <DfTxPoolRemoveLiquidity dftx={props.dftx} />
     case CSetOracleData.OP_CODE:
-      return <DfTxSetOracleData dftx={tx} />
+      return <DfTxSetOracleData dftx={props.dftx} />
     case CUtxosToAccount.OP_CODE:
-      return <DfTxUtxosToAccount dftx={tx} />
+      return <DfTxUtxosToAccount dftx={props.dftx} />
     case CAccountToAccount.OP_CODE:
-      return <DfTxAccountToAccount dftx={tx} />
+      return <DfTxAccountToAccount dftx={props.dftx} />
     case CAnyAccountToAccount.OP_CODE:
-      return <DfTxAnyAccountToAccount dftx={tx} />
+      return <DfTxAnyAccountToAccount dftx={props.dftx} />
     case CAccountToUtxos.OP_CODE:
-      return <DfTxAccountToUtxos dftx={tx} />
+      return <DfTxAccountToUtxos dftx={props.dftx} />
     case CCreateMasternode.OP_CODE:
-      return <DfTxCreateMasternode dftx={tx} />
+      return <DfTxCreateMasternode dftx={props.dftx} />
     case CResignMasternode.OP_CODE:
-      return <DfTxResignMasternode dftx={tx} />
+      return <DfTxResignMasternode dftx={props.dftx} />
     case CPoolCreatePair.OP_CODE:
-      return <DfTxPoolCreatePair dftx={tx} />
+      return <DfTxPoolCreatePair dftx={props.dftx} />
     case CTokenCreate.OP_CODE:
-      return <DfTxTokenCreate dftx={tx} />
+      return <DfTxTokenCreate dftx={props.dftx} />
     case CAppointOracle.OP_CODE:
-      return <DfTxAppointOracle dftx={tx} />
+      return <DfTxAppointOracle dftx={props.dftx} />
     case CSetGovernance.OP_CODE:
-      return <DfTxSetGovernance dftx={tx} />
+      return <DfTxSetGovernance dftx={props.dftx} />
     default:
-      return <DfTxUnmapped dftx={tx} />
+      return <DfTxUnmapped dftx={props.dftx} />
   }
 }

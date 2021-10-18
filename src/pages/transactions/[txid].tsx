@@ -7,6 +7,14 @@ import { TransactionHeading, TransactionNotFoundHeading } from '@components/tran
 import { TransactionVinVout } from '@components/transactions/[txid]/TransactionVinVout'
 import { TransactionSummaryTable } from '@components/transactions/[txid]/TransactionSummaryTable'
 import { TransactionDfTx } from '@components/transactions/[txid]/TransactionDfTx'
+import { SmartBuffer } from 'smart-buffer'
+import {
+  AccountToUtxos,
+  CAccountToUtxos,
+  DfTx,
+  OP_DEFI_TX,
+  toOPCodes
+} from '@defichain/jellyfish-transaction'
 
 interface TransactionPageProps {
   txid: string
@@ -24,8 +32,10 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
     )
   }
 
-  const fee = getTransactionFee(props.transaction, props.vins)
-  const feeRate = getTransactionFee(props.transaction, props.vins).dividedBy(props.transaction.size)
+  const dftx: DfTx<any> | undefined = getDfTx(props.vouts)
+  const isDeFiTransaction = dftx !== undefined
+  const fee = getTransactionFee(props.transaction, props.vins, dftx)
+  const feeRate = fee.dividedBy(props.transaction.size)
 
   return (
     <Container className='pt-12 pb-20'>
@@ -36,6 +46,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
         vouts={props.vouts}
         fee={fee}
         feeRate={feeRate}
+        isDeFiTransaction={isDeFiTransaction}
       />
       <TransactionVinVout
         transaction={props.transaction}
@@ -43,19 +54,23 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
         vouts={props.vouts}
         fee={fee}
       />
-
       <TransactionDfTx
-        transaction={props.transaction}
-        vins={props.vins}
-        vouts={props.vouts}
+        dftx={dftx}
       />
     </Container>
   )
 }
 
-function getTransactionFee (transaction: Transaction, vins: TransactionVin[]): BigNumber {
-  const fee = getTotalVinsValue(vins).minus(transaction.totalVoutValue)
-  return new BigNumber(fee).multipliedBy(100000000)
+function getTransactionFee (transaction: Transaction, vins: TransactionVin[], dftx?: DfTx<any>): BigNumber {
+  if (dftx === undefined || dftx.type !== CAccountToUtxos.OP_CODE) {
+    return new BigNumber(getTotalVinsValue(vins).minus(transaction.totalVoutValue)).multipliedBy(100000000)
+  }
+
+  // AccountToUtxos
+  const accountToUtxos = dftx as DfTx<AccountToUtxos>
+  const sumOfInputs = getTotalVinsValue(vins)
+  const sumOfAccountInputs = accountToUtxos.data.balances.map(balance => balance.amount).reduce((a, b) => a.plus(b))
+  return new BigNumber(sumOfInputs.plus(sumOfAccountInputs).minus(transaction.totalVoutValue)).multipliedBy(100000000)
 }
 
 function getTotalVinsValue (vins: TransactionVin[]): BigNumber {
@@ -66,6 +81,16 @@ function getTotalVinsValue (vins: TransactionVin[]): BigNumber {
     }
   })
   return value
+}
+
+function getDfTx (vouts: TransactionVout[]): DfTx<any> | undefined {
+  const hex = vouts[0].script.hex
+  const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
+  const stack = toOPCodes(buffer)
+  if (stack.length !== 2 || stack[1].type !== 'OP_DEFI_TX') {
+    return undefined
+  }
+  return (stack[1] as OP_DEFI_TX).tx
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {

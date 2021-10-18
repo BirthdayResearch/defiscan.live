@@ -12,19 +12,17 @@ interface TransactionSummaryTableProps {
   vouts: TransactionVout[]
   fee: BigNumber
   feeRate: BigNumber
+  isDeFiTransaction: boolean
 }
 
 export function TransactionSummaryTable (props: TransactionSummaryTableProps): JSX.Element {
-  const transaction = props.transaction
-  const vins = props.vins
-  const vouts = props.vouts
-  const fee = props.fee
-  const feeRate = props.feeRate
-
   return (
     <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-      <SummaryTableListLeft transaction={transaction} vins={vins} vouts={vouts} fee={fee} />
-      <SummaryTableListRight transaction={transaction} vins={vins} vouts={vouts} feeRate={feeRate} />
+      <SummaryTableListLeft transaction={props.transaction} vins={props.vins} vouts={props.vouts} fee={props.fee} />
+      <SummaryTableListRight
+        transaction={props.transaction} vins={props.vins} vouts={props.vouts}
+        feeRate={props.feeRate} isDeFiTransaction={props.isDeFiTransaction}
+      />
     </div>
   )
 }
@@ -61,7 +59,7 @@ function SummaryTableListLeft (props: {
   )
 }
 
-function SummaryTableListRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], feeRate: BigNumber }): JSX.Element {
+function SummaryTableListRight (props: { transaction: Transaction, vins: TransactionVin[], vouts: TransactionVout[], feeRate: BigNumber, isDeFiTransaction: boolean }): JSX.Element {
   const blockTime = format(fromUnixTime(props.transaction.block.medianTime), 'PPpp')
 
   return (
@@ -74,6 +72,9 @@ function SummaryTableListRight (props: { transaction: Transaction, vins: Transac
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Received Time' testId='transaction-detail-received-time'>
         {blockTime}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='DeFi Transaction' testId='transaction-custom'>
+        {props.isDeFiTransaction ? 'Yes' : 'No'}
       </AdaptiveList.Row>
     </AdaptiveList>
   )
