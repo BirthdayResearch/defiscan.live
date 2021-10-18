@@ -1,34 +1,34 @@
 import { SmartBuffer } from 'smart-buffer'
 import {
   CAccountToAccount,
+  CAccountToUtxos,
   CAnyAccountToAccount,
+  CAppointOracle,
+  CCreateMasternode,
   CPoolAddLiquidity,
+  CPoolCreatePair,
   CPoolRemoveLiquidity,
   CPoolSwap,
-  CSetOracleData,
-  CUtxosToAccount,
-  CAppointOracle,
-  CPoolCreatePair,
-  CTokenCreate,
-  CSetGovernance,
-  OP_DEFI_TX,
-  CAccountToUtxos,
-  CCreateMasternode,
   CResignMasternode,
+  CSetGovernance,
+  CSetOracleData,
+  CTokenCreate,
+  CUtxosToAccount,
+  OP_DEFI_TX,
   toOPCodes
 } from '@defichain/jellyfish-transaction'
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
+import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
+import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
+import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxResignMasternode'
 import { DfTxPoolSwap } from '@components/transactions/[txid]/DfTx/DfTxPoolSwap'
 import { DfTxUtxosToAccount } from '@components/transactions/[txid]/DfTx/DfTxUtxosToAccount'
-import { DfTxAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAccountToAccount'
 import { DfTxAccountToUtxos } from '@components/transactions/[txid]/DfTx/DfTxAccountToUtxos'
-import { DfTxAnyAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAnyAccountToAccount'
-import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
 import { DfTxCreateMasternode } from '@components/transactions/[txid]/DfTx/DfTxCreateMasternode'
-import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxResignMasternode'
-import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
 import { DfTxPoolRemoveLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolRemoveLiquidity'
 import { DfTxSetOracleData } from '@components/transactions/[txid]/DfTx/DfTxSetOracleData'
+import { DfTxAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAccountToAccount'
+import { DfTxAnyAccountToAccount } from '@components/transactions/[txid]/DfTx/DfTxAnyAccountToAccount'
 import { DfTxPoolCreatePair } from '@components/transactions/[txid]/DfTx/DfTxPoolCreatePair'
 import { DfTxTokenCreate } from '@components/transactions/[txid]/DfTx/DfTxTokenCreate'
 import { DfTxAppointOracle } from '@components/transactions/[txid]/DfTx/DfTxAppointOracle'
