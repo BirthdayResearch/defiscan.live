@@ -26,16 +26,8 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
     )
   }
 
-  let dftx: DfTx<any> | undefined
-  let isCustomTransaction = false
-  const hex = props.vouts[0].script.hex
-  const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
-  const stack = toOPCodes(buffer)
-  if (stack.length === 2 || stack[1].type === 'OP_DEFI_TX') {
-    isCustomTransaction = true
-    dftx = (stack[1] as OP_DEFI_TX).tx
-  }
-
+  const dftx: DfTx<any> | undefined = getDfTx(props.vouts)
+  const isCustomTransaction = dftx !== undefined
   const fee = getTransactionFee(props.transaction, props.vins, dftx)
   const feeRate = fee.dividedBy(props.transaction.size)
 
@@ -86,6 +78,16 @@ function getTotalVinsValue (vins: TransactionVin[]): BigNumber {
     }
   })
   return value
+}
+
+function getDfTx (vouts: TransactionVout[]): DfTx<any> | undefined {
+  const hex = vouts[0].script.hex
+  const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
+  const stack = toOPCodes(buffer)
+  if (stack.length !== 2 || stack[1].type !== 'OP_DEFI_TX') {
+    return undefined
+  }
+  return (stack[1] as OP_DEFI_TX).tx
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {
