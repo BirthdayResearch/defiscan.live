@@ -1,4 +1,3 @@
-import { DfTx } from '@defichain/jellyfish-transaction'
 import {
   CAccountToAccount,
   CAccountToUtxos,
@@ -14,6 +13,7 @@ import {
   CSetOracleData,
   CTokenCreate,
   CUtxosToAccount,
+  DfTx
 } from '@defichain/jellyfish-transaction'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
 import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
