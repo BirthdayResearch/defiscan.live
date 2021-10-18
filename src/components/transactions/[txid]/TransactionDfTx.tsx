@@ -11,7 +11,7 @@ import {
   CResignMasternode,
   CSetGovernance,
   CSetOracleData,
-  CTokenCreate,
+  CTokenCreate, CTokenMint,
   CUtxosToAccount,
   DfTx
 } from '@defichain/jellyfish-transaction'
@@ -30,6 +30,7 @@ import { DfTxPoolCreatePair } from '@components/transactions/[txid]/DfTx/DfTxPoo
 import { DfTxTokenCreate } from '@components/transactions/[txid]/DfTx/DfTxTokenCreate'
 import { DfTxAppointOracle } from '@components/transactions/[txid]/DfTx/DfTxAppointOracle'
 import { DfTxSetGovernance } from '@components/transactions/[txid]/DfTx/DfTxSetGovernance'
+import { DfTxTokenMint } from '@components/transactions/[txid]/DfTx/DfTxTokenMint'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -69,6 +70,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxAppointOracle dftx={props.dftx} />
     case CSetGovernance.OP_CODE:
       return <DfTxSetGovernance dftx={props.dftx} />
+    case CTokenMint.OP_CODE:
+      return <DfTxTokenMint dfxt={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
