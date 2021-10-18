@@ -19,6 +19,7 @@ export function DfTxPoolCreatePair (props: DfTxPoolCreatePairProps): JSX.Element
     <div>
       <DfTxHeader name='Pool Create Pair' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+
         <PoolCreatePairDetailsTable
           tokenA={props.dftx.data.tokenA}
           tokenB={props.dftx.data.tokenB}
@@ -44,26 +45,16 @@ function PoolCreatePairDetailsTable (props: {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='Token A ID'>
+        <AdaptiveList.Row name='Token A'>
           <div className='flex flex-row'>
-            <span data-testid='DfTxPoolCreatePair.tokenA' className='mr-1'>{props.tokenA}</span>
-            <span>(</span>
-            <TokenSymbol
-              tokenId={props.tokenA}
-              testId='DfTxPoolCreatePair.tokenASymbol'
-            />
-            <span>)</span>
+            <TokenSymbol tokenId={props.tokenA} testId='DfTxPoolCreatePair.tokenASymbol' />
+            <span data-testid='DfTxPoolCreatePair.tokenA' className='ml-1'>(ID: {props.tokenA})</span>
           </div>
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token B ID'>
+        <AdaptiveList.Row name='Token B'>
           <div className='flex flex-row'>
-            <span data-testid='DfTxPoolCreatePair.tokenB' className='mr-1'>{props.tokenB}</span>
-            <span>(</span>
-            <TokenSymbol
-              tokenId={props.tokenB}
-              testId='DfTxPoolCreatePair.tokenBSymbol'
-            />
-            <span>)</span>
+            <TokenSymbol tokenId={props.tokenB} testId='DfTxPoolCreatePair.tokenBSymbol' />
+            <span data-testid='DfTxPoolCreatePair.tokenB' className='ml-1'>(ID: {props.tokenB})</span>
           </div>
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Commission' testId='DfTxPoolCreatePair.commission'>
