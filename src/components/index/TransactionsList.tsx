@@ -6,7 +6,7 @@ import { Link } from '@components/commons/Link'
 
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   return (
-    <div className='w-full lg:w-2/5'>
+    <div className='w-full lg:w-1/2'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold'>
           Transactions
@@ -34,20 +34,20 @@ function TransactionDetails (props: {
   totalVoutValue: string
 }): JSX.Element {
   return (
-    <div className='p-4 pb-3 border border-gray-200'>
-      <div className='w-full flex justify-between'>
-        <Link href={{ pathname: `/transactions/${props.txid}` }}>
-          <a
-            className='text-gray-900 hover:text-primary-500 font-medium overflow-ellipsis overflow-hidden'
-          >{props.txid}
-          </a>
-        </Link>
-        <div className='flex items-center ml-3'>
-          <div
-            className='flex min-w-max text-xs text-opacity-40 text-black font-medium'
-          >
+    <div className='p-4 pb-3 border border-gray-200 cursor-pointer'>
+      <div className='w-full flex flex-wrap justify-between'>
+        <div className='flex w-1/2 sm:w-4/6 xl:w-3/4 2xl:w-4/5'>
+          <Link href={{ pathname: `/transactions/${props.txid}` }}>
+            <a
+              className='text-gray-900 font-medium overflow-ellipsis overflow-hidden'
+            >{props.txid}
+            </a>
+          </Link>
+        </div>
+        <div className='flex items-center justify-end w-1/2 sm:w-2/6 xl:w-1/4 2xl:w-1/5'>
+          <div className='flex text-xs text-opacity-40 text-black font-medium'>
             <IoTimeOutline size={15} />
-            <span className='ml-1.5'>{props.age}</span>
+            <span className='ml-1'>{props.age}</span>
           </div>
         </div>
       </div>
