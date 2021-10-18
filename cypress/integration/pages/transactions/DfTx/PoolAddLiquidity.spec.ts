@@ -16,31 +16,27 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on desktop', () => {
   })
 
   it('should have DfTxAddPoolLiquidity Share Address', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.ShareAddress').should('have.text', '8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
+    cy.findByTestId('DfTxPoolAddLiquidity.ShareAddress').contains('8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
   })
 
-  it('should have DfTxAddPoolLiquidity Token 1 ID', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token1Id').should('have.text', '0')
-  })
-
-  it('should have DfTxAddPoolLiquidity Token 2 ID', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token2Id').should('have.text', '3')
+  it('should have DfTxAddPoolLiquidity From Address', () => {
+    cy.findByTestId('DfTxPoolAddLiquidity.FromAddress').contains('8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
   })
 
   it('should have DfTxAddPoolLiquidity Token 1 Amount', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token1Amount').should('have.text', '0.00000063')
+    cy.findByTestId('DfTxPoolAddLiquidity.0-Amount').should('have.text', '0.00000063')
   })
 
   it('should have DfTxAddPoolLiquidity Token 1 Symbol', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token1Symbol').should('have.text', 'DFI')
+    cy.findByTestId('DfTxPoolAddLiquidity.0-Symbol').should('have.text', 'DFI')
   })
 
   it('should have DfTxAddPoolLiquidity Token 2 Amount', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token2Amount').should('have.text', '0.00000205')
+    cy.findByTestId('DfTxPoolAddLiquidity.3-Amount').should('have.text', '0.00000205')
   })
 
   it('should have DfTxAddPoolLiquidity Token 2 Symbol', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token2Symbol').should('have.text', 'USDT')
+    cy.findByTestId('DfTxPoolAddLiquidity.3-Symbol').should('have.text', 'USDT')
   })
 })
 
@@ -62,30 +58,26 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on mobile', () => {
   })
 
   it('should have DfTxAddPoolLiquidity Share Address', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.ShareAddress').should('have.text', '8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
+    cy.findByTestId('DfTxPoolAddLiquidity.ShareAddress').contains('8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
   })
 
-  it('should have DfTxAddPoolLiquidity Token 1 ID', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token1Id').should('have.text', '0')
-  })
-
-  it('should have DfTxAddPoolLiquidity Token 2 ID', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token2Id').should('have.text', '3')
+  it('should have DfTxAddPoolLiquidity From Address', () => {
+    cy.findByTestId('DfTxPoolAddLiquidity.FromAddress').contains('8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
   })
 
   it('should have DfTxAddPoolLiquidity Token 1 Amount', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token1Amount').should('have.text', '0.00000063')
+    cy.findByTestId('DfTxPoolAddLiquidity.0-Amount').should('have.text', '0.00000063')
   })
 
   it('should have DfTxAddPoolLiquidity Token 1 Symbol', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token1Symbol').should('have.text', 'DFI')
+    cy.findByTestId('DfTxPoolAddLiquidity.0-Symbol').should('have.text', 'DFI')
   })
 
   it('should have DfTxAddPoolLiquidity Token 2 Amount', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token2Amount').should('have.text', '0.00000205')
+    cy.findByTestId('DfTxPoolAddLiquidity.3-Amount').should('have.text', '0.00000205')
   })
 
   it('should have DfTxAddPoolLiquidity Token 2 Symbol', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.Token2Symbol').should('have.text', 'USDT')
+    cy.findByTestId('DfTxPoolAddLiquidity.3-Symbol').should('have.text', 'USDT')
   })
 })
