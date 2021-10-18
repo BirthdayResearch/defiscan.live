@@ -7,7 +7,7 @@ import {
   CPoolAddLiquidity,
   CPoolCreatePair,
   CPoolRemoveLiquidity,
-  CPoolSwap,
+  CPoolSwap, CRemoveOracle,
   CResignMasternode,
   CSetGovernance,
   CSetOracleData,
@@ -32,6 +32,7 @@ import { DfTxAppointOracle } from '@components/transactions/[txid]/DfTx/DfTxAppo
 import { DfTxSetGovernance } from '@components/transactions/[txid]/DfTx/DfTxSetGovernance'
 import { DfTxTokenMint } from '@components/transactions/[txid]/DfTx/DfTxTokenMint'
 import { DfTxUpdateOracle } from '@components/transactions/[txid]/DfTx/DfTxUpdateOracle'
+import { DfTxRemoveOracle } from '@components/transactions/[txid]/DfTx/DfTxRemoveOracle'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -75,6 +76,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxTokenMint dfxt={props.dftx} />
     case CUpdateOracle.OP_CODE:
       return <DfTxUpdateOracle dftx={props.dftx} />
+    case CRemoveOracle.OP_CODE:
+      return <DfTxRemoveOracle dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }

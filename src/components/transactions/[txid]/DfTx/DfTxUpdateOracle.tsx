@@ -21,7 +21,7 @@ export function DfTxUpdateOracle (props: DfTxUpdateOracleProps): JSX.Element {
           </AdaptiveList.Row>
         </AdaptiveList>
         <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name='OracleID' testId='DfTxUpdateOracle.OracleId'>
+          <AdaptiveList.Row name='OracleID' testId='DfTxUpdateOracle.OracleId' className='break-all'>
             {props.dftx.data.oracleId}
           </AdaptiveList.Row>
         </AdaptiveList>
