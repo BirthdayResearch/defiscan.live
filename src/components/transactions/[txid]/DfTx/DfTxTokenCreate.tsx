@@ -29,6 +29,9 @@ function DetailsTable (props: { symbol: string, decimal: number, name: string, l
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
+        <AdaptiveList.Row name='Name' testId='DfTxTokenCreate.name'>
+          {props.name}
+        </AdaptiveList.Row>
         <AdaptiveList.Row name='Symbol' testId='DfTxTokenCreate.symbol'>
           <div className='flex gap-x-1'>
             {props.symbol}
@@ -42,9 +45,6 @@ function DetailsTable (props: { symbol: string, decimal: number, name: string, l
               return <TokenIcon className='h-6 w-6' />
             })()}
           </div>
-        </AdaptiveList.Row>
-        <AdaptiveList.Row name='Name' testId='DfTxTokenCreate.name'>
-          {props.name}
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
