@@ -1,6 +1,5 @@
 import { Head } from '@components/commons/Head'
 import { PriceFeed } from '@components/prices/PriceFeed'
-import { PricingFeedsBySection } from '@components/prices/PriceFeedBySection'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
@@ -32,10 +31,6 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
             <PriceFeed price={item} key={item.id} />
           ))}
         </div>
-      </div>
-
-      <div className='mt-20'>
-        <PricingFeedsBySection />
       </div>
     </Container>
   )
