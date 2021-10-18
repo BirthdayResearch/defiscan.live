@@ -111,4 +111,3 @@ context('/prices/TSLA-USD iphone-x', () => {
     })
   })
 })
-

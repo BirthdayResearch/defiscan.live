@@ -65,4 +65,3 @@ context('/prices on iphone-x', () => {
     })
   })
 })
-
