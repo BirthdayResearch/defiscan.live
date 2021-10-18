@@ -8,7 +8,13 @@ import { TransactionVinVout } from '@components/transactions/[txid]/TransactionV
 import { TransactionSummaryTable } from '@components/transactions/[txid]/TransactionSummaryTable'
 import { TransactionDfTx } from '@components/transactions/[txid]/TransactionDfTx'
 import { SmartBuffer } from 'smart-buffer'
-import { CAccountToUtxos, CUtxosToAccount, DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
+import {
+  AccountToUtxos,
+  CAccountToUtxos,
+  DfTx,
+  OP_DEFI_TX,
+  toOPCodes
+} from '@defichain/jellyfish-transaction'
 
 interface TransactionPageProps {
   txid: string
@@ -56,15 +62,15 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
 }
 
 function getTransactionFee (transaction: Transaction, vins: TransactionVin[], dftx?: DfTx<any>): BigNumber {
-  if (dftx === undefined) {
+  if (dftx === undefined || dftx.type !== CAccountToUtxos.OP_CODE) {
     return new BigNumber(getTotalVinsValue(vins).minus(transaction.totalVoutValue)).multipliedBy(100000000)
   }
 
-  if (dftx.type !== CUtxosToAccount.OP_CODE && dftx.type !== CAccountToUtxos.OP_CODE) {
-    return new BigNumber(getTotalVinsValue(vins).minus(transaction.totalVoutValue)).multipliedBy(100000000)
-  }
-
-  return new BigNumber(getTotalVinsValue(vins)).multipliedBy(100000000)
+  // AccountToUtxos
+  const accountToUtxos = dftx as DfTx<AccountToUtxos>
+  const sumOfInputs = getTotalVinsValue(vins)
+  const sumOfAccountInputs = accountToUtxos.data.balances.map(balance => balance.amount).reduce((a, b) => a.plus(b))
+  return new BigNumber(sumOfInputs.plus(sumOfAccountInputs).minus(transaction.totalVoutValue)).multipliedBy(100000000)
 }
 
 function getTotalVinsValue (vins: TransactionVin[]): BigNumber {
