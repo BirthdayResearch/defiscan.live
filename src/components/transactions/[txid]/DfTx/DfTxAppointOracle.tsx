@@ -16,28 +16,26 @@ export function DfTxAppointOracle (props: DfTxAppointOracleProps): JSX.Element {
   return (
     <div>
       <DfTxHeader name='Appoint Oracle' />
-      <div className='mt-5'>
-        <div className='flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-          <AdaptiveList className='w-full lg:w-1/2'>
-            <AdaptiveList.Row name='Address' testId='DfTxAppointOracle.Address' className='break-all'>
-              {script?.address ?? 'N/A'}
-            </AdaptiveList.Row>
-            <AdaptiveList.Row name='Weightage' testId='DfTxAppointOracle.Weightage'>
-              {props.dftx.data.weightage}
-            </AdaptiveList.Row>
-          </AdaptiveList>
-          <div className='w-full lg:w-1/2'>
-            <OverflowTable>
-              <OverflowTable.Header>
-                <OverflowTable.Head>Token</OverflowTable.Head>
-                <OverflowTable.Head>Currency</OverflowTable.Head>
-              </OverflowTable.Header>
-              {props.dftx.data.priceFeeds.map((priceFeed) => (
-                <AppointOracleTableRow priceFeed={priceFeed} key={`${priceFeed.token}-${priceFeed.currency}`} />
-              )
-              )}
-            </OverflowTable>
-          </div>
+      <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+        <AdaptiveList className='w-full lg:w-1/2'>
+          <AdaptiveList.Row name='Address' testId='DfTxAppointOracle.Address' className='break-all'>
+            {script?.address ?? 'N/A'}
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Weightage' testId='DfTxAppointOracle.Weightage'>
+            {props.dftx.data.weightage}
+          </AdaptiveList.Row>
+        </AdaptiveList>
+        <div className='w-full lg:w-1/2'>
+          <OverflowTable>
+            <OverflowTable.Header>
+              <OverflowTable.Head>Token</OverflowTable.Head>
+              <OverflowTable.Head>Currency</OverflowTable.Head>
+            </OverflowTable.Header>
+            {props.dftx.data.priceFeeds.map((priceFeed) => (
+              <AppointOracleTableRow priceFeed={priceFeed} key={`${priceFeed.token}-${priceFeed.currency}`} />
+            )
+            )}
+          </OverflowTable>
         </div>
       </div>
     </div>
