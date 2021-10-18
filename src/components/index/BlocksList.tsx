@@ -52,10 +52,10 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
-    <div className='flex flex-wrap p-4 border border-gray-200 cursor-pointer'>
+    <div className='flex flex-wrap p-4 border border-gray-200'>
       <div className='w-1/2 sm:w-1/3 md:w-1/4 lg:w-2/6 xl:w-1/4 2xl:w-1/5'>
         <Link href={{ pathname: `/blocks/${props.height}` }}>
-          <a className='text-lg md:text-xl  font-semibold'>#{props.height}</a>
+          <a className='text-lg md:text-xl text-gray-900 hover:text-primary-500 font-semibold'>#{props.height}</a>
         </Link>
         <div
           className='text-xs text-opacity-40 text-black font-medium flex mt-1'
