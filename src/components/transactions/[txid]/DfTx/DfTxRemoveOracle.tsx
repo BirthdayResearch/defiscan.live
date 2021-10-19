@@ -11,8 +11,8 @@ export function DfTxRemoveOracle (props: DfTxRemoveOracleProps): JSX.Element {
     <div>
       <DfTxHeader name='Remove Oracle' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name='OracleID' testId='DfTxRemoveOracle.OracleId' className='break-all'>
+        <AdaptiveList className='w-full lg:w-auto'>
+          <AdaptiveList.Row name='Oracle ID' testId='DfTxRemoveOracle.OracleId' className='break-all'>
             {props.dftx.data.oracleId}
           </AdaptiveList.Row>
         </AdaptiveList>
