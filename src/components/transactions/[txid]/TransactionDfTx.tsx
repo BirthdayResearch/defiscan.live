@@ -16,6 +16,7 @@ import {
   CSetOracleData,
   CTokenCreate, CTokenMint, CUpdateOracle,
   CUtxosToAccount,
+  CAutoAuthPrep,
   CICXMakeOffer,
   CICXCloseOffer,
   CICXCloseOrder,
@@ -99,6 +100,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxICXCloseOffer dftx={props.dftx} />
     case CICXCloseOrder.OP_CODE:
       return <DfTxICXCloseOrder dftx={props.dftx} />
+    case CAutoAuthPrep.OP_CODE:
+      return null
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
