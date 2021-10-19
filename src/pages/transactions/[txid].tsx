@@ -53,6 +53,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
         vins={props.vins}
         vouts={props.vouts}
         fee={fee}
+        dftxName={dftx?.name}
       />
       <TransactionDfTx
         dftx={dftx}
