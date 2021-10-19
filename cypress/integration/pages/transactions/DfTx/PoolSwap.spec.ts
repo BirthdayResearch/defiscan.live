@@ -20,7 +20,7 @@ context('/transactions/[txid] - DfTx pool swap on desktop', () => {
   })
 
   it('should have DfTxPoolSwap fromTokenId', () => {
-    cy.findByTestId('DfTxPoolSwap.fromTokenId').should('have.text', '0')
+    cy.findByTestId('DfTxPoolSwap.fromTokenId').should('have.text', '(ID: 0)')
   })
 
   it('should have DfTxPoolSwap fromAmount', () => {
@@ -36,7 +36,7 @@ context('/transactions/[txid] - DfTx pool swap on desktop', () => {
   })
 
   it('should have DfTxPoolSwap toTokenId', () => {
-    cy.findByTestId('DfTxPoolSwap.toTokenId').should('have.text', '2')
+    cy.findByTestId('DfTxPoolSwap.toTokenId').should('have.text', '(ID: 2)')
   })
 
   it('should have DfTxPoolSwap maxPrice', () => {
@@ -70,7 +70,7 @@ context('/transactions/[txid] - DfTx pool swap on mobile', () => {
   })
 
   it('should have DfTxPoolSwap fromTokenId', () => {
-    cy.findByTestId('DfTxPoolSwap.fromTokenId').should('have.text', '0')
+    cy.findByTestId('DfTxPoolSwap.fromTokenId').should('have.text', '(ID: 0)')
   })
 
   it('should have DfTxPoolSwap fromAmount', () => {
@@ -86,7 +86,7 @@ context('/transactions/[txid] - DfTx pool swap on mobile', () => {
   })
 
   it('should have DfTxPoolSwap toTokenId', () => {
-    cy.findByTestId('DfTxPoolSwap.toTokenId').should('have.text', '2')
+    cy.findByTestId('DfTxPoolSwap.toTokenId').should('have.text', '(ID: 2)')
   })
 
   it('should have DfTxPoolSwap maxPrice', () => {
