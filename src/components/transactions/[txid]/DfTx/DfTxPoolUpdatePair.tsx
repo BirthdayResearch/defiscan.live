@@ -5,6 +5,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { useNetworkObject } from '@contexts/NetworkContext'
 import { TokenBalance } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance'
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxPoolUpdatePairProps {
   dftx: DfTx<PoolUpdatePair>
@@ -12,7 +13,7 @@ interface DfTxPoolUpdatePairProps {
 
 export function DfTxPoolUpdatePair (props: DfTxPoolUpdatePairProps): JSX.Element {
   const network = useNetworkObject().name
-  const address = fromScript(props.dftx.data.ownerAddress, network)
+  const ownerAddress = fromScript(props.dftx.data.ownerAddress, network)
 
   return (
     <div>
@@ -22,9 +23,20 @@ export function DfTxPoolUpdatePair (props: DfTxPoolUpdatePairProps): JSX.Element
           poolId={props.dftx.data.poolId}
           status={Number(props.dftx.data.status)}
           commission={props.dftx.data.commission.toString()}
-          ownerAddress={address?.address}
+          ownerAddress={ownerAddress?.address}
         />
-        <PoolUpdatePairList customRewards={props.dftx.data.customRewards} />
+        {props.dftx.data.customRewards.length > 0 &&
+          <AdaptiveTable className='w-full lg:w-1/2'>
+            <AdaptiveTable.Header>
+              <AdaptiveTable.Head>TOKEN</AdaptiveTable.Head>
+              <AdaptiveTable.Head>AMOUNT</AdaptiveTable.Head>
+            </AdaptiveTable.Header>
+            {props.dftx.data.customRewards.map(tokenReward => {
+              return (
+                <PoolUpdatePairTableRow tokenReward={tokenReward} key={tokenReward.token} />
+              )
+            })}
+          </AdaptiveTable>}
       </div>
     </div>
   )
@@ -37,55 +49,34 @@ function PoolUpdatePairDetailsTable (props: {
   ownerAddress?: string
 }): JSX.Element {
   return (
-    <>
-      <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='Pool Id' testId='DfTxPoolUpdatePair.poolId'>
-          {props.poolId}
-        </AdaptiveList.Row>
-        <AdaptiveList.Row name='status' testId='DfTxPoolUpdatePair.status'>
-          {props.status}
-        </AdaptiveList.Row>
-        <AdaptiveList.Row name='commission' testId='DfTxPoolUpdatePair.commission'>
-          {props.commission}
-        </AdaptiveList.Row>
-        <AdaptiveList.Row name='Owner Address' testId='DfTxPoolUpdatePair.ownerAddress'>
-          {props.ownerAddress}
-        </AdaptiveList.Row>
-      </AdaptiveList>
-    </>
+    <AdaptiveList className='w-full lg:w-1/2'>
+      <AdaptiveList.Row name='Pool ID' testId='DfTxPoolUpdatePair.poolId'>
+        {props.poolId}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Commission' testId='DfTxPoolUpdatePair.commission'>
+        {props.commission}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Owner Address' testId='DfTxPoolUpdatePair.ownerAddress'>
+        {props.ownerAddress ?? 'N/A'}
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Status' testId='DfTxPoolUpdatePair.status'>
+        {props.status}
+      </AdaptiveList.Row>
+    </AdaptiveList>
   )
 }
 
-function PoolUpdatePairList (props: { customRewards: TokenBalance[] }): JSX.Element {
-  if (props.customRewards.length === 0) {
-    return (
-      <></>
-    )
-  }
-
+function PoolUpdatePairTableRow (props: { tokenReward: TokenBalance }): JSX.Element {
   return (
-    <>
-      <AdaptiveTable className='w-full lg:w-1/2'>
-        <AdaptiveTable.Header>
-          <AdaptiveTable.Head>TOKEN</AdaptiveTable.Head>
-          <AdaptiveTable.Head>AMOUNT</AdaptiveTable.Head>
-        </AdaptiveTable.Header>
-
-        {props.customRewards.map(reward => {
-          return (
-            <AdaptiveTable.Row key={reward.token}>
-              <AdaptiveTable.Cell title='TOKEN' className='align-middle'>
-                <div className='flex items-center' data-testid='DfTxPoolUpdatePair.Token'>
-                  {reward.token}
-                </div>
-              </AdaptiveTable.Cell>
-              <AdaptiveTable.Cell title='AMOUNT' className='align-middle'>
-                <span data-testid='DfTxPoolUpdatePair.Amount'>{reward.amount.toFixed(8)}</span>
-              </AdaptiveTable.Cell>
-            </AdaptiveTable.Row>
-          )
-        })}
-      </AdaptiveTable>
-    </>
+    <AdaptiveTable.Row>
+      <AdaptiveTable.Cell title='TOKEN' className='align-middle'>
+        <div className='flex items-center'>
+          <TokenSymbol tokenId={props.tokenReward.token} testId='DfTxPoolUpdatePair.Token' />
+        </div>
+      </AdaptiveTable.Cell>
+      <AdaptiveTable.Cell title='AMOUNT' className='align-middle'>
+        <span data-testid='DfTxPoolUpdatePair.Amount'>{props.tokenReward.amount.toFixed(8)}</span>
+      </AdaptiveTable.Cell>
+    </AdaptiveTable.Row>
   )
 }

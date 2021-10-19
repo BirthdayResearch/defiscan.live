@@ -28,11 +28,11 @@ context('/transactions/[txid] - DfTx pool update pair on desktop', () => {
   })
 
   it('should have DfTxPoolUpdatePair ownerAddress', () => {
-    cy.findByTestId('DfTxPoolUpdatePair.ownerAddress').should('have.text', '')
+    cy.findByTestId('DfTxPoolUpdatePair.ownerAddress').should('have.text', 'N/A')
   })
 
   it('should have DfTxPoolUpdatePair Token', () => {
-    cy.findByTestId('DfTxPoolUpdatePair.Token').should('have.text', '0')
+    cy.findByTestId('DfTxPoolUpdatePair.Token').should('have.text', 'DFI')
   })
 
   it('should have DfTxPoolUpdatePair Amount', () => {
@@ -70,11 +70,11 @@ context('/transactions/[txid] - DfTx pool update pair on mobile', () => {
   })
 
   it('should have DfTxPoolUpdatePair ownerAddress', () => {
-    cy.findByTestId('DfTxPoolUpdatePair.ownerAddress').should('have.text', '')
+    cy.findByTestId('DfTxPoolUpdatePair.ownerAddress').should('have.text', 'N/A')
   })
 
   it('should have DfTxPoolUpdatePair Token', () => {
-    cy.findByTestId('DfTxPoolUpdatePair.Token').should('have.text', '0')
+    cy.findByTestId('DfTxPoolUpdatePair.Token').should('have.text', 'DFI')
   })
 
   it('should have DfTxPoolUpdatePair Amount', () => {
