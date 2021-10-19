@@ -10,7 +10,6 @@ interface DfTxICXMakeOfferProps {
 
 export function DfTxICXMakeOffer (props: DfTxICXMakeOfferProps): JSX.Element {
   const network = useNetworkObject().name
-  console.log('props', props)
 
   const address = props.dftx.data.ownerAddress !== undefined ? fromScript(props.dftx.data.ownerAddress, network) : undefined
   return (
