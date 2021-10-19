@@ -16,6 +16,7 @@ import {
   CSetOracleData,
   CTokenCreate, CTokenMint, CUpdateOracle,
   CUtxosToAccount,
+  CICXMakeOffer,
   DfTx
 } from '@defichain/jellyfish-transaction'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
@@ -38,6 +39,7 @@ import { DfTxUpdateOracle } from '@components/transactions/[txid]/DfTx/DfTxUpdat
 import { DfTxRemoveOracle } from '@components/transactions/[txid]/DfTx/DfTxRemoveOracle'
 import { DfTxICXCreateOrder } from '@components/transactions/[txid]/DfTx/DfTxICXCreateOrder'
 import { DfTxPoolUpdatePair } from '@components/transactions/[txid]/DfTx/DfTxPoolUpdatePair'
+import { DfTxICXMakeOffer } from '@components/transactions/[txid]/DfTx/DfTxICXMakeOffer'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -87,6 +89,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxICXCreateOrder dftx={props.dftx} />
     case CPoolUpdatePair.OP_CODE:
       return <DfTxPoolUpdatePair dftx={props.dftx} />
+    case CICXMakeOffer.OP_CODE:
+      return <DfTxICXMakeOffer dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
