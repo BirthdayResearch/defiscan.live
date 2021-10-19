@@ -2,9 +2,19 @@ import { Link } from '@components/commons/Link'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { PropsWithChildren } from 'react'
-import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube, FaWeixin } from 'react-icons/fa'
+import {
+  FaFacebook,
+  FaGithub,
+  FaLinkedin,
+  FaReddit,
+  FaTelegram,
+  FaTwitterSquare,
+  FaYoutube,
+  FaWeixin
+} from 'react-icons/fa'
 import { Container } from '@components/commons/Container'
 import { NetlifyLightLogo } from '@components/icons/NetlifyLightLogo'
+import { MdOutlineQrCode2 } from 'react-icons/md'
 
 export function Footer (): JSX.Element {
   return (
@@ -44,6 +54,7 @@ function FooterSectionSocial (): JSX.Element {
       </div>
     )
   }
+
   function FooterSocialRowWithLink (props: PropsWithChildren<{ url: string, text: string }>): JSX.Element {
     return (
       <FooterSocialRow>
@@ -55,12 +66,9 @@ function FooterSectionSocial (): JSX.Element {
 
   function WeChatQR (): JSX.Element {
     return (
-      <div
-        className='p-3 font-normal text-sm bg-white text-black rounded shadow-md ring-1 ring-gray-200 max-w-xs'
-      >
+      <div className='p-1 bg-white rounded shadow-md ring-1 ring-gray-200 w-48'>
         <img src='/img/social/defichain_wechat.jpg' alt='wechat' />
       </div>
-
     )
   }
 
@@ -71,12 +79,11 @@ function FooterSectionSocial (): JSX.Element {
         <FooterSocialRowWithLink url='https://twitter.com/defichain' text='Twitter'>
           <FaTwitterSquare size={24} />
         </FooterSocialRowWithLink>
-        <HoverPopover
-          popover={<WeChatQR />}
-        >
+        <HoverPopover popover={<WeChatQR />}>
           <FooterSocialRow>
             <div><FaWeixin size={24} /></div>
             <span className='text-lg'>WeChat</span>
+            <div><MdOutlineQrCode2 className='text-gray-700' size={24} /></div>
           </FooterSocialRow>
         </HoverPopover>
         <FooterSocialRowWithLink url='https://github.com/DeFiCh/ain' text='Github'>
