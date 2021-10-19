@@ -34,30 +34,26 @@ function TransactionDetails (props: {
   totalVoutValue: string
 }): JSX.Element {
   return (
-    <div className='p-4 pb-3 border border-gray-200 cursor-pointer'>
-      <div className='w-full flex flex-wrap justify-between'>
-        <div className='flex w-1/2 sm:w-4/6 xl:w-3/4 2xl:w-4/5'>
-          <Link href={{ pathname: `/transactions/${props.txid}` }}>
-            <a
-              className='text-gray-900 font-medium overflow-ellipsis overflow-hidden'
-            >{props.txid}
-            </a>
-          </Link>
-        </div>
-        <div className='flex items-center justify-end w-1/2 sm:w-2/6 xl:w-1/4 2xl:w-1/5'>
-          <div className='flex text-xs text-opacity-40 text-black font-medium'>
-            <IoTimeOutline className='my-auto hidden sm:inline' size={15} />
-            <span className='ml-1'>{props.age}</span>
+    <Link href={{ pathname: `/transactions/${props.txid}` }}>
+      <div className='p-4 pb-3 border border-gray-200 cursor-pointer'>
+        <div className='w-full flex flex-wrap justify-between'>
+          <div className='flex w-1/2 sm:w-4/6 xl:w-3/4 2xl:w-4/5'>
+            <a className='text-gray-900 font-medium overflow-ellipsis overflow-hidden'>{props.txid}</a>
+          </div>
+          <div className='flex items-center justify-end w-1/2 sm:w-2/6 xl:w-1/4 2xl:w-1/5'>
+            <div className='flex text-xs text-opacity-40 text-black font-medium'>
+              <IoTimeOutline className='my-auto hidden sm:inline' size={15} />
+              <span className='ml-1'>{props.age}</span>
+            </div>
           </div>
         </div>
+        <div className='mt-1 inline text-sm'>
+          <span className='text-right text-gray-400'>Amount:</span>
+          <span className='pl-3 break-all'>
+            {new BigNumber(props.totalVoutValue).toFixed(8)} DFI
+          </span>
+        </div>
       </div>
-      <div className='mt-1 inline text-sm'>
-        <span className='text-right text-gray-400'>Amount:</span>
-        <span
-          className='pl-3 text-gray-900 opacity-90 font-medium break-all'
-        >{new BigNumber(props.totalVoutValue).toFixed(8)} DFI
-        </span>
-      </div>
-    </div>
+    </Link>
   )
 }

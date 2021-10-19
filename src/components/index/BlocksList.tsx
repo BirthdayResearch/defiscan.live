@@ -52,36 +52,34 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
-    <div className='flex flex-wrap p-4 border border-gray-200 cursor-pointer'>
-      <div className='w-5/12 sm:w-1/3 md:w-1/4 lg:w-2/6 xl:w-1/4 2xl:w-1/5'>
-        <Link href={{ pathname: `/blocks/${props.height}` }}>
-          <a className='sm:text-lg md:text-xl font-semibold'>#{props.height}</a>
-        </Link>
-        <div
-          className='text-xs text-opacity-40 text-black font-medium flex mt-1'
-        >
-          <IoTimeOutline className='my-auto hidden sm:inline' size={15} />
-          <span className='ml-0.5'>{props.age}</span>
+    <Link href={{ pathname: `/blocks/${props.height}` }}>
+      <div className='flex flex-wrap p-4 border border-gray-200 cursor-pointer'>
+        <div className='w-5/12 sm:w-1/3 md:w-1/4 lg:w-2/6 xl:w-1/4 2xl:w-1/5'>
+          <span className='sm:text-lg md:text-xl font-semibold'>#{props.height}</span>
+          <div className='text-xs text-opacity-40 text-black font-medium flex mt-1'>
+            <IoTimeOutline className='my-auto hidden sm:inline' size={15} />
+            <span className='ml-0.5'>{props.age}</span>
+          </div>
+        </div>
+        <div className='flex flex-wrap my-auto w-7/12 sm:w-2/3 md:w-3/4 lg:w-4/6 xl:w-3/4 2xl:w-4/5'>
+          <div className='flex w-full text-sm'>
+            <span className='min-w-max text-right text-gray-400'>
+              Minted by:
+            </span>
+            <span className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'>
+              {props.mintedBy}
+            </span>
+          </div>
+          <div className='flex w-full text-sm mt-1'>
+            <span className='min-w-max text-right text-gray-400'>
+              Transactions:
+            </span>
+            <span className='pl-2 md:pl-3 overflow-ellipsis overflow-hidden'>
+              {props.transactionCount}
+            </span>
+          </div>
         </div>
       </div>
-      <div className='flex flex-wrap my-auto w-7/12 sm:w-2/3 md:w-3/4 lg:w-4/6 xl:w-3/4 2xl:w-4/5'>
-        <div className='flex w-full text-sm'>
-          <span className='min-w-max text-right text-gray-400'>
-            Minted by:
-          </span>
-          <span className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'>
-            {props.mintedBy}
-          </span>
-        </div>
-        <div className='flex w-full text-sm mt-1'>
-          <span className='min-w-max text-right text-gray-400'>
-            Transactions:
-          </span>
-          <span className='pl-2 md:pl-3 overflow-ellipsis overflow-hidden'>
-            {props.transactionCount}
-          </span>
-        </div>
-      </div>
-    </div>
+    </Link>
   )
 }
