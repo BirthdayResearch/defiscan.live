@@ -38,7 +38,6 @@ context('/transactions/[txid] - DfTx pool update pair on desktop', () => {
   it('should have DfTxPoolUpdatePair Amount', () => {
     cy.findByTestId('DfTxPoolUpdatePair.Amount').should('have.text', '0.56350000')
   })
-
 })
 
 context('/transactions/[txid] - DfTx pool update pair on mobile', () => {
@@ -81,5 +80,4 @@ context('/transactions/[txid] - DfTx pool update pair on mobile', () => {
   it('should have DfTxPoolUpdatePair Amount', () => {
     cy.findByTestId('DfTxPoolUpdatePair.Amount').should('have.text', '0.56350000')
   })
-
 })
