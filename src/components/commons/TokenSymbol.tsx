@@ -13,24 +13,32 @@ interface TokenSymbolProps {
 export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
   const api = useWhaleApiClient()
   const [tokenData, setTokenData] = useState<TokenData | undefined>(undefined)
+  const [showTokenId, setShowTokenId] = useState<boolean>(false)
 
   useEffect(() => {
     if (typeof props.tokenId !== 'number') {
       return
     }
 
-    const response = api.tokens.get(props.tokenId.toString())
-    void response.then(data => {
+    const timeoutId = setTimeout(() => setShowTokenId(true), 30000)
+    api.tokens.get(props.tokenId.toString()).then(data => {
       setTokenData(data)
     }).catch(() => {
       setTokenData(undefined)
+      setShowTokenId(true)
+    }).finally(() => {
+      clearTimeout(timeoutId)
     })
   }, [props.tokenId])
 
-  if (tokenData === undefined) {
+  if (tokenData === undefined && !showTokenId) {
     return (
-      <div className='animate-pulse py-2.5 w-10 rounded-md bg-gray-200 inline ml-1' />
+      <div className={classNames('animate-pulse py-2.5 w-10 rounded-md bg-gray-200 inline', props.className)} />
     )
+  }
+
+  if (tokenData === undefined || showTokenId) {
+    return <div className={classNames(props.className)}>{`(Token ID: ${props.tokenId})`}</div>
   }
 
   return (

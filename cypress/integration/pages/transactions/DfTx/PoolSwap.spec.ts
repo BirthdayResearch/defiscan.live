@@ -19,10 +19,6 @@ context('/transactions/[txid] - DfTx pool swap on desktop', () => {
     cy.findByTestId('DfTxPoolSwap.fromAddress').should('have.text', 'df1qly3cfl93dqjuu3k8jnp768w02d8738hsnagxsk')
   })
 
-  it('should have DfTxPoolSwap fromTokenId', () => {
-    cy.findByTestId('DfTxPoolSwap.fromTokenId').should('have.text', '(ID: 0)')
-  })
-
   it('should have DfTxPoolSwap fromAmount', () => {
     cy.findByTestId('DfTxPoolSwap.fromAmount').should('have.text', '5.43601003')
   })
@@ -33,10 +29,6 @@ context('/transactions/[txid] - DfTx pool swap on desktop', () => {
 
   it('should have DfTxPoolSwap toAddress', () => {
     cy.findByTestId('DfTxPoolSwap.toAddress').should('have.text', 'df1qly3cfl93dqjuu3k8jnp768w02d8738hsnagxsk')
-  })
-
-  it('should have DfTxPoolSwap toTokenId', () => {
-    cy.findByTestId('DfTxPoolSwap.toTokenId').should('have.text', '(ID: 2)')
   })
 
   it('should have DfTxPoolSwap maxPrice', () => {
@@ -69,10 +61,6 @@ context('/transactions/[txid] - DfTx pool swap on mobile', () => {
     cy.findByTestId('DfTxPoolSwap.fromAddress').should('have.text', 'df1qly3cfl93dqjuu3k8jnp768w02d8738hsnagxsk')
   })
 
-  it('should have DfTxPoolSwap fromTokenId', () => {
-    cy.findByTestId('DfTxPoolSwap.fromTokenId').should('have.text', '(ID: 0)')
-  })
-
   it('should have DfTxPoolSwap fromAmount', () => {
     cy.findByTestId('DfTxPoolSwap.fromAmount').should('have.text', '5.43601003')
   })
@@ -83,10 +71,6 @@ context('/transactions/[txid] - DfTx pool swap on mobile', () => {
 
   it('should have DfTxPoolSwap toAddress', () => {
     cy.findByTestId('DfTxPoolSwap.toAddress').should('have.text', 'df1qly3cfl93dqjuu3k8jnp768w02d8738hsnagxsk')
-  })
-
-  it('should have DfTxPoolSwap toTokenId', () => {
-    cy.findByTestId('DfTxPoolSwap.toTokenId').should('have.text', '(ID: 2)')
   })
 
   it('should have DfTxPoolSwap maxPrice', () => {

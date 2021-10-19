@@ -19,10 +19,6 @@ context('/transactions/[txid] - DfTx Pool Remove Liquidity on desktop', () => {
     cy.findByTestId('DfTxPoolRemoveLiquidity.Address').should('have.text', '8FHBLM5QdpRjPtb7xAYaCjhSznQqgnjQKy')
   })
 
-  it('should have DfTxPoolRemoveLiquidity Token ID', () => {
-    cy.findByTestId('DfTxPoolRemoveLiquidity.Token').should('have.text', '(ID: 6)')
-  })
-
   it('should have DfTxPoolRemoveLiquidity Amount', () => {
     cy.findByTestId('DfTxPoolRemoveLiquidity.Amount').should('have.text', '1064.54406915')
   })
@@ -51,10 +47,6 @@ context('/transactions/[txid] - DfTx Pool Removed Liquidity on mobile', () => {
 
   it('should have DfTxPoolRemoveLiquidity Address', () => {
     cy.findByTestId('DfTxPoolRemoveLiquidity.Address').should('have.text', '8FHBLM5QdpRjPtb7xAYaCjhSznQqgnjQKy')
-  })
-
-  it('should have DfTxPoolRemoveLiquidity Token ID', () => {
-    cy.findByTestId('DfTxPoolRemoveLiquidity.Token').should('have.text', '(ID: 6)')
   })
 
   it('should have DfTxPoolRemoveLiquidity Amount', () => {
