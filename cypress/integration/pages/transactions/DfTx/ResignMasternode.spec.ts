@@ -1,4 +1,4 @@
-context.skip('/transactions/[txid] - DfTx resign masternode on desktop', () => {
+context('/transactions/[txid] - DfTx resign masternode on desktop', () => {
   before(() => {
     cy.visit('/transactions/30a534ec3cb6afe4186212f7cae772c87121e8cbb9dc90247b7f4d8d0e1f6237?network=MainNet')
   })
@@ -20,7 +20,7 @@ context.skip('/transactions/[txid] - DfTx resign masternode on desktop', () => {
   })
 })
 
-context.skip('/transactions/[txid] - DfTx resign masternode on mobile', () => {
+context('/transactions/[txid] - DfTx resign masternode on mobile', () => {
   before(() => {
     cy.visit('/transactions/30a534ec3cb6afe4186212f7cae772c87121e8cbb9dc90247b7f4d8d0e1f6237?network=MainNet')
   })

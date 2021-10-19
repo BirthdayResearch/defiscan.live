@@ -1,4 +1,4 @@
-context.skip('/transactions/[txid] - DfTx pool create pair on desktop', () => {
+context('/transactions/[txid] - DfTx pool create pair on desktop', () => {
   before(() => {
     cy.visit('/transactions/7eb8b89a54f020dc98387f4528d87776aec424677c8a41e71a47c84a3204edbf?network=MainNet')
   })
@@ -44,7 +44,7 @@ context.skip('/transactions/[txid] - DfTx pool create pair on desktop', () => {
   })
 })
 
-context.skip('/transactions/[txid] - DfTx Pool Create Pair on mobile', () => {
+context('/transactions/[txid] - DfTx Pool Create Pair on mobile', () => {
   before(() => {
     cy.visit('/transactions/7eb8b89a54f020dc98387f4528d87776aec424677c8a41e71a47c84a3204edbf?network=MainNet')
   })

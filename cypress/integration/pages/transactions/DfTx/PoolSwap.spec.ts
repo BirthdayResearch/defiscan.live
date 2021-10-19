@@ -1,4 +1,4 @@
-context.skip('/transactions/[txid] - DfTx pool swap on desktop', () => {
+context('/transactions/[txid] - DfTx pool swap on desktop', () => {
   before(() => {
     cy.visit('/transactions/594e08557c66649717ca0db669344f2bdef6671e42b4c98942eaa3c76a0d75e6?network=MainNet')
   })
@@ -48,7 +48,7 @@ context.skip('/transactions/[txid] - DfTx pool swap on desktop', () => {
   })
 })
 
-context.skip('/transactions/[txid] - DfTx pool swap on mobile', () => {
+context('/transactions/[txid] - DfTx pool swap on mobile', () => {
   before(() => {
     cy.visit('/transactions/594e08557c66649717ca0db669344f2bdef6671e42b4c98942eaa3c76a0d75e6?network=MainNet')
   })

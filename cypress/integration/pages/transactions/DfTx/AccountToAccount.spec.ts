@@ -1,4 +1,4 @@
-context.skip('/transactions/[txid] - DfTx account to account on desktop', () => {
+context('/transactions/[txid] - DfTx account to account on desktop', () => {
   before(() => {
     cy.visit('/transactions/05aa1b9629cffb3afcb03b3b483ff760957aa93d49ca9ffba9f5adaf81238ebc?network=MainNet')
   })
@@ -32,7 +32,7 @@ context.skip('/transactions/[txid] - DfTx account to account on desktop', () => 
   })
 })
 
-context.skip('/transactions/[txid] - DfTx account to account on mobile', () => {
+context('/transactions/[txid] - DfTx account to account on mobile', () => {
   before(() => {
     cy.visit('/transactions/05aa1b9629cffb3afcb03b3b483ff760957aa93d49ca9ffba9f5adaf81238ebc?network=MainNet')
   })
