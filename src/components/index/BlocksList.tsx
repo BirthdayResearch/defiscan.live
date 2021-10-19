@@ -24,7 +24,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
               <BlockDetails
                 key={block.id}
                 height={block.height.toString()}
-                mintedBy={block.id}
+                mintedBy={block.minter}
                 transactionCount={block.transactionCount}
                 age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
               />
