@@ -7,11 +7,11 @@ import {
   CPoolAddLiquidity,
   CPoolCreatePair,
   CPoolRemoveLiquidity,
-  CPoolSwap,
+  CPoolSwap, CRemoveOracle,
   CResignMasternode,
   CSetGovernance,
   CSetOracleData,
-  CTokenCreate,
+  CTokenCreate, CTokenMint, CUpdateOracle,
   CUtxosToAccount,
   DfTx
 } from '@defichain/jellyfish-transaction'
@@ -30,6 +30,9 @@ import { DfTxPoolCreatePair } from '@components/transactions/[txid]/DfTx/DfTxPoo
 import { DfTxTokenCreate } from '@components/transactions/[txid]/DfTx/DfTxTokenCreate'
 import { DfTxAppointOracle } from '@components/transactions/[txid]/DfTx/DfTxAppointOracle'
 import { DfTxSetGovernance } from '@components/transactions/[txid]/DfTx/DfTxSetGovernance'
+import { DfTxTokenMint } from '@components/transactions/[txid]/DfTx/DfTxTokenMint'
+import { DfTxUpdateOracle } from '@components/transactions/[txid]/DfTx/DfTxUpdateOracle'
+import { DfTxRemoveOracle } from '@components/transactions/[txid]/DfTx/DfTxRemoveOracle'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -69,6 +72,12 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxAppointOracle dftx={props.dftx} />
     case CSetGovernance.OP_CODE:
       return <DfTxSetGovernance dftx={props.dftx} />
+    case CTokenMint.OP_CODE:
+      return <DfTxTokenMint dftx={props.dftx} />
+    case CUpdateOracle.OP_CODE:
+      return <DfTxUpdateOracle dftx={props.dftx} />
+    case CRemoveOracle.OP_CODE:
+      return <DfTxRemoveOracle dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
