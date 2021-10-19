@@ -1,4 +1,4 @@
-context('/transactions/[txid] - DfTx create masternode on desktop', () => {
+context.skip('/transactions/[txid] - DfTx create masternode on desktop', () => {
   before(() => {
     cy.visit('/transactions/c4699377e7f6beaabda27b99aadd08ff4a22f51c6ddf632a77f09e7c722bb6e5?network=MainNet')
   })
@@ -23,7 +23,7 @@ context('/transactions/[txid] - DfTx create masternode on desktop', () => {
   })
 })
 
-context('/transactions/[txid] - DfTx create masternode on mobile', () => {
+context.skip('/transactions/[txid] - DfTx create masternode on mobile', () => {
   before(() => {
     cy.visit('/transactions/c4699377e7f6beaabda27b99aadd08ff4a22f51c6ddf632a77f09e7c722bb6e5?network=MainNet')
   })

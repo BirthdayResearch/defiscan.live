@@ -1,4 +1,4 @@
-context('/transactions/[txid] - DfTx ICXCreateOrder on desktop', () => {
+context.skip('/transactions/[txid] - DfTx ICXCreateOrder on desktop', () => {
   before(() => {
     cy.visit('/transactions/b65784e0c8ac2afa3d40299eb3086a92f2cb6c61a5364ff1c5b4d832efda41fd?network=MainNet')
   })
@@ -36,7 +36,7 @@ context('/transactions/[txid] - DfTx ICXCreateOrder on desktop', () => {
   })
 })
 
-context('/transactions/[txid] - DfTx ICXCreateOrder on mobile', () => {
+context.skip('/transactions/[txid] - DfTx ICXCreateOrder on mobile', () => {
   before(() => {
     cy.visit('/transactions/b65784e0c8ac2afa3d40299eb3086a92f2cb6c61a5364ff1c5b4d832efda41fd?network=MainNet')
   })

@@ -1,4 +1,4 @@
-context('/transactions/[txid] - DfTx account to utxos on desktop', () => {
+context.skip('/transactions/[txid] - DfTx account to utxos on desktop', () => {
   before(() => {
     cy.visit('/transactions/68440d960df49256d122110e6635edcfeda7658ddc9d1c5f53afd090c70536d9?network=MainNet')
   })
@@ -32,7 +32,7 @@ context('/transactions/[txid] - DfTx account to utxos on desktop', () => {
   })
 })
 
-context('/transactions/[txid] - DfTx account to utxos on mobile', () => {
+context.skip('/transactions/[txid] - DfTx account to utxos on mobile', () => {
   before(() => {
     cy.visit('/transactions/68440d960df49256d122110e6635edcfeda7658ddc9d1c5f53afd090c70536d9?network=MainNet')
   })

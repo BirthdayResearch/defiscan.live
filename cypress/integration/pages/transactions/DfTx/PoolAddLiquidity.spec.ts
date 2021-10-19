@@ -1,4 +1,4 @@
-context('/transactions/[txid] - DfTx Pool Add Liquidity on desktop', () => {
+context.skip('/transactions/[txid] - DfTx Pool Add Liquidity on desktop', () => {
   before(() => {
     cy.visit('/transactions/c940fd028bfb2f7dad1663b2c77ce203cbc5b49897e76b61472c9f76b81b3fa0?network=MainNet')
   })
@@ -40,7 +40,7 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on desktop', () => {
   })
 })
 
-context('/transactions/[txid] - DfTx Pool Add Liquidity on mobile', () => {
+context.skip('/transactions/[txid] - DfTx Pool Add Liquidity on mobile', () => {
   before(() => {
     cy.visit('/transactions/c940fd028bfb2f7dad1663b2c77ce203cbc5b49897e76b61472c9f76b81b3fa0?network=MainNet')
   })

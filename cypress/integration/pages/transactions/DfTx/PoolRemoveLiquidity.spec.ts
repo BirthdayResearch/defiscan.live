@@ -1,4 +1,4 @@
-context('/transactions/[txid] - DfTx Pool Remove Liquidity on desktop', () => {
+context.skip('/transactions/[txid] - DfTx Pool Remove Liquidity on desktop', () => {
   before(() => {
     cy.visit('/transactions/1c6c741a9bdc8c0563f03239d202944bf5771f7af8ee19178cef383c27523c28?network=MainNet')
   })
@@ -32,7 +32,7 @@ context('/transactions/[txid] - DfTx Pool Remove Liquidity on desktop', () => {
   })
 })
 
-context('/transactions/[txid] - DfTx Pool Removed Liquidity on mobile', () => {
+context.skip('/transactions/[txid] - DfTx Pool Removed Liquidity on mobile', () => {
   before(() => {
     cy.visit('/transactions/1c6c741a9bdc8c0563f03239d202944bf5771f7af8ee19178cef383c27523c28?network=MainNet')
   })
