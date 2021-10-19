@@ -1,4 +1,4 @@
-context.skip('/transactions/[txid] - DfTx pool update pair on desktop', () => {
+context('/transactions/[txid] - DfTx pool update pair on desktop', () => {
   before(() => {
     cy.visit('/transactions/3bfdb2058e9c0127a774e5a74ba260767fe74abb02024c3da5b4d0582d89631b?network=MainNet')
   })
@@ -41,7 +41,7 @@ context.skip('/transactions/[txid] - DfTx pool update pair on desktop', () => {
 
 })
 
-context.skip('/transactions/[txid] - DfTx pool update pair on mobile', () => {
+context('/transactions/[txid] - DfTx pool update pair on mobile', () => {
   before(() => {
     cy.visit('/transactions/3bfdb2058e9c0127a774e5a74ba260767fe74abb02024c3da5b4d0582d89631b?network=MainNet')
   })
