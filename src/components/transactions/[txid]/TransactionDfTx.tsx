@@ -4,10 +4,13 @@ import {
   CAnyAccountToAccount,
   CAppointOracle,
   CCreateMasternode,
+  CICXCreateOrder,
   CPoolAddLiquidity,
   CPoolCreatePair,
   CPoolRemoveLiquidity,
-  CPoolSwap, CRemoveOracle,
+  CPoolSwap,
+  CRemoveOracle,
+  CPoolUpdatePair,
   CResignMasternode,
   CSetGovernance,
   CSetOracleData,
@@ -33,6 +36,8 @@ import { DfTxSetGovernance } from '@components/transactions/[txid]/DfTx/DfTxSetG
 import { DfTxTokenMint } from '@components/transactions/[txid]/DfTx/DfTxTokenMint'
 import { DfTxUpdateOracle } from '@components/transactions/[txid]/DfTx/DfTxUpdateOracle'
 import { DfTxRemoveOracle } from '@components/transactions/[txid]/DfTx/DfTxRemoveOracle'
+import { DfTxICXCreateOrder } from '@components/transactions/[txid]/DfTx/DfTxICXCreateOrder'
+import { DfTxPoolUpdatePair } from '@components/transactions/[txid]/DfTx/DfTxPoolUpdatePair'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -78,6 +83,10 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxUpdateOracle dftx={props.dftx} />
     case CRemoveOracle.OP_CODE:
       return <DfTxRemoveOracle dftx={props.dftx} />
+    case CICXCreateOrder.OP_CODE:
+      return <DfTxICXCreateOrder dftx={props.dftx} />
+    case CPoolUpdatePair.OP_CODE:
+      return <DfTxPoolUpdatePair dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
