@@ -5,7 +5,7 @@ import { TokenSymbol } from '@components/commons/TokenSymbol'
 import NumberFormat from 'react-number-format'
 
 interface DfTxTokenMintProps {
-  dfxt: DfTx<TokenMint>
+  dftx: DfTx<TokenMint>
 }
 
 export function DfTxTokenMint (props: DfTxTokenMintProps): JSX.Element {
@@ -13,19 +13,19 @@ export function DfTxTokenMint (props: DfTxTokenMintProps): JSX.Element {
     <div>
       <DfTxHeader name='Token Mint' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <AdaptiveList className='w-full lg:w-1/2'>
-          {props.dfxt.data.balances.map(balance => (
+        <div className='w-full grid gap-2 grid-cols-1 lg:grid-cols-2'>
+          {props.dftx.data.balances.map(balance => (
             <TokenMintRow balance={balance} key={balance.token} />
           ))}
-        </AdaptiveList>
+        </div>
       </div>
     </div>
   )
 }
 
-function TokenMintRow ({ balance }: {balance: TokenBalance}): JSX.Element {
+function TokenMintRow ({ balance }: { balance: TokenBalance }): JSX.Element {
   return (
-    <>
+    <AdaptiveList>
       <AdaptiveList.Row name='Token'>
         <TokenSymbol tokenId={balance.token} testId={`DfTxTokenMint.Token${balance.token}`} />
       </AdaptiveList.Row>
@@ -37,6 +37,6 @@ function TokenMintRow ({ balance }: {balance: TokenBalance}): JSX.Element {
           thousandSeparator
         />
       </AdaptiveList.Row>
-    </>
+    </AdaptiveList>
   )
 }

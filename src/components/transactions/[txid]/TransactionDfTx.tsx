@@ -73,7 +73,7 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
     case CSetGovernance.OP_CODE:
       return <DfTxSetGovernance dftx={props.dftx} />
     case CTokenMint.OP_CODE:
-      return <DfTxTokenMint dfxt={props.dftx} />
+      return <DfTxTokenMint dftx={props.dftx} />
     case CUpdateOracle.OP_CODE:
       return <DfTxUpdateOracle dftx={props.dftx} />
     case CRemoveOracle.OP_CODE:
