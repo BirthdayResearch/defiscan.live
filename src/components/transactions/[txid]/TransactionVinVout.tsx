@@ -9,6 +9,7 @@ interface TransactionVinVoutProps {
   vins: TransactionVin[]
   vouts: TransactionVout[]
   fee: BigNumber
+  dftxName?: string
 }
 
 export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element {
@@ -21,11 +22,14 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
         <div className='w-full lg:w-1/2'>
           <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsLeft.List'>
             {props.vins.map((vin) => {
+              const decoded = vin.vout !== undefined ? fromScriptHex(vin.vout.script?.hex, network) : undefined
+              const address = decoded?.address ?? 'N/A'
+
               if (vin.vout === undefined) {
                 return (
                   <TransactionVectorRow
                     label='INPUT'
-                    script={undefined}
+                    address={address}
                     value='Coinbase (Newly Generated Coins)'
                     key={vin.id}
                     network={network}
@@ -36,7 +40,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
               return (
                 <TransactionVectorRow
                   label='INPUT'
-                  script={vin.vout.script}
+                  address={address}
                   value={`${vin.vout.value} DFI`}
                   key={vin.id}
                   network={network}
@@ -52,11 +56,18 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
 
         <div className='w-full lg:w-1/2'>
           <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsRight.List'>
-            {props.vouts.map((vout) => {
+            {props.vouts.map((vout, index) => {
+              const decoded = vout.script !== undefined ? fromScriptHex(vout.script?.hex, network) : undefined
+
+              let address = decoded?.address ?? 'N/A'
+              if (index === 0) {
+                address = decoded?.address ?? props.dftxName ?? 'N/A'
+              }
+
               return (
                 <TransactionVectorRow
                   label='OUTPUT'
-                  script={vout.script}
+                  address={address}
                   value={`${vout.value} DFI`}
                   key={vout.n}
                   network={network}
@@ -95,14 +106,10 @@ function TransactionSummary (props: { transaction: Transaction, vins: Transactio
 
 function TransactionVectorRow (props: {
   label: 'INPUT' | 'OUTPUT'
-  script?: {
-    hex: string
-  }
+  address: string
   value: string
   network: NetworkName
 }): JSX.Element {
-  const decoded = props.script !== undefined ? fromScriptHex(props.script?.hex, props.network) : undefined
-
   return (
     <div className='bg-gray-50 h-20 p-3 rounded flex justify-between'>
       <div className='flex flex-col justify-between h-full w-full'>
@@ -111,7 +118,7 @@ function TransactionVectorRow (props: {
         </span>
         <div className='flex justify-between gap-x-2'>
           <span className='opacity-60 overflow-ellipsis overflow-hidden'>
-            {decoded?.address ?? 'N/A'}
+            {props.address}
           </span>
           <span className='min-w-max'>
             {props.value}

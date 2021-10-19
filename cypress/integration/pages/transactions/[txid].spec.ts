@@ -64,7 +64,7 @@ context('/transactions/[txid] on desktop', () => {
     cy.findByTestId('TransactionDetailsRight.List').within(() => {
       cy.get('div').first().within(() => {
         cy.get('span').eq(0).should('have.text', 'OUTPUT')
-        cy.get('span').eq(1).should('have.text', 'N/A')
+        cy.get('span').eq(1).should('have.text', 'OP_DEFI_TX_SET_ORACLE_DATA')
         cy.get('span').eq(2).should('have.text', '0.00000000 DFI')
       })
 
@@ -162,7 +162,7 @@ context('/transactions/[txid] on mobile', () => {
     cy.findByTestId('TransactionDetailsRight.List').within(() => {
       cy.get('div').first().within(() => {
         cy.get('span').eq(0).should('have.text', 'OUTPUT')
-        cy.get('span').eq(1).should('have.text', 'N/A')
+        cy.get('span').eq(1).should('have.text', 'OP_DEFI_TX_SET_ORACLE_DATA')
         cy.get('span').eq(2).should('have.text', '0.00000000 DFI')
       })
 
