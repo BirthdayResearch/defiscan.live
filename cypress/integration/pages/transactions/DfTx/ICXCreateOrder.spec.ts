@@ -15,24 +15,36 @@ context('/transactions/[txid] - DfTx ICXCreateOrder on desktop', () => {
     cy.findByTestId('DfTxHeader.Subtitle').contains('Type:ICX Create Order')
   })
 
+  it('should have DfTxICXCreateOrder token', () => {
+    cy.findByTestId('DfTxICXCreateOrder.token').should('have.text', 'BTC')
+  })
+
   it('should have DfTxICXCreateOrder amountFrom', () => {
-    cy.findByTestId('DfTxICXCreateOrder.amountFrom').should('have.text', '0.001')
+    cy.findByTestId('DfTxICXCreateOrder.amountFrom').should('have.text', '0.00100000')
   })
 
   it('should have DfTxICXCreateOrder amountToFill', () => {
-    cy.findByTestId('DfTxICXCreateOrder.amountToFill').should('have.text', '0.001')
+    cy.findByTestId('DfTxICXCreateOrder.amountToFill').should('have.text', '0.00100000')
   })
 
   it('should have DfTxICXCreateOrder orderPrice', () => {
-    cy.findByTestId('DfTxICXCreateOrder.orderPrice').should('have.text', '1')
+    cy.findByTestId('DfTxICXCreateOrder.orderPrice').should('have.text', '1.00000000')
   })
 
   it('should have DfTxICXCreateOrder orderType', () => {
-    cy.findByTestId('DfTxICXCreateOrder.orderType').should('have.text', '1')
+    cy.findByTestId('DfTxICXCreateOrder.orderType').should('have.text', 'Internal')
+  })
+
+  it('should have DfTxICXCreateOrder expiry', () => {
+    cy.findByTestId('DfTxICXCreateOrder.expiry').should('have.text', '2880 Blocks')
   })
 
   it('should have DfTxICXCreateOrder ownerAddress', () => {
     cy.findByTestId('DfTxICXCreateOrder.ownerAddress').should('have.text', '8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg')
+  })
+
+  it('should have DfTxICXCreateOrder pubkey', () => {
+    cy.findByTestId('DfTxICXCreateOrder.pubkey').should('have.text', 'N/A')
   })
 })
 
@@ -53,23 +65,35 @@ context('/transactions/[txid] - DfTx ICXCreateOrder on mobile', () => {
     cy.findByTestId('DfTxHeader.Subtitle').contains('Type:ICX Create Order')
   })
 
+  it('should have DfTxICXCreateOrder token', () => {
+    cy.findByTestId('DfTxICXCreateOrder.token').should('have.text', 'BTC')
+  })
+
   it('should have DfTxICXCreateOrder amountFrom', () => {
-    cy.findByTestId('DfTxICXCreateOrder.amountFrom').should('have.text', '0.001')
+    cy.findByTestId('DfTxICXCreateOrder.amountFrom').should('have.text', '0.00100000')
   })
 
   it('should have DfTxICXCreateOrder amountToFill', () => {
-    cy.findByTestId('DfTxICXCreateOrder.amountToFill').should('have.text', '0.001')
-  })
-
-  it('should have DfTxICXCreateOrder orderPrice', () => {
-    cy.findByTestId('DfTxICXCreateOrder.orderPrice').should('have.text', '1')
+    cy.findByTestId('DfTxICXCreateOrder.amountToFill').should('have.text', '0.00100000')
   })
 
   it('should have DfTxICXCreateOrder orderType', () => {
-    cy.findByTestId('DfTxICXCreateOrder.orderType').should('have.text', '1')
+    cy.findByTestId('DfTxICXCreateOrder.orderType').should('have.text', 'Internal')
+  })
+
+  it('should have DfTxICXCreateOrder orderPrice', () => {
+    cy.findByTestId('DfTxICXCreateOrder.orderPrice').should('have.text', '1.00000000')
+  })
+
+  it('should have DfTxICXCreateOrder expiry', () => {
+    cy.findByTestId('DfTxICXCreateOrder.expiry').should('have.text', '2880 Blocks')
   })
 
   it('should have DfTxICXCreateOrder ownerAddress', () => {
     cy.findByTestId('DfTxICXCreateOrder.ownerAddress').should('have.text', '8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg')
+  })
+
+  it('should have DfTxICXCreateOrder pubkey', () => {
+    cy.findByTestId('DfTxICXCreateOrder.pubkey').should('have.text', 'N/A')
   })
 })
