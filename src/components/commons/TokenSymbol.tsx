@@ -20,7 +20,7 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
       return
     }
 
-    const timeoutId = setTimeout(() => setShowTokenId(true), 6000)
+    const timeoutId = setTimeout(() => setShowTokenId(true), 30000)
     api.tokens.get(props.tokenId.toString()).then(data => {
       setTokenData(data)
     }).catch(() => {
