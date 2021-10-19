@@ -48,10 +48,7 @@ function PoolSwapDetailsTable (props: {
           {props.fromAddress ?? 'N/A'}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Token'>
-          <div className='flex flex-row'>
-            <TokenSymbol tokenId={props.fromTokenId} testId='DfTxPoolSwap.fromAmountSymbol' />
-            <span className='ml-1' data-testid='DfTxPoolSwap.fromTokenId'>(ID: {props.fromTokenId})</span>
-          </div>
+          <TokenSymbol tokenId={props.fromTokenId} testId='DfTxPoolSwap.fromAmountSymbol' />
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Amount'>
           <span data-testid='DfTxPoolSwap.fromAmount'>{props.fromAmount.toFixed(8)}</span>
@@ -62,10 +59,7 @@ function PoolSwapDetailsTable (props: {
           {props.toAddress ?? 'N/A'}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Token'>
-          <div className='flex flex-row'>
-            <TokenSymbol tokenId={props.toTokenId} testId='DfTxPoolSwap.maxPriceSymbol' />
-            <span className='ml-1' data-testid='DfTxPoolSwap.toTokenId'>(ID: {props.toTokenId})</span>
-          </div>
+          <TokenSymbol tokenId={props.toTokenId} testId='DfTxPoolSwap.maxPriceSymbol' />
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Max Price'>
           <span data-testid='DfTxPoolSwap.maxPrice'>{props.maxPrice.toFixed(8)}</span>

@@ -35,10 +35,7 @@ function PoolRemoveLiquidityTable (props: { address?: string, amount: BigNumber,
         {props.address ?? 'N/A'}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Token'>
-        <div className='flex flex-row'>
-          <TokenSymbol tokenId={props.tokenId} testId='DfTxPoolRemoveLiquidity.Symbol' />
-          <span className='ml-1' data-testid='DfTxPoolRemoveLiquidity.Token'>(ID: {props.tokenId})</span>
-        </div>
+        <TokenSymbol tokenId={props.tokenId} testId='DfTxPoolRemoveLiquidity.Symbol' />
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Amount'>
         <span data-testid='DfTxPoolRemoveLiquidity.Amount'>{props.amount.toFixed(8)}</span>

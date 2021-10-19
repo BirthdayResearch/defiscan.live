@@ -15,16 +15,8 @@ context('/transactions/[txid] - DfTx pool create pair on desktop', () => {
     cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Pool Create Pair')
   })
 
-  it('should have DfTxPoolCreatePair tokenA', () => {
-    cy.findByTestId('DfTxPoolCreatePair.tokenA').should('have.text', '(ID: 13)')
-  })
-
   it('should have DfTxPoolCreatePair tokenA Symbol', () => {
     cy.findByTestId('DfTxPoolCreatePair.tokenASymbol').should('have.text', 'USDC')
-  })
-
-  it('should have DfTxPoolCreatePair tokenB', () => {
-    cy.findByTestId('DfTxPoolCreatePair.tokenB').should('have.text', '(ID: 0)')
   })
 
   it('should have DfTxPoolCreatePair tokenB Symbol', () => {
@@ -61,16 +53,8 @@ context('/transactions/[txid] - DfTx Pool Create Pair on mobile', () => {
     cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Pool Create Pair')
   })
 
-  it('should have DfTxPoolCreatePair tokenA', () => {
-    cy.findByTestId('DfTxPoolCreatePair.tokenA').should('have.text', '(ID: 13)')
-  })
-
   it('should have DfTxPoolCreatePair tokenA Symbol', () => {
     cy.findByTestId('DfTxPoolCreatePair.tokenASymbol').should('have.text', 'USDC')
-  })
-
-  it('should have DfTxPoolCreatePair tokenB', () => {
-    cy.findByTestId('DfTxPoolCreatePair.tokenB').should('have.text', '(ID: 0)')
   })
 
   it('should have DfTxPoolCreatePair tokenB Symbol', () => {

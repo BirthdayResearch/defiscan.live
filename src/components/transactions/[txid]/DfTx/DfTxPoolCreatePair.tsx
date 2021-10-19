@@ -46,16 +46,10 @@ function PoolCreatePairDetailsTable (props: {
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='Token A'>
-          <div className='flex flex-row'>
-            <TokenSymbol tokenId={props.tokenA} testId='DfTxPoolCreatePair.tokenASymbol' />
-            <span data-testid='DfTxPoolCreatePair.tokenA' className='ml-1'>(ID: {props.tokenA})</span>
-          </div>
+          <TokenSymbol tokenId={props.tokenA} testId='DfTxPoolCreatePair.tokenASymbol' />
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Token B'>
-          <div className='flex flex-row'>
-            <TokenSymbol tokenId={props.tokenB} testId='DfTxPoolCreatePair.tokenBSymbol' />
-            <span data-testid='DfTxPoolCreatePair.tokenB' className='ml-1'>(ID: {props.tokenB})</span>
-          </div>
+          <TokenSymbol tokenId={props.tokenB} testId='DfTxPoolCreatePair.tokenBSymbol' />
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Commission' testId='DfTxPoolCreatePair.commission'>
           {props.commission}
