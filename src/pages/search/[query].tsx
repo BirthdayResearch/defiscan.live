@@ -4,7 +4,7 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 
 interface SearchProps {
-  searchTerm: string
+  query: string
 }
 
 export default function SearchPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -12,7 +12,7 @@ export default function SearchPage (props: InferGetServerSidePropsType<typeof ge
     <Container className='pt-12 pb-20'>
       <div className='flex flex-wrap justify-center pt-24 pb-36'>
         <div className='rounded text-center w-auto bg-red-100 px-20 py-4' data-testid='SearchPage.NoResults'>
-          The requested search term <code className='break-all'>{props.searchTerm}</code> could not be found
+          The requested search term <code className='break-all'>{props.query}</code> could not be found
         </div>
       </div>
     </Container>
@@ -21,14 +21,14 @@ export default function SearchPage (props: InferGetServerSidePropsType<typeof ge
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<SearchProps>> {
   const api = getWhaleApiClient(context)
-  const searchTerm = context.params?.searchTerm?.toString().trim() as string
+  const query = context.params?.query?.toString().trim() as string
 
-  const results = await search(api, searchTerm)
+  const results = await search(api, query)
 
   if (results === undefined) {
     return {
       props: {
-        searchTerm: searchTerm
+        query: query
       }
     }
   }
@@ -41,10 +41,10 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   }
 }
 
-async function search (api: WhaleApiClient, searchTerm: string): Promise<{ id: string, url: string } | undefined> {
-  searchTerm = searchTerm.trim()
+async function search (api: WhaleApiClient, query: string): Promise<{ id: string, url: string } | undefined> {
+  query = query.trim()
 
-  const txnData = await api.transactions.get(searchTerm.trim().toString())
+  const txnData = await api.transactions.get(query)
     .then(data => {
       return {
         url: `/transactions/${data.txid}`,
@@ -59,7 +59,7 @@ async function search (api: WhaleApiClient, searchTerm: string): Promise<{ id: s
     return txnData
   }
 
-  const blocksData = await api.blocks.get(searchTerm.trim().toString())
+  const blocksData = await api.blocks.get(query)
     .then(data => {
       return {
         url: `/blocks/${data.id}`,

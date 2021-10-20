@@ -8,8 +8,6 @@ import { IoSearchSharp } from 'react-icons/io5'
 import { useRouter } from 'next/router'
 
 export function IndexHeader (): JSX.Element {
-  const router = useRouter()
-
   return (
     <div
       className='flex flex-col items-center'
@@ -20,20 +18,28 @@ export function IndexHeader (): JSX.Element {
           <h1 className='text-3xl lg:text-4xl mb-6 font-semibold text-center' data-testid='Header.title'>
             DeFiChain Blockchain Explorer
           </h1>
-          <div className='flex w-full lg:w-2/3 items-center'>
-            <div className='flex w-full p-2 rounded-3xl h-10 bg-white border border-primary-100'>
-              <IoSearchSharp size={22} className='text-gray-400 ml-0.5 self-center' />
-              <input
-                onKeyDown={(event) => event.code === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}`)}
-                placeholder='Search by Txn ID or Block Height'
-                className='ml-1.5 w-full focus:outline-none'
-                data-testid='IndexHeader.SearchInput'
-              />
-            </div>
-          </div>
+          <SearchBar />
         </div>
       </Container>
       <Stats />
+    </div>
+  )
+}
+
+function SearchBar (): JSX.Element {
+  const router = useRouter()
+
+  return (
+    <div className='flex w-full lg:w-2/3 items-center'>
+      <div className='flex w-full p-2 rounded-3xl h-10 bg-white border border-primary-100'>
+        <IoSearchSharp size={22} className='text-gray-400 ml-0.5 self-center' />
+        <input
+          onKeyDown={(event) => event.code === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}`)}
+          placeholder='Search by Txn ID or Block Height'
+          className='ml-1.5 w-full focus:outline-none'
+          data-testid='IndexHeader.SearchInput'
+        />
+      </div>
     </div>
   )
 }
