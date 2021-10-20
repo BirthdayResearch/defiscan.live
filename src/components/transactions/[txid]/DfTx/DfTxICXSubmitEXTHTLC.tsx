@@ -15,17 +15,20 @@ export function DfTxICXSubmitEXTHTLC (props: DfTxICXSubmitEXTHTLCProps): JSX.Ele
           <AdaptiveList.Row name='Offer Tx'>
             <span data-testid='DfTxICXSubmitEXTHTLC.OfferTx'>{props.dftx.data.offerTx}</span>
           </AdaptiveList.Row>
-          <AdaptiveList.Row name='Amount'>
-            <span data-testid='DfTxICXSubmitEXTHTLC.Amount'>{props.dftx.data.amount.toString()}</span>
-          </AdaptiveList.Row>
           <AdaptiveList.Row name='Hash'>
             <span data-testid='DfTxICXSubmitEXTHTLC.Hash'>{props.dftx.data.hash}</span>
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Amount'>
+            <span data-testid='DfTxICXSubmitEXTHTLC.Amount'>{props.dftx.data.amount.toFixed(8)}</span>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='HTLC Script Address'>
             <span data-testid='DfTxICXSubmitEXTHTLC.HTLCScriptAddress'>{props.dftx.data.htlcScriptAddress}</span>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Owner Public Key'>
             <span data-testid='DfTxICXSubmitEXTHTLC.OwnerPubKey'>{props.dftx.data.ownerPubkey}</span>
+          </AdaptiveList.Row>
+          <AdaptiveList.Row name='Timeout'>
+            <span data-testid='DfTxICXSubmitEXTHTLC.Timeout'>{props.dftx.data.timeout} Blocks</span>
           </AdaptiveList.Row>
         </AdaptiveList>
       </div>

@@ -19,12 +19,12 @@ context('/transactions/[txid] - DfTx ICX Submit EXTHTLC  on desktop', () => {
     cy.findByTestId('DfTxICXSubmitEXTHTLC.OfferTx').should('have.text', '8b0e6bcbc8ae43b017bce42d33ff3b73f6aa2cd54d51342194e51f46b76a5764')
   })
 
-  it('should have DfTxICXSubmitEXTHTLC Amount', () => {
-    cy.findByTestId('DfTxICXSubmitEXTHTLC.Amount').should('have.text', '0.1')
-  })
-
   it('should have DfTxICXSubmitEXTHTLC Hash', () => {
     cy.findByTestId('DfTxICXSubmitEXTHTLC.Hash').should('have.text', '01376dbc27d4d2ac78c59e8e13057e9f9c4e84a573e22b908b6a8abe3504d191')
+  })
+
+  it('should have DfTxICXSubmitEXTHTLC Amount', () => {
+    cy.findByTestId('DfTxICXSubmitEXTHTLC.Amount').should('have.text', '0.10000000')
   })
 
   it('should have DfTxICXSubmitEXTHTLC HTLC Script Address', () => {
@@ -33,6 +33,10 @@ context('/transactions/[txid] - DfTx ICX Submit EXTHTLC  on desktop', () => {
 
   it('should have DfTxICXSubmitEXTHTLC OwnerPubKey', () => {
     cy.findByTestId('DfTxICXSubmitEXTHTLC.OwnerPubKey').should('have.text', '035c7e47fe0c39b2df57c943362b654fe7f69bdb300c7c09b066664c17966f9313')
+  })
+
+  it('should have DfTxICXSubmitEXTHTLC Timeout', () => {
+    cy.findByTestId('DfTxICXSubmitEXTHTLC.Timeout').should('have.text', '60 Blocks')
   })
 })
 
@@ -57,12 +61,12 @@ context('/transactions/[txid] - DfTx ICX Submit EXTHTLC  on mobile', () => {
     cy.findByTestId('DfTxICXSubmitEXTHTLC.OfferTx').should('have.text', '8b0e6bcbc8ae43b017bce42d33ff3b73f6aa2cd54d51342194e51f46b76a5764')
   })
 
-  it('should have DfTxICXSubmitEXTHTLC Amount', () => {
-    cy.findByTestId('DfTxICXSubmitEXTHTLC.Amount').should('have.text', '0.1')
-  })
-
   it('should have DfTxICXSubmitEXTHTLC Hash', () => {
     cy.findByTestId('DfTxICXSubmitEXTHTLC.Hash').should('have.text', '01376dbc27d4d2ac78c59e8e13057e9f9c4e84a573e22b908b6a8abe3504d191')
+  })
+
+  it('should have DfTxICXSubmitEXTHTLC Amount', () => {
+    cy.findByTestId('DfTxICXSubmitEXTHTLC.Amount').should('have.text', '0.10000000')
   })
 
   it('should have DfTxICXSubmitEXTHTLC HTLC Script Address', () => {
@@ -71,5 +75,9 @@ context('/transactions/[txid] - DfTx ICX Submit EXTHTLC  on mobile', () => {
 
   it('should have DfTxICXSubmitEXTHTLC OwnerPubKey', () => {
     cy.findByTestId('DfTxICXSubmitEXTHTLC.OwnerPubKey').should('have.text', '035c7e47fe0c39b2df57c943362b654fe7f69bdb300c7c09b066664c17966f9313')
+  })
+
+  it('should have DfTxICXSubmitEXTHTLC Timeout', () => {
+    cy.findByTestId('DfTxICXSubmitEXTHTLC.Timeout').should('have.text', '60 Blocks')
   })
 })
