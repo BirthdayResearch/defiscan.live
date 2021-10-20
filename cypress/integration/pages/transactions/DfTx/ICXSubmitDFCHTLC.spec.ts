@@ -34,7 +34,7 @@ context('/transactions/[txid] - DfTx ICX Submit DFCHTLC  on mobile', () => {
   })
 
   beforeEach(() => {
-    cy.viewport('macbook-13')
+    cy.viewport('iphone-x')
   })
 
   it('should have heading', () => {

@@ -21,6 +21,7 @@ import {
   CICXCloseOffer,
   CICXCloseOrder,
   CICXSubmitDFCHTLC,
+  CICXSubmitEXTHTLC,
   DfTx
 } from '@defichain/jellyfish-transaction'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
@@ -47,6 +48,7 @@ import { DfTxICXMakeOffer } from '@components/transactions/[txid]/DfTx/DfTxICXMa
 import { DfTxICXCloseOffer } from '@components/transactions/[txid]/DfTx/DfTxICXCloseOffer'
 import { DfTxICXCloseOrder } from '@components/transactions/[txid]/DfTx/DfTxICXCloseOrder'
 import { DfTxICXSubmitDFCHTLC } from '@components/transactions/[txid]/DfTx/DfTxICXSubmitDFCHTLC'
+import { DfTxICXSubmitEXTHTLC } from '@components/transactions/[txid]/DfTx/DfTxICXSubmitEXTHTLC'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -106,6 +108,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return null
     case CICXSubmitDFCHTLC.OP_CODE:
       return <DfTxICXSubmitDFCHTLC dftx={props.dftx} />
+    case CICXSubmitEXTHTLC.OP_CODE:
+      return <DfTxICXSubmitEXTHTLC dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
