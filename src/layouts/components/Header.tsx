@@ -7,11 +7,12 @@ import { Menu, Transition } from '@headlessui/react'
 import { RootState } from '@store/index'
 import classNames from 'classnames'
 import { useRouter } from 'next/router'
-import { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { MdArrowDropDown, MdClose, MdMenu } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 import { Container } from '@components/commons/Container'
+import { IoSearchSharp } from 'react-icons/io5'
 
 export function Header (): JSX.Element {
   const [menu, setMenu] = useState(false)
@@ -40,20 +41,25 @@ export function Header (): JSX.Element {
       <div className='border-b border-gray-100'>
         <Container className='py-4 md:py-8'>
           <div className='flex items-center justify-between'>
-            <div className='flex'>
+            <div className='flex w-full'>
               <Link href={{ pathname: '/' }} passHref>
                 <a className='flex items-center cursor-pointer hover:text-primary-500'>
-                  <DeFiChainLogo className='w-16 h-full' />
+                  <DeFiChainLogo className='w-12 lg:w-16 h-full' />
                   <h6 className='ml-3 text-xl font-medium'>Scan</h6>
                 </a>
               </Link>
 
-              <div className='hidden md:flex flex-wrap'>
-                <HeaderLink className='ml-12' text='DEX' pathname='/dex' />
-                <HeaderLink className='ml-4' text='Blocks' pathname='/blocks' />
-                <HeaderLink className='ml-4' text='Prices' pathname='/prices' />
-                <HeaderLink className='ml-4' text='Tokens' pathname='/tokens' />
-                <HeaderLink className='ml-4' text='Masternodes' pathname='/masternodes' />
+              <div className='hidden md:flex ml-2 lg:ml-8  md:w-full md:justify-between items-center'>
+                <div className='hidden md:flex'>
+                  <HeaderLink className='ml-3 lg:ml-4' text='DEX' pathname='/dex' />
+                  <HeaderLink className='ml-3 lg:ml-4' text='Blocks' pathname='/blocks' />
+                  <HeaderLink className='ml-3 lg:ml-4' text='Prices' pathname='/prices' />
+                  <HeaderLink className='ml-3 lg:ml-4' text='Tokens' pathname='/tokens' />
+                  <HeaderLink className='ml-3 lg:ml-4' text='Masternodes' pathname='/masternodes' />
+                </div>
+                <div className='hidden ml-4 md:flex'>
+                  <HeaderSearchBar />
+                </div>
               </div>
             </div>
             <div className='md:hidden'>
@@ -69,7 +75,7 @@ export function Header (): JSX.Element {
 
       <div>
         {menu && (
-          <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm'>
+          <Container className='md:hidden pt-2 pb-4 border-b border-gray-100 shadow-sm'>
             <div className='flex flex-col'>
               <HeaderLink className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex' />
               <HeaderLink className='flex justify-center border-b border-gray-100' text='Blocks' pathname='/blocks' />
@@ -80,6 +86,11 @@ export function Header (): JSX.Element {
                 pathname='/masternodes'
               />
             </div>
+
+            <div className='mt-4'>
+              <HeaderSearchBar />
+            </div>
+
             <HeaderCountBar className='mt-4 border border-gray-100 rounded p-2 bg-gray-50 flex flex-wrap' />
             <div className='mt-4'>
               <HeaderNetworkMenu />
@@ -240,5 +251,20 @@ function HeaderLink (props: { text: string, pathname: string, className: string 
         </div>
       </a>
     </Link>
+  )
+}
+
+function HeaderSearchBar (): JSX.Element {
+  const router = useRouter()
+  return (
+    <div className='flex p-2 rounded h-9 bg-white border border-gray-200'>
+      <input
+        onKeyDown={(event) => event.code === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}`)}
+        placeholder='Search'
+        className='ml-1.5 w-full focus:outline-none'
+        data-testid='IndexHeader.SearchInput'
+      />
+      <IoSearchSharp size={20} className='text-gray-400 ml-0.5 self-center' />
+    </div>
   )
 }
