@@ -21,13 +21,14 @@ export function DfTxTokenUpdateAny (props: DfTxTokenUpdateAnyProps): JSX.Element
           limit={props.dftx.data.limit}
           isDAT={props.dftx.data.isDAT}
           tradeable={props.dftx.data.tradeable}
+          mintable={props.dftx.data.mintable}
         />
       </div>
     </div>
   )
 }
 
-function DetailsTable (props: { creationTx: string, symbol: string, decimal: number, name: string, limit: BigNumber, isDAT: boolean, tradeable: boolean }): JSX.Element {
+function DetailsTable (props: { creationTx: string, symbol: string, decimal: number, name: string, limit: BigNumber, isDAT: boolean, tradeable: boolean, mintable: boolean }): JSX.Element {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
@@ -59,9 +60,11 @@ function DetailsTable (props: { creationTx: string, symbol: string, decimal: num
         <AdaptiveList.Row name='Limit' testId='DfTxTokenUpdateAny.limit'>
           {props.limit.toString()}
         </AdaptiveList.Row>
-
-        <AdaptiveList.Row name='Tradeable' testId='DfTxTokenUpdateAny.Tradeable'>
+        <AdaptiveList.Row name='Tradeable' className='capitalize' testId='DfTxTokenUpdateAny.Tradeable'>
           {props.tradeable.toString()}
+        </AdaptiveList.Row>
+        <AdaptiveList.Row name='Mintable' className='capitalize' testId='DfTxTokenUpdateAny.Mintable'>
+          {props.mintable.toString()}
         </AdaptiveList.Row>
       </AdaptiveList>
     </>

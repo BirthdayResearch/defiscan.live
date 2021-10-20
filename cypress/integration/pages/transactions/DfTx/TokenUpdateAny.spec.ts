@@ -37,6 +37,10 @@ context('/transactions/[txid] - DfTx Token Update Any on desktop', () => {
   it('should have DfTxTokenUpdateAny Tradeable', () => {
     cy.findByTestId('DfTxTokenUpdateAny.Tradeable').should('have.text', 'true')
   })
+
+  it('should have DfTxTokenUpdateAny Mintable', () => {
+    cy.findByTestId('DfTxTokenUpdateAny.Mintable').should('have.text', 'true')
+  })
 })
 
 context('/transactions/[txid] - DfTx Token Update Any on mobile', () => {
@@ -60,7 +64,7 @@ context('/transactions/[txid] - DfTx Token Update Any on mobile', () => {
     cy.findByTestId('DfTxTokenUpdateAny.CreationTx').should('have.text', '085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d')
   })
   it('should have DfTxTokenUpdateAny symbol', () => {
-    cy.findByTestId('DfTxTokenUpdateAny.symbol').should('have.text', 'BUSH2B')
+    cy.findByTestId('DfTxTokenUpdateAny.symbol').should('have.text', 'BUSH')
   })
 
   it('should have DfTxTokenUpdateAny decimal', () => {
@@ -77,5 +81,9 @@ context('/transactions/[txid] - DfTx Token Update Any on mobile', () => {
 
   it('should have DfTxTokenUpdateAny Tradeable', () => {
     cy.findByTestId('DfTxTokenUpdateAny.Tradeable').should('have.text', 'true')
+  })
+
+  it('should have DfTxTokenUpdateAny Mintable', () => {
+    cy.findByTestId('DfTxTokenUpdateAny.Mintable').should('have.text', 'true')
   })
 })
