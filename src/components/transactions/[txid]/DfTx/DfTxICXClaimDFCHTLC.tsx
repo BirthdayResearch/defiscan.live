@@ -12,7 +12,7 @@ export function DfTxICXClaimDFCHTLC (props: DfTxICXClaimDFCHTLCProps): JSX.Eleme
       <DfTxHeader name='ICX Claim DFCHTLC' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList>
-          <AdaptiveList.Row name='dfcHTCTx'>
+          <AdaptiveList.Row name='HTLC Tx'>
             <span data-testid='DfTxICXClaimDFCHTLC.dfcHTLCTx'>{props.dftx.data.dfcHTLCTx}</span>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Seed'>
