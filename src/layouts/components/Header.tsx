@@ -51,22 +51,43 @@ export function Header (): JSX.Element {
 
               <div className='hidden md:flex ml-2 lg:ml-8  md:w-full md:justify-between items-center'>
                 <div className='hidden md:flex'>
-                  <HeaderLink className='ml-3 lg:ml-4' text='DEX' pathname='/dex' />
-                  <HeaderLink className='ml-3 lg:ml-4' text='Blocks' pathname='/blocks' />
-                  <HeaderLink className='ml-3 lg:ml-4' text='Prices' pathname='/prices' />
-                  <HeaderLink className='ml-3 lg:ml-4' text='Tokens' pathname='/tokens' />
-                  <HeaderLink className='ml-3 lg:ml-4' text='Masternodes' pathname='/masternodes' />
+                  <HeaderLink
+                    className='ml-3 lg:ml-4' text='DEX' pathname='/dex'
+                    testId='Desktop.HeaderLink.DEX'
+                  />
+                  <HeaderLink
+                    className='ml-3 lg:ml-4' text='Blocks' pathname='/blocks'
+                    testId='Desktop.HeaderLink.Blocks'
+                  />
+                  <HeaderLink
+                    className='ml-3 lg:ml-4' text='Prices' pathname='/prices'
+                    testId='Desktop.HeaderLink.Prices'
+                  />
+                  <HeaderLink
+                    className='ml-3 lg:ml-4' text='Tokens' pathname='/tokens'
+                    testId='Desktop.HeaderLink.Tokens'
+                  />
+                  <HeaderLink
+                    className='ml-3 lg:ml-4' text='Masternodes' pathname='/masternodes'
+                    testId='Desktop.HeaderLink.Masternodes'
+                  />
                 </div>
-                <div className='hidden ml-4 md:flex'>
+                <div className='hidden ml-4 md:flex' data-testid='Desktop.HeaderSearchBar'>
                   <HeaderSearchBar />
                 </div>
               </div>
             </div>
             <div className='md:hidden'>
               {menu ? (
-                <MdClose className='h-6 w-6 text-primary-500' onClick={() => setMenu(false)} />
+                <MdClose
+                  className='h-6 w-6 text-primary-500' onClick={() => setMenu(false)}
+                  data-testid='Header.CloseMenu'
+                />
               ) : (
-                <MdMenu className='h-6 w-6 text-primary-500' onClick={() => setMenu(true)} />
+                <MdMenu
+                  className='h-6 w-6 text-primary-500' onClick={() => setMenu(true)}
+                  data-testid='Header.OpenMenu'
+                />
               )}
             </div>
           </div>
@@ -77,17 +98,30 @@ export function Header (): JSX.Element {
         {menu && (
           <Container className='md:hidden pt-2 pb-4 border-b border-gray-100 shadow-sm'>
             <div className='flex flex-col'>
-              <HeaderLink className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex' />
-              <HeaderLink className='flex justify-center border-b border-gray-100' text='Blocks' pathname='/blocks' />
-              <HeaderLink className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices' />
-              <HeaderLink className='flex justify-center border-b border-gray-100' text='Tokens' pathname='/tokens' />
+              <HeaderLink
+                className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex'
+                testId='Mobile.HeaderLink.DEX'
+              />
+              <HeaderLink
+                className='flex justify-center border-b border-gray-100' text='Blocks' pathname='/blocks'
+                testId='Mobile.HeaderLink.Blocks'
+              />
+              <HeaderLink
+                className='flex justify-center border-b border-gray-100' text='Prices' pathname='/prices'
+                testId='Mobile.HeaderLink.Prices'
+              />
+              <HeaderLink
+                className='flex justify-center border-b border-gray-100' text='Tokens' pathname='/tokens'
+                testId='Mobile.HeaderLink.Tokens'
+              />
               <HeaderLink
                 className='flex justify-center border-b border-gray-100' text='Masternodes'
                 pathname='/masternodes'
+                testId='Mobile.HeaderLink.Masternodes'
               />
             </div>
 
-            <div className='mt-4'>
+            <div className='mt-4' data-testid='Mobile.HeaderSearchBar'>
               <HeaderSearchBar />
             </div>
 
@@ -238,13 +272,14 @@ function HeaderNetworkMenu (): JSX.Element {
   )
 }
 
-function HeaderLink (props: { text: string, pathname: string, className: string }): JSX.Element {
+function HeaderLink (props: { text: string, pathname: string, className: string, testId?: string }): JSX.Element {
   const router = useRouter()
   return (
     <Link href={{ pathname: props.pathname }}>
-      <a className={classNames(props.className, {
-        'text-primary-500': router.pathname === props.pathname
-      })}
+      <a
+        className={classNames(props.className, {
+          'text-primary-500': router.pathname === props.pathname
+        })} data-testid={props.testId}
       >
         <div className='p-2 text-lg hover:text-primary-500 cursor-pointer'>
           {props.text}
@@ -262,7 +297,7 @@ function HeaderSearchBar (): JSX.Element {
         onKeyDown={(event) => event.code === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}`)}
         placeholder='Search'
         className='ml-1.5 w-full focus:outline-none'
-        data-testid='IndexHeader.SearchInput'
+        data-testid='Header.SearchInput'
       />
       <IoSearchSharp size={20} className='text-gray-400 ml-0.5 self-center' />
     </div>
