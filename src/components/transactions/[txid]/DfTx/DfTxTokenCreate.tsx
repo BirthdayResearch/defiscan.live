@@ -19,13 +19,15 @@ export function DfTxTokenCreate (props: DfTxTokenCreateProps): JSX.Element {
           name={props.dftx.data.name}
           limit={props.dftx.data.limit}
           isDAT={props.dftx.data.isDAT}
+          tradeable={props.dftx.data.tradeable}
+          mintable={props.dftx.data.mintable}
         />
       </div>
     </div>
   )
 }
 
-function DetailsTable (props: { symbol: string, decimal: number, name: string, limit: BigNumber, isDAT: boolean }): JSX.Element {
+function DetailsTable (props: { symbol: string, decimal: number, name: string, limit: BigNumber, isDAT: boolean, tradeable: boolean, mintable: boolean }): JSX.Element {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
@@ -53,6 +55,12 @@ function DetailsTable (props: { symbol: string, decimal: number, name: string, l
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Limit' testId='DfTxTokenCreate.limit'>
           {props.limit.toString()}
+        </AdaptiveList.Row>
+        <AdaptiveList.Row name='Tradeable' className='capitalize' testId='DfTxTokenCreate.Tradeable'>
+          {props.tradeable.toString()}
+        </AdaptiveList.Row>
+        <AdaptiveList.Row name='Mintable' className='capitalize' testId='DfTxTokenCreate.Mintable'>
+          {props.mintable.toString()}
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
