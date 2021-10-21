@@ -1,4 +1,4 @@
-import { IoChevronForward, IoTimeOutline } from 'react-icons/io5'
+import { IoChevronForward } from 'react-icons/io5'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { formatDistanceToNow } from 'date-fns'
 import { Link } from '@components/commons/Link'
@@ -57,7 +57,6 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
         <div className='w-5/12 sm:w-1/3 md:w-1/4 lg:w-2/6 xl:w-1/4 2xl:w-1/5'>
           <span className='sm:text-lg md:text-xl font-semibold'>#{props.height}</span>
           <div className='text-xs text-opacity-40 text-black font-medium flex mt-1'>
-            <IoTimeOutline className='my-auto hidden sm:inline' size={15} />
             <span className='ml-0.5'>{props.age}</span>
           </div>
         </div>
