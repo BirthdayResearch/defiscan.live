@@ -57,7 +57,7 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
         <div className='w-5/12 sm:w-1/3 md:w-1/4 lg:w-2/6 xl:w-1/4 2xl:w-1/5'>
           <span className='sm:text-lg md:text-xl font-semibold'>#{props.height}</span>
           <div className='text-xs text-opacity-40 text-black font-medium flex mt-1'>
-            <span className='ml-0.5'>{props.age}</span>
+            <span>{props.age}</span>
           </div>
         </div>
         <div className='flex flex-wrap my-auto w-7/12 sm:w-2/3 md:w-3/4 lg:w-4/6 xl:w-3/4 2xl:w-4/5'>
