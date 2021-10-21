@@ -1,4 +1,3 @@
-import { IoTimeOutline } from 'react-icons/io5'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { formatDistanceToNow } from 'date-fns'
 import BigNumber from 'bignumber.js'
@@ -42,8 +41,7 @@ function TransactionDetails (props: {
           </div>
           <div className='flex items-center justify-end w-1/2 sm:w-2/6 xl:w-1/4 2xl:w-1/5'>
             <div className='flex text-xs text-opacity-40 text-black font-medium'>
-              <IoTimeOutline className='my-auto hidden sm:inline' size={15} />
-              <span className='ml-1'>{props.age}</span>
+              <span>{props.age}</span>
             </div>
           </div>
         </div>
