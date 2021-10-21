@@ -41,7 +41,7 @@ function TransactionDetails (props: {
           </div>
           <div className='flex items-center justify-end w-1/2 sm:w-2/6 xl:w-1/4 2xl:w-1/5'>
             <div className='flex text-xs text-opacity-40 text-black font-medium'>
-              <span className='ml-1'>{props.age}</span>
+              <span>{props.age}</span>
             </div>
           </div>
         </div>
