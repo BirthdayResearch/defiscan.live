@@ -10,7 +10,7 @@ export function Footer (): JSX.Element {
     <footer className='mt-12 bg-gray-50'>
       <Container className='py-12'>
         <Link href={{ pathname: '/' }}>
-          <a className='cursor-pointer'>
+          <a className='cursor-pointer inline-block'>
             <DeFiChainLogo className='w-28 h-full' />
           </a>
         </Link>
