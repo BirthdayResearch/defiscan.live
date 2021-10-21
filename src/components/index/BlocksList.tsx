@@ -10,7 +10,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
         <h1 className='text-xl font-semibold'>Blocks</h1>
         <Link href={{ pathname: '/blocks' }}>
           <a
-            className='flex items-center font-medium cursor-pointer text-primary-500 opacity-60 hover:opacity-100'
+            className='flex items-center font-medium cursor-pointer text-primary-500'
             data-testid='BlocksList.viewAllBlocksLink'
           >
             VIEW ALL BLOCKS <IoChevronForward size={18} className='inline' />
@@ -35,7 +35,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 
       <Link href={{ pathname: '/blocks' }}>
         <a
-          className='flex items-center font-medium cursor-pointer text-primary-500 opacity-60 hover:opacity-100'
+          className='flex items-center font-medium cursor-pointer text-primary-500'
           data-testid='BlocksList.viewAllBlocksButton'
         >
           <button
