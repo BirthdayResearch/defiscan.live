@@ -1,5 +1,4 @@
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
-import { useNetwork } from '@contexts/NetworkContext'
 import { CopyButton } from '@components/commons/CopyButton'
 
 interface TransactionHeadingProps {
@@ -11,29 +10,8 @@ interface TransactionNotFoundHeadingProps {
 }
 
 export function TransactionHeading (props: TransactionHeadingProps): JSX.Element {
-  const network = useNetwork()
-
   return (
     <>
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-orange-100 rounded p-3 text-center'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/transactions/*. Some features are not
-          available and may not work as expected.
-          {network === 'MainNet' && (
-            <>
-              <br />In the meantime, you can use
-              <a
-                target='_blank'
-                href={`https://explorer.defichain.io/#/DFI/mainnet/tx/${props.transaction.id}`}
-                className='cursor-pointer hover:underline text-primary-500 break-all ml-1' rel='noreferrer'
-              >
-                https://explorer.defichain.com
-              </a>.
-            </>
-          )}
-        </div>
-      </div>
-
       <span className='leading-6 opacity-60' data-testid='title'>
         Transaction ID
       </span>
