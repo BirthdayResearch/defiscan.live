@@ -12,7 +12,7 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
         <h1 className='text-xl font-semibold' data-testid='LiquidityPoolList.title'>Liquidity Pools</h1>
         <Link href={{ pathname: '/dex' }}>
           <a
-            className='flex items-center font-medium cursor-pointer text-primary-500 opacity-60 hover:opacity-100'
+            className='flex items-center font-medium cursor-pointer text-primary-500'
             data-testid='LiquidityPoolList.viewLiquidityPools'
           >
             VIEW FULL DETAILS <IoChevronForward size={18} className='inline' />
