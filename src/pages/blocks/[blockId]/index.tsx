@@ -36,13 +36,6 @@ export default function BlockDetails (props: InferGetServerSidePropsType<typeof 
 function BlockHeading ({ block }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <>
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-orange-100 rounded p-3'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/blocks/*. Some features are not available and
-          may not work as expected.
-        </div>
-      </div>
-
       <Head title={`Block #${block.height}`} />
 
       <Breadcrumb items={[
