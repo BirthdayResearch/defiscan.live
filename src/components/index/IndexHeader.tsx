@@ -35,7 +35,7 @@ function SearchBar (): JSX.Element {
         <IoSearchSharp size={22} className='text-gray-400 ml-0.5 self-center' />
         <input
           onKeyDown={(event) => event.code === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}`)}
-          placeholder='Search by Txn ID or Block Height'
+          placeholder='Search by Transaction ID, Block Hash or Block Height'
           className='ml-1.5 w-full focus:outline-none'
           data-testid='IndexHeader.SearchInput'
         />
