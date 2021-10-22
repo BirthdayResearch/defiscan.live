@@ -54,7 +54,7 @@ function LiquidityPoolCard (
   const SymbolBIcon = getAssetIcon(props.tokenBSymbol)
   const SymbolAIcon = getAssetIcon(props.tokenASymbol)
   return (
-    <div className='flex p-4 md:p-6 border border-gray-300 h-30'>
+    <div className='flex flex-col p-4 md:p-6 border border-gray-300 h-30'>
       <div className='flex flex-col justify-between my-auto w-1/4'>
         <div className='flex icons'>
           <SymbolAIcon className='h-6 w-6 z-10' />
@@ -104,7 +104,7 @@ function LiquidityCardStat ({
   return (
     <div className='table-row border-collapse text-sm'>
       <div className='table-cell opacity-40'>
-        {label}:
+        {label}
       </div>
       <div className='table-cell pl-2 md:pl-4'>{children}</div>
     </div>
