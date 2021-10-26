@@ -45,7 +45,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
         </OverflowTable.Cell>
         <OverflowTable.Cell>
           <div className='flex flex-row gap-x-2'>
-            {props.addressActivity.type === 'vin' ? (
+            {props.addressActivity.type === 'vout' ? (
               <span className='bg-green-100 rounded text-xs px-2 py-1 font-medium h-6 w-min'>In</span>
             ) : (
               <span className='bg-red-100 rounded text-xs px-2 py-1 font-medium h-6 w-min'>Out</span>
