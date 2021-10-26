@@ -19,14 +19,14 @@ export function TransactionVectorRow (props: TransactionVectorRowProps): JSX.Ele
         <div className='flex justify-between gap-x-2'>
           {props.isAddress ? (
             <Link href={{ pathname: `/address/${props.address}` }}>
-              <div className='overflow-ellipsis overflow-hidden cursor-pointer hover:text-primary-500'>
+              <span className='overflow-ellipsis overflow-hidden cursor-pointer hover:text-primary-500'>
                 {props.address}
-              </div>
+              </span>
             </Link>
           ) : (
-            <div className='overflow-ellipsis overflow-hidden opacity-80'>
+            <span className='overflow-ellipsis overflow-hidden opacity-80'>
               {props.address}
-            </div>
+            </span>
           )}
           <span className='min-w-max'>
             {props.value}
