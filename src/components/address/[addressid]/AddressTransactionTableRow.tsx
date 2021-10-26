@@ -1,7 +1,6 @@
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/Link'
 import { format, fromUnixTime } from 'date-fns'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
 import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
 import { AddressVinVout } from '@components/address/[addressid]/AddressVinVout'
 import { useState } from 'react'
@@ -45,17 +44,14 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
           {format(fromUnixTime(props.addressActivity.block.medianTime), 'PPpp')}
         </OverflowTable.Cell>
         <OverflowTable.Cell>
-          <div className='flex gap-x-2'>
-            {
-              props.addressActivity.type === 'vin' ? (
-                <span className='bg-green-100 rounded text-xs px-2 py-1 font-medium w-min'>In</span>
-              ) : (
-                <span className='bg-red-100 rounded text-xs px-2 py-1 font-medium w-min'>Out</span>
-              )
-            }
-            <div className='flex flex-row my-auto'>
-              {props.addressActivity.value}
-              <TokenSymbol tokenId={props.addressActivity.tokenId!} className='ml-1' testId='' />
+          <div className='flex flex-row gap-x-2'>
+            {props.addressActivity.type === 'vin' ? (
+              <span className='bg-green-100 rounded text-xs px-2 py-1 font-medium h-6 w-min'>In</span>
+            ) : (
+              <span className='bg-red-100 rounded text-xs px-2 py-1 font-medium h-6 w-min'>Out</span>
+            )}
+            <div className='flex flex-row'>
+              {props.addressActivity.value} DFI
             </div>
           </div>
         </OverflowTable.Cell>
