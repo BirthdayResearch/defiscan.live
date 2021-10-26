@@ -2,7 +2,7 @@ import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { IoAlertCircle } from 'react-icons/io5'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { getAssetIcon } from '@components/icons/assets'
+import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 
@@ -40,19 +40,11 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   const [symbolA, symbolB] = data.symbol.split('-')
-  const IconA = getAssetIcon(symbolA)
-  const IconB = getAssetIcon(symbolB)
 
   return (
     <AdaptiveTable.Row>
       <AdaptiveTable.Cell title='PAIR' className='align-middle'>
-        <div className='flex items-center'>
-          <IconA className='absolute h-8 w-8' />
-          <IconB className='absolute h-8 w-8 ml-5' />
-          <div className='font-medium ml-16'>
-            {data.symbol}
-          </div>
-        </div>
+        <PoolPairSymbol id={data.id} className='font-medium' />
       </AdaptiveTable.Cell>
       <AdaptiveTable.Cell title='TOTAL LIQUIDITY' className='align-middle lg:text-right'>
         {data.totalLiquidity.usd !== undefined ? (
