@@ -1,8 +1,9 @@
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
-import { NetworkName, useNetworkObject } from '@contexts/NetworkContext'
+import { useNetworkObject } from '@contexts/NetworkContext'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import { fromScriptHex } from '@defichain/jellyfish-address'
 import BigNumber from 'bignumber.js'
+import { TransactionVectorRow } from '@components/commons/transactions/TransactionVectorRow'
 
 interface TransactionVinVoutProps {
   transaction: Transaction
@@ -33,6 +34,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                     value='Coinbase (Newly Generated Coins)'
                     key={vin.id}
                     network={network}
+                    isAddress={false}
                   />
                 )
               }
@@ -44,6 +46,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                   value={`${vin.vout.value} DFI`}
                   key={vin.id}
                   network={network}
+                  isAddress
                 />
               )
             })}
@@ -60,8 +63,10 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
               const decoded = vout.script !== undefined ? fromScriptHex(vout.script?.hex, network) : undefined
 
               let address = decoded?.address ?? 'N/A'
+              let isAddress = true
               if (index === 0) {
                 address = decoded?.address ?? props.dftxName ?? 'N/A'
+                isAddress = props.dftxName === undefined
               }
 
               return (
@@ -71,6 +76,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                   value={`${vout.value} DFI`}
                   key={vout.n}
                   network={network}
+                  isAddress={isAddress}
                 />
               )
             })}
@@ -99,31 +105,6 @@ function TransactionSummary (props: { transaction: Transaction, vins: Transactio
       <div className='flex justify-between gap-x-3 mt-2' data-testid='TransactionDetailsSummary.total'>
         <span>Total:</span>
         <span>{props.transaction.totalVoutValue} DFI</span>
-      </div>
-    </div>
-  )
-}
-
-function TransactionVectorRow (props: {
-  label: 'INPUT' | 'OUTPUT'
-  address: string
-  value: string
-  network: NetworkName
-}): JSX.Element {
-  return (
-    <div className='bg-gray-50 h-20 p-3 rounded flex justify-between'>
-      <div className='flex flex-col justify-between h-full w-full'>
-        <span className='bg-gray-200 rounded text-xs px-2 py-1 font-medium w-min mb-1.5'>
-          {props.label}
-        </span>
-        <div className='flex justify-between gap-x-2'>
-          <span className='opacity-60 overflow-ellipsis overflow-hidden'>
-            {props.address}
-          </span>
-          <span className='min-w-max'>
-            {props.value}
-          </span>
-        </div>
       </div>
     </div>
   )
