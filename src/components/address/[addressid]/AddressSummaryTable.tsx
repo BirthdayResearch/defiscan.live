@@ -48,16 +48,20 @@ function SummaryTableListRight (props: {
     <div className='w-full lg:w-1/2'>
       <AdaptiveList>
         <AdaptiveList.Row name='Tokens' testId='SummaryTableListRight.tokens'>
-          <div className='grid grid-cols-2 md:grid-cols-3 gap-2.5'>
-            {props.tokens.map((token) => {
-              return (
-                <TokenSymbol
-                  tokenId={Number(token.id)} className='ml-1'
-                  testId={`SummaryTableListRight.tokens.${token.id}`} key={token.id}
-                />
+          {props.tokens.length > 0
+            ? (
+              <div className='grid grid-cols-2 md:grid-cols-3 gap-2.5'>
+                {props.tokens.map((token) => {
+                  return (
+                    <TokenSymbol
+                      tokenId={Number(token.id)} className='ml-1'
+                      testId={`SummaryTableListRight.tokens.${token.id}`} key={token.id}
+                    />
+                  )
+                })}
+              </div>
               )
-            })}
-          </div>
+            : (<div>No Tokens</div>)}
         </AdaptiveList.Row>
       </AdaptiveList>
     </div>
