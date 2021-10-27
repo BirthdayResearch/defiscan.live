@@ -30,10 +30,15 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
   }
 
   useEffect(() => {
+    setTransactionData([])
+    setNext('')
+  }, [props.addressId])
+
+  useEffect(() => {
     if (transactionData.length === 0) {
       getTransactions()
     }
-  }, [])
+  }, [props.addressId, transactionData])
 
   return (
     <div className='mt-5 flex flex-wrap'>
