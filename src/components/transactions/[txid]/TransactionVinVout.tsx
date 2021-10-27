@@ -63,10 +63,10 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
               const decoded = vout.script !== undefined ? fromScriptHex(vout.script?.hex, network) : undefined
 
               let address = decoded?.address ?? 'N/A'
-              let isAddress = true
+              let isAddressClickable = true
               if (index === 0) {
                 address = decoded?.address ?? props.dftxName ?? 'N/A'
-                isAddress = props.dftxName === undefined
+                isAddressClickable = props.dftxName === undefined
               }
 
               return (
@@ -76,7 +76,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                   value={`${vout.value} DFI`}
                   key={vout.n}
                   network={network}
-                  isAddressClickable={isAddress}
+                  isAddressClickable={isAddressClickable}
                 />
               )
             })}
