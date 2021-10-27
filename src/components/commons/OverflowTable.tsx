@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { createContext, PropsWithChildren, useState } from 'react'
+import { createContext, MouseEventHandler, PropsWithChildren, useState } from 'react'
 
 const OverflowTableContext = createContext<number>(0)
 
@@ -34,11 +34,12 @@ function Header (props: PropsWithChildren<{ className?: string }>): JSX.Element 
   )
 }
 
-function Row (props: PropsWithChildren<{ className?: string }>): JSX.Element {
+function Row (props: PropsWithChildren<{ className?: string, onClick?: MouseEventHandler }>): JSX.Element {
   return (
     <div
       data-testid='OverflowTable.Row'
       className={classNames('table-row border-t border-gray-100', props.className)}
+      onClick={props.onClick}
     >
       {props.children}
     </div>

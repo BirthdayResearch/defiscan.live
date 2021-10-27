@@ -17,18 +17,17 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
 
   return (
     <>
-      <OverflowTable.Row key={props.addressActivity.txid}>
+      <OverflowTable.Row key={props.addressActivity.txid} className='cursor-pointer' onClick={() => setExpanded(!expanded)}>
         <OverflowTable.Cell sticky className='align-top lg:align-middle'>
           <div className='flex'>
             <div
               className='mr-4 my-auto cursor-pointer hidden md:inline-block'
-              onClick={() => setExpanded(!expanded)}
             >
               <MdExpand size={22} />
             </div>
             <div className='w-24 md:w-40 lg:w-60 overflow-ellipsis overflow-hidden my-auto'>
               <Link href={{ pathname: `/transactions/${props.addressActivity.txid}` }}>
-                <a className='text-primary-500'>
+                <a className='text-primary-400 hover:text-primary-500'>
                   {props.addressActivity.txid}
                 </a>
               </Link>
@@ -37,7 +36,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
         </OverflowTable.Cell>
         <OverflowTable.Cell>
           <Link href={{ pathname: `/blocks/${props.addressActivity.block.height}` }}>
-            <a className='text-primary-500'>
+            <a className='text-primary-400 hover:text-primary-500'>
               {props.addressActivity.block.height}
             </a>
           </Link>

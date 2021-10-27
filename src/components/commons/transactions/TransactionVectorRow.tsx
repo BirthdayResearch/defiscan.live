@@ -19,7 +19,7 @@ export function TransactionVectorRow (props: TransactionVectorRowProps): JSX.Ele
         <div className='flex justify-between gap-x-2'>
           {props.isAddressClickable ? (
             <Link href={{ pathname: `/address/${props.address}` }}>
-              <span className='overflow-ellipsis overflow-hidden cursor-pointer text-primary-500'>
+              <span className='overflow-ellipsis overflow-hidden cursor-pointer text-primary-400 hover:text-primary-500'>
                 {props.address}
               </span>
             </Link>
