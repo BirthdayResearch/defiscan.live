@@ -46,7 +46,8 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
   }, [props.addressId, transactionData])
 
   return (
-    <div className='mt-5 flex flex-wrap'>
+    <div className='mt-6 flex flex-wrap'>
+      <span className='font-medium text-xl mb-2 text-gray-800'>Transactions</span>
       <OverflowTable className='w-full'>
         <OverflowTable.Header>
           <OverflowTable.Head>TX ID</OverflowTable.Head>

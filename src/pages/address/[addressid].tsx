@@ -5,6 +5,7 @@ import { AddressAggregation, AddressToken } from '@defichain/whale-api-client/di
 import { AddressHeading, AddressNotFoundHeading } from '@components/address/[addressid]/AddressHeadings'
 import { AddressSummaryTable } from '@components/address/[addressid]/AddressSummaryTable'
 import { AddressTransactionTable } from '@components/address/[addressid]/AddressTransactionTable'
+import { AddressTokenTable } from '@components/address/[addressid]/AddressTokenTable'
 
 interface AddressPageProps {
   addressId: string
@@ -24,7 +25,8 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
   return (
     <Container className='pt-12 pb-20'>
       <AddressHeading addressId={props.addressId} />
-      <AddressSummaryTable aggregation={props.aggregation} tokens={props.tokens} />
+      <AddressSummaryTable aggregation={props.aggregation} />
+      <AddressTokenTable tokens={props.tokens} />
       <AddressTransactionTable addressId={props.addressId} />
     </Container>
   )
