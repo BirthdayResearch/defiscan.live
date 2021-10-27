@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
-        containers: [ 1, 2 ]
+        containers: [ 1, 2, 3, 4, 5 ]
     steps:
       - uses: actions/checkout@1e204e9a9253d643386038d443f96446fa156a97
       - uses: actions/setup-node@270253e841af726300e85d718a5f606959b2903c
