@@ -21,6 +21,24 @@ Usage: `Fixes #<issue number>`, or `Fixes (paste link of issue)`.
 -->
 Fixes #
 
+#### Sample Links & Screenshots:
+<!--
+(Optional) Provide a link to changes made using Netlify Preview deployment.
+-->
+Link: 
+<details>
+<summary>Desktop Screenshot</summary>
+
+<!-- Image has to be between break lines -->
+
+</details>
+<details>
+<summary>Mobile Screenshot</summary>
+
+<!-- Image has to be between break lines -->
+
+</details>
+
 #### Additional comments?:
 
 #### Developer Checklist:
