@@ -69,7 +69,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
           <div className='flex w-full justify-center mt-4' onClick={getTransactions} data-testid='AddressTransactionTable.showMoreBtn'>
             <button
               type='button'
-              className='w-1/3 py-2.5 text-primary-400 hover:text-primary-500 border border-primary-200 hover:border-primary-500'
+              className='w-full md:w-1/3 py-2.5 text-primary-400 hover:text-primary-500 border border-primary-200 hover:border-primary-500'
             >
               SHOW MORE
             </button>
