@@ -16,11 +16,13 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
           <OverflowTable.Head>NAME</OverflowTable.Head>
           <OverflowTable.Head>AMOUNT</OverflowTable.Head>
         </OverflowTable.Header>
-        {props.tokens.map((token) => {
-          return (
-            <AddressTokenTableRow token={token} key={token.id} />
-          )
-        })}
+        {props.tokens.length > 0 ? (
+          props.tokens.map((token) => {
+            return (
+              <AddressTokenTableRow token={token} key={token.id} />
+            )
+          }))
+          : (<NoTokensRow />)}
       </OverflowTable>
     </div>
   )
@@ -53,5 +55,15 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
         {props.token.amount}
       </OverflowTable.Cell>
     </OverflowTable.Row>
+  )
+}
+
+function NoTokensRow (): JSX.Element {
+  return (
+    <td colSpan={3}>
+      <div className='flex justify-center p-4'>
+        <span>No Tokens</span>
+      </div>
+    </td>
   )
 }

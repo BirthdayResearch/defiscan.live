@@ -55,19 +55,24 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
           <OverflowTable.Head>AGE</OverflowTable.Head>
           <OverflowTable.Head>AMOUNT</OverflowTable.Head>
         </OverflowTable.Header>
-        {transactionData.map((addressActivity) => {
-          return (
-            <AddressTransactionTableRow
-              addressId={props.addressId}
-              addressActivity={addressActivity}
-              key={`${addressActivity.id}-${addressActivity.type}`}
-            />
-          )
-        })}
+        {transactionData.length > 0 ? (
+          transactionData.map((addressActivity) => {
+            return (
+              <AddressTransactionTableRow
+                addressId={props.addressId}
+                addressActivity={addressActivity}
+                key={`${addressActivity.id}-${addressActivity.type}`}
+              />
+            )
+          }))
+          : (<NoTransactionsRow />)}
       </OverflowTable>
       {next !== undefined && (
         !isLoading ? (
-          <div className='flex w-full justify-center mt-4' onClick={getTransactions} data-testid='AddressTransactionTable.showMoreBtn'>
+          <div
+            className='flex w-full justify-center mt-4' onClick={getTransactions}
+            data-testid='AddressTransactionTable.showMoreBtn'
+          >
             <button
               type='button'
               className='w-full md:w-1/3 py-2.5 text-primary-400 hover:text-primary-500 border border-primary-200 hover:border-primary-500'
@@ -84,5 +89,15 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
         )
       )}
     </div>
+  )
+}
+
+function NoTransactionsRow (): JSX.Element {
+  return (
+    <td colSpan={4}>
+      <div className='flex justify-center p-4'>
+        <span>No Transactions</span>
+      </div>
+    </td>
   )
 }
