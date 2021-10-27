@@ -6,7 +6,7 @@ interface TransactionVectorRowProps {
   address: string
   value: string
   network: NetworkName
-  isAddress: boolean
+  isAddressClickable: boolean
 }
 
 export function TransactionVectorRow (props: TransactionVectorRowProps): JSX.Element {
@@ -17,9 +17,9 @@ export function TransactionVectorRow (props: TransactionVectorRowProps): JSX.Ele
           {props.label}
         </span>
         <div className='flex justify-between gap-x-2'>
-          {props.isAddress ? (
+          {props.isAddressClickable ? (
             <Link href={{ pathname: `/address/${props.address}` }}>
-              <span className='overflow-ellipsis overflow-hidden cursor-pointer hover:text-primary-500'>
+              <span className='overflow-ellipsis overflow-hidden cursor-pointer text-primary-500'>
                 {props.address}
               </span>
             </Link>

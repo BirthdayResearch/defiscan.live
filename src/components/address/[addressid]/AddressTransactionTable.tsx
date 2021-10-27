@@ -52,6 +52,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
         {transactionData.map((addressActivity) => {
           return (
             <AddressTransactionTableRow
+              addressId={props.addressId}
               addressActivity={addressActivity}
               key={`${addressActivity.id}-${addressActivity.type}`}
             />

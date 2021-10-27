@@ -34,7 +34,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                     value='Coinbase (Newly Generated Coins)'
                     key={vin.id}
                     network={network}
-                    isAddress={false}
+                    isAddressClickable={false}
                   />
                 )
               }
@@ -46,7 +46,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                   value={`${vin.vout.value} DFI`}
                   key={vin.id}
                   network={network}
-                  isAddress
+                  isAddressClickable
                 />
               )
             })}
@@ -76,7 +76,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                   value={`${vout.value} DFI`}
                   key={vout.n}
                   network={network}
-                  isAddress={isAddress}
+                  isAddressClickable={isAddress}
                 />
               )
             })}
