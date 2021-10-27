@@ -15,6 +15,7 @@ interface PriceTickerDetailProps {
 }
 
 export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): JSX.Element {
+  console.log(price)
   const copy: PriceCopy | undefined = getPriceCopy(price.id)
 
   return (
