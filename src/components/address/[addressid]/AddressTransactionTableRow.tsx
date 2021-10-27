@@ -18,7 +18,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
   return (
     <>
       <OverflowTable.Row key={props.addressActivity.txid}>
-        <OverflowTable.Cell sticky className='align-middle'>
+        <OverflowTable.Cell sticky className='align-top lg:align-middle'>
           <div className='flex'>
             <div
               className='mr-4 my-auto cursor-pointer hidden md:inline-block'
