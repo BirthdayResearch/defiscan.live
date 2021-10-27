@@ -15,9 +15,19 @@ interface TransactionTableRowProps {
 export function AddressTransactionTableRow (props: TransactionTableRowProps): JSX.Element {
   const [expanded, setExpanded] = useState<boolean>(false)
 
+  function expandRow (event): void {
+    const target = event.target as HTMLElement
+    if (!target.hasAttribute('href')) {
+      setExpanded(!expanded)
+    }
+  }
+
   return (
     <>
-      <OverflowTable.Row key={props.addressActivity.txid} className='cursor-pointer' onClick={() => setExpanded(!expanded)}>
+      <OverflowTable.Row
+        key={props.addressActivity.txid} className='cursor-pointer'
+        onClick={(event) => expandRow(event)}
+      >
         <OverflowTable.Cell sticky className='align-top lg:align-middle'>
           <div className='flex'>
             <div
