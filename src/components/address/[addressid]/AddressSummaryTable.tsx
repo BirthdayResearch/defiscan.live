@@ -1,7 +1,7 @@
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import BigNumber from 'bignumber.js'
 import { AddressAggregation, AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 
 interface AddressSummaryTableProps {
   aggregation: AddressAggregation
@@ -49,10 +49,18 @@ function SummaryTableListRight (props: {
                   return (
                     <div className='flex flex-row' key={token.id}>
                       <span className='mr-1.5'>{token.amount}</span>
-                      <TokenSymbol
-                        tokenId={Number(token.id)}
-                        testId={`SummaryTableListRight.tokens.${token.id}`}
-                      />
+                      <div className='flex gap-x-1'>
+                        <div className='my-auto'>
+                          {(() => {
+                            if (token.isDAT) {
+                              const AssetIcon = getAssetIcon(token.symbol)
+                              return <AssetIcon className='h-6 w-6' />
+                            }
+                            const TokenIcon = getTokenIcon(token.symbol)
+                            return <TokenIcon className='h-6 w-6' />
+                          })()}
+                        </div>
+                      </div>
                     </div>
                   )
                 })}
