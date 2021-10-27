@@ -58,7 +58,7 @@ export function AddressVinVout (props: AddressVinVoutProps): JSX.Element {
     const dftx: DfTx<any> | undefined = getDfTx(vouts)
 
     return (
-      <td colSpan={4} className='px-6 pt-2 pb-4 lg:p-6'>
+      <td colSpan={4} className='px-6 pt-2 pb-4 lg:p-6 bg-gray-200 bg-opacity-50'>
         <div className='w-full font-medium text-lg'>Details</div>
         <div className='mt-2 w-full flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
           <TransactionDetailsLeft vins={vins} network={network} />
