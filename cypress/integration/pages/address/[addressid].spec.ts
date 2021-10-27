@@ -18,20 +18,34 @@ context('/address/[addressid] on desktop', () => {
     cy.findByTestId('AddressSummaryTable.txCount').contains(/\d+/)
   })
 
-  it('should have AddressTransactionTable', function () {
-    cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('TX ID').should('be.visible')
-      cy.wrap(ele).findByText('BLOCK').should('be.visible')
-      cy.wrap(ele).findByText('AGE').should('be.visible')
-      cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+  it('should have Balances', function () {
+    cy.findByTestId('Balances.title').should('have.text', 'Balances')
+    cy.findByTestId('Balances').within(() => {
+      cy.findByTestId('OverflowTable.Header').then(ele => {
+        cy.wrap(ele).findByText('TOKEN').should('be.visible')
+        cy.wrap(ele).findByText('NAME').should('be.visible')
+        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+      })
     })
-    cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
   })
 
-  it('should have Show More button', function () {
-    cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')
-    cy.findByTestId('AddressTransactionTable.showMoreBtn').click()
-    cy.findAllByTestId('OverflowTable.Row').should('have.length', 20)
+  it('should have Transactions', function () {
+    cy.findByTestId('Transactions.title').should('have.text', 'Transactions')
+    cy.findByTestId('Transactions').within(() => {
+      cy.findByTestId('OverflowTable.Header').then(ele => {
+        cy.wrap(ele).findByText('TX ID').should('be.visible')
+        cy.wrap(ele).findByText('BLOCK').should('be.visible')
+        cy.wrap(ele).findByText('AGE').should('be.visible')
+        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+      })
+      cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
+
+      it('should have Show More button', function () {
+        cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')
+        cy.findByTestId('AddressTransactionTable.showMoreBtn').click()
+        cy.findAllByTestId('OverflowTable.Row').should('have.length', 20)
+      })
+    })
   })
 })
 
@@ -69,20 +83,34 @@ context('/address/[addressid] on mobile', () => {
     cy.findByTestId('AddressSummaryTable.txCount').contains(/\d+/)
   })
 
-  it('should have AddressTransactionTable', function () {
-    cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('TX ID').should('be.visible')
-      cy.wrap(ele).findByText('BLOCK').should('be.visible')
-      cy.wrap(ele).findByText('AGE').should('be.visible')
-      cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+  it('should have Balances', function () {
+    cy.findByTestId('Balances.title').should('have.text', 'Balances')
+    cy.findByTestId('Balances').within(() => {
+      cy.findByTestId('OverflowTable.Header').then(ele => {
+        cy.wrap(ele).findByText('TOKEN').should('be.visible')
+        cy.wrap(ele).findByText('NAME').should('be.visible')
+        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+      })
     })
-    cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
   })
 
-  it('should have Show More button', function () {
-    cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')
-    cy.findByTestId('AddressTransactionTable.showMoreBtn').click()
-    cy.findAllByTestId('OverflowTable.Row').should('have.length', 20)
+  it('should have Transactions', function () {
+    cy.findByTestId('Transactions.title').should('have.text', 'Transactions')
+    cy.findByTestId('Transactions').within(() => {
+      cy.findByTestId('OverflowTable.Header').then(ele => {
+        cy.wrap(ele).findByText('TX ID').should('be.visible')
+        cy.wrap(ele).findByText('BLOCK').should('be.visible')
+        cy.wrap(ele).findByText('AGE').should('be.visible')
+        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+      })
+      cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
+
+      it('should have Show More button', function () {
+        cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')
+        cy.findByTestId('AddressTransactionTable.showMoreBtn').click()
+        cy.findAllByTestId('OverflowTable.Row').should('have.length', 20)
+      })
+    })
   })
 })
 

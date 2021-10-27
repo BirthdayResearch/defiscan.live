@@ -8,8 +8,8 @@ interface AddressTokenTableProps {
 
 export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
   return (
-    <div className='mt-6 flex flex-wrap'>
-      <span className='font-medium text-xl mb-2 text-gray-800'>Balances</span>
+    <div className='mt-6 flex flex-wrap' data-testid='Balances'>
+      <span className='font-medium text-xl mb-2 text-gray-800' data-testid='Balances.title'>Balances</span>
       <OverflowTable className='w-full'>
         <OverflowTable.Header>
           <OverflowTable.Head>TOKEN</OverflowTable.Head>
