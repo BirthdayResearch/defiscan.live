@@ -1,5 +1,3 @@
-import { useSelector } from 'react-redux'
-import { RootState } from '@store/index'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import BigNumber from 'bignumber.js'
 import { AddressAggregation, AddressToken } from '@defichain/whale-api-client/dist/api/address'
@@ -11,16 +9,12 @@ interface AddressSummaryTableProps {
 }
 
 export function AddressSummaryTable (props: AddressSummaryTableProps): JSX.Element {
-  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-  const confirmations = blocks !== undefined ? blocks - props.aggregation.block.height : blocks
-
   return (
     <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
       <div className='w-full lg:w-1/2'>
         <AdaptiveList>
           <AdaptiveList.Row name='Balance' className='text-left' testId='SummaryTableListLeft.balance'>
             {new BigNumber(props.aggregation.amount.unspent).toFixed(8)} DFI
-            <span className='ml-2'>({confirmations} Confirmations)</span>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Total Sent' className='text-left' testId='SummaryTableListLeft.balance'>
             {new BigNumber(props.aggregation.amount.txOut).toFixed(8)} DFI
@@ -47,7 +41,7 @@ function SummaryTableListRight (props: {
   return (
     <div className='w-full lg:w-1/2'>
       <AdaptiveList>
-        <AdaptiveList.Row name='Tokens' testId='SummaryTableListRight.tokens'>
+        <AdaptiveList.Row name='Balances' testId='SummaryTableListRight.tokens'>
           {props.tokens.length > 0
             ? (
               <div className='grid grid-cols-1 md:grid-cols-2 gap-2.5'>
