@@ -81,23 +81,19 @@ function FooterSectionSitemap (): JSX.Element {
       <h3 className='text-2xl font-semibold'>Scan</h3>
       <div className='flex flex-wrap mt-3'>
         <div className='space-x-2 py-2 w-1/2'>
-          <FooterInternalLink pathname='/blocks' text='Blocks' />
+          <FooterInternalLink pathname='/dex' text='DEX' />
         </div>
         <div className='space-x-2 py-2 w-1/2'>
-          <FooterInternalLink pathname='/dex' text='DEX' />
+          <FooterInternalLink pathname='/blocks' text='Blocks' />
         </div>
         <div className='space-x-2 py-2 w-1/2'>
           <FooterInternalLink pathname='/prices' text='Prices' />
         </div>
-        {/* <FooterInternalLink pathname='/icx' text='ICX' /> */}
         <div className='space-x-2 py-2 w-1/2'>
           <FooterInternalLink pathname='/tokens' text='Tokens' />
         </div>
         <div className='space-x-2 py-2 w-1/2'>
           <FooterInternalLink pathname='/masternodes' text='Masternodes' />
-        </div>
-        <div className='space-x-2 py-2 w-1/2'>
-          <FooterExternalLink url='https://dex.defichain.com/mainnet/anchors' text='BTC Anchors' />
         </div>
       </div>
     </section>

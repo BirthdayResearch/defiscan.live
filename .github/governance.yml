@@ -48,6 +48,8 @@ issue:
         - tokens
         - dex
         - ui-ux
+        - address
+        - vaults
       multiple: true
       needs:
         comment: |
@@ -147,6 +149,14 @@ pull_request:
     - prefix: priority
       multiple: false
       list: [ "urgent-now", "important-soon" ]
+      author_association:
+        collaborator: true
+        member: true
+        owner: true
+
+    - prefix: design
+      multiple: false
+      list: [ "in-progress", "ready" ]
       author_association:
         collaborator: true
         member: true
