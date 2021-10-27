@@ -1,6 +1,7 @@
 import { getEnvironment } from '@contexts/Environment'
 import { useRouter } from 'next/router'
 import { createContext, PropsWithChildren, useContext, useState } from 'react'
+import { Network as NetworkObject, getNetwork } from '@defichain/jellyfish-network'
 
 export declare type NetworkName = 'mainnet' | 'testnet' | 'regtest'
 
@@ -11,8 +12,8 @@ export enum Network {
   TestNet = 'TestNet'
 }
 
-export interface NetworkObject {
-  name: NetworkName
+export interface NetworkConnection extends NetworkObject {
+  type: 'Local' | 'Playground' | 'MainNet' | 'TestNet'
 }
 
 const NetworkContext = createContext<Network>(undefined as any)
@@ -21,18 +22,17 @@ export function useNetwork (): Network {
   return useContext(NetworkContext)
 }
 
-export function useNetworkObject (): NetworkObject {
+export function useNetworkConnection (): NetworkConnection {
   const network = useContext(NetworkContext)
 
   switch (network) {
     case Network.MainNet:
-      return { name: 'mainnet' as NetworkName }
+      return { type: network, ...getNetwork('mainnet') }
     case Network.TestNet:
-      return { name: 'testnet' as NetworkName }
+      return { type: network, ...getNetwork('testnet') }
     case Network.RemotePlayground:
-      return { name: 'regtest' as NetworkName }
     case Network.LocalPlayground:
-      return { name: 'regtest' as NetworkName }
+      return { type: network, ...getNetwork('regtest') }
     default:
       throw new Error(`${network as string} network not found`)
   }

@@ -2,7 +2,7 @@ import { DfTx, AccountToAccount } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkObject } from '@contexts/NetworkContext'
+import { useNetworkConnection } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 import { TokenBalance } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance'
 
@@ -11,7 +11,7 @@ interface DfTxAccountToAccountProps {
 }
 
 export function DfTxAccountToAccount (props: DfTxAccountToAccountProps): JSX.Element {
-  const network = useNetworkObject().name
+  const network = useNetworkConnection().name
   const from = fromScript(props.dftx.data.from, network)
 
   return (

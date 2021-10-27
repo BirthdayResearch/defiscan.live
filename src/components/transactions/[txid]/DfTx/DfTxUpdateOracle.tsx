@@ -2,14 +2,14 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { CurrencyPair, DfTx, UpdateOracle } from '@defichain/jellyfish-transaction'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkObject } from '@contexts/NetworkContext'
+import { useNetworkConnection } from '@contexts/NetworkContext'
 import { OverflowTable } from '@components/commons/OverflowTable'
 
 interface DfTxUpdateOracleProps {
   dftx: DfTx<UpdateOracle>
 }
 export function DfTxUpdateOracle (props: DfTxUpdateOracleProps): JSX.Element {
-  const network = useNetworkObject().name
+  const network = useNetworkConnection().name
   const address = fromScript(props.dftx.data.script, network)?.address
 
   return (
