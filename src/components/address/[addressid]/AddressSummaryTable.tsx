@@ -50,6 +50,9 @@ function SummaryTableListRight (props: {
                     <div className='flex flex-row' key={token.id}>
                       <span className='mr-1.5'>{token.amount}</span>
                       <div className='flex gap-x-1'>
+                        <div>
+                          {token.symbol}{!token.isDAT && `#${token.id}`}
+                        </div>
                         <div className='my-auto'>
                           {(() => {
                             if (token.isDAT) {
