@@ -20,10 +20,10 @@ context('/address/[addressid] on desktop', () => {
 
   it('should have AddressTransactionTable', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('Tx ID').should('be.visible')
-      cy.wrap(ele).findByText('Block').should('be.visible')
-      cy.wrap(ele).findByText('Age').should('be.visible')
-      cy.wrap(ele).findByText('Amount').should('be.visible')
+      cy.wrap(ele).findByText('TX ID').should('be.visible')
+      cy.wrap(ele).findByText('BLOCK').should('be.visible')
+      cy.wrap(ele).findByText('AGE').should('be.visible')
+      cy.wrap(ele).findByText('AMOUNT').should('be.visible')
     })
     cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
   })
@@ -71,10 +71,10 @@ context('/address/[addressid] on mobile', () => {
 
   it('should have AddressTransactionTable', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('Tx ID').should('be.visible')
-      cy.wrap(ele).findByText('Block').should('be.visible')
-      cy.wrap(ele).findByText('Age').should('be.visible')
-      cy.wrap(ele).findByText('Amount').should('be.visible')
+      cy.wrap(ele).findByText('TX ID').should('be.visible')
+      cy.wrap(ele).findByText('BLOCK').should('be.visible')
+      cy.wrap(ele).findByText('AGE').should('be.visible')
+      cy.wrap(ele).findByText('AMOUNT').should('be.visible')
     })
     cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
   })

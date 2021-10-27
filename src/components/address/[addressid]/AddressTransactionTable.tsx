@@ -49,10 +49,10 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
     <div className='mt-5 flex flex-wrap'>
       <OverflowTable className='w-full'>
         <OverflowTable.Header>
-          <OverflowTable.Head>Tx ID</OverflowTable.Head>
-          <OverflowTable.Head>Block</OverflowTable.Head>
-          <OverflowTable.Head>Age</OverflowTable.Head>
-          <OverflowTable.Head>Amount</OverflowTable.Head>
+          <OverflowTable.Head>TX ID</OverflowTable.Head>
+          <OverflowTable.Head>BLOCK</OverflowTable.Head>
+          <OverflowTable.Head>AGE</OverflowTable.Head>
+          <OverflowTable.Head>AMOUNT</OverflowTable.Head>
         </OverflowTable.Header>
         {transactionData.map((addressActivity) => {
           return (
