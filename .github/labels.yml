@@ -79,6 +79,10 @@
   name: area/dex
 - color: fbca04
   name: area/ui-ux
+- color: fbca04
+  name: area/address
+- color: fbca04
+  name: area/vaults
 
 # Priority
 - color: d93f0b

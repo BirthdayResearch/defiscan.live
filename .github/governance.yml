@@ -48,6 +48,8 @@ issue:
         - tokens
         - dex
         - ui-ux
+        - address
+        - vaults
       multiple: true
       needs:
         comment: |
