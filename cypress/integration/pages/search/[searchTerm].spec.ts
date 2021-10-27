@@ -30,6 +30,11 @@ context('search macbook-13', () => {
     cy.visit('/search/1292821')
     cy.url().should('contain', '/blocks/def78eabef69c249ffac8d4fe5bbd18f8d74c6fd95e856794e0bd5052e2286b4')
   })
+
+  it('should redirect to address', () => {
+    cy.visit('/search/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg')
+    cy.url().should('contain', '/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg')
+  })
 })
 
 context('/prices/TSLA-USD iphone-x', () => {
@@ -63,5 +68,10 @@ context('/prices/TSLA-USD iphone-x', () => {
   it('should redirect to block - height', () => {
     cy.visit('/search/1292821')
     cy.url().should('contain', '/blocks/def78eabef69c249ffac8d4fe5bbd18f8d74c6fd95e856794e0bd5052e2286b4')
+  })
+
+  it('should redirect to address', () => {
+    cy.visit('/search/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg')
+    cy.url().should('contain', '/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg')
   })
 })

@@ -25,7 +25,7 @@ export function AddressNotFoundHeading (props: AddressHeadingProps): JSX.Element
   const addressId = props.addressId
 
   return (
-    <div className='bg-red-100 rounded p-3 text-center' data-testid='address-not-found-banner'>
+    <div className='bg-red-100 rounded p-3 text-center' data-testid='AddressHeading.AddressNotFoundHeading'>
       The requested address <code className='break-all'>{addressId}</code> could not be found.
     </div>
   )

@@ -1,4 +1,4 @@
-context('/blocks/[blockId] on desktop', () => {
+context('/address/[addressid] on desktop', () => {
   before(() => {
     cy.visit('/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet')
   })
@@ -35,7 +35,21 @@ context('/blocks/[blockId] on desktop', () => {
   })
 })
 
-context('/blocks/[blockId] on mobile', () => {
+context('/address/[addressid] on desktop - invalid address', () => {
+  before(() => {
+    cy.visit('/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('macbook-13')
+  })
+
+  it('should have warning banner', () => {
+    cy.findByTestId('AddressHeading.AddressNotFoundHeading').should('have.text', 'The requested address df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA could not be found.')
+  })
+})
+
+context('/address/[addressid] on mobile', () => {
   before(() => {
     cy.visit('/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet')
   })
@@ -69,5 +83,19 @@ context('/blocks/[blockId] on mobile', () => {
     cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')
     cy.findByTestId('AddressTransactionTable.showMoreBtn').click()
     cy.findAllByTestId('OverflowTable.Row').should('have.length', 20)
+  })
+})
+
+context('/address/[addressid] on mobile - invalid address', () => {
+  before(() => {
+    cy.visit('/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('iphone-x')
+  })
+
+  it('should have warning banner', () => {
+    cy.findByTestId('AddressHeading.AddressNotFoundHeading').should('have.text', 'The requested address df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA could not be found.')
   })
 })
