@@ -25,6 +25,9 @@
 - color: cc40d8
   name: needs/triage
   description: Waiting for triage to be accepted
+- color: cc40d8
+  name: needs/design
+  description: Waiting for design to be implemented
 
 # Kind
 - color: e7e9eb
@@ -96,3 +99,11 @@
 - color: b1f488
   name: triage/accepted
   description: Triage has been accepted
+
+# Design
+- color: 006B75
+  name: design/in-progress
+  description: Design in-progress
+- color: 006B75
+  name: design/ready
+  description: Design is ready
