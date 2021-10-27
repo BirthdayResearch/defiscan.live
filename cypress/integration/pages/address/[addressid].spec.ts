@@ -74,7 +74,7 @@ context('/address/[addressid] on mobile', () => {
       cy.wrap(ele).findByText('Tx ID').should('be.visible')
       cy.wrap(ele).findByText('Block').should('be.visible')
       cy.wrap(ele).findByText('Age').should('be.visible')
-      cy.wrap(ele).findByText('Amount').should('not.be.visible')
+      cy.wrap(ele).findByText('Amount').should('be.visible')
     })
     cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
   })
