@@ -13,7 +13,7 @@ export function AddressHeading (props: AddressHeadingProps): JSX.Element {
       </span>
 
       <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium break-all' data-testid='address-id'>{props.addressId}</h1>
+        <h1 className='text-2xl font-medium break-all' data-testid='AddressHeading.address'>{props.addressId}</h1>
         <CopyButton className='ml-2' content={props.addressId} />
         <QRCodeButton className='ml-2' content={props.addressId} />
       </div>
