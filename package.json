@@ -11,6 +11,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "cypress:open": "cypress open",
+    "cypress:build": "ISTANBUL=true next build",
     "cypress:run": "TZ=UTC cypress run --headless --browser chrome",
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },

@@ -58,3 +58,6 @@ yarn-error.log*
 # cypress
 cypress/videos
 cypress/screenshots
+
+public/sitemap.xml
+public/robots.txt

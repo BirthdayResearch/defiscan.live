@@ -36,7 +36,7 @@ jobs:
           install: false
           record: true
           parallel: true
-          build: npm run build
+          build: npm run cypress:build
           start: npm run start
           wait-on: 'http://localhost:3000/prices'
           browser: chrome
