@@ -1,6 +1,7 @@
 import { TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
 import { NetworkName, useNetworkObject } from '@contexts/NetworkContext'
 import { IoArrowForwardOutline } from 'react-icons/io5'
+import { CgSpinner } from 'react-icons/cg'
 import { fromScriptHex } from '@defichain/jellyfish-address'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useEffect, useState } from 'react'
@@ -55,7 +56,15 @@ export function AddressVinVout (props: AddressVinVoutProps): JSX.Element {
     }
   }, [props.expanded])
 
-  if (props.expanded && vins !== undefined && vouts !== undefined) {
+  if (props.expanded && vins === undefined && vouts === undefined) {
+    return (
+      <td colSpan={4}>
+        <div className='flex justify-center pt-2 pb-4'>
+          <CgSpinner size={32} className='animate-spin text-gray-600' />
+        </div>
+      </td>
+    )
+  } else if (props.expanded && vins !== undefined && vouts !== undefined) {
     const dftx: DfTx<any> | undefined = getDfTx(vouts)
 
     return (
@@ -75,7 +84,7 @@ export function AddressVinVout (props: AddressVinVoutProps): JSX.Element {
   }
 }
 
-function TransactionDetailsLeft (props: {addressId: string, vins: TransactionVin[], network: NetworkName }): JSX.Element {
+function TransactionDetailsLeft (props: { addressId: string, vins: TransactionVin[], network: NetworkName }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
       <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsLeft.List'>
@@ -111,7 +120,7 @@ function TransactionDetailsLeft (props: {addressId: string, vins: TransactionVin
   )
 }
 
-function TransactionDetailsRight (props: {addressId: string, vouts: TransactionVout[], network: NetworkName, dftx: DfTx<any> | undefined }): JSX.Element {
+function TransactionDetailsRight (props: { addressId: string, vouts: TransactionVout[], network: NetworkName, dftx: DfTx<any> | undefined }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
       <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsRight.List'>

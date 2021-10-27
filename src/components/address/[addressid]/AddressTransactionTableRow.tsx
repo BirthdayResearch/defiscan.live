@@ -28,7 +28,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
             </div>
             <div className='w-24 md:w-40 lg:w-60 overflow-ellipsis overflow-hidden my-auto'>
               <Link href={{ pathname: `/transactions/${props.addressActivity.txid}` }}>
-                <a className='hover:text-primary-500'>
+                <a className='text-primary-500'>
                   {props.addressActivity.txid}
                 </a>
               </Link>
@@ -37,7 +37,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
         </OverflowTable.Cell>
         <OverflowTable.Cell>
           <Link href={{ pathname: `/blocks/${props.addressActivity.block.height}` }}>
-            <a className='hover:text-primary-500'>
+            <a className='text-primary-500'>
               {props.addressActivity.block.height}
             </a>
           </Link>
