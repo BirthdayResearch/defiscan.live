@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { createContext, PropsWithChildren, useState } from 'react'
+import { createContext, MouseEventHandler, PropsWithChildren, useState } from 'react'
 
 const OverflowTableContext = createContext<number>(0)
 
@@ -34,11 +34,12 @@ function Header (props: PropsWithChildren<{ className?: string }>): JSX.Element 
   )
 }
 
-function Row (props: PropsWithChildren<{ className?: string }>): JSX.Element {
+function Row (props: PropsWithChildren<{ className?: string, onClick?: MouseEventHandler }>): JSX.Element {
   return (
     <div
       data-testid='OverflowTable.Row'
       className={classNames('table-row border-t border-gray-100', props.className)}
+      onClick={props.onClick}
     >
       {props.children}
     </div>
@@ -49,7 +50,7 @@ function Head (props: PropsWithChildren<{ className?: string, sticky?: boolean }
   return (
     <div
       data-testid='OverflowTable.Head'
-      className={classNames('table-cell py-3 px-6 text-black text-opacity-60 text-sm font-semibold bg-gray-50', props.className, {
+      className={classNames('table-cell px-4 md:px-6 py-3 text-black text-opacity-60 text-sm font-semibold bg-gray-50', props.className, {
         'sticky left-0': props.sticky
       })}
     >
@@ -64,7 +65,7 @@ function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean }
       {(left) => (
         <div
           data-testid='OverflowTable.Cell'
-          className={classNames('table-cell py-4 px-6', props.className, {
+          className={classNames('table-cell px-4 md:px-6 py-4', props.className, {
             'sticky left-0 bg-white': props.sticky!
           })}
         >

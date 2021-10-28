@@ -73,5 +73,24 @@ async function search (api: WhaleApiClient, query: string): Promise<{ id: string
     return blocksData
   }
 
+  const addressData = await api.address.getBalance(query)
+    .then(data => {
+      if (data.length === 0) {
+        return undefined
+      }
+
+      return {
+        url: `/address/${query}`,
+        id: query
+      }
+    })
+    .catch(() => {
+      return undefined
+    })
+
+  if (addressData !== undefined) {
+    return addressData
+  }
+
   return undefined
 }
