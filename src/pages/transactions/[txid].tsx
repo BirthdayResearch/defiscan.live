@@ -64,14 +64,14 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
 
 function getTransactionFee (transaction: Transaction, vins: TransactionVin[], dftx?: DfTx<any>): BigNumber {
   if (dftx === undefined || dftx.type !== CAccountToUtxos.OP_CODE) {
-    return new BigNumber(getTotalVinsValue(vins).minus(transaction.totalVoutValue)).multipliedBy(100000000)
+    return new BigNumber(getTotalVinsValue(vins).minus(transaction.totalVoutValue))
   }
 
   // AccountToUtxos
   const accountToUtxos = dftx as DfTx<AccountToUtxos>
   const sumOfInputs = getTotalVinsValue(vins)
   const sumOfAccountInputs = accountToUtxos.data.balances.map(balance => balance.amount).reduce((a, b) => a.plus(b))
-  return new BigNumber(sumOfInputs.plus(sumOfAccountInputs).minus(transaction.totalVoutValue)).multipliedBy(100000000)
+  return new BigNumber(sumOfInputs.plus(sumOfAccountInputs).minus(transaction.totalVoutValue))
 }
 
 function getTotalVinsValue (vins: TransactionVin[]): BigNumber {

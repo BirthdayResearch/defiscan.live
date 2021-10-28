@@ -22,7 +22,7 @@ export function DfTxPoolCreatePair (props: DfTxPoolCreatePairProps): JSX.Element
         <PoolCreatePairDetailsTable
           tokenA={props.dftx.data.tokenA}
           tokenB={props.dftx.data.tokenB}
-          commission={props.dftx.data.commission.toString()}
+          commission={props.dftx.data.commission.toFixed(8)}
           ownerAddress={address?.address}
           status={props.dftx.data.status}
           pairSymbol={props.dftx.data.pairSymbol}

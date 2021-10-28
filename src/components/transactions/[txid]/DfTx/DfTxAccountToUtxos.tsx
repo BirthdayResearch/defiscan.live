@@ -27,7 +27,7 @@ export function DfTxAccountToUtxos (props: DfTxAccountToUtxosProps): JSX.Element
           <AdaptiveList>
             {props.dftx.data.balances.map(
               balance => (
-                <BalanceRow balance={balance} key={`${balance.amount.toString()}-${balance.token}`} />
+                <BalanceRow balance={balance} key={`${balance.amount.toFixed(8)}-${balance.token}`} />
               )
             )}
           </AdaptiveList>

@@ -22,7 +22,7 @@ export function DfTxPoolUpdatePair (props: DfTxPoolUpdatePairProps): JSX.Element
         <PoolUpdatePairDetailsTable
           poolId={props.dftx.data.poolId}
           status={Number(props.dftx.data.status)}
-          commission={props.dftx.data.commission.toString()}
+          commission={props.dftx.data.commission.toFixed(8)}
           ownerAddress={ownerAddress?.address}
         />
         {props.dftx.data.customRewards.length > 0 &&
