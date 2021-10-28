@@ -2,7 +2,7 @@ import { CopyButton } from '@components/commons/CopyButton'
 import { QRCodeButton } from '@components/commons/QRCodeButton'
 
 interface AddressHeadingProps {
-  addressId: string
+  address: string
 }
 
 export function AddressHeading (props: AddressHeadingProps): JSX.Element {
@@ -20,20 +20,20 @@ export function AddressHeading (props: AddressHeadingProps): JSX.Element {
       </span>
 
       <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium break-all' data-testid='AddressHeading.address'>{props.addressId}</h1>
-        <CopyButton className='ml-2' content={props.addressId} />
-        <QRCodeButton className='ml-2' content={props.addressId} />
+        <h1 className='text-2xl font-medium break-all' data-testid='AddressHeading.address'>{props.address}</h1>
+        <CopyButton className='ml-2' content={props.address} />
+        <QRCodeButton className='ml-2' content={props.address} />
       </div>
     </>
   )
 }
 
 export function AddressNotFoundHeading (props: AddressHeadingProps): JSX.Element {
-  const addressId = props.addressId
+  const address = props.address
 
   return (
     <div className='bg-red-100 rounded p-3 text-center' data-testid='AddressHeading.AddressNotFoundHeading'>
-      The requested address <code className='break-all'>{addressId}</code> could not be found.
+      The requested address <code className='break-all'>{address}</code> could not be found.
     </div>
   )
 }

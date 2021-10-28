@@ -2,11 +2,11 @@ import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useEffect, useState } from 'react'
-import { AddressTransactionTableRow } from '@components/address/[addressid]/AddressTransactionTableRow'
+import { AddressTransactionTableRow } from '@components/address/[address]/AddressTransactionTableRow'
 import { CgSpinner } from 'react-icons/cg'
 
 interface AddressTransactionTableProps {
-  addressId: string
+  address: string
 }
 
 export function AddressTransactionTable (props: AddressTransactionTableProps): JSX.Element {
@@ -18,7 +18,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
   function getTransactions (): void {
     if (next !== undefined) {
       setIsLoading(true)
-      api.address.listTransaction(props.addressId, 10, next).then(data => {
+      api.address.listTransaction(props.address, 10, next).then(data => {
         setTransactionData(transactionData.concat([...data]))
         if (data.hasNext) {
           setNext(data.nextToken)
@@ -37,13 +37,13 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
   useEffect(() => {
     setTransactionData([])
     setNext('')
-  }, [props.addressId])
+  }, [props.address])
 
   useEffect(() => {
     if (transactionData.length === 0) {
       getTransactions()
     }
-  }, [props.addressId, transactionData])
+  }, [props.address, transactionData])
 
   return (
     <div className='mt-6 flex flex-wrap' data-testid='Transactions'>
@@ -59,7 +59,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
           transactionData.map((addressActivity) => {
             return (
               <AddressTransactionTableRow
-                addressId={props.addressId}
+                address={props.address}
                 addressActivity={addressActivity}
                 key={`${addressActivity.id}-${addressActivity.type}`}
               />

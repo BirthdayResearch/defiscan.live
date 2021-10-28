@@ -82,7 +82,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
 
 function NoTokensRow (): JSX.Element {
   return (
-    <td colSpan={3}>
+    <td colSpan={4}>
       <div className='flex justify-center p-4'>
         <span>No Tokens</span>
       </div>
