@@ -92,6 +92,17 @@ function Stats (): JSX.Element {
             />
             <span className='ml-1'>DFI</span>
           </StatItem>
+          <StatItem label='Difficulty:' testId='StatItem.difficulty'>
+            <UnitSuffix
+              value={stats.blockchain.difficulty}
+              units={{
+                3: 'K',
+                6: 'M',
+                9: 'G',
+                12: 'T'
+              }}
+            />
+          </StatItem>
         </div>
       </Container>
     </div>
