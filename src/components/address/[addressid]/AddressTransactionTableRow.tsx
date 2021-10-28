@@ -59,13 +59,13 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
           </HoverPopover>
         </OverflowTable.Cell>
         <OverflowTable.Cell>
-          <div className='flex flex-row gap-x-2'>
+          <div className='flex flex-row gap-x-2 justify-end'>
             {props.addressActivity.type === 'vout' ? (
               <span className='bg-green-100 rounded text-xs py-1 font-medium text-center h-6 w-10'>IN</span>
             ) : (
               <span className='bg-red-100 rounded text-xs py-1 font-medium text-center h-6 w-10'>OUT</span>
             )}
-            <div className='flex flex-row'>
+            <div className='flex flex-row text-right'>
               {props.addressActivity.value} DFI
             </div>
           </div>

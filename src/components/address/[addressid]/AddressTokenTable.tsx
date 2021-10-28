@@ -14,7 +14,7 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
         <OverflowTable.Header>
           <OverflowTable.Head>TOKEN</OverflowTable.Head>
           <OverflowTable.Head>NAME</OverflowTable.Head>
-          <OverflowTable.Head>AMOUNT</OverflowTable.Head>
+          <OverflowTable.Head className='text-right'>AMOUNT</OverflowTable.Head>
         </OverflowTable.Header>
         {props.tokens.length > 0 ? (
           props.tokens.map((token) => {
@@ -51,8 +51,8 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
       <OverflowTable.Cell sticky className='align-top lg:align-middle'>
         {props.token.name}
       </OverflowTable.Cell>
-      <OverflowTable.Cell>
-        {props.token.amount}
+      <OverflowTable.Cell className='text-right'>
+        {`${props.token.amount} ${props.token.symbol}`}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
