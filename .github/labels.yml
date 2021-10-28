@@ -107,3 +107,11 @@
 - color: 006B75
   name: design/ready
   description: Design is ready
+
+# PRD
+- color: 2A633E
+  name: prd/epic
+  description: General overview, broad background. Links to individual stories
+- color: 2A633E
+  name: prd/story
+  description: Actionable features that could be broken down into individual issues

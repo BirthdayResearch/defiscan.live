@@ -70,6 +70,22 @@ issue:
         member: true
         owner: true
 
+    - prefix: design
+      multiple: false
+      list: [ "in-progress", "ready" ]
+      author_association:
+        collaborator: true
+        member: true
+        owner: true
+
+    - prefix: prd
+      multiple: false
+      list: [ "epic", "story" ]
+      author_association:
+        collaborator: true
+        member: true
+        owner: true
+
   chat_ops:
     - cmd: /close
       type: close
@@ -149,14 +165,6 @@ pull_request:
     - prefix: priority
       multiple: false
       list: [ "urgent-now", "important-soon" ]
-      author_association:
-        collaborator: true
-        member: true
-        owner: true
-
-    - prefix: design
-      multiple: false
-      list: [ "in-progress", "ready" ]
       author_association:
         collaborator: true
         member: true
