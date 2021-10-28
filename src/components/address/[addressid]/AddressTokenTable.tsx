@@ -1,7 +1,6 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 
 interface AddressTokenTableProps {
   tokens: AddressToken[]
@@ -16,7 +15,7 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
           <OverflowTable.Head>TOKEN</OverflowTable.Head>
           <OverflowTable.Head>AMOUNT</OverflowTable.Head>
           <OverflowTable.Head>NAME</OverflowTable.Head>
-          <AdaptiveTable.Head>CATEGORY</AdaptiveTable.Head>
+          <OverflowTable.Head>CATEGORY</OverflowTable.Head>
         </OverflowTable.Header>
         {props.tokens.length > 0 ? (
           props.tokens.map((token) => {
@@ -55,7 +54,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
           <span>{props.token.amount}</span>
         </div>
       </OverflowTable.Cell>
-      <AdaptiveTable.Cell title='NAME'>
+      <OverflowTable.Cell>
         {(() => {
           if (props.token.isDAT) {
             return props.token.name.replace('Default Defi token', 'DeFiChain')
@@ -63,8 +62,8 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
 
           return props.token.name
         })()}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='CATEGORY' className='align-middle group-hover:text-primary-500'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle group-hover:text-primary-500'>
         {(() => {
           if (props.token.isLPS) {
             return 'LPS'
@@ -76,7 +75,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
 
           return 'DCT'
         })()}
-      </AdaptiveTable.Cell>
+      </OverflowTable.Cell>
     </OverflowTable.Row>
   )
 }
