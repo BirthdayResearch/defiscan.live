@@ -35,7 +35,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
   const dftx: DfTx<any> | undefined = getDfTx(props.vouts)
   const isDeFiTransaction = dftx !== undefined
   const fee = getTransactionFee(props.transaction, props.vins, dftx)
-  const feeRate = fee.dividedBy(props.transaction.size)
+  const feeRate = fee.multipliedBy(100000000).dividedBy(props.transaction.size)
 
   return (
     <Container className='pt-12 pb-20'>

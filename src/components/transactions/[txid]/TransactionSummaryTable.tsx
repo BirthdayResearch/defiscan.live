@@ -5,6 +5,9 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Link } from '@components/commons/Link'
 import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
+import { JSX } from '@babel/types'
+import { HoverPopover } from '@components/commons/popover/HoverPopover'
+import { IoAlertCircleOutline } from 'react-icons/io5'
 
 interface TransactionSummaryTableProps {
   transaction: Transaction
@@ -65,7 +68,16 @@ function SummaryTableListRight (props: { transaction: Transaction, vins: Transac
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
       <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
-        {props.vins[0].vout === undefined ? 'Coinbase' : `${props.feeRate.toFixed(8)} DFI/byte`}
+        <div className='flex items-center'>
+          {props.vins[0].vout === undefined ? 'Coinbase' : `${props.feeRate.toFixed(8)} fi/byte`}
+          <div className='ml-0.5'>
+            <HoverPopover popover='1 DFI = 100,000,000 fi'>
+              <div className='cursor-help group'>
+                <IoAlertCircleOutline className='h-4 w-4 text-gray-500' />
+              </div>
+            </HoverPopover>
+          </div>
+        </div>
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
         {props.transaction.size} bytes
