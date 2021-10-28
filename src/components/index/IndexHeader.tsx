@@ -71,17 +71,9 @@ function Stats (): JSX.Element {
               suffix=' USD'
             />
           </StatItem>
-          <StatItem label='Blocks:' testId='StatItem.blocks'>
-            <ReactNumberFormat
-              displayType='text'
-              thousandSeparator
-              value={stats.count.blocks}
-              decimalScale={2}
-            />
-          </StatItem>
-          <StatItem label='Difficulty:' testId='StatItem.difficulty'>
+          <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
             <UnitSuffix
-              value={stats.blockchain.difficulty}
+              value={stats.burned.total}
               units={{
                 3: 'K',
                 6: 'M',
@@ -89,6 +81,7 @@ function Stats (): JSX.Element {
                 12: 'T'
               }}
             />
+            <span className='ml-1'>DFI</span>
           </StatItem>
           <StatItem label='Block Reward:' testId='StatItem.blockReward'>
             <ReactNumberFormat
@@ -97,10 +90,11 @@ function Stats (): JSX.Element {
               value={stats.emission.total}
               decimalScale={2}
             />
+            <span className='ml-1'>DFI</span>
           </StatItem>
-          <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
+          <StatItem label='Difficulty:' testId='StatItem.difficulty'>
             <UnitSuffix
-              value={stats.burned.total}
+              value={stats.blockchain.difficulty}
               units={{
                 3: 'K',
                 6: 'M',
