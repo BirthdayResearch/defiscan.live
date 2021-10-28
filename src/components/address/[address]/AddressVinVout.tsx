@@ -136,11 +136,8 @@ function TransactionDetailsRight (props: { address: string, vouts: TransactionVo
           const decoded = vout.script !== undefined ? fromScriptHex(vout.script?.hex, props.network) : undefined
 
           let address = decoded?.address ?? 'N/A'
-          let isAddress = address !== props.address
-
           if (index === 0) {
             address = decoded?.address ?? props.dftx?.name ?? 'N/A'
-            isAddress = props.dftx === undefined
           }
 
           return (
@@ -150,7 +147,7 @@ function TransactionDetailsRight (props: { address: string, vouts: TransactionVo
               value={`${vout.value} DFI`}
               key={vout.n}
               network={props.network}
-              isAddressClickable={isAddress}
+              isAddressClickable={props.dftx === undefined && decoded?.address !== undefined}
             />
           )
         })}
