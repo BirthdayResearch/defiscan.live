@@ -14,7 +14,7 @@ export function _Default (symbol: string): (props: SVGProps<SVGSVGElement>) => J
           d='M16 0C7.163 0 0 7.163 0 16s7.163 16 16 16c8.838 0 16-7.163 16-16S24.838 0 16 0z'
         />
         <text
-          alignmentBaseline='central'
+          dominantBaseline='central'
           fill={text}
           fontSize='16'
           fontWeight='bolder'
