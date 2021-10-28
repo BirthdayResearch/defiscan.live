@@ -227,7 +227,7 @@ export const PRICES: Record<string, PriceCopy> = {
         id: 'TQQQ-USD',
         type: "ETF",
         icon: require('./images/tqqq.png'),
-        description: 'The ProShares UltraPro Short QQQ'
+        description: 'The ProShares UltraPro QQQ'
     },
     'TLRY-USD': {
         id: 'TLRY-USD',
@@ -248,7 +248,7 @@ export const PRICES: Record<string, PriceCopy> = {
         description: 'Square is an American financial services and digital payments company based in San Francisco, California. The company was founded in 2009 by Jack Dorsey and Jim McKelvey and launched its first platform in 2010.'
     },
     'SPY-USD': {
-        id:'SPY-USD',
+        id: 'SPY-USD',
         type: 'ETF',
         icon: require('./images/spy.png'),
         description: 'The SPDR S&P 500 trust is an exchange-traded fund which trades on the NYSE Arca under the symbol. SPDR is an acronym for the Standard & Poor\'s Depositary Receipts, the former name of the ETF. It is designed to track the S&P 500 stock market index. This fund is the largest ETF in the world'
@@ -283,12 +283,167 @@ export const PRICES: Record<string, PriceCopy> = {
         icon: require('./images/ntdof.png'),
         description: 'Nintendo Co., Ltd. is a Japanese multinational consumer electronics and video game company headquartered in Kyoto, Japan. The company was founded in 1889 as Nintendo Karuta by craftsman Fusajiro Yamauchi and originally produced handmade hanafuda playing cards'
     },
-
     'NSRGY-USD': {
         id: 'NSRGY-USD',
         type: "STOCKS",
         icon: require('./images/nsrgy.png'),
         description: 'Nestlé S.A. is a Swiss multinational food and drink processing conglomerate corporation headquartered in Vevey, Vaud, Switzerland. It is the largest food company in the world, measured by revenue and other metrics, since 2014.'
+    },
+    'SQQQ-USD': {
+        id: 'SQQQ-USD',
+        type: 'ETF',
+        icon: require('./images/tqqq.png'),
+        description: 'ProShares UltraPro Short QQQ'
+    },
+    'SOXX-USD': {
+        id: 'SOXX-USD',
+        type: 'ETF',
+        icon: require('./images/soxx.png'),
+        description: 'Ishares Semiconductors EFT'
+    },
+    'BABA-USD': {
+        id: 'BABA-USD',
+        type: 'STOCKS',
+        icon: require('./images/baba.png'),
+        description: 'Alibaba Group Holding Limited, also known as Alibaba Group and Alibaba.com, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology.'
+    },
+    'DIS-USD': {
+        id: 'DIS-USD',
+        type: 'STOCKS',
+        icon: require('./images/dis.png'),
+        description: 'The Walt Disney Company, commonly just Disney, is an American multinational entertainment and media conglomerate headquartered at the Walt Disney Studios complex in Burbank, California.'
+    },
+    'NFLX-USD': {
+        id: 'NFLX-USD',
+        type: "STOCKS",
+        icon: require('./images/nflx.png'),
+        description: 'Netflix, Inc. is an American pay television over-the-top media service and original programming production company. It offers subscription-based video on demand from a library of films and television series, 40% of which is Netflix original programming produced in-house'
+    },
+    'MA-USD': {
+        id: 'MA-USD',
+        type: 'STOCKS',
+        icon: require('./images/ma.png'),
+        description: 'Mastercard Inc. is an American multinational financial services corporation headquartered in the Mastercard International Global Headquarters in Purchase, New York. The Global Operations Headquarters is located in O\'Fallon, Missour'
+    },
+    'RBLX-USD': {
+        id: 'RBLX-USD',
+        type: "STOCKS",
+        icon: require('./images/rblx.png'),
+        description: 'Roblox Corporation is an American video game developer based in San Mateo, California. Founded in 2004 by David Baszucki and Erik Cassel, the company is the developer of Roblox, which was released in 2006. '
+    },
+    'MARA-USD': {
+        id: 'MARA-USD',
+        type: 'STOCKS',
+        icon: require('./images/mara.png'),
+        description: 'Marathon Digital Holdings is a patent holding company that is the parent of Uniloc, known as a patent troll company.'
+    },
+    'MCHI-USD': {
+        id: 'MCHI-USD',
+        type: 'ETF',
+        icon: require('./images/soxx.png'),
+        description: 'iShares MSCI China ETF'
+    },
+    'EEM-USD': {
+        id: 'EEM-USD',
+        type: 'ETF',
+        icon: require('./images/soxx.png'),
+        description: 'iShares MSCI Emerging Markets ETF'
+    },
+    'NLLSF-USD': {
+        id: 'NLLSF-USD',
+        type: 'STOCKS',
+        icon: require('./images/nllsf.png'),
+        description: 'Nel ASA is a Norwegian company founded in 1998 and based in Oslo. Nel is a global company providing solutions for the production, storage and distribution of hydrogen from renewable energy sources. Nel is listed in the OBX Index of the Oslo Stock Exchange.'
+    },
+    'GLO-USD': {
+        id: 'GLO-USD',
+        type: 'ETF',
+        icon: require('./images/glo.png'),
+        description: 'Clough Global Opportunities Fund'
+    },
+    'KRBN-USD': {
+        id: 'KRBN-USD',
+        type: 'ETF',
+        icon: require('./images/krbn.png'),
+        description: 'KraneShares Global Carbon ETF'
+    },
+    'PATH-USD': {
+        id: 'PATH-USD',
+        type: 'STOCKS',
+        icon: require('./images/path.png'),
+        description: 'UiPath is an American global software company for robotic process automation founded in Romania by Daniel Dines and Marius Tîrcă and headquartered in New York City'
+    },
+    'MSFT-USD': {
+        id: 'MSFT-USD',
+        type: 'STOCKS',
+        icon: require('./images/msft.png'),
+        description: 'Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.'
+    },
+    'INTC-USD': {
+        id: 'INTC-USD',
+        type: 'STOCKS',
+        icon: require('./images/intl.png'),
+        description: 'Intel Corporation is an American multinational corporation and technology company headquartered in Santa Clara, California. It is the world\'s largest semiconductor chip manufacturer by revenue, and is the developer of the x86 series of microprocessors, the processors found in most personal computers.'
+    },
+    'SQNXF-USD': {
+        id: 'SQNXF-USD',
+        type: 'STOCKS',
+        icon: require('./images/sqnxf.png'),
+        description: 'Square Enix Holdings Co., Ltd. is a Japanese entertainment conglomerate and video game company, best known for its Final Fantasy, Dragon Quest and Kingdom Hearts role-playing video game franchises, among numerous others.'
+    },
+    'SOXS-USD': {
+        id: 'SOXS-USD',
+        type: 'ETF',
+        icon: require('./images/soxl.png'),
+        description: 'The Direxion Daily Semiconductor Bear'
+    },
+    'SOXL-USD': {
+        id: 'SOXL-USD',
+        type: 'ETF',
+        icon: require('./images/soxl.png'),
+        description: 'The Direxion Daily Semiconductor Bull'
+    },
+    'QQQ-USD': {
+        id: 'QQQ-USD',
+        type: 'ETF',
+        icon: require('./images/intl.png'),
+        description: 'Invesco QQQ Trust Series 1'
+    },
+    'LZAGY-USD': {
+        id: 'LZAGY-USD',
+        type: 'STOCKS',
+        icon: require('./images/lzagy.png'),
+        description: 'Lonza Group is a Swiss multinational chemicals and biotechnology company, headquartered in Basel, with major facilities in Europe, North America and South Asia. Lonza was established under that name in the late 19th-century in Switzerland.'
+    },
+    'CQQQ-USD': {
+        id: 'CQQQ-USD',
+        type: 'ETF',
+        icon: require('./images/intl.png'),
+        description: 'Invesco China Technology ETF'
+    },
+    'BYDDF-USD': {
+        id: 'BYDDF-USD',
+        type: 'STOCKS',
+        icon: require('./images/byddf.png'),
+        description: 'BYD Co. Ltd. is a Chinese manufacturing company headquartered in Shenzhen, Guangdong, founded by Wang Chuanfu in February 1995. It has two major subsidiaries, BYD Automobile and BYD Electronic.'
+    },
+    'ARKX-USD': {
+        id: 'ARKX-USD',
+        type: 'ETF',
+        icon: require('./images/arkx.png'),
+        description: 'ARK Space Exploration & Innovation ETF'
+    },
+    'ARKW-USD': {
+        id: 'ARKW-USD',
+        type: 'ETF',
+        icon: require('./images/arkx.png'),
+        description: 'ARK Next Generation Internet ETF'
+    },
+    'ARKQ-USD': {
+        id: 'ARKQ-USD',
+        type: 'ETF',
+        icon: require('./images/arkx.png'),
+        description: 'ARK Autonomous Technology & Robotics ETF'
     }
 }
 
