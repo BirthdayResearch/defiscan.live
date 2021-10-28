@@ -65,7 +65,7 @@ function SummaryTableListRight (props: { transaction: Transaction, vins: Transac
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
       <AdaptiveList.Row name='Fee Rate' testId='transaction-detail-fee-rate'>
-        {props.vins[0].vout === undefined ? 'Coinbase' : `${props.feeRate.decimalPlaces(8).toString()} fi/byte`}
+        {props.vins[0].vout === undefined ? 'Coinbase' : `${props.feeRate.toFixed(8)} DFI/byte`}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Size' testId='transaction-detail-size'>
         {props.transaction.size} bytes
