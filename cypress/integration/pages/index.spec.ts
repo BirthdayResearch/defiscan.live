@@ -19,20 +19,16 @@ context('/ on macbook-13', () => {
     cy.findByTestId('StatItem.tvlTotal').should('be.visible')
   })
 
-  it('should have StatItem.blocks', () => {
-    cy.findByTestId('StatItem.blocks').should('be.visible')
-  })
-
-  it('should have StatItem.difficulty', () => {
-    cy.findByTestId('StatItem.difficulty').should('be.visible')
-  })
-
   it('should have StatItem.blockReward', () => {
     cy.findByTestId('StatItem.blockReward').should('be.visible')
   })
 
   it('should have StatItem.totalDFIBurned', () => {
     cy.findByTestId('StatItem.totalDFIBurned').should('be.visible')
+  })
+
+  it('should have StatItem.difficulty', () => {
+    cy.findByTestId('StatItem.difficulty').should('be.visible')
   })
 
   it('should have BlocksList.viewAllBlocksLink', () => {
@@ -77,20 +73,16 @@ context('/ on iphone-x', () => {
     cy.findByTestId('StatItem.tvlTotal').should('be.visible')
   })
 
-  it('should have StatItem.blocks', () => {
-    cy.findByTestId('StatItem.blocks').should('be.visible')
-  })
-
-  it('should have StatItem.difficulty', () => {
-    cy.findByTestId('StatItem.difficulty').should('be.visible')
-  })
-
   it('should have StatItem.blockReward', () => {
     cy.findByTestId('StatItem.blockReward').should('be.visible')
   })
 
   it('should have StatItem.totalDFIBurned', () => {
     cy.findByTestId('StatItem.totalDFIBurned').should('be.visible')
+  })
+
+  it('should have StatItem.difficulty', () => {
+    cy.findByTestId('StatItem.difficulty').should('be.visible')
   })
 
   it('should have BlocksList.viewAllBlocksLink', () => {
