@@ -1,4 +1,4 @@
-context('/address/[addressid] on desktop', () => {
+context('/address/[address] on desktop', () => {
   before(() => {
     cy.visit('/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet')
   })
@@ -49,7 +49,7 @@ context('/address/[addressid] on desktop', () => {
   })
 })
 
-context('/address/[addressid] on desktop - invalid address', () => {
+context('/address/[address] on desktop - invalid address', () => {
   before(() => {
     cy.visit('/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet')
   })
@@ -63,7 +63,7 @@ context('/address/[addressid] on desktop - invalid address', () => {
   })
 })
 
-context('/address/[addressid] on mobile', () => {
+context('/address/[address] on mobile', () => {
   before(() => {
     cy.visit('/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet')
   })
@@ -114,7 +114,7 @@ context('/address/[addressid] on mobile', () => {
   })
 })
 
-context('/address/[addressid] on mobile - invalid address', () => {
+context('/address/[address] on mobile - invalid address', () => {
   before(() => {
     cy.visit('/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet')
   })

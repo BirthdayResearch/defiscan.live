@@ -2,13 +2,13 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/Link'
 import { format, formatDistanceToNow, fromUnixTime } from 'date-fns'
 import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
-import { AddressVinVout } from '@components/address/[addressid]/AddressVinVout'
+import { AddressVinVout } from '@components/address/[address]/AddressVinVout'
 import { useState } from 'react'
 import { MdExpand } from 'react-icons/md'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 
 interface TransactionTableRowProps {
-  addressId: string
+  address: string
   addressActivity: AddressActivity
 }
 
@@ -71,7 +71,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
           </div>
         </OverflowTable.Cell>
       </OverflowTable.Row>
-      <AddressVinVout addressId={props.addressId} txid={props.addressActivity.txid} expanded={expanded} />
+      <AddressVinVout address={props.address} txid={props.addressActivity.txid} expanded={expanded} />
     </>
   )
 }

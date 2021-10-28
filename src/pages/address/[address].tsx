@@ -2,13 +2,13 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Container } from '@components/commons/Container'
 import { AddressAggregation, AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { AddressHeading, AddressNotFoundHeading } from '@components/address/[addressid]/AddressHeadings'
-import { AddressSummaryTable } from '@components/address/[addressid]/AddressSummaryTable'
-import { AddressTransactionTable } from '@components/address/[addressid]/AddressTransactionTable'
-import { AddressTokenTable } from '@components/address/[addressid]/AddressTokenTable'
+import { AddressHeading, AddressNotFoundHeading } from '@components/address/[address]/AddressHeadings'
+import { AddressSummaryTable } from '@components/address/[address]/AddressSummaryTable'
+import { AddressTransactionTable } from '@components/address/[address]/AddressTransactionTable'
+import { AddressTokenTable } from '@components/address/[address]/AddressTokenTable'
 
 interface AddressPageProps {
-  addressId: string
+  address: string
   tokens?: AddressToken[]
   aggregation?: AddressAggregation
 }
@@ -17,37 +17,37 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
   if (props.tokens === undefined || props.aggregation === undefined) {
     return (
       <Container className='pt-12 pb-20'>
-        <AddressNotFoundHeading addressId={props.addressId} />
+        <AddressNotFoundHeading address={props.address} />
       </Container>
     )
   }
 
   return (
     <Container className='pt-12 pb-20'>
-      <AddressHeading addressId={props.addressId} />
+      <AddressHeading address={props.address} />
       <AddressSummaryTable aggregation={props.aggregation} />
       <AddressTokenTable tokens={props.tokens} />
-      <AddressTransactionTable addressId={props.addressId} />
+      <AddressTransactionTable address={props.address} />
     </Container>
   )
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<AddressPageProps>> {
   const api = getWhaleApiClient(context)
-  const addressId = context.params?.addressid as string
+  const address = context.params?.address as string
 
   try {
     return {
       props: {
-        addressId: addressId,
-        tokens: await api.address.listToken(addressId),
-        aggregation: await api.address.getAggregation(addressId)
+        address: address,
+        tokens: await api.address.listToken(address),
+        aggregation: await api.address.getAggregation(address)
       }
     }
   } catch (e) {
     return {
       props: {
-        addressId: addressId
+        address: address
       }
     }
   }

@@ -10,7 +10,7 @@ import { SmartBuffer } from 'smart-buffer'
 import { TransactionVectorRow } from '@components/commons/transactions/TransactionVectorRow'
 
 interface AddressVinVoutProps {
-  addressId: string
+  address: string
   txid: string
   expanded: boolean
 }
@@ -58,7 +58,7 @@ export function AddressVinVout (props: AddressVinVoutProps): JSX.Element {
   if (props.expanded && vins === undefined && vouts === undefined) {
     return <LoadingPanel />
   } else if (props.expanded && vins !== undefined && vouts !== undefined) {
-    return <TransactionDetails addressId={props.addressId} vins={vins} vouts={vouts} />
+    return <TransactionDetails address={props.address} vins={vins} vouts={vouts} />
   } else {
     return <></>
   }
@@ -74,7 +74,7 @@ function LoadingPanel (): JSX.Element {
   )
 }
 
-function TransactionDetails (props: { addressId: string, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
+function TransactionDetails (props: { address: string, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
   const network = useNetworkObject().name
   const dftx: DfTx<any> | undefined = getDfTx(props.vouts)
 
@@ -82,17 +82,17 @@ function TransactionDetails (props: { addressId: string, vins: TransactionVin[],
     <td colSpan={4} className='px-4 md:px-6 pt-2 pb-4 lg:p-6 bg-gray-200 bg-opacity-50'>
       <div className='w-full font-medium text-lg'>Details</div>
       <div className='mt-2 w-full flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <TransactionDetailsLeft addressId={props.addressId} vins={props.vins} network={network} />
+        <TransactionDetailsLeft address={props.address} vins={props.vins} network={network} />
         <div className='flex items-center justify-center text-gray-600 w-full lg:w-auto lg:h-20'>
           <IoArrowForwardOutline className='transform rotate-90 lg:rotate-0' size={24} />
         </div>
-        <TransactionDetailsRight addressId={props.addressId} vouts={props.vouts} network={network} dftx={dftx} />
+        <TransactionDetailsRight address={props.address} vouts={props.vouts} network={network} dftx={dftx} />
       </div>
     </td>
   )
 }
 
-function TransactionDetailsLeft (props: { addressId: string, vins: TransactionVin[], network: NetworkName }): JSX.Element {
+function TransactionDetailsLeft (props: { address: string, vins: TransactionVin[], network: NetworkName }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
       <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsLeft.List'>
@@ -119,7 +119,7 @@ function TransactionDetailsLeft (props: { addressId: string, vins: TransactionVi
               value={`${vin.vout.value} DFI`}
               key={vin.id}
               network={props.network}
-              isAddressClickable={address !== props.addressId}
+              isAddressClickable={address !== props.address}
             />
           )
         })}
@@ -128,7 +128,7 @@ function TransactionDetailsLeft (props: { addressId: string, vins: TransactionVi
   )
 }
 
-function TransactionDetailsRight (props: { addressId: string, vouts: TransactionVout[], network: NetworkName, dftx: DfTx<any> | undefined }): JSX.Element {
+function TransactionDetailsRight (props: { address: string, vouts: TransactionVout[], network: NetworkName, dftx: DfTx<any> | undefined }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
       <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsRight.List'>
@@ -136,7 +136,7 @@ function TransactionDetailsRight (props: { addressId: string, vouts: Transaction
           const decoded = vout.script !== undefined ? fromScriptHex(vout.script?.hex, props.network) : undefined
 
           let address = decoded?.address ?? 'N/A'
-          let isAddress = address !== props.addressId
+          let isAddress = address !== props.address
 
           if (index === 0) {
             address = decoded?.address ?? props.dftx?.name ?? 'N/A'
