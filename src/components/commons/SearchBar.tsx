@@ -15,7 +15,10 @@ import { Link } from '@components/commons/Link'
 import { Transition } from '@headlessui/react'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
-import { AddressAggregation } from '@defichain/whale-api-client/dist/api/address'
+import { fromAddress } from '@defichain/jellyfish-address'
+import { useNetworkObject } from '@contexts/NetworkContext'
+import { NetworkName } from '@defichain/jellyfish-network'
+import { WhaleApiClient } from '@defichain/whale-api-client'
 
 interface SearchBarInterface {
   collapsable: boolean
@@ -29,6 +32,8 @@ interface SearchResult {
 
 export function SearchBar (props: SearchBarInterface): JSX.Element {
   const api = useWhaleApiClient()
+  const network = useNetworkObject().name
+
   const [isActive, setIsActive] = useState<boolean>(false)
   const [isCollapse, setIsCollapse] = useState<boolean>(true)
   const [isSearching, setIsSearching] = useState<boolean>(false)
@@ -46,7 +51,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
     if (query.length > 0) {
       setIsSearching(true)
-      const results = await getSearchResults(api, query)
+      const results = await getSearchResults(api, network, query)
       setSearchResults(results)
       setIsSearching(false)
     } else {
@@ -184,7 +189,7 @@ function SearchResultRow (props: SearchResult): JSX.Element {
   )
 }
 
-async function getSearchResults (api, query: string): Promise<(SearchResult[] | undefined)> {
+async function getSearchResults (api: WhaleApiClient, network: NetworkName, query: string): Promise<(SearchResult[] | undefined)> {
   const txnData = await api.transactions.get(query)
     .then((data: Transaction) => {
       if (data === undefined) {
@@ -224,24 +229,14 @@ async function getSearchResults (api, query: string): Promise<(SearchResult[] | 
     return [blocksData]
   }
 
-  const addressData = await api.address.getAggregation(query)
-    .then((data: AddressAggregation) => {
-      if (data === undefined) {
-        return undefined
-      }
-
-      return {
-        url: `/address/${query}`,
-        title: query,
-        type: 'Address'
-      }
-    })
-    .catch(() => {
-      return undefined
-    })
-
+  const addressData = fromAddress('8eHYnf96TN7wNRNz4uwfr7ZPVb1VXviFSJ', network)
+  console.log(addressData)
   if (addressData !== undefined) {
-    return [addressData]
+    return [{
+      url: `/address/${query}`,
+      title: query,
+      type: 'Address'
+    }]
   }
 
   return undefined
