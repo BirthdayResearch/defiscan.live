@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-imports */
 import { NetworkProvider } from '@contexts/NetworkContext'
-import { PlaygroundProvider } from '@contexts/PlaygroundContext'
 import { StoreProvider } from '@contexts/StoreProvider'
 import { WhaleProvider } from '@contexts/WhaleContext'
 import { StatsProvider } from '@store/stats'
@@ -42,21 +41,19 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
       </Head>
 
       <NetworkProvider>
-        <PlaygroundProvider>
-          <WhaleProvider>
-            <StoreProvider state={props.initialReduxState}>
-              <StatsProvider>
-                <Header />
+        <WhaleProvider>
+          <StoreProvider state={props.initialReduxState}>
+            <StatsProvider>
+              <Header />
 
-                <main className='flex-grow'>
-                  {props.children}
-                </main>
+              <main className='flex-grow'>
+                {props.children}
+              </main>
 
-                <Footer />
-              </StatsProvider>
-            </StoreProvider>
-          </WhaleProvider>
-        </PlaygroundProvider>
+              <Footer />
+            </StatsProvider>
+          </StoreProvider>
+        </WhaleProvider>
       </NetworkProvider>
     </div>
   )

@@ -2,14 +2,14 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { CurrencyPair, DfTx, UpdateOracle } from '@defichain/jellyfish-transaction'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkObject } from '@contexts/NetworkContext'
+import { useNetwork } from '@contexts/NetworkContext'
 import { OverflowTable } from '@components/commons/OverflowTable'
 
 interface DfTxUpdateOracleProps {
   dftx: DfTx<UpdateOracle>
 }
 export function DfTxUpdateOracle (props: DfTxUpdateOracleProps): JSX.Element {
-  const network = useNetworkObject().name
+  const network = useNetwork().name
   const address = fromScript(props.dftx.data.script, network)?.address
 
   return (
@@ -48,10 +48,10 @@ function UpdateOracleTableRow (props: { priceFeed: CurrencyPair }): JSX.Element 
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        <span data-testId={`DfTxUpdateOracle.${props.priceFeed.token}Token`}>{props.priceFeed.token}</span>
+        <span data-testid={`DfTxUpdateOracle.${props.priceFeed.token}Token`}>{props.priceFeed.token}</span>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <span data-testId={`DfTxUpdateOracle.${props.priceFeed.token}Currency`}>{props.priceFeed.currency}</span>
+        <span data-testid={`DfTxUpdateOracle.${props.priceFeed.token}Currency`}>{props.priceFeed.currency}</span>
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )

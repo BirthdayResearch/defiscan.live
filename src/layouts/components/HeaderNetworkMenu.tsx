@@ -5,7 +5,7 @@ import { MdArrowDropDown } from 'react-icons/md'
 import React, { Fragment } from 'react'
 
 export function HeaderNetworkMenu (): JSX.Element {
-  const network = useNetwork()
+  const connection = useNetwork().connection
   const { networks } = getEnvironment()
 
   return (
@@ -13,7 +13,7 @@ export function HeaderNetworkMenu (): JSX.Element {
       <Menu.Button className='bg-gray-50 px-2 py-1 rounded flex items-center'>
         <div className='bg-green-500 h-2 w-2 rounded-full' />
         <div className='text-xs ml-2 font-medium leading-none'>
-          {network}
+          {connection}
         </div>
         <MdArrowDropDown className='h-6 w-6 ml-1 text-gray-600' />
       </Menu.Button>
@@ -39,7 +39,7 @@ export function HeaderNetworkMenu (): JSX.Element {
                     className='block px-4 py-2 text-sm font-medium cursor-pointer'
                     href={`/?network=${item}`}
                   >
-                    <div className={active || network === item ? 'text-primary-500' : ''}>
+                    <div className={active || connection === item ? 'text-primary-500' : ''}>
                       {item}
                     </div>
                   </a>}

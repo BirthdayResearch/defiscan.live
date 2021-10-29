@@ -13,6 +13,7 @@
   ],
   "rules": {
     "@typescript-eslint/no-non-null-assertion": "off",
+    "react-hooks/exhaustive-deps": "off",
     "curly": [
       "error",
       "all"

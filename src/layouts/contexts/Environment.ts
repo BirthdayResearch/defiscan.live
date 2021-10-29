@@ -1,4 +1,4 @@
-import { Network } from '@contexts/NetworkContext'
+import { NetworkConnection } from '@contexts/NetworkContext'
 
 /**
  * Environment specific static resolution utility.
@@ -7,25 +7,25 @@ class Environment {
   constructor (
     public readonly name: 'Production' | 'Development',
     public readonly debug: boolean,
-    public readonly networks: Network[]
+    public readonly networks: NetworkConnection[]
   ) {
   }
 
   /**
-   * @param {any} text that is case sensitive to resolve to a Network, else unresolvable; default to first network
+   * @param {any} text that is case sensitive to resolve to a NetworkConnection, else unresolvable; default to first network
    */
-  public resolveNetwork (text: any): Network {
+  public resolveConnection (text: any): NetworkConnection {
     if ((this.networks as any[]).includes(text)) {
-      return text as Network
+      return text as NetworkConnection
     }
 
     return this.networks[0]
   }
 
   /**
-   * @param {Network} network to check if it's the default network, aka the first network
+   * @param {NetworkConnection} network to check if it's the default network, aka the first network
    */
-  public isDefaultNetwork (network: Network): boolean {
+  public isDefaultConnection (network: NetworkConnection): boolean {
     return this.networks[0] === network
   }
 }
@@ -37,27 +37,27 @@ export function getEnvironment (): Environment {
   switch (process.env.NODE_ENV) {
     case 'production':
       return new Environment('Production', false, [
-        Network.MainNet,
-        Network.TestNet,
-        Network.RemotePlayground
+        NetworkConnection.MainNet,
+        NetworkConnection.TestNet,
+        NetworkConnection.RemotePlayground
       ])
     case 'development':
     default:
       return new Environment('Development', true, [
-        Network.MainNet,
-        Network.RemotePlayground,
-        Network.LocalPlayground,
-        Network.TestNet
+        NetworkConnection.MainNet,
+        NetworkConnection.RemotePlayground,
+        NetworkConnection.LocalPlayground,
+        NetworkConnection.TestNet
       ])
   }
 }
 
 /**
- * @param {Network} network to check if it is a playground network
+ * @param {NetworkConnection} connection to check if it is a playground network
  */
-export function isPlayground (network: Network): boolean {
+export function isPlayground (connection: NetworkConnection): boolean {
   return [
-    Network.LocalPlayground,
-    Network.RemotePlayground
-  ].includes(network)
+    NetworkConnection.LocalPlayground,
+    NetworkConnection.RemotePlayground
+  ].includes(connection)
 }

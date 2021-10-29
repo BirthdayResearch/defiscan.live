@@ -1,6 +1,6 @@
 import { DfTx, AppointOracle, CurrencyPair } from '@defichain/jellyfish-transaction'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkObject } from '@contexts/NetworkContext'
+import { useNetwork } from '@contexts/NetworkContext'
 
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
@@ -11,7 +11,7 @@ interface DfTxAppointOracleProps {
 }
 
 export function DfTxAppointOracle (props: DfTxAppointOracleProps): JSX.Element {
-  const network = useNetworkObject().name
+  const network = useNetwork().name
   const script = fromScript(props.dftx.data.script, network)
   return (
     <div>
@@ -46,10 +46,10 @@ function AppointOracleTableRow (props: { priceFeed: CurrencyPair }): JSX.Element
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        <span data-testId={`DfTxAppointOracle.${props.priceFeed.token}Token`}>{props.priceFeed.token}</span>
+        <span data-testid={`DfTxAppointOracle.${props.priceFeed.token}Token`}>{props.priceFeed.token}</span>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <span data-testId={`DfTxAppointOracle.${props.priceFeed.token}Currency`}>{props.priceFeed.currency}</span>
+        <span data-testid={`DfTxAppointOracle.${props.priceFeed.token}Currency`}>{props.priceFeed.currency}</span>
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )

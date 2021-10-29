@@ -74,7 +74,8 @@ export const stats = createSlice({
 })
 
 export function StatsProvider (props: PropsWithChildren<{}>): JSX.Element {
-  const interval = isPlayground(useNetwork()) ? 3000 : 30000
+  const connection = useNetwork().connection
+  const interval = isPlayground(connection) ? 3000 : 30000
   const api = useWhaleApiClient()
   const dispatch = useDispatch()
 
