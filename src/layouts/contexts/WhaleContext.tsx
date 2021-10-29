@@ -2,7 +2,7 @@ import { WhaleApiClient, WhaleRpcClient } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext } from 'next'
 import { createContext, PropsWithChildren, useContext, useMemo } from 'react'
 import { getEnvironment } from './Environment'
-import { Network, useNetwork } from './NetworkContext'
+import { NetworkConnection, useNetwork } from './NetworkContext'
 
 const WhaleApiClientContext = createContext<WhaleApiClient>(undefined as any)
 const WhaleRpcClientContext = createContext<WhaleRpcClient>(undefined as any)
@@ -56,24 +56,24 @@ export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | nul
 
 function newWhaleClient (network?: string): WhaleApiClient {
   switch (network) {
-    case Network.LocalPlayground:
+    case NetworkConnection.LocalPlayground:
       return new WhaleApiClient({
         url: 'http://localhost:19553',
         network: 'regtest',
         version: 'v0'
       })
-    case Network.RemotePlayground:
+    case NetworkConnection.RemotePlayground:
       return new WhaleApiClient({
         url: 'https://playground.defichain.com',
         network: 'regtest',
         version: 'v0'
       })
-    case Network.TestNet:
+    case NetworkConnection.TestNet:
       return new WhaleApiClient({
         url: 'https://ocean.defichain.com',
         network: 'testnet'
       })
-    case Network.MainNet:
+    case NetworkConnection.MainNet:
     default:
       return new WhaleApiClient({
         url: 'https://ocean.defichain.com',

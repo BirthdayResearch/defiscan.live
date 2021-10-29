@@ -2,7 +2,7 @@ import { DfTx, PoolUpdatePair } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { fromScript } from '@defichain/jellyfish-address'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { useNetworkConnection } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@contexts/NetworkContext'
 import { TokenBalance } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance'
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
@@ -12,7 +12,7 @@ interface DfTxPoolUpdatePairProps {
 }
 
 export function DfTxPoolUpdatePair (props: DfTxPoolUpdatePairProps): JSX.Element {
-  const network = useNetworkConnection().name
+  const network = useNetworkContext().name
   const ownerAddress = fromScript(props.dftx.data.ownerAddress, network)
 
   return (

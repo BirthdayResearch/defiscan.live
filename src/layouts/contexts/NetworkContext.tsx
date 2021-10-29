@@ -5,34 +5,34 @@ import { Network as NetworkObject, getNetwork } from '@defichain/jellyfish-netwo
 
 export declare type NetworkName = 'mainnet' | 'testnet' | 'regtest'
 
-export enum Network {
+export enum NetworkConnection {
   LocalPlayground = 'Local',
   RemotePlayground = 'Playground',
   MainNet = 'MainNet',
   TestNet = 'TestNet'
 }
 
-export interface NetworkConnection extends NetworkObject {
-  type: 'Local' | 'Playground' | 'MainNet' | 'TestNet'
+export interface NetworkContextObject extends NetworkObject {
+  connection: NetworkConnection
 }
 
-const NetworkContext = createContext<Network>(undefined as any)
+const NetworkContext = createContext<NetworkConnection>(undefined as any)
 
-export function useNetwork (): Network {
+export function useNetwork (): NetworkConnection {
   return useContext(NetworkContext)
 }
 
-export function useNetworkConnection (): NetworkConnection {
+export function useNetworkContext (): NetworkContextObject {
   const network = useContext(NetworkContext)
 
   switch (network) {
-    case Network.MainNet:
-      return { type: network, ...getNetwork('mainnet') }
-    case Network.TestNet:
-      return { type: network, ...getNetwork('testnet') }
-    case Network.RemotePlayground:
-    case Network.LocalPlayground:
-      return { type: network, ...getNetwork('regtest') }
+    case NetworkConnection.MainNet:
+      return { connection: network, ...getNetwork('mainnet') }
+    case NetworkConnection.TestNet:
+      return { connection: network, ...getNetwork('testnet') }
+    case NetworkConnection.RemotePlayground:
+    case NetworkConnection.LocalPlayground:
+      return { connection: network, ...getNetwork('regtest') }
     default:
       throw new Error(`${network as string} network not found`)
   }
@@ -41,7 +41,7 @@ export function useNetworkConnection (): NetworkConnection {
 export function NetworkProvider (props: PropsWithChildren<any>): JSX.Element | null {
   const router = useRouter()
   const env = getEnvironment()
-  const [network] = useState<Network>(env.resolveNetwork(router.query.network))
+  const [network] = useState<NetworkConnection>(env.resolveNetwork(router.query.network))
 
   return (
     <NetworkContext.Provider value={network}>

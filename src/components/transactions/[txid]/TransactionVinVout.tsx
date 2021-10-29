@@ -1,5 +1,5 @@
 import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
-import { useNetworkObject } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@contexts/NetworkContext'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import { fromScriptHex } from '@defichain/jellyfish-address'
 import BigNumber from 'bignumber.js'
@@ -14,7 +14,7 @@ interface TransactionVinVoutProps {
 }
 
 export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element {
-  const network = useNetworkObject().name
+  const network = useNetworkContext().name
 
   return (
     <>

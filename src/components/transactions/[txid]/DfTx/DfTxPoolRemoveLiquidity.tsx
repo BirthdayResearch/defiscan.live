@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { DfTx, PoolRemoveLiquidity } from '@defichain/jellyfish-transaction'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkConnection } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@contexts/NetworkContext'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
@@ -11,7 +11,7 @@ interface DfTxPoolRemoveLiquidityProps {
 }
 
 export function DfTxPoolRemoveLiquidity (props: DfTxPoolRemoveLiquidityProps): JSX.Element {
-  const network = useNetworkConnection().name
+  const network = useNetworkContext().name
   const address = fromScript(props.dftx.data.script, network)?.address
 
   return (

@@ -2,7 +2,7 @@ import { DfTx, ICXCreateOrder } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkConnection } from '@contexts/NetworkContext'
+import { useNetworkContext } from '@contexts/NetworkContext'
 import BigNumber from 'bignumber.js'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 
@@ -11,7 +11,7 @@ interface DfTxICXCreateOrderProps {
 }
 
 export function DfTxICXCreateOrder (props: DfTxICXCreateOrderProps): JSX.Element {
-  const network = useNetworkConnection().name
+  const network = useNetworkContext().name
   const ownerAddress = fromScript(props.dftx.data.ownerAddress, network)
 
   return (
