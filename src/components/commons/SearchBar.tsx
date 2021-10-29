@@ -147,12 +147,14 @@ function SearchResultRow (props: SearchResult): JSX.Element {
         className='rounded mt-1 bg-white py-2 cursor-pointer'
         data-testid={`SearchResultRow.${props.type}.${props.title}`}
       >
-        <div className='bg-white flex items-center gap-x-2'>
-          {props.type === 'Block' && <IoCubeOutline size={20} />}
-          {props.type === 'Transaction' && <IoSwapHorizontalOutline size={30} />}
-          {props.type === 'Address' && <IoWalletOutline size={20} />}
+        <div className='bg-white flex flex-row items-center gap-x-2'>
+          <div>
+            {props.type === 'Block' && <IoCubeOutline size={20} />}
+            {props.type === 'Transaction' && <IoSwapHorizontalOutline size={20} />}
+            {props.type === 'Address' && <IoWalletOutline size={20} />}
+          </div>
           <div className='overflow-hidden'>
-            <div className='font-medium overflow-ellipsis'>{props.title}</div>
+            <div className='font-medium overflow-hidden overflow-ellipsis'>{props.title}</div>
             <div className='text-sm'>{props.type}</div>
           </div>
         </div>
