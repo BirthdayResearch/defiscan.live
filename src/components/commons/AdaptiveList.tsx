@@ -6,7 +6,7 @@ export function AdaptiveList (props: PropsWithChildren<{ className?: string }>):
     <div
       data-testid='AdaptiveList'
       className={classNames(
-        'rounded-lg border border-gray-100 overflow-hidden', props.className
+        'rounded-lg border border-gray-200 overflow-hidden', props.className
       )}
     >
       <div className='table w-full border-collapse'>

@@ -12,31 +12,32 @@ interface AddressTransactionTableProps {
 export function AddressTransactionTable (props: AddressTransactionTableProps): JSX.Element {
   const api = useWhaleApiClient()
   const [transactionData, setTransactionData] = useState<AddressActivity[]>([])
-  const [next, setNext] = useState<string | undefined>('')
+  const [next, setNext] = useState<string | undefined>(undefined)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true)
 
   function getTransactions (): void {
-    if (next !== undefined) {
-      setIsLoading(true)
-      api.address.listTransaction(props.address, 10, next).then(data => {
-        setTransactionData(transactionData.concat([...data]))
-        if (data.hasNext) {
-          setNext(data.nextToken)
-        } else {
-          setNext(undefined)
-        }
-      }).catch(() => {
-        setTransactionData([])
+    setIsLoading(true)
+    api.address.listTransaction(props.address, 10, next).then(data => {
+      setTransactionData(transactionData.concat([...data]))
+      if (data.hasNext) {
+        setNext(data.nextToken)
+      } else {
         setNext(undefined)
-      }).finally(() => {
-        setIsLoading(false)
-      })
-    }
+      }
+    }).catch(() => {
+      setTransactionData([])
+      setNext(undefined)
+    }).finally(() => {
+      setIsLoading(false)
+      setIsInitialLoad(false)
+    })
   }
 
   useEffect(() => {
     setTransactionData([])
-    setNext('')
+    setNext(undefined)
+    setIsInitialLoad(true)
   }, [props.address])
 
   useEffect(() => {
@@ -44,6 +45,17 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
       getTransactions()
     }
   }, [props.address, transactionData])
+
+  if (isInitialLoad) {
+    return (
+      <div className='mt-6 flex flex-wrap' data-testid='Balances'>
+        <span className='font-medium text-xl mb-2 text-gray-800' data-testid='Balances.title'>Balances</span>
+        <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-100'>
+          <CgSpinner size={32} className='animate-spin text-gray-600' />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='mt-6 flex flex-wrap' data-testid='Transactions'>
