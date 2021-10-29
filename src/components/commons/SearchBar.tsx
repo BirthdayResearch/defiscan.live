@@ -67,6 +67,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
         className={`flex w-full p-2 rounded h-10 bg-white border ${isActive ? 'border-primary-200' : ''} ${isCollapse ? 'cursor-pointer' : ''}`}
         onClick={() => setIsCollapse(false)}
         ref={setRefEle}
+        data-testid='SearchBar'
       >
         <IoSearchSharp size={22} className='text-gray-400 ml-0.5 self-center' />
         <Transition
