@@ -64,7 +64,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   return (
     <>
       <div
-        className={`flex w-full p-2 rounded h-10 bg-white border ${isActive ? 'border-primary-200' : ''}  ${isCollapse ? 'cursor-pointer' : ''}`}
+        className={`flex w-full p-2 rounded h-10 bg-white border ${isActive ? 'border-primary-200' : ''} ${isCollapse ? 'cursor-pointer' : ''}`}
         onClick={() => setIsCollapse(false)}
         ref={setRefEle}
       >
@@ -88,8 +88,8 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
             }}
             placeholder='Search by Transaction ID, Block Hash, Block Height or Address'
             className='ml-1.5 w-full focus:outline-none'
-            data-testid='IndexHeader.SearchInput'
-            autoFocus
+            data-testid='SearchBar.Input'
+            autoFocus={props.collapsable}
           />
         </Transition>
       </div>
@@ -143,7 +143,10 @@ function SearchResultTable (props: { searchResults?: SearchResult[], isSearching
 function SearchResultRow (props: SearchResult): JSX.Element {
   return (
     <Link href={{ pathname: props.url }}>
-      <div className='rounded mt-1 bg-white py-2 cursor-pointer'>
+      <div
+        className='rounded mt-1 bg-white py-2 cursor-pointer'
+        data-testid={`SearchResultRow.${props.type}.${props.title}`}
+      >
         <div className='bg-white flex items-center gap-x-2'>
           {props.type === 'Block' && <IoCubeOutline size={20} />}
           {props.type === 'Transaction' && <IoSwapHorizontalOutline size={30} />}
