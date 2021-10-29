@@ -30,7 +30,7 @@
     "lodash": "^4.17.21",
     "next": "12.0.1",
     "next-sitemap": "^1.6.189",
-    "nextjs-progressbar": "^0.0.11",
+    "nextjs-progressbar": "^0.0.13",
     "qrcode.react": "^1.0.1",
     "randomcolor": "^0.6.2",
     "react": "17.0.2",
