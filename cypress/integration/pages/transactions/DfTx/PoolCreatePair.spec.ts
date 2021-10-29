@@ -24,7 +24,7 @@ context('/transactions/[txid] - DfTx pool create pair on desktop', () => {
   })
 
   it('should have DfTxPoolCreatePair commission', () => {
-    cy.findByTestId('DfTxPoolCreatePair.commission').should('have.text', '0.002')
+    cy.findByTestId('DfTxPoolCreatePair.commission').should('have.text', '0.00200000')
   })
 
   it('should have DfTxPoolCreatePair ownerAddress', () => {
@@ -62,7 +62,7 @@ context('/transactions/[txid] - DfTx Pool Create Pair on mobile', () => {
   })
 
   it('should have DfTxPoolCreatePair commission', () => {
-    cy.findByTestId('DfTxPoolCreatePair.commission').should('have.text', '0.002')
+    cy.findByTestId('DfTxPoolCreatePair.commission').should('have.text', '0.00200000')
   })
 
   it('should have DfTxPoolCreatePair ownerAddress', () => {

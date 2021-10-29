@@ -20,7 +20,7 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have transaction-detail-fee', () => {
-    cy.findByTestId('transaction-detail-fee').should('have.text', '205 fi')
+    cy.findByTestId('transaction-detail-fee').should('have.text', '0.00000205 DFI')
   })
 
   it('should have transaction-detail-confirmations', () => {
@@ -77,7 +77,7 @@ context('/transactions/[txid] on desktop', () => {
   })
 
   it('should have details summary', () => {
-    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:205 fi')
+    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:0.00000205 DFI')
     cy.findByTestId('TransactionDetailsSummary.total').should('have.text', 'Total:3.59205320 DFI')
   })
 })
@@ -118,7 +118,7 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have transaction-detail-fee', () => {
-    cy.findByTestId('transaction-detail-fee').should('have.text', '205 fi')
+    cy.findByTestId('transaction-detail-fee').should('have.text', '0.00000205 DFI')
   })
 
   it('should have transaction-detail-confirmations', () => {
@@ -175,7 +175,7 @@ context('/transactions/[txid] on mobile', () => {
   })
 
   it('should have details summary', () => {
-    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:205 fi')
+    cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:0.00000205 DFI')
     cy.findByTestId('TransactionDetailsSummary.total').should('have.text', 'Total:3.59205320 DFI')
   })
 })
