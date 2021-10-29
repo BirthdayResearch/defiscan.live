@@ -15,6 +15,7 @@ import { Link } from '@components/commons/Link'
 import { Transition } from '@headlessui/react'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
+import { AddressAggregation } from '@defichain/whale-api-client/dist/api/address'
 
 interface SearchBarInterface {
   collapsable: boolean
@@ -186,6 +187,10 @@ function SearchResultRow (props: SearchResult): JSX.Element {
 async function getSearchResults (api, query: string): Promise<(SearchResult[] | undefined)> {
   const txnData = await api.transactions.get(query)
     .then((data: Transaction) => {
+      if (data === undefined) {
+        return undefined
+      }
+
       return {
         url: `/transactions/${data.txid}`,
         title: data.txid,
@@ -202,6 +207,10 @@ async function getSearchResults (api, query: string): Promise<(SearchResult[] | 
 
   const blocksData = await api.blocks.get(query)
     .then((data: Block) => {
+      if (data === undefined) {
+        return undefined
+      }
+
       return {
         url: `/blocks/${data.id}`,
         title: `${data.height}`,
@@ -215,9 +224,9 @@ async function getSearchResults (api, query: string): Promise<(SearchResult[] | 
     return [blocksData]
   }
 
-  const addressData = await api.address.getBalance(query)
-    .then((data: string) => {
-      if (data.length === 0) {
+  const addressData = await api.address.getAggregation(query)
+    .then((data: AddressAggregation) => {
+      if (data === undefined) {
         return undefined
       }
 
