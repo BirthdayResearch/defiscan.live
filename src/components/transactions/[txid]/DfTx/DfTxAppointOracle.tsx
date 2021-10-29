@@ -1,6 +1,6 @@
 import { DfTx, AppointOracle, CurrencyPair } from '@defichain/jellyfish-transaction'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetwork } from '@contexts/NetworkContext'
 
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
@@ -11,7 +11,7 @@ interface DfTxAppointOracleProps {
 }
 
 export function DfTxAppointOracle (props: DfTxAppointOracleProps): JSX.Element {
-  const network = useNetworkContext().name
+  const network = useNetwork().name
   const script = fromScript(props.dftx.data.script, network)
   return (
     <div>

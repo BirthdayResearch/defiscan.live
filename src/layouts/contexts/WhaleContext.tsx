@@ -26,24 +26,17 @@ export function useWhaleApiClient (): WhaleApiClient {
   return useContext(WhaleApiClientContext)
 }
 
-/**
- * @deprecated added for convenience, do not use.
- */
-export function useWhaleRpcClient (): WhaleRpcClient {
-  return useContext(WhaleRpcClientContext)
-}
-
 export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | null {
-  const network = useNetwork()
+  const connection = useNetwork().connection
 
   const memo = useMemo(() => {
-    const api = newWhaleClient(network)
+    const api = newWhaleClient(connection)
     const rpc = new WhaleRpcClient(api)
     return {
       api: api,
       rpc: rpc
     }
-  }, [network])
+  }, [connection])
 
   return (
     <WhaleApiClientContext.Provider value={memo.api}>
@@ -54,8 +47,8 @@ export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | nul
   )
 }
 
-function newWhaleClient (network?: string): WhaleApiClient {
-  switch (network) {
+function newWhaleClient (connection?: string | NetworkConnection): WhaleApiClient {
+  switch (connection) {
     case NetworkConnection.LocalPlayground:
       return new WhaleApiClient({
         url: 'http://localhost:19553',

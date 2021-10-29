@@ -2,7 +2,7 @@ import { DfTx, AccountToUtxos, TokenBalance } from '@defichain/jellyfish-transac
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetwork } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxAccountToUtxosProps {
@@ -10,7 +10,7 @@ interface DfTxAccountToUtxosProps {
 }
 
 export function DfTxAccountToUtxos (props: DfTxAccountToUtxosProps): JSX.Element {
-  const network = useNetworkContext().name
+  const network = useNetwork().name
   const from = props.dftx.data.from !== undefined ? fromScript(props.dftx.data.from, network) : undefined
 
   return (

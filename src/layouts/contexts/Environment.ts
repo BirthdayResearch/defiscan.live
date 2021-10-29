@@ -14,7 +14,7 @@ class Environment {
   /**
    * @param {any} text that is case sensitive to resolve to a NetworkConnection, else unresolvable; default to first network
    */
-  public resolveNetwork (text: any): NetworkConnection {
+  public resolveConnection (text: any): NetworkConnection {
     if ((this.networks as any[]).includes(text)) {
       return text as NetworkConnection
     }
@@ -25,7 +25,7 @@ class Environment {
   /**
    * @param {NetworkConnection} network to check if it's the default network, aka the first network
    */
-  public isDefaultNetwork (network: NetworkConnection): boolean {
+  public isDefaultConnection (network: NetworkConnection): boolean {
     return this.networks[0] === network
   }
 }
@@ -53,11 +53,11 @@ export function getEnvironment (): Environment {
 }
 
 /**
- * @param {Network} network to check if it is a playground network
+ * @param {NetworkConnection} connection to check if it is a playground network
  */
-export function isPlayground (network: NetworkConnection): boolean {
+export function isPlayground (connection: NetworkConnection): boolean {
   return [
     NetworkConnection.LocalPlayground,
     NetworkConnection.RemotePlayground
-  ].includes(network)
+  ].includes(connection)
 }

@@ -3,7 +3,7 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import BigNumber from 'bignumber.js'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetwork } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DfTxPoolSwapProps {
@@ -11,7 +11,7 @@ interface DfTxPoolSwapProps {
 }
 
 export function DfTxPoolSwap (props: DfTxPoolSwapProps): JSX.Element {
-  const network = useNetworkContext().name
+  const network = useNetwork().name
 
   const from = props.dftx.data.fromScript !== undefined ? fromScript(props.dftx.data.fromScript, network) : undefined
   const to = props.dftx.data.toScript !== undefined ? fromScript(props.dftx.data.toScript, network) : undefined

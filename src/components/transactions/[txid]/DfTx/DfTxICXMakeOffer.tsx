@@ -2,7 +2,7 @@ import { DfTx, ICXMakeOffer } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
-import { useNetworkContext } from '@contexts/NetworkContext'
+import { useNetwork } from '@contexts/NetworkContext'
 import { Link } from '@components/commons/Link'
 
 interface DfTxICXMakeOfferProps {
@@ -10,7 +10,7 @@ interface DfTxICXMakeOfferProps {
 }
 
 export function DfTxICXMakeOffer (props: DfTxICXMakeOfferProps): JSX.Element {
-  const network = useNetworkContext().name
+  const network = useNetwork().name
 
   const address = props.dftx.data.ownerAddress !== undefined ? fromScript(props.dftx.data.ownerAddress, network) : undefined
   return (

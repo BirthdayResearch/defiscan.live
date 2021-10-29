@@ -1,5 +1,5 @@
 import { TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
-import { NetworkName, useNetworkContext } from '@contexts/NetworkContext'
+import { NetworkName, useNetwork } from '@contexts/NetworkContext'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import { CgSpinner } from 'react-icons/cg'
 import { fromScriptHex } from '@defichain/jellyfish-address'
@@ -75,7 +75,7 @@ function LoadingPanel (): JSX.Element {
 }
 
 function TransactionDetails (props: { address: string, vins: TransactionVin[], vouts: TransactionVout[] }): JSX.Element {
-  const network = useNetworkContext().name
+  const network = useNetwork().name
   const dftx: DfTx<any> | undefined = getDfTx(props.vouts)
 
   return (
