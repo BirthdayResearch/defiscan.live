@@ -16,7 +16,7 @@ import { Transition } from '@headlessui/react'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { fromAddress } from '@defichain/jellyfish-address'
-import { useNetworkObject } from '@contexts/NetworkContext'
+import { useNetwork } from '@contexts/NetworkContext'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 
@@ -32,7 +32,7 @@ interface SearchResult {
 
 export function SearchBar (props: SearchBarInterface): JSX.Element {
   const api = useWhaleApiClient()
-  const network = useNetworkObject().name
+  const network = useNetwork().name
 
   const [isActive, setIsActive] = useState<boolean>(false)
   const [isCollapse, setIsCollapse] = useState<boolean>(true)
