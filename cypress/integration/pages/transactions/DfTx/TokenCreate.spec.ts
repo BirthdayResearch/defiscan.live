@@ -28,7 +28,7 @@ context('/transactions/[txid] - DfTx Token Create on desktop', () => {
   })
 
   it('should have DfTxTokenCreate limit', () => {
-    cy.findByTestId('DfTxTokenCreate.limit').should('have.text', '0')
+    cy.findByTestId('DfTxTokenCreate.limit').should('have.text', '0.00000000')
   })
 
   it('should have DfTxTokenCreate Tradeable', () => {
@@ -70,7 +70,7 @@ context('/transactions/[txid] - DfTx Token Create on mobile', () => {
   })
 
   it('should have DfTxTokenCreate limit', () => {
-    cy.findByTestId('DfTxTokenCreate.limit').should('have.text', '0')
+    cy.findByTestId('DfTxTokenCreate.limit').should('have.text', '0.00000000')
   })
 
   it('should have DfTxTokenCreate Tradeable', () => {

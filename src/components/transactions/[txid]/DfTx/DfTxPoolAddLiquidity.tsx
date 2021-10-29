@@ -34,7 +34,7 @@ export function DfTxPoolAddLiquidity (props: DfTxPoolAddLiquidityProps): JSX.Ele
                 </AdaptiveList.Row>
                 {scriptBalance.balances.map(balance => {
                   return (
-                    <PoolAddLiquidityRow tokenId={balance.token} amount={balance.amount} key={`${balance.token}-${balance.amount.toString()}`} />
+                    <PoolAddLiquidityRow tokenId={balance.token} amount={balance.amount} key={`${balance.token}-${balance.amount.toFixed(8)}`} />
                   )
                 })}
               </AdaptiveList>

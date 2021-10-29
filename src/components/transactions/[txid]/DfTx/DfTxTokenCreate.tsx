@@ -54,7 +54,7 @@ function DetailsTable (props: { symbol: string, decimal: number, name: string, l
           {props.decimal}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Limit' testId='DfTxTokenCreate.limit'>
-          {props.limit.toString()}
+          {props.limit.toFixed(8)}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Tradeable' className='capitalize' testId='DfTxTokenCreate.Tradeable'>
           {props.tradeable.toString()}

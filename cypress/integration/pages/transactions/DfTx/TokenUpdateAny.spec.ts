@@ -31,7 +31,7 @@ context('/transactions/[txid] - DfTx Token Update Any on desktop', () => {
   })
 
   it('should have DfTxTokenUpdateAny limit', () => {
-    cy.findByTestId('DfTxTokenUpdateAny.limit').should('have.text', '0')
+    cy.findByTestId('DfTxTokenUpdateAny.limit').should('have.text', '0.00000000')
   })
 
   it('should have DfTxTokenUpdateAny Tradeable', () => {
@@ -77,7 +77,7 @@ context('/transactions/[txid] - DfTx Token Update Any on mobile', () => {
   })
 
   it('should have DfTxTokenUpdateAny limit', () => {
-    cy.findByTestId('DfTxTokenUpdateAny.limit').should('have.text', '0')
+    cy.findByTestId('DfTxTokenUpdateAny.limit').should('have.text', '0.00000000')
   })
 
   it('should have DfTxTokenUpdateAny Tradeable', () => {

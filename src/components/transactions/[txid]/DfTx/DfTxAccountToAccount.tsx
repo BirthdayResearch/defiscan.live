@@ -31,7 +31,7 @@ export function DfTxAccountToAccount (props: DfTxAccountToAccountProps): JSX.Ele
                 </AdaptiveList.Row>
                 {scriptBalances.balances.map(balance => {
                   return (
-                    <BalanceRow balance={balance} key={`${balance.amount.toString()}-${balance.token}`} />
+                    <BalanceRow balance={balance} key={`${balance.amount.toFixed(8)}-${balance.token}`} />
                   )
                 })}
               </AdaptiveList>
