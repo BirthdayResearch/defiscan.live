@@ -64,7 +64,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   return (
     <>
       <div
-        className={`flex w-full p-2 rounded h-10 bg-white border ${isCollapse ? 'cursor-pointer' : ''}`}
+        className={`flex w-full p-2 rounded h-10 bg-white border ${isActive ? 'border-primary-200' : ''}  ${isCollapse ? 'cursor-pointer' : ''}`}
         onClick={() => setIsCollapse(false)}
         ref={setRefEle}
       >
@@ -89,9 +89,11 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
             placeholder='Search by Transaction ID, Block Hash, Block Height or Address'
             className='ml-1.5 w-full focus:outline-none'
             data-testid='IndexHeader.SearchInput'
+            autoFocus
           />
         </Transition>
       </div>
+
       <Transition
         enter='transition ease-in duration-150'
         enterFrom='opacity-0 translate-y-1'
@@ -103,9 +105,9 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
       >
         <div
           ref={setPopperEle} style={styles.popper} {...attributes.popper}
-          className='w-full px-4 lg:px-0 md:w-1/3 z-10'
+          className='w-full px-4 lg:px-0 md:w-1/2 lg:w-1/3 z-10'
         >
-          <div className='w-full mt-1.5 rounded shadow-lg filter drop-shadow bg-white py-2 px-4 w-full'>
+          <div className='w-full mt-1.5 py-2 px-4 rounded shadow-lg filter drop-shadow bg-white'>
             <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
           </div>
         </div>
@@ -116,7 +118,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
 function SearchResultTable (props: { searchResults?: SearchResult[], isSearching: boolean }): JSX.Element {
   if (props.isSearching) {
-    return <SearchProgress />
+    return <SearchInProgress />
   }
 
   if (props.searchResults === undefined) {
@@ -135,39 +137,6 @@ function SearchResultTable (props: { searchResults?: SearchResult[], isSearching
         )
       })}
     </>
-  )
-}
-
-function SearchInitialInfo (): JSX.Element {
-  return (
-    <div className='w-full rounded mt-1 bg-white p-2'>
-      <div className='w-full flex flex-col bg-white items-center'>
-        <IoSearchCircleSharp size={96} className='text-gray-400 opacity-30' />
-        <span className='text-center text-gray-400'>Search by Transaction ID, Block Hash, Block Height or Address</span>
-      </div>
-    </div>
-  )
-}
-
-function SearchNotFound (): JSX.Element {
-  return (
-    <div className='w-full rounded mt-1 bg-white p-2'>
-      <div className='w-full flex flex-col bg-white items-center'>
-        <IoCloseCircleSharp size={88} className='text-gray-400 opacity-30' />
-        <span className='text-center text-gray-400'>No Results</span>
-      </div>
-    </div>
-  )
-}
-
-function SearchProgress (): JSX.Element {
-  return (
-    <div className='w-full rounded mt-1 bg-white p-2'>
-      <div className='w-full flex flex-col bg-white items-center'>
-        <CgSpinner size={52} className='animate-spin text-gray-600' />
-        <span className='text-center text-gray-400'>Searching</span>
-      </div>
-    </div>
   )
 }
 
@@ -229,8 +198,7 @@ async function getSearchResults (api: WhaleApiClient, network: NetworkName, quer
     return [blocksData]
   }
 
-  const addressData = fromAddress('8eHYnf96TN7wNRNz4uwfr7ZPVb1VXviFSJ', network)
-  console.log(addressData)
+  const addressData = fromAddress(query, network)
   if (addressData !== undefined) {
     return [{
       url: `/address/${query}`,
@@ -240,4 +208,37 @@ async function getSearchResults (api: WhaleApiClient, network: NetworkName, quer
   }
 
   return undefined
+}
+
+function SearchInitialInfo (): JSX.Element {
+  return (
+    <div className='w-full rounded mt-1 bg-white p-2'>
+      <div className='w-full flex flex-col bg-white items-center'>
+        <IoSearchCircleSharp size={96} className='text-gray-400 opacity-30' />
+        <span className='text-center text-gray-400'>Search by Transaction ID, Block Hash, Block Height or Address</span>
+      </div>
+    </div>
+  )
+}
+
+function SearchNotFound (): JSX.Element {
+  return (
+    <div className='w-full rounded mt-1 bg-white p-2'>
+      <div className='w-full flex flex-col bg-white items-center'>
+        <IoCloseCircleSharp size={88} className='text-gray-400 opacity-30' />
+        <span className='text-center text-gray-400'>No Results</span>
+      </div>
+    </div>
+  )
+}
+
+function SearchInProgress (): JSX.Element {
+  return (
+    <div className='w-full rounded mt-1 bg-white p-2'>
+      <div className='w-full flex flex-col bg-white items-center'>
+        <CgSpinner size={52} className='animate-spin text-gray-600' />
+        <span className='text-center text-gray-400'>Searching</span>
+      </div>
+    </div>
+  )
 }
