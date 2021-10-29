@@ -5,14 +5,14 @@ import { AddressSummaryTable } from '@components/address/[address]/AddressSummar
 import { AddressTransactionTable } from '@components/address/[address]/AddressTransactionTable'
 import { AddressTokenTable } from '@components/address/[address]/AddressTokenTable'
 import { fromAddress } from '@defichain/jellyfish-address'
-import { useNetworkObject } from '@contexts/NetworkContext'
+import { useNetwork } from '@contexts/NetworkContext'
 
 interface AddressPageProps {
   address: string
 }
 
 export default function AddressPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  if (fromAddress(props.address, useNetworkObject().name) === undefined) {
+  if (fromAddress(props.address, useNetwork().name) === undefined) {
     return (
       <Container className='pt-12 pb-20'>
         <AddressNotFoundHeading address={props.address} />
