@@ -46,10 +46,10 @@ function AppointOracleTableRow (props: { priceFeed: CurrencyPair }): JSX.Element
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        <span data-testId={`DfTxAppointOracle.${props.priceFeed.token}Token`}>{props.priceFeed.token}</span>
+        <span data-testid={`DfTxAppointOracle.${props.priceFeed.token}Token`}>{props.priceFeed.token}</span>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <span data-testId={`DfTxAppointOracle.${props.priceFeed.token}Currency`}>{props.priceFeed.currency}</span>
+        <span data-testid={`DfTxAppointOracle.${props.priceFeed.token}Currency`}>{props.priceFeed.currency}</span>
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )

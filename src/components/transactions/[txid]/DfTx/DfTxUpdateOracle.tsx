@@ -48,10 +48,10 @@ function UpdateOracleTableRow (props: { priceFeed: CurrencyPair }): JSX.Element 
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        <span data-testId={`DfTxUpdateOracle.${props.priceFeed.token}Token`}>{props.priceFeed.token}</span>
+        <span data-testid={`DfTxUpdateOracle.${props.priceFeed.token}Token`}>{props.priceFeed.token}</span>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <span data-testId={`DfTxUpdateOracle.${props.priceFeed.token}Currency`}>{props.priceFeed.currency}</span>
+        <span data-testid={`DfTxUpdateOracle.${props.priceFeed.token}Currency`}>{props.priceFeed.currency}</span>
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )

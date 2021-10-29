@@ -91,7 +91,7 @@ function GovernanceLpSplitsTableRow (props: { liqPoolSplit: LiqPoolSplit }): JSX
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <span
-          data-testId={`DfTxSetGovernance.Token${props.liqPoolSplit.tokenId}Value`}
+          data-testid={`DfTxSetGovernance.Token${props.liqPoolSplit.tokenId}Value`}
         >{props.liqPoolSplit.value.toFixed(8)}
         </span>
       </OverflowTable.Cell>
