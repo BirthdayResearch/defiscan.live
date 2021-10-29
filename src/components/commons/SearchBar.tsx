@@ -106,7 +106,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
       >
         <div
           ref={setPopperEle} style={styles.popper} {...attributes.popper}
-          className='w-full px-4 lg:px-0 md:w-1/2 lg:w-1/3 z-10'
+          className='w-full px-4 lg:px-0 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/5 z-10'
         >
           <div className='w-full mt-1.5 py-2 px-4 rounded shadow-lg filter drop-shadow bg-white'>
             <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
