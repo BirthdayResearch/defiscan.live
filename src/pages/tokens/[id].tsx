@@ -6,6 +6,7 @@ import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { Container } from '@components/commons/Container'
+import { AddressLink } from '@components/address/AddressLink'
 
 interface TokenAssetPageProps {
   token: TokenData
@@ -131,7 +132,7 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
       </AdaptiveList.Row>
       {(token.collateralAddress !== undefined && token.collateralAddress !== 'undefined') && (
         <AdaptiveList.Row name='Collateral Address' className='flex space-x-10 items-center'>
-          <div className='break-all'>{token.collateralAddress}</div>
+          <AddressLink address={token.collateralAddress} className='break-all' />
         </AdaptiveList.Row>
       )}
     </AdaptiveList>
