@@ -104,7 +104,7 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
   return (
     <AdaptiveList>
       <AdaptiveList.Row name='Category'>{token.isDAT ? 'DAT' : 'LPS'}</AdaptiveList.Row>
-      <AdaptiveList.Row name='Symbol'>{token.symbolKey}</AdaptiveList.Row>
+      <AdaptiveList.Row name='Symbol'>{token.displaySymbol}</AdaptiveList.Row>
       <AdaptiveList.Row name='Net Supply'>{token.limit}</AdaptiveList.Row>
       <AdaptiveList.Row name='Mintable'>
         {(() => {
