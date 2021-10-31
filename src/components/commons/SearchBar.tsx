@@ -1,13 +1,12 @@
 import {
   IoCloseCircleSharp,
   IoCubeOutline,
-  IoSearchCircleSharp,
   IoSearchSharp,
   IoSwapHorizontalOutline,
   IoWalletOutline
 } from 'react-icons/io5'
 import { CgSpinner } from 'react-icons/cg'
-import React, { useMemo, useState } from 'react'
+import React, { PropsWithChildren, useMemo, useState } from 'react'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import debounce from 'lodash.debounce'
 import { usePopper } from 'react-popper'
@@ -119,15 +118,27 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
 function SearchResultTable (props: { searchResults?: SearchResult[], isSearching: boolean }): JSX.Element {
   if (props.isSearching) {
-    return <SearchInProgress />
+    return (
+      <SearchStatusMessage message='Searching'>
+        <CgSpinner size={52} className='animate-spin text-gray-600' />
+      </SearchStatusMessage>
+    )
   }
 
   if (props.searchResults === undefined) {
-    return <SearchNotFound />
+    return (
+      <SearchStatusMessage message='No Results'>
+        <IoCloseCircleSharp size={88} className='text-gray-400 opacity-30' />
+      </SearchStatusMessage>
+    )
   }
 
   if (props.searchResults.length === 0) {
-    return <SearchInitialInfo />
+    return (
+      <SearchStatusMessage message='Search by Transaction ID, Block Hash, Block Height or Address'>
+        <IoSearchSharp size={96} className='text-gray-400 opacity-30' />
+      </SearchStatusMessage>
+    )
   }
 
   return (
@@ -216,34 +227,12 @@ async function getSearchResults (api: WhaleApiClient, network: NetworkName, quer
   return undefined
 }
 
-function SearchInitialInfo (): JSX.Element {
+function SearchStatusMessage (props: PropsWithChildren<{ message: string }>): JSX.Element {
   return (
     <div className='w-full rounded mt-1 bg-white p-2'>
       <div className='w-full flex flex-col bg-white items-center'>
-        <IoSearchCircleSharp size={96} className='text-gray-400 opacity-30' />
-        <span className='text-center text-gray-400'>Search by Transaction ID, Block Hash, Block Height or Address</span>
-      </div>
-    </div>
-  )
-}
-
-function SearchNotFound (): JSX.Element {
-  return (
-    <div className='w-full rounded mt-1 bg-white p-2'>
-      <div className='w-full flex flex-col bg-white items-center'>
-        <IoCloseCircleSharp size={88} className='text-gray-400 opacity-30' />
-        <span className='text-center text-gray-400'>No Results</span>
-      </div>
-    </div>
-  )
-}
-
-function SearchInProgress (): JSX.Element {
-  return (
-    <div className='w-full rounded mt-1 bg-white p-2'>
-      <div className='w-full flex flex-col bg-white items-center'>
-        <CgSpinner size={52} className='animate-spin text-gray-600' />
-        <span className='text-center text-gray-400'>Searching</span>
+        {props.children}
+        <span className='text-center text-gray-400'>{props.message}</span>
       </div>
     </div>
   )
