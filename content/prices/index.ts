@@ -2,22 +2,22 @@
 
 export interface PriceCopy {
   /**
-     * @example 'TSLA-USD'
-     */
+   * @example 'TSLA-USD'
+   */
   id: string
   /**
-     * price ticker type
-     */
+   * price ticker type
+   */
   type: 'CRYPTO' | 'FOREX' | 'COMMODITY' | 'STOCKS' | 'ETF'
   /**
-     * Icon with at least size of 100x100.png, must be symmetric.
-     * To be placed in /src/cms/prices/images/* directory.
-     * @example you can use https://icons8.com/icons/set/tesla are free because they are copyrighted images
-     */
+   * Icon with at least size of 100x100.png, must be symmetric.
+   * To be placed in /src/cms/prices/images/* directory.
+   * @example you can use https://icons8.com/icons/set/tesla are free because they are copyrighted images
+   */
   icon: string
   /**
-     * Long company name with a lot of incorporated text, affiliations, groups of companies.
-     */
+   * Long company name with a lot of incorporated text, affiliations, groups of companies.
+   */
   description: string
 }
 
@@ -184,18 +184,16 @@ export const PRICES: Record<string, PriceCopy> = {
     icon: require('./images/usdt.png'),
     description: 'Tether is a stablecoin pegged to the US Dollar. A stablecoin is a type of cryptocurrency whose value is pegged to another fiat currency like the US Dollar or to a commodity like Gold.'
   },
-
   'U-USD': {
     id: 'U-USD',
     type: 'STOCKS',
     icon: require('./images/unity.png'),
     description: 'Unity Software Inc. is an American video game software development company based in San Francisco. It was founded in Denmark in 2004 as Over the Edge Entertainment and changed its name in 2007.'
   },
-
   'TCEHY-USD': {
     id: 'TCHEY-USD',
-    type: "STOCKS",
-    icon: require('./images/amd.png'),
+    type: 'STOCKS',
+    icon: require('./images/tcehy.png'),
     description: 'Tencent Holdings Ltd., also known as Tencent, is a Chinese multinational technology conglomerate holding company. Founded in 1998, its subsidiaries globally market various Internet-related services and products, including in entertainment, artificial intelligence, and other technology'
   },
   'SEDG-USD': {
@@ -207,14 +205,14 @@ export const PRICES: Record<string, PriceCopy> = {
   'VOO-USD': {
     id: 'VOO-USD',
     type: 'ETF',
-    icon: require('./images/voo.png'),
-    description: 'Vanguard 500 Index Fund'
+    icon: require('./images/vanguard.png'),
+    description: 'Vanguard S&P 500 ETF tracks the performance of its benchmark index, the S&P 500.'
   },
   'V-USD': {
     id: 'V-USD',
     type: 'STOCKS',
     icon: require('./images/visa.png'),
-    description: 'Visa Inc. is an American multinational financial services corporation headquartered in Foster City, California, United States. It facilitates electronic funds transfers throughout the world, most commonly through Visa-branded credit cards, debit cards and prepaid cards '
+    description: 'Visa Inc. is an American multinational financial services corporation headquartered in Foster City, California, United States. It facilitates electronic funds transfers throughout the world, most commonly through Visa-branded credit cards, debit cards and prepaid cards'
   },
   'TTWO-USD': {
     id: 'TTWO-USD',
@@ -225,9 +223,9 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'TQQQ-USD': {
     id: 'TQQQ-USD',
-    type: "ETF",
-    icon: require('./images/tqqq.png'),
-    description: 'The ProShares UltraPro QQQ'
+    type: 'ETF',
+    icon: require('./images/proshares.png'),
+    description: 'The ProShares UltraPro QQQ seeks daily investment results, before fees and expenses, that correspond to three times (3x) the daily performance of the Nasdaq-100 Index.'
   },
   'TLRY-USD': {
     id: 'TLRY-USD',
@@ -239,10 +237,10 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'SNAP-USD',
     type: 'STOCKS',
     icon: require('./images/snap.png'),
-    description: "Snap Inc. is an American camera and social media company, founded on September 16, 2011, by Evan Spiegel, Bobby Murphy, and Reggie Brown based in Santa Monica, California. The company developed and maintains technological products and services, namely Snapchat, Spectacles, and Bitmoji."
+    description: 'Snap Inc. is an American camera and social media company, founded on September 16, 2011, by Evan Spiegel, Bobby Murphy, and Reggie Brown based in Santa Monica, California. The company developed and maintains technological products and services, namely Snapchat, Spectacles, and Bitmoji.'
   },
   'SQ-USD': {
-    id: 'SQ-USF',
+    id: 'SQ-USD',
     type: 'STOCKS',
     icon: require('./images/sq.png'),
     description: 'Square is an American financial services and digital payments company based in San Francisco, California. The company was founded in 2009 by Jack Dorsey and Jim McKelvey and launched its first platform in 2010.'
@@ -251,7 +249,7 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'SPY-USD',
     type: 'ETF',
     icon: require('./images/spy.png'),
-    description: 'The SPDR S&P 500 trust is an exchange-traded fund which trades on the NYSE Arca under the symbol. SPDR is an acronym for the Standard & Poor\'s Depositary Receipts, the former name of the ETF. It is designed to track the S&P 500 stock market index. This fund is the largest ETF in the world'
+    description: 'The SPDR S&P 500 trust is an exchange-traded fund which trades on the NYSE Arca under the symbol. SPDR is an acronym for the Standard & Poor\'s Depositary Receipts, the former name of the ETF. It is designed to track the S&P 500 stock market index.'
   },
   'SI-USD': {
     id: 'SI-USD',
@@ -261,127 +259,116 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'RIOT-USD': {
     id: 'RIOT-USD',
-    type: "STOCKS",
+    type: 'STOCKS',
     icon: require('./images/riot.png'),
-    description: 'iot Blockchain, Inc. is a Bitcoin mining company, supporting the Bitcoin blockchain through rapidly expanding large-scale mining in the United States. '
+    description: 'Riot Blockchain, Inc. is a Bitcoin mining company, supporting the Bitcoin blockchain through rapidly expanding large-scale mining in the United States.'
   },
   'PYPL-USD': {
     id: 'PYPL-USD',
     type: 'STOCKS',
     icon: require('./images/pypl.png'),
-    description: 'PayPal Holdings, Inc. is an American multinational financial technology company operating an online payments system in the majority of countries that support online money transfers, and serves as an electronic alternative to traditional paper methods such as checks and money orders'
+    description: 'PayPal Holdings, Inc. is an American multinational financial technology company operating an online payments system in the majority of countries that support online money transfers, and serves as an electronic alternative to traditional paper methods such as checks and money orders.'
   },
   'PLTR-USD': {
     id: 'PLTR-USD',
     type: 'STOCKS',
     icon: require('./images/pltr.png'),
-    description: 'Palantir Technologies is a public American software company that specializes in big data analytics. Headquartered in Denver, Colorado, it was founded by Peter Thiel, Nathan Gettings, Joe Lonsdale, Stephen Cohen, and Alex Karp in 2003.'
+    description: 'Palantir Technologies is a public American software company that specializes in big data analytics.'
   },
   'NTDOF-USD': {
     id: 'NTDOF-USD',
     type: 'STOCKS',
-    icon: require('./images/ntdof.png'),
-    description: 'Nintendo Co., Ltd. is a Japanese multinational consumer electronics and video game company headquartered in Kyoto, Japan. The company was founded in 1889 as Nintendo Karuta by craftsman Fusajiro Yamauchi and originally produced handmade hanafuda playing cards'
+    icon: require('./images/nintendo.png'),
+    description: 'Nintendo Co., Ltd. is a Japanese multinational consumer electronics and video game company headquartered in Kyoto, Japan.'
   },
-
   'NSRGY-USD': {
     id: 'NSRGY-USD',
-    type: "STOCKS",
-    icon: require('./images/nsrgy.png'),
+    type: 'STOCKS',
+    icon: require('./images/nestle.png'),
     description: 'Nestlé S.A. is a Swiss multinational food and drink processing conglomerate corporation headquartered in Vevey, Vaud, Switzerland. It is the largest food company in the world, measured by revenue and other metrics, since 2014.'
   },
   'SQQQ-USD': {
     id: 'SQQQ-USD',
     type: 'ETF',
-    icon: require('./images/tqqq.png'),
-    description: 'ProShares UltraPro Short QQQ'
+    icon: require('./images/proshares.png'),
+    description: 'ProShares UltraPro Short QQQ seeks daily investment results, before fees and expenses, that correspond to three times the inverse (-3x) of the daily performance of the NASDAQ-100 Index.'
   },
-
   'SOXX-USD': {
     id: 'SOXX-USD',
     type: 'ETF',
-    icon: require('./images/soxx.png'),
-    description: 'Ishares Semiconductors EFT'
+    icon: require('./images/ishares.png'),
+    description: 'iShares Semiconductors EFT seeks to track the investment results of an index composed of U.S.-listed equities in the semiconductor sector.'
   },
-
   'BABA-USD': {
     id: 'BABA-USD',
     type: 'STOCKS',
     icon: require('./images/baba.png'),
     description: 'Alibaba Group Holding Limited, also known as Alibaba Group and Alibaba.com, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology.'
   },
-
   'DIS-USD': {
     id: 'DIS-USD',
     type: 'STOCKS',
     icon: require('./images/dis.png'),
     description: 'The Walt Disney Company, commonly just Disney, is an American multinational entertainment and media conglomerate headquartered at the Walt Disney Studios complex in Burbank, California.'
   },
-
   'NFLX-USD': {
     id: 'NFLX-USD',
-    type: "STOCKS",
+    type: 'STOCKS',
     icon: require('./images/nflx.png'),
-    description: 'Netflix, Inc. is an American pay television over-the-top media service and original programming production company. It offers subscription-based video on demand from a library of films and television series, 40% of which is Netflix original programming produced in-house'
+    description: 'Netflix, Inc. is an American pay television over-the-top media service and original programming production company. It offers subscription-based video on demand from a library of films and television series, 40% of which is Netflix original programming produced in-house.'
   },
-
   'MA-USD': {
     id: 'MA-USD',
     type: 'STOCKS',
     icon: require('./images/ma.png'),
-    description: 'Mastercard Inc. is an American multinational financial services corporation headquartered in the Mastercard International Global Headquarters in Purchase, New York. The Global Operations Headquarters is located in O\'Fallon, Missour'
+    description: 'Mastercard Inc. is an American multinational financial services corporation headquartered in the Mastercard International Global Headquarters in Purchase, New York. The Global Operations Headquarters is located in O\'Fallon, Missour.'
   },
-
   'RBLX-USD': {
     id: 'RBLX-USD',
-    type: "STOCKS",
+    type: 'STOCKS',
     icon: require('./images/rblx.png'),
-    description: 'Roblox Corporation is an American video game developer based in San Mateo, California. Founded in 2004 by David Baszucki and Erik Cassel, the company is the developer of Roblox, which was released in 2006. '
+    description: 'Roblox Corporation is an American video game developer based in San Mateo, California. Founded in 2004 by David Baszucki and Erik Cassel, the company is the developer of Roblox, which was released in 2006.'
   },
   'MARA-USD': {
     id: 'MARA-USD',
     type: 'STOCKS',
     icon: require('./images/mara.png'),
-    description: 'Marathon Digital Holdings is a patent holding company that is the parent of Uniloc, known as a patent troll company.'
+    description: 'Marathon Digital Holdings, Inc. is a digital asset technology company, which engages in mining cryptocurrencies, with a focus on the blockchain ecosystem and the generation of digital assets. '
   },
-
   'MCHI-USD': {
     id: 'MCHI-USD',
     type: 'ETF',
-    icon: require('./images/soxx.png'),
-    description: 'iShares MSCI China ETF'
+    icon: require('./images/ishares.png'),
+    description: 'iShares MSCI China ETF seeks to track the investment results of an index composed of Chinese equities that are available to international investors.'
   },
-
   'EEM-USD': {
     id: 'EEM-USD',
     type: 'ETF',
-    icon: require('./images/soxx.png'),
-    description: 'iShares MSCI Emerging Markets ETF'
+    icon: require('./images/ishares.png'),
+    description: 'iShares MSCI Emerging Markets ETF seeks to track the investment results of an index composed of large- and mid-capitalization emerging market equities.'
   },
-
   'NLLSF-USD': {
     id: 'NLLSF-USD',
     type: 'STOCKS',
     icon: require('./images/nllsf.png'),
     description: 'Nel ASA is a Norwegian company founded in 1998 and based in Oslo. Nel is a global company providing solutions for the production, storage and distribution of hydrogen from renewable energy sources. Nel is listed in the OBX Index of the Oslo Stock Exchange.'
   },
-
   'GLO-USD': {
     id: 'GLO-USD',
     type: 'ETF',
     icon: require('./images/glo.png'),
-    description: 'Clough Global Opportunities Fund'
+    description: 'Clough Global Opportunities Fund is a diversified, closed-end management investment company. The Fund\'s investment objective is to provide a high level of total return. It seeks to achieve its objective by applying a fundamental research-driven investment process.'
   },
   'KRBN-USD': {
     id: 'KRBN-USD',
     type: 'ETF',
     icon: require('./images/krbn.png'),
-    description: 'KraneShares Global Carbon ETF'
+    description: 'KraneShares Global Carbon ETF seeks to provide a total return that, before fees and expenses, exceeds that of the IHS Markit Global Carbon Index over a complete market cycle.'
   },
   'PATH-USD': {
     id: 'PATH-USD',
     type: 'STOCKS',
-    icon: require('./images/path.png'),
+    icon: require('./images/uipath.png'),
     description: 'UiPath is an American global software company for robotic process automation founded in Romania by Daniel Dines and Marius Tîrcă and headquartered in New York City'
   },
   'MSFT-USD': {
@@ -393,78 +380,86 @@ export const PRICES: Record<string, PriceCopy> = {
   'INTC-USD': {
     id: 'INTC-USD',
     type: 'STOCKS',
-    icon: require('./images/intl.png'),
+    icon: require('./images/intc.png'),
     description: 'Intel Corporation is an American multinational corporation and technology company headquartered in Santa Clara, California. It is the world\'s largest semiconductor chip manufacturer by revenue, and is the developer of the x86 series of microprocessors, the processors found in most personal computers.'
   },
-
   'SQNXF-USD': {
     id: 'SQNXF-USD',
     type: 'STOCKS',
     icon: require('./images/sqnxf.png'),
     description: 'Square Enix Holdings Co., Ltd. is a Japanese entertainment conglomerate and video game company, best known for its Final Fantasy, Dragon Quest and Kingdom Hearts role-playing video game franchises, among numerous others.'
   },
-
   'SOXS-USD': {
     id: 'SOXS-USD',
     type: 'ETF',
-    icon: require('./images/soxl.png'),
-    description: 'The Direxion Daily Semiconductor Bear'
+    icon: require('./images/direxion.png'),
+    description: 'The Direxion Daily Semiconductor Bear seeks daily investment results, before fees and expenses, of 300% of the inverse of the daily performance of the PHLX Semiconductor Sector Index.'
   },
-
   'SOXL-USD': {
     id: 'SOXL-USD',
     type: 'ETF',
-    icon: require('./images/soxl.png'),
-    description: 'The Direxion Daily Semiconductor Bull'
+    icon: require('./images/direxion.png'),
+    description: 'The Direxion Daily Semiconductor seeks daily investment results, before fees and expenses, of 300% of the daily performance of the PHLX Semiconductor Sector Index.'
   },
-
   'QQQ-USD': {
     id: 'QQQ-USD',
     type: 'ETF',
-    icon: require('./images/intl.png'),
-    description: 'Invesco QQQ Trust Series 1'
+    icon: require('./images/invesco.png'),
+    description: 'Invesco QQQ Trust Series 1 seeks investment results that generally correspond to the price and yield performance of the NASDAQ-100 Index'
   },
-
   'LZAGY-USD': {
     id: 'LZAGY-USD',
     type: 'STOCKS',
     icon: require('./images/lzagy.png'),
     description: 'Lonza Group is a Swiss multinational chemicals and biotechnology company, headquartered in Basel, with major facilities in Europe, North America and South Asia. Lonza was established under that name in the late 19th-century in Switzerland.'
   },
-
   'CQQQ-USD': {
     id: 'CQQQ-USD',
     type: 'ETF',
-    icon: require('./images/intl.png'),
-    description: 'Invesco China Technology ETF'
+    icon: require('./images/invesco.png'),
+    description: 'Invesco China Technology ETF seeks to track the investment results (before fees and expenses) of the FTSE China Incl A 25% Technology Capped Index.'
   },
-
   'BYDDF-USD': {
     id: 'BYDDF-USD',
     type: 'STOCKS',
     icon: require('./images/byddf.png'),
     description: 'BYD Co. Ltd. is a Chinese manufacturing company headquartered in Shenzhen, Guangdong, founded by Wang Chuanfu in February 1995. It has two major subsidiaries, BYD Automobile and BYD Electronic.'
   },
-
   'ARKX-USD': {
     id: 'ARKX-USD',
     type: 'ETF',
-    icon: require('./images/arkx.png'),
-    description: 'ARK Space Exploration & Innovation ETF'
+    icon: require('./images/ark.png'),
+    description: 'ARK Space Exploration & Innovation ETF seeks long-term growth of capital by investing under normal circumstances primarily (at least 80% of its assets) in domestic and foreign equity securities of companies that are engaged in the Fund’s investment theme of Space Exploration and innovation.'
   },
-
   'ARKW-USD': {
     id: 'ARKW-USD',
     type: 'ETF',
-    icon: require('./images/arkx.png'),
-    description: 'ARK Next Generation Internet ETF'
+    icon: require('./images/ark.png'),
+    description: 'ARK Next Generation Internet ETF seeks long-term growth of capital by investing under normal circumstances primarily (at least 80% of its assets) in domestic and U.S. exchange-traded foreign equity securities of companies that are relevant to the Fund’s investment theme of next generation internet.'
   },
-
   'ARKQ-USD': {
     id: 'ARKQ-USD',
     type: 'ETF',
-    icon: require('./images/arkx.png'),
-    description: 'ARK Autonomous Technology & Robotics ETF'
+    icon: require('./images/ark.png'),
+    description: 'ARK Autonomous Technology & Robotics ETF seeks long-term growth of capital by investing under normal circumstances primarily (at least 80% of its assets) in domestic and foreign equity securities of autonomous technology and robotics companies that are relevant to the Fund’s investment theme of disruptive innovation.'
+  },
+  'ARKF-USD': {
+    id: 'ARKF-USD',
+    type: 'ETF',
+    icon: require('./images/ark.png'),
+    description: 'ARK Fintech Innovation ETF eeks long-term growth of capital. It seeks to achieve this investment objective by investing under normal circumstances primarily (at least 80% of its assets) in domestic and foreign equity securities of companies that are engaged in the Fund’s investment theme of financial technology (“Fintech”) innovation.'
+  },
+  'ARKK-USD': {
+    id: 'ARKK-USD',
+    type: 'ETF',
+    icon: require('./images/ark.png'),
+    description: 'ARK Innovation ETF seeks long-term growth of capital by investing under normal circumstances primarily (at least 65% of its assets) in domestic and foreign equity securities of companies that are relevant to the Fund’s investment theme of disruptive innovation.'
+  },
+  'ARKG-USD': {
+    id: 'ARKG-USD',
+    type: 'ETF',
+    icon: require('./images/ark.png'),
+    description: 'ARK Genomic Revolution ETF seeks long-term growth of capital by investing under normal circumstances primarily (at least 80% of its assets) in domestic and foreign equity securities of companies across multiple sectors, including health care, information technology, materials, energy, and consumer discretionary, that are relevant to the Fund’s investment theme of the genomics revolution.'
   }
 }
 
