@@ -1,11 +1,15 @@
 import { Link } from '@components/commons/Link'
 import classnames from 'classnames'
 
-export function AddressLink ({ address, className }: {address: string, className?: string}): JSX.Element {
+interface AddressLinkProps {
+  address: string
+  className: string
+}
+export function AddressLink (props: AddressLinkProps): JSX.Element {
   return (
-    <div data-testid='Address.Link' className={classnames('hover:text-primary-500 cursor-pointer', className ?? '')}>
-      <Link href={{ pathname: `/address/${address}` }}>
-        {address}
+    <div data-testid='Address.Link' className={classnames('hover:text-primary-500 cursor-pointer', props.className)}>
+      <Link href={{ pathname: `/address/${props.address}` }}>
+        {props.address}
       </Link>
     </div>
   )
