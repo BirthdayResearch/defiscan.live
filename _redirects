@@ -9,5 +9,45 @@ https://defiscan.xyz/* https://defiscan.live/:splat 301!
 http://defiscan.dev/* https://defiscan.live/:splat 301!
 https://defiscan.dev/* https://defiscan.live/:splat 301!
 
-http://explorer.defichain.io/* https://defiscan.live/:splat 301!
-https://explorer.defichain.io/* https://defiscan.live/:splat 301!
+# Redirect dex.defichain.com
+http://dex.defichain.com/mainnet/pool https://defiscan.live/dex 301!
+https://dex.defichain.com/mainnet/pool https://defiscan.live/dex 301!
+
+# Redirect explorer.defichain.io
+http://explorer.defichain.io https://defiscan.live 301!
+https://explorer.defichain.io https://defiscan.live 301!
+
+http://explorer.defichain.com/#/DFI/mainnet/block/* https://defiscan.live/blocks/:splat 301!
+https://explorer.defichain.com/#/DFI/mainnet/block/* https://defiscan.live/blocks/:splat 301!
+
+http://explorer.defichain.com/#/DFI/mainnet/tx/* https://defiscan.live/transactions/:splat 301!
+https://explorer.defichain.com/#/DFI/mainnet/tx/* https://defiscan.live/transactions/:splat 301!
+
+http://explorer.defichain.com/#/DFI/mainnet/address/* https://defiscan.live/address/:splat 301!
+https://explorer.defichain.com/#/DFI/mainnet/address/* https://defiscan.live/address/:splat 301!
+
+# Redirect mainnet.defichain.io
+http://mainnet.defichain.io https://defiscan.live 301!
+https://mainnet.defichain.io https://defiscan.live 301!
+
+http://mainnet.defichain.com/#/DFI/mainnet/block/* https://defiscan.live/blocks/:splat 301!
+https://mainnet.defichain.com/#/DFI/mainnet/block/* https://defiscan.live/blocks/:splat 301!
+
+http://mainnet.defichain.com/#/DFI/mainnet/tx/* https://defiscan.live/transactions/:splat 301!
+https://mainnet.defichain.com/#/DFI/mainnet/tx/* https://defiscan.live/transactions/:splat 301!
+
+http://mainnet.defichain.com/#/DFI/mainnet/address/* https://defiscan.live/address/:splat 301!
+https://mainnet.defichain.com/#/DFI/mainnet/address/* https://defiscan.live/address/:splat 301!
+
+# Redirect testnet.defichain.io
+http://testnet.defichain.io https://defiscan.live 301!
+https://testnet.defichain.io https://defiscan.live 301!
+
+http://testnet.defichain.com/#/DFI/testnet/block/* https://defiscan.live/blocks/:splat?network=testnet 301!
+https://testnet.defichain.com/#/DFI/testnet/block/* https://defiscan.live/blocks/:splat?network=testnet 301!
+
+http://testnet.defichain.com/#/DFI/testnet/tx/* https://defiscan.live/transactions/:splat?network=testnet 301!
+https://testnet.defichain.com/#/DFI/testnet/tx/* https://defiscan.live/transactions/:splat?network=testnet 301!
+
+http://testnet.defichain.com/#/DFI/testnet/address/* https://defiscan.live/address/:splat?network=testnet 301!
+https://testnet.defichain.com/#/DFI/testnet/address/* https://defiscan.live/address/:splat?network=testnet 301!
