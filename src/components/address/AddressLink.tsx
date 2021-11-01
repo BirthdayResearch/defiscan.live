@@ -5,7 +5,7 @@ export function AddressLink ({ address, className }: {address: string, className
   return (
     <div data-testid='Address.Link' className={classnames('hover:text-primary-500 cursor-pointer', className ?? '')}>
       <Link href={{ pathname: `/address/${address}` }}>
-        {address}
+        <a>{address}</a>
       </Link>
     </div>
   )
