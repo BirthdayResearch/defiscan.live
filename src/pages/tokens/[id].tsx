@@ -6,6 +6,7 @@ import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { Container } from '@components/commons/Container'
+import { TxIdLink } from '@components/commons/transactions/TxIdLink'
 
 interface TokenAssetPageProps {
   token: TokenData
@@ -127,7 +128,7 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
       <AdaptiveList.Row name='Minted'>{token.minted}</AdaptiveList.Row>
       <AdaptiveList.Row name='Creation Height'>{token.creation.height}</AdaptiveList.Row>
       <AdaptiveList.Row name='Creation Tx' className='flex space-x-10 items-center'>
-        <div className='break-all'>{token.creation.tx}</div>
+        <TxIdLink className='break-all' txid={token.creation.tx} />
       </AdaptiveList.Row>
       {(token.collateralAddress !== undefined && token.collateralAddress !== 'undefined') && (
         <AdaptiveList.Row name='Collateral Address' className='flex space-x-10 items-center'>
