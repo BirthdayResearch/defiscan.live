@@ -18,7 +18,7 @@ context('/tokens on desktop', () => {
 
   it('should have Tether in AdaptiveTable', function () {
     cy.findAllByTestId('AdaptiveTable.Row').eq(3).then(ele => {
-      cy.wrap(ele).findByText('USDT').should('be.visible')
+      cy.wrap(ele).findByText('dUSDT').should('be.visible')
       cy.wrap(ele).findByText('Tether USD').should('be.visible')
       cy.wrap(ele).findByText('DAT').should('be.visible')
     })
@@ -73,7 +73,7 @@ context('/tokens on mobile', () => {
 
   it('should have Tether in AdaptiveTable', function () {
     cy.findAllByTestId('AdaptiveTable.Row').eq(3).then(ele => {
-      cy.wrap(ele).findByText('USDT').should('be.visible')
+      cy.wrap(ele).findByText('dUSDT').should('be.visible')
       cy.wrap(ele).findByText('Tether USD').should('be.visible')
       cy.wrap(ele).findByText('DAT').should('be.visible')
     })

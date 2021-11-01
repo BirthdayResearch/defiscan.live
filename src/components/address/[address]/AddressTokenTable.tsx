@@ -64,14 +64,15 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
 function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
   return (
     <OverflowTable.Row>
-      <OverflowTable.Cell>
-        <div className='flex gap-x-1'>
+      <OverflowTable.Cell className='align-middle'>
+        <div className='flex items-center gap-x-2'>
           <div className='my-auto'>
             {(() => {
               if (props.token.isDAT) {
-                const AssetIcon = getAssetIcon(props.token.displaySymbol)
+                const AssetIcon = getAssetIcon(props.token.symbol)
                 return <AssetIcon className='h-6 w-6' />
               }
+
               const TokenIcon = getTokenIcon(props.token.displaySymbol)
               return <TokenIcon className='h-6 w-6' />
             })()}
