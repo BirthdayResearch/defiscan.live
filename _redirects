@@ -8,3 +8,6 @@ https://defiscan.xyz/* https://defiscan.live/:splat 301!
 
 http://defiscan.dev/* https://defiscan.live/:splat 301!
 https://defiscan.dev/* https://defiscan.live/:splat 301!
+
+http://explorer.defichain.io/* https://defiscan.live/:splat 301!
+https://explorer.defichain.io/* https://defiscan.live/:splat 301!
