@@ -1,14 +1,17 @@
 module.exports = function (api) {
   api.cache(true)
 
-  const plugins = []
-  if (process.env.ISTANBUL === 'true') {
+  if (process.env.CYPRESS === 'true') {
     console.log('Instrumenting for Cypress E2E')
-    plugins.push('istanbul')
+
+    return {
+      presets: ['next/babel'],
+      plugins: ['istanbul']
+    }
   }
 
   return {
     presets: ['next/babel'],
-    plugins: plugins
+    plugins: ['babel-plugin-jsx-remove-data-test-id']
   }
 }
