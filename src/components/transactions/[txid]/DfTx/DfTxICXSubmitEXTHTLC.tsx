@@ -1,6 +1,7 @@
 import { DfTx, ICXSubmitEXTHTLC } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxICXSubmitEXTHTLCProps {
   dftx: DfTx<ICXSubmitEXTHTLC>
@@ -25,7 +26,7 @@ export function DfTxICXSubmitEXTHTLC (props: DfTxICXSubmitEXTHTLCProps): JSX.Ele
             <span data-testid='DfTxICXSubmitEXTHTLC.HTLCScriptAddress'>{props.dftx.data.htlcScriptAddress}</span>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Owner Public Key'>
-            <span data-testid='DfTxICXSubmitEXTHTLC.OwnerPubKey'>{props.dftx.data.ownerPubkey}</span>
+            <AddressLink address={props.dftx.data.ownerPubkey} testId='DfTxICXSubmitEXTHTLC.OwnerPubKey' />
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Timeout'>
             <span data-testid='DfTxICXSubmitEXTHTLC.Timeout'>{props.dftx.data.timeout} Blocks</span>

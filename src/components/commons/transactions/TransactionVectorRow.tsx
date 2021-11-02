@@ -1,5 +1,5 @@
 import { NetworkName } from '@contexts/NetworkContext'
-import { AddressLink } from '@components/address/AddressLink'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface TransactionVectorRowProps {
   label: 'INPUT' | 'OUTPUT'
@@ -18,7 +18,7 @@ export function TransactionVectorRow (props: TransactionVectorRowProps): JSX.Ele
         </span>
         <div className='flex justify-between gap-x-2'>
           {props.isAddressClickable ? (
-            <AddressLink address={props.address} className='overflow-ellipsis overflow-hidden text-primary-400' />
+            <AddressLink testId='TransactionVectorRow.Address' address={props.address} className='overflow-ellipsis overflow-hidden text-primary-400' />
           ) : (
             <span className='overflow-ellipsis overflow-hidden opacity-80'>
               {props.address}

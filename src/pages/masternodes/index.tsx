@@ -8,7 +8,7 @@ import NumberFormat from 'react-number-format'
 import { Container } from '@components/commons/Container'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
-import { AddressLink } from '@components/address/AddressLink'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface MasternodesPageProps {
   masternodes: {

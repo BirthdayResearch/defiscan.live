@@ -6,6 +6,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 import classNames from 'classnames'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxPoolAddLiquidityProps {
   dftx: DfTx<PoolAddLiquidity>
@@ -20,8 +21,13 @@ export function DfTxPoolAddLiquidity (props: DfTxPoolAddLiquidityProps): JSX.Ele
       <DfTxHeader name='Pool Add Liquidity' />
       <div className='mt-5 flex flex-col space-y-6 items-start'>
         <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name='Share Address' testId='DfTxPoolAddLiquidity.ShareAddress' className='break-all'>
-            {shareAddress?.address ?? 'N/A'}
+          <AdaptiveList.Row name='Share Address'>
+            {(() => {
+              if (shareAddress?.address !== undefined) {
+                return <AddressLink address={shareAddress.address} testId='DfTxPoolAddLiquidity.ShareAddress' className='break-all' />
+              }
+              return 'N/A'
+            })()}
           </AdaptiveList.Row>
         </AdaptiveList>
         <div className='w-full grid gap-2 grid-cols-1 lg:grid-cols-2'>
@@ -29,8 +35,8 @@ export function DfTxPoolAddLiquidity (props: DfTxPoolAddLiquidityProps): JSX.Ele
             const fromAddress = fromScript(scriptBalance.script, network)?.address ?? 'N/A'
             return (
               <AdaptiveList key={`from-${fromAddress}`}>
-                <AdaptiveList.Row name='From' testId='DfTxPoolAddLiquidity.FromAddress' className='break-all'>
-                  {fromAddress}
+                <AdaptiveList.Row name='From'>
+                  <AddressLink address={fromAddress} testId='DfTxPoolAddLiquidity.FromAddress' className='break-all' />
                 </AdaptiveList.Row>
                 {scriptBalance.balances.map(balance => {
                   return (

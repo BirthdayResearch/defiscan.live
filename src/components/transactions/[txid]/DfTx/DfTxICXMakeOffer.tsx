@@ -4,6 +4,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { Link } from '@components/commons/Link'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxICXMakeOfferProps {
   dftx: DfTx<ICXMakeOffer>
@@ -42,7 +43,12 @@ export function DfTxICXMakeOffer (props: DfTxICXMakeOfferProps): JSX.Element {
         <div className='w-full lg:w-1/2'>
           <AdaptiveList>
             <AdaptiveList.Row name='Owner Address'>
-              <span data-testid='DfTxICXMakeOffer.OwnerAddress'>{address?.address ?? 'N/A'}</span>
+              {(() => {
+                if (address?.address !== undefined) {
+                  return <AddressLink address={address.address} testId='DfTxICXMakeOffer.OwnerAddress' />
+                }
+                return 'N/A'
+              })()}
             </AdaptiveList.Row>
             <AdaptiveList.Row name='Pubkey'>
               <span data-testid='DfTxICXMakeOffer.Pubkey'>{props.dftx.data.receivePubkey ?? 'N/A'}</span>

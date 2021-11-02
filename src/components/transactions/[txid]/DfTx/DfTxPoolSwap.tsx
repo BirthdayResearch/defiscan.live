@@ -5,6 +5,7 @@ import BigNumber from 'bignumber.js'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxPoolSwapProps {
   dftx: DfTx<PoolSwap>
@@ -44,8 +45,13 @@ function PoolSwapDetailsTable (props: {
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='From' testId='DfTxPoolSwap.fromAddress'>
-          {props.fromAddress ?? 'N/A'}
+        <AdaptiveList.Row name='From'>
+          {(() => {
+            if (props.fromAddress !== undefined) {
+              return <AddressLink address={props.fromAddress} testId='DfTxPoolSwap.fromAddress' />
+            }
+            return 'N/A'
+          })()}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Token'>
           <TokenSymbol tokenId={props.fromTokenId} testId='DfTxPoolSwap.fromAmountSymbol' />
@@ -56,7 +62,12 @@ function PoolSwapDetailsTable (props: {
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='To' testId='DfTxPoolSwap.toAddress'>
-          {props.toAddress ?? 'N/A'}
+          {(() => {
+            if (props.toAddress !== undefined) {
+              return <AddressLink address={props.toAddress} testId='DfTxPoolSwap.toAddress' />
+            }
+            return 'N/A'
+          })()}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Token'>
           <TokenSymbol tokenId={props.toTokenId} testId='DfTxPoolSwap.maxPriceSymbol' />

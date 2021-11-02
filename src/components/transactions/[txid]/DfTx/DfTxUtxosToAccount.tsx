@@ -5,6 +5,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { useNetwork } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 import { TokenBalance } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxUtxoToAccountProps {
   dftx: DfTx<UtxosToAccount>
@@ -22,8 +23,8 @@ export function DfTxUtxosToAccount (props: DfTxUtxoToAccountProps): JSX.Element 
             const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
             return (
               <AdaptiveList key={toAddress}>
-                <AdaptiveList.Row name='To' testId='DfTxUtxosToAccount.to'>
-                  {toAddress}
+                <AdaptiveList.Row name='To'>
+                  <AddressLink address={toAddress} testId='DfTxUtxosToAccount.to' />
                 </AdaptiveList.Row>
                 {scriptBalances.balances.map(balance => {
                   return (

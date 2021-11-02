@@ -5,6 +5,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { OverflowTable } from '@components/commons/OverflowTable'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxAppointOracleProps {
   dftx: DfTx<AppointOracle>
@@ -18,8 +19,13 @@ export function DfTxAppointOracle (props: DfTxAppointOracleProps): JSX.Element {
       <DfTxHeader name='Appoint Oracle' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name='Address' testId='DfTxAppointOracle.Address' className='break-all'>
-            {script?.address ?? 'N/A'}
+          <AdaptiveList.Row name='Address'>
+            {(() => {
+              if (script?.address !== undefined) {
+                return <AddressLink address={script?.address} className='break-all' testId='DfTxAppointOracle.Address' />
+              }
+              return 'N/A'
+            })()}
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Weightage' testId='DfTxAppointOracle.Weightage'>
             {props.dftx.data.weightage}

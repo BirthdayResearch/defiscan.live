@@ -5,6 +5,7 @@ import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 import { TokenBalance } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxAccountToAccountProps {
   dftx: DfTx<AccountToAccount>
@@ -26,8 +27,8 @@ export function DfTxAccountToAccount (props: DfTxAccountToAccountProps): JSX.Ele
             const toAddress = fromScript(scriptBalances.script, network)?.address ?? 'N/A'
             return (
               <AdaptiveList key={toAddress} className='mb-1'>
-                <AdaptiveList.Row name='To' testId='DfTxAccountToAccount.to'>
-                  {toAddress}
+                <AdaptiveList.Row name='To'>
+                  <AddressLink address={toAddress} testId='DfTxAccountToAccount.to' />
                 </AdaptiveList.Row>
                 {scriptBalances.balances.map(balance => {
                   return (
@@ -48,8 +49,13 @@ function FromTable (props: {
 }): JSX.Element {
   return (
     <AdaptiveList>
-      <AdaptiveList.Row name='From' testId='DfTxAccountToAccount.fromAddress'>
-        {props.fromAddress ?? 'N/A'}
+      <AdaptiveList.Row name='From'>
+        {(() => {
+          if (props.fromAddress !== undefined) {
+            return <AddressLink address={props.fromAddress} testId='DfTxAccountToAccount.fromAddress' />
+          }
+          return 'N/A'
+        })()}
       </AdaptiveList.Row>
     </AdaptiveList>
   )

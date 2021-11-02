@@ -6,6 +6,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { TokenBalance } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance'
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxPoolUpdatePairProps {
   dftx: DfTx<PoolUpdatePair>
@@ -60,7 +61,17 @@ function PoolUpdatePairDetailsTable (props: {
         {props.commission}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Owner Address' testId='DfTxPoolUpdatePair.ownerAddress'>
-        {props.ownerAddress ?? 'N/A'}
+        {(() => {
+          if (props.ownerAddress !== undefined) {
+            return (
+              <AddressLink
+                address={props.ownerAddress}
+                testId='DfTxPoolUpdatePair.ownerAddress'
+              />
+            )
+          }
+          return 'N/A'
+        })()}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Status' testId='DfTxPoolUpdatePair.status'>
         {props.status}
