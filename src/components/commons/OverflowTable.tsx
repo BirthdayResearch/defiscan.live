@@ -38,7 +38,7 @@ function Row (props: PropsWithChildren<{ className?: string, onClick?: MouseEven
   return (
     <div
       data-testid='OverflowTable.Row'
-      className={classNames('table-row border-t border-gray-100', props.className)}
+      className={classNames('table-row border-t border-gray-100 hover:bg-primary-50', props.className)}
       onClick={props.onClick}
     >
       {props.children}
@@ -65,8 +65,8 @@ function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean }
       {(left) => (
         <div
           data-testid='OverflowTable.Cell'
-          className={classNames('table-cell px-4 md:px-6 py-4', props.className, {
-            'sticky left-0 bg-white': props.sticky!
+          className={classNames('table-cell px-4 md:px-6 py-4', {
+            'sticky left-0': props.sticky!
           })}
         >
           {props.children}
