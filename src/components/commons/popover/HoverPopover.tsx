@@ -18,7 +18,7 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
   } = usePopper(refEle, popperEle, { placement: 'bottom' })
 
   return (
-    <div>
+    <>
       <div
         ref={setRefEle}
         onMouseOver={() => setIsHover(true)}
@@ -42,20 +42,18 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
           }
 
           return (
-            <div ref={setPopperEle} style={styles.popper} {...attributes.popper}>
-              <div className='p-2'>
-                {typeof props.popover === 'string' ? (
-                  <div
-                    className='p-3 font-normal text-sm bg-black text-white rounded shadow-md ring-1 ring-gray-200 max-w-xs'
-                  >
-                    {props.popover}
-                  </div>
-                ) : props.popover}
-              </div>
+            <div ref={setPopperEle} style={styles.popper} {...attributes.popper} className='p-2'>
+              {typeof props.popover === 'string' ? (
+                <div
+                  className='p-3 font-normal text-sm bg-black text-white rounded shadow-md ring-1 ring-gray-200 max-w-xs'
+                >
+                  {props.popover}
+                </div>
+              ) : props.popover}
             </div>
           )
         })()}
       </Transition>
-    </div>
+    </>
   )
 }
