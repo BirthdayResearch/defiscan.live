@@ -61,7 +61,7 @@ function PoolSwapDetailsTable (props: {
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='To' testId='DfTxPoolSwap.toAddress'>
+        <AdaptiveList.Row name='To'>
           {(() => {
             if (props.toAddress !== undefined) {
               return <AddressLink address={props.toAddress} testId='DfTxPoolSwap.toAddress' />

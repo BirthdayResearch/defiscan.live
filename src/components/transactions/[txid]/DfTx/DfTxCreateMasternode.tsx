@@ -31,7 +31,7 @@ function DetailsTable (props: {
         <AdaptiveList.Row name='Operator Type' testId='DfTxCreateMasternode.operatorType'>
           {props.operatorType}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Operator Auth Address' testId='DfTxCreateMasternode.operatorAuthAddress'>
+        <AdaptiveList.Row name='Operator Auth Address'>
           <AddressLink address={props.operatorAuthAddress} testId='DfTxCreateMasternode.operatorAuthAddress' />
         </AdaptiveList.Row>
       </AdaptiveList>

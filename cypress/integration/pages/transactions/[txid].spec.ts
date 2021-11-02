@@ -54,7 +54,7 @@ context('/transactions/[txid] on desktop', () => {
       cy.get('div').first().within(() => {
         cy.get('span').eq(0).should('have.text', 'INPUT')
         cy.get('span').eq(1).should('have.text', '3.59205525 DFI')
-        cy.findByTestId('Address.Link').should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
+        cy.findByTestId('TransactionVectorRow.Address').should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
       })
     })
   })
@@ -71,7 +71,7 @@ context('/transactions/[txid] on desktop', () => {
       cy.get('div').next().within(() => {
         cy.get('span').eq(0).should('have.text', 'OUTPUT')
         cy.get('span').eq(1).should('have.text', '3.59205320 DFI')
-        cy.findByTestId('Address.Link').should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
+        cy.findByTestId('TransactionVectorRow.Address').should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
       })
     })
   })
@@ -152,7 +152,7 @@ context('/transactions/[txid] on mobile', () => {
       cy.get('div').first().within(() => {
         cy.get('span').eq(0).should('have.text', 'INPUT')
         cy.get('span').eq(1).should('have.text', '3.59205525 DFI')
-        cy.findByTestId('Address.Link').should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
+        cy.findByTestId('TransactionVectorRow.Address').should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
       })
     })
   })
@@ -169,7 +169,7 @@ context('/transactions/[txid] on mobile', () => {
       cy.get('div').next().within(() => {
         cy.get('span').eq(0).should('have.text', 'OUTPUT')
         cy.get('span').eq(1).should('have.text', '3.59205320 DFI')
-        cy.findByTestId('Address.Link').should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
+        cy.findByTestId('TransactionVectorRow.Address').should('have.text', 'df1ql8xwc5k33a5qq7ttk35xtfk9kn4ghtczds98c6')
       })
     })
   })
