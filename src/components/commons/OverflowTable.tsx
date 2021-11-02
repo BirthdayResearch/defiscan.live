@@ -46,12 +46,13 @@ function Row (props: PropsWithChildren<{ className?: string, onClick?: MouseEven
   )
 }
 
-function Head (props: PropsWithChildren<{ className?: string, sticky?: boolean }>): JSX.Element {
+function Head (props: PropsWithChildren<{ className?: string, sticky?: boolean, alignRight?: boolean }>): JSX.Element {
   return (
     <div
       data-testid='OverflowTable.Head'
       className={classNames('table-cell px-4 md:px-6 py-3 text-black text-opacity-60 text-sm font-semibold bg-gray-50', props.className, {
-        'sticky left-0': props.sticky
+        'sticky left-0': props.sticky!,
+        'text-right': props.alignRight!
       })}
     >
       {props.children}
@@ -59,14 +60,15 @@ function Head (props: PropsWithChildren<{ className?: string, sticky?: boolean }
   )
 }
 
-function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean }>): JSX.Element {
+function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean, alignRight?: boolean }>): JSX.Element {
   return (
     <OverflowTableContext.Consumer>
       {(left) => (
         <div
           data-testid='OverflowTable.Cell'
           className={classNames('table-cell px-4 md:px-6 py-4', {
-            'sticky left-0': props.sticky!
+            'sticky left-0': props.sticky!,
+            'text-right': props.alignRight!
           })}
         >
           {props.children}
