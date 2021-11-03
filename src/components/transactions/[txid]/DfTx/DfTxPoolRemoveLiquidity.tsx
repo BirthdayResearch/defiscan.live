@@ -5,6 +5,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxPoolRemoveLiquidityProps {
   dftx: DfTx<PoolRemoveLiquidity>
@@ -31,8 +32,13 @@ export function DfTxPoolRemoveLiquidity (props: DfTxPoolRemoveLiquidityProps): J
 function PoolRemoveLiquidityTable (props: { address?: string, amount: BigNumber, tokenId: number }): JSX.Element {
   return (
     <AdaptiveList className='w-full lg:w-1/2'>
-      <AdaptiveList.Row name='Address' testId='DfTxPoolRemoveLiquidity.Address' className='break-all'>
-        {props.address ?? 'N/A'}
+      <AdaptiveList.Row name='Address'>
+        {(() => {
+          if (props.address !== undefined) {
+            return <AddressLink address={props.address} testId='DfTxPoolRemoveLiquidity.Address' className='break-all' />
+          }
+          return 'N/A'
+        })()}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Token'>
         <TokenSymbol tokenId={props.tokenId} testId='DfTxPoolRemoveLiquidity.Symbol' />

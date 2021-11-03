@@ -29,6 +29,7 @@ context('/transactions/[txid] - DfTx ICX Submit EXTHTLC  on desktop', () => {
 
   it('should have DfTxICXSubmitEXTHTLC HTLC Script Address', () => {
     cy.findByTestId('DfTxICXSubmitEXTHTLC.HTLCScriptAddress').should('have.text', '3EDv3fAXzW5B5JtVBX5Epy6h8seFXorNyq')
+    cy.findByTestId('DfTxICXSubmitEXTHTLC.HTLCScriptAddress').find('a').should('have.attr', 'href', '/address/3EDv3fAXzW5B5JtVBX5Epy6h8seFXorNyq')
   })
 
   it('should have DfTxICXSubmitEXTHTLC OwnerPubKey', () => {
@@ -71,6 +72,7 @@ context('/transactions/[txid] - DfTx ICX Submit EXTHTLC  on mobile', () => {
 
   it('should have DfTxICXSubmitEXTHTLC HTLC Script Address', () => {
     cy.findByTestId('DfTxICXSubmitEXTHTLC.HTLCScriptAddress').should('have.text', '3EDv3fAXzW5B5JtVBX5Epy6h8seFXorNyq')
+    cy.findByTestId('DfTxICXSubmitEXTHTLC.HTLCScriptAddress').find('a').should('have.attr', 'href', '/address/3EDv3fAXzW5B5JtVBX5Epy6h8seFXorNyq')
   })
 
   it('should have DfTxICXSubmitEXTHTLC OwnerPubKey', () => {

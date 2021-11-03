@@ -1,6 +1,7 @@
 import { DfTx, CreateMasternode } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxCreateMasternodeProps {
   dftx: DfTx<CreateMasternode>
@@ -30,8 +31,8 @@ function DetailsTable (props: {
         <AdaptiveList.Row name='Operator Type' testId='DfTxCreateMasternode.operatorType'>
           {props.operatorType}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Operator Auth Address' testId='DfTxCreateMasternode.operatorAuthAddress'>
-          {props.operatorAuthAddress}
+        <AdaptiveList.Row name='Operator Auth Address'>
+          <AddressLink address={props.operatorAuthAddress} testId='DfTxCreateMasternode.operatorAuthAddress' />
         </AdaptiveList.Row>
       </AdaptiveList>
     </>

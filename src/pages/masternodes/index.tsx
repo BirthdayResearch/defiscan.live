@@ -8,6 +8,7 @@ import NumberFormat from 'react-number-format'
 import { Container } from '@components/commons/Container'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface MasternodesPageProps {
   masternodes: {
@@ -102,7 +103,7 @@ function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
     <OverflowTable.Row>
       <OverflowTable.Cell sticky>
         <div className='break-all w-24 md:w-64'>
-          {data.owner.address}
+          <AddressLink address={data.owner.address} />
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell>

@@ -5,6 +5,7 @@ import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import BigNumber from 'bignumber.js'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxICXCreateOrderProps {
   dftx: DfTx<ICXCreateOrder>
@@ -65,8 +66,13 @@ function DetailsTable (props: {
         </AdaptiveList.Row>
       </AdaptiveList>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='Owner Address' testId='DfTxICXCreateOrder.ownerAddress'>
-          {props.ownerAddress ?? 'N/A'}
+        <AdaptiveList.Row name='Owner Address'>
+          {(() => {
+            if (props.ownerAddress !== undefined) {
+              return <AddressLink address={props.ownerAddress} testId='DfTxICXCreateOrder.ownerAddress' />
+            }
+            return 'N/A'
+          })()}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Pubkey' testId='DfTxICXCreateOrder.pubkey'>
           {props.receivePubkey ?? 'N/A'}

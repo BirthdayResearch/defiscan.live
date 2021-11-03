@@ -35,6 +35,11 @@ context('/blocks/[blockId] on desktop', () => {
     cy.findByTestId('block-detail-confirmations').contains(/\d+/)
   })
 
+  it('should have block detail minter', () => {
+    cy.findByTestId('block-detail-minter').should('have.text', '8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
+    cy.findByTestId('block-detail-minter').find('a').should('have.attr', 'href', '/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
+  })
+
   it('should have block detail difficulty', () => {
     cy.findByTestId('block-detail-difficulty').should('have.text', '16893394709.78455')
   })
@@ -114,6 +119,11 @@ context('/blocks/[blockId] on mobile', () => {
 
   it('should have block detail confirmations', () => {
     cy.findByTestId('block-detail-confirmations').contains(/\d+/)
+  })
+
+  it('should have block detail minter', () => {
+    cy.findByTestId('block-detail-minter').should('have.text', '8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
+    cy.findByTestId('block-detail-minter').find('a').should('have.attr', 'href', '/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
   })
 
   it('should have block detail difficulty', () => {

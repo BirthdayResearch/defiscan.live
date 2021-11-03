@@ -4,6 +4,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { OverflowTable } from '@components/commons/OverflowTable'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxUpdateOracleProps {
   dftx: DfTx<UpdateOracle>
@@ -20,8 +21,13 @@ export function DfTxUpdateOracle (props: DfTxUpdateOracleProps): JSX.Element {
           <AdaptiveList.Row name='Oracle ID' testId='DfTxUpdateOracle.OracleId' className='break-all'>
             {props.dftx.data.oracleId}
           </AdaptiveList.Row>
-          <AdaptiveList.Row name='Address' testId='DfTxUpdateOracle.Address'>
-            {address ?? 'N/A'}
+          <AdaptiveList.Row name='Address'>
+            {(() => {
+              if (address !== undefined) {
+                return <AddressLink testId='DfTxUpdateOracle.Address' address={address} />
+              }
+              return 'N/A'
+            })()}
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Weightage' testId='DfTxUpdateOracle.Weightage'>
             {props.dftx.data.weightage}

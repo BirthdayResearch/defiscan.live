@@ -4,6 +4,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface DfTxAccountToUtxosProps {
   dftx: DfTx<AccountToUtxos>
@@ -43,8 +44,13 @@ function DetailsTable (props: {
 }): JSX.Element {
   return (
     <AdaptiveList>
-      <AdaptiveList.Row name='From' testId='DfTxAccountToUtxos.fromAddress'>
-        {props.fromAddress ?? 'N/A'}
+      <AdaptiveList.Row name='From'>
+        {(() => {
+          if (props.fromAddress !== undefined) {
+            return <AddressLink address={props.fromAddress} testId='DfTxAccountToUtxos.fromAddress' />
+          }
+          return 'N/A'
+        })()}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Minting Outputs Start' testId='DfTxAccountToUtxos.mintingOutputsStart'>
         {props.mintingOutputsStart ?? '-'}

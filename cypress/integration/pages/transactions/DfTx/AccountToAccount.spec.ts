@@ -17,10 +17,12 @@ context('/transactions/[txid] - DfTx account to account on desktop', () => {
 
   it('should have DfTxAccountToAccount fromAddress', () => {
     cy.findByTestId('DfTxAccountToAccount.fromAddress').should('have.text', 'df1qgzpjmmrv7v4gkkl7avymh63wvtn7n5zzau9hyy')
+    cy.findByTestId('DfTxAccountToAccount.fromAddress').find('a').should('have.attr', 'href', '/address/df1qgzpjmmrv7v4gkkl7avymh63wvtn7n5zzau9hyy')
   })
 
   it('should have DfTxAccountToAccount to', () => {
     cy.findByTestId('DfTxAccountToAccount.to').should('have.text', 'dQPChD3qab1N2XwvL6U5hucnz3Vz948rMi')
+    cy.findByTestId('DfTxAccountToAccount.to').find('a').should('have.attr', 'href', '/address/dQPChD3qab1N2XwvL6U5hucnz3Vz948rMi')
   })
 
   it('should have DfTxAccountToAccount toAmount', () => {
@@ -51,10 +53,12 @@ context('/transactions/[txid] - DfTx account to account on mobile', () => {
 
   it('should have DfTxAccountToAccount fromAddress', () => {
     cy.findByTestId('DfTxAccountToAccount.fromAddress').should('have.text', 'df1qgzpjmmrv7v4gkkl7avymh63wvtn7n5zzau9hyy')
+    cy.findByTestId('DfTxAccountToAccount.fromAddress').find('a').should('have.attr', 'href', '/address/df1qgzpjmmrv7v4gkkl7avymh63wvtn7n5zzau9hyy')
   })
 
   it('should have DfTxAccountToAccount to', () => {
     cy.findByTestId('DfTxAccountToAccount.to').should('have.text', 'dQPChD3qab1N2XwvL6U5hucnz3Vz948rMi')
+    cy.findByTestId('DfTxAccountToAccount.to').find('a').should('have.attr', 'href', '/address/dQPChD3qab1N2XwvL6U5hucnz3Vz948rMi')
   })
 
   it('should have DfTxAccountToAccount toAmount', () => {
