@@ -14,6 +14,7 @@ import { Container } from '@components/commons/Container'
 import { BsArrowRight } from 'react-icons/bs'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Link } from '@components/commons/Link'
+import { AddressLink } from '@components/commons/AddressLink'
 
 interface BlockDetailsPageProps {
   block: Block
@@ -159,7 +160,7 @@ function ListLeft (props: { block: Block, nBlocks: number | undefined }): JSX.El
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Minter' testId='block-detail-minter'>
         <div className='break-all'>
-          {props.block.minter}
+          <AddressLink address={props.block.minter} className='break-all' />
         </div>
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Masternode' testId='block-detail-masternode'>
