@@ -63,6 +63,23 @@ context('collapse search component macbook-16', () => {
   })
 })
 
+context('search component macbook-16 - different network', () => {
+  before(function () {
+    cy.visit('/?network=Playground')
+  })
+
+  beforeEach(() => {
+    cy.viewport('macbook-16')
+  })
+
+  it('should have network context', () => {
+    cy.findByTestId('SearchBar.Input').clear()
+    cy.findByTestId('SearchBar.Input').type('1')
+    cy.findByTestId('SearchResultRow.Block.1').click()
+    cy.url().should('include', '?network=Playground')
+  })
+})
+
 context('search component iphone-x', () => {
   before(function () {
     cy.visit('/dex?network=MainNet')
@@ -93,5 +110,22 @@ context('search component iphone-x', () => {
     cy.findByTestId('SearchBar.Input').clear()
     cy.findByTestId('SearchBar.Input').type('8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8')
     cy.findByTestId('SearchResultRow.Address.8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8').should('have.attr', 'href', '/address/8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8')
+  })
+})
+
+context('search component iphone-x - different network', () => {
+  before(function () {
+    cy.visit('/?network=Playground')
+  })
+
+  beforeEach(() => {
+    cy.viewport('iphone-x')
+  })
+
+  it('should have network context', () => {
+    cy.findByTestId('SearchBar.Input').clear()
+    cy.findByTestId('SearchBar.Input').type('1')
+    cy.findByTestId('SearchResultRow.Block.1').click()
+    cy.url().should('include', '?network=Playground')
   })
 })
