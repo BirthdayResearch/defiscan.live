@@ -29,6 +29,7 @@ context('/transactions/[txid] - DfTx pool create pair on desktop', () => {
 
   it('should have DfTxPoolCreatePair ownerAddress', () => {
     cy.findByTestId('DfTxPoolCreatePair.ownerAddress').should('have.text', '8UAhRuUFCyFUHEPD7qvtj8Zy2HxF5HH5nb')
+    cy.findByTestId('DfTxPoolCreatePair.ownerAddress').find('a').should('have.attr', 'href', '/address/8UAhRuUFCyFUHEPD7qvtj8Zy2HxF5HH5nb')
   })
 
   it('should have DfTxPoolCreatePair status', () => {
@@ -67,6 +68,7 @@ context('/transactions/[txid] - DfTx Pool Create Pair on mobile', () => {
 
   it('should have DfTxPoolCreatePair ownerAddress', () => {
     cy.findByTestId('DfTxPoolCreatePair.ownerAddress').should('have.text', '8UAhRuUFCyFUHEPD7qvtj8Zy2HxF5HH5nb')
+    cy.findByTestId('DfTxPoolCreatePair.ownerAddress').find('a').should('have.attr', 'href', '/address/8UAhRuUFCyFUHEPD7qvtj8Zy2HxF5HH5nb')
   })
 
   it('should have DfTxPoolCreatePair status', () => {

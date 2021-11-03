@@ -15,6 +15,7 @@ context('/transactions/[txid] - DfTx Update Oracle on desktop', () => {
   it('should have DfTxUpdateOracle Details', function () {
     cy.findByTestId('DfTxUpdateOracle.OracleId').should('have.text', 'a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367')
     cy.findByTestId('DfTxUpdateOracle.Address').should('have.text', 'df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw')
+    cy.findByTestId('DfTxUpdateOracle.Address').find('a').should('have.attr', 'href', '/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw')
     cy.findByTestId('DfTxUpdateOracle.Weightage').should('have.text', '10')
   })
 
@@ -48,6 +49,7 @@ context('/transactions/[txid] - DfTx Update Oracle on mobile', () => {
   it('should have DfTxUpdateOracle Details', function () {
     cy.findByTestId('DfTxUpdateOracle.OracleId').should('have.text', 'a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367')
     cy.findByTestId('DfTxUpdateOracle.Address').should('have.text', 'df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw')
+    cy.findByTestId('DfTxUpdateOracle.Address').find('a').should('have.attr', 'href', '/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw')
     cy.findByTestId('DfTxUpdateOracle.Weightage').should('have.text', '10')
   })
 

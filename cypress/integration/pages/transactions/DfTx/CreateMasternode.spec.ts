@@ -20,6 +20,7 @@ context('/transactions/[txid] - DfTx create masternode on desktop', () => {
   })
   it('should have DfTxCreateMasternode operatorAuthAddress', () => {
     cy.findByTestId('DfTxCreateMasternode.operatorAuthAddress').should('have.text', 'df60abc9d13ef18a05dd120f17a61935a7b2a679')
+    cy.findByTestId('DfTxCreateMasternode.operatorAuthAddress').find('a').should('have.attr', 'href', '/address/df60abc9d13ef18a05dd120f17a61935a7b2a679')
   })
 })
 
@@ -45,5 +46,6 @@ context('/transactions/[txid] - DfTx create masternode on mobile', () => {
   })
   it('should have DfTxCreateMasternode operatorAuthAddress', () => {
     cy.findByTestId('DfTxCreateMasternode.operatorAuthAddress').should('have.text', 'df60abc9d13ef18a05dd120f17a61935a7b2a679')
+    cy.findByTestId('DfTxCreateMasternode.operatorAuthAddress').find('a').should('have.attr', 'href', '/address/df60abc9d13ef18a05dd120f17a61935a7b2a679')
   })
 })

@@ -41,6 +41,7 @@ context('/transactions/[txid] - DfTx ICXCreateOrder on desktop', () => {
 
   it('should have DfTxICXCreateOrder ownerAddress', () => {
     cy.findByTestId('DfTxICXCreateOrder.ownerAddress').should('have.text', '8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg')
+    cy.findByTestId('DfTxICXCreateOrder.ownerAddress').find('a').should('have.attr', 'href', '/address/8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg')
   })
 
   it('should have DfTxICXCreateOrder pubkey', () => {
@@ -91,6 +92,7 @@ context('/transactions/[txid] - DfTx ICXCreateOrder on mobile', () => {
 
   it('should have DfTxICXCreateOrder ownerAddress', () => {
     cy.findByTestId('DfTxICXCreateOrder.ownerAddress').should('have.text', '8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg')
+    cy.findByTestId('DfTxICXCreateOrder.ownerAddress').find('a').should('have.attr', 'href', '/address/8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg')
   })
 
   it('should have DfTxICXCreateOrder pubkey', () => {

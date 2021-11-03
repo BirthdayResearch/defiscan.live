@@ -17,6 +17,7 @@ context('/transactions/[txid] - DfTx Appoint Oracle on desktop', () => {
 
   it('should have DfTxAppointOracle Adresss', function () {
     cy.findByTestId('DfTxAppointOracle.Address').should('have.text', 'df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw')
+    cy.findByTestId('DfTxAppointOracle.Address').find('a').should('have.attr', 'href', '/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw')
   })
 
   it('should have DfTxAppointOracle Weightage', function () {
@@ -55,6 +56,7 @@ context('/transactions/[txid] - DfTx Appoint Oracle on mobile', () => {
 
   it('should have DfTxAppointOracle Adresss', function () {
     cy.findByTestId('DfTxAppointOracle.Address').should('have.text', 'df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw')
+    cy.findByTestId('DfTxAppointOracle.Address').find('a').should('have.attr', 'href', '/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw')
   })
 
   it('should have DfTxAppointOracle Weightage', function () {

@@ -17,10 +17,12 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on desktop', () => {
 
   it('should have DfTxAddPoolLiquidity Share Address', () => {
     cy.findByTestId('DfTxPoolAddLiquidity.ShareAddress').contains('8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
+    cy.findByTestId('DfTxPoolAddLiquidity.ShareAddress').find('a').should('have.attr', 'href', '/address/8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
   })
 
   it('should have DfTxAddPoolLiquidity From Address', () => {
     cy.findByTestId('DfTxPoolAddLiquidity.FromAddress').contains('8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
+    cy.findByTestId('DfTxPoolAddLiquidity.FromAddress').find('a').should('have.attr', 'href', '/address/8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
   })
 
   it('should have DfTxAddPoolLiquidity Token 1 Amount', () => {
@@ -59,10 +61,12 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on mobile', () => {
 
   it('should have DfTxAddPoolLiquidity Share Address', () => {
     cy.findByTestId('DfTxPoolAddLiquidity.ShareAddress').contains('8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
+    cy.findByTestId('DfTxPoolAddLiquidity.ShareAddress').find('a').should('have.attr', 'href', '/address/8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
   })
 
   it('should have DfTxAddPoolLiquidity From Address', () => {
     cy.findByTestId('DfTxPoolAddLiquidity.FromAddress').contains('8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
+    cy.findByTestId('DfTxPoolAddLiquidity.FromAddress').find('a').should('have.attr', 'href', '/address/8cEN6YMPPg2GUeXN8RrfL7LXaSWoWw7a24')
   })
 
   it('should have DfTxAddPoolLiquidity Token 1 Amount', () => {

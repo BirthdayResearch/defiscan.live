@@ -33,6 +33,7 @@ context('/transactions/[txid] - DfTx ICX Make Offer on desktop', () => {
 
   it('should have DfTxICXMakeOffer OwnerAddress', () => {
     cy.findByTestId('DfTxICXMakeOffer.OwnerAddress').should('have.text', 'dHWPd6DtartruFfEugTgWc8FaB1syM4MD9')
+    cy.findByTestId('DfTxICXMakeOffer.OwnerAddress').find('a').should('have.attr', 'href', '/address/dHWPd6DtartruFfEugTgWc8FaB1syM4MD9')
   })
 
   it('should have DfTxICXMakeOffer Pubkey', () => {
@@ -75,6 +76,7 @@ context('/transactions/[txid] - DfTx ICX Make Offer on mobile', () => {
 
   it('should have DfTxICXMakeOffer OwnerAddress', () => {
     cy.findByTestId('DfTxICXMakeOffer.OwnerAddress').should('have.text', 'dHWPd6DtartruFfEugTgWc8FaB1syM4MD9')
+    cy.findByTestId('DfTxICXMakeOffer.OwnerAddress').find('a').should('have.attr', 'href', '/address/dHWPd6DtartruFfEugTgWc8FaB1syM4MD9')
   })
 
   it('should have DfTxICXMakeOffer Pubkey', () => {

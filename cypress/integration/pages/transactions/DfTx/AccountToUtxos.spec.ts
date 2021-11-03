@@ -17,6 +17,7 @@ context('/transactions/[txid] - DfTx account to utxos on desktop', () => {
 
   it('should have DfTxAccountToUtxos fromAddress', () => {
     cy.findByTestId('DfTxAccountToUtxos.fromAddress').should('have.text', 'dYpwUmq6z8jdYdpXecNGsN84iyyQyw5Syq')
+    cy.findByTestId('DfTxAccountToUtxos.fromAddress').find('a').should('have.attr', 'href', '/address/dYpwUmq6z8jdYdpXecNGsN84iyyQyw5Syq')
   })
 
   it('should have DfTxAccountToUtxos balances', () => {
@@ -51,6 +52,7 @@ context('/transactions/[txid] - DfTx account to utxos on mobile', () => {
 
   it('should have DfTxAccountToUtxos fromAddress', () => {
     cy.findByTestId('DfTxAccountToUtxos.fromAddress').should('have.text', 'dYpwUmq6z8jdYdpXecNGsN84iyyQyw5Syq')
+    cy.findByTestId('DfTxAccountToUtxos.fromAddress').find('a').should('have.attr', 'href', '/address/dYpwUmq6z8jdYdpXecNGsN84iyyQyw5Syq')
   })
 
   it('should have DfTxAccountToUtxos balances', () => {
