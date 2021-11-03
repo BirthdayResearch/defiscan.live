@@ -1,13 +1,72 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { WhaleApiClient } from '@defichain/whale-api-client'
+import { fromAddress } from '@defichain/jellyfish-address'
+import { NetworkName } from '@defichain/jellyfish-network'
+import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
+import { Block } from '@defichain/whale-api-client/dist/api/blocks'
+import { useNetwork } from '@contexts/NetworkContext'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { IoSearchSharp, IoCheckmarkCircleOutline } from 'react-icons/io5'
 
 interface SearchProps {
   query: string
 }
 
+interface SearchResult {
+  url: string
+  title: string
+  type: string
+}
+
 export default function SearchPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const api = useWhaleApiClient()
+  const network = useNetwork().name
+  const connection = useNetwork().connection
+  const router = useRouter()
+  const [isSearching, setIsSearching] = useState<boolean>(true)
+  const [isRedirecting, setIsRedirecting] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsSearching(true)
+    setIsRedirecting(false)
+    void getSearchResults(api, network, props.query).then(data => {
+      if (data !== undefined) {
+        setIsRedirecting(true)
+        void router.push(`${data.url}?network=${connection}`)
+      }
+      setIsSearching(false)
+    })
+  }, [props.query])
+
+  if (isRedirecting) {
+    return (
+      <Container className='pt-12 pb-20'>
+        <div className='flex flex-wrap justify-center pt-24 pb-36 animate-pulse'>
+          <div className='flex w-full justify-center'>
+            <IoCheckmarkCircleOutline size={80} className='text-gray-400 ml-0.5 self-center' />
+          </div>
+          <span className='text-center text-gray-400 text-xl mt-1'>Redirecting</span>
+        </div>
+      </Container>
+    )
+  }
+
+  if (isSearching) {
+    return (
+      <Container className='pt-12 pb-20'>
+        <div className='flex flex-wrap justify-center pt-24 pb-36 animate-pulse'>
+          <div className='flex w-full justify-center'>
+            <IoSearchSharp size={80} className='text-gray-400 ml-0.5 self-center' />
+          </div>
+          <span className='text-center text-gray-400 text-xl mt-1'>Searching</span>
+        </div>
+      </Container>
+    )
+  }
+
   return (
     <Container className='pt-12 pb-20'>
       <div className='flex flex-wrap justify-center pt-24 pb-36'>
@@ -20,35 +79,26 @@ export default function SearchPage (props: InferGetServerSidePropsType<typeof ge
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<SearchProps>> {
-  const api = getWhaleApiClient(context)
   const query = context.params?.query?.toString().trim() as string
 
-  const results = await search(api, query)
-
-  if (results === undefined) {
-    return {
-      props: {
-        query: query
-      }
-    }
-  }
-
   return {
-    redirect: {
-      statusCode: 302,
-      destination: `${results.url}`
+    props: {
+      query: query
     }
   }
 }
 
-async function search (api: WhaleApiClient, query: string): Promise<{ id: string, url: string } | undefined> {
-  query = query.trim()
-
+async function getSearchResults (api: WhaleApiClient, network: NetworkName, query: string): Promise<(SearchResult | undefined)> {
   const txnData = await api.transactions.get(query)
-    .then(data => {
+    .then((data: Transaction) => {
+      if (data === undefined) {
+        return undefined
+      }
+
       return {
         url: `/transactions/${data.txid}`,
-        id: data.txid
+        title: data.txid,
+        type: 'Transaction'
       }
     })
     .catch(() => {
@@ -60,10 +110,15 @@ async function search (api: WhaleApiClient, query: string): Promise<{ id: string
   }
 
   const blocksData = await api.blocks.get(query)
-    .then(data => {
+    .then((data: Block) => {
+      if (data === undefined) {
+        return undefined
+      }
+
       return {
         url: `/blocks/${data.id}`,
-        id: data.id
+        title: `${data.height}`,
+        type: 'Block'
       }
     }).catch(() => {
       return undefined
@@ -73,23 +128,13 @@ async function search (api: WhaleApiClient, query: string): Promise<{ id: string
     return blocksData
   }
 
-  const addressData = await api.address.getBalance(query)
-    .then(data => {
-      if (data.length === 0) {
-        return undefined
-      }
-
-      return {
-        url: `/address/${query}`,
-        id: query
-      }
-    })
-    .catch(() => {
-      return undefined
-    })
-
+  const addressData = fromAddress(query, network)
   if (addressData !== undefined) {
-    return addressData
+    return {
+      url: `/address/${query}`,
+      title: query,
+      type: 'Address'
+    }
   }
 
   return undefined
