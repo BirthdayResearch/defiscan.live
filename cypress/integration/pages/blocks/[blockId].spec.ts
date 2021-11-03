@@ -36,8 +36,8 @@ context('/blocks/[blockId] on desktop', () => {
   })
 
   it('should have block detail minter', () => {
-    cy.findByTestId('block-detail-confirmations').should('have.text', '8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
-    cy.findByTestId('TransactionVectorRow.Address').find('a').should('have.attr', 'href', '/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
+    cy.findByTestId('block-detail-minter').should('have.text', '8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
+    cy.findByTestId('block-detail-minter').find('a').should('have.attr', 'href', '/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
   })
 
   it('should have block detail difficulty', () => {
@@ -122,8 +122,8 @@ context('/blocks/[blockId] on mobile', () => {
   })
 
   it('should have block detail minter', () => {
-    cy.findByTestId('block-detail-confirmations').should('have.text', '8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
-    cy.findByTestId('TransactionVectorRow.Address').find('a').should('have.attr', 'href', '/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
+    cy.findByTestId('block-detail-minter').should('have.text', '8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
+    cy.findByTestId('block-detail-minter').find('a').should('have.attr', 'href', '/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj')
   })
 
   it('should have block detail difficulty', () => {

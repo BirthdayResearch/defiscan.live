@@ -159,9 +159,7 @@ function ListLeft (props: { block: Block, nBlocks: number | undefined }): JSX.El
         {confirmations}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Minter' testId='block-detail-minter'>
-        <div className='break-all'>
-          <AddressLink address={props.block.minter} className='break-all' />
-        </div>
+        <AddressLink address={props.block.minter} className='break-all' />
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Masternode' testId='block-detail-masternode'>
         <div className='break-all'>
