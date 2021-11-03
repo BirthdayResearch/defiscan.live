@@ -34,7 +34,7 @@ function TransactionDetails (props: {
 }): JSX.Element {
   return (
     <Link href={{ pathname: `/transactions/${props.txid}` }}>
-      <div className='p-4 pb-3 border border-gray-200 cursor-pointer hover:bg-primary-50 hover:underline'>
+      <div className='p-4 pb-3 border border-gray-200 cursor-pointer hover:bg-primary-50'>
         <div className='w-full flex flex-wrap justify-between'>
           <div className='flex w-1/2 sm:w-4/6 xl:w-3/4 2xl:w-4/5'>
             <a className='text-gray-900 font-medium overflow-ellipsis overflow-hidden'>{props.txid}</a>
