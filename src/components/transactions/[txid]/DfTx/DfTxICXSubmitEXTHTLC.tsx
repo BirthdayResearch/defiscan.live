@@ -23,10 +23,10 @@ export function DfTxICXSubmitEXTHTLC (props: DfTxICXSubmitEXTHTLCProps): JSX.Ele
             <span data-testid='DfTxICXSubmitEXTHTLC.Amount'>{props.dftx.data.amount.toFixed(8)}</span>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='HTLC Script Address'>
-            <span data-testid='DfTxICXSubmitEXTHTLC.HTLCScriptAddress'>{props.dftx.data.htlcScriptAddress}</span>
+            <AddressLink address={props.dftx.data.htlcScriptAddress} testId='DfTxICXSubmitEXTHTLC.HTLCScriptAddress' />
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Owner Public Key'>
-            <AddressLink address={props.dftx.data.ownerPubkey} testId='DfTxICXSubmitEXTHTLC.OwnerPubKey' />
+            <span data-testid='DfTxICXSubmitEXTHTLC.OwnerPubKey'>{props.dftx.data.ownerPubkey}</span>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Timeout'>
             <span data-testid='DfTxICXSubmitEXTHTLC.Timeout'>{props.dftx.data.timeout} Blocks</span>
