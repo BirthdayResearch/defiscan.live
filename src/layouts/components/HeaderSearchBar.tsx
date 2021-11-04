@@ -1,14 +1,17 @@
 import { useRouter } from 'next/router'
 import { IoSearchSharp } from 'react-icons/io5'
 import React from 'react'
+import { useNetwork } from '@contexts/NetworkContext'
 
 export function HeaderSearchBar (): JSX.Element {
   const router = useRouter()
+  const connection = useNetwork().connection
+
   return (
     <div className='flex p-2 rounded h-9 bg-white border border-gray-200'>
       <IoSearchSharp size={20} className='text-gray-400 self-center' />
       <input
-        onKeyDown={(event) => event.key === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}`)}
+        onKeyDown={(event) => event.key === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}?network=${connection}`)}
         placeholder='Search'
         className='ml-1.5 w-full focus:outline-none'
         data-testid='Header.SearchInput'

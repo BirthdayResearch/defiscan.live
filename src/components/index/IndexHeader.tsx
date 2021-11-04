@@ -6,6 +6,7 @@ import ReactNumberFormat from 'react-number-format'
 import React, { PropsWithChildren } from 'react'
 import { IoSearchSharp } from 'react-icons/io5'
 import { useRouter } from 'next/router'
+import { useNetwork } from '@contexts/NetworkContext'
 
 export function IndexHeader (): JSX.Element {
   return (
@@ -28,13 +29,14 @@ export function IndexHeader (): JSX.Element {
 
 function SearchBar (): JSX.Element {
   const router = useRouter()
+  const connection = useNetwork().connection
 
   return (
     <div className='flex w-full lg:w-2/3 items-center'>
       <div className='flex w-full p-2 rounded-3xl h-10 bg-white border border-primary-100'>
         <IoSearchSharp size={22} className='text-gray-400 ml-0.5 self-center' />
         <input
-          onKeyDown={(event) => event.key === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}`)}
+          onKeyDown={(event) => event.key === 'Enter' && router.push(`/search/${(event.target as HTMLInputElement).value}?network=${connection}`)}
           placeholder='Search by Transaction ID, Block Hash, Block Height or Address'
           className='ml-1.5 w-full focus:outline-none'
           data-testid='IndexHeader.SearchInput'
