@@ -7,6 +7,7 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { Container } from '@components/commons/Container'
 import { AddressLink } from '@components/commons/AddressLink'
+import { TxIdLink } from '@components/commons/TxIdLink'
 import { isNumeric } from '../../utils/commons/StringValidator'
 
 interface TokenAssetPageProps {
@@ -129,7 +130,7 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
       <AdaptiveList.Row name='Minted'>{token.minted}</AdaptiveList.Row>
       <AdaptiveList.Row name='Creation Height'>{token.creation.height}</AdaptiveList.Row>
       <AdaptiveList.Row name='Creation Tx' className='flex space-x-10 items-center'>
-        <div className='break-all'>{token.creation.tx}</div>
+        <TxIdLink txid={token.creation.tx} className='break-all' />
       </AdaptiveList.Row>
       {(token.collateralAddress !== undefined && token.collateralAddress !== 'undefined') && (
         <AdaptiveList.Row name='Collateral Address' className='flex space-x-10 items-center'>
