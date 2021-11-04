@@ -34,7 +34,8 @@ class Environment {
  * @return Environment of current setup, checked against Environment Variable
  */
 export function getEnvironment (): Environment {
-  switch (process.env.NODE_ENV) {
+  const type = process.env.CYPRESS === 'true' ? 'development' : process.env.NODE_ENV
+  switch (type) {
     case 'production':
       return new Environment('Production', false, [
         NetworkConnection.MainNet,
