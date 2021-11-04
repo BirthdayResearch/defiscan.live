@@ -18,11 +18,11 @@ context('/prices/TSLA-USD macbook-13', () => {
     cy.findByTestId('PriceTickerDetail')
       .should('contain.text', 'TSLA / USD')
       .should('contain.text', 'STOCKS')
-      .should('contain.text', 'Trusted answer')
+      .should('contain.text', 'Trusted Answer')
       .should('contain.text', ' USD')
-      .should('contain.text', 'Last update')
+      .should('contain.text', 'Last Update')
       .should('contain.text', 'Status')
-      .should('contain.text', 'Oracle responses')
+      .should('contain.text', 'Oracle Responses')
   })
 
   it('should have pricing graph', () => {
@@ -75,11 +75,11 @@ context('/prices/TSLA-USD iphone-x', () => {
     cy.findByTestId('PriceTickerDetail')
       .should('contain.text', 'TSLA / USD')
       .should('contain.text', 'STOCKS')
-      .should('contain.text', 'Trusted answer')
+      .should('contain.text', 'Trusted Answer')
       .should('contain.text', ' USD')
-      .should('contain.text', 'Last update')
+      .should('contain.text', 'Last Update')
       .should('contain.text', 'Status')
-      .should('contain.text', 'Oracle responses')
+      .should('contain.text', 'Oracle Responses')
   })
 
   it('should have pricing graph', () => {

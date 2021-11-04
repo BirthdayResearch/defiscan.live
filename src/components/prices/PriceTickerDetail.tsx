@@ -1,13 +1,12 @@
 import { JSX } from '@babel/types'
-import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { isActive } from '@components/prices/PriceFeed'
 import { getPriceCopy, PriceCopy } from '@content/prices'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format, formatDistanceToNow } from 'date-fns'
 import Image from 'next/image'
-import { IoAlertCircleOutline } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 interface PriceTickerDetailProps {
   price: PriceTicker
@@ -51,8 +50,8 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
       <div className='border-b my-8 border-gray-100' />
 
       <div>
-        <H6AlertCircleHoverPopover
-          name='Trusted answer'
+        <H6InfoCircleHoverPopover
+          name='Trusted Answer'
           description={`Trusted price is aggregated from ${price.price.aggregated.oracles.active}/${price.price.aggregated.oracles.total} active pricing oracles.`}
         />
         <h2 className='text-4xl font-bold'>
@@ -67,8 +66,8 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
       </div>
 
       <div className='mt-6'>
-        <H6AlertCircleHoverPopover
-          name='Last update'
+        <H6InfoCircleHoverPopover
+          name='Last Update'
           description={`${format(price.price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}
         />
         <div className='text-lg font-semibold'>
@@ -77,7 +76,7 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
       </div>
 
       <div className='mt-6'>
-        <H6AlertCircleHoverPopover
+        <H6InfoCircleHoverPopover
           name='Status'
           description={
             isActive(price.price.block) ? 'Pricing oracles is active with at least one oracles responding.' : 'Pricing oracles is inactive as market is currently closed.'
@@ -93,8 +92,8 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
       </div>
 
       <div className='mt-6'>
-        <H6AlertCircleHoverPopover
-          name='Oracle responses'
+        <H6InfoCircleHoverPopover
+          name='Oracle Responses'
           description='Pricing oracles collect price feed from other chains and non-crypto markets.'
         />
         <div className='text-lg font-semibold'>
@@ -105,16 +104,14 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
   )
 }
 
-function H6AlertCircleHoverPopover (props: { name: string, description: string }): JSX.Element {
+function H6InfoCircleHoverPopover (props: { name: string, description: string }): JSX.Element {
   return (
     <div className='flex'>
       <h6 className='text-sm font-semibold text-black opacity-60 mr-1'>{props.name}</h6>
       <div className='flex items-center'>
-        <HoverPopover popover={props.description}>
-          <div className='cursor-help group'>
-            <IoAlertCircleOutline className='h-4 w-4 text-gray-500' />
-          </div>
-        </HoverPopover>
+        <InfoHoverPopover
+          description='Pricing oracles collect price feed from other chains and non-crypto markets.'
+        />
       </div>
     </div>
   )
