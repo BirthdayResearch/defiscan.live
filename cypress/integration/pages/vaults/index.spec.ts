@@ -1,4 +1,5 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
+import { wait } from 'next/dist/build/output/log'
 
 const api = new PlaygroundApiClient({
   url: 'http://localhost:19553'
@@ -10,33 +11,20 @@ context('/vaults', () => {
     cy.viewport('macbook-13')
   })
 
-  it('should have OverflowTable header information', function () {
-    cy.visit('/vaults?network=Local')
-
-    cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('VAULT ID').should('be.visible')
-      cy.wrap(ele).findByText('STATUS').should('be.visible')
-      cy.wrap(ele).findByText('LOANS VALUE (USD)').should('be.visible')
-      cy.wrap(ele).findByText('COLLATERAL VALUE (USD)').should('be.visible')
-      cy.wrap(ele).findByText('COLLATERAL RATIO').should('be.visible')
+  it('should have vaultId', async () => {
+    let vaultId
+    cy.wrap(null).then(async () => {
+      const address = await rpc.wallet.getNewAddress()
+      vaultId = await rpc.loan.createVault({
+        loanSchemeId: '1',
+        ownerAddress: address
+      })
+      // this method isn't mapped yet, so we are calling it raw via `rpc.call`
+      await rpc.call('waitfornewblock', [], 'number')
+      return vaultId
     })
-  })
-})
 
-context('/vaults on mobile', () => {
-  beforeEach(() => {
-    cy.viewport('iphone-x')
-  })
-
-  it('should not have OverflowTable header information', function () {
     cy.visit('/vaults?network=Local')
-
-    cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('VAULT ID').should('not.be.visible')
-      cy.wrap(ele).findByText('STATUS').should('not.be.visible')
-      cy.wrap(ele).findByText('LOANS VALUE (USD)').should('not.be.visible')
-      cy.wrap(ele).findByText('COLLATERAL VALUE (USD)').should('not.be.visible')
-      cy.wrap(ele).findByText('COLLATERAL RATIO').should('not.be.visible')
-    })
+    // cy.findByTestId('TEST_JSON').contains('ownerAddress')
   })
 })
