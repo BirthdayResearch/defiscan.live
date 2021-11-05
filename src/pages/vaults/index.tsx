@@ -31,10 +31,8 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
       <div className='my-6'>
         <OverflowTable>
           <OverflowTable.Header>
-            <OverflowTable.Head sticky>EVENT TIME</OverflowTable.Head>
-            <OverflowTable.Head>VAULT ID</OverflowTable.Head>
+            <OverflowTable.Head sticky>VAULT ID</OverflowTable.Head>
             <OverflowTable.Head>STATUS</OverflowTable.Head>
-            <OverflowTable.Head>LOANS</OverflowTable.Head>
             <OverflowTable.Head alignRight>LOANS VALUE (USD)</OverflowTable.Head>
             <OverflowTable.Head alignRight>COLLATERAL VALUE (USD)</OverflowTable.Head>
             <OverflowTable.Head alignRight>COLLATERAL RATIO</OverflowTable.Head>
@@ -50,7 +48,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
         </OverflowTable>
       </div>
       <div className='flex justify-end mt-8'>
-        <CursorPagination pages={vaults.pages} path='/blocks' />
+        <CursorPagination pages={vaults.pages} path='/vaults' />
       </div>
     </Container>
   )
@@ -60,25 +58,22 @@ function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
   return (
     <OverflowTable.Row key={vault.vaultId}>
       <OverflowTable.Cell>
-        About 5 minutes ago
-      </OverflowTable.Cell>
-      <OverflowTable.Cell>
         <TextMiddleTruncate textLength={6} text={vault.vaultId} />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <VaultStatus state={vault.state} />
       </OverflowTable.Cell>
-      <OverflowTable.Cell>
-        <LoanSymbols tokens={vault.loanAmounts} />
-      </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <NumberFormat
-          value={vault.loanValue}
-          displayType='text'
-          decimalScale={2}
-          fixedDecimalScale
-          thousandSeparator
-        />
+        <div className='flex gap-x-6 justify-end'>
+          <LoanSymbols tokens={vault.loanAmounts} />
+          <NumberFormat
+            value={vault.loanValue}
+            displayType='text'
+            decimalScale={2}
+            fixedDecimalScale
+            thousandSeparator
+          />
+        </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className='flex gap-x-6 justify-end'>
@@ -103,15 +98,11 @@ function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Ele
   return (
     <OverflowTable.Row key={vault.vaultId}>
       <OverflowTable.Cell>
-        About 5 minutes ago
-      </OverflowTable.Cell>
-      <OverflowTable.Cell>
         <TextMiddleTruncate textLength={6} text={vault.vaultId} />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <VaultStatus state={vault.state} />
       </OverflowTable.Cell>
-      <OverflowTable.Cell>N/A</OverflowTable.Cell>
       <OverflowTable.Cell alignRight>N/A</OverflowTable.Cell>
       <OverflowTable.Cell alignRight>N/A</OverflowTable.Cell>
       <OverflowTable.Cell alignRight>N/A</OverflowTable.Cell>
@@ -146,13 +137,13 @@ function LoanSymbols (props: { tokens: LoanVaultTokenAmount[] }): JSX.Element {
 function VaultStatus (props: { state: LoanVaultState.ACTIVE | LoanVaultState.FROZEN | LoanVaultState.MAY_LIQUIDATE | LoanVaultState.UNKNOWN | LoanVaultState.IN_LIQUIDATION }): JSX.Element {
   switch (props.state) {
     case LoanVaultState.ACTIVE:
-      return <span className='px-2 py-1 inline-block text-xs text-white text-center bg-secondary-300'>ACTIVE</span>
+      return <span className='px-2 py-1 inline-block text-xs text-blue-500 text-center bg-blue-100'>ACTIVE</span>
     case LoanVaultState.FROZEN:
-      return <span className='px-2 py-1 inline-block text-xs text-white text-center bg-black'>FROZEN</span>
+      return <span className='px-2 py-1 inline-block text-xs text-red-300 text-center bg-red-100'>HALTED</span>
     case LoanVaultState.MAY_LIQUIDATE:
-      return <span className='px-2 py-1 inline-block text-xs text-white text-center bg-orange-500'>AT RISK</span>
+      return <span className='px-2 py-1 inline-block text-xs text-orange-500 text-center bg-orange-100'>AT RISK</span>
     case LoanVaultState.IN_LIQUIDATION:
-      return <span className='px-2 py-1 inline-block text-xs text-white text-center bg-gray-600'>LIQUIDATED</span>
+      return <span className='px-2 py-1 inline-block text-xs text-gray-500 text-center bg-gray-100'>LIQUIDATED</span>
     case LoanVaultState.UNKNOWN:
       return <span className='px-2 py-1 inline-block text-xs text-white text-center bg-gray-400'>UNKNOWN</span>
   }
@@ -162,7 +153,6 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const next = CursorPagination.getNext(context)
   const api = getWhaleApiClient(context)
   const vaults = await api.loan.listVault(10, next)
-  console.log(vaults)
 
   return {
     props: {
