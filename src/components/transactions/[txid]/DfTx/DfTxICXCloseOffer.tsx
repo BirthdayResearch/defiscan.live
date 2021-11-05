@@ -14,7 +14,7 @@ export function DfTxICXCloseOffer (props: DfTxICXCloseOfferProps): JSX.Element {
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList>
           <AdaptiveList.Row name='Offer Tx'>
-            <TxIdLink txid={props.dftx.data.offerTx} testId='DfTxICXCloseOrder.OfferTx' className='break-all' />
+            <TxIdLink txid={props.dftx.data.offerTx} testId='DfTxICXCloseOffer.OfferTx' className='break-all' />
           </AdaptiveList.Row>
         </AdaptiveList>
       </div>
