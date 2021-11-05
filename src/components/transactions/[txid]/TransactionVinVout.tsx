@@ -74,7 +74,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
                   value={`${vout.value} DFI`}
                   key={vout.n}
                   network={network}
-                  isAddressClickable={props.dftxName !== undefined && decoded?.address !== undefined}
+                  isAddressClickable={decoded?.address !== undefined}
                 />
               )
             })}
