@@ -8,13 +8,8 @@ import { TransactionVinVout } from '@components/transactions/[txid]/TransactionV
 import { TransactionSummaryTable } from '@components/transactions/[txid]/TransactionSummaryTable'
 import { TransactionDfTx } from '@components/transactions/[txid]/TransactionDfTx'
 import { SmartBuffer } from 'smart-buffer'
-import {
-  AccountToUtxos,
-  CAccountToUtxos,
-  DfTx,
-  OP_DEFI_TX,
-  toOPCodes
-} from '@defichain/jellyfish-transaction'
+import { AccountToUtxos, CAccountToUtxos, DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
+import { isAlphanumeric } from '../../utils/commons/StringValidator'
 
 interface TransactionPageProps {
   txid: string
@@ -96,7 +91,20 @@ function getDfTx (vouts: TransactionVout[]): DfTx<any> | undefined {
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {
   const api = getWhaleApiClient(context)
-  const txid = context.params?.txid as string
+  const txid = context.params?.txid?.toString().trim() as string
+
+  if (!isAlphanumeric(txid)) {
+    return { notFound: true }
+  }
+
+  const transaction = await api.transactions.get(txid)
+  if (transaction === undefined) {
+    return {
+      props: {
+        txid: txid
+      }
+    }
+  }
 
   // Will improve with newer iteration of whale api
   async function getVins (): Promise<TransactionVin[]> {
@@ -125,7 +133,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return {
       props: {
         txid: txid,
-        transaction: await api.transactions.get(txid),
+        transaction: transaction,
         vins: await getVins(),
         vouts: await getVouts()
       }

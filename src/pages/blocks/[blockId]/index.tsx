@@ -15,6 +15,7 @@ import { BsArrowRight } from 'react-icons/bs'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Link } from '@components/commons/Link'
 import { AddressLink } from '@components/commons/AddressLink'
+import { isAlphanumeric } from '../../../utils/commons/StringValidator'
 
 interface BlockDetailsPageProps {
   block: Block
@@ -212,7 +213,12 @@ function ListRight (props: { block: Block }): JSX.Element {
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
   const api = getWhaleApiClient(context)
-  const idOrHeight = context.params?.blockId?.toString() as string
+  const idOrHeight = context.params?.blockId?.toString().trim() as string
+
+  if (!isAlphanumeric(idOrHeight)) {
+    return { notFound: true }
+  }
+
   const block = await api.blocks.get(idOrHeight)
 
   if (block === undefined) {

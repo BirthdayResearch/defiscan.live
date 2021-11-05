@@ -8,6 +8,7 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
+import { isAlphanumeric } from '../../utils/commons/StringValidator'
 
 interface PricesPageProps {
   price: PriceTicker
@@ -15,15 +16,30 @@ interface PricesPageProps {
 }
 
 export default function SymbolPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { price: { price: { token, currency } } } = props
+  const {
+    price: {
+      price: {
+        token,
+        currency
+      }
+    }
+  } = props
   const copy: PriceCopy | undefined = getPriceCopy(props.price.id)
 
   return (
     <Container className='pt-12 pb-20'>
       <Head title={`${token}/${currency}`} description={copy?.description} />
       <Breadcrumb items={[
-        { path: '/prices', name: 'Prices' },
-        { path: `/prices/${token}-${currency}`, name: `${token}/${currency}`, hide: true, canonical: true }
+        {
+          path: '/prices',
+          name: 'Prices'
+        },
+        {
+          path: `/prices/${token}-${currency}`,
+          name: `${token}/${currency}`,
+          hide: true,
+          canonical: true
+        }
       ]}
       />
 
@@ -32,7 +48,12 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
           <PriceTickerDetail {...props} />
         </div>
 
-        <div className='w-full lg:w-2/3 lg:px-6' style={{ height: '32rem', maxHeight: '80vh' }}>
+        <div
+          className='w-full lg:w-2/3 lg:px-6' style={{
+            height: '32rem',
+            maxHeight: '80vh'
+          }}
+        >
           <PriceGraph {...props} />
         </div>
       </div>
@@ -46,10 +67,26 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PricesPageProps>> {
   const api = getWhaleApiClient(context)
-  const symbol = context.params?.symbol?.toString() as string
+  const symbol = context.params?.symbol?.toString().trim() as string
+
+  if (!isAlphanumeric(symbol, '-')) {
+    return { notFound: true }
+  }
+
   const [token, currency] = symbol.split('-')
+  if (token === undefined || currency === undefined) {
+    return { notFound: true }
+  }
+
   const price = await api.prices.get(token, currency)
+  if (price === undefined) {
+    return { notFound: true }
+  }
+
   const oracles = await api.prices.getOracles(token, currency, 60)
+  if (oracles === undefined) {
+    return { notFound: true }
+  }
 
   return {
     props: {

@@ -9,7 +9,8 @@ import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { useNetwork } from '@contexts/NetworkContext'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { IoSearchSharp, IoCheckmarkCircleOutline } from 'react-icons/io5'
+import { IoCheckmarkCircleOutline, IoSearchSharp } from 'react-icons/io5'
+import { isAlphanumeric } from '../../utils/commons/StringValidator'
 
 interface SearchProps {
   query: string
@@ -80,6 +81,10 @@ export default function SearchPage (props: InferGetServerSidePropsType<typeof ge
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<SearchProps>> {
   const query = context.params?.query?.toString().trim() as string
+
+  if (!isAlphanumeric(query)) {
+    return { notFound: true }
+  }
 
   return {
     props: {

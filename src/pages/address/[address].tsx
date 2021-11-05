@@ -6,6 +6,7 @@ import { AddressTransactionTable } from '@components/address/[address]/AddressTr
 import { AddressTokenTable } from '@components/address/[address]/AddressTokenTable'
 import { fromAddress } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
+import { isAlphanumeric } from '../../utils/commons/StringValidator'
 
 interface AddressPageProps {
   address: string
@@ -31,7 +32,11 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<AddressPageProps>> {
-  const address = context.params?.address as string
+  const address = context.params?.address?.toString().trim() as string
+
+  if (!isAlphanumeric(address)) {
+    return { notFound: true }
+  }
 
   return {
     props: {
