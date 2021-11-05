@@ -17,6 +17,7 @@ context('/transactions/[txid] - DfTx ICX Submit DFCHTLC  on desktop', () => {
 
   it('should have DfTxICXSubmitDFCHTLC OfferTx', () => {
     cy.findByTestId('DfTxICXSubmitDFCHTLC.OfferTx').should('have.text', '3e0726e7c5a970f8670559d51f9e4ca119d5a22bc2405ae2ff092596929290ac')
+    cy.findByTestId('DfTxICXSubmitDFCHTLC.OfferTx').find('a').should('have.attr', 'href', '/transactions/3e0726e7c5a970f8670559d51f9e4ca119d5a22bc2405ae2ff092596929290ac')
   })
 
   it('should have DfTxICXSubmitDFCHTLC Hash', () => {
@@ -51,6 +52,7 @@ context('/transactions/[txid] - DfTx ICX Submit DFCHTLC  on mobile', () => {
 
   it('should have DfTxICXSubmitDFCHTLC OfferTx', () => {
     cy.findByTestId('DfTxICXSubmitDFCHTLC.OfferTx').should('have.text', '3e0726e7c5a970f8670559d51f9e4ca119d5a22bc2405ae2ff092596929290ac')
+    cy.findByTestId('DfTxICXSubmitDFCHTLC.OfferTx').find('a').should('have.attr', 'href', '/transactions/3e0726e7c5a970f8670559d51f9e4ca119d5a22bc2405ae2ff092596929290ac')
   })
 
   it('should have DfTxICXSubmitDFCHTLC Hash', () => {

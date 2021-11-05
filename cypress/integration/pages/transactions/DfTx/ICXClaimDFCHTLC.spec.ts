@@ -17,6 +17,7 @@ context('/transactions/[txid] - DfTx ICX Claim DFCHTLC  on desktop', () => {
 
   it('should have DfTxICXClaimDFCHTLC dfcHTLCTx', () => {
     cy.findByTestId('DfTxICXClaimDFCHTLC.dfcHTLCTx').should('have.text', 'd4a7e2411061c452c3254798f251e94b105e605ed744251040b19207ae7c8a6c')
+    cy.findByTestId('DfTxICXClaimDFCHTLC.dfcHTLCTx').find('a').should('have.attr', 'href', '/transactions/d4a7e2411061c452c3254798f251e94b105e605ed744251040b19207ae7c8a6c')
   })
 
   it('should have DfTxICXClaimDFCHTLC Seed', () => {
@@ -43,6 +44,7 @@ context('/transactions/[txid] - DfTx ICX Claim DFCHTLC  on mobile', () => {
 
   it('should have DfTxICXClaimDFCHTLC dfcHTLCTx', () => {
     cy.findByTestId('DfTxICXClaimDFCHTLC.dfcHTLCTx').should('have.text', 'd4a7e2411061c452c3254798f251e94b105e605ed744251040b19207ae7c8a6c')
+    cy.findByTestId('DfTxICXClaimDFCHTLC.dfcHTLCTx').find('a').should('have.attr', 'href', '/transactions/d4a7e2411061c452c3254798f251e94b105e605ed744251040b19207ae7c8a6c')
   })
 
   it('should have DfTxICXClaimDFCHTLC Seed', () => {

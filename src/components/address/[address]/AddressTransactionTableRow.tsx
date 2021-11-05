@@ -6,6 +6,7 @@ import { AddressVinVout } from '@components/address/[address]/AddressVinVout'
 import { useState } from 'react'
 import { MdExpand } from 'react-icons/md'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
+import { TxIdLink } from '@components/commons/TxIdLink'
 
 interface TransactionTableRowProps {
   address: string
@@ -35,12 +36,8 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
             >
               <MdExpand size={22} />
             </div>
-            <div className='w-24 md:w-40 lg:w-60 overflow-ellipsis overflow-hidden my-auto'>
-              <Link href={{ pathname: `/transactions/${props.addressActivity.txid}` }}>
-                <a className='text-primary-400 hover:text-primary-500'>
-                  {props.addressActivity.txid}
-                </a>
-              </Link>
+            <div className='w-24 md:w-40 lg:w-60 my-auto'>
+              <TxIdLink txid={props.addressActivity.txid} className='overflow-ellipsis overflow-hidden' />
             </div>
           </div>
         </OverflowTable.Cell>

@@ -17,6 +17,7 @@ context('/transactions/[txid] - DfTx ICX Make Offer on desktop', () => {
 
   it('should have DfTxICXMakeOffer OrderTx', () => {
     cy.findByTestId('DfTxICXMakeOffer.OrderTx').should('have.text', '17bf3dacb6bb5227b3393e63eeadd89a855a99d67efe9d3b4f99ed47c221ae54')
+    cy.findByTestId('DfTxICXMakeOffer.OrderTx').find('a').should('have.attr', 'href', '/transactions/17bf3dacb6bb5227b3393e63eeadd89a855a99d67efe9d3b4f99ed47c221ae54')
   })
 
   it('should have DfTxICXMakeOffer amount', () => {
@@ -60,6 +61,7 @@ context('/transactions/[txid] - DfTx ICX Make Offer on mobile', () => {
 
   it('should have DfTxICXMakeOffer OrderTx', () => {
     cy.findByTestId('DfTxICXMakeOffer.OrderTx').should('have.text', '17bf3dacb6bb5227b3393e63eeadd89a855a99d67efe9d3b4f99ed47c221ae54')
+    cy.findByTestId('DfTxICXMakeOffer.OrderTx').find('a').should('have.attr', 'href', '/transactions/17bf3dacb6bb5227b3393e63eeadd89a855a99d67efe9d3b4f99ed47c221ae54')
   })
 
   it('should have DfTxICXMakeOffer amount', () => {

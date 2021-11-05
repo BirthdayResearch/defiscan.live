@@ -6,6 +6,7 @@ import { IoAlertCircleOutline } from 'react-icons/io5'
 import { MdCheck } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { OverflowTable } from '@components/commons/OverflowTable'
+import { TxIdLink } from '@components/commons/TxIdLink'
 
 interface PriceOracleTableProps {
   price: PriceTicker
@@ -97,7 +98,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
           />
         </OverflowTable.Cell>
         <OverflowTable.Cell className='align-middle md:w-1/3 md:break-all'>
-          {feed.txid}
+          <TxIdLink txid={feed.txid} />
         </OverflowTable.Cell>
       </OverflowTable.Row>
     )

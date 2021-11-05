@@ -3,6 +3,7 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import BigNumber from 'bignumber.js'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
+import { TxIdLink } from '@components/commons/TxIdLink'
 
 interface DfTxTokenUpdateAnyProps {
   dftx: DfTx<TokenUpdateAny>
@@ -32,8 +33,8 @@ function DetailsTable (props: { creationTx: string, symbol: string, decimal: num
   return (
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
-        <AdaptiveList.Row name='Creation Tx' testId='DfTxTokenUpdateAny.CreationTx'>
-          {props.creationTx}
+        <AdaptiveList.Row name='Creation Tx'>
+          <TxIdLink txid={props.creationTx} testId='DfTxTokenUpdateAny.CreationTx' className='break-all' />
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Name' testId='DfTxTokenUpdateAny.name'>
           {props.name}
