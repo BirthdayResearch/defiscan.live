@@ -8,3 +8,6 @@
 	  max-age=63072000;
 	  includeSubDomains;
 	  preload'''
+
+[functions]
+  node_bundler = "esbuild"
