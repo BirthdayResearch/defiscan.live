@@ -3,8 +3,8 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
-import { Link } from '@components/commons/Link'
 import { AddressLink } from '@components/commons/AddressLink'
+import { TxIdLink } from '@components/commons/TxIdLink'
 
 interface DfTxICXMakeOfferProps {
   dftx: DfTx<ICXMakeOffer>
@@ -21,13 +21,7 @@ export function DfTxICXMakeOffer (props: DfTxICXMakeOfferProps): JSX.Element {
         <div className='w-full lg:w-1/2'>
           <AdaptiveList>
             <AdaptiveList.Row name='Order Tx'>
-              <Link href={{ pathname: `/transactions/${props.dftx.data.orderTx}` }}>
-                <span
-                  className='cursor-pointer hover:text-primary-500 break-all'
-                  data-testid='DfTxICXMakeOffer.OrderTx'
-                >{props.dftx.data.orderTx}
-                </span>
-              </Link>
+              <TxIdLink txid={props.dftx.data.orderTx} testId='DfTxICXMakeOffer.OrderTx' />
             </AdaptiveList.Row>
             <AdaptiveList.Row name='Amount'>
               <span data-testid='DfTxICXMakeOffer.Amount'>{props.dftx.data.amount.toFixed(8)}</span>

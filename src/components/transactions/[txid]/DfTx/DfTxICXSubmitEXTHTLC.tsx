@@ -2,6 +2,7 @@ import { DfTx, ICXSubmitEXTHTLC } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { AddressLink } from '@components/commons/AddressLink'
+import { TxIdLink } from '@components/commons/TxIdLink'
 
 interface DfTxICXSubmitEXTHTLCProps {
   dftx: DfTx<ICXSubmitEXTHTLC>
@@ -14,7 +15,7 @@ export function DfTxICXSubmitEXTHTLC (props: DfTxICXSubmitEXTHTLCProps): JSX.Ele
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList>
           <AdaptiveList.Row name='Offer Tx'>
-            <span data-testid='DfTxICXSubmitEXTHTLC.OfferTx'>{props.dftx.data.offerTx}</span>
+            <TxIdLink txid={props.dftx.data.offerTx} testId='DfTxICXSubmitEXTHTLC.OfferTx' />
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Hash'>
             <span data-testid='DfTxICXSubmitEXTHTLC.Hash'>{props.dftx.data.hash}</span>

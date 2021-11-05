@@ -17,7 +17,9 @@ context('/transactions/[txid] - DfTx Token Update Any on desktop', () => {
 
   it('should have DfTxTokenUpdateAny CreationTx', () => {
     cy.findByTestId('DfTxTokenUpdateAny.CreationTx').should('have.text', '085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d')
+    cy.findByTestId('DfTxTokenUpdateAny.CreationTx').find('a').should('have.attr', 'href', '/transactions/085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d')
   })
+
   it('should have DfTxTokenUpdateAny symbol', () => {
     cy.findByTestId('DfTxTokenUpdateAny.symbol').should('have.text', 'BUSH2B')
   })
@@ -62,6 +64,7 @@ context('/transactions/[txid] - DfTx Token Update Any on mobile', () => {
 
   it('should have DfTxTokenUpdateAny CreationTx', () => {
     cy.findByTestId('DfTxTokenUpdateAny.CreationTx').should('have.text', '085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d')
+    cy.findByTestId('DfTxTokenUpdateAny.CreationTx').find('a').should('have.attr', 'href', '/transactions/085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d')
   })
 
   it('should have DfTxTokenUpdateAny symbol', () => {
