@@ -7,6 +7,7 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { Container } from '@components/commons/Container'
 import { AddressLink } from '@components/commons/AddressLink'
+import { isNumeric } from '../../utils/commons/StringValidator'
 
 interface TokenAssetPageProps {
   token: TokenData
@@ -141,8 +142,16 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TokenAssetPageProps>> {
   const api = getWhaleApiClient(context)
-  const id = context.params?.id?.toString() as string
+  const id = context.params?.id?.toString().trim() as string
+
+  if (!isNumeric(id)) {
+    return { notFound: true }
+  }
+
   const token = await api.tokens.get(id)
+  if (token === undefined) {
+    return { notFound: true }
+  }
 
   return {
     props: {
