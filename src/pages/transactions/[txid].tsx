@@ -97,8 +97,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return { notFound: true }
   }
 
-  const transaction = await api.transactions.get(txid)
-  if (transaction === undefined) {
+  let transaction: Transaction | undefined
+
+  try {
+    transaction = await api.transactions.get(txid)
+  } catch (e) {
     return {
       props: {
         txid: txid
