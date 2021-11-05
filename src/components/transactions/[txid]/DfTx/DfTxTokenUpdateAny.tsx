@@ -34,7 +34,7 @@ function DetailsTable (props: { creationTx: string, symbol: string, decimal: num
     <>
       <AdaptiveList className='w-full lg:w-1/2'>
         <AdaptiveList.Row name='Creation Tx' testId='DfTxTokenUpdateAny.CreationTx'>
-          <TxIdLink txid={props.creationTx} testId='DfTxTokenUpdateAny.CreationTx' />
+          <TxIdLink txid={props.creationTx} testId='DfTxTokenUpdateAny.CreationTx' className='break-all' />
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Name' testId='DfTxTokenUpdateAny.name'>
           {props.name}

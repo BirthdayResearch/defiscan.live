@@ -14,7 +14,7 @@ export function DfTxICXSubmitDFCHTLC (props: DfTxICXSubmitDFCHTLCProps): JSX.Ele
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList>
           <AdaptiveList.Row name='Offer Tx'>
-            <TxIdLink txid={props.dftx.data.offerTx} testId='DfTxICXSubmitDFCHTLC.OfferTx' />
+            <TxIdLink txid={props.dftx.data.offerTx} testId='DfTxICXSubmitDFCHTLC.OfferTx' className='break-all' />
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Hash'>
             <span data-testid='DfTxICXSubmitDFCHTLC.Hash'>{props.dftx.data.hash}</span>

@@ -21,7 +21,7 @@ export function DfTxICXMakeOffer (props: DfTxICXMakeOfferProps): JSX.Element {
         <div className='w-full lg:w-1/2'>
           <AdaptiveList>
             <AdaptiveList.Row name='Order Tx'>
-              <TxIdLink txid={props.dftx.data.orderTx} testId='DfTxICXMakeOffer.OrderTx' />
+              <TxIdLink txid={props.dftx.data.orderTx} testId='DfTxICXMakeOffer.OrderTx' className='break-all' />
             </AdaptiveList.Row>
             <AdaptiveList.Row name='Amount'>
               <span data-testid='DfTxICXMakeOffer.Amount'>{props.dftx.data.amount.toFixed(8)}</span>

@@ -14,7 +14,7 @@ export function DfTxICXClaimDFCHTLC (props: DfTxICXClaimDFCHTLCProps): JSX.Eleme
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList>
           <AdaptiveList.Row name='HTLC Tx'>
-            <TxIdLink txid={props.dftx.data.dfcHTLCTx} className='DfTxICXClaimDFCHTLC.dfcHTLCTx' />
+            <TxIdLink txid={props.dftx.data.dfcHTLCTx} testId='DfTxICXClaimDFCHTLC.dfcHTLCTx' className='break-all' />
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Seed'>
             <span data-testid='DfTxICXClaimDFCHTLC.Seed'>{props.dftx.data.seed}</span>
