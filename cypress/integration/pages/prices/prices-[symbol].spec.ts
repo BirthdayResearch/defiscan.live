@@ -17,7 +17,7 @@ context('/prices/TSLA-USD macbook-13', () => {
   it('should have price details in <PriceTickerDetail>', () => {
     cy.findByTestId('PriceTickerDetail')
       .should('contain.text', 'TSLA / USD')
-      .should('contain.text', 'STOCKS')
+      .should('contain.text', 'LOAN TOKEN')
       .should('contain.text', 'Trusted Answer')
       .should('contain.text', ' USD')
       .should('contain.text', 'Last Update')
@@ -74,7 +74,7 @@ context('/prices/TSLA-USD iphone-x', () => {
   it('should have price details in <PriceTickerDetail>', () => {
     cy.findByTestId('PriceTickerDetail')
       .should('contain.text', 'TSLA / USD')
-      .should('contain.text', 'STOCKS')
+      .should('contain.text', 'LOAN TOKEN')
       .should('contain.text', 'Trusted Answer')
       .should('contain.text', ' USD')
       .should('contain.text', 'Last Update')

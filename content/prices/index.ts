@@ -8,7 +8,7 @@ export interface PriceCopy {
   /**
    * price ticker type
    */
-  type: 'CRYPTO' | 'FOREX' | 'COMMODITY' | 'STOCKS' | 'ETF'
+  type: 'CRYPTO' | 'FOREX' | 'COMMODITY' | 'LOAN TOKEN' | 'ETF'
   /**
    * Icon with at least size of 100x100.png, must be symmetric.
    * To be placed in /src/cms/prices/images/* directory.
@@ -24,7 +24,7 @@ export interface PriceCopy {
 export const PRICES: Record<string, PriceCopy> = {
   'TSLA-USD': {
     id: 'TSLA-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: 'Tesla, Inc. is an American electric vehicle and clean energy company based in Palo Alto, California. Tesla\'s current products include electric cars, battery energy storage from home to grid-scale, solar panels and solar roof tiles, as well as other related products and services.',
     icon: require('./images/tesla.png')
   },
@@ -66,73 +66,73 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'UBER-USD': {
     id: 'UBER-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: 'Uber. We believe deeply in our bold mission. Every minute of every day, consumers and Drivers on our platform can tap a button and get a ride or tap a button and get work. We revolutionized personal mobility with Ridesharing, and we are leveraging our platform to redefine the massive meal delivery and logistics industries. While we have had unparalleled growth at scale, we are just getting started: only 2% of the population in the 63 countries where we operate used our offerings in the quarter ended December 31, 2018, based on MAPCs.',
     icon: require('./images/uber.png')
   },
   'GME-USD': {
     id: 'GME-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: 'GameStop, a Fortune 500 company headquartered in Grapevine, Texas, is a leading specialty retailer offering games and entertainment products through its E-Commerce properties and thousands of stores. Visit www.GameStop.com to explore our products and offerings. Follow @GameStop and @GameStopCorp on Twitter and find us on Facebook at www.facebook.com/GameStop.',
     icon: require('./images/gme.png')
   },
   'AMD-USD': {
     id: 'AMD-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: `Advanced Micro Devices, Inc. (AMD) is a global semiconductor company with facilities around the world. The Company offers x86 microprocessors, as standalone devices or as incorporated as an accelerated processing unit (APU), for the commercial and consumer markets, embedded microprocessors for commercial, commercial client and consumer markets and chipsets for desktop and mobile devices, including mobile personal computers, or PCs, and tablets, professional workstations and servers and graphics, video and multimedia products for desktop and mobile devices, including mobile PCs and tablets, home media PCs and professional workstations, servers and technology for game consoles. In September 2013, Advanced Micro Devices Inc announced that its Singapore subsidiary, Advanced Micro Devices (Singapore) Pte Ltd. completed a transaction to sell and lease-back its Singapore facility located at 508 Chai Chee Lane, Singapore 469032 to HSBC Institutional Trust Services (Singapore) Limited.`,
     icon: require('./images/amd.png')
   },
   'TWTR-USD': {
     id: 'TWTR-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: 'TWTR. Twitter is what\'s happening and what people are talking about right now.',
     icon: require('./images/twtr.png')
   },
   'NVDA-USD': {
     id: 'NVDA-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: `NVIDIA ’s invention of the GPU in 1999 sparked the growth of the PC gaming market and has redefined modern computer graphics, high performance computing and artificial intelligence. The company’s pioneering work in accelerated computing and AI is reshaping trillion-dollar industries, such as transportation, healthcare and manufacturing, and fueling the growth of many others.`,
     icon: require('./images/nvda.png')
   },
   'MSTR-USD': {
     id: 'MSTR-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: `MicroStrategy is the largest independent publicly-traded analytics and business intelligence company. The MicroStrategy analytics platform is consistently rated as the best in enterprise analytics and is used by many of the world’s most admired brands in the Fortune Global 500. We pursue two corporate strategies: (1) grow our enterprise analytics software business to promote our vision of Intelligence Everywhere and (2) acquire and hold bitcoin, which we view as a dependable store of value supported by a robust, public, open-source architecture untethered to sovereign monetary policy.`,
     icon: require('./images/mstr.png')
   },
   'GOOGL-USD': {
     id: 'GOOGL-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: `Google Inc. (Google) is a global technology company. The Company's business is primarily focused around key areas, such as search, advertising, operating systems and platforms, enterprise and hardware products. The Company generates revenue primarily by delivering online advertising. The Company also generates revenues from Motorola by selling hardware products. The Company provides its products and services in more than 100 languages and in more than 50 countries, regions, and territories. Effective May 16, 2014, Google Inc acquired Quest Visual Inc. Effective May 20, 2014, Google Inc acquired Enterproid Inc, doing business as Divide. In June 2014, Google Inc acquired mDialog Corp. Effective June 25, 2014, Google Inc acquired Appurify Inc, a San Francisco-based developer of mobile bugging application software.`,
     icon: require('./images/googl.png')
   },
   'FB-USD': {
     id: 'FB-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: `Facebook, Inc. (Facebook) is engaged in building products to create utility for users, developers, and advertisers. People use Facebook to stay connected with their friends and family, to discover what is going on in the world around them, and to share and express what matters to them to the people they care about. Developers can use the Facebook Platform to build applications and Websites that integrate with Facebook to reach its global network of users and to build personalized and social products. Advertisers can engage with more than 900 million monthly active users (MAUs) on Facebook or subsets of its users based on information they have chosen to share with the Company, such as their age, location, gender, or interests. In September 2013, Mail.Ru Group Limited sold its remaining shares in Facebook Inc. Effective September 25, 2013, Facebook Inc acquired Mobile Technologies, a developer of online applications. In October 2013, Facebook Inc acquired Onavo Inc.`,
     icon: require('./images/fb.png')
   },
   'COIN-USD': {
     id: 'COIN-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: `Coinbase is building the cryptoeconomy – a more fair, accessible, efficient, and transparent financial system enabled by crypto. The company started in 2012 with the radical idea that anyone, anywhere, should be able to easily and securely send and receive Bitcoin. Today, Coinbase offers a trusted and easy-to-use platform for accessing the broader cryptoeconomy.`,
     icon: require('./images/coin.png')
   },
   'AMZN-USD': {
     id: 'AMZN-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: 'Amazon is guided by four principles: customer obsession rather than competitor focus, passion for invention, commitment to operational excellence, and long-term thinking. Amazon strives to be Earth’s Most Customer-Centric Company, Earth’s Best Employer, and Earth’s Safest Place to Work. Customer reviews, 1-Click shopping, personalized recommendations, Prime, Fulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Career Choice, Fire tablets, Fire TV, Amazon Echo, Alexa, Just Walk Out technology, Amazon Studios, and The Climate Pledge are some of the things pioneered by Amazon.',
     icon: require('./images/amzn.png')
   },
   'AAPL-USD': {
     id: 'AAPL-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: `Apple Inc. (Apple) designs, manufactures and markets mobile communication and media devices, personal computers, and portable digital music players, and a variety of related software, services, peripherals, networking solutions, and third-party digital content and applications. The Company's products and services include iPhone, iPad, Mac, iPod, Apple TV, a portfolio of consumer and professional software applications, the iOS and OS X operating systems, iCloud, and a variety of accessory, service and support offerings. The Company also delivers digital content and applications through the iTunes Store, App StoreSM, iBookstoreSM, and Mac App Store. The Company distributes its products worldwide through its retail stores, online stores, and direct sales force, as well as through third-party cellular network carriers, wholesalers, retailers, and value-added resellers. In February 2012, the Company acquired app-search engine Chomp.`,
     icon: require('./images/appl.png')
   },
   'OTGLY-USD': {
     id: 'OTGLY-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     description: 'CD Projekt S.A. ADR',
     icon: require('./images/otgly.png')
   },
@@ -186,19 +186,19 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'U-USD': {
     id: 'U-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/unity.png'),
     description: 'Unity Software Inc. is an American video game software development company based in San Francisco. It was founded in Denmark in 2004 as Over the Edge Entertainment and changed its name in 2007.'
   },
   'TCEHY-USD': {
     id: 'TCHEY-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/tcehy.png'),
     description: 'Tencent Holdings Ltd., also known as Tencent, is a Chinese multinational technology conglomerate holding company. Founded in 1998, its subsidiaries globally market various Internet-related services and products, including in entertainment, artificial intelligence, and other technology'
   },
   'SEDG-USD': {
     id: 'SEDG-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/sedg.png'),
     description: 'SolarEdge Technologies, Inc. is an Israel-headquartered provider of power optimizer, solar inverter and monitoring systems for photovoltaic arrays. These products aim to increase energy output through module-level Maximum Power Point Tracking.'
   },
@@ -210,13 +210,13 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'V-USD': {
     id: 'V-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/visa.png'),
     description: 'Visa Inc. is an American multinational financial services corporation headquartered in Foster City, California, United States. It facilitates electronic funds transfers throughout the world, most commonly through Visa-branded credit cards, debit cards and prepaid cards'
   },
   'TTWO-USD': {
     id: 'TTWO-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/ttwo.png'),
     description: 'Take-Two Interactive Software, Inc. is an American video game holding company based in New York City and founded by Ryan Brant in September 1993. The company owns two major publishing labels, Rockstar Games and 2K, which operate internal game development studios'
 
@@ -229,19 +229,19 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'TLRY-USD': {
     id: 'TLRY-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/tlry.png'),
     description: 'Tilray is a Canadian pharmaceutical and cannabis company, incorporated in the United States with primary operations headquartered in Toronto, Ontario. Tilray also has operations in Australia, New Zealand, Germany, Portugal, and Latin America.'
   },
   'SNAP-USD': {
     id: 'SNAP-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/snap.png'),
     description: 'Snap Inc. is an American camera and social media company, founded on September 16, 2011, by Evan Spiegel, Bobby Murphy, and Reggie Brown based in Santa Monica, California. The company developed and maintains technological products and services, namely Snapchat, Spectacles, and Bitmoji.'
   },
   'SQ-USD': {
     id: 'SQ-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/sq.png'),
     description: 'Square is an American financial services and digital payments company based in San Francisco, California. The company was founded in 2009 by Jack Dorsey and Jim McKelvey and launched its first platform in 2010.'
   },
@@ -253,37 +253,37 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'SI-USD': {
     id: 'SI-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/si.png'),
     description: 'Silvergate Capital (Silvergate) is the parent company of Silvergate Bank, the leading provider of innovative financial infrastructure solutions and services to participants in the nascent and expanding digital currency industry.'
   },
   'RIOT-USD': {
     id: 'RIOT-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/riot.png'),
     description: 'Riot Blockchain, Inc. is a Bitcoin mining company, supporting the Bitcoin blockchain through rapidly expanding large-scale mining in the United States.'
   },
   'PYPL-USD': {
     id: 'PYPL-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/pypl.png'),
     description: 'PayPal Holdings, Inc. is an American multinational financial technology company operating an online payments system in the majority of countries that support online money transfers, and serves as an electronic alternative to traditional paper methods such as checks and money orders.'
   },
   'PLTR-USD': {
     id: 'PLTR-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/pltr.png'),
     description: 'Palantir Technologies is a public American software company that specializes in big data analytics.'
   },
   'NTDOF-USD': {
     id: 'NTDOF-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/nintendo.png'),
     description: 'Nintendo Co., Ltd. is a Japanese multinational consumer electronics and video game company headquartered in Kyoto, Japan.'
   },
   'NSRGY-USD': {
     id: 'NSRGY-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/nestle.png'),
     description: 'Nestlé S.A. is a Swiss multinational food and drink processing conglomerate corporation headquartered in Vevey, Vaud, Switzerland. It is the largest food company in the world, measured by revenue and other metrics, since 2014.'
   },
@@ -301,37 +301,37 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'BABA-USD': {
     id: 'BABA-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/baba.png'),
     description: 'Alibaba Group Holding Limited, also known as Alibaba Group and Alibaba.com, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology.'
   },
   'DIS-USD': {
     id: 'DIS-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/dis.png'),
     description: 'The Walt Disney Company, commonly just Disney, is an American multinational entertainment and media conglomerate headquartered at the Walt Disney Studios complex in Burbank, California.'
   },
   'NFLX-USD': {
     id: 'NFLX-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/nflx.png'),
     description: 'Netflix, Inc. is an American pay television over-the-top media service and original programming production company. It offers subscription-based video on demand from a library of films and television series, 40% of which is Netflix original programming produced in-house.'
   },
   'MA-USD': {
     id: 'MA-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/ma.png'),
     description: 'Mastercard Inc. is an American multinational financial services corporation headquartered in the Mastercard International Global Headquarters in Purchase, New York. The Global Operations Headquarters is located in O\'Fallon, Missour.'
   },
   'RBLX-USD': {
     id: 'RBLX-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/rblx.png'),
     description: 'Roblox Corporation is an American video game developer based in San Mateo, California. Founded in 2004 by David Baszucki and Erik Cassel, the company is the developer of Roblox, which was released in 2006.'
   },
   'MARA-USD': {
     id: 'MARA-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/mara.png'),
     description: 'Marathon Digital Holdings, Inc. is a digital asset technology company, which engages in mining cryptocurrencies, with a focus on the blockchain ecosystem and the generation of digital assets. '
   },
@@ -349,7 +349,7 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'NLLSF-USD': {
     id: 'NLLSF-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/nllsf.png'),
     description: 'Nel ASA is a Norwegian company founded in 1998 and based in Oslo. Nel is a global company providing solutions for the production, storage and distribution of hydrogen from renewable energy sources. Nel is listed in the OBX Index of the Oslo Stock Exchange.'
   },
@@ -367,25 +367,25 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'PATH-USD': {
     id: 'PATH-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/uipath.png'),
     description: 'UiPath is an American global software company for robotic process automation founded in Romania by Daniel Dines and Marius Tîrcă and headquartered in New York City'
   },
   'MSFT-USD': {
     id: 'MSFT-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/msft.png'),
     description: 'Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.'
   },
   'INTC-USD': {
     id: 'INTC-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/intc.png'),
     description: 'Intel Corporation is an American multinational corporation and technology company headquartered in Santa Clara, California. It is the world\'s largest semiconductor chip manufacturer by revenue, and is the developer of the x86 series of microprocessors, the processors found in most personal computers.'
   },
   'SQNXF-USD': {
     id: 'SQNXF-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/sqnxf.png'),
     description: 'Square Enix Holdings Co., Ltd. is a Japanese entertainment conglomerate and video game company, best known for its Final Fantasy, Dragon Quest and Kingdom Hearts role-playing video game franchises, among numerous others.'
   },
@@ -409,7 +409,7 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'LZAGY-USD': {
     id: 'LZAGY-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/lzagy.png'),
     description: 'Lonza Group is a Swiss multinational chemicals and biotechnology company, headquartered in Basel, with major facilities in Europe, North America and South Asia. Lonza was established under that name in the late 19th-century in Switzerland.'
   },
@@ -421,7 +421,7 @@ export const PRICES: Record<string, PriceCopy> = {
   },
   'BYDDF-USD': {
     id: 'BYDDF-USD',
-    type: 'STOCKS',
+    type: 'LOAN TOKEN',
     icon: require('./images/byddf.png'),
     description: 'BYD Co. Ltd. is a Chinese manufacturing company headquartered in Shenzhen, Guangdong, founded by Wang Chuanfu in February 1995. It has two major subsidiaries, BYD Automobile and BYD Electronic.'
   },
