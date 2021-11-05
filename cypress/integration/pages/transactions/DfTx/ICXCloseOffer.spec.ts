@@ -18,7 +18,6 @@ context('/transactions/[txid] - DfTx ICX Close Offer on desktop', () => {
   it('should have DfTxICXCloseOffer OfferTx', () => {
     cy.findByTestId('DfTxICXCloseOffer.OfferTx').should('have.text', '6b4375241e1860f8e0a8bfbe6a88756f5f0d1bacefd55fe26b790f1a3ba763ca')
     cy.findByTestId('DfTxICXCloseOffer.OfferTx').find('a').should('have.attr', 'href', '/transactions/6b4375241e1860f8e0a8bfbe6a88756f5f0d1bacefd55fe26b790f1a3ba763ca')
-
   })
 })
 
