@@ -2,9 +2,11 @@ import { JSX } from '@babel/types'
 import { Transition } from '@headlessui/react'
 import { PropsWithChildren, ReactNode, useState } from 'react'
 import { usePopper } from 'react-popper'
+import classNames from 'classnames'
 
 interface IconPopoverProps {
   popover: string | ReactNode
+  className?: string
 }
 
 export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.Element {
@@ -23,6 +25,7 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
         ref={setRefEle}
         onMouseOver={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
+        className={classNames(props.className)}
       >
         {props.children}
       </div>

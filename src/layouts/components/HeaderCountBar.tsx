@@ -11,9 +11,9 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
     tvl
   } = useSelector((state: RootState) => state.stats)
 
-  function HeaderCount (props: { text: string, count?: number, className: string }): JSX.Element {
+  function HeaderCount (props: { text: string, count?: number, className?: string }): JSX.Element {
     return (
-      <li className={classNames(props.className)}>
+      <li className={classNames(props.className, 'my-auto')}>
         <span className='text-sm text-primary-100 font-medium'>{props.text} </span>
         <span className='text-sm text-white ml-0.5'>
           {props.count !== undefined ? (
@@ -26,9 +26,9 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
     )
   }
 
-  function HeaderAmount (props: { text: string, count?: number, className: string }): JSX.Element {
+  function HeaderAmount (props: { text: string, count?: number, className?: string }): JSX.Element {
     return (
-      <li className={classNames(props.className)}>
+      <li className={classNames(props.className, 'my-auto')}>
         <span className='text-sm text-primary-100 font-medium'>{props.text} </span>
         <span className='text-sm text-white ml-0.5'>
           {props.count !== undefined ? (
@@ -51,7 +51,7 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
     function PopoverTVLAmount (props: { text: string, count?: number, className: string }): JSX.Element {
       return (
         <li className={classNames(props.className, 'flex justify-between')}>
-          <span className='text-sm mr-4'>{props.text}: </span>
+          <span className='text-sm mr-4'>{props.text} </span>
           <span className='text-sm font-medium'>
             {props.count !== undefined ? (
               <NumberFormat
@@ -82,12 +82,12 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
 
   return (
     <ul className={classNames(props.className, 'flex flex-wrap gap-x-6 overflow-hidden')}>
-      <HeaderCount className='py-1' text='Blocks' count={count.blocks} />
-      <HeaderCount className='py-1' text='Tokens' count={count.tokens} />
-      <HeaderCount className='py-1' text='Masternodes' count={count.masternodes} />
-      <HeaderCount className='py-1' text='Price Feeds' count={count.prices} />
-      <HoverPopover popover={<PopoverTVL />}>
-        <HeaderAmount className='py-1 cursor-help ' text='Total Value Locked' count={tvl.total} />
+      <HeaderCount text='Blocks' count={count.blocks} />
+      <HeaderCount text='Tokens' count={count.tokens} />
+      <HeaderCount text='Masternodes' count={count.masternodes} />
+      <HeaderCount text='Price Feeds' count={count.prices} />
+      <HoverPopover popover={<PopoverTVL />} className='my-auto'>
+        <HeaderAmount className='cursor-help' text='Total Value Locked' count={tvl.total} />
       </HoverPopover>
     </ul>
   )
