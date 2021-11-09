@@ -24,7 +24,7 @@ export function Header (): JSX.Element {
 
   return (
     <header className='bg-white'>
-      <div className='hidden md:block border-b border-gray-100'>
+      <div className='hidden md:block border-b border-gray-100 bg-primary-700'>
         <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
             <HeaderCountBar className='h-full flex flex-wrap -m-2 overflow-hidden' />
@@ -71,7 +71,7 @@ export function Header (): JSX.Element {
 
 function DesktopNavbar (): JSX.Element {
   return (
-    <div className='hidden md:flex ml-2 lg:ml-8  md:w-full md:justify-between items-center'>
+    <div className='hidden md:flex ml-2 lg:ml-8 md:w-full md:justify-between items-center'>
       <div className='hidden md:flex'>
         <HeaderLink
           className='ml-3 lg:ml-4' text='DEX' pathname='/dex'
@@ -149,7 +149,10 @@ function HeaderLink (props: { text: string, pathname: string, className: string,
           'text-primary-500': router.pathname === props.pathname
         })} data-testid={props.testId}
       >
-        <div className='p-2 text-lg hover:text-primary-500 cursor-pointer'>
+        <div className={classNames('m-2 text-lg hover:text-primary-500 cursor-pointer', {
+          'border-b-2 border-primary-500': router.pathname === props.pathname
+        })}
+        >
           {props.text}
         </div>
       </a>
