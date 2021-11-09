@@ -1,5 +1,5 @@
 import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
-import { wait } from 'next/dist/build/output/log'
+import { RegTestFoundationKeys } from '@defichain/jellyfish-network'
 
 const api = new PlaygroundApiClient({
   url: 'http://localhost:19553'
@@ -19,8 +19,14 @@ context('/vaults', () => {
         loanSchemeId: '1',
         ownerAddress: address
       })
-      // this method isn't mapped yet, so we are calling it raw via `rpc.call`
-      await rpc.call('waitfornewblock', [], 'number')
+      await rpc.blockchain.waitForNewBlock()
+
+      await rpc.loan.depositToVault({
+        vaultId: vaultId,
+        from: RegTestFoundationKeys[0].operator.address,
+        amount: '1@BTC'
+      })
+      await rpc.blockchain.waitForNewBlock()
       return vaultId
     })
 
