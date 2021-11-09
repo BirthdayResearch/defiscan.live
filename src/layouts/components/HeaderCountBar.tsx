@@ -81,13 +81,13 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
   }
 
   return (
-    <ul className={classNames(props.className, 'flex gap-x-6 overflow-clip')}>
+    <ul className={classNames(props.className, 'flex flex-wrap gap-x-6 overflow-hidden')}>
       <HeaderCount className='py-1' text='Blocks' count={count.blocks} />
       <HeaderCount className='py-1' text='Tokens' count={count.tokens} />
       <HeaderCount className='py-1' text='Masternodes' count={count.masternodes} />
       <HeaderCount className='py-1' text='Price Feeds' count={count.prices} />
       <HoverPopover popover={<PopoverTVL />}>
-        <HeaderAmount className='py-1 cursor-help  lg:block' text='Total Value Locked' count={tvl.total} />
+        <HeaderAmount className='py-1 cursor-help ' text='Total Value Locked' count={tvl.total} />
       </HoverPopover>
     </ul>
   )

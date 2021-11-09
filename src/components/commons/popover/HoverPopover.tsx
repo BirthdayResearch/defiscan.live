@@ -42,7 +42,7 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
           }
 
           return (
-            <div ref={setPopperEle} style={styles.popper} {...attributes.popper} className='p-2'>
+            <div ref={setPopperEle} style={styles.popper} {...attributes.popper} className='p-2 z-10'>
               {typeof props.popover === 'string' ? (
                 <div
                   className='p-3 font-normal text-sm bg-black text-white rounded shadow-md ring-1 ring-gray-200 max-w-xs'

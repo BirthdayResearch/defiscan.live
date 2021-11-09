@@ -27,7 +27,7 @@ export function Header (): JSX.Element {
       <div className='hidden md:block border-b border-gray-100 bg-primary-700'>
         <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
-            <HeaderCountBar className='h-full flex -m-2 overflow-hidden' />
+            <HeaderCountBar className='h-full' />
             <HeaderNetworkMenu />
           </div>
         </Container>
