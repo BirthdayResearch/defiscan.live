@@ -25,7 +25,7 @@ context('/vaults', () => {
         await rpc.poolpair.poolSwap({
           from: RegTestFoundationKeys[0].operator.address,
           tokenFrom: 'BTC',
-          amountFrom: 500,
+          amountFrom: 200,
           to: RegTestFoundationKeys[0].operator.address,
           tokenTo: 'DFI'
         })
@@ -42,6 +42,7 @@ context('/vaults', () => {
           vaultId: vaultId,
           amounts: '20@TS25'
         })
+
         await rpc.blockchain.waitForNewBlock()
         return vaultId
       }).then((vaultId) => {
