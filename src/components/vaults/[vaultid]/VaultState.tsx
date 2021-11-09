@@ -5,7 +5,7 @@ export function VaultState ({ state }: {state: LoanVaultState}): JSX.Element {
     case LoanVaultState.ACTIVE:
       return <span className='px-2 py-1 inline-block text-xs text-white text-center bg-secondary-300'>ACTIVE</span>
     case LoanVaultState.IN_LIQUIDATION:
-      return <span className='px-2 py-1 inline-block text-xs text-white text-center bg-gray-600'>FROZEN</span>
+      return <span className='px-2 py-1 inline-block text-xs text-white text-center bg-gray-600'>LIQUIDATED</span>
     default:
       return <div />
   }

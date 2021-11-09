@@ -10,12 +10,12 @@ export function VaultHeading ({ vaultId, vaultState }: {vaultId: string, vaultSt
       <Head title={`Vault #${vaultId}`} />
       <Breadcrumb items={[
         { path: '/vaults', name: 'Vaults' },
-        { path: '/vaults/1', name: '1' }
+        { path: `/vaults/${vaultId}`, name: `${vaultId}` }
       ]}
       />
 
       <div className='flex items-center my-1 space-x-3 mt-5'>
-        <h2 data-testid='PageHeading' className='font-medium text-2xl mt-1'>Vault ID</h2>
+        <h1 className='font-medium text-2xl mt-1'>Vault ID</h1>
         <VaultState state={vaultState} />
       </div>
       <div className='flex items-center my-1'>
