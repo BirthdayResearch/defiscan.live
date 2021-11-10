@@ -130,6 +130,12 @@ function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Ele
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
+  if (context.query.network?.toString() !== 'Local') {
+    return {
+      notFound: true
+    }
+  }
+
   try {
     // const next = CursorPagination.getNext(context)
     // const api = getWhaleApiClient(context)
