@@ -443,6 +443,26 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
           liquidationPenalty: 123,
           batchCount: 2,
           batches: []
+        },
+        {
+          vaultId: 'VaultID_6',
+          loanSchemeId: '1',
+          ownerAddress: 'kjlasd9780907231hjklAddress',
+          state: LoanVaultState.IN_LIQUIDATION,
+          liquidationHeight: 123333,
+          liquidationPenalty: 123,
+          batchCount: 2,
+          batches: []
+        },
+        {
+          vaultId: 'VaultID_7',
+          loanSchemeId: '1',
+          ownerAddress: 'kjlasd9780907231hjklAddress',
+          state: LoanVaultState.IN_LIQUIDATION,
+          liquidationHeight: 123333,
+          liquidationPenalty: 123,
+          batchCount: 2,
+          batches: []
         }
       ]
 
