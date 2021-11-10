@@ -44,6 +44,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
           })}
         </OverflowTable>
       </div>
+
       <div className='my-6 md:hidden'>
         <div className='flex flex-wrap gap-y-2'>
           {vaults.items.map(vault => {
