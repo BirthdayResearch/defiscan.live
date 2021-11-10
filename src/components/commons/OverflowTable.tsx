@@ -9,7 +9,7 @@ export function OverflowTable (props: PropsWithChildren<{ className?: string }>)
   return (
     <div
       data-testid='OverflowTable'
-      className={classNames('relative border border-gray-200 rounded-lg', props.className)}
+      className={classNames('relative border border-gray-200 rounded-lg overflow-x-auto', props.className)}
       onScroll={(ele: any) => setScroll(ele.target?.scrollLeft)}
     >
       <div className='table table-auto border-collapse w-full'>
@@ -66,7 +66,7 @@ function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean, 
       {(left) => (
         <div
           data-testid='OverflowTable.Cell'
-          className={classNames('table-cell px-4 md:px-6 py-4 align-middle group-hover:bg-primary-50', props.className, {
+          className={classNames('table-cell px-4 md:px-6 py-4 align-middle bg-white group-hover:bg-primary-50', props.className, {
             'sticky left-0': props.sticky!,
             'text-right': props.alignRight!
           })}

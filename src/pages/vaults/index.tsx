@@ -95,7 +95,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
   return (
     <OverflowTable.Row>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell sticky>
         <TextMiddleTruncate textLength={6} text={vault.vaultId} testId={`VaultRow.VaultID.${vault.vaultId}`} />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
@@ -138,7 +138,7 @@ function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
 function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Element {
   return (
     <OverflowTable.Row>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell sticky>
         <TextMiddleTruncate textLength={6} text={vault.vaultId} testId={`VaultRow.VaultID.${vault.vaultId}`} />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
