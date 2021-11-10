@@ -14,7 +14,7 @@ export default function ScanApp ({
 }): JSX.Element {
   return (
     <Default {...pageProps}>
-      <NextNProgress color='#FFCCEF' height={2} options={{ showSpinner: false }} />
+      <NextNProgress color='#FFE5F7' height={2} options={{ showSpinner: false }} />
       <Component {...pageProps} />
     </Default>
   )
