@@ -15,7 +15,7 @@ export function VaultHeading ({ vaultId, vaultState }: {vaultId: string, vaultSt
       />
 
       <div className='flex items-center my-1 space-x-3 mt-5'>
-        <h1 className='font-medium text-2xl mt-1'>Vault ID</h1>
+        <h2 data-testid='PageHeading' className='font-medium text-2xl mt-1'>Vault ID</h2>
         <VaultState state={vaultState} />
       </div>
       <div className='flex items-center my-1'>

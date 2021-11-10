@@ -78,7 +78,7 @@ function VaultDetailsMobile ({ vault }: {vault: any}): JSX.Element {
         heading='Owner Id'
         description={'Vault owner\'s address'}
       >
-        <AddressLink address='eufhrhf9erh9' className='break-all' testId='VaultTableRow.OwnerId' />
+        <AddressLink address='eufhrhf9erh9' className='break-all' testId='VaultTableRow.OwnerIdMobile' />
       </VaultDetailList>
       <VaultDetailList
         heading='Total Loan Value(USD)'
@@ -133,28 +133,58 @@ function VaultDetailsMobile ({ vault }: {vault: any}): JSX.Element {
 function VaultDetailsDesktop ({ vault }: {vault: any}): JSX.Element {
   return (
     <div className='hidden md:block'>
-      <h2 className='text-xl font-semibold'>
+      <h2 className='text-xl font-semibold' data-testid='VaultDetailsDesktop.Heading'>
         Vault Details
       </h2>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
           <AdaptiveTable.Head>
-            <InformationPopOver heading='Owner Id' description={'Vault owner\'s address'} />
+            <InformationPopOver
+              heading='Owner Id'
+              description={'Vault owner\'s address'}
+              testId='VaultDetailsDesktop.OwnersId'
+            />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver className='justify-end' heading='Total Loan Value(USD)' description='Total loan value (in USD) taken by the vault.' />
+            <InformationPopOver
+              className='justify-end'
+              heading='Total Loan Value(USD)'
+              description='Total loan value (in USD) taken by the vault.'
+              testId='VaultDetailsDesktop.tlv'
+            />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver className='justify-end' heading='Total Collateral Value(USD)' description='Total value of tokens (in USD) deposited as collaterals in the vault.' />
+            <InformationPopOver
+              className='justify-end'
+              heading='Total Collateral Value(USD)'
+              description='Total value of tokens (in USD) deposited as collaterals in the vault.'
+              testId='VaultDetailsDesktop.tcv'
+            />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver className='justify-end' heading='Total Collateral Ratio' description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.' />
+            <InformationPopOver
+              className='justify-end'
+              heading='Total Collateral Ratio'
+              description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+              testId='VaultDetailsDesktop.tcr'
+
+            />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver className='justify-end' heading='Min Collateral Ratio' description='Minimum required collateral ratio based on vault scheme selected by vault owner.' />
+            <InformationPopOver
+              className='justify-end'
+              heading='Min Collateral Ratio'
+              description='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+              testId='VaultDetailsDesktop.mcr'
+            />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver className='justify-end' heading='Base Interest Ratio(APR)' description='Annual Vault Interest Rate based on the scheme selected by the vault owner.' />
+            <InformationPopOver
+              className='justify-end'
+              heading='Base Interest Ratio(APR)'
+              description='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+              testId='VaultDetailsDesktop.bir'
+            />
           </AdaptiveTable.Head>
         </AdaptiveTable.Header>
         <VaultTableRow vault={vault} />
