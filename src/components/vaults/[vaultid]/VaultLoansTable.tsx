@@ -18,17 +18,27 @@ export function VaultLoansTable ({ loans }: {loans: LoanVaultTokenAmount[]}): JS
 
 function VaultLoansDesktop ({ loans }: {loans: LoanVaultTokenAmount[]}): JSX.Element {
   return (
-    <div className='hidden md:block'>
-      <h2 className='text-xl font-semibold'>Loan Details</h2>
+    <div className='hidden md:block' data-testid='VaultLoansDesktop'>
+      <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
       <AdaptiveTable className='mt-6'>
         <AdaptiveTable.Header>
           <AdaptiveTable.Head>Loan Taken</AdaptiveTable.Head>
           <AdaptiveTable.Head className='align-middle md:text-right'>Loan Id</AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver className='justify-end' heading='Loan Amount' description='Loan Amount' />
+            <InformationPopOver
+              className='justify-end'
+              heading='Loan Amount'
+              description='Loan Amount'
+              testId='VaultLoansDesktop.LoanAmount'
+            />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver className='justify-end' heading='Total Loan Interest (APR)' description='Total Loan Interest (APR)' />
+            <InformationPopOver
+              className='justify-end'
+              heading='Total Loan Interest (APR)'
+              description='Total Loan Interest (APR)'
+              testId='VaultLoansDesktop.TotalLoanInterest'
+            />
           </AdaptiveTable.Head>
         </AdaptiveTable.Header>
         {loans.map((loan) => (
