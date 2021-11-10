@@ -9,11 +9,13 @@ export function HeaderNetworkMenu (): JSX.Element {
   const { networks } = getEnvironment()
 
   return (
-    <Menu as='div' className='relative inline-block'>
-      <Menu.Button className='bg-gray-50 px-2 py-1 rounded flex items-center'>
-        <div className='bg-green-500 h-2 w-2 rounded-full' />
-        <div className='text-xs ml-2 font-medium leading-none'>
-          {connection}
+    <Menu as='div' className='relative flex'>
+      <Menu.Button className='bg-gray-50 px-2 py-1 rounded flex items-center w-full justify-between'>
+        <div className='flex items-center'>
+          <div className='bg-green-500 h-2 w-2 rounded-full' />
+          <div className='text-xs ml-2 font-medium leading-none'>
+            {connection}
+          </div>
         </div>
         <MdArrowDropDown className='h-6 w-6 ml-1 text-gray-600' />
       </Menu.Button>

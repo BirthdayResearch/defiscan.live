@@ -11,11 +11,11 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
     tvl
   } = useSelector((state: RootState) => state.stats)
 
-  function HeaderCount (props: { text: string, count?: number, className: string }): JSX.Element {
+  function HeaderCount (props: { text: string, count?: number, className?: string }): JSX.Element {
     return (
-      <li className={props.className}>
-        <span className='text-sm'>{props.text}: </span>
-        <span className='text-sm text-primary-500 font-semibold'>
+      <li className={classNames(props.className, 'py-1')}>
+        <span className='text-sm text-primary-100 font-medium'>{props.text} </span>
+        <span className='text-sm text-white ml-0.5'>
           {props.count !== undefined ? (
             <NumberFormat value={props.count} displayType='text' thousandSeparator />
           ) : (
@@ -26,18 +26,18 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
     )
   }
 
-  function HeaderAmount (props: { text: string, count?: number, className: string }): JSX.Element {
+  function HeaderAmount (props: { text: string, count?: number, className?: string }): JSX.Element {
     return (
-      <li className={props.className}>
-        <span className='text-sm'>{props.text}: </span>
-        <span className='text-sm font-medium text-black opacity-60'>
+      <li className={classNames(props.className, 'py-1')}>
+        <span className='text-sm text-primary-100 font-medium'>{props.text} </span>
+        <span className='text-sm text-white ml-0.5'>
           {props.count !== undefined ? (
             <NumberFormat
               value={props.count}
               displayType='text'
               decimalScale={0}
               thousandSeparator
-              prefix='$'
+              suffix=' USD'
             />
           ) : (
             '...'
@@ -81,13 +81,13 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
   }
 
   return (
-    <ul className={props.className}>
-      <HeaderCount className='px-2 py-1' text='Blocks' count={count.blocks} />
-      <HeaderCount className='px-2 py-1' text='Tokens' count={count.tokens} />
-      <HeaderCount className='px-2 py-1' text='Masternodes' count={count.masternodes} />
-      <HeaderCount className='px-2 py-1' text='Price Feeds' count={count.prices} />
+    <ul className={classNames(props.className, 'flex flex-wrap gap-x-6 overflow-hidden')}>
+      <HeaderCount text='Blocks' count={count.blocks} />
+      <HeaderCount text='Tokens' count={count.tokens} />
+      <HeaderCount text='Masternodes' count={count.masternodes} />
+      <HeaderCount text='Price Feeds' count={count.prices} />
       <HoverPopover popover={<PopoverTVL />}>
-        <HeaderAmount className='px-2 py-1 cursor-help' text='Total Value Locked' count={tvl.total} />
+        <HeaderAmount className='cursor-help ' text='Total Value Locked' count={tvl.total} />
       </HoverPopover>
     </ul>
   )
