@@ -25,13 +25,16 @@ export function VaultsMobileCard (props: VaultsMobileCardProps): JSX.Element {
           />
         </div>
         <div className='flex items-center gap-x-0.5 text-primary-500 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
-          {!isOpen ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></> : <>HIDE<MdOutlineKeyboardArrowUp
-            size={28} /></>}
+          {!isOpen
+            ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
+            : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
         </div>
       </div>
       <div className='w-full mt-2 text-primary-500 underline'>
-        <TextMiddleTruncate textLength={6} text={props.vault.vaultId}
-                            testId={`VaultRow.VaultID.${props.vault.vaultId}`} />
+        <TextMiddleTruncate
+          textLength={6} text={props.vault.vaultId}
+          testId={`VaultRow.VaultID.${props.vault.vaultId}`}
+        />
       </div>
 
       <Transition

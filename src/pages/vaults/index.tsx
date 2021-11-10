@@ -36,7 +36,8 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
                 <InfoHoverPopover
                   description={
                     <div
-                      className='px-4 py-3 font-normal text-sm bg-white text-gray-900 rounded-lg shadow-lg max-w-xs'>
+                      className='px-4 py-3 font-normal text-sm bg-white text-gray-900 rounded-lg shadow-lg max-w-xs'
+                    >
                       A vault's status is determined by its collateral ratio:
                       <br /><br />
                       <span className='font-medium'>Active</span>: A vault that has been created but there are no loans
@@ -171,296 +172,297 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     // const api = getWhaleApiClient(context)
     // const vaults = await api.loan.listVault(10, next)
 
-    const vaults = {
-      items: [
+    const vaults: Array<LoanVaultActive | LoanVaultLiquidated> =
+      [
         {
-          'vaultId': 'VaultID_1',
-          'loanSchemeId': '1',
-          'ownerAddress': 'kjlasd9780907231hjklAddress',
-          'state': LoanVaultState.ACTIVE,
-          'collateralRatio': '16667',
-          'collateralValue': '10000',
-          'informativeRatio': '16666.61600015',
-          'loanValue': '60.0001824',
-          'interestValue': '0.0001824',
-          'collateralAmounts': [
+          vaultId: 'VaultID_1',
+          loanSchemeId: '1',
+          ownerAddress: 'kjlasd9780907231hjklAddress',
+          state: LoanVaultState.ACTIVE,
+          collateralRatio: '16667',
+          collateralValue: '10000',
+          informativeRatio: '16666.61600015',
+          loanValue: '60.0001824',
+          interestValue: '0.0001824',
+          collateralAmounts: [
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'DFI',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'DFI',
-              'symbolKey': 'DFI'
+              amount: '10000.00000000',
+              displaySymbol: 'DFI',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'DFI',
+              symbolKey: 'DFI'
             }
           ],
-          'loanAmounts': [
+          loanAmounts: [
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dTSLA',
-              'id': '1',
-              'name': '',
-              'symbol': 'TSLA',
-              'symbolKey': 'TSLA'
+              amount: '30.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
             }
           ],
-          'interestAmounts': [
+          interestAmounts: [
             {
-              'amount': '0.00009120',
-              'displaySymbol': 'dTSLA',
-              'id': '1',
-              'name': '',
-              'symbol': 'TSLA',
-              'symbolKey': 'TSLA'
+              amount: '0.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
             }
           ]
-        } as LoanVaultActive,
+        },
         {
-          'vaultId': 'VaultID_2',
-          'loanSchemeId': '1',
-          'ownerAddress': 'kjlasd9780907231hjklAddress',
-          'state': LoanVaultState.FROZEN,
-          'collateralRatio': '16667',
-          'collateralValue': '10000',
-          'informativeRatio': '16666.61600015',
-          'loanValue': '60.0001824',
-          'interestValue': '0.0001824',
-          'collateralAmounts': [
+          vaultId: 'VaultID_2',
+          loanSchemeId: '1',
+          ownerAddress: 'kjlasd9780907231hjklAddress',
+          state: LoanVaultState.FROZEN,
+          collateralRatio: '16667',
+          collateralValue: '10000',
+          informativeRatio: '16666.61600015',
+          loanValue: '60.0001824',
+          interestValue: '0.0001824',
+          collateralAmounts: [
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'DFI',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'DFI',
-              'symbolKey': 'DFI'
+              amount: '10000.00000000',
+              displaySymbol: 'DFI',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'DFI',
+              symbolKey: 'DFI'
             },
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'dBTC',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'BTC',
-              'symbolKey': 'BTC'
+              amount: '10000.00000000',
+              displaySymbol: 'dBTC',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'BTC',
+              symbolKey: 'BTC'
             }
           ],
-          'loanAmounts': [
+          loanAmounts: [
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dTSLA',
-              'id': '1',
-              'name': '',
-              'symbol': 'TSLA',
-              'symbolKey': 'TSLA'
+              amount: '30.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
             },
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dAAPL',
-              'id': '1',
-              'name': '',
-              'symbol': 'AAPL',
-              'symbolKey': 'AAPL'
+              amount: '30.00009120',
+              displaySymbol: 'dAAPL',
+              id: '1',
+              name: '',
+              symbol: 'AAPL',
+              symbolKey: 'AAPL'
             }
           ],
-          'interestAmounts': [
+          interestAmounts: [
             {
-              'amount': '0.00009120',
-              'displaySymbol': 'dTSLA',
-              'id': '1',
-              'name': '',
-              'symbol': 'TSLA',
-              'symbolKey': 'TSLA'
+              amount: '0.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
             }
           ]
-        } as LoanVaultActive,
+        },
         {
-          'vaultId': 'VaultID_3',
-          'loanSchemeId': '1',
-          'ownerAddress': 'kjlasd9780907231hjklAddress',
-          'state': LoanVaultState.MAY_LIQUIDATE,
-          'collateralRatio': '16667',
-          'collateralValue': '10000',
-          'informativeRatio': '16666.61600015',
-          'loanValue': '60.0001824',
-          'interestValue': '0.0001824',
-          'collateralAmounts': [
+          vaultId: 'VaultID_3',
+          loanSchemeId: '1',
+          ownerAddress: 'kjlasd9780907231hjklAddress',
+          state: LoanVaultState.MAY_LIQUIDATE,
+          collateralRatio: '16667',
+          collateralValue: '10000',
+          informativeRatio: '16666.61600015',
+          loanValue: '60.0001824',
+          interestValue: '0.0001824',
+          collateralAmounts: [
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'DFI',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'DFI',
-              'symbolKey': 'DFI'
+              amount: '10000.00000000',
+              displaySymbol: 'DFI',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'DFI',
+              symbolKey: 'DFI'
             },
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'dBTC',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'BTC',
-              'symbolKey': 'BTC'
+              amount: '10000.00000000',
+              displaySymbol: 'dBTC',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'BTC',
+              symbolKey: 'BTC'
             },
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'dETH',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'ETH',
-              'symbolKey': 'ETH'
+              amount: '10000.00000000',
+              displaySymbol: 'dETH',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'ETH',
+              symbolKey: 'ETH'
             }
           ],
-          'loanAmounts': [
+          loanAmounts: [
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dTSLA',
-              'id': '1',
-              'name': '',
-              'symbol': 'TSLA',
-              'symbolKey': 'TSLA'
+              amount: '30.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
             },
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dAAPL',
-              'id': '1',
-              'name': '',
-              'symbol': 'AAPL',
-              'symbolKey': 'AAPL'
+              amount: '30.00009120',
+              displaySymbol: 'dAAPL',
+              id: '1',
+              name: '',
+              symbol: 'AAPL',
+              symbolKey: 'AAPL'
             },
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dUSDT',
-              'id': '1',
-              'name': '',
-              'symbol': 'USDT',
-              'symbolKey': 'USDT'
+              amount: '30.00009120',
+              displaySymbol: 'dUSDT',
+              id: '1',
+              name: '',
+              symbol: 'USDT',
+              symbolKey: 'USDT'
             }
           ],
-          'interestAmounts': [
+          interestAmounts: [
             {
-              'amount': '0.00009120',
-              'displaySymbol': 'dTSLA',
-              'id': '1',
-              'name': '',
-              'symbol': 'TSLA',
-              'symbolKey': 'TSLA'
+              amount: '0.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
             }
           ]
-        } as LoanVaultActive,
+        },
         {
-          'vaultId': 'VaultID_4',
-          'loanSchemeId': '1',
-          'ownerAddress': 'kjlasd9780907231hjklAddress',
-          'state': LoanVaultState.ACTIVE,
-          'collateralRatio': '16667',
-          'collateralValue': '10000',
-          'informativeRatio': '16666.61600015',
-          'loanValue': '60.0001824',
-          'interestValue': '0.0001824',
-          'collateralAmounts': [
+          vaultId: 'VaultID_4',
+          loanSchemeId: '1',
+          ownerAddress: 'kjlasd9780907231hjklAddress',
+          state: LoanVaultState.ACTIVE,
+          collateralRatio: '16667',
+          collateralValue: '10000',
+          informativeRatio: '16666.61600015',
+          loanValue: '60.0001824',
+          interestValue: '0.0001824',
+          collateralAmounts: [
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'DFI',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'DFI',
-              'symbolKey': 'DFI'
+              amount: '10000.00000000',
+              displaySymbol: 'DFI',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'DFI',
+              symbolKey: 'DFI'
             },
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'dBTC',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'BTC',
-              'symbolKey': 'BTC'
+              amount: '10000.00000000',
+              displaySymbol: 'dBTC',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'BTC',
+              symbolKey: 'BTC'
             },
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'dETH',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'ETH',
-              'symbolKey': 'ETH'
+              amount: '10000.00000000',
+              displaySymbol: 'dETH',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'ETH',
+              symbolKey: 'ETH'
             },
             {
-              'amount': '10000.00000000',
-              'displaySymbol': 'dDOGE',
-              'id': '0',
-              'name': 'Default Defi token',
-              'symbol': 'DOGE',
-              'symbolKey': 'DOGE'
+              amount: '10000.00000000',
+              displaySymbol: 'dDOGE',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'DOGE',
+              symbolKey: 'DOGE'
             }
           ],
-          'loanAmounts': [
+          loanAmounts: [
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dTSLA',
-              'id': '1',
-              'name': '',
-              'symbol': 'TSLA',
-              'symbolKey': 'TSLA'
+              amount: '30.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
             },
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dAAPL',
-              'id': '1',
-              'name': '',
-              'symbol': 'AAPL',
-              'symbolKey': 'AAPL'
+              amount: '30.00009120',
+              displaySymbol: 'dAAPL',
+              id: '1',
+              name: '',
+              symbol: 'AAPL',
+              symbolKey: 'AAPL'
             },
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dUSDT',
-              'id': '1',
-              'name': '',
-              'symbol': 'USDT',
-              'symbolKey': 'USDT'
+              amount: '30.00009120',
+              displaySymbol: 'dUSDT',
+              id: '1',
+              name: '',
+              symbol: 'USDT',
+              symbolKey: 'USDT'
             },
             {
-              'amount': '30.00009120',
-              'displaySymbol': 'dTWTR',
-              'id': '1',
-              'name': '',
-              'symbol': 'TWTR',
-              'symbolKey': 'TWTR'
+              amount: '30.00009120',
+              displaySymbol: 'dTWTR',
+              id: '1',
+              name: '',
+              symbol: 'TWTR',
+              symbolKey: 'TWTR'
             }
           ],
-          'interestAmounts': [
+          interestAmounts: [
             {
-              'amount': '0.00009120',
-              'displaySymbol': 'dTSLA',
-              'id': '1',
-              'name': '',
-              'symbol': 'TSLA',
-              'symbolKey': 'TSLA'
+              amount: '0.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
             }
           ]
-        } as LoanVaultActive,
+        },
         {
-          'vaultId': 'VaultID_5',
-          'loanSchemeId': '1',
-          'ownerAddress': 'kjlasd9780907231hjklAddress',
-          'state': LoanVaultState.IN_LIQUIDATION,
-          'liquidationHeight': 123333,
-          'liquidationPenalty': 123,
-          'batchCount': 2,
-          'batches': []
-        } as LoanVaultLiquidated
-      ],
-      pages: [{
-        n: 1,
-        active: true,
-        cursors: ['test']
-      }]
-    }
+          vaultId: 'VaultID_5',
+          loanSchemeId: '1',
+          ownerAddress: 'kjlasd9780907231hjklAddress',
+          state: LoanVaultState.IN_LIQUIDATION,
+          liquidationHeight: 123333,
+          liquidationPenalty: 123,
+          batchCount: 2,
+          batches: []
+        }
+      ]
+
+    const pages: CursorPage[] = [{
+      n: 1,
+      active: true,
+      cursors: ['test']
+    }]
 
     return {
       props: {
         vaults: {
-          items: vaults.items,
+          items: vaults,
           // pages: CursorPagination.getPages(context, vaults)
-          pages: vaults.pages
+          pages: pages
         }
       }
     }
-  } catch (e) {
+  } catch
+  (e) {
     return {
       notFound: true
     }

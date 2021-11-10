@@ -1,10 +1,3 @@
-import { PlaygroundApiClient, PlaygroundRpcClient } from '@defichain/playground-api-client'
-
-const api = new PlaygroundApiClient({
-  url: 'http://localhost:19553'
-})
-const rpc = new PlaygroundRpcClient(api)
-
 context('/vaults', () => {
   beforeEach(() => {
     cy.viewport('macbook-13')
