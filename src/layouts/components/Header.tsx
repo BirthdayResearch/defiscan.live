@@ -23,7 +23,7 @@ export function Header (): JSX.Element {
   }, [])
 
   return (
-    <header className='bg-white'>
+    <header className='bg-white shadow-lg sticky top-0 md:static'>
       <div className='hidden md:block border-b border-gray-100 bg-primary-700'>
         <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
