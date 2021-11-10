@@ -18,6 +18,7 @@ interface InformationPopOverProps {
   heading: string
   description: string
   className?: string
+  testId?: string
 }
 
 export function VaultDetailsTable ({ vault }: {vault: LoanVaultActive | LoanVaultLiquidated}): JSX.Element {
@@ -174,7 +175,7 @@ function VaultDetailList (props: PropsWithChildren<VaultDetailListProps>): JSX.E
 export function InformationPopOver (props: InformationPopOverProps
 ): JSX.Element {
   return (
-    <div className={classNames('flex space-x-1 items-center', props.className)}>
+    <div className={classNames('flex space-x-1 items-center', props.className)} data-testid={props.testId}>
       <span className='font-medium'>{props.heading}</span>
       <HoverPopover popover={props.description}>
         <IoMdInformationCircleOutline className='h-4 w-4 text-secondary-300' />
