@@ -1,11 +1,11 @@
 import { JSX } from '@babel/types'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 import { IoMdInformationCircleOutline } from 'react-icons/io'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import classNames from 'classnames'
 
 interface InfoHoverPopoverProps {
-  description: string
+  description: string | ReactNode
   className?: string
 }
 

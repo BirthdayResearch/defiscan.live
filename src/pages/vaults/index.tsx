@@ -10,6 +10,7 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { VaultStatus } from '@components/vaults/VaultsStatus'
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
 import { VaultsMobileCard } from '@components/vaults/VaultsMobileCard'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 interface VaultsPageData {
   vaults: {
@@ -29,7 +30,35 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
         <OverflowTable>
           <OverflowTable.Header>
             <OverflowTable.Head sticky>VAULT ID</OverflowTable.Head>
-            <OverflowTable.Head>STATUS</OverflowTable.Head>
+            <OverflowTable.Head>
+              <div className='flex items-center gap-x-1'>
+                STATUS
+                <InfoHoverPopover
+                  description={
+                    <div
+                      className='px-4 py-3 font-normal text-sm bg-white text-gray-900 rounded-lg shadow-lg max-w-xs'>
+                      A vault's status is determined by its collateral ratio:
+                      <br /><br />
+                      <span className='font-medium'>Active</span>: A vault that has been created but there are no loans
+                      taken yet.
+                      <br /><br />
+                      <span className='font-medium'>Healthy</span>: The vault's collateral ratio is sufficiently high.
+                      <br /><br />
+                      <span className='font-medium'>At Risk</span>: The vault is at risk of liquidation within the next
+                      hour.
+                      <br /><br />
+                      <span className='font-medium'>Liquidated</span>: The vault's collateral ratio has fallen below its
+                      minimum and is now in
+                      auction.
+                      <br /><br />
+                      <span className='font-medium'>Halted</span>: The price of one or more token in the vault has
+                      fluctuated more than 30% in the
+                      past hour.
+                    </div>
+                  }
+                />
+              </div>
+            </OverflowTable.Head>
             <OverflowTable.Head alignRight>LOANS VALUE (USD)</OverflowTable.Head>
             <OverflowTable.Head alignRight>COLLATERAL VALUE (USD)</OverflowTable.Head>
             <OverflowTable.Head alignRight>COLLATERAL RATIO</OverflowTable.Head>

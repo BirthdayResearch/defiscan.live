@@ -9,7 +9,7 @@ export function OverflowTable (props: PropsWithChildren<{ className?: string }>)
   return (
     <div
       data-testid='OverflowTable'
-      className={classNames('relative border border-gray-200 rounded-lg overflow-x-auto', props.className)}
+      className={classNames('relative border border-gray-200 rounded-lg', props.className)}
       onScroll={(ele: any) => setScroll(ele.target?.scrollLeft)}
     >
       <div className='table table-auto border-collapse w-full'>
