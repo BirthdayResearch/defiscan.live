@@ -6,11 +6,18 @@ import React, { PropsWithChildren, ReactNode } from 'react'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { IoMdInformationCircleOutline } from 'react-icons/io'
 import { Collapsible } from '@components/commons/Collapsible'
+import classNames from 'classnames'
 
 interface VaultDetailListProps {
   children: ReactNode
   heading: string
   description: string
+}
+
+interface InformationPopOverProps {
+  heading: string
+  description: string
+  className?: string
 }
 
 export function VaultDetailsTable ({ vault }: {vault: LoanVaultActive | LoanVaultLiquidated}): JSX.Element {
@@ -47,7 +54,7 @@ function VaultTableRow ({ vault }: {vault: any}): JSX.Element {
       <AdaptiveTable.Cell className='text-right'>
         {(() => {
           if ('collateralRatio' in vault) {
-            const ratio = Number(vault.collateralRatio) / 100
+            const ratio = (Number(vault.collateralRatio) / Number(vault.loanValue)).toFixed(2)
             return <ReactNumberFormat value={ratio} displayType='text' suffix='%' />
           }
           return 'N/A'
@@ -134,19 +141,19 @@ function VaultDetailsDesktop ({ vault }: {vault: any}): JSX.Element {
             <InformationPopOver heading='Owner Id' description={'Vault owner\'s address'} />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver heading='Total Loan Value(USD)' description='Total loan value (in USD) taken by the vault.' />
+            <InformationPopOver className='justify-end' heading='Total Loan Value(USD)' description='Total loan value (in USD) taken by the vault.' />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver heading='Total Collateral Value(USD)' description='Total value of tokens (in USD) deposited as collaterals in the vault.' />
+            <InformationPopOver className='justify-end' heading='Total Collateral Value(USD)' description='Total value of tokens (in USD) deposited as collaterals in the vault.' />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver heading='Total Collateral Ratio' description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.' />
+            <InformationPopOver className='justify-end' heading='Total Collateral Ratio' description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.' />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver heading='Min Collateral Ratio' description='Minimum required collateral ratio based on vault scheme selected by vault owner.' />
+            <InformationPopOver className='justify-end' heading='Min Collateral Ratio' description='Minimum required collateral ratio based on vault scheme selected by vault owner.' />
           </AdaptiveTable.Head>
           <AdaptiveTable.Head>
-            <InformationPopOver heading='Base Interest Ratio(APR)' description='Annual Vault Interest Rate based on the scheme selected by the vault owner.' />
+            <InformationPopOver className='justify-end' heading='Base Interest Ratio(APR)' description='Annual Vault Interest Rate based on the scheme selected by the vault owner.' />
           </AdaptiveTable.Head>
         </AdaptiveTable.Header>
         <VaultTableRow vault={vault} />
@@ -164,11 +171,12 @@ function VaultDetailList (props: PropsWithChildren<VaultDetailListProps>): JSX.E
   )
 }
 
-export function InformationPopOver ({ heading, description }: {heading: string, description: string}): JSX.Element {
+export function InformationPopOver (props: InformationPopOverProps
+): JSX.Element {
   return (
-    <div className='flex space-x-1 items-center justify-end'>
-      <span className='text-base'>{heading}</span>
-      <HoverPopover popover={description}>
+    <div className={classNames('flex space-x-1 items-center', props.className)}>
+      <span className='font-medium'>{props.heading}</span>
+      <HoverPopover popover={props.description}>
         <IoMdInformationCircleOutline className='h-4 w-4 text-secondary-300' />
       </HoverPopover>
     </div>

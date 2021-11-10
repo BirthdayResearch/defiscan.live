@@ -54,133 +54,132 @@ export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<type
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
   // const api = getWhaleApiClient(context)
   // const vaults = await api.loan.getVault("")
-  // const vaultsActive: LoanVaultActive = {
-  //   vaultId: "c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4",
-  //   loanSchemeId: 'scheme',
-  //   ownerAddress: "8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8",
-  //   state: LoanVaultState.ACTIVE,
-  //   collateralRatio: '16667',
-  //   collateralValue: '10000',
-  //   informativeRatio: '16666.61600015',
-  //   loanValue: '60.0001824',
-  //   interestValue: '0.0001824',
-  //   collateralAmounts: [
-  //     {
-  //       amount: '10000.00000000',
-  //       displaySymbol: 'dDFI',
-  //       id: '0',
-  //       name: 'Default Defi token',
-  //       symbol: 'DFI',
-  //       symbolKey: 'DFI'
-  //     }
-  //     ,
-  //     {
-  //       amount: '10000.00000000',
-  //       displaySymbol: 'DFI',
-  //       id: '0',
-  //       name: 'Default Defi token',
-  //       symbol: 'DFI',
-  //       symbolKey: 'DFI'
-  //     },
-  //     {
-  //       amount: '450.344',
-  //       displaySymbol: 'dBTC',
-  //       id: '1',
-  //       name: 'BTC',
-  //       symbol: 'BTC',
-  //       symbolKey: 'BTC'
-  //     },
-  //     {
-  //       amount: '0.345000.521',
-  //       displaySymbol: 'dETH',
-  //       id: '2',
-  //       name: 'ETHEREUM',
-  //       symbol: 'ETH',
-  //       symbolKey: 'ETH'
-  //     }
-  //   ],
-  //   loanAmounts: [
-  //     {
-  //       amount: '30.00009120',
-  //       displaySymbol: 'dTSLA',
-  //       id: '1',
-  //       name: '',
-  //       symbol: 'TSLA',
-  //       symbolKey: 'TSLA'
-  //     }
-  //   ],
-  //   interestAmounts: [
-  //     {
-  //       amount: '0.00009120',
-  //       displaySymbol: 'dTSLA',
-  //       id: '1',
-  //       name: 'dTSLA',
-  //       symbol: 'TSLA',
-  //       symbolKey: 'TSLA'
-  //     }
-  //   ]
-  // }
-
-  const vaultsLiquidated: LoanVaultLiquidated = {
+  const vaultsActive: LoanVaultActive = {
     vaultId: 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4',
     loanSchemeId: 'scheme',
     ownerAddress: '8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8',
-    state: LoanVaultState.IN_LIQUIDATION,
-    batchCount: 1,
-    liquidationHeight: 162,
-    liquidationPenalty: 5,
-    batches: [
+    state: LoanVaultState.ACTIVE,
+    collateralRatio: '16667',
+    collateralValue: '10000',
+    informativeRatio: '16666.61600015',
+    loanValue: '60.0001824',
+    interestValue: '0.0001824',
+    collateralAmounts: [
       {
-        index: 0,
-        collaterals: [
-          {
-            amount: '10000.00000000',
-            displaySymbol: 'DFI',
-            id: '0',
-            name: 'Default Defi token',
-            symbol: 'DFI',
-            symbolKey: 'DFI'
-          },
-          {
-            amount: '10000.00000000',
-            displaySymbol: 'DFI',
-            id: '0',
-            name: 'Default Defi token',
-            symbol: 'DFI',
-            symbolKey: 'DFI'
-          },
-          {
-            amount: '450.344',
-            displaySymbol: 'dBTC',
-            id: '1',
-            name: 'BTC',
-            symbol: 'BTC',
-            symbolKey: 'BTC'
-          },
-          {
-            amount: '0.345000.521',
-            displaySymbol: 'dETH',
-            id: '2',
-            name: 'ETHEREUM',
-            symbol: 'ETH',
-            symbolKey: 'ETH'
-          }
-        ],
-        loan: {
-          amount: '30.00005130',
-          displaySymbol: 'dAAPL',
-          id: '2',
-          name: 'APPLE',
-          symbol: 'AAPL',
-          symbolKey: 'AAPL'
-        }
+        amount: '10000.00000000',
+        displaySymbol: 'dDFI',
+        id: '0',
+        name: 'Default Defi token',
+        symbol: 'DFI',
+        symbolKey: 'DFI'
+      },
+      {
+        amount: '10000.00000000',
+        displaySymbol: 'DFI',
+        id: '0',
+        name: 'Default Defi token',
+        symbol: 'DFI',
+        symbolKey: 'DFI'
+      },
+      {
+        amount: '450.344',
+        displaySymbol: 'dBTC',
+        id: '1',
+        name: 'BTC',
+        symbol: 'BTC',
+        symbolKey: 'BTC'
+      },
+      {
+        amount: '0.345000.521',
+        displaySymbol: 'dETH',
+        id: '2',
+        name: 'ETHEREUM',
+        symbol: 'ETH',
+        symbolKey: 'ETH'
+      }
+    ],
+    loanAmounts: [
+      {
+        amount: '30.00009120',
+        displaySymbol: 'dTSLA',
+        id: '1',
+        name: 'TSLA',
+        symbol: 'TSLA',
+        symbolKey: 'TSLA'
+      }
+    ],
+    interestAmounts: [
+      {
+        amount: '0.00009120',
+        displaySymbol: 'dTSLA',
+        id: '1',
+        name: 'dTSLA',
+        symbol: 'TSLA',
+        symbolKey: 'TSLA'
       }
     ]
   }
 
+  // const vaultsLiquidated: LoanVaultLiquidated = {
+  //   vaultId: 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4',
+  //   loanSchemeId: 'scheme',
+  //   ownerAddress: '8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8',
+  //   state: LoanVaultState.IN_LIQUIDATION,
+  //   batchCount: 1,
+  //   liquidationHeight: 162,
+  //   liquidationPenalty: 5,
+  //   batches: [
+  //     {
+  //       index: 0,
+  //       collaterals: [
+  //         {
+  //           amount: '10000.00000000',
+  //           displaySymbol: 'DFI',
+  //           id: '0',
+  //           name: 'Default Defi token',
+  //           symbol: 'DFI',
+  //           symbolKey: 'DFI'
+  //         },
+  //         {
+  //           amount: '10000.00000000',
+  //           displaySymbol: 'DFI',
+  //           id: '0',
+  //           name: 'Default Defi token',
+  //           symbol: 'DFI',
+  //           symbolKey: 'DFI'
+  //         },
+  //         {
+  //           amount: '450.344',
+  //           displaySymbol: 'dBTC',
+  //           id: '1',
+  //           name: 'BTC',
+  //           symbol: 'BTC',
+  //           symbolKey: 'BTC'
+  //         },
+  //         {
+  //           amount: '0.345000.521',
+  //           displaySymbol: 'dETH',
+  //           id: '2',
+  //           name: 'ETHEREUM',
+  //           symbol: 'ETH',
+  //           symbolKey: 'ETH'
+  //         }
+  //       ],
+  //       loan: {
+  //         amount: '30.00005130',
+  //         displaySymbol: 'dAAPL',
+  //         id: '2',
+  //         name: 'APPLE',
+  //         symbol: 'AAPL',
+  //         symbolKey: 'AAPL'
+  //       }
+  //     }
+  //   ]
+  // }
+
   return {
     props: {
-      vault: vaultsLiquidated
+      vault: vaultsActive
     }
   }
 }
