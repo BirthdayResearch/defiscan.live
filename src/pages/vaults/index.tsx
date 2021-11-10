@@ -2,18 +2,14 @@ import { Head } from '@components/commons/Head'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
-import { getAssetIcon } from '@components/icons/assets'
 import NumberFormat from 'react-number-format'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
-import {
-  LoanVaultActive,
-  LoanVaultLiquidated,
-  LoanVaultState,
-  LoanVaultTokenAmount
-} from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 // import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
-import classNames from 'classnames'
+import { VaultStatus } from '@components/vaults/VaultsStatus'
+import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
+import { VaultsMobileCard } from '@components/vaults/VaultsMobileCard'
 
 interface VaultsPageData {
   vaults: {
@@ -29,7 +25,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
       <h1 className='text-2xl font-medium'>Vaults</h1>
 
-      <div className='my-6'>
+      <div className='my-6 hidden md:block'>
         <OverflowTable>
           <OverflowTable.Header>
             <OverflowTable.Head sticky>VAULT ID</OverflowTable.Head>
@@ -48,6 +44,16 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
           })}
         </OverflowTable>
       </div>
+      <div className='my-6 md:hidden'>
+        <div className='flex flex-wrap gap-y-2'>
+          {vaults.items.map(vault => {
+            return (
+              <VaultsMobileCard vault={vault} key={vault.vaultId} />
+            )
+          })}
+        </div>
+      </div>
+
       <div className='flex justify-end mt-8'>
         <CursorPagination pages={vaults.pages} path='/vaults' />
       </div>
@@ -69,7 +75,7 @@ function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${vault.vaultId}.LoansValue`}>
-          <LoanSymbols tokens={vault.loanAmounts} />
+          <VaultTokenSymbols tokens={vault.loanAmounts} />
           <NumberFormat
             value={vault.loanValue}
             displayType='text'
@@ -81,7 +87,7 @@ function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${vault.vaultId}.CollateralValue`}>
-          <LoanSymbols tokens={vault.collateralAmounts} />
+          <VaultTokenSymbols tokens={vault.collateralAmounts} />
           <NumberFormat
             value={vault.collateralValue}
             displayType='text'
@@ -121,73 +127,6 @@ function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Ele
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
-}
-
-function LoanSymbols (props: { tokens: LoanVaultTokenAmount[] }): JSX.Element {
-  const remainingTokens = props.tokens.length - 3
-  return (
-    <div className='flex items-center gap-x-1'>
-      <div className='flex'>
-        {props.tokens.map((loan, index) => {
-          const TokenIcon = getAssetIcon(loan.symbol)
-          if (index < 3) {
-            if (index >= 1) {
-              return <TokenIcon className='h-6 w-6 -ml-2' />
-            }
-            return <TokenIcon className='h-6 w-6' />
-          }
-          return null
-        })}
-      </div>
-
-      {remainingTokens > 0 && (
-        <span className='text-xs text-gray-500'>{`+${remainingTokens}`}</span>
-      )}
-    </div>
-  )
-}
-
-function VaultStatus (props: {
-  state: LoanVaultState.ACTIVE | LoanVaultState.FROZEN | LoanVaultState.MAY_LIQUIDATE | LoanVaultState.UNKNOWN | LoanVaultState.IN_LIQUIDATION
-  className?: string
-  testId?: string
-}): JSX.Element {
-  switch (props.state) {
-    case LoanVaultState.ACTIVE:
-      return (
-        <span
-          className={classNames(props.className, 'text-blue-500 bg-blue-100')}
-          data-testid={props.testId}
-        >ACTIVE
-        </span>
-      )
-    case LoanVaultState.FROZEN:
-      return (
-        <span
-          className={classNames(props.className, 'text-red-300 bg-red-100')}
-          data-testid={props.testId}
-        >HALTED
-        </span>
-      )
-    case LoanVaultState.MAY_LIQUIDATE:
-      return <span className={classNames(props.className, 'text-orange-500 bg-orange-100')} data-testid={props.testId}>AT RISK</span>
-    case LoanVaultState.IN_LIQUIDATION:
-      return (
-        <span
-          className={classNames(props.className, 'text-gray-500 bg-gray-100')}
-          data-testid={props.testId}
-        >LIQUIDATED
-        </span>
-      )
-    case LoanVaultState.UNKNOWN:
-      return (
-        <span
-          className={classNames(props.className, 'text-white bg-gray-400')}
-          data-testid={props.testId}
-        >UNKNOWN
-        </span>
-      )
-  }
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
