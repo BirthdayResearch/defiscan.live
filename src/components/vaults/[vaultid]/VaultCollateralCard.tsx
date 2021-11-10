@@ -5,7 +5,7 @@ import ReactNumberFormat from 'react-number-format'
 export function CollateralCard ({ col }: {col: LoanVaultTokenAmount}): JSX.Element {
   const TokenSymbol = getAssetIcon(col.displaySymbol)
   return (
-    <div className='p-2.5 md:p-4 border border-gray-300 h-28 rounded w-80 justify-self-center md:justify-self-stretch'>
+    <div className='p-4 border border-gray-300 h-28 rounded w-80 justify-self-center md:justify-self-stretch'>
       <div className='flex justify-between items-start w-full'>
         <div className='flex items-center'>
           <TokenSymbol className='h-6 w-6 z-10' />

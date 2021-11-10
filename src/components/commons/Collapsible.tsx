@@ -28,7 +28,7 @@ export function Collapsible (props: CollapsibleProps): JSX.Element {
         </button>
       </div>
       {isOpen && (
-        <div className='mt-6'>
+        <div className='mt-6 '>
           {props.children}
         </div>
       )}

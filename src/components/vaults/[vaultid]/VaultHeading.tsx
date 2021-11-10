@@ -10,7 +10,7 @@ export function VaultHeading ({ vaultId, vaultState }: {vaultId: string, vaultSt
       <Head title={`Vault #${vaultId}`} />
       <Breadcrumb items={[
         { path: '/vaults', name: 'Vaults' },
-        { path: `/vaults/${vaultId}`, name: `${vaultId}` }
+        { path: '/vaults/1', name: '1' }
       ]}
       />
 
