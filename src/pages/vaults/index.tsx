@@ -11,6 +11,8 @@ import { VaultStatus } from '@components/vaults/VaultsStatus'
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
 import { VaultsMobileCard } from '@components/vaults/VaultsMobileCard'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import React from 'react'
+import { Link } from '@components/commons/Link'
 
 interface VaultsPageData {
   vaults: {
@@ -69,7 +71,6 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
             if (vault.state === LoanVaultState.IN_LIQUIDATION) {
               return <LiquidatedVaultRow vault={vault} key={vault.vaultId} />
             }
-
             return <ActiveVaultRow vault={vault} key={vault.vaultId} />
           })}
         </OverflowTable>
@@ -94,69 +95,79 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
 function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
   return (
-    <OverflowTable.Row>
-      <OverflowTable.Cell sticky>
-        <TextMiddleTruncate textLength={6} text={vault.vaultId} testId={`VaultRow.VaultID.${vault.vaultId}`} />
-      </OverflowTable.Cell>
-      <OverflowTable.Cell>
-        <VaultStatus
-          state={vault.state} className='px-2 py-1 inline-block text-xs'
-          testId={`VaultRow.${vault.vaultId}.VaultStatus`}
-        />
-      </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${vault.vaultId}.LoansValue`}>
-          <VaultTokenSymbols tokens={vault.loanAmounts} />
-          <NumberFormat
-            value={vault.loanValue}
-            displayType='text'
-            decimalScale={2}
-            fixedDecimalScale
-            thousandSeparator
+    <Link href={{ pathname: `/vaults/${vault.vaultId}` }}>
+      <OverflowTable.Row className='cursor-pointer'>
+        <OverflowTable.Cell sticky>
+          <TextMiddleTruncate
+            textLength={6} text={vault.vaultId} className='text-primary-500 underline'
+            testId={`VaultRow.VaultID.${vault.vaultId}`}
           />
-        </div>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${vault.vaultId}.CollateralValue`}>
-          <VaultTokenSymbols tokens={vault.collateralAmounts} />
-          <NumberFormat
-            value={vault.collateralValue}
-            displayType='text'
-            decimalScale={2}
-            fixedDecimalScale
-            thousandSeparator
+        </OverflowTable.Cell>
+        <OverflowTable.Cell>
+          <VaultStatus
+            state={vault.state} className='px-2 py-1 inline-block text-xs'
+            testId={`VaultRow.${vault.vaultId}.VaultStatus`}
           />
-        </div>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        <span data-testid={`VaultRow.${vault.vaultId}.CollateralRatio`}>{`${vault.collateralRatio}%`}</span>
-      </OverflowTable.Cell>
-    </OverflowTable.Row>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell alignRight>
+          <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${vault.vaultId}.LoansValue`}>
+            <VaultTokenSymbols tokens={vault.loanAmounts} />
+            <NumberFormat
+              value={vault.loanValue}
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />
+          </div>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell alignRight>
+          <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${vault.vaultId}.CollateralValue`}>
+            <VaultTokenSymbols tokens={vault.collateralAmounts} />
+            <NumberFormat
+              value={vault.collateralValue}
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />
+          </div>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell alignRight>
+          <span data-testid={`VaultRow.${vault.vaultId}.CollateralRatio`}>{`${vault.collateralRatio}%`}</span>
+        </OverflowTable.Cell>
+      </OverflowTable.Row>
+    </Link>
   )
 }
 
 function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Element {
   return (
-    <OverflowTable.Row>
-      <OverflowTable.Cell sticky>
-        <TextMiddleTruncate textLength={6} text={vault.vaultId} testId={`VaultRow.VaultID.${vault.vaultId}`} />
-      </OverflowTable.Cell>
-      <OverflowTable.Cell>
-        <VaultStatus
-          state={vault.state} className='px-2 py-1 inline-block text-xs'
-          testId={`VaultRow.${vault.vaultId}.VaultStatus`}
-        />
-      </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        <span data-testid={`VaultRow.${vault.vaultId}.LoansValue`}>N/A</span>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        <span data-testid={`VaultRow.${vault.vaultId}.CollateralValue`}>N/A</span>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        <span data-testid={`VaultRow.${vault.vaultId}.CollateralRatio`}>N/A</span>
-      </OverflowTable.Cell>
-    </OverflowTable.Row>
+    <Link href={{ pathname: `/vaults/${vault.vaultId}` }}>
+      <OverflowTable.Row className='cursor-pointer'>
+        <OverflowTable.Cell sticky>
+          <TextMiddleTruncate
+            textLength={6} text={vault.vaultId} className='text-primary-500 underline'
+            testId={`VaultRow.VaultID.${vault.vaultId}`}
+          />
+        </OverflowTable.Cell>
+        <OverflowTable.Cell>
+          <VaultStatus
+            state={vault.state} className='px-2 py-1 inline-block text-xs'
+            testId={`VaultRow.${vault.vaultId}.VaultStatus`}
+          />
+        </OverflowTable.Cell>
+        <OverflowTable.Cell alignRight>
+          <span data-testid={`VaultRow.${vault.vaultId}.LoansValue`}>N/A</span>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell alignRight>
+          <span data-testid={`VaultRow.${vault.vaultId}.CollateralValue`}>N/A</span>
+        </OverflowTable.Cell>
+        <OverflowTable.Cell alignRight>
+          <span data-testid={`VaultRow.${vault.vaultId}.CollateralRatio`}>N/A</span>
+        </OverflowTable.Cell>
+      </OverflowTable.Row>
+    </Link>
   )
 }
 

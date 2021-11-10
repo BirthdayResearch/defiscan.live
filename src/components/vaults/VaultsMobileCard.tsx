@@ -6,6 +6,7 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
 import { useState } from 'react'
 import { Transition } from '@headlessui/react'
+import { Link } from '@components/commons/Link'
 
 interface VaultsMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -24,18 +25,24 @@ export function VaultsMobileCard (props: VaultsMobileCardProps): JSX.Element {
             testId={`VaultRow.${props.vault.vaultId}.VaultStatus`}
           />
         </div>
-        <div className='flex items-center gap-x-0.5 text-primary-500 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
+        <div
+          className='flex items-center px-2 gap-x-0.5 text-primary-500 cursor-pointer'
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {!isOpen
             ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
             : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
         </div>
       </div>
-      <div className='w-full mt-2 text-primary-500 underline'>
-        <TextMiddleTruncate
-          textLength={6} text={props.vault.vaultId}
-          testId={`VaultRow.VaultID.${props.vault.vaultId}`}
-        />
-      </div>
+
+      <Link href={{ pathname: `/vaults/${props.vault.vaultId}` }}>
+        <div className=' mt-2 text-primary-500 underline cursor-pointer'>
+          <TextMiddleTruncate
+            textLength={6} text={props.vault.vaultId}
+            testId={`VaultRow.VaultID.${props.vault.vaultId}`}
+          />
+        </div>
+      </Link>
 
       <Transition
         enter='transition ease-out duration-200'
@@ -48,9 +55,9 @@ export function VaultsMobileCard (props: VaultsMobileCardProps): JSX.Element {
         show={isOpen}
       >
         {
-          props.vault.state === LoanVaultState.ACTIVE
-            ? <ActiveVaultDetails vault={props.vault} />
-            : <LiquidatedVaultDetails />
+          props.vault.state === LoanVaultState.IN_LIQUIDATION
+            ? <LiquidatedVaultDetails />
+            : <ActiveVaultDetails vault={props.vault} />
         }
       </Transition>
     </div>
