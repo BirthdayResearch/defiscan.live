@@ -167,7 +167,7 @@ function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Ele
 function VaultStatusInfo (): JSX.Element {
   return (
     <div
-      className='px-4 py-3 font-normal text-sm bg-white text-gray-900 rounded-lg shadow-lg max-w-xs'
+      className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
     >
       A vault's status is determined by its collateral ratio:
       <br /><br />
