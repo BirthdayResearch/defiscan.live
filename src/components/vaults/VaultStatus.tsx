@@ -13,7 +13,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
   let text = ''
 
   switch (props.vault.state) {
-    case LoanVaultState.ACTIVE:
+    case LoanVaultState.ACTIVE: {
       if (Number(props.vault.loanAmounts.length) === 0) {
         textClassName = 'text-blue-500 bg-blue-100'
         text = 'ACTIVE'
@@ -21,7 +21,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
       }
 
       const minColRatio = new BigNumber(props.vault.loanScheme.minColRatio)
-      const collateralRatio = new BigNumber(props.vault.collateralRatio!)
+      const collateralRatio = new BigNumber(props.vault.collateralRatio)
       const currentPercentage = collateralRatio.div(minColRatio)
 
       if (currentPercentage > new BigNumber(1.5)) {
@@ -32,26 +32,31 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
         text = 'AT RISK'
       }
       break
+    }
 
-    case LoanVaultState.FROZEN:
+    case LoanVaultState.FROZEN: {
       textClassName = 'text-red-500 bg-red-100'
       text = 'HALTED'
       break
+    }
 
-    case LoanVaultState.MAY_LIQUIDATE:
+    case LoanVaultState.MAY_LIQUIDATE: {
       textClassName = 'text-orange-500 bg-orange-100'
       text = 'AT RISK'
       break
+    }
 
-    case LoanVaultState.IN_LIQUIDATION:
+    case LoanVaultState.IN_LIQUIDATION: {
       textClassName = 'text-gray-500 bg-gray-100'
       text = 'LIQUIDATED'
       break
+    }
 
-    case LoanVaultState.UNKNOWN:
+    case LoanVaultState.UNKNOWN: {
       textClassName = 'text-white bg-gray-400'
       text = 'UNKNOWN'
       break
+    }
   }
 
   return (
