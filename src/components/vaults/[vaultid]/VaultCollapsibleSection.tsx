@@ -1,6 +1,5 @@
 import { ReactNode, useState } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
-import classNames from 'classnames'
 
 interface VaultCollapsibleSectionProps {
   children: ReactNode
@@ -16,8 +15,8 @@ export function VaultCollapsibleSection (props: VaultCollapsibleSectionProps): J
   }
 
   return (
-    <div className={classNames(props.className, 'cursor-pointer')} data-testid='VaultCollapsibleSection'>
-      <div className='flex items-center justify-between mt-6' onClick={() => handleToggle()}>
+    <div className={props.className} data-testid='VaultCollapsibleSection'>
+      <div className='flex items-center justify-between mt-6 cursor-pointer' onClick={() => handleToggle()}>
         <h2
           className='text-lg font-semibold text-gray-900'
           data-testid='VaultCollapsibleSection.Heading'
