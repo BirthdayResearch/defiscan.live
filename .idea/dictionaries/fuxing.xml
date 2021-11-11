@@ -219,6 +219,7 @@
       <w>vout</w>
       <w>vouts</w>
       <w>vsize</w>
+      <w>waitfornewblock</w>
       <w>walletname</w>
       <w>walletversion</w>
       <w>wpkh</w>
