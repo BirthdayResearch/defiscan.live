@@ -13,6 +13,7 @@ import { VaultMobileCard } from '@components/vaults/VaultMobileCard'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import React from 'react'
 import { Link } from '@components/commons/Link'
+import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
 
 interface VaultsPageData {
   vaults: {
@@ -131,7 +132,10 @@ function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
           </div>
         </OverflowTable.Cell>
         <OverflowTable.Cell alignRight>
-          <span data-testid={`VaultRow.${vault.vaultId}.CollateralRatio`}>{`${vault.collateralRatio}%`}</span>
+          <VaultCollateralRatio
+            collateralRatio={vault.collateralRatio} loanScheme={vault.loanScheme}
+            testId={`VaultRow.${vault.vaultId}.CollateralRatio`}
+          />
         </OverflowTable.Cell>
       </OverflowTable.Row>
     </Link>
