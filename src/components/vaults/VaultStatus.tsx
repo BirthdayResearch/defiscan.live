@@ -14,11 +14,9 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
 
       if (Number(props.vault.loanValue) <= 0) {
         return (
-          <span
-            className={classNames(props.className, 'text-blue-500 bg-blue-100')}
-            data-testid={props.testId}
-          >ACTIVE
-        </span>
+          <div className={classNames(props.className, 'text-blue-500 bg-blue-100')} data-testid={props.testId}>
+            ACTIVE
+          </div>
         )
       }
 
@@ -28,41 +26,37 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
 
       if (currentPercentage > new BigNumber(1.5)) {
         return (
-          <span
-            className={classNames(props.className, 'text-green-500 bg-green-100')}
-            data-testid={props.testId}
-          >HEALTHY
-        </span>
+          <div className={classNames(props.className, 'text-green-500 bg-green-100')} data-testid={props.testId}>
+            HEALTHY
+          </div>
         )
       } else {
-        return <span className={classNames(props.className, 'text-orange-500 bg-orange-100')}
-                     data-testid={props.testId}>AT RISK</span>
+        return (
+          <div className={classNames(props.className, 'text-orange-500 bg-orange-100')} data-testid={props.testId}>
+            AT RISK
+          </div>
+        )
       }
     case LoanVaultState.FROZEN:
       return (
-        <span
-          className={classNames(props.className, 'text-red-300 bg-red-100')}
-          data-testid={props.testId}
-        >HALTED
-        </span>
+        <div className={classNames(props.className, 'text-red-300 bg-red-100')} data-testid={props.testId}>
+          HALTED
+        </div>
       )
     case LoanVaultState.MAY_LIQUIDATE:
-      return <span className={classNames(props.className, 'text-orange-500 bg-orange-100')} data-testid={props.testId}>AT RISK</span>
+      return <div className={classNames(props.className, 'text-orange-500 bg-orange-100')} data-testid={props.testId}>AT
+        RISK</div>
     case LoanVaultState.IN_LIQUIDATION:
       return (
-        <span
-          className={classNames(props.className, 'text-gray-500 bg-gray-100')}
-          data-testid={props.testId}
-        >LIQUIDATED
-        </span>
+        <div className={classNames(props.className, 'text-gray-500 bg-gray-100')} data-testid={props.testId}>
+          LIQUIDATED
+        </div>
       )
     case LoanVaultState.UNKNOWN:
       return (
-        <span
-          className={classNames(props.className, 'text-white bg-gray-400')}
-          data-testid={props.testId}
-        >UNKNOWN
-        </span>
+        <div className={classNames(props.className, 'text-white bg-gray-400')} data-testid={props.testId}>
+          UNKNOWN
+        </div>
       )
   }
 }
