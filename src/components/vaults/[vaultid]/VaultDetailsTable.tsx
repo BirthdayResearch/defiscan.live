@@ -27,7 +27,16 @@ function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidate
       <OverflowTable.Cell className='text-right'>
         {(() => {
           if ('loanValue' in vault) {
-            return <ReactNumberFormat value={vault.loanValue} prefix='$' displayType='text' thousandSeparator />
+            return (
+              <ReactNumberFormat
+                value={vault.loanValue}
+                prefix='$'
+                displayType='text'
+                decimalScale={2}
+                fixedDecimalScale
+                thousandSeparator
+              />
+            )
           }
           return 'N/A'
         })()}
@@ -35,7 +44,16 @@ function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidate
       <OverflowTable.Cell className='text-right'>
         {(() => {
           if ('collateralValue' in vault) {
-            return <ReactNumberFormat value={vault.collateralValue} prefix='$' displayType='text' thousandSeparator />
+            return (
+              <ReactNumberFormat
+                value={vault.collateralValue}
+                prefix='$'
+                displayType='text'
+                decimalScale={2}
+                fixedDecimalScale
+                thousandSeparator
+              />
+            )
           }
           return 'N/A'
         })()}
@@ -43,17 +61,26 @@ function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidate
       <OverflowTable.Cell className='text-right'>
         {(() => {
           if ('collateralRatio' in vault) {
-            const ratio = (Number(vault.collateralRatio) / Number(vault.loanValue)).toFixed(2)
-            return <ReactNumberFormat value={ratio} displayType='text' suffix='%' />
+            return `${vault.collateralRatio}%`
           }
           return 'N/A'
         })()}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        N/A
+        {(() => {
+          if ('loanScheme' in vault) {
+            return `${vault.loanScheme.minColRatio}%`
+          }
+          return 'N/A'
+        })()}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        N/A
+        {(() => {
+          if ('interestValue' in vault) {
+            return `${vault.interestValue}%`
+          }
+          return 'N/A'
+        })()}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
