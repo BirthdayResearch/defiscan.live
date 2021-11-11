@@ -18,17 +18,12 @@ export function VaultLoansTable ({ loans }: { loans: LoanVaultTokenAmount[] }): 
 
 function VaultLoansDesktop ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
-    <div className='hidden md:block mt-8' data-testid='VaultLoansDesktop'>
+    <div className='hidden md:block mt-8 md:w-1/2 xl:w-1/3' data-testid='VaultLoansDesktop'>
       <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
       <OverflowTable className='mt-4'>
         <OverflowTable.Header>
           <OverflowTable.Head title='Loan Token' />
           <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
-          <OverflowTable.Head
-            title='Total Loan Interest (APR)'
-            testId='VaultLoansDesktop.TotalLoanInterest'
-            alignRight
-          />
         </OverflowTable.Header>
         {loans.map((loan) => (
           <VaultLoansTableRow loan={loan} key={loan.id} />
@@ -58,9 +53,6 @@ function VaultLoansTableRow ({ loan }: { loan: LoanVaultTokenAmount }): JSX.Elem
           thousandSeparator
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        N/A
-      </OverflowTable.Cell>
     </OverflowTable.Row>
   )
 }
@@ -80,7 +72,7 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
           <span className='ml-1.5 font-medium text-gray-900'>{loan.name}</span>
         </div>
         <div
-          className='flex items-center text-primary-500 cursor-pointer'
+          className='hidden flex items-center text-primary-500 cursor-pointer'
           onClick={() => setIsOpen(!isOpen)}
         >
           {!isOpen
