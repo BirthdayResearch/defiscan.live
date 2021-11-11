@@ -1,4 +1,4 @@
-context('/vaults/[vaultid] on desktop', () => {
+context('/vaults/[vaultid] on desktop', function () {
     before(() => {
         cy.visit('/vaults/1')
     })
@@ -6,7 +6,6 @@ context('/vaults/[vaultid] on desktop', () => {
     beforeEach(() => {
         cy.viewport('macbook-16')
     })
-
 
     it('should have <BreadCrums />', function () {
         cy.findByTestId('Breadcrumb')
@@ -18,7 +17,6 @@ context('/vaults/[vaultid] on desktop', () => {
     it('should have page header', function () {
         cy.findByTestId('PageHeading').should('contain.text', 'Vault ID')
     })
-
 
     context('Vault Details', () => {
         it('should Vault Details Heading', function () {
@@ -44,7 +42,6 @@ context('/vaults/[vaultid] on desktop', () => {
         })
     })
 
-
     context('Collateral Details', () => {
         it('should Collateral Details Heading', function () {
           cy.findByTestId('CollateralDetailsDesktop.Heading').should('have.text', 'Collateral Details')
@@ -62,7 +59,6 @@ context('/vaults/[vaultid] on desktop', () => {
         })
     })
 
-
     context('Loan Details', () => {
         it('should Loan Details Heading', function () {
             cy.findByTestId('VaultLoansDesktop.Heading').should('have.text', 'Loan Details')
@@ -75,6 +71,78 @@ context('/vaults/[vaultid] on desktop', () => {
           })
             cy.findByTestId('VaultLoansDesktop.LoanAmount').should('be.visible')
             cy.findByTestId('VaultLoansDesktop.TotalLoanInterest').should('be.visible')
+        })
+    })
+})
+
+
+
+context('/vaults/[vaultid] on mobile', function () {
+    before(() => {
+        cy.visit('/vaults/1')
+    })
+
+    beforeEach(() => {
+        cy.viewport('iphone-x')
+    })
+
+    it('should have <BreadCrums />', function () {
+        cy.findByTestId('Breadcrumb')
+            .should('have.length', 1)
+            .should('contain.text', 'Scan')
+            .should('contain.text', 'Vaults')
+    })
+
+    it('should have page header', function () {
+        cy.findByTestId('PageHeading').should('contain.text', 'Vault ID')
+    })
+
+    context('Vault details ', () => {
+        it('should Vault Details Heading', function () {
+            cy.findAllByTestId('Collapsible.Heading').eq(0).should('have.text', 'Vault Details')
+        })
+
+        it('should have Vault Details', function () {
+            cy.findAllByTestId('VaultDetailList').eq(1).then(ele =>{
+                cy.findByTestId('VaultDetailList.tlv').should('have.text', 'Total Loan Value(USD)')
+                cy.wrap(ele).findByText('$60.0001824').should('be.visible')
+            })
+        })
+    })
+
+    context('Collateral details', function () {
+        it('should Collateral Details Heading', function () {
+           cy.findAllByTestId('Collapsible.Heading').eq(1).should('have.text', 'Collateral Details')
+        })
+
+        it('should have collateral details card', function () {
+            cy.findAllByTestId('Collapsible')
+                .eq(1)
+                .findAllByTestId('CollateralCard')
+                .eq(1)
+                .then(ele => {
+                    cy.wrap(ele).findByText('collateral amount').should('be.visible')
+                    cy.wrap(ele).findByText('Default Defi token').should('be.visible')
+                })
+        })
+    })
+
+    context('Loan Details', function () {
+        it('should Loan Details Heading', function () {
+            cy.findAllByTestId('Collapsible.Heading').eq(2).should('have.text', 'Loan Details')
+        })
+
+        it('should have Loan details card', function () {
+            cy.findAllByTestId('Collapsible')
+                .eq(2)
+                .findAllByTestId('VaultLoanDetailsCard')
+                .eq(0)
+                .then(ele => {
+                    cy.wrap(ele).findByText('TSLA').should('be.visible')
+                    cy.wrap(ele).findByText('View').should('be.visible')
+                    cy.wrap(ele).findByText('Loan Amount').should('be.visible')
+                    cy.wrap(ele).findByText('30.00009120TSLA').should('be.visible')
+                })
         })
     })
 })

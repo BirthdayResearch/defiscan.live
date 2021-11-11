@@ -80,11 +80,11 @@ function VaultLoansTableRow ({ loan }: {loan: LoanVaultTokenAmount}): JSX.Elemen
 function VaultLoanDetailsCard ({ loan }: {loan: LoanVaultTokenAmount}): JSX.Element {
   const LoanSymbol = getAssetIcon(loan.displaySymbol)
   return (
-    <div className='p-4 border border-gray-300 h-28 rounded w-80 justify-self-center md:justify-self-stretch'>
+    <div className='p-4 border border-gray-300 h-28 rounded w-80 justify-self-center md:justify-self-stretch' data-testid='VaultLoanDetailsCard'>
       <div className='flex items-center justify-between'>
         <div className='flex items-center space-x-1'>
           <LoanSymbol className='h-6 w-6' />
-          <span>{loan.name} </span>
+          <span>{loan.name}</span>
         </div>
         <div className='flex items-center text-primary-500 underline'>
           <span>View</span>

@@ -15,9 +15,9 @@ export function Collapsible (props: CollapsibleProps): JSX.Element {
   }
 
   return (
-    <div className={props.className}>
+    <div className={props.className} data-testid='Collapsible'>
       <div className='flex items-center justify-between'>
-        <h2 className='text-xl font-semibold'>{props.heading}</h2>
+        <h2 className='text-xl font-semibold' data-testid='Collapsible.Heading'>{props.heading}</h2>
         <button className='outline-none px-5 py-3' onClick={() => handleToggle()}>
           {(() => {
             if (isOpen) {
