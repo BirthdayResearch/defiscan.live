@@ -12,6 +12,7 @@ interface VaultDetailListProps {
   children: ReactNode
   heading: string
   description: string
+  testId?: string
 }
 
 interface InformationPopOverProps {
@@ -83,6 +84,7 @@ function VaultDetailsMobile ({ vault }: {vault: any}): JSX.Element {
       <VaultDetailList
         heading='Total Loan Value(USD)'
         description='Total loan value (in USD) taken by the vault.'
+        testId='VaultDetailList.tlv'
       >
         {(() => {
           if ('loanValue' in vault) {
@@ -195,8 +197,12 @@ function VaultDetailsDesktop ({ vault }: {vault: any}): JSX.Element {
 
 function VaultDetailList (props: PropsWithChildren<VaultDetailListProps>): JSX.Element {
   return (
-    <div className='flex justify-between items-center mb-5'>
-      <InformationPopOver heading={props.heading} description={props.description} />
+    <div className='flex justify-between items-center mb-5' data-testid='VaultDetailList'>
+      <InformationPopOver
+        heading={props.heading}
+        testId={props.testId}
+        description={props.description}
+      />
       {props.children}
     </div>
   )
