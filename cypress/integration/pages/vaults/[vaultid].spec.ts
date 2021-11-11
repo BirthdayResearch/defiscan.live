@@ -23,7 +23,7 @@ context('/vaults/[vaultid] on desktop', function () {
             cy.findByTestId('VaultDetailsDesktop.Heading').should('have.text', 'Vault Details')
         })
 
-        it('should have AdaptiveTable header information', function () {
+        it('should have OverflowTable header information', function () {
             cy.findByTestId('VaultDetailsDesktop.OwnersId').should('be.visible')
             cy.findByTestId('VaultDetailsDesktop.tcr').should('be.visible')
             cy.findByTestId('VaultDetailsDesktop.tlv').should('be.visible')
@@ -31,9 +31,9 @@ context('/vaults/[vaultid] on desktop', function () {
             cy.findByTestId('VaultDetailsDesktop.mcr').should('be.visible')
         })
 
-        it('should have vault details in AdaptiveTable', function () {
+        it('should have vault details in OverflowTable', function () {
             cy.findByTestId('VaultTableRow.OwnerId').should('have.text', 'eufhrhf9erh9')
-            cy.findAllByTestId('AdaptiveTable.Row').then(ele => {
+            cy.findAllByTestId('OverflowTable.Row').then(ele => {
                 cy.wrap(ele).findByText('$60.0001824').should('be.visible')
                 cy.wrap(ele).findByText('$10,000').should('be.visible')
                 cy.wrap(ele).findByText('277.78%').should('be.visible')
@@ -53,7 +53,7 @@ context('/vaults/[vaultid] on desktop', function () {
                 .findAllByTestId('CollateralCard')
                 .eq(1)
                 .then(ele => {
-              cy.wrap(ele).findByText('collateral amount').should('be.visible')
+              cy.wrap(ele).findByText('Collateral Amount').should('be.visible')
               cy.wrap(ele).findByText('Default Defi token').should('be.visible')
           })
         })
@@ -64,8 +64,8 @@ context('/vaults/[vaultid] on desktop', function () {
             cy.findByTestId('VaultLoansDesktop.Heading').should('have.text', 'Loan Details')
         })
 
-        it('should Adaptive Header Information', function () {
-          cy.findByTestId('VaultLoansDesktop').findByTestId('AdaptiveTable.Header').then(ele => {
+        it('should OverflowTable Header Information', function () {
+          cy.findByTestId('VaultLoansDesktop').findByTestId('OverflowTable.Header').then(ele => {
               cy.wrap(ele).findByText('Loan Taken').should('be.visible')
               cy.wrap(ele).findByText('Loan Id').should('be.visible')
           })
@@ -104,7 +104,7 @@ context('/vaults/[vaultid] on mobile', function () {
 
         it('should have Vault Details', function () {
             cy.findAllByTestId('VaultDetailList').eq(1).then(ele =>{
-                cy.findByTestId('VaultDetailList.tlv').should('have.text', 'Total Loan Value(USD)')
+                cy.findByTestId('VaultDetailList.tlv').should('have.text', 'Total Loan Value (USD)')
                 cy.wrap(ele).findByText('$60.0001824').should('be.visible')
             })
         })
@@ -121,7 +121,7 @@ context('/vaults/[vaultid] on mobile', function () {
                 .findAllByTestId('CollateralCard')
                 .eq(1)
                 .then(ele => {
-                    cy.wrap(ele).findByText('collateral amount').should('be.visible')
+                    cy.wrap(ele).findByText('Collateral Amount').should('be.visible')
                     cy.wrap(ele).findByText('Default Defi token').should('be.visible')
                 })
         })

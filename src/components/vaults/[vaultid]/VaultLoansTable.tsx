@@ -1,11 +1,11 @@
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
-import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { getAssetIcon } from '@components/icons/assets'
 import ReactNumberFormat from 'react-number-format'
 import { AddressLink } from '@components/commons/AddressLink'
 import { InformationPopOver } from '@components/vaults/[vaultid]/VaultDetailsTable'
 import { Collapsible } from '@components/commons/Collapsible'
 import { IoIosArrowDown } from 'react-icons/io'
+import { OverflowTable } from '@components/commons/OverflowTable'
 
 export function VaultLoansTable ({ loans }: {loans: LoanVaultTokenAmount[]}): JSX.Element {
   return (
@@ -20,31 +20,31 @@ function VaultLoansDesktop ({ loans }: {loans: LoanVaultTokenAmount[]}): JSX.Ele
   return (
     <div className='hidden md:block' data-testid='VaultLoansDesktop'>
       <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
-      <AdaptiveTable className='mt-6'>
-        <AdaptiveTable.Header>
-          <AdaptiveTable.Head>Loan Taken</AdaptiveTable.Head>
-          <AdaptiveTable.Head className='align-middle md:text-right'>Loan Id</AdaptiveTable.Head>
-          <AdaptiveTable.Head>
+      <OverflowTable className='mt-6'>
+        <OverflowTable.Header>
+          <OverflowTable.Head>Loan Taken</OverflowTable.Head>
+          <OverflowTable.Head className='align-middle md:text-right'>Loan Id</OverflowTable.Head>
+          <OverflowTable.Head>
             <InformationPopOver
               className='justify-end'
               heading='Loan Amount'
               description='Loan Amount'
               testId='VaultLoansDesktop.LoanAmount'
             />
-          </AdaptiveTable.Head>
-          <AdaptiveTable.Head>
+          </OverflowTable.Head>
+          <OverflowTable.Head>
             <InformationPopOver
               className='justify-end'
               heading='Total Loan Interest (APR)'
               description='Total Loan Interest (APR)'
               testId='VaultLoansDesktop.TotalLoanInterest'
             />
-          </AdaptiveTable.Head>
-        </AdaptiveTable.Header>
+          </OverflowTable.Head>
+        </OverflowTable.Header>
         {loans.map((loan) => (
           <VaultLoansTableRow loan={loan} key={loan.id} />
         ))}
-      </AdaptiveTable>
+      </OverflowTable>
     </div>
   )
 }
@@ -52,28 +52,28 @@ function VaultLoansDesktop ({ loans }: {loans: LoanVaultTokenAmount[]}): JSX.Ele
 function VaultLoansTableRow ({ loan }: {loan: LoanVaultTokenAmount}): JSX.Element {
   const LoanSymbol = getAssetIcon(loan.displaySymbol)
   return (
-    <AdaptiveTable.Row>
-      <AdaptiveTable.Cell title='Loan Token'>
+    <OverflowTable.Row>
+      <OverflowTable.Cell>
         <div className='flex items-center space-x-1'>
           <LoanSymbol className='h-6 w-6' />
           <span>{loan.name}</span>
         </div>
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='md:text-right' title='Loan ID'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='md:text-right'>
         <AddressLink address={loan.id} />
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='md:text-right' title='Loan Amount'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='md:text-right'>
         <ReactNumberFormat
           displayType='text'
           value={loan.amount}
           prefix='$'
           thousandSeparator
         />
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='md:text-right' title='Loan Interest Rate'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='md:text-right'>
         N/A
-      </AdaptiveTable.Cell>
-    </AdaptiveTable.Row>
+      </OverflowTable.Cell>
+    </OverflowTable.Row>
   )
 }
 

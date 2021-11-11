@@ -1,12 +1,12 @@
 import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
-import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { AddressLink } from '@components/commons/AddressLink'
 import ReactNumberFormat from 'react-number-format'
-import React, { PropsWithChildren, ReactNode } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { IoMdInformationCircleOutline } from 'react-icons/io'
 import { Collapsible } from '@components/commons/Collapsible'
 import classNames from 'classnames'
+import { OverflowTable } from '@components/commons/OverflowTable'
 
 interface VaultDetailListProps {
   children: ReactNode
@@ -33,27 +33,27 @@ export function VaultDetailsTable ({ vault }: {vault: LoanVaultActive | LoanVaul
 
 function VaultTableRow ({ vault }: {vault: any}): JSX.Element {
   return (
-    <AdaptiveTable.Row>
-      <AdaptiveTable.Cell>
+    <OverflowTable.Row>
+      <OverflowTable.Cell>
         <AddressLink address='eufhrhf9erh9' className='break-all' testId='VaultTableRow.OwnerId' />
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
         {(() => {
           if ('loanValue' in vault) {
             return <ReactNumberFormat value={vault.loanValue} prefix='$' displayType='text' thousandSeparator />
           }
           return 'N/A'
         })()}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
         {(() => {
           if ('collateralValue' in vault) {
             return <ReactNumberFormat value={vault.collateralValue} prefix='$' displayType='text' thousandSeparator />
           }
           return 'N/A'
         })()}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
         {(() => {
           if ('collateralRatio' in vault) {
             const ratio = (Number(vault.collateralRatio) / Number(vault.loanValue)).toFixed(2)
@@ -61,14 +61,14 @@ function VaultTableRow ({ vault }: {vault: any}): JSX.Element {
           }
           return 'N/A'
         })()}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
         N/A
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell className='text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
         N/A
-      </AdaptiveTable.Cell>
-    </AdaptiveTable.Row>
+      </OverflowTable.Cell>
+    </OverflowTable.Row>
   )
 }
 
@@ -138,32 +138,32 @@ function VaultDetailsDesktop ({ vault }: {vault: any}): JSX.Element {
       <h2 className='text-xl font-semibold' data-testid='VaultDetailsDesktop.Heading'>
         Vault Details
       </h2>
-      <AdaptiveTable className='mt-6'>
-        <AdaptiveTable.Header>
-          <AdaptiveTable.Head>
+      <OverflowTable className='mt-6'>
+        <OverflowTable.Header>
+          <OverflowTable.Head>
             <InformationPopOver
               heading='Owner Id'
               description={'Vault owner\'s address'}
               testId='VaultDetailsDesktop.OwnersId'
             />
-          </AdaptiveTable.Head>
-          <AdaptiveTable.Head>
+          </OverflowTable.Head>
+          <OverflowTable.Head>
             <InformationPopOver
               className='justify-end'
               heading='Total Loan Value(USD)'
               description='Total loan value (in USD) taken by the vault.'
               testId='VaultDetailsDesktop.tlv'
             />
-          </AdaptiveTable.Head>
-          <AdaptiveTable.Head>
+          </OverflowTable.Head>
+          <OverflowTable.Head>
             <InformationPopOver
               className='justify-end'
               heading='Total Collateral Value(USD)'
               description='Total value of tokens (in USD) deposited as collaterals in the vault.'
               testId='VaultDetailsDesktop.tcv'
             />
-          </AdaptiveTable.Head>
-          <AdaptiveTable.Head>
+          </OverflowTable.Head>
+          <OverflowTable.Head>
             <InformationPopOver
               className='justify-end'
               heading='Total Collateral Ratio'
@@ -171,26 +171,26 @@ function VaultDetailsDesktop ({ vault }: {vault: any}): JSX.Element {
               testId='VaultDetailsDesktop.tcr'
 
             />
-          </AdaptiveTable.Head>
-          <AdaptiveTable.Head>
+          </OverflowTable.Head>
+          <OverflowTable.Head>
             <InformationPopOver
               className='justify-end'
               heading='Min Collateral Ratio'
               description='Minimum required collateral ratio based on vault scheme selected by vault owner.'
               testId='VaultDetailsDesktop.mcr'
             />
-          </AdaptiveTable.Head>
-          <AdaptiveTable.Head>
+          </OverflowTable.Head>
+          <OverflowTable.Head>
             <InformationPopOver
               className='justify-end'
               heading='Base Interest Ratio(APR)'
               description='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
               testId='VaultDetailsDesktop.bir'
             />
-          </AdaptiveTable.Head>
-        </AdaptiveTable.Header>
+          </OverflowTable.Head>
+        </OverflowTable.Header>
         <VaultTableRow vault={vault} />
-      </AdaptiveTable>
+      </OverflowTable>
     </div>
   )
 }

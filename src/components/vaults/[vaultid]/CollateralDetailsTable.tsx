@@ -47,7 +47,7 @@ function CollateralDetailsDesktop ({ collaterals }: {collaterals: LoanVaultToken
 function CollateralCard ({ col }: {col: LoanVaultTokenAmount}): JSX.Element {
   const TokenSymbol = getAssetIcon(col.displaySymbol)
   return (
-    <div className='p-4 border border-gray-300 h-28 rounded w-80 justify-self-center md:justify-self-stretch' data-testid='CollateralCard'>
+    <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
       <div className='flex justify-between items-start w-full'>
         <div className='flex items-center'>
           <TokenSymbol className='h-6 w-6 z-10' />
@@ -56,15 +56,15 @@ function CollateralCard ({ col }: {col: LoanVaultTokenAmount}): JSX.Element {
         {/* <span>10%</span> */}
       </div>
       <div className='mt-4 text-gray-500'>
-        <span className='text-sm'>collateral amount</span>
+        <span className='text-sm'>Collateral Amount</span>
         <span className='block '>
           <ReactNumberFormat
-            className='text-gray-800'
+            className='text-gray-900'
             displayType='text'
             thousandSeparator
             value={col.amount}
             decimalScale={2}
-            suffix={col.symbol}
+            suffix={` ${col.symbol}`}
           />
         </span>
       </div>
