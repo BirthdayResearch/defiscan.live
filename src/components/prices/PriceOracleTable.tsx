@@ -25,11 +25,11 @@ export function PriceOracleTable ({
 
       <OverflowTable className='mt-6'>
         <OverflowTable.Header>
-          <OverflowTable.Head>DATE LAST UPDATED</OverflowTable.Head>
-          <OverflowTable.Head>ORACLE</OverflowTable.Head>
-          <OverflowTable.Head>PRICE</OverflowTable.Head>
-          <OverflowTable.Head>AGGREGATED PRICE</OverflowTable.Head>
-          <OverflowTable.Head>TXID</OverflowTable.Head>
+          <OverflowTable.Head title='DATE LAST UPDATED' />
+          <OverflowTable.Head title='ORACLE' />
+          <OverflowTable.Head title='PRICE' />
+          <OverflowTable.Head title='AGGREGATED PRICE' />
+          <OverflowTable.Head title='TXID' />
         </OverflowTable.Header>
         {oracles
           .sort((a, b) => ((b.feed?.time ?? 0) - (a.feed?.time ?? 0)))

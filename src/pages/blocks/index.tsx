@@ -28,12 +28,12 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
       <div className='my-6'>
         <OverflowTable>
           <OverflowTable.Header>
-            <OverflowTable.Head sticky>HEIGHT</OverflowTable.Head>
-            <OverflowTable.Head>AGE</OverflowTable.Head>
-            <OverflowTable.Head>TRANSACTIONS</OverflowTable.Head>
-            <OverflowTable.Head>MINTER</OverflowTable.Head>
-            <OverflowTable.Head>SIZE (B)</OverflowTable.Head>
-            <OverflowTable.Head>DIFFICULTY</OverflowTable.Head>
+            <OverflowTable.Head title='HEIGHT' sticky />
+            <OverflowTable.Head title='AGE' />
+            <OverflowTable.Head title='TRANSACTIONS' />
+            <OverflowTable.Head title='MINTER' />
+            <OverflowTable.Head title='SIZE (B)' />
+            <OverflowTable.Head title='DIFFICULTY' />
           </OverflowTable.Header>
 
           {blocks.items.map(block => (

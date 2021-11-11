@@ -45,10 +45,10 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
       {tokensData !== undefined && tokensData.length > 0 ? (
         <OverflowTable className='w-full'>
           <OverflowTable.Header>
-            <OverflowTable.Head>TOKEN</OverflowTable.Head>
-            <OverflowTable.Head>AMOUNT</OverflowTable.Head>
-            <OverflowTable.Head>NAME</OverflowTable.Head>
-            <OverflowTable.Head>CATEGORY</OverflowTable.Head>
+            <OverflowTable.Head title='TOKEN' />
+            <OverflowTable.Head title='AMOUNT' />
+            <OverflowTable.Head title='NAME' />
+            <OverflowTable.Head title='CATEGORY' />
           </OverflowTable.Header>
           {tokensData.map((token) => {
             return (

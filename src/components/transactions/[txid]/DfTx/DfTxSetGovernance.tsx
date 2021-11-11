@@ -45,8 +45,8 @@ export function DfTxSetGovernance (props: DfTxSetGovernanceProps): JSX.Element {
                     <div className='w-full lg:w-1/2 mt-4'>
                       <OverflowTable>
                         <OverflowTable.Header>
-                          <OverflowTable.Head>Token</OverflowTable.Head>
-                          <OverflowTable.Head>Value</OverflowTable.Head>
+                          <OverflowTable.Head title='Token' />
+                          <OverflowTable.Head title='Value' />
                         </OverflowTable.Header>
                         {governanceLpSplits.value.map(liqPoolSplit => (
                           <GovernanceLpSplitsTableRow liqPoolSplit={liqPoolSplit} key={`${liqPoolSplit.tokenId}-${liqPoolSplit.value.toFixed(8)}`} />

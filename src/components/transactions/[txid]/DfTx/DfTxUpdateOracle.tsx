@@ -36,8 +36,8 @@ export function DfTxUpdateOracle (props: DfTxUpdateOracleProps): JSX.Element {
         <AdaptiveList className='w-full lg:w-1/2'>
           <OverflowTable>
             <OverflowTable.Header>
-              <OverflowTable.Head>Token</OverflowTable.Head>
-              <OverflowTable.Head>Currency</OverflowTable.Head>
+              <OverflowTable.Head title='Token' />
+              <OverflowTable.Head title='Currency' />
             </OverflowTable.Header>
             {props.dftx.data.priceFeeds.map((priceFeed) => (
               <UpdateOracleTableRow priceFeed={priceFeed} key={`${priceFeed.token}-${priceFeed.currency}`} />

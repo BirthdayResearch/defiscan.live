@@ -63,10 +63,10 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
       {transactionData.length > 0 ? (
         <OverflowTable className='w-full'>
           <OverflowTable.Header>
-            <OverflowTable.Head>TX ID</OverflowTable.Head>
-            <OverflowTable.Head>BLOCK</OverflowTable.Head>
-            <OverflowTable.Head>AGE</OverflowTable.Head>
-            <OverflowTable.Head className='text-right'>AMOUNT</OverflowTable.Head>
+            <OverflowTable.Head title='TX ID' />
+            <OverflowTable.Head title='BLOCK' />
+            <OverflowTable.Head title='AGE' />
+            <OverflowTable.Head title='AMOUNT' alignRight />
           </OverflowTable.Header>
           {transactionData.map((addressActivity) => {
             return (

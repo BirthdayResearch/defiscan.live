@@ -10,7 +10,6 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { VaultStatus } from '@components/vaults/VaultStatus'
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
 import { VaultMobileCard } from '@components/vaults/VaultMobileCard'
-import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import React from 'react'
 import { Link } from '@components/commons/Link'
 import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
@@ -32,37 +31,33 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
       <div className='my-6 hidden md:block'>
         <OverflowTable>
           <OverflowTable.Header>
-            <OverflowTable.Head sticky>Vault ID</OverflowTable.Head>
-            <OverflowTable.Head>
-              <div className='flex items-center'>
-                Status
-                <InfoHoverPopover className='ml-1' description={<VaultStatusInfo />} />
-              </div>
-            </OverflowTable.Head>
-            <OverflowTable.Head alignRight>
-              <div className='flex items-center justify-end text-left'>
-                Loans Value (USD)
-                <InfoHoverPopover className='ml-1' description='Loan token(s) and value (in USD) taken by a vault.' />
-              </div>
-            </OverflowTable.Head>
-            <OverflowTable.Head alignRight>
-              <div className='flex items-center justify-end text-left'>
-                Collateral Value (USD)
-                <InfoHoverPopover
-                  className='ml-1'
-                  description='Type and value of tokens deposited as collaterals in a vault.'
-                />
-              </div>
-            </OverflowTable.Head>
-            <OverflowTable.Head alignRight>
-              <div className='flex items-center justify-end text-left'>
-                Collateral Ratio
-                <InfoHoverPopover
-                  className='ml-1'
-                  description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-                />
-              </div>
-            </OverflowTable.Head>
+            <OverflowTable.Head
+              title='Vault ID'
+              infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+            />
+
+            <OverflowTable.Head
+              title='Status'
+              infoDesc={<VaultStatusInfo />}
+            />
+
+            <OverflowTable.Head
+              alignRight
+              title='Loans Value (USD)'
+              infoDesc='Loan token(s) and value (in USD) taken by a vault.'
+            />
+
+            <OverflowTable.Head
+              alignRight
+              title='Collateral Value (USD)'
+              infoDesc='Type and value of tokens deposited as collaterals in a vault.'
+            />
+
+            <OverflowTable.Head
+              alignRight
+              title='Collateral Ratio'
+              infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+            />
           </OverflowTable.Header>
 
           {vaults.items.map(vault => {

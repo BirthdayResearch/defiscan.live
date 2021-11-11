@@ -118,10 +118,10 @@ function BlockTransactions (props: InferGetServerSidePropsType<typeof getServerS
 
       <OverflowTable className='mt-3'>
         <OverflowTable.Header>
-          <OverflowTable.Head>TXID</OverflowTable.Head>
-          <OverflowTable.Head>VIN/VOUT</OverflowTable.Head>
-          <OverflowTable.Head>TIMESTAMP</OverflowTable.Head>
-          <OverflowTable.Head>CONFIRMATIONS</OverflowTable.Head>
+          <OverflowTable.Head title='TX ID' />
+          <OverflowTable.Head title='VIN/VOUT' />
+          <OverflowTable.Head title='TIMESTAMP' />
+          <OverflowTable.Head title='CONFIRMATIONS' />
         </OverflowTable.Header>
 
         {transactions.items.map(transaction => {
