@@ -568,7 +568,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       }
     }
   } catch
-    (e) {
+  (e) {
     return {
       notFound: true
     }
