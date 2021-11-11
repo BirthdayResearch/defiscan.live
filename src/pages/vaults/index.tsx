@@ -214,10 +214,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       [
         {
           vaultId: 'b57e9cfd8f4c8aaa267fd57f81074d8b38d2c5aff554841102414aedfbe89548',
-          loanSchemeId: '1',
+          loanScheme: {
+            id: '1',
+            interestRate: '2.5',
+            minColRatio: '150'
+          },
           ownerAddress: 'kjlasd9780907231hjklAddress',
           state: LoanVaultState.ACTIVE,
-          collateralRatio: '16667',
+          collateralRatio: '226',
           collateralValue: '10000',
           informativeRatio: '16666.61600015',
           loanValue: '60.0001824',
@@ -255,10 +259,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         },
         {
           vaultId: 'b6832ecb6dad347d66ae9a481168eb4895933f43342d471ed5d5517d83d69798',
-          loanSchemeId: '1',
+          loanScheme: {
+            id: '1',
+            interestRate: '2.5',
+            minColRatio: '150'
+          },
           ownerAddress: 'kjlasd9780907231hjklAddress',
           state: LoanVaultState.FROZEN,
-          collateralRatio: '16667',
+          collateralRatio: '76',
           collateralValue: '10000',
           informativeRatio: '16666.61600015',
           loanValue: '60.0001824',
@@ -312,10 +320,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         },
         {
           vaultId: '2f9b79b4e60b51bb88e06807072a88d024de62325b6e52ac7ab325085bec379b',
-          loanSchemeId: '1',
+          loanScheme: {
+            id: '1',
+            interestRate: '2.5',
+            minColRatio: '150'
+          },
           ownerAddress: 'kjlasd9780907231hjklAddress',
           state: LoanVaultState.MAY_LIQUIDATE,
-          collateralRatio: '16667',
+          collateralRatio: '0',
           collateralValue: '10000',
           informativeRatio: '16666.61600015',
           loanValue: '60.0001824',
@@ -385,10 +397,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         },
         {
           vaultId: 'b55f1d24f1a8a90738d74d238d01ab232bab50da44522a812b1dad486c7e0c5f',
-          loanSchemeId: '1',
+          loanScheme: {
+            id: '1',
+            interestRate: '2.5',
+            minColRatio: '150'
+          },
           ownerAddress: 'kjlasd9780907231hjklAddress',
           state: LoanVaultState.ACTIVE,
-          collateralRatio: '16667',
+          collateralRatio: '500',
           collateralValue: '10000',
           informativeRatio: '16666.61600015',
           loanValue: '60.0001824',
@@ -474,7 +490,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         },
         {
           vaultId: 'b92d886570fe048eb8d36cb736871cafa594f38f4b3a1feee3034c60e8d087d0',
-          loanSchemeId: '1',
+          loanScheme: {
+            id: '1',
+            interestRate: '2.5',
+            minColRatio: '150'
+          },
           ownerAddress: 'kjlasd9780907231hjklAddress',
           state: LoanVaultState.IN_LIQUIDATION,
           liquidationHeight: 123333,
@@ -484,7 +504,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         },
         {
           vaultId: 'b9b3e6f9a325a8a33c06202401deb786ea9bd3a64b4d123a3730a7c921262ce7',
-          loanSchemeId: '1',
+          loanScheme: {
+            id: '1',
+            interestRate: '2.5',
+            minColRatio: '150'
+          },
           ownerAddress: 'kjlasd9780907231hjklAddress',
           state: LoanVaultState.IN_LIQUIDATION,
           liquidationHeight: 123333,
@@ -494,7 +518,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         },
         {
           vaultId: 'fc176f6d67ece8f840858c1ab5b80c6d94915c9cdb08cb6102b26ed165f7f85f',
-          loanSchemeId: '1',
+          loanScheme: {
+            id: '1',
+            interestRate: '2.5',
+            minColRatio: '150'
+          },
           ownerAddress: 'kjlasd9780907231hjklAddress',
           state: LoanVaultState.IN_LIQUIDATION,
           liquidationHeight: 123333,
