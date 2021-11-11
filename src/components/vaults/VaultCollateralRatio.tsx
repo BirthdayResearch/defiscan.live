@@ -12,25 +12,19 @@ interface VaultCollateralRatioProps {
 export function VaultCollateralRatio (props: VaultCollateralRatioProps): JSX.Element {
   const minColRatio = new BigNumber(props.loanScheme.minColRatio)
   const collateralRatio = new BigNumber(props.collateralRatio)
-
   const currentPercentage = collateralRatio.div(minColRatio)
-  let textClassName = 'text-green-500'
-
-  if (currentPercentage <= new BigNumber(0.5)) {
-    textClassName = 'text-red-500'
-  } else if (currentPercentage <= new BigNumber(1.5)) {
-    textClassName = 'text-orange-500'
-  }
 
   return (
-    <div className={
-      classNames(props.className, {
-        'text-red-500': precent <= new BigNumber(0.5),
-        'text-orange-500': precent > new BigNumber(0.5) && precent <= new BigNumber(1.5),
-         'text-green-500': precent > new BigNumber(1.5),
-      })} 
+    <div
+      className={
+        classNames(props.className, {
+          'text-red-500': currentPercentage <= new BigNumber(0.5),
+          'text-orange-500': currentPercentage > new BigNumber(0.5) && currentPercentage <= new BigNumber(1.5),
+          'text-green-500': currentPercentage > new BigNumber(1.5)
+        })
+      }
       data-testid={props.testId}
-      >
+    >
       {`${props.collateralRatio}%`}
     </div>
   )
