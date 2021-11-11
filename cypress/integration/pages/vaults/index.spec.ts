@@ -7,11 +7,11 @@ context('/vaults', () => {
     cy.visit('/vaults?network=Local')
 
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('VAULT ID').should('be.visible')
-      cy.wrap(ele).findByText('STATUS').should('be.visible')
-      cy.wrap(ele).findByText('LOANS VALUE (USD)').should('be.visible')
-      cy.wrap(ele).findByText('COLLATERAL VALUE (USD)').should('be.visible')
-      cy.wrap(ele).findByText('COLLATERAL RATIO').should('be.visible')
+      cy.wrap(ele).findByText('Vault ID').should('be.visible')
+      cy.wrap(ele).findByText('Status').should('be.visible')
+      cy.wrap(ele).findByText('Loans Value (USD)').should('be.visible')
+      cy.wrap(ele).findByText('Collateral Value (USD)').should('be.visible')
+      cy.wrap(ele).findByText('Collateral Ratio').should('be.visible')
     })
   })
 })
@@ -25,11 +25,11 @@ context('/vaults on mobile', () => {
     cy.visit('/vaults?network=Local')
 
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('VAULT ID').should('not.be.visible')
-      cy.wrap(ele).findByText('STATUS').should('not.be.visible')
-      cy.wrap(ele).findByText('LOANS VALUE (USD)').should('not.be.visible')
-      cy.wrap(ele).findByText('COLLATERAL VALUE (USD)').should('not.be.visible')
-      cy.wrap(ele).findByText('COLLATERAL RATIO').should('not.be.visible')
+      cy.wrap(ele).findByText('Vault ID').should('not.be.visible')
+      cy.wrap(ele).findByText('Status').should('not.be.visible')
+      cy.wrap(ele).findByText('Loans Value (USD)').should('not.be.visible')
+      cy.wrap(ele).findByText('Collateral Value (USD)').should('not.be.visible')
+      cy.wrap(ele).findByText('Collateral Ratio').should('not.be.visible')
     })
   })
 })
