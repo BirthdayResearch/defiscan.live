@@ -125,7 +125,7 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
 
 function VaultLoanDetailsMobile ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
-    <VaultDetailsCollapsibleSection heading='Loan Details' className='mt-8 block md:hidden'>
+    <VaultDetailsCollapsibleSection heading='Loan Details' className='block md:hidden'>
       <div className='flex flex-col items-center'>
         {loans.map((loan) => (
           <VaultLoanDetailsCard loan={loan} key={loan.id} />

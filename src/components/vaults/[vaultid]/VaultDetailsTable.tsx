@@ -5,6 +5,7 @@ import React, { PropsWithChildren } from 'react'
 import { VaultDetailsCollapsibleSection } from '@components/vaults/[vaultid]/VaultDetailsCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 
 export function VaultDetailsTable ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -19,7 +20,9 @@ function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidate
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        <AddressLink address='eufhrhf9erh9' className='break-all' testId='VaultTableRow.OwnerId' />
+        <AddressLink address={vault.ownerAddress} testId='VaultTableRow.OwnerId'>
+          <TextMiddleTruncate text={vault.ownerAddress} textLength={6} />
+        </AddressLink>
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {(() => {
@@ -58,86 +61,90 @@ function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidate
 
 function VaultDetailsMobile ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <VaultDetailsCollapsibleSection heading='Vault Details' className='mt-8 block md:hidden'>
-      <VaultDetailList
-        title='Owner ID'
-      >
-        <AddressLink address='eufhrhf9erh9' className='break-all' testId='VaultTableRow.OwnerIdMobile' />
-      </VaultDetailList>
-      <VaultDetailList
-        title='Total Loan Value (USD)'
-        infoDesc='Total loan value (in USD) taken by the vault.'
-        testId='VaultDetailList.tlv'
-      >
-        {(() => {
-          if ('loanValue' in vault) {
-            return (
-              <ReactNumberFormat
-                value={vault.loanValue}
-                prefix='$'
-                displayType='text'
-                decimalScale={2}
-                fixedDecimalScale
-                thousandSeparator
-              />
-            )
-          }
-          return 'N/A'
-        })()}
-      </VaultDetailList>
-      <VaultDetailList
-        title='Total Collateral Value (USD)'
-        infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
-      >
-        {(() => {
-          if ('collateralValue' in vault) {
-            return (
-              <ReactNumberFormat
-                value={vault.collateralValue}
-                prefix='$'
-                displayType='text'
-                decimalScale={2}
-                fixedDecimalScale
-                thousandSeparator
-              />
-            )
-          }
-          return 'N/A'
-        })()}
-      </VaultDetailList>
-      <VaultDetailList
-        title='Total Collateral Ratio'
-        infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-      >
-        {(() => {
-          if ('collateralRatio' in vault) {
-            return `${vault.collateralRatio}%`
-          }
-          return 'N/A'
-        })()}
-      </VaultDetailList>
-      <VaultDetailList
-        title='Min Collateral Ratio'
-        infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-      >
-        {(() => {
-          if ('loanScheme' in vault) {
-            return `${vault.loanScheme.minColRatio}%`
-          }
-          return 'N/A'
-        })()}
-      </VaultDetailList>
-      <VaultDetailList
-        title='Base Interest Ratio (APR)'
-        infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-      >
-        {(() => {
-          if ('interestValue' in vault) {
-            return `${vault.interestValue}%`
-          }
-          return 'N/A'
-        })()}
-      </VaultDetailList>
+    <VaultDetailsCollapsibleSection heading='Vault Details' className='block md:hidden'>
+      <div className='mb-8'>
+        <VaultDetailList
+          title='Owner ID'
+        >
+          <AddressLink address={vault.ownerAddress} testId='VaultTableRow.OwnerId'>
+            <TextMiddleTruncate text={vault.ownerAddress} textLength={6} />
+          </AddressLink>
+        </VaultDetailList>
+        <VaultDetailList
+          title='Total Loan Value (USD)'
+          infoDesc='Total loan value (in USD) taken by the vault.'
+          testId='VaultDetailList.tlv'
+        >
+          {(() => {
+            if ('loanValue' in vault) {
+              return (
+                <ReactNumberFormat
+                  value={vault.loanValue}
+                  prefix='$'
+                  displayType='text'
+                  decimalScale={2}
+                  fixedDecimalScale
+                  thousandSeparator
+                />
+              )
+            }
+            return 'N/A'
+          })()}
+        </VaultDetailList>
+        <VaultDetailList
+          title='Total Collateral Value (USD)'
+          infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
+        >
+          {(() => {
+            if ('collateralValue' in vault) {
+              return (
+                <ReactNumberFormat
+                  value={vault.collateralValue}
+                  prefix='$'
+                  displayType='text'
+                  decimalScale={2}
+                  fixedDecimalScale
+                  thousandSeparator
+                />
+              )
+            }
+            return 'N/A'
+          })()}
+        </VaultDetailList>
+        <VaultDetailList
+          title='Total Collateral Ratio'
+          infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+        >
+          {(() => {
+            if ('collateralRatio' in vault) {
+              return `${vault.collateralRatio}%`
+            }
+            return 'N/A'
+          })()}
+        </VaultDetailList>
+        <VaultDetailList
+          title='Min Collateral Ratio'
+          infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+        >
+          {(() => {
+            if ('loanScheme' in vault) {
+              return `${vault.loanScheme.minColRatio}%`
+            }
+            return 'N/A'
+          })()}
+        </VaultDetailList>
+        <VaultDetailList
+          title='Base Interest Ratio (APR)'
+          infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+        >
+          {(() => {
+            if ('interestValue' in vault) {
+              return `${vault.interestValue}%`
+            }
+            return 'N/A'
+          })()}
+        </VaultDetailList>
+      </div>
     </VaultDetailsCollapsibleSection>
   )
 }
