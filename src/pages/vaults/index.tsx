@@ -227,37 +227,10 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
           collateralValue: '10000',
           informativeRatio: '16666.61600015',
           loanValue: '0',
-          interestValue: '0.0001824',
-          collateralAmounts: [
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'DFI',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'DFI',
-              symbolKey: 'DFI'
-            }
-          ],
-          loanAmounts: [
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            }
-          ],
-          interestAmounts: [
-            {
-              amount: '0.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            }
-          ]
+          interestValue: '0',
+          collateralAmounts: [],
+          loanAmounts: [],
+          interestAmounts: []
         },
         {
           vaultId: 'b57e9cfd8f4c8aaa267fd57f81074d8b38d2c5aff554841102414aedfbe89548',
