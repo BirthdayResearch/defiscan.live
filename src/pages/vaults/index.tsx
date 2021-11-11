@@ -31,7 +31,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
       <div className='my-6 hidden md:block'>
         <OverflowTable>
           <OverflowTable.Header>
-            <OverflowTable.Head sticky>VAULT ID</OverflowTable.Head>
+            <OverflowTable.Head sticky>Vault ID</OverflowTable.Head>
             <OverflowTable.Head>
               <div className='flex items-center'>
                 Status
