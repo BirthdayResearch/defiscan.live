@@ -52,11 +52,21 @@ export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<type
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
+  if (context.query.network?.toString() !== 'Local') {
+    return {
+      notFound: true
+    }
+  }
+
   // const api = getWhaleApiClient(context)
   // const vaults = await api.loan.getVault("")
   const vaultsActive: LoanVaultActive = {
     vaultId: 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4',
-    loanSchemeId: 'scheme',
+    loanScheme: {
+      id: '1',
+      interestRate: '2.5',
+      minColRatio: '150'
+    },
     ownerAddress: '8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8',
     state: LoanVaultState.ACTIVE,
     collateralRatio: '16667',
@@ -122,7 +132,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   // const vaultsLiquidated: LoanVaultLiquidated = {
   //   vaultId: 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4',
-  //   loanSchemeId: 'scheme',
+  //   loanScheme: {
+  //             id: '1',
+  //             interestRate: '2.5',
+  //             minColRatio: '150'
+  //           },
   //   ownerAddress: '8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8',
   //   state: LoanVaultState.IN_LIQUIDATION,
   //   batchCount: 1,
