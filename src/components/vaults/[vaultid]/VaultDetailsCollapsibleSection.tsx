@@ -16,8 +16,8 @@ export function VaultDetailsCollapsibleSection (props: VaultDetailsCollapsibleSe
   }
 
   return (
-    <div className={classNames(props.className, 'cursor-pointer')} data-testid='VaultDetailsCollapsibleSection' onClick={() => handleToggle()}>
-      <div className='flex items-center justify-between mt-6'>
+    <div className={classNames(props.className, 'cursor-pointer')} data-testid='VaultDetailsCollapsibleSection'>
+      <div className='flex items-center justify-between mt-6' onClick={() => handleToggle()}>
         <h2
           className='text-lg font-semibold text-gray-900'
           data-testid='VaultDetailsCollapsibleSection.Heading'
