@@ -1,9 +1,8 @@
 import { Collapsible } from '@components/commons/Collapsible'
-import { IoMdInformationCircleOutline } from 'react-icons/io'
-import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import ReactNumberFormat from 'react-number-format'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 export function CollateralDetails ({ collaterals }: {collaterals: LoanVaultTokenAmount[]}): JSX.Element {
   return (
@@ -29,11 +28,9 @@ function CollateralDetailsMobile ({ collaterals }: {collaterals: LoanVaultTokenA
 function CollateralDetailsDesktop ({ collaterals }: {collaterals: LoanVaultTokenAmount[]}): JSX.Element {
   return (
     <div className='mt-10 hidden md:block' data-testid='CollateralDetailsDesktop'>
-      <div className='flex space-x-1 items-center'>
+      <div className='flex items-center'>
         <h2 data-testid='CollateralDetailsDesktop.Heading' className='text-xl font-semibold'>Collateral Details</h2>
-        <HoverPopover popover='Proportion of collaterals deposited in the vault.'>
-          <IoMdInformationCircleOutline className='h-6 w-6 text-secondary-300' />
-        </HoverPopover>
+        <InfoHoverPopover className='ml-1' description='Proportion of collaterals deposited in the vault.' />
       </div>
       <div className='mt-6 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'>
         {collaterals.map((col) => (
