@@ -26,8 +26,8 @@ export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<type
   }, [vault])
 
   return (
-    <Container className='pt-12 pb-20'>
-      <VaultHeading vaultId={vault.vaultId} vaultState={vault.state} />
+    <Container className='pt-4 pb-20'>
+      <VaultHeading vault={vault} />
       <VaultDetailsTable vault={vault} />
       {(() => {
         switch (vault.state) {

@@ -10,10 +10,10 @@ import { Transition } from '@headlessui/react'
 
 export function VaultLoansTable ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
-    <div>
+    <>
       <VaultLoanDetailsMobile loans={loans} />
       <VaultLoansDesktop loans={loans} />
-    </div>
+    </>
   )
 }
 

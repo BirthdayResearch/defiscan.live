@@ -8,10 +8,10 @@ import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 export function VaultDetailsTable ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <div>
+    <>
       <VaultDetailsMobile vault={vault} />
       <VaultDetailsDesktop vault={vault} />
-    </div>
+    </>
   )
 }
 
