@@ -13,7 +13,7 @@ export function InfoHoverPopover (props: PropsWithChildren<InfoHoverPopoverProps
   return (
     <HoverPopover popover={props.description}>
       <div className={classNames('cursor-help group', props.className)}>
-        <IoMdInformationCircleOutline className='h-4 w-4 text-gray-500' />
+        <IoMdInformationCircleOutline className='h-4 w-4 text-blue-500' />
       </div>
     </HoverPopover>
   )

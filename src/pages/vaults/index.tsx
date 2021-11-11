@@ -35,36 +35,27 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
             <OverflowTable.Head>
               <div className='flex items-center gap-x-1'>
                 STATUS
-                <InfoHoverPopover
-                  description={
-                    <div
-                      className='px-4 py-3 font-normal text-sm bg-white text-gray-900 rounded-lg shadow-lg max-w-xs'
-                    >
-                      A vault's status is determined by its collateral ratio:
-                      <br /><br />
-                      <span className='font-medium'>Active</span>: A vault that has been created but there are no loans
-                      taken yet.
-                      <br /><br />
-                      <span className='font-medium'>Healthy</span>: The vault's collateral ratio is sufficiently high.
-                      <br /><br />
-                      <span className='font-medium'>At Risk</span>: The vault is at risk of liquidation within the next
-                      hour.
-                      <br /><br />
-                      <span className='font-medium'>Liquidated</span>: The vault's collateral ratio has fallen below its
-                      minimum and is now in
-                      auction.
-                      <br /><br />
-                      <span className='font-medium'>Halted</span>: The price of one or more token in the vault has
-                      fluctuated more than 30% in the
-                      past hour.
-                    </div>
-                  }
-                />
+                <InfoHoverPopover description={<VaultStatusInfo />} />
               </div>
             </OverflowTable.Head>
-            <OverflowTable.Head alignRight>LOANS VALUE (USD)</OverflowTable.Head>
-            <OverflowTable.Head alignRight>COLLATERAL VALUE (USD)</OverflowTable.Head>
-            <OverflowTable.Head alignRight>COLLATERAL RATIO</OverflowTable.Head>
+            <OverflowTable.Head alignRight>
+              <div className='flex items-center gap-x-1 justify-end text-left'>
+                LOANS VALUE (USD)
+                <InfoHoverPopover description='Loan token(s) and value (in USD) taken by a vault.' />
+              </div>
+            </OverflowTable.Head>
+            <OverflowTable.Head alignRight>
+              <div className='flex items-center gap-x-1 justify-end text-left'>
+                COLLATERAL VALUE (USD)
+                <InfoHoverPopover description='Type and value of tokens deposited as collaterals in a vault.' />
+              </div>
+            </OverflowTable.Head>
+            <OverflowTable.Head alignRight>
+              <div className='flex items-center gap-x-1 justify-end text-left'>
+                COLLATERAL RATIO
+                <InfoHoverPopover description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.' />
+              </div>
+            </OverflowTable.Head>
           </OverflowTable.Header>
 
           {vaults.items.map(vault => {
@@ -168,6 +159,32 @@ function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Ele
         </OverflowTable.Cell>
       </OverflowTable.Row>
     </Link>
+  )
+}
+
+function VaultStatusInfo (): JSX.Element {
+  return (
+    <div
+      className='px-4 py-3 font-normal text-sm bg-white text-gray-900 rounded-lg shadow-lg max-w-xs'
+    >
+      A vault's status is determined by its collateral ratio:
+      <br /><br />
+      <span className='font-medium'>Active</span>: A vault that has been created but there are no loans
+      taken yet.
+      <br /><br />
+      <span className='font-medium'>Healthy</span>: The vault's collateral ratio is sufficiently high.
+      <br /><br />
+      <span className='font-medium'>At Risk</span>: The vault is at risk of liquidation within the next
+      hour.
+      <br /><br />
+      <span className='font-medium'>Liquidated</span>: The vault's collateral ratio has fallen below its
+      minimum and is now in
+      auction.
+      <br /><br />
+      <span className='font-medium'>Halted</span>: The price of one or more token in the vault has
+      fluctuated more than 30% in the
+      past hour.
+    </div>
   )
 }
 
