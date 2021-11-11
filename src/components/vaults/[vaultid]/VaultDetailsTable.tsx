@@ -76,7 +76,7 @@ function VaultDetailsMobile ({ vault }: {vault: any}): JSX.Element {
   return (
     <Collapsible heading='Vault Details' className='block md:hidden mt-6'>
       <VaultDetailList
-        heading='Owner Id'
+        heading='Owner Address'
         description={'Vault owner\'s address'}
       >
         <AddressLink address='eufhrhf9erh9' className='break-all' testId='VaultTableRow.OwnerIdMobile' />
@@ -142,7 +142,7 @@ function VaultDetailsDesktop ({ vault }: {vault: any}): JSX.Element {
         <AdaptiveTable.Header>
           <AdaptiveTable.Head>
             <InformationPopOver
-              heading='Owner Id'
+              heading='Owner Address'
               description={'Vault owner\'s address'}
               testId='VaultDetailsDesktop.OwnersId'
             />
