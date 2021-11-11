@@ -1,11 +1,11 @@
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
-import ReactNumberFormat from 'react-number-format'
 import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { Transition } from '@headlessui/react'
+import BigNumber from 'bignumber.js'
 
 export function VaultLoansTable ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
@@ -44,14 +44,7 @@ function VaultLoansTableRow ({ loan }: { loan: LoanVaultTokenAmount }): JSX.Elem
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <ReactNumberFormat
-          displayType='text'
-          value={loan.amount}
-          prefix='$'
-          decimalScale={2}
-          fixedDecimalScale
-          thousandSeparator
-        />
+        {new BigNumber(loan.amount).toFixed(8)}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
@@ -82,11 +75,7 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
       </div>
       <div className='flex items-center justify-between mt-10'>
         <span className='text-gray-500 text-sm'>Loan Amount</span>
-        <ReactNumberFormat
-          displayType='text'
-          value={loan.amount}
-          thousandSeparator
-        />
+        {new BigNumber(loan.amount).toFixed(8)}
       </div>
 
       <Transition
