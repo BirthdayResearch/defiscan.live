@@ -82,7 +82,7 @@ function VaultDetailsMobile ({ vault }: {vault: any}): JSX.Element {
         <AddressLink address='eufhrhf9erh9' className='break-all' testId='VaultTableRow.OwnerIdMobile' />
       </VaultDetailList>
       <VaultDetailList
-        heading='Total Loan Value(USD)'
+        heading='Total Loan Value (USD)'
         description='Total loan value (in USD) taken by the vault.'
         testId='VaultDetailList.tlv'
       >
@@ -94,7 +94,7 @@ function VaultDetailsMobile ({ vault }: {vault: any}): JSX.Element {
         })()}
       </VaultDetailList>
       <VaultDetailList
-        heading='Total Collateral Value(USD)'
+        heading='Total Collateral Value (USD)'
         description='Total value of tokens (in USD) deposited as collaterals in the vault.'
       >
         {(() => {
@@ -117,13 +117,13 @@ function VaultDetailsMobile ({ vault }: {vault: any}): JSX.Element {
         })()}
       </VaultDetailList>
       <VaultDetailList
-        heading='Min Collateral Ratio'
+        heading='Min. Collateral Ratio'
         description='Minimum required collateral ratio based on vault scheme selected by vault owner.'
       >
         N/A
       </VaultDetailList>
       <VaultDetailList
-        heading='Base Interest Ratio(APR)'
+        heading='Interest Ratio (APR)'
         description='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
       >
         N/A
