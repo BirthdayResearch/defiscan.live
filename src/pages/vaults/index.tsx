@@ -33,27 +33,31 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
           <OverflowTable.Header>
             <OverflowTable.Head sticky>VAULT ID</OverflowTable.Head>
             <OverflowTable.Head>
-              <div className='flex items-center gap-x-1'>
+              <div className='flex items-center'>
                 Status
-                <InfoHoverPopover description={<VaultStatusInfo />} />
+                <InfoHoverPopover className='ml-1' description={<VaultStatusInfo />} />
               </div>
             </OverflowTable.Head>
             <OverflowTable.Head alignRight>
-              <div className='flex items-center gap-x-1 justify-end text-left'>
+              <div className='flex items-center justify-end text-left'>
                 Loans Value (USD)
-                <InfoHoverPopover description='Loan token(s) and value (in USD) taken by a vault.' />
+                <InfoHoverPopover className='ml-1' description='Loan token(s) and value (in USD) taken by a vault.' />
               </div>
             </OverflowTable.Head>
             <OverflowTable.Head alignRight>
-              <div className='flex items-center gap-x-1 justify-end text-left'>
+              <div className='flex items-center justify-end text-left'>
                 Collateral Value (USD)
-                <InfoHoverPopover description='Type and value of tokens deposited as collaterals in a vault.' />
+                <InfoHoverPopover
+                  className='ml-1'
+                  description='Type and value of tokens deposited as collaterals in a vault.'
+                />
               </div>
             </OverflowTable.Head>
             <OverflowTable.Head alignRight>
-              <div className='flex items-center gap-x-1 justify-end text-left'>
+              <div className='flex items-center justify-end text-left'>
                 Collateral Ratio
                 <InfoHoverPopover
+                  className='ml-1'
                   description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
                 />
               </div>
