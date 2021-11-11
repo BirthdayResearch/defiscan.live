@@ -1,7 +1,7 @@
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import NumberFormat from 'react-number-format'
-import { VaultStatus } from '@components/vaults/VaultsStatus'
+import { VaultStatus } from '@components/vaults/VaultStatus'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
 import React, { useState } from 'react'
@@ -9,11 +9,11 @@ import { Transition } from '@headlessui/react'
 import { Link } from '@components/commons/Link'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
-interface VaultsMobileCardProps {
+interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
 }
 
-export function VaultsMobileCard (props: VaultsMobileCardProps): JSX.Element {
+export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (

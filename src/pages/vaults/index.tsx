@@ -7,9 +7,9 @@ import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 // import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
-import { VaultStatus } from '@components/vaults/VaultsStatus'
+import { VaultStatus } from '@components/vaults/VaultStatus'
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
-import { VaultsMobileCard } from '@components/vaults/VaultsMobileCard'
+import { VaultMobileCard } from '@components/vaults/VaultMobileCard'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import React from 'react'
 import { Link } from '@components/commons/Link'
@@ -77,7 +77,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
         <div className='flex flex-wrap gap-y-2'>
           {vaults.items.map(vault => {
             return (
-              <VaultsMobileCard vault={vault} key={vault.vaultId} />
+              <VaultMobileCard vault={vault} key={vault.vaultId} />
             )
           })}
         </div>
