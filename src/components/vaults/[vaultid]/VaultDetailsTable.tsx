@@ -58,7 +58,7 @@ function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidate
 
 function VaultDetailsMobile ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <VaultDetailsCollapsibleSection heading='Vault Details' className='block md:hidden'>
+    <VaultDetailsCollapsibleSection heading='Vault Details' className='mt-8 block md:hidden'>
       <VaultDetailList
         title='Owner ID'
       >

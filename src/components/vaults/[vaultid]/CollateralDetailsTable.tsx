@@ -15,8 +15,8 @@ export function CollateralDetails ({ collaterals }: {collaterals: LoanVaultToken
 
 function CollateralDetailsMobile ({ collaterals }: {collaterals: LoanVaultTokenAmount[]}): JSX.Element {
   return (
-    <VaultDetailsCollapsibleSection heading='Collateral Details' className='block md:hidden'>
-      <div className='mt-2 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
+    <VaultDetailsCollapsibleSection heading='Collateral Details' className='mt-8 block md:hidden'>
+      <div className='mt-4 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
         {collaterals.map((col) => (
           <CollateralCard col={col} key={col.id} />
         ))}
