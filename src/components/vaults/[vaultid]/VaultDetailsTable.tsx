@@ -178,7 +178,7 @@ function VaultDetailsMobile ({ vault }: { vault: LoanVaultActive | LoanVaultLiqu
 
 function VaultDetailsDesktop ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <div className='mt-8 hidden md:block'>
+    <div className='mt-6 hidden md:block'>
       <h2 className='text-xl font-semibold' data-testid='VaultDetailsDesktop.Heading'>
         Vault Details
       </h2>
