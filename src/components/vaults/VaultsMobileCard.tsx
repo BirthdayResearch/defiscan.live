@@ -4,9 +4,10 @@ import NumberFormat from 'react-number-format'
 import { VaultStatus } from '@components/vaults/VaultsStatus'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { Link } from '@components/commons/Link'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 interface VaultsMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -72,7 +73,10 @@ function ActiveVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
         <VaultTokenSymbols tokens={props.vault.loanAmounts} />
       </div>
       <div className='w-full flex justify-between'>
-        Loans Value (USD)
+        <div className='flex items-center gap-x-1 justify-end text-left'>
+          Loans Value (USD)
+          <InfoHoverPopover description='Loan token(s) and value (in USD) taken by a vault.' />
+        </div>
         <NumberFormat
           value={props.vault.loanValue}
           displayType='text'
@@ -87,7 +91,10 @@ function ActiveVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
         <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
       </div>
       <div className='w-full flex justify-between'>
-        Collateral Value (USD)
+        <div className='flex items-center gap-x-1 justify-end text-left'>
+          Collateral Value (USD)
+          <InfoHoverPopover description='Type and value of tokens deposited as collaterals in a vault.' />
+        </div>
         <NumberFormat
           value={props.vault.collateralValue}
           displayType='text'
@@ -98,7 +105,12 @@ function ActiveVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
         />
       </div>
       <div className='w-full flex justify-between'>
-        Collateral Ratio
+        <div className='flex items-center gap-x-1 justify-end text-left'>
+          Collateral Ratio
+          <InfoHoverPopover
+            description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+          />
+        </div>
         <span data-testid={`VaultRow.${props.vault.vaultId}.CollateralRatio`}>{`${props.vault.collateralRatio}%`}</span>
       </div>
     </div>

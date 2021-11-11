@@ -34,26 +34,28 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
             <OverflowTable.Head sticky>VAULT ID</OverflowTable.Head>
             <OverflowTable.Head>
               <div className='flex items-center gap-x-1'>
-                STATUS
+                Status
                 <InfoHoverPopover description={<VaultStatusInfo />} />
               </div>
             </OverflowTable.Head>
             <OverflowTable.Head alignRight>
               <div className='flex items-center gap-x-1 justify-end text-left'>
-                LOANS VALUE (USD)
+                Loans Value (USD)
                 <InfoHoverPopover description='Loan token(s) and value (in USD) taken by a vault.' />
               </div>
             </OverflowTable.Head>
             <OverflowTable.Head alignRight>
               <div className='flex items-center gap-x-1 justify-end text-left'>
-                COLLATERAL VALUE (USD)
+                Collateral Value (USD)
                 <InfoHoverPopover description='Type and value of tokens deposited as collaterals in a vault.' />
               </div>
             </OverflowTable.Head>
             <OverflowTable.Head alignRight>
               <div className='flex items-center gap-x-1 justify-end text-left'>
-                COLLATERAL RATIO
-                <InfoHoverPopover description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.' />
+                Collateral Ratio
+                <InfoHoverPopover
+                  description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+                />
               </div>
             </OverflowTable.Head>
           </OverflowTable.Header>
