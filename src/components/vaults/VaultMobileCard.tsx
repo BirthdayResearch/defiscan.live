@@ -22,7 +22,7 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
         <div className='flex items-center gap-x-1.5'>
           Vault ID
           <VaultStatus
-            state={props.vault.state} className='px-2 py-1 inline-block text-xs'
+            vault={props.vault} className='px-2 py-1 inline-block text-xs'
             testId={`VaultRow.${props.vault.vaultId}.VaultStatus`}
           />
         </div>

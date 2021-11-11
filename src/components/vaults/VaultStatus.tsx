@@ -1,22 +1,43 @@
 import classNames from 'classnames'
-import { LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import BigNumber from 'bignumber.js'
 
 interface VaultStatusProps {
-  state: LoanVaultState.ACTIVE | LoanVaultState.FROZEN | LoanVaultState.MAY_LIQUIDATE | LoanVaultState.UNKNOWN | LoanVaultState.IN_LIQUIDATION
+  vault: LoanVaultActive | LoanVaultLiquidated
   className?: string
   testId?: string
 }
 
 export function VaultStatus (props: VaultStatusProps): JSX.Element {
-  switch (props.state) {
+  switch (props.vault.state) {
     case LoanVaultState.ACTIVE:
-      return (
-        <span
-          className={classNames(props.className, 'text-blue-500 bg-blue-100')}
-          data-testid={props.testId}
-        >ACTIVE
+
+      if (Number(props.vault.loanValue) <= 0) {
+        return (
+          <span
+            className={classNames(props.className, 'text-blue-500 bg-blue-100')}
+            data-testid={props.testId}
+          >ACTIVE
         </span>
-      )
+        )
+      }
+
+      const minColRatio = new BigNumber(props.vault.loanScheme.minColRatio)
+      const collateralRatio = new BigNumber(props.vault.collateralRatio!)
+      const currentPercentage = collateralRatio.div(minColRatio)
+
+      if (currentPercentage > new BigNumber(1.5)) {
+        return (
+          <span
+            className={classNames(props.className, 'text-green-500 bg-green-100')}
+            data-testid={props.testId}
+          >HEALTHY
+        </span>
+        )
+      } else {
+        return <span className={classNames(props.className, 'text-orange-500 bg-orange-100')}
+                     data-testid={props.testId}>AT RISK</span>
+      }
     case LoanVaultState.FROZEN:
       return (
         <span

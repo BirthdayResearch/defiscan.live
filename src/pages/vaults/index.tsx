@@ -103,7 +103,8 @@ function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
         </OverflowTable.Cell>
         <OverflowTable.Cell>
           <VaultStatus
-            state={vault.state} className='px-2 py-1 inline-block text-xs'
+            vault={vault}
+            className='px-2 py-1 inline-block text-xs'
             testId={`VaultRow.${vault.vaultId}.VaultStatus`}
           />
         </OverflowTable.Cell>
@@ -154,7 +155,8 @@ function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Ele
         </OverflowTable.Cell>
         <OverflowTable.Cell>
           <VaultStatus
-            state={vault.state} className='px-2 py-1 inline-block text-xs'
+            vault={vault}
+            className='px-2 py-1 inline-block text-xs'
             testId={`VaultRow.${vault.vaultId}.VaultStatus`}
           />
         </OverflowTable.Cell>
@@ -224,7 +226,52 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
           collateralRatio: '226',
           collateralValue: '10000',
           informativeRatio: '16666.61600015',
-          loanValue: '60.0001824',
+          loanValue: '0',
+          interestValue: '0.0001824',
+          collateralAmounts: [
+            {
+              amount: '10000.00000000',
+              displaySymbol: 'DFI',
+              id: '0',
+              name: 'Default Defi token',
+              symbol: 'DFI',
+              symbolKey: 'DFI'
+            }
+          ],
+          loanAmounts: [
+            {
+              amount: '30.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
+            }
+          ],
+          interestAmounts: [
+            {
+              amount: '0.00009120',
+              displaySymbol: 'dTSLA',
+              id: '1',
+              name: '',
+              symbol: 'TSLA',
+              symbolKey: 'TSLA'
+            }
+          ]
+        },
+        {
+          vaultId: 'b57e9cfd8f4c8aaa267fd57f81074d8b38d2c5aff554841102414aedfbe89548',
+          loanScheme: {
+            id: '1',
+            interestRate: '2.5',
+            minColRatio: '150'
+          },
+          ownerAddress: 'kjlasd9780907231hjklAddress',
+          state: LoanVaultState.ACTIVE,
+          collateralRatio: '226',
+          collateralValue: '10000',
+          informativeRatio: '16666.61600015',
+          loanValue: '-1',
           interestValue: '0.0001824',
           collateralAmounts: [
             {
@@ -548,7 +595,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       }
     }
   } catch
-  (e) {
+    (e) {
     return {
       notFound: true
     }
