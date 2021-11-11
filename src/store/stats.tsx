@@ -45,6 +45,11 @@ interface StatsState {
   blockchain: {
     difficulty?: number
   }
+  net: {
+    version?: number
+    subversion?: string
+    protocolversion?: number
+  }
 }
 
 const initialState: StatsState = {
@@ -54,7 +59,8 @@ const initialState: StatsState = {
   price: {},
   masternodes: {},
   emission: {},
-  blockchain: {}
+  blockchain: {},
+  net: {}
 }
 
 export const stats = createSlice({
@@ -69,6 +75,7 @@ export const stats = createSlice({
       state.masternodes = action.payload.masternodes
       state.emission = action.payload.emission
       state.blockchain = action.payload.blockchain
+      state.net = action.payload.net
     }
   }
 })
