@@ -1,8 +1,8 @@
-import { Collapsible } from '@components/commons/Collapsible'
+import { VaultDetailsCollapsibleSection } from '@components/vaults/[vaultid]/VaultDetailsCollapsibleSection'
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
-import ReactNumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import BigNumber from 'bignumber.js'
 
 export function CollateralDetails ({ collaterals }: {collaterals: LoanVaultTokenAmount[]}): JSX.Element {
   return (
@@ -15,24 +15,24 @@ export function CollateralDetails ({ collaterals }: {collaterals: LoanVaultToken
 
 function CollateralDetailsMobile ({ collaterals }: {collaterals: LoanVaultTokenAmount[]}): JSX.Element {
   return (
-    <Collapsible heading='Collateral Details' className='mt-10 block md:hidden'>
-      <div className='mt-6 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
+    <VaultDetailsCollapsibleSection heading='Collateral Details' className='block md:hidden'>
+      <div className='mt-2 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
         {collaterals.map((col) => (
           <CollateralCard col={col} key={col.id} />
         ))}
       </div>
-    </Collapsible>
+    </VaultDetailsCollapsibleSection>
   )
 }
 
 function CollateralDetailsDesktop ({ collaterals }: {collaterals: LoanVaultTokenAmount[]}): JSX.Element {
   return (
-    <div className='mt-10 hidden md:block' data-testid='CollateralDetailsDesktop'>
+    <div className='mt-8 hidden md:block' data-testid='CollateralDetailsDesktop'>
       <div className='flex items-center'>
         <h2 data-testid='CollateralDetailsDesktop.Heading' className='text-xl font-semibold'>Collateral Details</h2>
         <InfoHoverPopover className='ml-1' description='Proportion of collaterals deposited in the vault.' />
       </div>
-      <div className='mt-6 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'>
+      <div className='mt-4 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'>
         {collaterals.map((col) => (
           <CollateralCard col={col} key={col.id} />
         ))}
@@ -52,18 +52,11 @@ function CollateralCard ({ col }: {col: LoanVaultTokenAmount}): JSX.Element {
         </div>
         {/* <span>10%</span> */}
       </div>
-      <div className='mt-4 text-gray-500'>
-        <span className='text-sm'>Collateral Amount</span>
-        <span className='block '>
-          <ReactNumberFormat
-            className='text-gray-900'
-            displayType='text'
-            thousandSeparator
-            value={col.amount}
-            decimalScale={2}
-            suffix={` ${col.symbol}`}
-          />
-        </span>
+      <div className='mt-4'>
+        <div className='text-sm text-gray-500'>Collateral Amount</div>
+        <div className='text-gray-900'>
+          {`${new BigNumber(col.amount).toFixed(8)} ${col.displaySymbol}`}
+        </div>
       </div>
     </div>
   )

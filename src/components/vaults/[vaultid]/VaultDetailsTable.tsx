@@ -2,20 +2,20 @@ import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-clien
 import { AddressLink } from '@components/commons/AddressLink'
 import ReactNumberFormat from 'react-number-format'
 import React, { PropsWithChildren } from 'react'
-import { Collapsible } from '@components/commons/Collapsible'
+import { VaultDetailsCollapsibleSection } from '@components/vaults/[vaultid]/VaultDetailsCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 export function VaultDetailsTable ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <div className='mt-10'>
+    <div>
       <VaultDetailsMobile vault={vault} />
       <VaultDetailsDesktop vault={vault} />
     </div>
   )
 }
 
-function VaultTableRow ({ vault }: { vault: any }): JSX.Element {
+function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
@@ -56,9 +56,9 @@ function VaultTableRow ({ vault }: { vault: any }): JSX.Element {
   )
 }
 
-function VaultDetailsMobile ({ vault }: { vault: any }): JSX.Element {
+function VaultDetailsMobile ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <Collapsible heading='Vault Details' className='block md:hidden mt-6'>
+    <VaultDetailsCollapsibleSection heading='Vault Details' className='block md:hidden'>
       <VaultDetailList
         title='Owner ID'
       >
@@ -71,7 +71,16 @@ function VaultDetailsMobile ({ vault }: { vault: any }): JSX.Element {
       >
         {(() => {
           if ('loanValue' in vault) {
-            return <ReactNumberFormat value={vault.loanValue} prefix='$' displayType='text' thousandSeparator />
+            return (
+              <ReactNumberFormat
+                value={vault.loanValue}
+                prefix='$'
+                displayType='text'
+                decimalScale={2}
+                fixedDecimalScale
+                thousandSeparator
+              />
+            )
           }
           return 'N/A'
         })()}
@@ -82,7 +91,16 @@ function VaultDetailsMobile ({ vault }: { vault: any }): JSX.Element {
       >
         {(() => {
           if ('collateralValue' in vault) {
-            return <ReactNumberFormat value={vault.collateralValue} prefix='$' displayType='text' thousandSeparator />
+            return (
+              <ReactNumberFormat
+                value={vault.collateralValue}
+                prefix='$'
+                displayType='text'
+                decimalScale={2}
+                fixedDecimalScale
+                thousandSeparator
+              />
+            )
           }
           return 'N/A'
         })()}
@@ -93,8 +111,7 @@ function VaultDetailsMobile ({ vault }: { vault: any }): JSX.Element {
       >
         {(() => {
           if ('collateralRatio' in vault) {
-            const ratio = Number(vault.collateralRatio) / 100
-            return <ReactNumberFormat value={ratio} displayType='text' suffix='%' />
+            return `${vault.collateralRatio}%`
           }
           return 'N/A'
         })()}
@@ -103,25 +120,35 @@ function VaultDetailsMobile ({ vault }: { vault: any }): JSX.Element {
         title='Min Collateral Ratio'
         infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
       >
-        N/A
+        {(() => {
+          if ('loanScheme' in vault) {
+            return `${vault.loanScheme.minColRatio}%`
+          }
+          return 'N/A'
+        })()}
       </VaultDetailList>
       <VaultDetailList
         title='Base Interest Ratio (APR)'
         infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
       >
-        N/A
+        {(() => {
+          if ('interestValue' in vault) {
+            return `${vault.interestValue}%`
+          }
+          return 'N/A'
+        })()}
       </VaultDetailList>
-    </Collapsible>
+    </VaultDetailsCollapsibleSection>
   )
 }
 
-function VaultDetailsDesktop ({ vault }: { vault: any }): JSX.Element {
+function VaultDetailsDesktop ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <div className='hidden md:block'>
+    <div className='mt-8 hidden md:block'>
       <h2 className='text-xl font-semibold' data-testid='VaultDetailsDesktop.Heading'>
         Vault Details
       </h2>
-      <OverflowTable className='mt-6'>
+      <OverflowTable className='mt-4'>
         <OverflowTable.Header>
           <OverflowTable.Head
             title='Owner ID'
@@ -170,9 +197,9 @@ function VaultDetailsDesktop ({ vault }: { vault: any }): JSX.Element {
 
 function VaultDetailList (props: PropsWithChildren<{ title: string, infoDesc?: string, testId?: string }>): JSX.Element {
   return (
-    <div className='flex justify-between items-center mb-5' data-testid='VaultDetailList'>
+    <div className='flex justify-between items-center mb-2.5' data-testid='VaultDetailList'>
       <div className='flex items-center' data-testid={props.testId}>
-        <span className='font-medium'>{props.title}</span>
+        <span className='text-gray-500'>{props.title}</span>
         {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
       </div>
 
