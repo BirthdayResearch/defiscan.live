@@ -3,9 +3,11 @@ import { Transition } from '@headlessui/react'
 import { PropsWithChildren, ReactNode, useState } from 'react'
 import { usePopper } from 'react-popper'
 import classNames from 'classnames'
+import * as PopperJS from '@popperjs/core'
 
 interface IconPopoverProps {
   popover: string | ReactNode
+  placement?: PopperJS.Placement
   className?: string
 }
 
@@ -17,7 +19,7 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
   const {
     styles,
     attributes
-  } = usePopper(refEle, popperEle, { placement: 'bottom' })
+  } = usePopper(refEle, popperEle, { placement: props.placement ?? 'bottom' })
 
   return (
     <>

@@ -4,6 +4,9 @@ import { PropsWithChildren } from 'react'
 import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube } from 'react-icons/fa'
 import { Container } from '@components/commons/Container'
 import { NetlifyLightLogo } from '@components/icons/NetlifyLightLogo'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/index'
+import { HoverPopover } from '@components/commons/popover/HoverPopover'
 
 export function Footer (): JSX.Element {
   return (
@@ -14,7 +17,6 @@ export function Footer (): JSX.Element {
             <DeFiChainLogo className='w-28 h-full' />
           </a>
         </Link>
-
         <div className='mt-4 flex flex-wrap lg:flex-nowrap'>
           <div className='py-4 flex-grow max-w-sm'>
             <FooterSectionSitemap />
@@ -101,13 +103,35 @@ function FooterSectionSitemap (): JSX.Element {
 }
 
 function FooterSectionAbout (): JSX.Element {
+  const {
+    net
+  } = useSelector((state: RootState) => state.stats)
+
+  function NetworkStatus (): JSX.Element {
+    return (
+      <div className='p-3 bg-white shadow-md rounded-lg text-sm'>
+        <div className='text-gray-900 grid grid-cols-2'>
+          <span>Version</span>
+          <span className='font-medium'>{net.version}</span>
+        </div>
+        <div className='text-gray-900 grid grid-cols-2'>
+          <span>Subversion</span>
+          <span className='font-medium'>{net.subversion?.replaceAll('/', '').replace(':', ' ')}</span>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <section className='max-w-md'>
       <p className='text-sm text-gray-500'>
         DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
         and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services,
         accessible by everyone. For more info,
-        visit <a className='text-primary-500 cursor-pointer' href='https://defichain.com' target='_blank' rel='noreferrer'>DeFiChain.com</a>
+        visit
+        <a className='text-primary-500 cursor-pointer' href='https://defichain.com' target='_blank' rel='noreferrer'>
+          DeFiChain.com
+        </a>
       </p>
       <div className='mt-3 -mx-2 flex flex-wrap'>
         <div className='px-2'>
@@ -119,9 +143,17 @@ function FooterSectionAbout (): JSX.Element {
       </div>
 
       <div className='mt-6'>
-        <a href='https://www.netlify.com' target='_blank' rel='nofollow noopener noreferrer'>
+        <a href='https://www.netlify.com' target='_blank' rel='nofollow noopener noreferrer' className='inline-block'>
           <NetlifyLightLogo />
         </a>
+
+        {net !== undefined && (
+          <HoverPopover popover={<NetworkStatus />} placement='top' className='inline-block float-right'>
+            <div className='text-sm text-gray-900 p-2 bg-white rounded-lg cursor-help'>
+              <div>Protocol<span className='ml-2.5 font-medium'>{net.protocolversion}</span></div>
+            </div>
+          </HoverPopover>
+        )}
       </div>
     </section>
   )
