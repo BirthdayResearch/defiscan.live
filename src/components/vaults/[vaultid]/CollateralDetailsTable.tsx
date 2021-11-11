@@ -1,4 +1,4 @@
-import { VaultDetailsCollapsibleSection } from '@components/vaults/[vaultid]/VaultDetailsCollapsibleSection'
+import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
@@ -15,13 +15,13 @@ export function CollateralDetails ({ collaterals }: {collaterals: LoanVaultToken
 
 function CollateralDetailsMobile ({ collaterals }: {collaterals: LoanVaultTokenAmount[]}): JSX.Element {
   return (
-    <VaultDetailsCollapsibleSection heading='Collateral Details' className='block md:hidden'>
+    <VaultCollapsibleSection heading='Collateral Details' className='block md:hidden'>
       <div className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
         {collaterals.map((col) => (
           <CollateralCard col={col} key={col.id} />
         ))}
       </div>
-    </VaultDetailsCollapsibleSection>
+    </VaultCollapsibleSection>
   )
 }
 

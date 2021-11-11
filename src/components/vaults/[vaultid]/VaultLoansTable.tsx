@@ -1,8 +1,7 @@
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import ReactNumberFormat from 'react-number-format'
-import { AddressLink } from '@components/commons/AddressLink'
-import { VaultDetailsCollapsibleSection } from '@components/vaults/[vaultid]/VaultDetailsCollapsibleSection'
+import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
@@ -23,8 +22,7 @@ function VaultLoansDesktop ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.E
       <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
       <OverflowTable className='mt-4'>
         <OverflowTable.Header>
-          <OverflowTable.Head title='Loan Taken' />
-          <OverflowTable.Head title='Loan ID' />
+          <OverflowTable.Head title='Loan Token' />
           <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
           <OverflowTable.Head
             title='Total Loan Interest (APR)'
@@ -49,9 +47,6 @@ function VaultLoansTableRow ({ loan }: { loan: LoanVaultTokenAmount }): JSX.Elem
           <LoanSymbol className='h-6 w-6' />
           <span>{loan.name}</span>
         </div>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell>
-        <AddressLink address={loan.id} />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <ReactNumberFormat
@@ -112,12 +107,12 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
         className='w-full'
         show={isOpen}
       >
-        <div className='w-full mt-2 flex flex-col gap-y-1'>
-          <div className='w-full flex justify-between'>
-            <span className='text-gray-500 text-sm'>Loan ID</span>
-            <span className='text-gray-900'>{`${loan.id}`}</span>
-          </div>
-        </div>
+        {/* <div className='w-full mt-2 flex flex-col gap-y-1'> */}
+        {/*  <div className='w-full flex justify-between'> */}
+        {/*    <span className='text-gray-500 text-sm'>Loan ID</span> */}
+        {/*    <span className='text-gray-900'>{`${loan.id}`}</span> */}
+        {/*  </div> */}
+        {/* </div> */}
       </Transition>
     </div>
   )
@@ -125,12 +120,12 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
 
 function VaultLoanDetailsMobile ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
-    <VaultDetailsCollapsibleSection heading='Loan Details' className='block md:hidden'>
+    <VaultCollapsibleSection heading='Loan Details' className='block md:hidden'>
       <div className='flex flex-col items-center'>
         {loans.map((loan) => (
           <VaultLoanDetailsCard loan={loan} key={loan.id} />
         ))}
       </div>
-    </VaultDetailsCollapsibleSection>
+    </VaultCollapsibleSection>
   )
 }

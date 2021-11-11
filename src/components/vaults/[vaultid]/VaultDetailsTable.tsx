@@ -2,7 +2,7 @@ import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-clien
 import { AddressLink } from '@components/commons/AddressLink'
 import ReactNumberFormat from 'react-number-format'
 import React, { PropsWithChildren } from 'react'
-import { VaultDetailsCollapsibleSection } from '@components/vaults/[vaultid]/VaultDetailsCollapsibleSection'
+import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
@@ -88,7 +88,7 @@ function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidate
 
 function VaultDetailsMobile ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <VaultDetailsCollapsibleSection heading='Vault Details' className='block md:hidden'>
+    <VaultCollapsibleSection heading='Vault Details' className='block md:hidden'>
       <div className='mb-8'>
         <VaultDetailList
           title='Owner ID'
@@ -172,7 +172,7 @@ function VaultDetailsMobile ({ vault }: { vault: LoanVaultActive | LoanVaultLiqu
           })()}
         </VaultDetailList>
       </div>
-    </VaultDetailsCollapsibleSection>
+    </VaultCollapsibleSection>
   )
 }
 

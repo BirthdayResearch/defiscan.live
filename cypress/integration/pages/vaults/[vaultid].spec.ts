@@ -96,7 +96,7 @@ context('/vaults/[vaultid] on mobile', function () {
 
   context('Vault details ', () => {
     it('should Vault Details Heading', function () {
-      cy.findAllByTestId('VaultDetailsCollapsibleSection.Heading').eq(0).should('have.text', 'Vault Details')
+      cy.findAllByTestId('VaultCollapsibleSection.Heading').eq(0).should('have.text', 'Vault Details')
     })
 
     it('should have Vault Details', function () {
@@ -109,11 +109,11 @@ context('/vaults/[vaultid] on mobile', function () {
 
   context('Collateral details', function () {
     it('should Collateral Details Heading', function () {
-      cy.findAllByTestId('VaultDetailsCollapsibleSection.Heading').eq(1).should('have.text', 'Collateral Details')
+      cy.findAllByTestId('VaultCollapsibleSection.Heading').eq(1).should('have.text', 'Collateral Details')
     })
 
     it('should have collateral details card', function () {
-      cy.findAllByTestId('VaultDetailsCollapsibleSection')
+      cy.findAllByTestId('VaultCollapsibleSection')
         .eq(1)
         .findAllByTestId('CollateralCard')
         .eq(1)
@@ -126,11 +126,11 @@ context('/vaults/[vaultid] on mobile', function () {
 
   context('Loan Details', function () {
     it('should Loan Details Heading', function () {
-      cy.findAllByTestId('VaultDetailsCollapsibleSection.Heading').eq(2).should('have.text', 'Loan Details')
+      cy.findAllByTestId('VaultCollapsibleSection.Heading').eq(2).should('have.text', 'Loan Details')
     })
 
     it('should have Loan details card', function () {
-      cy.findAllByTestId('VaultDetailsCollapsibleSection')
+      cy.findAllByTestId('VaultCollapsibleSection')
         .eq(2)
         .findAllByTestId('VaultLoanDetailsCard')
         .eq(0)
