@@ -65,7 +65,7 @@ function newWhaleClient (connection?: string | NetworkConnection): WhaleApiClien
       return new WhaleApiClient({
         url: 'https://ocean.defichain.com',
         network: 'testnet',
-        version: 'v0.11'
+        version: 'v0.13'
       })
     case NetworkConnection.MainNet:
     default:
