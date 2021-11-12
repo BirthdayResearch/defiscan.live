@@ -3,7 +3,7 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 
 import { Container } from '@components/commons/Container'
 import { VaultHeading } from '@components/vaults/[vaultid]/VaultHeading'
-import { VaultDetailsTable } from '@components/vaults/[vaultid]/VaultDetailsTable'
+import { VaultDetails } from '@components/vaults/[vaultid]/VaultDetails'
 import { VaultCollateralDetails } from '@components/vaults/[vaultid]/VaultCollateralDetails'
 import { VaultLoans } from '@components/vaults/[vaultid]/VaultLoans'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
@@ -18,7 +18,7 @@ export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<type
   return (
     <Container className='pt-4 pb-20'>
       <VaultHeading vault={vault} />
-      <VaultDetailsTable vault={vault} />
+      <VaultDetails vault={vault} />
       {(() => {
         switch (vault.state) {
           case LoanVaultState.ACTIVE:

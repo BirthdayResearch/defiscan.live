@@ -7,7 +7,7 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 
-export function VaultDetailsTable (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
+export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <>
       <div className='mt-6 hidden md:block'>
@@ -55,24 +55,20 @@ export function VaultDetailsTable (props: { vault: LoanVaultActive | LoanVaultLi
               infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
             />
           </OverflowTable.Header>
-          {props.vault.state === LoanVaultState.IN_LIQUIDATION
-            ? <LiquidatedVaultRow vault={props.vault} />
-            : <ActiveVaultRow vault={props.vault} />}
+          <DesktopVaultDetailsRow vault={props.vault} />
         </OverflowTable>
       </div>
 
       <VaultCollapsibleSection heading='Vault Details' className='block md:hidden'>
         <div className='mb-8'>
-          {props.vault.state === LoanVaultState.IN_LIQUIDATION
-            ? <LiquidatedVaultDetails vault={props.vault} />
-            : <ActiveVaultDetails vault={props.vault} />}
+          <MobileVaultDetails vault={props.vault} />
         </div>
       </VaultCollapsibleSection>
     </>
   )
 }
 
-function ActiveVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
+function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <>
       <VaultDetailList title='Owner ID'>
@@ -85,94 +81,61 @@ function ActiveVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
         infoDesc='Total loan value (in USD) taken by the vault.'
         testId='VaultDetailList.tlv'
       >
-        <ReactNumberFormat
-          value={props.vault.loanValue}
-          prefix='$'
-          displayType='text'
-          decimalScale={2}
-          fixedDecimalScale
-          thousandSeparator
-        />
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <ReactNumberFormat
+              value={props.vault.loanValue}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />}
       </VaultDetailList>
       <VaultDetailList
         title='Total Collateral Value (USD)'
         infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
       >
-        <ReactNumberFormat
-          value={props.vault.collateralValue}
-          prefix='$'
-          displayType='text'
-          decimalScale={2}
-          fixedDecimalScale
-          thousandSeparator
-        />
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <ReactNumberFormat
+              value={props.vault.collateralValue}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />}
       </VaultDetailList>
       <VaultDetailList
         title='Total Collateral Ratio'
         infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
       >
-        `${props.vault.collateralRatio}%`
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : `${props.vault.collateralRatio}%`}
       </VaultDetailList>
       <VaultDetailList
         title='Min Collateral Ratio'
         infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
       >
-        `${props.vault.loanScheme.minColRatio}%`
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : `${props.vault.loanScheme.minColRatio}%`}
       </VaultDetailList>
       <VaultDetailList
         title='Base Interest Ratio (APR)'
         infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
       >
-        `${props.vault.interestValue}%`
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : `${props.vault.interestValue}%`}
       </VaultDetailList>
     </>
   )
 }
 
-function LiquidatedVaultDetails (props: { vault: LoanVaultLiquidated }): JSX.Element {
-  return (
-    <>
-      <VaultDetailList title='Owner ID'>
-        <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
-          <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
-        </AddressLink>
-      </VaultDetailList>
-      <VaultDetailList
-        title='Total Loan Value (USD)'
-        infoDesc='Total loan value (in USD) taken by the vault.'
-        testId='VaultDetailList.tlv'
-      >
-        N/A
-      </VaultDetailList>
-      <VaultDetailList
-        title='Total Collateral Value (USD)'
-        infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
-      >
-        N/A
-      </VaultDetailList>
-      <VaultDetailList
-        title='Total Collateral Ratio'
-        infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-      >
-        N/A
-      </VaultDetailList>
-      <VaultDetailList
-        title='Min Collateral Ratio'
-        infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-      >
-        N/A
-      </VaultDetailList>
-      <VaultDetailList
-        title='Base Interest Ratio (APR)'
-        infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-      >
-        N/A
-      </VaultDetailList>
-    </>
-  )
-}
-
-function ActiveVaultRow (props: { vault: LoanVaultActive }): JSX.Element {
+function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
@@ -181,60 +144,43 @@ function ActiveVaultRow (props: { vault: LoanVaultActive }): JSX.Element {
         </AddressLink>
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        <ReactNumberFormat
-          value={props.vault.loanValue}
-          prefix='$'
-          displayType='text'
-          decimalScale={2}
-          fixedDecimalScale
-          thousandSeparator
-        />
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <ReactNumberFormat
+              value={props.vault.loanValue}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        <ReactNumberFormat
-          value={props.vault.collateralValue}
-          prefix='$'
-          displayType='text'
-          decimalScale={2}
-          fixedDecimalScale
-          thousandSeparator
-        />
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <ReactNumberFormat
+              value={props.vault.collateralValue}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        `${props.vault.collateralRatio}%`
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : `${props.vault.collateralRatio}%`}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        return `${props.vault.loanScheme.minColRatio}%`
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : `${props.vault.loanScheme.minColRatio}%`}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        return `${props.vault.interestValue}%`
-      </OverflowTable.Cell>
-    </OverflowTable.Row>
-  )
-}
-
-function LiquidatedVaultRow (props: { vault: LoanVaultLiquidated }): JSX.Element {
-  return (
-    <OverflowTable.Row>
-      <OverflowTable.Cell>
-        <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
-          <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
-        </AddressLink>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        'N/A'
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        'N/A'
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        'N/A'
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        'N/A'
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        'N/A'
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : `${props.vault.interestValue}%`}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
