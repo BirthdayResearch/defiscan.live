@@ -35,7 +35,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
     }
 
     case LoanVaultState.FROZEN: {
-      textClassName = 'text-red-500 bg-red-100'
+      textClassName = 'text-gray-400 bg-gray-100'
       text = 'HALTED'
       break
     }
@@ -47,7 +47,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
     }
 
     case LoanVaultState.IN_LIQUIDATION: {
-      textClassName = 'text-gray-500 bg-gray-100'
+      textClassName = 'text-red-500 bg-red-100'
       text = 'LIQUIDATED'
       break
     }
