@@ -7,7 +7,8 @@ import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
 import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { Link } from '@components/commons/Link'
-import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
+import { VaultDetailsListItem } from '@components/vaults/VaultDetailsListItem'
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -67,16 +68,16 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
 
 function ActiveVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
   return (
-    <div className='w-full mt-2 flex flex-col gap-y-1'>
-      <div className='w-full flex justify-between'>
-        Loans
+    <div className='w-full mt-2'>
+      <VaultDetailsListItem
+        title='Loans'
+      >
         <VaultTokenSymbols tokens={props.vault.loanAmounts} />
-      </div>
-      <div className='w-full flex justify-between'>
-        <div className='flex items-center gap-x-1 justify-end text-left'>
-          Loans Value (USD)
-          <InfoHoverPopover description='Loan token(s) and value (in USD) taken by a vault.' />
-        </div>
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
+        title='Loans Value (USD)'
+        infoDesc='Loan token(s) and value (in USD) taken by a vault.'
+      >
         <NumberFormat
           value={props.vault.loanValue}
           displayType='text'
@@ -85,16 +86,18 @@ function ActiveVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
           thousandSeparator
           prefix='$'
         />
-      </div>
-      <div className='w-full flex justify-between'>
-        Collateral
+      </VaultDetailsListItem>
+
+      <VaultDetailsListItem
+        title='Collateral'
+      >
         <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
-      </div>
-      <div className='w-full flex justify-between'>
-        <div className='flex items-center gap-x-1 justify-end text-left'>
-          Collateral Value (USD)
-          <InfoHoverPopover description='Type and value of tokens deposited as collaterals in a vault.' />
-        </div>
+      </VaultDetailsListItem>
+
+      <VaultDetailsListItem
+        title='Collateral Value (USD)'
+        infoDesc='Type and value of tokens deposited as collaterals in a vault.'
+      >
         <NumberFormat
           value={props.vault.collateralValue}
           displayType='text'
@@ -103,16 +106,17 @@ function ActiveVaultDetails (props: { vault: LoanVaultActive }): JSX.Element {
           thousandSeparator
           prefix='$'
         />
-      </div>
-      <div className='w-full flex justify-between'>
-        <div className='flex items-center gap-x-1 justify-end text-left'>
-          Collateral Ratio
-          <InfoHoverPopover
-            description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-          />
-        </div>
-        <span data-testid={`VaultRow.${props.vault.vaultId}.CollateralRatio`}>{`${props.vault.collateralRatio}%`}</span>
-      </div>
+      </VaultDetailsListItem>
+
+      <VaultDetailsListItem
+        title='Collateralization Ratio'
+        infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+      >
+        <VaultCollateralRatio
+          collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme}
+          testId={`VaultRow.${props.vault.vaultId}.CollateralRatio`}
+        />
+      </VaultDetailsListItem>
     </div>
   )
 }

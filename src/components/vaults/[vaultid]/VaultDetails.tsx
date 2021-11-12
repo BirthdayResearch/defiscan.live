@@ -1,13 +1,12 @@
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { AddressLink } from '@components/commons/AddressLink'
 import ReactNumberFormat from 'react-number-format'
-import React, { PropsWithChildren } from 'react'
 import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
 import classNames from 'classnames'
+import { VaultDetailsListItem } from '@components/vaults/VaultDetailsListItem'
 
 export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -73,12 +72,12 @@ export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquida
 function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <div className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
-      <VaultDetailList title='Owner ID'>
+      <VaultDetailsListItem title='Owner ID'>
         <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
           <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
         </AddressLink>
-      </VaultDetailList>
-      <VaultDetailList
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
         title='Total Loan Value (USD)'
         infoDesc='Total loan value (in USD) taken by the vault.'
         testId='VaultDetailList.tlv'
@@ -93,8 +92,8 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
               fixedDecimalScale
               thousandSeparator
             />}
-      </VaultDetailList>
-      <VaultDetailList
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
         title='Total Collateral Value (USD)'
         infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
       >
@@ -108,31 +107,31 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
               fixedDecimalScale
               thousandSeparator
             />}
-      </VaultDetailList>
-      <VaultDetailList
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
         title='Total Collateral Ratio'
         infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
           : <VaultCollateralRatio collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme} />}
-      </VaultDetailList>
-      <VaultDetailList
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
         title='Min Collateral Ratio'
         infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
           : `${props.vault.loanScheme.minColRatio}%`}
-      </VaultDetailList>
-      <VaultDetailList
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
         title='Base Interest Ratio (APR)'
         infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
           : `${props.vault.interestValue}%`}
-      </VaultDetailList>
+      </VaultDetailsListItem>
     </div>
   )
 }
@@ -187,17 +186,5 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
           : `${props.vault.interestValue}%`}
       </OverflowTable.Cell>
     </OverflowTable.Row>
-  )
-}
-
-function VaultDetailList (props: PropsWithChildren<{ title: string, infoDesc?: string, testId?: string }>): JSX.Element {
-  return (
-    <div className='flex justify-between items-center mb-2.5' data-testid='VaultDetailList'>
-      <div className='flex items-center' data-testid={props.testId}>
-        <span className='text-gray-500'>{props.title}</span>
-        {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
-      </div>
-      {props.children}
-    </div>
   )
 }
