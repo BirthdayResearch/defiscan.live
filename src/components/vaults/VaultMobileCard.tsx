@@ -18,18 +18,19 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
-    <div className='w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500'>
+    <div className='w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500' data-testid='VaultMobileCard'>
       <div className='w-full flex justify-between'>
         <div className='flex items-center gap-x-1.5'>
           Vault ID
           <VaultStatus
             vault={props.vault} className='px-2 py-1 inline-block text-xs'
-            testId={`VaultRow.${props.vault.vaultId}.VaultStatus`}
+            testId='VaultMobileCard.VaultStatus'
           />
         </div>
         <div
           className='flex items-center px-2 gap-x-0.5 text-primary-500 cursor-pointer'
           onClick={() => setIsOpen(!isOpen)}
+          data-testid='VaultMobileCard.Toggle'
         >
           {!isOpen
             ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
@@ -41,7 +42,7 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
         <div className=' mt-2 text-primary-500 underline cursor-pointer'>
           <TextMiddleTruncate
             textLength={6} text={props.vault.vaultId}
-            testId={`VaultRow.VaultID.${props.vault.vaultId}`}
+            testId='VaultMobileCard.VaultID'
           />
         </div>
       </Link>
@@ -67,6 +68,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
     <div className='w-full mt-2'>
       <VaultDetailsListItem
         title='Loans'
+        testId='VaultDetails.Loans'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -75,6 +77,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
       <VaultDetailsListItem
         title='Loans Value (USD)'
         infoDesc='Loan token(s) and value (in USD) taken by a vault.'
+        testId='VaultDetails.LoansValue'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -90,6 +93,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
 
       <VaultDetailsListItem
         title='Collateral'
+        testId='VaultDetails.Collateral'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -99,6 +103,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
       <VaultDetailsListItem
         title='Collateral Value (USD)'
         infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
+        testId='VaultDetails.CollateralValue'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -115,6 +120,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
       <VaultDetailsListItem
         title='Collateralization Ratio'
         infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+        testId='VaultDetails.CollateralizationRatio'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
