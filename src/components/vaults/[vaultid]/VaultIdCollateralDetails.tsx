@@ -6,7 +6,7 @@ import BigNumber from 'bignumber.js'
 import React from 'react'
 import classNames from 'classnames'
 
-export function VaultCollateralDetails (props: { vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultIdCollateralDetails (props: { vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
       <div className='mt-10 hidden md:block' data-testid='CollateralDetailsDesktop'>

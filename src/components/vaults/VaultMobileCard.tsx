@@ -57,18 +57,18 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
         className='w-full'
         show={isOpen}
       >
-        <VaultDetails vault={props.vault} />
+        <VaultMobileDetails vault={props.vault} />
       </Transition>
     </div>
   )
 }
 
-function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
+function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <div className='w-full mt-2'>
       <VaultDetailsListItem
         title='Loans'
-        testId='VaultDetails.Loans'
+        testId='VaultIdDetails.Loans'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -77,7 +77,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
       <VaultDetailsListItem
         title='Loans Value (USD)'
         infoDesc='Loan token(s) and value (in USD) taken by a vault.'
-        testId='VaultDetails.LoansValue'
+        testId='VaultIdDetails.LoansValue'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -93,7 +93,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
 
       <VaultDetailsListItem
         title='Collateral'
-        testId='VaultDetails.Collateral'
+        testId='VaultIdDetails.Collateral'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -103,7 +103,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
       <VaultDetailsListItem
         title='Collateral Value (USD)'
         infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
-        testId='VaultDetails.CollateralValue'
+        testId='VaultIdDetails.CollateralValue'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -120,7 +120,7 @@ function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }):
       <VaultDetailsListItem
         title='Collateralization Ratio'
         infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-        testId='VaultDetails.CollateralizationRatio'
+        testId='VaultIdDetails.CollateralizationRatio'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'

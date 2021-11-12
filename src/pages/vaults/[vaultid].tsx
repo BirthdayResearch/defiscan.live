@@ -2,13 +2,13 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 
 import { Container } from '@components/commons/Container'
-import { VaultHeading } from '@components/vaults/[vaultid]/VaultHeading'
-import { VaultDetails } from '@components/vaults/[vaultid]/VaultDetails'
-import { VaultCollateralDetails } from '@components/vaults/[vaultid]/VaultCollateralDetails'
-import { VaultLoansDetails } from '@components/vaults/[vaultid]/VaultLoansDetails'
+import { VaultIdHeading } from '@components/vaults/[vaultid]/VaultIdHeading'
+import { VaultIdDetails } from '@components/vaults/[vaultid]/VaultIdDetails'
+import { VaultIdCollateralDetails } from '@components/vaults/[vaultid]/VaultIdCollateralDetails'
+import { VaultIdLoansDetails } from '@components/vaults/[vaultid]/VaultIdLoansDetails'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
-import { VaultAuctions } from '@components/vaults/[vaultid]/VaultAuctions'
+import { VaultAuctions } from '@components/vaults/[vaultid]/VaultIdAuctionsDetails'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -17,15 +17,15 @@ interface VaultsPageData {
 export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <Container className='pt-4 pb-20'>
-      <VaultHeading vault={props.vault} />
-      <VaultDetails vault={props.vault} />
+      <VaultIdHeading vault={props.vault} />
+      <VaultIdDetails vault={props.vault} />
       {(() => {
         switch (props.vault.state) {
           case LoanVaultState.ACTIVE:
             return (
               <>
-                <VaultCollateralDetails vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
-                <VaultLoansDetails loans={props.vault.loanAmounts} />
+                <VaultIdCollateralDetails vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
+                <VaultIdLoansDetails loans={props.vault.loanAmounts} />
               </>
             )
           case LoanVaultState.IN_LIQUIDATION:

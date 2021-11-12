@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import BigNumber from 'bignumber.js'
 
-export function VaultLoansDetails (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>

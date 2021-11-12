@@ -19,8 +19,8 @@ context('/vaults/[vaultid] on desktop', function () {
 
   it('should have page header', function () {
     cy.findByTestId('PageHeading').should('contain.text', 'Vault ID')
-    cy.findByTestId('VaultHeading.VaultStatus').should('be.visible')
-    cy.findByTestId('VaultHeading.vaultId').should('be.visible')
+    cy.findByTestId('VaultIdHeading.VaultStatus').should('be.visible')
+    cy.findByTestId('VaultIdHeading.vaultId').should('be.visible')
   })
 
   it('should Vault Details', function () {
@@ -123,13 +123,13 @@ context('/vaults/[vaultid] on mobile', function () {
 
   it('should have page header', function () {
     cy.findByTestId('PageHeading').should('contain.text', 'Vault ID')
-    cy.findByTestId('VaultHeading.VaultStatus').should('be.visible')
-    cy.findByTestId('VaultHeading.vaultId').should('be.visible')
+    cy.findByTestId('VaultIdHeading.VaultStatus').should('be.visible')
+    cy.findByTestId('VaultIdHeading.vaultId').should('be.visible')
   })
 
   it('should Vault Details', function () {
     it('should Vault Details Heading', function () {
-      cy.findByTestId('VaultCollapsibleSection.VaultDetails').within(() => {
+      cy.findByTestId('VaultCollapsibleSection.VaultIdDetails').within(() => {
         cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Vault Details')
       })
     })

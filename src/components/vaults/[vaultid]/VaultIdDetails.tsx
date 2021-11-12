@@ -8,7 +8,7 @@ import { VaultCollateralRatio } from '@components/vaults/common/VaultCollateralR
 import classNames from 'classnames'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 
-export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
+export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <>
       <div className='mt-8 hidden md:block'>
@@ -61,7 +61,7 @@ export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquida
         </OverflowTable>
       </div>
 
-      <VaultCollapsibleSection heading='Vault Details' className='block md:hidden' testId='VaultCollapsibleSection.VaultDetails'>
+      <VaultCollapsibleSection heading='Vault Details' className='block md:hidden' testId='VaultCollapsibleSection.VaultIdDetails'>
         <div className='mb-8'>
           <MobileVaultDetails vault={props.vault} />
         </div>
