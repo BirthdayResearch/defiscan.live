@@ -2,7 +2,8 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import React, { useCallback } from 'react'
 import {
   LoanVaultActive,
-  LoanVaultLiquidated, LoanVaultLiquidationBatch,
+  LoanVaultLiquidated,
+  LoanVaultLiquidationBatch,
   LoanVaultState
 } from '@defichain/whale-api-client/dist/api/loan'
 
@@ -11,6 +12,8 @@ import { VaultHeading } from '@components/vaults/[vaultid]/VaultHeading'
 import { VaultDetailsTable } from '@components/vaults/[vaultid]/VaultDetailsTable'
 import { CollateralDetails } from '@components/vaults/[vaultid]/CollateralDetailsTable'
 import { VaultLoansTable } from '@components/vaults/[vaultid]/VaultLoansTable'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { isAlphanumeric } from '../../utils/commons/StringValidator'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -52,91 +55,18 @@ export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<type
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
-  if (context.query.network?.toString() !== 'Local') {
+  if (context.query.network !== undefined && context.query.network?.toString() === 'MainNet') {
     return {
       notFound: true
     }
   }
-
-  // const api = getWhaleApiClient(context)
-  // const vaults = await api.loan.getVault("")
-  const vaultsActive: LoanVaultActive = {
-    vaultId: 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4',
-    loanScheme: {
-      id: '1',
-      interestRate: '2.5',
-      minColRatio: '150'
-    },
-    ownerAddress: '8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8',
-    state: LoanVaultState.ACTIVE,
-    collateralRatio: '16667',
-    collateralValue: '10000',
-    informativeRatio: '16666.61600015',
-    loanValue: '60.0001824',
-    interestValue: '0.0001824',
-    collateralAmounts: [
-      {
-        amount: '10000.00000000',
-        displaySymbol: 'dDFI',
-        id: '0',
-        name: 'Default Defi token',
-        symbol: 'DFI',
-        symbolKey: 'DFI'
-      },
-      {
-        amount: '10000.00000000',
-        displaySymbol: 'DFI',
-        id: '0',
-        name: 'Default Defi token',
-        symbol: 'DFI',
-        symbolKey: 'DFI'
-      },
-      {
-        amount: '450.344',
-        displaySymbol: 'dBTC',
-        id: '1',
-        name: 'BTC',
-        symbol: 'BTC',
-        symbolKey: 'BTC'
-      },
-      {
-        amount: '0.345000.521',
-        displaySymbol: 'dETH',
-        id: '2',
-        name: 'ETHEREUM',
-        symbol: 'ETH',
-        symbolKey: 'ETH'
-      }
-    ],
-    loanAmounts: [
-      {
-        amount: '30.00009120',
-        displaySymbol: 'dTSLA',
-        id: '1',
-        name: 'TSLA',
-        symbol: 'TSLA',
-        symbolKey: 'TSLA'
-      }
-    ],
-    interestAmounts: [
-      {
-        amount: '0.00009120',
-        displaySymbol: 'dTSLA',
-        id: '1',
-        name: 'dTSLA',
-        symbol: 'TSLA',
-        symbolKey: 'TSLA'
-      }
-    ]
-  }
-
   // const vaultsLiquidated: LoanVaultLiquidated = {
   //   vaultId: 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4',
   //   loanScheme: {
-  //             id: '1',
-  //             interestRate: '2.5',
-  //             minColRatio: '150'
-  //           },
+  //     id: '1',
+  //     interestRate: '2.5',
+  //     minColRatio: '150'
+  //   },
   //   ownerAddress: '8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8',
   //   state: LoanVaultState.IN_LIQUIDATION,
   //   batchCount: 1,
@@ -191,9 +121,24 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   //   ]
   // }
 
-  return {
-    props: {
-      vault: vaultsActive
+  try {
+    const vaultid = context.params?.vaultid?.toString().trim() as string
+
+    if (!isAlphanumeric(vaultid)) {
+      return { notFound: true }
+    }
+
+    const api = getWhaleApiClient(context)
+
+    return {
+      props: {
+        vault: await api.loan.getVault(vaultid)
+      }
+    }
+  } catch
+  (e) {
+    return {
+      notFound: true
     }
   }
 }
