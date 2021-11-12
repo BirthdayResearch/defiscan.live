@@ -3,6 +3,7 @@ import { Head } from '@components/commons/Head'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { CopyButton } from '@components/commons/CopyButton'
 import { VaultStatus } from '@components/vaults/VaultStatus'
+import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 
 export function VaultHeading (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -14,8 +15,9 @@ export function VaultHeading (props: { vault: LoanVaultActive | LoanVaultLiquida
           name: 'Vaults'
         },
         {
-          path: '/vaults/1',
-          name: '1'
+          path: `/vaults/${props.vault.vaultId}`,
+          name: (<TextMiddleTruncate text={props.vault.vaultId} textLength={6} />),
+          isCurrentPath: true
         }
       ]}
       />
