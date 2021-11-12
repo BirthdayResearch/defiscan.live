@@ -119,6 +119,7 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
                     decimalScale={2}
                     fixedDecimalScale
                     thousandSeparator
+                    prefix='$'
                   />
                 </>
                 )}
@@ -137,6 +138,7 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
                     decimalScale={2}
                     fixedDecimalScale
                     thousandSeparator
+                    prefix='$'
                   />
                 </>
                 )}
