@@ -63,7 +63,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
                 <OverflowTable.Head
                   alignRight
-                  title='Collateral Ratio'
+                  title='Collateralization Ratio'
                   infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
                 />
               </OverflowTable.Header>
