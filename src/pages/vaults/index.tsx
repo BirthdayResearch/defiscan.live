@@ -13,6 +13,7 @@ import React from 'react'
 import { Link } from '@components/commons/Link'
 import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
+import classNames from 'classnames'
 
 interface VaultsPageData {
   vaults: {
@@ -92,7 +93,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <Link href={{ pathname: `/vaults/${props.vault.vaultId}` }}>
-      <OverflowTable.Row className='cursor-pointer'>
+      <OverflowTable.Row className={classNames('cursor-pointer', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
         <OverflowTable.Cell sticky>
           <TextMiddleTruncate
             textLength={6} text={props.vault.vaultId} className='text-primary-500 group-hover:underline'
