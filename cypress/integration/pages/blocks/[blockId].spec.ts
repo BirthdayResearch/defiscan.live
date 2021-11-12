@@ -58,7 +58,7 @@ context('/blocks/[blockId] on desktop', () => {
 
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('TXID').should('be.visible')
+      cy.wrap(ele).findByText('TX ID').should('be.visible')
       cy.wrap(ele).findByText('VIN/VOUT').should('be.visible')
       cy.wrap(ele).findByText('TIMESTAMP').should('be.visible')
       cy.wrap(ele).findByText('CONFIRMATIONS').should('be.visible')
@@ -98,7 +98,7 @@ context('/blocks/[blockId] on mobile', () => {
 
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('TXID').should('be.visible')
+      cy.wrap(ele).findByText('TX ID').should('be.visible')
     })
   })
   it('should have block hash', () => {

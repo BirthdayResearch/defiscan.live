@@ -78,13 +78,13 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
 
         <OverflowTable className='mt-6'>
           <OverflowTable.Header>
-            <OverflowTable.Head sticky>OWNER</OverflowTable.Head>
-            <OverflowTable.Head>OPERATOR</OverflowTable.Head>
-            <OverflowTable.Head>CREATION HEIGHT</OverflowTable.Head>
-            <OverflowTable.Head>RESIGN HEIGHT</OverflowTable.Head>
-            <OverflowTable.Head>MINTED BLOCKS</OverflowTable.Head>
-            <OverflowTable.Head>STATE</OverflowTable.Head>
-            <OverflowTable.Head>TIMELOCK</OverflowTable.Head>
+            <OverflowTable.Head title='OWNER' sticky />
+            <OverflowTable.Head title='OPERATOR' />
+            <OverflowTable.Head title='CREATION HEIGHT' />
+            <OverflowTable.Head title='RESIGN HEIGHT' />
+            <OverflowTable.Head title='MINTED BLOCKS' />
+            <OverflowTable.Head title='STATE' />
+            <OverflowTable.Head title='TIMELOCK' />
           </OverflowTable.Header>
           {masternodes.items.map((mn) => (
             <MasternodeRow data={mn} key={mn.id} />

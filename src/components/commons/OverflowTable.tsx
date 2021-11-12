@@ -1,5 +1,6 @@
 import classNames from 'classnames'
-import { createContext, MouseEventHandler, PropsWithChildren, useState } from 'react'
+import React, { createContext, MouseEventHandler, PropsWithChildren, ReactNode, useState } from 'react'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 const OverflowTableContext = createContext<number>(0)
 
@@ -46,16 +47,19 @@ function Row (props: PropsWithChildren<{ className?: string, onClick?: MouseEven
   )
 }
 
-function Head (props: PropsWithChildren<{ className?: string, sticky?: boolean, alignRight?: boolean }>): JSX.Element {
+function Head (props: { title: string, className?: string, sticky?: boolean, alignRight?: boolean, infoDesc?: string | ReactNode, testId?: string }): JSX.Element {
   return (
     <div
       data-testid='OverflowTable.Head'
-      className={classNames('table-cell px-4 md:px-6 py-3 text-black text-opacity-60 text-sm font-semibold bg-gray-50', props.className, {
+      className={classNames('table-cell px-4 md:px-6 py-3 align-middle text-black text-opacity-60 text-sm font-semibold bg-gray-50', props.className, {
         'sticky left-0': props.sticky!,
         'text-right': props.alignRight!
       })}
     >
-      {props.children}
+      <div className={classNames('flex items-center capitalize', { 'justify-end': props.alignRight! })} data-testid={props.testId}>
+        {props.title}
+        {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
+      </div>
     </div>
   )
 }

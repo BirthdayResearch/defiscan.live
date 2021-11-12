@@ -10,10 +10,10 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { VaultStatus } from '@components/vaults/VaultStatus'
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
 import { VaultMobileCard } from '@components/vaults/VaultMobileCard'
-import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import React from 'react'
 import { Link } from '@components/commons/Link'
 import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
 
 interface VaultsPageData {
   vaults: {
@@ -32,37 +32,33 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
       <div className='my-6 hidden md:block'>
         <OverflowTable>
           <OverflowTable.Header>
-            <OverflowTable.Head sticky>Vault ID</OverflowTable.Head>
-            <OverflowTable.Head>
-              <div className='flex items-center'>
-                Status
-                <InfoHoverPopover className='ml-1' description={<VaultStatusInfo />} />
-              </div>
-            </OverflowTable.Head>
-            <OverflowTable.Head alignRight>
-              <div className='flex items-center justify-end text-left'>
-                Loans Value (USD)
-                <InfoHoverPopover className='ml-1' description='Loan token(s) and value (in USD) taken by a vault.' />
-              </div>
-            </OverflowTable.Head>
-            <OverflowTable.Head alignRight>
-              <div className='flex items-center justify-end text-left'>
-                Collateral Value (USD)
-                <InfoHoverPopover
-                  className='ml-1'
-                  description='Type and value of tokens deposited as collaterals in a vault.'
-                />
-              </div>
-            </OverflowTable.Head>
-            <OverflowTable.Head alignRight>
-              <div className='flex items-center justify-end text-left'>
-                Collateral Ratio
-                <InfoHoverPopover
-                  className='ml-1'
-                  description='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-                />
-              </div>
-            </OverflowTable.Head>
+            <OverflowTable.Head
+              title='Vault ID'
+              infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+            />
+
+            <OverflowTable.Head
+              title='Status'
+              infoDesc={<VaultStatusInfo />}
+            />
+
+            <OverflowTable.Head
+              alignRight
+              title='Loans Value (USD)'
+              infoDesc='Loan token(s) and value (in USD) taken by a vault.'
+            />
+
+            <OverflowTable.Head
+              alignRight
+              title='Collateral Value (USD)'
+              infoDesc='Type and value of tokens deposited as collaterals in a vault.'
+            />
+
+            <OverflowTable.Head
+              alignRight
+              title='Collateral Ratio'
+              infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+            />
           </OverflowTable.Header>
 
           {vaults.items.map(vault => {
@@ -201,369 +197,22 @@ function VaultStatusInfo (): JSX.Element {
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
-  if (context.query.network?.toString() !== 'Local') {
+  if (context.query.network?.toString() !== 'Local' && context.query.network?.toString() !== 'Playground' && context.query.network?.toString() !== 'TestNet') {
     return {
       notFound: true
     }
   }
 
   try {
-    // const next = CursorPagination.getNext(context)
-    // const api = getWhaleApiClient(context)
-    // const vaults = await api.loan.listVault(10, next)
-
-    const vaults: Array<LoanVaultActive | LoanVaultLiquidated> =
-      [
-        {
-          vaultId: 'b57e9cfd8f4c8aaa267fd57f81074d8b38d2c5aff554841102414aedfbe89548',
-          loanScheme: {
-            id: '1',
-            interestRate: '2.5',
-            minColRatio: '150'
-          },
-          ownerAddress: 'kjlasd9780907231hjklAddress',
-          state: LoanVaultState.ACTIVE,
-          collateralRatio: '226',
-          collateralValue: '10000',
-          informativeRatio: '16666.61600015',
-          loanValue: '0',
-          interestValue: '0',
-          collateralAmounts: [],
-          loanAmounts: [],
-          interestAmounts: []
-        },
-        {
-          vaultId: 'b57e9cfd8f4c8aaa267fd57f81074d8b38d2c5aff554841102414aedfbe89548',
-          loanScheme: {
-            id: '1',
-            interestRate: '2.5',
-            minColRatio: '150'
-          },
-          ownerAddress: 'kjlasd9780907231hjklAddress',
-          state: LoanVaultState.ACTIVE,
-          collateralRatio: '226',
-          collateralValue: '10000',
-          informativeRatio: '16666.61600015',
-          loanValue: '-1',
-          interestValue: '0.0001824',
-          collateralAmounts: [
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'DFI',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'DFI',
-              symbolKey: 'DFI'
-            }
-          ],
-          loanAmounts: [
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            }
-          ],
-          interestAmounts: [
-            {
-              amount: '0.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            }
-          ]
-        },
-        {
-          vaultId: 'b6832ecb6dad347d66ae9a481168eb4895933f43342d471ed5d5517d83d69798',
-          loanScheme: {
-            id: '1',
-            interestRate: '2.5',
-            minColRatio: '150'
-          },
-          ownerAddress: 'kjlasd9780907231hjklAddress',
-          state: LoanVaultState.FROZEN,
-          collateralRatio: '76',
-          collateralValue: '10000',
-          informativeRatio: '16666.61600015',
-          loanValue: '60.0001824',
-          interestValue: '0.0001824',
-          collateralAmounts: [
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'DFI',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'DFI',
-              symbolKey: 'DFI'
-            },
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'dBTC',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'BTC',
-              symbolKey: 'BTC'
-            }
-          ],
-          loanAmounts: [
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            },
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dAAPL',
-              id: '1',
-              name: '',
-              symbol: 'AAPL',
-              symbolKey: 'AAPL'
-            }
-          ],
-          interestAmounts: [
-            {
-              amount: '0.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            }
-          ]
-        },
-        {
-          vaultId: '2f9b79b4e60b51bb88e06807072a88d024de62325b6e52ac7ab325085bec379b',
-          loanScheme: {
-            id: '1',
-            interestRate: '2.5',
-            minColRatio: '150'
-          },
-          ownerAddress: 'kjlasd9780907231hjklAddress',
-          state: LoanVaultState.MAY_LIQUIDATE,
-          collateralRatio: '0',
-          collateralValue: '10000',
-          informativeRatio: '16666.61600015',
-          loanValue: '60.0001824',
-          interestValue: '0.0001824',
-          collateralAmounts: [
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'DFI',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'DFI',
-              symbolKey: 'DFI'
-            },
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'dBTC',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'BTC',
-              symbolKey: 'BTC'
-            },
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'dETH',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'ETH',
-              symbolKey: 'ETH'
-            }
-          ],
-          loanAmounts: [
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            },
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dAAPL',
-              id: '1',
-              name: '',
-              symbol: 'AAPL',
-              symbolKey: 'AAPL'
-            },
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dUSDT',
-              id: '1',
-              name: '',
-              symbol: 'USDT',
-              symbolKey: 'USDT'
-            }
-          ],
-          interestAmounts: [
-            {
-              amount: '0.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            }
-          ]
-        },
-        {
-          vaultId: 'b55f1d24f1a8a90738d74d238d01ab232bab50da44522a812b1dad486c7e0c5f',
-          loanScheme: {
-            id: '1',
-            interestRate: '2.5',
-            minColRatio: '150'
-          },
-          ownerAddress: 'kjlasd9780907231hjklAddress',
-          state: LoanVaultState.ACTIVE,
-          collateralRatio: '500',
-          collateralValue: '10000',
-          informativeRatio: '16666.61600015',
-          loanValue: '60.0001824',
-          interestValue: '0.0001824',
-          collateralAmounts: [
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'DFI',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'DFI',
-              symbolKey: 'DFI'
-            },
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'dBTC',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'BTC',
-              symbolKey: 'BTC'
-            },
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'dETH',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'ETH',
-              symbolKey: 'ETH'
-            },
-            {
-              amount: '10000.00000000',
-              displaySymbol: 'dDOGE',
-              id: '0',
-              name: 'Default Defi token',
-              symbol: 'DOGE',
-              symbolKey: 'DOGE'
-            }
-          ],
-          loanAmounts: [
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            },
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dAAPL',
-              id: '1',
-              name: '',
-              symbol: 'AAPL',
-              symbolKey: 'AAPL'
-            },
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dUSDT',
-              id: '1',
-              name: '',
-              symbol: 'USDT',
-              symbolKey: 'USDT'
-            },
-            {
-              amount: '30.00009120',
-              displaySymbol: 'dTWTR',
-              id: '1',
-              name: '',
-              symbol: 'TWTR',
-              symbolKey: 'TWTR'
-            }
-          ],
-          interestAmounts: [
-            {
-              amount: '0.00009120',
-              displaySymbol: 'dTSLA',
-              id: '1',
-              name: '',
-              symbol: 'TSLA',
-              symbolKey: 'TSLA'
-            }
-          ]
-        },
-        {
-          vaultId: 'b92d886570fe048eb8d36cb736871cafa594f38f4b3a1feee3034c60e8d087d0',
-          loanScheme: {
-            id: '1',
-            interestRate: '2.5',
-            minColRatio: '150'
-          },
-          ownerAddress: 'kjlasd9780907231hjklAddress',
-          state: LoanVaultState.IN_LIQUIDATION,
-          liquidationHeight: 123333,
-          liquidationPenalty: 123,
-          batchCount: 2,
-          batches: []
-        },
-        {
-          vaultId: 'b9b3e6f9a325a8a33c06202401deb786ea9bd3a64b4d123a3730a7c921262ce7',
-          loanScheme: {
-            id: '1',
-            interestRate: '2.5',
-            minColRatio: '150'
-          },
-          ownerAddress: 'kjlasd9780907231hjklAddress',
-          state: LoanVaultState.IN_LIQUIDATION,
-          liquidationHeight: 123333,
-          liquidationPenalty: 123,
-          batchCount: 2,
-          batches: []
-        },
-        {
-          vaultId: 'fc176f6d67ece8f840858c1ab5b80c6d94915c9cdb08cb6102b26ed165f7f85f',
-          loanScheme: {
-            id: '1',
-            interestRate: '2.5',
-            minColRatio: '150'
-          },
-          ownerAddress: 'kjlasd9780907231hjklAddress',
-          state: LoanVaultState.IN_LIQUIDATION,
-          liquidationHeight: 123333,
-          liquidationPenalty: 123,
-          batchCount: 2,
-          batches: []
-        }
-      ]
-
-    const pages: CursorPage[] = [{
-      n: 1,
-      active: true,
-      cursors: ['test']
-    }]
+    const next = CursorPagination.getNext(context)
+    const api = getWhaleApiClient(context)
+    const vaults = await api.loan.listVault(10, next)
 
     return {
       props: {
         vaults: {
           items: vaults,
-          // pages: CursorPagination.getPages(context, vaults)
-          pages: pages
+          pages: CursorPagination.getPages(context, vaults)
         }
       }
     }
