@@ -11,7 +11,7 @@ import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsList
 export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <>
-      <div className='mt-10 hidden md:block'>
+      <div className='mt-8 hidden md:block'>
         <h2 className='text-xl font-semibold' data-testid='VaultDetailsDesktop.Heading'>
           Vault Details
         </h2>
