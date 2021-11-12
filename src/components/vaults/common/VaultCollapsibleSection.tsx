@@ -5,6 +5,7 @@ interface VaultCollapsibleSectionProps {
   children: ReactNode
   heading: string
   className?: string
+  testId?: string
 }
 
 export function VaultCollapsibleSection (props: VaultCollapsibleSectionProps): JSX.Element {
@@ -15,7 +16,7 @@ export function VaultCollapsibleSection (props: VaultCollapsibleSectionProps): J
   }
 
   return (
-    <div className={props.className} data-testid='VaultCollapsibleSection'>
+    <div className={props.className} data-testid={props.testId}>
       <div className='flex items-center justify-between mt-6 cursor-pointer' onClick={() => handleToggle()}>
         <h2
           className='text-lg font-semibold text-gray-900'

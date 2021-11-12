@@ -23,6 +23,7 @@ export function VaultCollateralDetails (props: { vaultState: LoanVaultState, col
             ) : (
               <div
                 className='mt-3 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'
+                data-testid='CollateralDetailsDesktop.Cards'
               >
                 {props.collaterals.map((col) => (
                   <CollateralCard vaultState={props.vaultState} col={col} key={col.id} />
@@ -31,7 +32,7 @@ export function VaultCollateralDetails (props: { vaultState: LoanVaultState, col
             )}
       </div>
 
-      <VaultCollapsibleSection heading='Collateral Details' className='block md:hidden'>
+      <VaultCollapsibleSection heading='Collateral Details' className='block md:hidden' testId='VaultCollapsibleSection.CollateralDetails'>
         {props.collaterals.length === 0
           ? (
             <div className='text-gray-400 flex w-full justify-center p-8'>
@@ -56,15 +57,19 @@ function CollateralCard (props: { vaultState: LoanVaultState, col: LoanVaultToke
   return (
     <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
       <div className='flex justify-between items-start w-full'>
-        <div className='flex items-center'>
+        <div className='flex items-center' data-testid='CollateralCard.AssetIcon'>
           <TokenSymbol className='h-6 w-6 z-10' />
-          <span className='ml-1.5 font-medium'>{props.col.displaySymbol}</span>
+          <span
+            className='ml-1.5 font-medium'
+            data-testid='CollateralCard.displaySymbol'
+          >{props.col.displaySymbol}
+          </span>
         </div>
         {/* <span>10%</span> */}
       </div>
       <div className='mt-4'>
-        <div className='text-sm text-gray-500'>Collateral Amount</div>
-        <div className={classNames(props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
+        <div className='text-sm text-gray-500' data-testid='CollateralCard.CollateralAmountTitle'>Collateral Amount</div>
+        <div className={classNames(props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')} data-testid='CollateralCard.CollateralAmount'>
           {`${new BigNumber(props.col.amount).toFixed(8)} ${props.col.displaySymbol}`}
         </div>
       </div>

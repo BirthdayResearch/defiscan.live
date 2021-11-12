@@ -5,7 +5,7 @@ import { Container } from '@components/commons/Container'
 import { VaultHeading } from '@components/vaults/[vaultid]/VaultHeading'
 import { VaultDetails } from '@components/vaults/[vaultid]/VaultDetails'
 import { VaultCollateralDetails } from '@components/vaults/[vaultid]/VaultCollateralDetails'
-import { VaultLoans } from '@components/vaults/[vaultid]/VaultLoans'
+import { VaultLoansDetails } from '@components/vaults/[vaultid]/VaultLoansDetails'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
 import { VaultAuctions } from '@components/vaults/[vaultid]/VaultAuctions'
@@ -25,7 +25,7 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
             return (
               <>
                 <VaultCollateralDetails vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
-                <VaultLoans loans={props.vault.loanAmounts} />
+                <VaultLoansDetails loans={props.vault.loanAmounts} />
               </>
             )
           case LoanVaultState.IN_LIQUIDATION:

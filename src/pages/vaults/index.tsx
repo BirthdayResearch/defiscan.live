@@ -108,18 +108,18 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
       <OverflowTable.Cell sticky>
         <TextMiddleTruncate
           textLength={6} text={props.vault.vaultId} className='text-primary-500 group-hover:underline'
-          testId={`VaultRow.VaultID.${props.vault.vaultId}`}
+          testId='VaultRow.VaultID'
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <VaultStatus
           vault={props.vault}
           className='px-2 py-1 inline-block text-xs'
-          testId={`VaultRow.${props.vault.vaultId}.VaultStatus`}
+          testId='VaultRow.VaultStatus'
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${props.vault.vaultId}.LoansValue`}>
+        <div className='flex gap-x-6 justify-end' data-testid='VaultRow.LoansValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? ('N/A')
             : (
@@ -138,7 +138,7 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${props.vault.vaultId}.CollateralValue`}>
+        <div className='flex gap-x-6 justify-end' data-testid='VaultRow.CollateralValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? ('N/A')
             : (
@@ -161,7 +161,7 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
           ? ('N/A')
           : (<VaultCollateralRatio
               collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme}
-              testId={`VaultRow.${props.vault.vaultId}.CollateralRatio`}
+              testId='VaultRow.CollateralRatio'
              />)}
       </OverflowTable.Cell>
     </OverflowTable.Row>

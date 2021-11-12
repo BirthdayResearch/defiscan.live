@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import BigNumber from 'bignumber.js'
 
-export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultLoansDetails (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
@@ -20,7 +20,7 @@ export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Eleme
             ) : (
               <OverflowTable className='mt-3 md:w-1/2 xl:w-1/3'>
                 <OverflowTable.Header>
-                  <OverflowTable.Head title='Loan Token' />
+                  <OverflowTable.Head title='Loan Token' testId='VaultLoansDesktop.LoanToken' />
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
                 </OverflowTable.Header>
                 {props.loans.map((loan) => (
@@ -30,7 +30,10 @@ export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Eleme
             )}
       </div>
 
-      <VaultCollapsibleSection heading='Loan Details' className='block md:hidden'>
+      <VaultCollapsibleSection
+        heading='Loan Details' className='block md:hidden'
+        testId='VaultCollapsibleSection.LoanDetails'
+      >
         <div className='flex flex-col items-center'>
           {props.loans.length === 0
             ? (
@@ -38,9 +41,11 @@ export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Eleme
                 There are no loans taken in the vault at this time
               </div>
               ) : (
-                props.loans.map((loan) => (
-                  <VaultLoanDetailsCard loan={loan} key={loan.id} />
-                ))
+                <div className='w-full' data-testid='LoanDetailsMobile.Cards'>
+                  {props.loans.map((loan) => (
+                    <VaultLoanDetailsCard loan={loan} key={loan.id} />
+                  ))}
+                </div>
               )}
         </div>
       </VaultCollapsibleSection>
@@ -72,12 +77,16 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount }): JSX.Eleme
   return (
     <div
       className='p-4 border border-gray-200 rounded w-full justify-self-center md:justify-self-stretch'
-      data-testid='VaultLoanDetailsCard'
+      data-testid='LoanDetailsCard'
     >
       <div className='flex items-center justify-between'>
         <div className='flex items-center'>
-          <LoanSymbol className='h-6 w-6' />
-          <span className='ml-1.5 font-medium text-gray-900'>{props.loan.name}</span>
+          <LoanSymbol className='h-6 w-6' data-testid='LoanDetailsCard.AssetIcon' />
+          <span
+            className='ml-1.5 font-medium text-gray-900'
+            data-testid='LoanDetailsCard.displaySymbol'
+          >{props.loan.displaySymbol}
+          </span>
         </div>
         <div className='hidden flex items-center text-primary-500 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
           {!isOpen
@@ -86,8 +95,8 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount }): JSX.Eleme
         </div>
       </div>
       <div className='flex items-center justify-between mt-10'>
-        <span className='text-gray-500 text-sm'>Loan Amount</span>
-        {new BigNumber(props.loan.amount).toFixed(8)}
+        <span className='text-gray-500 text-sm' data-testid='LoanDetailsCard.LoanAmountTitle'>Loan Amount</span>
+        <span data-testid='LoanDetailsCard.LoanAmount'>{new BigNumber(props.loan.amount).toFixed(8)}</span>
       </div>
 
       {/* <Transition */}
