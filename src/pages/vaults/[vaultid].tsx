@@ -1,18 +1,14 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import {
-  LoanVaultActive,
-  LoanVaultLiquidated,
-  LoanVaultState
-} from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 
 import { Container } from '@components/commons/Container'
 import { VaultHeading } from '@components/vaults/[vaultid]/VaultHeading'
 import { VaultDetailsTable } from '@components/vaults/[vaultid]/VaultDetailsTable'
-import { CollateralDetails } from '@components/vaults/[vaultid]/VaultCollateralDetailsTable'
-import { VaultLoansTable } from '@components/vaults/[vaultid]/VaultLoansTable'
+import { VaultCollateralDetails } from '@components/vaults/[vaultid]/VaultCollateralDetails'
+import { VaultLoans } from '@components/vaults/[vaultid]/VaultLoans'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
-import { VaultAuctionsTable } from '@components/vaults/[vaultid]/VaultAuctionsTable'
+import { VaultAuctions } from '@components/vaults/[vaultid]/VaultAuctions'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -28,15 +24,13 @@ export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<type
           case LoanVaultState.ACTIVE:
             return (
               <>
-                <CollateralDetails collaterals={vault.collateralAmounts} />
-                <VaultLoansTable loans={vault.loanAmounts} />
+                <VaultCollateralDetails collaterals={vault.collateralAmounts} />
+                <VaultLoans loans={vault.loanAmounts} />
               </>
             )
           case LoanVaultState.IN_LIQUIDATION:
             return (
-              <>
-                <VaultAuctionsTable batches={vault.batches} />
-              </>
+              <VaultAuctions batches={vault.batches} />
             )
         }
       })()}

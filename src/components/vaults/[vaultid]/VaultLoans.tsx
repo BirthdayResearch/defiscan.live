@@ -7,29 +7,30 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icon
 import { Transition } from '@headlessui/react'
 import BigNumber from 'bignumber.js'
 
-export function VaultLoansTable ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultLoans ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
-      <VaultLoanDetailsMobile loans={loans} />
-      <VaultLoansDesktop loans={loans} />
-    </>
-  )
-}
+      <div className='hidden md:block mt-8 md:w-1/2 xl:w-1/3' data-testid='VaultLoansDesktop'>
+        <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
+        <OverflowTable className='mt-4'>
+          <OverflowTable.Header>
+            <OverflowTable.Head title='Loan Token' />
+            <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
+          </OverflowTable.Header>
+          {loans.map((loan) => (
+            <VaultLoansTableRow loan={loan} key={loan.id} />
+          ))}
+        </OverflowTable>
+      </div>
 
-function VaultLoansDesktop ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
-  return (
-    <div className='hidden md:block mt-8 md:w-1/2 xl:w-1/3' data-testid='VaultLoansDesktop'>
-      <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
-      <OverflowTable className='mt-4'>
-        <OverflowTable.Header>
-          <OverflowTable.Head title='Loan Token' />
-          <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
-        </OverflowTable.Header>
-        {loans.map((loan) => (
-          <VaultLoansTableRow loan={loan} key={loan.id} />
-        ))}
-      </OverflowTable>
-    </div>
+      <VaultCollapsibleSection heading='Loan Details' className='block md:hidden'>
+        <div className='flex flex-col items-center'>
+          {loans.map((loan) => (
+            <VaultLoanDetailsCard loan={loan} key={loan.id} />
+          ))}
+        </div>
+      </VaultCollapsibleSection>
+    </>
   )
 }
 
@@ -64,10 +65,7 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
           <LoanSymbol className='h-6 w-6' />
           <span className='ml-1.5 font-medium text-gray-900'>{loan.name}</span>
         </div>
-        <div
-          className='hidden flex items-center text-primary-500 cursor-pointer'
-          onClick={() => setIsOpen(!isOpen)}
-        >
+        <div className='hidden flex items-center text-primary-500 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
           {!isOpen
             ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
             : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
@@ -96,17 +94,5 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
         {/* </div> */}
       </Transition>
     </div>
-  )
-}
-
-function VaultLoanDetailsMobile ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
-  return (
-    <VaultCollapsibleSection heading='Loan Details' className='block md:hidden'>
-      <div className='flex flex-col items-center'>
-        {loans.map((loan) => (
-          <VaultLoanDetailsCard loan={loan} key={loan.id} />
-        ))}
-      </div>
-    </VaultCollapsibleSection>
   )
 }

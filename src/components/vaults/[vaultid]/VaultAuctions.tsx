@@ -6,41 +6,30 @@ import { Transition } from '@headlessui/react'
 import BigNumber from 'bignumber.js'
 import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
 
-export function VaultAuctionsTable ({ batches }: { batches: LoanVaultLiquidationBatch[] }): JSX.Element {
+export function VaultAuctions ({ batches }: { batches: LoanVaultLiquidationBatch[] }): JSX.Element {
   return (
     <>
-      <VaultAuctionsDesktop batches={batches} />
-      <VaultLoanDetailsMobile batches={batches} />
+      <div className='hidden md:block mt-8 ' data-testid='VaultLoansDesktop'>
+        <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>In Auction</h2>
+        <div className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
+          {batches.map((batch) => (
+            batch.collaterals.map((collateral) => (
+              <VaultAuctionsDetailsCard batchIndex={batch.index} collateral={collateral} key={batch.index} />
+            ))
+          ))}
+        </div>
+      </div>
+
+      <VaultCollapsibleSection heading='In Auction' className='block md:hidden'>
+        <div className='flex flex-col items-center gap-y-2'>
+          {batches.map((batch) => (
+            batch.collaterals.map((collateral) => (
+              <VaultAuctionsDetailsCard batchIndex={batch.index} collateral={collateral} key={batch.index} />
+            ))
+          ))}
+        </div>
+      </VaultCollapsibleSection>
     </>
-  )
-}
-
-function VaultAuctionsDesktop ({ batches }: { batches: LoanVaultLiquidationBatch[] }): JSX.Element {
-  return (
-    <div className='hidden md:block mt-8 ' data-testid='VaultLoansDesktop'>
-      <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>In Auction</h2>
-      <div className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
-        {batches.map((batch) => (
-          batch.collaterals.map((collateral) => (
-            <VaultAuctionsDetailsCard batchIndex={batch.index} collateral={collateral} key={batch.index} />
-          ))
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function VaultLoanDetailsMobile ({ batches }: { batches: LoanVaultLiquidationBatch[] }): JSX.Element {
-  return (
-    <VaultCollapsibleSection heading='In Auction' className='block md:hidden'>
-      <div className='flex flex-col items-center gap-y-2'>
-        {batches.map((batch) => (
-          batch.collaterals.map((collateral) => (
-            <VaultAuctionsDetailsCard batchIndex={batch.index} collateral={collateral} key={batch.index} />
-          ))
-        ))}
-      </div>
-    </VaultCollapsibleSection>
   )
 }
 

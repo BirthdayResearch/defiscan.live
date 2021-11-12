@@ -16,76 +16,6 @@ export function VaultDetailsTable ({ vault }: { vault: LoanVaultActive | LoanVau
   )
 }
 
-function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
-  return (
-    <OverflowTable.Row>
-      <OverflowTable.Cell>
-        <AddressLink address={vault.ownerAddress} testId='VaultTableRow.OwnerId'>
-          <TextMiddleTruncate text={vault.ownerAddress} textLength={6} />
-        </AddressLink>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        {(() => {
-          if ('loanValue' in vault) {
-            return (
-              <ReactNumberFormat
-                value={vault.loanValue}
-                prefix='$'
-                displayType='text'
-                decimalScale={2}
-                fixedDecimalScale
-                thousandSeparator
-              />
-            )
-          }
-          return 'N/A'
-        })()}
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        {(() => {
-          if ('collateralValue' in vault) {
-            return (
-              <ReactNumberFormat
-                value={vault.collateralValue}
-                prefix='$'
-                displayType='text'
-                decimalScale={2}
-                fixedDecimalScale
-                thousandSeparator
-              />
-            )
-          }
-          return 'N/A'
-        })()}
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        {(() => {
-          if ('collateralRatio' in vault) {
-            return `${vault.collateralRatio}%`
-          }
-          return 'N/A'
-        })()}
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        {(() => {
-          if ('loanScheme' in vault) {
-            return `${vault.loanScheme.minColRatio}%`
-          }
-          return 'N/A'
-        })()}
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        {(() => {
-          if ('interestValue' in vault) {
-            return `${vault.interestValue}%`
-          }
-          return 'N/A'
-        })()}
-      </OverflowTable.Cell>
-    </OverflowTable.Row>
-  )
-}
-
 function VaultDetailsMobile ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <VaultCollapsibleSection heading='Vault Details' className='block md:hidden'>
@@ -226,6 +156,76 @@ function VaultDetailsDesktop ({ vault }: { vault: LoanVaultActive | LoanVaultLiq
         <VaultTableRow vault={vault} />
       </OverflowTable>
     </div>
+  )
+}
+
+function VaultTableRow ({ vault }: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
+  return (
+    <OverflowTable.Row>
+      <OverflowTable.Cell>
+        <AddressLink address={vault.ownerAddress} testId='VaultTableRow.OwnerId'>
+          <TextMiddleTruncate text={vault.ownerAddress} textLength={6} />
+        </AddressLink>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
+        {(() => {
+          if ('loanValue' in vault) {
+            return (
+              <ReactNumberFormat
+                value={vault.loanValue}
+                prefix='$'
+                displayType='text'
+                decimalScale={2}
+                fixedDecimalScale
+                thousandSeparator
+              />
+            )
+          }
+          return 'N/A'
+        })()}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
+        {(() => {
+          if ('collateralValue' in vault) {
+            return (
+              <ReactNumberFormat
+                value={vault.collateralValue}
+                prefix='$'
+                displayType='text'
+                decimalScale={2}
+                fixedDecimalScale
+                thousandSeparator
+              />
+            )
+          }
+          return 'N/A'
+        })()}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
+        {(() => {
+          if ('collateralRatio' in vault) {
+            return `${vault.collateralRatio}%`
+          }
+          return 'N/A'
+        })()}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
+        {(() => {
+          if ('loanScheme' in vault) {
+            return `${vault.loanScheme.minColRatio}%`
+          }
+          return 'N/A'
+        })()}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
+        {(() => {
+          if ('interestValue' in vault) {
+            return `${vault.interestValue}%`
+          }
+          return 'N/A'
+        })()}
+      </OverflowTable.Cell>
+    </OverflowTable.Row>
   )
 }
 

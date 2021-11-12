@@ -4,13 +4,19 @@ import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { CopyButton } from '@components/commons/CopyButton'
 import { VaultStatus } from '@components/vaults/VaultStatus'
 
-export function VaultHeading (props: {vault: LoanVaultActive | LoanVaultLiquidated}): JSX.Element {
+export function VaultHeading (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <>
       <Head title={`Vault #${props.vault.vaultId}`} />
       <Breadcrumb items={[
-        { path: '/vaults', name: 'Vaults' },
-        { path: '/vaults/1', name: '1' }
+        {
+          path: '/vaults',
+          name: 'Vaults'
+        },
+        {
+          path: '/vaults/1',
+          name: '1'
+        }
       ]}
       />
 
@@ -21,8 +27,12 @@ export function VaultHeading (props: {vault: LoanVaultActive | LoanVaultLiquidat
           testId={`VaultRow.${props.vault.vaultId}.VaultStatus`}
         />
       </div>
-      <div className='flex items-center my-1'>
-        <div className='ml-1 text-lg break-all' data-testid='VaultHeading.vaultId'>{props.vault.vaultId}</div>
+      <div className='flex items-center'>
+        <div
+          className='text-lg text-gray-500 font-medium break-all'
+          data-testid='VaultHeading.vaultId'
+        >{props.vault.vaultId}
+        </div>
         <CopyButton className='ml-2' content={props.vault.vaultId} />
       </div>
     </>
