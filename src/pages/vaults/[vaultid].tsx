@@ -45,7 +45,7 @@ export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<type
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
-  if (context.query.network !== undefined && context.query.network?.toString() === 'MainNet') {
+  if (context.query.network?.toString() !== 'Local' && context.query.network?.toString() !== 'Playground' && context.query.network?.toString() !== 'TestNet') {
     return {
       notFound: true
     }
