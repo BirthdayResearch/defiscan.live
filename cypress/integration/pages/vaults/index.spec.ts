@@ -4,7 +4,7 @@ context('/vaults', () => {
   })
 
   it('should have OverflowTable header information', function () {
-    cy.visit('/vaults?network=Local')
+    cy.visit('/vaults?network=TestNet')
 
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Vault ID').should('be.visible')
@@ -22,7 +22,7 @@ context('/vaults on mobile', () => {
   })
 
   it('should not have OverflowTable header information', function () {
-    cy.visit('/vaults?network=Local')
+    cy.visit('/vaults?network=TestNet')
 
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Vault ID').should('not.be.visible')
