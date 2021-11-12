@@ -2,7 +2,6 @@ import { LoanVaultLiquidationBatch, LoanVaultTokenAmount } from '@defichain/whal
 import { getAssetIcon } from '@components/icons/assets'
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
-import { Transition } from '@headlessui/react'
 import BigNumber from 'bignumber.js'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 
@@ -45,7 +44,7 @@ function VaultAuctionsDetailsCard (props: { batchIndex: number, collateral: Loan
       <div className='flex items-center justify-between'>
         <div className='flex items-center'>
           <LoanSymbol className='h-6 w-6' />
-          <span className='ml-1.5 font-medium text-gray-900'>{props.collateral.name}</span>
+          <span className='ml-1.5 font-medium text-gray-900'>{props.collateral.displaySymbol}</span>
         </div>
         <div className='hidden flex items-center text-primary-500 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
           {!isOpen
@@ -63,23 +62,23 @@ function VaultAuctionsDetailsCard (props: { batchIndex: number, collateral: Loan
         {new BigNumber(props.collateral.amount).toFixed(8)}
       </div>
 
-      <Transition
-        enter='transition ease-out duration-200'
-        enterFrom='opacity-0 translate-y-0'
-        enterTo='opacity-100 translate-y-1'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-1'
-        leaveTo='opacity-100 translate-y-0'
-        className='w-full'
-        show={isOpen}
-      >
-        {/* <div className='w-full mt-2 flex flex-col gap-y-1'> */}
-        {/*  <div className='w-full flex justify-between'> */}
-        {/*    <span className='text-gray-500 text-sm'>Loan ID</span> */}
-        {/*    <span className='text-gray-900'>{`${loan.id}`}</span> */}
-        {/*  </div> */}
-        {/* </div> */}
-      </Transition>
+      {/* <Transition */}
+      {/*  enter='transition ease-out duration-200' */}
+      {/*  enterFrom='opacity-0 translate-y-0' */}
+      {/*  enterTo='opacity-100 translate-y-1' */}
+      {/*  leave='transition ease-in duration-150' */}
+      {/*  leaveFrom='opacity-100 translate-y-1' */}
+      {/*  leaveTo='opacity-100 translate-y-0' */}
+      {/*  className='w-full' */}
+      {/*  show={isOpen} */}
+      {/* > */}
+      {/* <div className='w-full mt-2 flex flex-col gap-y-1'> */}
+      {/*  <div className='w-full flex justify-between'> */}
+      {/*    <span className='text-gray-500 text-sm'>Loan ID</span> */}
+      {/*    <span className='text-gray-900'>{`${loan.id}`}</span> */}
+      {/*  </div> */}
+      {/* </div> */}
+      {/* </Transition> */}
     </div>
   )
 }
