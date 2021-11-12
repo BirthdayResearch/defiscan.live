@@ -1,9 +1,7 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import React, { useCallback } from 'react'
 import {
   LoanVaultActive,
   LoanVaultLiquidated,
-  LoanVaultLiquidationBatch,
   LoanVaultState
 } from '@defichain/whale-api-client/dist/api/loan'
 
@@ -14,20 +12,13 @@ import { CollateralDetails } from '@components/vaults/[vaultid]/CollateralDetail
 import { VaultLoansTable } from '@components/vaults/[vaultid]/VaultLoansTable'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
+import { VaultAuctionsTable } from '@components/vaults/[vaultid]/VaultAuctionsTable'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
 }
 
 export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const getCollaterals = useCallback((batches: LoanVaultLiquidationBatch[]) => {
-    return batches.flatMap(v => v.collaterals)
-  }, [vault])
-
-  const getLoans = useCallback((batches: LoanVaultLiquidationBatch[]) => {
-    return batches.map(v => v.loan)
-  }, [vault])
-
   return (
     <Container className='pt-4 pb-20'>
       <VaultHeading vault={vault} />
@@ -44,8 +35,7 @@ export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<type
           case LoanVaultState.IN_LIQUIDATION:
             return (
               <>
-                <CollateralDetails collaterals={getCollaterals(vault.batches)} />
-                <VaultLoansTable loans={getLoans(vault.batches)} />
+                <VaultAuctionsTable batches={vault.batches} />
               </>
             )
         }
@@ -133,6 +123,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return {
       props: {
         vault: await api.loan.getVault(vaultid)
+        // vault: vaultsLiquidated
       }
     }
   } catch
