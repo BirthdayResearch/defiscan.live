@@ -5,7 +5,6 @@ import { Container } from '@components/commons/Container'
 import NumberFormat from 'react-number-format'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
-// import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { VaultStatus } from '@components/vaults/VaultStatus'
 import { VaultTokenSymbols } from '@components/vaults/VaultTokenSymbols'
@@ -62,10 +61,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
           </OverflowTable.Header>
 
           {vaults.items.map(vault => {
-            if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-              return <LiquidatedVaultRow vault={vault} key={vault.vaultId} />
-            }
-            return <ActiveVaultRow vault={vault} key={vault.vaultId} />
+            return <VaultRow vault={vault} key={vault.vaultId} />
           })}
         </OverflowTable>
       </div>
@@ -73,9 +69,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
       <div className='my-6 md:hidden'>
         <div className='flex flex-wrap gap-y-2'>
           {vaults.items.map(vault => {
-            return (
-              <VaultMobileCard vault={vault} key={vault.vaultId} />
-            )
+            return (<VaultMobileCard vault={vault} key={vault.vaultId} />)
           })}
         </div>
       </div>
@@ -87,83 +81,66 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
   )
 }
 
-function ActiveVaultRow ({ vault }: { vault: LoanVaultActive }): JSX.Element {
+function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <Link href={{ pathname: `/vaults/${vault.vaultId}` }}>
+    <Link href={{ pathname: `/vaults/${props.vault.vaultId}` }}>
       <OverflowTable.Row className='cursor-pointer'>
         <OverflowTable.Cell sticky>
           <TextMiddleTruncate
-            textLength={6} text={vault.vaultId} className='text-primary-500 group-hover:underline'
-            testId={`VaultRow.VaultID.${vault.vaultId}`}
+            textLength={6} text={props.vault.vaultId} className='text-primary-500 group-hover:underline'
+            testId={`VaultRow.VaultID.${props.vault.vaultId}`}
           />
         </OverflowTable.Cell>
         <OverflowTable.Cell>
           <VaultStatus
-            vault={vault}
+            vault={props.vault}
             className='px-2 py-1 inline-block text-xs'
-            testId={`VaultRow.${vault.vaultId}.VaultStatus`}
+            testId={`VaultRow.${props.vault.vaultId}.VaultStatus`}
           />
         </OverflowTable.Cell>
         <OverflowTable.Cell alignRight>
-          <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${vault.vaultId}.LoansValue`}>
-            <VaultTokenSymbols tokens={vault.loanAmounts} />
-            <NumberFormat
-              value={vault.loanValue}
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />
+          <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${props.vault.vaultId}.LoansValue`}>
+            {props.vault.state === LoanVaultState.IN_LIQUIDATION
+              ? ('N/A')
+              : (
+                <>
+                  <VaultTokenSymbols tokens={props.vault.loanAmounts} />
+                  <NumberFormat
+                    value={props.vault.loanValue}
+                    displayType='text'
+                    decimalScale={2}
+                    fixedDecimalScale
+                    thousandSeparator
+                  />
+                </>
+                )}
           </div>
         </OverflowTable.Cell>
         <OverflowTable.Cell alignRight>
-          <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${vault.vaultId}.CollateralValue`}>
-            <VaultTokenSymbols tokens={vault.collateralAmounts} />
-            <NumberFormat
-              value={vault.collateralValue}
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />
+          <div className='flex gap-x-6 justify-end' data-testid={`VaultRow.${props.vault.vaultId}.CollateralValue`}>
+            {props.vault.state === LoanVaultState.IN_LIQUIDATION
+              ? ('N/A')
+              : (
+                <>
+                  <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
+                  <NumberFormat
+                    value={props.vault.collateralValue}
+                    displayType='text'
+                    decimalScale={2}
+                    fixedDecimalScale
+                    thousandSeparator
+                  />
+                </>
+                )}
           </div>
         </OverflowTable.Cell>
         <OverflowTable.Cell alignRight>
-          <VaultCollateralRatio
-            collateralRatio={vault.collateralRatio} loanScheme={vault.loanScheme}
-            testId={`VaultRow.${vault.vaultId}.CollateralRatio`}
-          />
-        </OverflowTable.Cell>
-      </OverflowTable.Row>
-    </Link>
-  )
-}
-
-function LiquidatedVaultRow ({ vault }: { vault: LoanVaultLiquidated }): JSX.Element {
-  return (
-    <Link href={{ pathname: `/vaults/${vault.vaultId}` }}>
-      <OverflowTable.Row className='cursor-pointer'>
-        <OverflowTable.Cell sticky>
-          <TextMiddleTruncate
-            textLength={6} text={vault.vaultId} className='text-primary-500 group-hover:underline'
-            testId={`VaultRow.VaultID.${vault.vaultId}`}
-          />
-        </OverflowTable.Cell>
-        <OverflowTable.Cell>
-          <VaultStatus
-            vault={vault}
-            className='px-2 py-1 inline-block text-xs'
-            testId={`VaultRow.${vault.vaultId}.VaultStatus`}
-          />
-        </OverflowTable.Cell>
-        <OverflowTable.Cell alignRight>
-          <span data-testid={`VaultRow.${vault.vaultId}.LoansValue`}>N/A</span>
-        </OverflowTable.Cell>
-        <OverflowTable.Cell alignRight>
-          <span data-testid={`VaultRow.${vault.vaultId}.CollateralValue`}>N/A</span>
-        </OverflowTable.Cell>
-        <OverflowTable.Cell alignRight>
-          <span data-testid={`VaultRow.${vault.vaultId}.CollateralRatio`}>N/A</span>
+          {props.vault.state === LoanVaultState.IN_LIQUIDATION
+            ? ('N/A')
+            : (<VaultCollateralRatio
+                collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme}
+                testId={`VaultRow.${props.vault.vaultId}.CollateralRatio`}
+               />)}
         </OverflowTable.Cell>
       </OverflowTable.Row>
     </Link>
