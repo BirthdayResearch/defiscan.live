@@ -6,6 +6,7 @@ import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultColla
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
+import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
 
 export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -113,7 +114,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${props.vault.collateralRatio}%`}
+          : <VaultCollateralRatio collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme} />}
       </VaultDetailList>
       <VaultDetailList
         title='Min Collateral Ratio'
@@ -170,7 +171,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${props.vault.collateralRatio}%`}
+          : <VaultCollateralRatio collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme} />}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
