@@ -29,41 +29,49 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
       <h1 className='text-2xl font-medium'>Vaults</h1>
 
       <div className='my-6 hidden md:block'>
-        <OverflowTable>
-          <OverflowTable.Header>
-            <OverflowTable.Head
-              title='Vault ID'
-              infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-            />
+        {vaults.items.length === 0
+          ? (
+            <div className='text-gray-400 flex w-full justify-center p-12'>
+              There are no vaults at this time
+            </div>
+            )
+          : (
+            <OverflowTable>
+              <OverflowTable.Header>
+                <OverflowTable.Head
+                  title='Vault ID'
+                  infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+                />
 
-            <OverflowTable.Head
-              title='Status'
-              infoDesc={<VaultStatusInfo />}
-            />
+                <OverflowTable.Head
+                  title='Status'
+                  infoDesc={<VaultStatusInfo />}
+                />
 
-            <OverflowTable.Head
-              alignRight
-              title='Loans Value (USD)'
-              infoDesc='Loan token(s) and value (in USD) taken by a vault.'
-            />
+                <OverflowTable.Head
+                  alignRight
+                  title='Loans Value (USD)'
+                  infoDesc='Loan token(s) and value (in USD) taken by a vault.'
+                />
 
-            <OverflowTable.Head
-              alignRight
-              title='Collateral Value (USD)'
-              infoDesc='Type and value of tokens deposited as collaterals in a vault.'
-            />
+                <OverflowTable.Head
+                  alignRight
+                  title='Collateral Value (USD)'
+                  infoDesc='Type and value of tokens deposited as collaterals in a vault.'
+                />
 
-            <OverflowTable.Head
-              alignRight
-              title='Collateral Ratio'
-              infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-            />
-          </OverflowTable.Header>
+                <OverflowTable.Head
+                  alignRight
+                  title='Collateral Ratio'
+                  infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+                />
+              </OverflowTable.Header>
 
-          {vaults.items.map(vault => {
-            return <VaultRow vault={vault} key={vault.vaultId} />
-          })}
-        </OverflowTable>
+              {vaults.items.map(vault => {
+                return <VaultRow vault={vault} key={vault.vaultId} />
+              })}
+            </OverflowTable>
+            )}
       </div>
 
       <div className='my-6 md:hidden'>

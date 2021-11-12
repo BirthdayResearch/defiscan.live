@@ -10,24 +10,39 @@ import BigNumber from 'bignumber.js'
 export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
-      <div className='hidden md:block mt-8 md:w-1/2 xl:w-1/3' data-testid='VaultLoansDesktop'>
+      <div className='hidden md:block mt-8' data-testid='VaultLoansDesktop'>
         <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
-        <OverflowTable className='mt-4'>
-          <OverflowTable.Header>
-            <OverflowTable.Head title='Loan Token' />
-            <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
-          </OverflowTable.Header>
-          {props.loans.map((loan) => (
-            <VaultLoansTableRow loan={loan} key={loan.id} />
-          ))}
-        </OverflowTable>
+
+        {props.loans.length === 0
+          ? (
+            <div className='text-gray-400 flex w-full justify-center p-12'>
+              There are no loans taken in the vault at this time
+            </div>
+            ) : (
+              <OverflowTable className='mt-4 md:w-1/2 xl:w-1/3'>
+                <OverflowTable.Header>
+                  <OverflowTable.Head title='Loan Token' />
+                  <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
+                </OverflowTable.Header>
+                {props.loans.map((loan) => (
+                  <VaultLoansTableRow loan={loan} key={loan.id} />
+                ))}
+              </OverflowTable>
+            )}
       </div>
 
       <VaultCollapsibleSection heading='Loan Details' className='block md:hidden'>
         <div className='flex flex-col items-center'>
-          {props.loans.map((loan) => (
-            <VaultLoanDetailsCard loan={loan} key={loan.id} />
-          ))}
+          {props.loans.length === 0
+            ? (
+              <div className='text-gray-400 flex w-full justify-center p-12'>
+                There are no loans taken in the vault at this time
+              </div>
+              ) : (
+                props.loans.map((loan) => (
+                  <VaultLoanDetailsCard loan={loan} key={loan.id} />
+                ))
+              )}
         </div>
       </VaultCollapsibleSection>
     </>

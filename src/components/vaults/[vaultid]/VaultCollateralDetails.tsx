@@ -3,6 +3,7 @@ import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import BigNumber from 'bignumber.js'
+import React from 'react'
 
 export function VaultCollateralDetails (props: { collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
@@ -12,21 +13,38 @@ export function VaultCollateralDetails (props: { collaterals: LoanVaultTokenAmou
           <h2 data-testid='CollateralDetailsDesktop.Heading' className='text-xl font-semibold'>Collateral Details</h2>
           <InfoHoverPopover className='ml-1' description='Proportion of collaterals deposited in the vault.' />
         </div>
-        <div
-          className='mt-4 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'
-        >
-          {props.collaterals.map((col) => (
-            <CollateralCard col={col} key={col.id} />
-          ))}
-        </div>
+
+        {props.collaterals.length === 0
+          ? (
+            <div className='text-gray-400 flex w-full justify-center p-12'>
+              There are no collaterals in the vault at this time
+            </div>
+            ) : (
+              <div
+                className='mt-4 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'
+              >
+                {props.collaterals.map((col) => (
+                  <CollateralCard col={col} key={col.id} />
+                ))}
+              </div>
+            )}
       </div>
 
       <VaultCollapsibleSection heading='Collateral Details' className='block md:hidden'>
-        <div className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
-          {props.collaterals.map((col) => (
-            <CollateralCard col={col} key={col.id} />
-          ))}
-        </div>
+        {props.collaterals.length === 0
+          ? (
+            <div className='text-gray-400 flex w-full justify-center p-8'>
+              There are no collaterals in the vault at this time
+            </div>
+            ) : (
+              <div
+                className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'
+              >
+                {props.collaterals.map((col) => (
+                  <CollateralCard col={col} key={col.id} />
+                ))}
+              </div>
+            )}
       </VaultCollapsibleSection>
     </>
   )
