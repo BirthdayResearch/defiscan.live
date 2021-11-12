@@ -17,7 +17,7 @@ export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.El
       <Link href={{ pathname: `/address/${props.address}` }}>
         {(() => {
           if (props.children !== undefined) {
-            return props.children
+            return (<a>{props.children}</a>)
           }
           return props.address
         })()}

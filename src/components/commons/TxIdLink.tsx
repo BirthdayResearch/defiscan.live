@@ -14,7 +14,7 @@ export function TxIdLink (props: PropsWithChildren<TxIdLinkProps>): JSX.Element 
       <Link href={{ pathname: `/transactions/${props.txid}` }}>
         {(() => {
           if (props.children !== undefined) {
-            return props.children
+            return (<a>{props.children}</a>)
           }
           return props.txid
         })()}
