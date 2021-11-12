@@ -11,11 +11,11 @@ import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsList
 export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <>
-      <div className='mt-6 hidden md:block'>
+      <div className='mt-10 hidden md:block'>
         <h2 className='text-xl font-semibold' data-testid='VaultDetailsDesktop.Heading'>
           Vault Details
         </h2>
-        <OverflowTable className='mt-4'>
+        <OverflowTable className='mt-3'>
           <OverflowTable.Header>
             <OverflowTable.Head
               title='Owner ID'

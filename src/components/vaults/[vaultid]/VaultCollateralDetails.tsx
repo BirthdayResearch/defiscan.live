@@ -9,7 +9,7 @@ import classNames from 'classnames'
 export function VaultCollateralDetails (props: { vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
-      <div className='mt-8 hidden md:block' data-testid='CollateralDetailsDesktop'>
+      <div className='mt-10 hidden md:block' data-testid='CollateralDetailsDesktop'>
         <div className='flex items-center'>
           <h2 data-testid='CollateralDetailsDesktop.Heading' className='text-xl font-semibold'>Collateral Details</h2>
           <InfoHoverPopover className='ml-1' description='Proportion of collaterals deposited in the vault.' />
@@ -22,7 +22,7 @@ export function VaultCollateralDetails (props: { vaultState: LoanVaultState, col
             </div>
             ) : (
               <div
-                className='mt-4 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'
+                className='mt-3 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'
               >
                 {props.collaterals.map((col) => (
                   <CollateralCard vaultState={props.vaultState} col={col} key={col.id} />

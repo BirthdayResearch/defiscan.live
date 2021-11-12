@@ -9,7 +9,7 @@ import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsi
 export function VaultAuctions (props: { batches: LoanVaultLiquidationBatch[] }): JSX.Element {
   return (
     <>
-      <div className='hidden md:block mt-8 ' data-testid='VaultLoansDesktop'>
+      <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
         <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>In Auction</h2>
         <div className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
           {props.batches.map((batch) => (

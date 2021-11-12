@@ -9,7 +9,7 @@ import BigNumber from 'bignumber.js'
 export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
-      <div className='hidden md:block mt-8' data-testid='VaultLoansDesktop'>
+      <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
         <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
 
         {props.loans.length === 0
@@ -18,7 +18,7 @@ export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Eleme
               There are no loans taken in the vault at this time
             </div>
             ) : (
-              <OverflowTable className='mt-4 md:w-1/2 xl:w-1/3'>
+              <OverflowTable className='mt-3 md:w-1/2 xl:w-1/3'>
                 <OverflowTable.Header>
                   <OverflowTable.Head title='Loan Token' />
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
