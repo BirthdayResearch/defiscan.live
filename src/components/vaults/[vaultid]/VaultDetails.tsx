@@ -4,7 +4,7 @@ import ReactNumberFormat from 'react-number-format'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
-import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
+import { VaultCollateralRatio } from '@components/vaults/common/VaultCollateralRatio'
 import classNames from 'classnames'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 

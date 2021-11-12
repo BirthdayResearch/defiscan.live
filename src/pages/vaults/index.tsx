@@ -11,7 +11,7 @@ import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
 import { VaultMobileCard } from '@components/vaults/VaultMobileCard'
 import React from 'react'
 import { Link } from '@components/commons/Link'
-import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
+import { VaultCollateralRatio } from '@components/vaults/common/VaultCollateralRatio'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import classNames from 'classnames'
 
@@ -41,7 +41,6 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
               <OverflowTable.Header>
                 <OverflowTable.Head
                   title='Vault ID'
-                  infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
                 />
 
                 <OverflowTable.Head
@@ -58,7 +57,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
                 <OverflowTable.Head
                   alignRight
                   title='Collateral Value (USD)'
-                  infoDesc='Type and value of tokens deposited as collaterals in a vault.'
+                  infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
                 />
 
                 <OverflowTable.Head
@@ -163,23 +162,17 @@ function VaultStatusInfo (): JSX.Element {
     <div
       className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
     >
-      A vault's status is determined by its collateral ratio:
+      A vault's status is determined by its collateralization ratio, where
       <br /><br />
-      <span className='font-medium'>Active</span>: A vault that has been created but there are no loans
-      taken yet.
+      <span className='font-medium'>Active</span>: When a vault is created but no loan has been taken yet
       <br /><br />
-      <span className='font-medium'>Healthy</span>: The vault's collateral ratio is sufficiently high.
+      <span className='font-medium'>Healthy</span>: When the collateralization ratio of a vault is more than 150% above the minimum collateralization ratio
       <br /><br />
-      <span className='font-medium'>At Risk</span>: The vault is at risk of liquidation within the next
-      hour.
+      <span className='font-medium'>At Risk</span>: When the collateralization ratio of a vault is between 0% and 150% above the minimum collateralization ratio
       <br /><br />
-      <span className='font-medium'>Liquidated</span>: The vault's collateral ratio has fallen below its
-      minimum and is now in
-      auction.
+      <span className='font-medium'>Liquidated</span>: When a vault's collateralization ratio falls below the minimum requirement and is now in auction.
       <br /><br />
-      <span className='font-medium'>Halted</span>: The price of one or more token in the vault has
-      fluctuated more than 30% in the
-      past hour.
+      <span className='font-medium'>Halted</span>: The price of one or more token in the vault has fluctuated more than 30% in the past hour.
     </div>
   )
 }
