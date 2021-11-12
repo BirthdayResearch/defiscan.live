@@ -7,7 +7,7 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icon
 import { Transition } from '@headlessui/react'
 import BigNumber from 'bignumber.js'
 
-export function VaultLoans ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
       <div className='hidden md:block mt-8 md:w-1/2 xl:w-1/3' data-testid='VaultLoansDesktop'>
@@ -17,7 +17,7 @@ export function VaultLoans ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.E
             <OverflowTable.Head title='Loan Token' />
             <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
           </OverflowTable.Header>
-          {loans.map((loan) => (
+          {props.loans.map((loan) => (
             <VaultLoansTableRow loan={loan} key={loan.id} />
           ))}
         </OverflowTable>
@@ -25,7 +25,7 @@ export function VaultLoans ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.E
 
       <VaultCollapsibleSection heading='Loan Details' className='block md:hidden'>
         <div className='flex flex-col items-center'>
-          {loans.map((loan) => (
+          {props.loans.map((loan) => (
             <VaultLoanDetailsCard loan={loan} key={loan.id} />
           ))}
         </div>
@@ -34,25 +34,25 @@ export function VaultLoans ({ loans }: { loans: LoanVaultTokenAmount[] }): JSX.E
   )
 }
 
-function VaultLoansTableRow ({ loan }: { loan: LoanVaultTokenAmount }): JSX.Element {
-  const LoanSymbol = getAssetIcon(loan.displaySymbol)
+function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount }): JSX.Element {
+  const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
         <div className='flex items-center space-x-1'>
           <LoanSymbol className='h-6 w-6' />
-          <span>{loan.name}</span>
+          <span>{props.loan.name}</span>
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {new BigNumber(loan.amount).toFixed(8)}
+        {new BigNumber(props.loan.amount).toFixed(8)}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
 }
 
-function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.Element {
-  const LoanSymbol = getAssetIcon(loan.displaySymbol)
+function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount }): JSX.Element {
+  const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
@@ -63,7 +63,7 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
       <div className='flex items-center justify-between'>
         <div className='flex items-center'>
           <LoanSymbol className='h-6 w-6' />
-          <span className='ml-1.5 font-medium text-gray-900'>{loan.name}</span>
+          <span className='ml-1.5 font-medium text-gray-900'>{props.loan.name}</span>
         </div>
         <div className='hidden flex items-center text-primary-500 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
           {!isOpen
@@ -73,7 +73,7 @@ function VaultLoanDetailsCard ({ loan }: { loan: LoanVaultTokenAmount }): JSX.El
       </div>
       <div className='flex items-center justify-between mt-10'>
         <span className='text-gray-500 text-sm'>Loan Amount</span>
-        {new BigNumber(loan.amount).toFixed(8)}
+        {new BigNumber(props.loan.amount).toFixed(8)}
       </div>
 
       <Transition

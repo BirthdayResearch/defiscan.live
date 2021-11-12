@@ -4,7 +4,7 @@ import { getAssetIcon } from '@components/icons/assets'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import BigNumber from 'bignumber.js'
 
-export function VaultCollateralDetails ({ collaterals }: { collaterals: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultCollateralDetails (props: { collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
       <div className='mt-8 hidden md:block' data-testid='CollateralDetailsDesktop'>
@@ -15,7 +15,7 @@ export function VaultCollateralDetails ({ collaterals }: { collaterals: LoanVaul
         <div
           className='mt-4 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'
         >
-          {collaterals.map((col) => (
+          {props.collaterals.map((col) => (
             <CollateralCard col={col} key={col.id} />
           ))}
         </div>
@@ -23,7 +23,7 @@ export function VaultCollateralDetails ({ collaterals }: { collaterals: LoanVaul
 
       <VaultCollapsibleSection heading='Collateral Details' className='block md:hidden'>
         <div className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
-          {collaterals.map((col) => (
+          {props.collaterals.map((col) => (
             <CollateralCard col={col} key={col.id} />
           ))}
         </div>
@@ -32,21 +32,21 @@ export function VaultCollateralDetails ({ collaterals }: { collaterals: LoanVaul
   )
 }
 
-function CollateralCard ({ col }: { col: LoanVaultTokenAmount }): JSX.Element {
-  const TokenSymbol = getAssetIcon(col.displaySymbol)
+function CollateralCard (props: { col: LoanVaultTokenAmount }): JSX.Element {
+  const TokenSymbol = getAssetIcon(props.col.displaySymbol)
   return (
     <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
       <div className='flex justify-between items-start w-full'>
         <div className='flex items-center'>
           <TokenSymbol className='h-6 w-6 z-10' />
-          <span className='ml-2 font-medium'>{col.name}</span>
+          <span className='ml-2 font-medium'>{props.col.name}</span>
         </div>
         {/* <span>10%</span> */}
       </div>
       <div className='mt-4'>
         <div className='text-sm text-gray-500'>Collateral Amount</div>
         <div className='text-gray-900'>
-          {`${new BigNumber(col.amount).toFixed(8)} ${col.displaySymbol}`}
+          {`${new BigNumber(props.col.amount).toFixed(8)} ${props.col.displaySymbol}`}
         </div>
       </div>
     </div>
