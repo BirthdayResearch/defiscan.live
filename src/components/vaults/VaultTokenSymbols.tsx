@@ -14,9 +14,9 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
           const TokenIcon = getAssetIcon(loan.symbol)
           if (index < 3) {
             if (index >= 1) {
-              return <TokenIcon className='h-6 w-6 -ml-2' />
+              return <TokenIcon className='h-6 w-6 -ml-2' key={loan.id} />
             }
-            return <TokenIcon className='h-6 w-6' />
+            return <TokenIcon className='h-6 w-6' key={loan.id} />
           }
           return null
         })}
