@@ -1,11 +1,12 @@
 import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
-import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import BigNumber from 'bignumber.js'
 import React from 'react'
+import classNames from 'classnames'
 
-export function VaultCollateralDetails (props: { collaterals: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultCollateralDetails (props: { vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
       <div className='mt-8 hidden md:block' data-testid='CollateralDetailsDesktop'>
@@ -24,7 +25,7 @@ export function VaultCollateralDetails (props: { collaterals: LoanVaultTokenAmou
                 className='mt-4 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'
               >
                 {props.collaterals.map((col) => (
-                  <CollateralCard col={col} key={col.id} />
+                  <CollateralCard vaultState={props.vaultState} col={col} key={col.id} />
                 ))}
               </div>
             )}
@@ -41,7 +42,7 @@ export function VaultCollateralDetails (props: { collaterals: LoanVaultTokenAmou
                 className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'
               >
                 {props.collaterals.map((col) => (
-                  <CollateralCard col={col} key={col.id} />
+                  <CollateralCard vaultState={props.vaultState} col={col} key={col.id} />
                 ))}
               </div>
             )}
@@ -50,7 +51,7 @@ export function VaultCollateralDetails (props: { collaterals: LoanVaultTokenAmou
   )
 }
 
-function CollateralCard (props: { col: LoanVaultTokenAmount }): JSX.Element {
+function CollateralCard (props: { vaultState: LoanVaultState, col: LoanVaultTokenAmount }): JSX.Element {
   const TokenSymbol = getAssetIcon(props.col.displaySymbol)
   return (
     <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
@@ -63,7 +64,7 @@ function CollateralCard (props: { col: LoanVaultTokenAmount }): JSX.Element {
       </div>
       <div className='mt-4'>
         <div className='text-sm text-gray-500'>Collateral Amount</div>
-        <div className='text-gray-900'>
+        <div className={classNames(props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
           {`${new BigNumber(props.col.amount).toFixed(8)} ${props.col.displaySymbol}`}
         </div>
       </div>

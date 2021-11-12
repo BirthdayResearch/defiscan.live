@@ -7,6 +7,7 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
+import classNames from 'classnames'
 
 export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -71,7 +72,7 @@ export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquida
 
 function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <>
+    <div className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
       <VaultDetailList title='Owner ID'>
         <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
           <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
@@ -132,13 +133,15 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
           ? 'N/A'
           : `${props.vault.interestValue}%`}
       </VaultDetailList>
-    </>
+    </div>
   )
 }
 
 function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <OverflowTable.Row>
+    <OverflowTable.Row
+      className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+    >
       <OverflowTable.Cell>
         <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
           <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />

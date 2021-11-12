@@ -14,23 +14,23 @@ interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
 }
 
-export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <Container className='pt-4 pb-20'>
-      <VaultHeading vault={vault} />
-      <VaultDetails vault={vault} />
+      <VaultHeading vault={props.vault} />
+      <VaultDetails vault={props.vault} />
       {(() => {
-        switch (vault.state) {
+        switch (props.vault.state) {
           case LoanVaultState.ACTIVE:
             return (
               <>
-                <VaultCollateralDetails collaterals={vault.collateralAmounts} />
-                <VaultLoans loans={vault.loanAmounts} />
+                <VaultCollateralDetails vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
+                <VaultLoans loans={props.vault.loanAmounts} />
               </>
             )
           case LoanVaultState.IN_LIQUIDATION:
             return (
-              <VaultAuctions batches={vault.batches} />
+              <VaultAuctions batches={props.vault.batches} />
             )
         }
       })()}
