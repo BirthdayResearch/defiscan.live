@@ -58,7 +58,7 @@ function CollateralCard (props: { vaultState: LoanVaultState, col: LoanVaultToke
       <div className='flex justify-between items-start w-full'>
         <div className='flex items-center'>
           <TokenSymbol className='h-6 w-6 z-10' />
-          <span className='ml-2 font-medium'>{props.col.displaySymbol}</span>
+          <span className='ml-1 font-medium'>{props.col.displaySymbol}</span>
         </div>
         {/* <span>10%</span> */}
       </div>
