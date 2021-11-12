@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { Transition } from '@headlessui/react'
 import BigNumber from 'bignumber.js'
-import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
+import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 
 export function VaultAuctions (props: { batches: LoanVaultLiquidationBatch[] }): JSX.Element {
   return (

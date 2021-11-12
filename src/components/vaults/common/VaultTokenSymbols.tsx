@@ -8,10 +8,6 @@ interface VaultTokenSymbolsProps {
 export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
   const remainingTokens = props.tokens.length - 3
 
-  if (props.tokens.length === 0) {
-    return <div>N/A</div>
-  }
-
   return (
     <div className='flex items-center gap-x-1'>
       <div className='flex'>

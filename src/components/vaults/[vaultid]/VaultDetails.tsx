@@ -1,12 +1,12 @@
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { AddressLink } from '@components/commons/AddressLink'
 import ReactNumberFormat from 'react-number-format'
-import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
+import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { VaultCollateralRatio } from '@components/vaults/VaultCollateralRatio'
 import classNames from 'classnames'
-import { VaultDetailsListItem } from '@components/vaults/VaultDetailsListItem'
+import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 
 export function VaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (

@@ -1,10 +1,9 @@
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
-import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
+import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
-import { Transition } from '@headlessui/react'
 import BigNumber from 'bignumber.js'
 
 export function VaultLoans (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
@@ -91,23 +90,23 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount }): JSX.Eleme
         {new BigNumber(props.loan.amount).toFixed(8)}
       </div>
 
-      <Transition
-        enter='transition ease-out duration-200'
-        enterFrom='opacity-0 translate-y-0'
-        enterTo='opacity-100 translate-y-1'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-1'
-        leaveTo='opacity-100 translate-y-0'
-        className='w-full'
-        show={isOpen}
-      >
-        {/* <div className='w-full mt-2 flex flex-col gap-y-1'> */}
-        {/*  <div className='w-full flex justify-between'> */}
-        {/*    <span className='text-gray-500 text-sm'>Loan ID</span> */}
-        {/*    <span className='text-gray-900'>{`${loan.id}`}</span> */}
-        {/*  </div> */}
-        {/* </div> */}
-      </Transition>
+      {/* <Transition */}
+      {/*  enter='transition ease-out duration-200' */}
+      {/*  enterFrom='opacity-0 translate-y-0' */}
+      {/*  enterTo='opacity-100 translate-y-1' */}
+      {/*  leave='transition ease-in duration-150' */}
+      {/*  leaveFrom='opacity-100 translate-y-1' */}
+      {/*  leaveTo='opacity-100 translate-y-0' */}
+      {/*  className='w-full' */}
+      {/*  show={isOpen} */}
+      {/* > */}
+      {/* <div className='w-full mt-2 flex flex-col gap-y-1'> */}
+      {/*  <div className='w-full flex justify-between'> */}
+      {/*    <span className='text-gray-500 text-sm'>Loan ID</span> */}
+      {/*    <span className='text-gray-900'>{`${loan.id}`}</span> */}
+      {/*  </div> */}
+      {/* </div> */}
+      {/* </Transition> */}
     </div>
   )
 }

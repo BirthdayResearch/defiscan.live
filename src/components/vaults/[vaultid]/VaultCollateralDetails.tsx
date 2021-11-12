@@ -1,4 +1,4 @@
-import { VaultCollapsibleSection } from '@components/vaults/[vaultid]/VaultCollapsibleSection'
+import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'

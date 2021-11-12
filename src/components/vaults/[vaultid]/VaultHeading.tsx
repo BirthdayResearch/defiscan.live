@@ -2,7 +2,7 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 import { Head } from '@components/commons/Head'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { CopyButton } from '@components/commons/CopyButton'
-import { VaultStatus } from '@components/vaults/VaultStatus'
+import { VaultStatus } from '@components/vaults/common/VaultStatus'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { FcInfo } from 'react-icons/fc'
 
