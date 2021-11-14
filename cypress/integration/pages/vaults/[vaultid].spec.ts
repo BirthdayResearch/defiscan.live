@@ -32,29 +32,29 @@ context('/vaults/[vaultid] on desktop', function () {
       cy.findByTestId('VaultDetailsDesktop.OwnersId').should('be.visible').should('have.text', 'Owner ID')
 
       cy.findByTestId('VaultDetailsDesktop.TotalLoanValue').should('be.visible').should('have.text', 'Total Loan Value (USD)')
-      cy.findByTestId('VaultDetailsDesktop.TotalLoanValue').within(() => {
-        cy.findByTestId('InfoHoverPopover').should('be.visible')
-      })
+      // cy.findByTestId('VaultDetailsDesktop.TotalLoanValue').within(() => {
+      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
+      // })
 
       cy.findByTestId('VaultDetailsDesktop.TotalCollateralValue').should('be.visible').should('have.text', 'Total Collateral Value (USD)')
-      cy.findByTestId('VaultDetailsDesktop.TotalCollateralValue').within(() => {
-        cy.findByTestId('InfoHoverPopover').should('be.visible')
-      })
+      // cy.findByTestId('VaultDetailsDesktop.TotalCollateralValue').within(() => {
+      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
+      // })
 
       cy.findByTestId('VaultDetailsDesktop.TotalCollateralRatio').should('be.visible').should('have.text', 'Total Collateral Ratio')
-      cy.findByTestId('VaultDetailsDesktop.TotalCollateralRatio').within(() => {
-        cy.findByTestId('InfoHoverPopover').should('be.visible')
-      })
+      // cy.findByTestId('VaultDetailsDesktop.TotalCollateralRatio').within(() => {
+      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
+      // })
 
       cy.findByTestId('VaultDetailsDesktop.MinCollateralRatio').should('be.visible').should('have.text', 'Min Collateral Ratio')
-      cy.findByTestId('VaultDetailsDesktop.MinCollateralRatio').within(() => {
-        cy.findByTestId('InfoHoverPopover').should('be.visible')
-      })
+      // cy.findByTestId('VaultDetailsDesktop.MinCollateralRatio').within(() => {
+      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
+      // })
 
       cy.findByTestId('VaultDetailsDesktop.BaseInterestRatio').should('be.visible').should('have.text', 'Base Interest Ratio (APR)')
-      cy.findByTestId('VaultDetailsDesktop.BaseInterestRatio').within(() => {
-        cy.findByTestId('InfoHoverPopover').should('be.visible')
-      })
+      // cy.findByTestId('VaultDetailsDesktop.BaseInterestRatio').within(() => {
+      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
+      // })
     })
 
     it('should have 6 cells in each row', function () {
