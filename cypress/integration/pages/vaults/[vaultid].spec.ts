@@ -23,7 +23,7 @@ context('/vaults/[vaultid] on desktop', function () {
     cy.findByTestId('VaultIdHeading.vaultId').should('be.visible')
   })
 
-  it('should Vault Details', function () {
+  describe('should Vault Details', function () {
     it('should Vault Details Heading', function () {
       cy.findByTestId('VaultDetailsDesktop.Heading').should('have.text', 'Vault Details')
     })
@@ -64,7 +64,7 @@ context('/vaults/[vaultid] on desktop', function () {
     })
   })
 
-  it('should Collateral Details', function () {
+  describe('should Collateral Details', function () {
     it('should Collateral Details Heading', function () {
       cy.findByTestId('CollateralDetailsDesktop.Heading').should('have.text', 'Collateral Details')
     })
@@ -82,7 +82,7 @@ context('/vaults/[vaultid] on desktop', function () {
     })
   })
 
-  it('should Loan Details', function () {
+  describe('should Loan Details', function () {
     it('should Loan Details Heading', function () {
       cy.findByTestId('VaultLoansDesktop.Heading').should('have.text', 'Loan Details')
     })
@@ -127,7 +127,7 @@ context('/vaults/[vaultid] on mobile', function () {
     cy.findByTestId('VaultIdHeading.vaultId').should('be.visible')
   })
 
-  it('should Vault Details', function () {
+  describe('should Vault Details', function () {
     it('should Vault Details Heading', function () {
       cy.findByTestId('VaultCollapsibleSection.VaultIdDetails').within(() => {
         cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Vault Details')
@@ -144,7 +144,7 @@ context('/vaults/[vaultid] on mobile', function () {
     })
   })
 
-  it('should Collateral Details', function () {
+  describe('should Collateral Details', function () {
     it('should Collateral Details Heading', function () {
       cy.findByTestId('VaultCollapsibleSection.CollateralDetails').within(() => {
         cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Collateral Details')
@@ -163,7 +163,7 @@ context('/vaults/[vaultid] on mobile', function () {
     })
   })
 
-  it('should Loan Details', function () {
+  describe('should Loan Details', function () {
     it('should Loan Details Heading', function () {
       cy.findByTestId('VaultCollapsibleSection.LoanDetails').within(() => {
         cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Loan Details')
