@@ -152,7 +152,7 @@ context('/vaults/[vaultid] on mobile', function () {
     })
 
     it('should have collateral details card', function () {
-      cy.findByTestId('CollateralDetailsDesktop.Cards').within(() => {
+      cy.findByTestId('CollateralDetailsMobile.Cards').within(() => {
         cy.findAllByTestId('CollateralCard').within(() => {
           cy.findByTestId('CollateralCard.AssetIcon').should('be.visible')
           cy.findByTestId('CollateralCard.displaySymbol').should('be.visible')

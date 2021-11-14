@@ -41,6 +41,7 @@ export function VaultIdCollateralDetails (props: { vaultState: LoanVaultState, c
             ) : (
               <div
                 className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'
+                data-testid='CollateralDetailsMobile.Cards'
               >
                 {props.collaterals.map((col) => (
                   <CollateralCard vaultState={props.vaultState} col={col} key={col.id} />
