@@ -4,6 +4,7 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useEffect, useState } from 'react'
 import { CgSpinner } from 'react-icons/cg'
+import { Link } from '@components/commons/Link'
 
 interface AddressTokenTableProps {
   address: string
@@ -52,7 +53,11 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
           </OverflowTable.Header>
           {tokensData.map((token) => {
             return (
-              <AddressTokenTableRow token={token} key={token.id} />
+              <Link href={{ pathname: `/tokens/${token.id}` }} key={token.id}>
+                <a className='contents'>
+                  <AddressTokenTableRow token={token} />
+                </a>
+              </Link>
             )
           })}
         </OverflowTable>
