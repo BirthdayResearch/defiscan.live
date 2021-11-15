@@ -149,7 +149,7 @@ function FooterSectionAbout (): JSX.Element {
         {net !== undefined && (
           <HoverPopover popover={<NetworkStatus />} placement='top' className='inline-block float-right'>
             <div className='text-sm text-gray-900 p-2 bg-white rounded cursor-help'>
-              <span className='ml-2.5 font-medium'>{net.subversion?.replaceAll('/', '').replace(':', ' Node v')}</span>
+              <span className='font-medium'>{net.subversion?.replaceAll('/', '').replace(':', ' Node v')}</span>
             </div>
           </HoverPopover>
         )}
