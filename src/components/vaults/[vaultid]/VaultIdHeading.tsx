@@ -24,9 +24,9 @@ export function VaultIdHeading (props: { vault: LoanVaultActive | LoanVaultLiqui
       />
 
       {props.vault.state === LoanVaultState.FROZEN && (
-        <div className='p-3 flex items-center max-w-max bg-blue-50 mt-8 rounded ring-2 ring-blue-200'>
-          <FcInfo size={20} />
-          <div className='ml-2 text-gray-600'>
+        <div className='px-3 py-2 flex items-center max-w-max bg-blue-50 mt-8 rounded ring-2 ring-blue-200'>
+          <FcInfo size={18} />
+          <div className='ml-2 text-gray-600 text-sm'>
             The activity of this vault has been temporarily halted due to price volatility in the market. This vault will
             resume its activity once the market stabilizes.
           </div>
