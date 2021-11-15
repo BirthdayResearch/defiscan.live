@@ -4,6 +4,7 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useEffect, useState } from 'react'
 import { CgSpinner } from 'react-icons/cg'
+import { Link } from '@components/commons/Link'
 
 interface AddressTokenTableProps {
   address: string
@@ -52,7 +53,11 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
           </OverflowTable.Header>
           {tokensData.map((token) => {
             return (
-              <AddressTokenTableRow token={token} key={token.id} />
+              <Link href={{ pathname: `/tokens/${token.id}` }} key={token.id}>
+                <a className='contents'>
+                  <AddressTokenTableRow token={token} />
+                </a>
+              </Link>
             )
           })}
         </OverflowTable>
@@ -77,7 +82,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
               return <TokenIcon className='h-6 w-6' />
             })()}
           </div>
-          <div>
+          <div className='text-primary-500 group-hover:underline'>
             {props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}
           </div>
         </div>
@@ -95,7 +100,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
           return props.token.name
         })()}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle group-hover:text-primary-500'>
+      <OverflowTable.Cell className='align-middle'>
         {(() => {
           if (props.token.isLPS) {
             return 'LPS'
