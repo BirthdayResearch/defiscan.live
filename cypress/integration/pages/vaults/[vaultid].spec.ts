@@ -41,13 +41,13 @@ context('/vaults/[vaultid] on desktop', function () {
       //   cy.findByTestId('InfoHoverPopover').should('be.visible')
       // })
 
-      cy.findByTestId('VaultDetailsDesktop.TotalCollateralRatio').should('be.visible').should('have.text', 'Total Collateral Ratio')
-      // cy.findByTestId('VaultDetailsDesktop.TotalCollateralRatio').within(() => {
+      cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').should('be.visible').should('have.text', 'Total Collateral Ratio')
+      // cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').within(() => {
       //   cy.findByTestId('InfoHoverPopover').should('be.visible')
       // })
 
-      cy.findByTestId('VaultDetailsDesktop.MinCollateralRatio').should('be.visible').should('have.text', 'Min Collateral Ratio')
-      // cy.findByTestId('VaultDetailsDesktop.MinCollateralRatio').within(() => {
+      cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').should('be.visible').should('have.text', 'Min Collateral Ratio')
+      // cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').within(() => {
       //   cy.findByTestId('InfoHoverPopover').should('be.visible')
       // })
 
@@ -138,8 +138,8 @@ context('/vaults/[vaultid] on mobile', function () {
       cy.findByTestId('VaultDetailList.OwnerID').should('be.visible')
       cy.findByTestId('VaultDetailList.TotalLoanValue').should('be.visible')
       cy.findByTestId('VaultDetailList.TotalCollateralValue').should('be.visible')
-      cy.findByTestId('VaultDetailList.TotalCollateralRatio').should('be.visible')
-      cy.findByTestId('VaultDetailList.MinCollateralRatio').should('be.visible')
+      cy.findByTestId('VaultDetailList.TotalCollateralizationRatio').should('be.visible')
+      cy.findByTestId('VaultDetailList.MinCollateralizationRatio').should('be.visible')
       cy.findByTestId('VaultDetailList.BaseInterestRatio').should('be.visible')
     })
   })

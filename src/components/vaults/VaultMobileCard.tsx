@@ -7,7 +7,7 @@ import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
 import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { Link } from '@components/commons/Link'
-import { VaultCollateralRatio } from '@components/vaults/common/VaultCollateralRatio'
+import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 
 interface VaultMobileCardProps {
@@ -129,9 +129,11 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')
-          : (<VaultCollateralRatio
-              collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme}
-              testId={`VaultRow.${props.vault.vaultId}.CollateralRatio`}
+          : (<VaultCollateralizationRatio
+              collateralizationRatio={props.vault.collateralRatio}
+              loanScheme={props.vault.loanScheme}
+              vaultState={props.vault.state}
+              testId={`VaultRow.${props.vault.vaultId}.CollateralizationRatio`}
              />)}
       </VaultDetailsListItem>
     </div>
