@@ -82,7 +82,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
               return <TokenIcon className='h-6 w-6' />
             })()}
           </div>
-          <div>
+          <div className='text-primary-500 group-hover:underline'>
             {props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}
           </div>
         </div>
@@ -100,7 +100,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
           return props.token.name
         })()}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle group-hover:text-primary-500'>
+      <OverflowTable.Cell className='align-middle'>
         {(() => {
           if (props.token.isLPS) {
             return 'LPS'
