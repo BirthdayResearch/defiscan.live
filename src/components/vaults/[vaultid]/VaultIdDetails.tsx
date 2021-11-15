@@ -7,6 +7,7 @@ import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import classNames from 'classnames'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
+import BigNumber from 'bignumber.js'
 
 export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -27,6 +28,12 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
               title='Total Loan Value (USD)'
               infoDesc='Total loan value (in USD) taken by the vault.'
               testId='VaultDetailsDesktop.TotalLoanValue'
+            />
+
+            <OverflowTable.Head
+              alignRight
+              title='Accumulated Interest (USD)'
+              testId='VaultDetailsDesktop.AccumulatedInterest'
             />
 
             <OverflowTable.Head
@@ -165,7 +172,19 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
           : <ReactNumberFormat
-              value={props.vault.loanValue}
+              value={new BigNumber(props.vault.loanValue).minus(props.vault.interestValue).toFixed(8)}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <ReactNumberFormat
+              value={props.vault.interestValue}
               prefix='$'
               displayType='text'
               decimalScale={2}
