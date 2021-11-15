@@ -5,9 +5,10 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import BigNumber from 'bignumber.js'
+import ReactNumberFormat from 'react-number-format'
 import classNames from 'classnames'
 
-export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], vaultState: LoanVaultState }): JSX.Element {
+export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], interests: LoanVaultTokenAmount[], vaultState: LoanVaultState }): JSX.Element {
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
@@ -23,9 +24,12 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], vau
                 <OverflowTable.Header>
                   <OverflowTable.Head title='Loan Token' testId='VaultLoansDesktop.LoanToken' />
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
+                  <OverflowTable.Head title='Loan Value (USD)' testId='VaultLoansDesktop.LoanValue' alignRight />
+                  <OverflowTable.Head title='Total Interest Rate (APR)' testId='VaultLoansDesktop.TotalInterestRate' alignRight />
+                  <OverflowTable.Head title='Loan Interest Value (USD)' testId='VaultLoansDesktop.LoanInterestValue' alignRight />
                 </OverflowTable.Header>
                 {props.loans.map((loan) => (
-                  <VaultLoansTableRow loan={loan} vaultState={props.vaultState} key={loan.id} />
+                  <VaultLoansTableRow loan={loan} interest={props.interests.filter(interest => interest.id === loan.id)[0]} vaultState={props.vaultState} key={loan.id} />
                 ))}
               </OverflowTable>
             )}
@@ -41,21 +45,34 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], vau
               <div className='text-gray-400 flex w-full justify-center p-12'>
                 There are no loans taken in the vault at this time
               </div>
-              ) : (
-                <div className='w-full' data-testid='LoanDetailsMobile.Cards'>
-                  {props.loans.map((loan) => (
-                    <VaultLoanDetailsCard loan={loan} key={loan.id} />
-                  ))}
-                </div>
-              )}
+            ) : (
+              <div className='w-full' data-testid='LoanDetailsMobile.Cards'>
+                {props.loans.map((loan) => (
+                  <VaultLoanDetailsCard loan={loan} key={loan.id} />
+                ))}
+              </div>
+            )}
         </div>
       </VaultCollapsibleSection>
     </>
   )
 }
 
-function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
+function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount,interest: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
+
+  let loanUsdAmount: undefined | BigNumber
+  let interestUsdAmount: undefined | BigNumber
+  if (props.loan.activePrice !== undefined && props.loan.activePrice.active !== undefined) {
+    loanUsdAmount = new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.loan.amount))
+    interestUsdAmount = new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.interest.amount))
+  }
+
+  if (props.loan.id === '11') {
+    loanUsdAmount = new BigNumber(props.loan.amount)
+    interestUsdAmount = new BigNumber(props.interest.amount)
+  }
+
   return (
     <OverflowTable.Row
       className={classNames(props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
@@ -68,6 +85,37 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, vaultState: Lo
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         {new BigNumber(props.loan.amount).toFixed(8)}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        {(loanUsdAmount === undefined)
+          ? ('N/A')
+          : (
+            <ReactNumberFormat
+              value={loanUsdAmount.toNumber().toFixed(2)}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />
+          )}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        {props.interest.amount}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        {(interestUsdAmount === undefined)
+          ? ('N/A')
+          : (
+            <ReactNumberFormat
+              value={interestUsdAmount.toNumber().toFixed(2)}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />
+          )}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
