@@ -110,13 +110,13 @@ function FooterSectionAbout (): JSX.Element {
   function NetworkStatus (): JSX.Element {
     return (
       <div className='p-3 bg-white shadow-md rounded-lg text-sm'>
-        <div className='text-gray-900 grid grid-cols-2'>
-          <span>Version</span>
-          <span className='font-medium'>{net.version}</span>
+        <div className='text-gray-900 grid grid-cols-2 grid'>
+          <span>Protocol</span>
+          <span className='font-medium ml-2'>{net.protocolversion}</span>
         </div>
         <div className='text-gray-900 grid grid-cols-2'>
-          <span>Subversion</span>
-          <span className='font-medium'>{net.subversion?.replaceAll('/', '').replace(':', ' ')}</span>
+          <span>Version</span>
+          <span className='font-medium ml-2'>{net.version}</span>
         </div>
       </div>
     )
@@ -149,7 +149,7 @@ function FooterSectionAbout (): JSX.Element {
         {net !== undefined && (
           <HoverPopover popover={<NetworkStatus />} placement='top' className='inline-block float-right'>
             <div className='text-sm text-gray-900 p-2 bg-white rounded cursor-help'>
-              <div>Protocol<span className='ml-2.5 font-medium'>{net.protocolversion}</span></div>
+              <span className='ml-2.5 font-medium'>{net.subversion?.replaceAll('/', '').replace(':', ' ')}</span>
             </div>
           </HoverPopover>
         )}
