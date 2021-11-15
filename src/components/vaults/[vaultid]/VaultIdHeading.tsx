@@ -23,6 +23,13 @@ export function VaultIdHeading (props: { vault: LoanVaultActive | LoanVaultLiqui
       ]}
       />
 
+      <div className='mt-8 flex items-center justify-center'>
+        <div className='bg-orange-100 rounded p-3 text-center'>
+          🚧 Work in progress, this is an early iteration of defiscan.live/vaults/*. Some features are not
+          available and may not work as expected.
+        </div>
+      </div>
+
       {props.vault.state === LoanVaultState.FROZEN && (
         <div className='p-3 flex items-center max-w-max bg-blue-50 mt-8 rounded ring-2 ring-blue-200'>
           <FcInfo size={20} />

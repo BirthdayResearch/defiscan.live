@@ -27,6 +27,13 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
     <Container className='pt-12 pb-20'>
       <Head title='Vaults' />
 
+      <div className='flex items-center justify-center pb-6'>
+        <div className='bg-orange-100 rounded p-3 text-center'>
+          🚧 Work in progress, this is an early iteration of defiscan.live/vaults. Some features are not
+          available and may not work as expected.
+        </div>
+      </div>
+
       <h1 className='text-2xl font-medium'>Vaults</h1>
 
       <div className='my-6 hidden md:block'>
@@ -195,16 +202,10 @@ function VaultStatusInfo (): JSX.Element {
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
-  if (context.query.network?.toString() !== 'Local' && context.query.network?.toString() !== 'Playground' && context.query.network?.toString() !== 'TestNet') {
-    return {
-      notFound: true
-    }
-  }
-
   try {
     const next = CursorPagination.getNext(context)
     const api = getWhaleApiClient(context)
-    const vaults = await api.loan.listVault(10, next)
+    const vaults = await api.loan.listVault(20, next)
 
     return {
       props: {

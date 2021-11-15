@@ -18,43 +18,43 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
         <OverflowTable className='mt-3'>
           <OverflowTable.Header>
             <OverflowTable.Head
-              title='Owner ID'
-              testId='VaultDetailsDesktop.OwnersId'
+              title={'Owner\'s Address'}
+              testId='VaultDetailsDesktop.OwnerAddress'
             />
 
             <OverflowTable.Head
               alignRight
               title='Total Loan Value (USD)'
-              // infoDesc='Total loan value (in USD) taken by the vault.'
+              infoDesc='Total loan value (in USD) taken by the vault.'
               testId='VaultDetailsDesktop.TotalLoanValue'
             />
 
             <OverflowTable.Head
               alignRight
               title='Total Collateral Value (USD)'
-              // infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
+              infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
               testId='VaultDetailsDesktop.TotalCollateralValue'
             />
 
             <OverflowTable.Head
               alignRight
               title='Total Collateralization Ratio'
-              // infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+              infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
               testId='VaultDetailsDesktop.TotalCollateralizationRatio'
             />
 
             <OverflowTable.Head
               alignRight
               title='Min Collateralization Ratio'
-              // infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+              infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
               testId='VaultDetailsDesktop.MinCollateralizationRatio'
             />
 
             <OverflowTable.Head
               alignRight
-              title='Base Interest Ratio (APR)'
-              // infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-              testId='VaultDetailsDesktop.BaseInterestRatio '
+              title='Vault Interest Rate (APR)'
+              infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+              testId='VaultDetailsDesktop.VaultInterestRate '
             />
           </OverflowTable.Header>
           <DesktopVaultDetailsRow vault={props.vault} />
@@ -139,13 +139,13 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
           : `${props.vault.loanScheme.minColRatio}%`}
       </VaultDetailsListItem>
       <VaultDetailsListItem
-        title='Base Interest Ratio (APR)'
+        title='Vault Interest Rate (APR)'
         infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-        testId='VaultDetailList.BaseInterestRatio'
+        testId='VaultDetailList.VaultInterestRate'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${props.vault.interestValue}%`}
+          : `${props.vault.loanScheme.interestRate}%`}
       </VaultDetailsListItem>
     </div>
   )
@@ -202,7 +202,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${props.vault.interestValue}%`}
+          : `${props.vault.loanScheme.interestRate}%`}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
