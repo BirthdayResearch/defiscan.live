@@ -198,7 +198,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   try {
     const next = CursorPagination.getNext(context)
     const api = getWhaleApiClient(context)
-    const vaults = await api.loan.listVault(10, next)
+    const vaults = await api.loan.listVault(20, next)
 
     return {
       props: {
