@@ -52,9 +52,9 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
 
             <OverflowTable.Head
               alignRight
-              title='Base Interest Ratio (APR)'
+              title='Vault Interest Rate (APR)'
               infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-              testId='VaultDetailsDesktop.BaseInterestRatio '
+              testId='VaultDetailsDesktop.VaultInterestRate '
             />
           </OverflowTable.Header>
           <DesktopVaultDetailsRow vault={props.vault} />
@@ -139,9 +139,9 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
           : `${props.vault.loanScheme.minColRatio}%`}
       </VaultDetailsListItem>
       <VaultDetailsListItem
-        title='Base Interest Ratio (APR)'
+        title='Vault Interest Rate (APR)'
         infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-        testId='VaultDetailList.BaseInterestRatio'
+        testId='VaultDetailList.VaultInterestRate'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'

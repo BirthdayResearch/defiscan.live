@@ -32,29 +32,29 @@ context('/vaults/[vaultid] on desktop', function () {
       cy.findByTestId('VaultDetailsDesktop.OwnersId').should('be.visible').should('have.text', 'Owner ID')
 
       cy.findByTestId('VaultDetailsDesktop.TotalLoanValue').should('be.visible').should('have.text', 'Total Loan Value (USD)')
-      // cy.findByTestId('VaultDetailsDesktop.TotalLoanValue').within(() => {
-      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
-      // })
+      cy.findByTestId('VaultDetailsDesktop.TotalLoanValue').within(() => {
+        cy.findByTestId('InfoHoverPopover').should('be.visible')
+      })
 
       cy.findByTestId('VaultDetailsDesktop.TotalCollateralValue').should('be.visible').should('have.text', 'Total Collateral Value (USD)')
-      // cy.findByTestId('VaultDetailsDesktop.TotalCollateralValue').within(() => {
-      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
-      // })
+      cy.findByTestId('VaultDetailsDesktop.TotalCollateralValue').within(() => {
+        cy.findByTestId('InfoHoverPopover').should('be.visible')
+      })
 
       cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').should('be.visible').should('have.text', 'Total Collateralization Ratio')
-      // cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').within(() => {
-      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
-      // })
+      cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').within(() => {
+        cy.findByTestId('InfoHoverPopover').should('be.visible')
+      })
 
       cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').should('be.visible').should('have.text', 'Min Collateralization Ratio')
-      // cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').within(() => {
-      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
-      // })
+      cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').within(() => {
+        cy.findByTestId('InfoHoverPopover').should('be.visible')
+      })
 
-      cy.findByTestId('VaultDetailsDesktop.BaseInterestRatio').should('be.visible').should('have.text', 'Base Interest Ratio (APR)')
-      // cy.findByTestId('VaultDetailsDesktop.BaseInterestRatio').within(() => {
-      //   cy.findByTestId('InfoHoverPopover').should('be.visible')
-      // })
+      cy.findByTestId('VaultDetailsDesktop.VaultInterestRate').should('be.visible').should('have.text', 'Vault Interest Rate (APR)')
+      cy.findByTestId('VaultDetailsDesktop.VaultInterestRate').within(() => {
+        cy.findByTestId('InfoHoverPopover').should('be.visible')
+      })
     })
 
     it('should have 6 cells in each row', function () {
@@ -140,7 +140,7 @@ context('/vaults/[vaultid] on mobile', function () {
       cy.findByTestId('VaultDetailList.TotalCollateralValue').should('be.visible')
       cy.findByTestId('VaultDetailList.TotalCollateralizationRatio').should('be.visible')
       cy.findByTestId('VaultDetailList.MinCollateralizationRatio').should('be.visible')
-      cy.findByTestId('VaultDetailList.BaseInterestRatio').should('be.visible')
+      cy.findByTestId('VaultDetailList.VaultInterestRate').should('be.visible')
     })
   })
 
