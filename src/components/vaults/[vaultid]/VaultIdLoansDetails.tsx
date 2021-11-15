@@ -1,12 +1,13 @@
-import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import BigNumber from 'bignumber.js'
+import classNames from 'classnames'
 
-export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], vaultState: LoanVaultState }): JSX.Element {
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
@@ -24,7 +25,7 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[] }): 
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
                 </OverflowTable.Header>
                 {props.loans.map((loan) => (
-                  <VaultLoansTableRow loan={loan} key={loan.id} />
+                  <VaultLoansTableRow loan={loan} vaultState={props.vaultState} key={loan.id} />
                 ))}
               </OverflowTable>
             )}
@@ -53,10 +54,12 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[] }): 
   )
 }
 
-function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount }): JSX.Element {
+function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
   return (
-    <OverflowTable.Row>
+    <OverflowTable.Row
+      className={classNames(props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+    >
       <OverflowTable.Cell>
         <div className='flex items-center space-x-1'>
           <LoanSymbol className='h-6 w-6' />

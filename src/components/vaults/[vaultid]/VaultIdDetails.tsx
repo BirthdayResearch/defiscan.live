@@ -4,7 +4,7 @@ import ReactNumberFormat from 'react-number-format'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
-import { VaultCollateralRatio } from '@components/vaults/common/VaultCollateralRatio'
+import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import classNames from 'classnames'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 
@@ -38,16 +38,16 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
 
             <OverflowTable.Head
               alignRight
-              title='Total Collateral Ratio'
+              title='Total Collateralization Ratio'
               // infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-              testId='VaultDetailsDesktop.TotalCollateralRatio'
+              testId='VaultDetailsDesktop.TotalCollateralizationRatio'
             />
 
             <OverflowTable.Head
               alignRight
-              title='Min Collateral Ratio'
+              title='Min Collateralization Ratio'
               // infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-              testId='VaultDetailsDesktop.MinCollateralRatio'
+              testId='VaultDetailsDesktop.MinCollateralizationRatio'
             />
 
             <OverflowTable.Head
@@ -61,7 +61,10 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
         </OverflowTable>
       </div>
 
-      <VaultCollapsibleSection heading='Vault Details' className='block md:hidden' testId='VaultCollapsibleSection.VaultIdDetails'>
+      <VaultCollapsibleSection
+        heading='Vault Details' className='block md:hidden'
+        testId='VaultCollapsibleSection.VaultIdDetails'
+      >
         <div className='mb-8'>
           <MobileVaultDetails vault={props.vault} />
         </div>
@@ -114,18 +117,22 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
             />}
       </VaultDetailsListItem>
       <VaultDetailsListItem
-        title='Total Collateral Ratio'
+        title='Total Collateralization Ratio'
         infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-        testId='VaultDetailList.TotalCollateralRatio'
+        testId='VaultDetailList.TotalCollateralizationRatio'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : <VaultCollateralRatio collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme} />}
+          : <VaultCollateralizationRatio
+              collateralizationRatio={props.vault.collateralRatio}
+              loanScheme={props.vault.loanScheme}
+              vaultState={props.vault.state}
+            />}
       </VaultDetailsListItem>
       <VaultDetailsListItem
-        title='Min Collateral Ratio'
+        title='Min Collateralization Ratio'
         infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-        testId='VaultDetailList.MinCollateralRatio'
+        testId='VaultDetailList.MinCollateralizationRatio'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
@@ -180,8 +187,12 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <VaultCollateralRatio collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme} />}
+          ? ('N/A')
+          : (<VaultCollateralizationRatio
+              collateralizationRatio={props.vault.collateralRatio}
+              loanScheme={props.vault.loanScheme}
+              vaultState={props.vault.state}
+             />)}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION

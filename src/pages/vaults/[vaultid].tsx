@@ -19,21 +19,16 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
     <Container className='pt-4 pb-20'>
       <VaultIdHeading vault={props.vault} />
       <VaultIdDetails vault={props.vault} />
-      {(() => {
-        switch (props.vault.state) {
-          case LoanVaultState.ACTIVE:
-            return (
-              <>
-                <VaultIdCollateralDetails vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
-                <VaultIdLoansDetails loans={props.vault.loanAmounts} />
-              </>
-            )
-          case LoanVaultState.IN_LIQUIDATION:
-            return (
-              <VaultAuctions batches={props.vault.batches} />
-            )
-        }
-      })()}
+      {
+        (props.vault.state === LoanVaultState.IN_LIQUIDATION) ? (
+          <VaultAuctions batches={props.vault.batches} />
+        ) : (
+          <>
+            <VaultIdCollateralDetails vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
+            <VaultIdLoansDetails loans={props.vault.loanAmounts} vaultState={props.vault.state} />
+          </>
+        )
+      }
     </Container>
   )
 }

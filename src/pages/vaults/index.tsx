@@ -10,7 +10,7 @@ import { VaultStatus } from '@components/vaults/common/VaultStatus'
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
 import { VaultMobileCard } from '@components/vaults/VaultMobileCard'
 import React from 'react'
-import { VaultCollateralRatio } from '@components/vaults/common/VaultCollateralRatio'
+import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import classNames from 'classnames'
 import { Link } from '@components/commons/Link'
@@ -159,9 +159,11 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
       <OverflowTable.Cell alignRight>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? ('N/A')
-          : (<VaultCollateralRatio
-              collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme}
-              testId='VaultRow.CollateralRatio'
+          : (<VaultCollateralizationRatio
+              collateralizationRatio={props.vault.collateralRatio}
+              loanScheme={props.vault.loanScheme}
+              vaultState={props.vault.state}
+              testId='VaultRow.CollateralizationRatio'
              />)}
       </OverflowTable.Cell>
     </OverflowTable.Row>
