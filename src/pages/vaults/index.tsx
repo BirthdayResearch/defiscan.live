@@ -195,12 +195,6 @@ function VaultStatusInfo (): JSX.Element {
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
-  if (context.query.network?.toString() !== 'Local' && context.query.network?.toString() !== 'Playground' && context.query.network?.toString() !== 'TestNet') {
-    return {
-      notFound: true
-    }
-  }
-
   try {
     const next = CursorPagination.getNext(context)
     const api = getWhaleApiClient(context)

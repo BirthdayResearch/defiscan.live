@@ -34,12 +34,6 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
-  if (context.query.network?.toString() !== 'Local' && context.query.network?.toString() !== 'Playground' && context.query.network?.toString() !== 'TestNet') {
-    return {
-      notFound: true
-    }
-  }
-
   try {
     const vaultid = context.params?.vaultid?.toString().trim() as string
 
