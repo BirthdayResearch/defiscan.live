@@ -145,7 +145,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${props.vault.interestValue}%`}
+          : `${props.vault.loanScheme.interestRate}%`}
       </VaultDetailsListItem>
     </div>
   )
@@ -202,7 +202,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${props.vault.interestValue}%`}
+          : `${props.vault.loanScheme.interestRate}%`}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
