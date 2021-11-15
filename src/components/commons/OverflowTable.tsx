@@ -56,7 +56,7 @@ function Head (props: { title: string, className?: string, sticky?: boolean, ali
         'text-right': props.alignRight!
       })}
     >
-      <div className={classNames('flex items-center capitalize', { 'justify-end': props.alignRight! })} data-testid={props.testId}>
+      <div className={classNames('flex items-center', { 'justify-end': props.alignRight! })} data-testid={props.testId}>
         {props.title}
         {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
       </div>

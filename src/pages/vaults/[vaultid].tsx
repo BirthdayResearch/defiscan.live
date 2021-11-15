@@ -1,42 +1,36 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import {
-  LoanVaultActive,
-  LoanVaultLiquidated,
-  LoanVaultState
-} from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 
 import { Container } from '@components/commons/Container'
-import { VaultHeading } from '@components/vaults/[vaultid]/VaultHeading'
-import { VaultDetailsTable } from '@components/vaults/[vaultid]/VaultDetailsTable'
-import { CollateralDetails } from '@components/vaults/[vaultid]/CollateralDetailsTable'
-import { VaultLoansTable } from '@components/vaults/[vaultid]/VaultLoansTable'
+import { VaultIdHeading } from '@components/vaults/[vaultid]/VaultIdHeading'
+import { VaultIdDetails } from '@components/vaults/[vaultid]/VaultIdDetails'
+import { VaultIdCollateralDetails } from '@components/vaults/[vaultid]/VaultIdCollateralDetails'
+import { VaultIdLoansDetails } from '@components/vaults/[vaultid]/VaultIdLoansDetails'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
-import { VaultAuctionsTable } from '@components/vaults/[vaultid]/VaultAuctionsTable'
+import { VaultAuctions } from '@components/vaults/[vaultid]/VaultIdAuctionsDetails'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
 }
 
-export default function VaultIdPage ({ vault }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <Container className='pt-4 pb-20'>
-      <VaultHeading vault={vault} />
-      <VaultDetailsTable vault={vault} />
+      <VaultIdHeading vault={props.vault} />
+      <VaultIdDetails vault={props.vault} />
       {(() => {
-        switch (vault.state) {
+        switch (props.vault.state) {
           case LoanVaultState.ACTIVE:
             return (
               <>
-                <CollateralDetails collaterals={vault.collateralAmounts} />
-                <VaultLoansTable loans={vault.loanAmounts} />
+                <VaultIdCollateralDetails vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
+                <VaultIdLoansDetails loans={props.vault.loanAmounts} />
               </>
             )
           case LoanVaultState.IN_LIQUIDATION:
             return (
-              <>
-                <VaultAuctionsTable batches={vault.batches} />
-              </>
+              <VaultAuctions batches={props.vault.batches} />
             )
         }
       })()}
@@ -50,66 +44,6 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       notFound: true
     }
   }
-  // const vaultsLiquidated: LoanVaultLiquidated = {
-  //   vaultId: 'c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4',
-  //   loanScheme: {
-  //     id: '1',
-  //     interestRate: '2.5',
-  //     minColRatio: '150'
-  //   },
-  //   ownerAddress: '8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8',
-  //   state: LoanVaultState.IN_LIQUIDATION,
-  //   batchCount: 1,
-  //   liquidationHeight: 162,
-  //   liquidationPenalty: 5,
-  //   batches: [
-  //     {
-  //       index: 0,
-  //       collaterals: [
-  //         {
-  //           amount: '10000.00000000',
-  //           displaySymbol: 'DFI',
-  //           id: '0',
-  //           name: 'Default Defi token',
-  //           symbol: 'DFI',
-  //           symbolKey: 'DFI'
-  //         },
-  //         {
-  //           amount: '10000.00000000',
-  //           displaySymbol: 'DFI',
-  //           id: '0',
-  //           name: 'Default Defi token',
-  //           symbol: 'DFI',
-  //           symbolKey: 'DFI'
-  //         },
-  //         {
-  //           amount: '450.344',
-  //           displaySymbol: 'dBTC',
-  //           id: '1',
-  //           name: 'BTC',
-  //           symbol: 'BTC',
-  //           symbolKey: 'BTC'
-  //         },
-  //         {
-  //           amount: '0.345000.521',
-  //           displaySymbol: 'dETH',
-  //           id: '2',
-  //           name: 'ETHEREUM',
-  //           symbol: 'ETH',
-  //           symbolKey: 'ETH'
-  //         }
-  //       ],
-  //       loan: {
-  //         amount: '30.00005130',
-  //         displaySymbol: 'dAAPL',
-  //         id: '2',
-  //         name: 'APPLE',
-  //         symbol: 'AAPL',
-  //         symbolKey: 'AAPL'
-  //       }
-  //     }
-  //   ]
-  // }
 
   try {
     const vaultid = context.params?.vaultid?.toString().trim() as string
@@ -123,7 +57,6 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return {
       props: {
         vault: await api.loan.getVault(vaultid)
-        // vault: vaultsLiquidated
       }
     }
   } catch

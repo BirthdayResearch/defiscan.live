@@ -3,14 +3,17 @@ import { Link } from '@components/commons/Link'
 import { MdChevronRight } from 'react-icons/md'
 import { jsonLdScriptProps } from 'react-schemaorg'
 import { BreadcrumbList } from 'schema-dts'
+import { ReactNode } from 'react'
+import classNames from 'classnames'
 
 const DOMAIN = 'https://defiscan.live'
 
 export interface BreadcrumbItem {
   path: string
-  name: string
+  name: string | ReactNode
   hide?: boolean
   canonical?: boolean
+  isCurrentPath?: boolean
 }
 
 /**
@@ -57,7 +60,11 @@ function BreadcrumbNext (props: BreadcrumbItem): JSX.Element {
         <MdChevronRight className='h-6 w-6 opacity-60' />
       </div>
       <Link href={{ pathname: props.path }}>
-        <a className='cursor-pointer hover:text-primary-500 opacity-60 hover:opacity-100'>{props.name}</a>
+        <a className={classNames('cursor-pointer hover:text-primary-500 text-gray-500 hover:opacity-100',
+          { 'text-gray-900': props.isCurrentPath })}
+        >
+          {props.name}
+        </a>
       </Link>
     </div>
   )

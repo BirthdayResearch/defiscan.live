@@ -7,6 +7,7 @@ interface VaultTokenSymbolsProps {
 
 export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
   const remainingTokens = props.tokens.length - 3
+
   return (
     <div className='flex items-center gap-x-1'>
       <div className='flex'>
@@ -14,9 +15,9 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
           const TokenIcon = getAssetIcon(loan.symbol)
           if (index < 3) {
             if (index >= 1) {
-              return <TokenIcon className='h-6 w-6 -ml-2' />
+              return <TokenIcon className='h-6 w-6 -ml-2' key={loan.id} />
             }
-            return <TokenIcon className='h-6 w-6' />
+            return <TokenIcon className='h-6 w-6' key={loan.id} />
           }
           return null
         })}
