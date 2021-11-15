@@ -14,6 +14,9 @@ context('<Header/> on macbook-13', () => {
     cy.findByTestId('Desktop.HeaderLink.Blocks').should('be.visible')
     cy.findByTestId('Desktop.HeaderLink.Blocks').should('have.attr', 'href', '/blocks')
 
+    cy.findByTestId('Desktop.HeaderLink.Vaults').should('be.visible')
+    cy.findByTestId('Desktop.HeaderLink.Vaults').should('have.attr', 'href', '/vaults')
+
     cy.findByTestId('Desktop.HeaderLink.Prices').should('be.visible')
     cy.findByTestId('Desktop.HeaderLink.Prices').should('have.attr', 'href', '/prices')
 
@@ -46,6 +49,9 @@ context('<Header/> on iphone-x', () => {
 
     cy.findByTestId('Mobile.HeaderLink.Blocks').should('be.visible')
     cy.findByTestId('Mobile.HeaderLink.Blocks').should('have.attr', 'href', '/blocks')
+
+    cy.findByTestId('Mobile.HeaderLink.Vaults').should('be.visible')
+    cy.findByTestId('Mobile.HeaderLink.Vaults').should('have.attr', 'href', '/vaults')
 
     cy.findByTestId('Mobile.HeaderLink.Prices').should('be.visible')
     cy.findByTestId('Mobile.HeaderLink.Prices').should('have.attr', 'href', '/prices')
