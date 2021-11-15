@@ -18,8 +18,8 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
         <OverflowTable className='mt-3'>
           <OverflowTable.Header>
             <OverflowTable.Head
-              title='Owner ID'
-              testId='VaultDetailsDesktop.OwnersId'
+              title={'Owner\'s Address'}
+              testId='VaultDetailsDesktop.OwnerAddress'
             />
 
             <OverflowTable.Head

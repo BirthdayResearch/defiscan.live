@@ -29,7 +29,7 @@ context('/vaults/[vaultid] on desktop', function () {
     })
 
     it('should have OverflowTable header information', function () {
-      cy.findByTestId('VaultDetailsDesktop.OwnersId').should('be.visible').should('have.text', 'Owner ID')
+      cy.findByTestId('VaultDetailsDesktop.OwnerAddress').should('be.visible').should('have.text', 'Owner\'s Address')
 
       cy.findByTestId('VaultDetailsDesktop.TotalLoanValue').should('be.visible').should('have.text', 'Total Loan Value (USD)')
       cy.findByTestId('VaultDetailsDesktop.TotalLoanValue').within(() => {
