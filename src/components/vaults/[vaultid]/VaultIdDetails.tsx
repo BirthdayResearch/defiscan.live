@@ -38,14 +38,14 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
 
             <OverflowTable.Head
               alignRight
-              title='Total Collateral Ratio'
+              title='Total Collateralization Ratio'
               // infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
               testId='VaultDetailsDesktop.TotalCollateralizationRatio'
             />
 
             <OverflowTable.Head
               alignRight
-              title='Min Collateral Ratio'
+              title='Min Collateralization Ratio'
               // infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
               testId='VaultDetailsDesktop.MinCollateralizationRatio'
             />

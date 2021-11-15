@@ -41,12 +41,12 @@ context('/vaults/[vaultid] on desktop', function () {
       //   cy.findByTestId('InfoHoverPopover').should('be.visible')
       // })
 
-      cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').should('be.visible').should('have.text', 'Total Collateral Ratio')
+      cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').should('be.visible').should('have.text', 'Total Collateralization Ratio')
       // cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').within(() => {
       //   cy.findByTestId('InfoHoverPopover').should('be.visible')
       // })
 
-      cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').should('be.visible').should('have.text', 'Min Collateral Ratio')
+      cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').should('be.visible').should('have.text', 'Min Collateralization Ratio')
       // cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').within(() => {
       //   cy.findByTestId('InfoHoverPopover').should('be.visible')
       // })
