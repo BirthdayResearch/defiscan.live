@@ -18,7 +18,10 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
-    <div className='w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500' data-testid='VaultMobileCard'>
+    <div
+      className='w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500'
+      data-testid='VaultMobileCard'
+    >
       <div className='w-full flex justify-between'>
         <div className='flex items-center gap-x-1.5'>
           Vault ID
@@ -32,9 +35,9 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
           onClick={() => setIsOpen(!isOpen)}
           data-testid='VaultMobileCard.Toggle'
         >
-          {!isOpen
-            ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
-            : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
+          {(!isOpen)
+            ? (<>VIEW<MdOutlineKeyboardArrowDown size={28} /></>)
+            : (<>HIDE<MdOutlineKeyboardArrowUp size={28} /></>)}
         </div>
       </div>
 
@@ -70,34 +73,36 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         title='Loans'
         testId='VaultIdDetails.Loans'
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : props.vault.collateralAmounts.length === 0 ? 'N/A' : <VaultTokenSymbols tokens={props.vault.loanAmounts} />}
+        {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
+          ? ('N/A')
+          : (props.vault.collateralAmounts.length === 0 ? 'N/A'
+              : <VaultTokenSymbols tokens={props.vault.loanAmounts} />)}
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Loans Value (USD)'
         infoDesc='Loan token(s) and value (in USD) taken by a vault.'
         testId='VaultIdDetails.LoansValue'
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <NumberFormat
+        {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
+          ? ('N/A')
+          : (<NumberFormat
               value={props.vault.loanValue}
               displayType='text'
               decimalScale={2}
               fixedDecimalScale
               thousandSeparator
               prefix='$'
-            />}
+             />)}
       </VaultDetailsListItem>
 
       <VaultDetailsListItem
         title='Collateral'
         testId='VaultIdDetails.Collateral'
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : props.vault.collateralAmounts.length === 0 ? 'N/A' : <VaultTokenSymbols tokens={props.vault.collateralAmounts} />}
+        {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
+          ? ('N/A')
+          : (props.vault.collateralAmounts.length === 0 ? 'N/A'
+              : <VaultTokenSymbols tokens={props.vault.collateralAmounts} />)}
       </VaultDetailsListItem>
 
       <VaultDetailsListItem
@@ -105,16 +110,16 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
         testId='VaultIdDetails.CollateralValue'
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <NumberFormat
+        {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
+          ? ('N/A')
+          : (<NumberFormat
               value={props.vault.collateralValue}
               displayType='text'
               decimalScale={2}
               fixedDecimalScale
               thousandSeparator
               prefix='$'
-            />}
+             />)}
       </VaultDetailsListItem>
 
       <VaultDetailsListItem
@@ -122,12 +127,12 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
         testId='VaultIdDetails.CollateralizationRatio'
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <VaultCollateralRatio
+        {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
+          ? ('N/A')
+          : (<VaultCollateralRatio
               collateralRatio={props.vault.collateralRatio} loanScheme={props.vault.loanScheme}
               testId={`VaultRow.${props.vault.vaultId}.CollateralRatio`}
-            />}
+             />)}
       </VaultDetailsListItem>
     </div>
   )
