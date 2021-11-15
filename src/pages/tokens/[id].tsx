@@ -133,7 +133,7 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
         <TxIdLink txid={token.creation.tx} className='break-all' />
       </AdaptiveList.Row>
       {(token.collateralAddress !== undefined && token.collateralAddress !== 'undefined') && (
-        <AdaptiveList.Row name='Collateral Address' className='flex space-x-10 items-center'>
+        <AdaptiveList.Row name='Owner Address' className='flex space-x-10 items-center'>
           <AddressLink address={token.collateralAddress} className='break-all' />
         </AdaptiveList.Row>
       )}
