@@ -19,7 +19,10 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
   const {
     styles,
     attributes
-  } = usePopper(refEle, popperEle, { placement: props.placement ?? 'bottom' })
+  } = usePopper(refEle, popperEle, {
+    placement: props.placement ?? 'bottom',
+    strategy: 'fixed'
+  })
 
   return (
     <>

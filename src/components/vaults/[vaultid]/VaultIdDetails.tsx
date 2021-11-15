@@ -25,35 +25,35 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
             <OverflowTable.Head
               alignRight
               title='Total Loan Value (USD)'
-              // infoDesc='Total loan value (in USD) taken by the vault.'
+              infoDesc='Total loan value (in USD) taken by the vault.'
               testId='VaultDetailsDesktop.TotalLoanValue'
             />
 
             <OverflowTable.Head
               alignRight
               title='Total Collateral Value (USD)'
-              // infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
+              infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
               testId='VaultDetailsDesktop.TotalCollateralValue'
             />
 
             <OverflowTable.Head
               alignRight
               title='Total Collateralization Ratio'
-              // infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+              infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
               testId='VaultDetailsDesktop.TotalCollateralizationRatio'
             />
 
             <OverflowTable.Head
               alignRight
               title='Min Collateralization Ratio'
-              // infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+              infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
               testId='VaultDetailsDesktop.MinCollateralizationRatio'
             />
 
             <OverflowTable.Head
               alignRight
               title='Base Interest Ratio (APR)'
-              // infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+              infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
               testId='VaultDetailsDesktop.BaseInterestRatio '
             />
           </OverflowTable.Header>
