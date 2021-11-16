@@ -25,11 +25,21 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
                   <OverflowTable.Head title='Loan Token' testId='VaultLoansDesktop.LoanToken' />
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
                   <OverflowTable.Head title='Loan Value (USD)' testId='VaultLoansDesktop.LoanValue' alignRight />
-                  <OverflowTable.Head title='Total Interest Rate (APR)' testId='VaultLoansDesktop.TotalInterestRate' alignRight />
-                  <OverflowTable.Head title='Loan Interest Value (USD)' testId='VaultLoansDesktop.LoanInterestValue' alignRight />
+                  <OverflowTable.Head
+                    title='Total Interest Rate (APR)' testId='VaultLoansDesktop.TotalInterestRate'
+                    alignRight
+                  />
+                  <OverflowTable.Head
+                    title='Loan Interest Value (USD)' testId='VaultLoansDesktop.LoanInterestValue'
+                    alignRight
+                  />
                 </OverflowTable.Header>
                 {props.loans.map((loan) => (
-                  <VaultLoansTableRow loan={loan} interest={props.interests.filter(interest => interest.id === loan.id)[0]} vaultState={props.vaultState} key={loan.id} />
+                  <VaultLoansTableRow
+                    loan={loan}
+                    interest={props.interests.filter(interest => interest.id === loan.id)[0]}
+                    vaultState={props.vaultState} key={loan.id}
+                  />
                 ))}
               </OverflowTable>
             )}
@@ -45,28 +55,24 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
               <div className='text-gray-400 flex w-full justify-center p-12'>
                 There are no loans taken in the vault at this time
               </div>
-            ) : (
-              <div className='w-full' data-testid='LoanDetailsMobile.Cards'>
-                {props.loans.map((loan) => (
-                  <VaultLoanDetailsCard loan={loan} key={loan.id} />
-                ))}
-              </div>
-            )}
+              ) : (
+                <div className='w-full' data-testid='LoanDetailsMobile.Cards'>
+                  {props.loans.map((loan) => (
+                    <VaultLoanDetailsCard loan={loan} key={loan.id} />
+                  ))}
+                </div>
+              )}
         </div>
       </VaultCollapsibleSection>
     </>
   )
 }
 
-function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount,interest: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
+function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
 
-  let loanUsdAmount: undefined | BigNumber
-  let interestUsdAmount: undefined | BigNumber
-  if (props.loan.activePrice !== undefined && props.loan.activePrice.active !== undefined) {
-    loanUsdAmount = new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.loan.amount))
-    interestUsdAmount = new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.interest.amount))
-  }
+  let loanUsdAmount = ((props.loan?.activePrice?.active) != null) && new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.loan.amount))
+  let interestUsdAmount = ((props.loan?.activePrice?.active) != null) && new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.interest.amount))
 
   if (props.loan.id === '11') {
     loanUsdAmount = new BigNumber(props.loan.amount)
@@ -98,7 +104,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount,interest: LoanV
               fixedDecimalScale
               thousandSeparator
             />
-          )}
+            )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         {props.interest.amount}
@@ -115,7 +121,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount,interest: LoanV
               fixedDecimalScale
               thousandSeparator
             />
-          )}
+            )}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )

@@ -25,7 +25,7 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
         ) : (
           <>
             <VaultIdCollateralDetails collateralValue={props.vault.collateralValue} vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
-            <VaultIdLoansDetails loans={props.vault.loanAmounts} vaultState={props.vault.state}  interests={props.vault.interestAmounts}/>
+            <VaultIdLoansDetails loans={props.vault.loanAmounts} vaultState={props.vault.state} interests={props.vault.interestAmounts} />
           </>
         )
       }

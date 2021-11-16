@@ -65,13 +65,9 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
 
 function CollateralCard (props: { collateralValue: string, vaultState: LoanVaultState, col: LoanVaultTokenAmount }): JSX.Element {
   const TokenSymbol = getAssetIcon(props.col.displaySymbol)
-  let usdAmount: undefined | BigNumber
-  let compositionPercentage: undefined | BigNumber
 
-  if (props.col.activePrice != null && props.col.activePrice.active != null) {
-    usdAmount = new BigNumber(props.col.activePrice.active.amount).multipliedBy(new BigNumber(props.col.amount))
-    compositionPercentage = usdAmount.div(new BigNumber(props.collateralValue)).multipliedBy(100)
-  }
+  const usdAmount = ((props.col?.activePrice?.active) != null) && new BigNumber(props.col.activePrice.active.amount).multipliedBy(new BigNumber(props.col.amount))
+  const compositionPercentage = usdAmount?.div(new BigNumber(props.collateralValue)).multipliedBy(100)
 
   return (
     <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
