@@ -108,7 +108,7 @@ function VaultLoansTableRow (props: {
     interest: string
   }
 }): JSX.Element {
-  const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
+  const LoanSymbol = getAssetIcon(props.loan.symbol)
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)
 
   return (
@@ -169,7 +169,7 @@ function VaultLoanDetailsCard (props: {
     interest: string
   }
 }): JSX.Element {
-  const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
+  const LoanSymbol = getAssetIcon(props.loan.symbol)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)

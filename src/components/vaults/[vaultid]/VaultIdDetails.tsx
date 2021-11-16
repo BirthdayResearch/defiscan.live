@@ -144,7 +144,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${props.vault.loanScheme.interestRate}%`}
+          : `${new BigNumber(props.vault.loanScheme.interestRate).toFixed(2, BigNumber.ROUND_HALF_UP)}%`}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
@@ -238,7 +238,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${props.vault.loanScheme.interestRate}%`}
+          : `${new BigNumber(props.vault.loanScheme.interestRate).toFixed(2, BigNumber.ROUND_HALF_UP)}%`}
       </VaultDetailsListItem>
     </div>
   )
