@@ -20,7 +20,7 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
               There are no loans taken in the vault at this time
             </div>
             ) : (
-              <OverflowTable className='mt-3 md:w-1/2 xl:w-1/3'>
+              <OverflowTable className='mt-3'>
                 <OverflowTable.Header>
                   <OverflowTable.Head title='Loan Token' testId='VaultLoansDesktop.LoanToken' />
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
