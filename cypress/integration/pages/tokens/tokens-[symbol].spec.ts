@@ -22,7 +22,7 @@ context('/tokens/1 (Ether) Desktop', () => {
       cy.wrap(ele).should('contain.text', 'Mintable')
       cy.wrap(ele).should('contain.text', 'Creation Tx')
       cy.wrap(ele).should('contain.text', 'Minted')
-      cy.wrap(ele).should('contain.text', 'Collateral\'s Address')
+      cy.wrap(ele).should('contain.text', 'Collateral Address')
       cy.wrap(ele).should('contain.text', 'Creation Height')
     })
   })
