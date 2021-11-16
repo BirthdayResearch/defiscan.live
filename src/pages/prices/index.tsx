@@ -47,7 +47,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                   className={classNames('rounded p-2 border cursor-pointer', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300 text-gray-900')}
                   onClick={() => setTypeCurrentSelection(type)}
                   key={type}
-                  data-testid={`FeedFilter.Types.${type}`}
+                  data-testid='FeedFilter.Types'
                 >
                   {type}
                 </div>

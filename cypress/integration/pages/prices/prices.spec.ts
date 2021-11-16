@@ -15,6 +15,14 @@ context('/prices on macbook-13', () => {
     cy.findAllByTestId('PriceFeed').should('have.length.above', 5)
   })
 
+  it('should contain at least 6 filter btns', function () {
+    cy.findAllByTestId('FeedFilter.Types').should('have.length.at.least', 6)
+  })
+
+  it('should contain at most 1 availability btn', function () {
+    cy.findAllByTestId('FeedFilter.Availability.Btn').should('have.length.at.most', 1)
+  })
+
   it('should have common PriceFeed texts', () => {
     cy.findAllByTestId('PriceFeed').eq(0)
       .should('contain.text', 'View')
@@ -47,6 +55,14 @@ context('/prices on iphone-x', () => {
 
   it('should contain at least 5 price feed', function () {
     cy.findAllByTestId('PriceFeed').should('have.length.above', 5)
+  })
+
+  it('should contain at least 6 filter btns', function () {
+    cy.findAllByTestId('FeedFilter.Types').should('have.length.at.least', 6)
+  })
+
+  it('should contain at most 1 availability btn', function () {
+    cy.findAllByTestId('FeedFilter.Availability.Btn').should('have.length.at.most', 1)
   })
 
   it('should have common PriceFeed texts', () => {
