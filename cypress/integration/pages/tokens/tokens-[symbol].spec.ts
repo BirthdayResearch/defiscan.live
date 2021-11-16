@@ -65,7 +65,7 @@ context('/tokens/1 (Ether) Mobile', () => {
       cy.wrap(ele).should('contain.text', 'Mintable')
       cy.wrap(ele).should('contain.text', 'Creation Tx')
       cy.wrap(ele).should('contain.text', 'Minted')
-      cy.wrap(ele).should('contain.text', 'Owner Address')
+      cy.wrap(ele).should('contain.text', 'Owner\'s Address')
       cy.wrap(ele).should('contain.text', 'Creation Height')
     })
   })
