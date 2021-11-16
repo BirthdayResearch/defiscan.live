@@ -18,8 +18,8 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
 
   return (
     <div className='pt-4 pb-12' data-testid='PriceTickerDetail'>
-      <div className='flex items-start'>
-        <div className='flex-shrink-0'>
+      <div className='flex items-start items-center'>
+        <div className='flex flex-shrink-0'>
           {copy !== undefined ? (
             <Image src={copy.icon} width={48} height={48} alt={copy.description} />
           ) : (
@@ -34,7 +34,7 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
             </h1>
 
             {copy !== undefined && (
-              <div className='ml- bg-gray-200 p-1 rounded self-auto'>
+              <div className='ml-2 bg-gray-200 p-1 rounded self-auto'>
                 <div className='text-xs font-medium'>{copy.type}</div>
               </div>
             )}
