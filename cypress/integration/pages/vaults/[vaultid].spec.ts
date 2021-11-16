@@ -175,8 +175,12 @@ context('/vaults/[vaultid] on mobile', function () {
         cy.findAllByTestId('LoanDetailsCard').within(() => {
           cy.findByTestId('LoanDetailsCard.AssetIcon').should('be.visible')
           cy.findByTestId('LoanDetailsCard.displaySymbol').should('be.visible')
-          cy.findByTestId('LoanDetailsCard.LoanAmountTitle').should('be.visible')
+          cy.findByTestId('LoanDetailsCard.LoanTitle').should('be.visible')
+          cy.findByTestId('LoanDetailsCard.LoanValue').should('be.visible')
+          cy.findByTestId('LoanDetailsCard.Toggle').click()
           cy.findByTestId('LoanDetailsCard.LoanAmount').should('be.visible')
+          cy.findByTestId('LoanDetailsCard.TotalInterestRate').should('be.visible')
+          cy.findByTestId('LoanDetailsCard.LoanInterestValue').should('be.visible')
         })
       })
     })

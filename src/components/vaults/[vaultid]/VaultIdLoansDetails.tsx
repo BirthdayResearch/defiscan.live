@@ -7,6 +7,8 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icon
 import BigNumber from 'bignumber.js'
 import ReactNumberFormat from 'react-number-format'
 import classNames from 'classnames'
+import { Transition } from '@headlessui/react'
+import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 
 export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], interests: LoanVaultTokenAmount[], vaultState: LoanVaultState }): JSX.Element {
   return (
@@ -38,7 +40,8 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
                   <VaultLoansTableRow
                     loan={loan}
                     interest={props.interests.filter(interest => interest.id === loan.id)[0]}
-                    vaultState={props.vaultState} key={loan.id}
+                    vaultState={props.vaultState}
+                    key={loan.id}
                   />
                 ))}
               </OverflowTable>
@@ -58,7 +61,12 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
               ) : (
                 <div className='w-full' data-testid='LoanDetailsMobile.Cards'>
                   {props.loans.map((loan) => (
-                    <VaultLoanDetailsCard loan={loan} key={loan.id} />
+                    <VaultLoanDetailsCard
+                      loan={loan}
+                      interest={props.interests.filter(interest => interest.id === loan.id)[0]}
+                      vaultState={props.vaultState}
+                      key={loan.id}
+                    />
                   ))}
                 </div>
               )}
@@ -68,16 +76,22 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
   )
 }
 
+function calculateUsdValues (loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount): [BigNumber | undefined, BigNumber | undefined] {
+  let loanUsdAmount = ((loan?.activePrice?.active) != null) ? new BigNumber(loan.activePrice.active.amount).multipliedBy(new BigNumber(loan.amount)) : undefined
+  let interestUsdAmount = ((loan?.activePrice?.active) != null) ? new BigNumber(loan.activePrice.active.amount).multipliedBy(new BigNumber(interest.amount)) : undefined
+
+  if (loan.id === '15') {
+    loanUsdAmount = new BigNumber(loan.amount)
+    interestUsdAmount = new BigNumber(interest.amount)
+  }
+
+  return [loanUsdAmount, interestUsdAmount]
+}
+
 function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
 
-  let loanUsdAmount = ((props.loan?.activePrice?.active) != null) ? new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.loan.amount)) : undefined
-  let interestUsdAmount = ((props.loan?.activePrice?.active) != null) ? new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.interest.amount)) : undefined
-
-  if (props.loan.id === '11') {
-    loanUsdAmount = new BigNumber(props.loan.amount)
-    interestUsdAmount = new BigNumber(props.interest.amount)
-  }
+  const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)
 
   return (
     <OverflowTable.Row
@@ -127,9 +141,11 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
   )
 }
 
-function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount }): JSX.Element {
+function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
   const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)
 
   return (
     <div
@@ -145,34 +161,77 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount }): JSX.Eleme
           >{props.loan.displaySymbol}
           </span>
         </div>
-        <div className='hidden flex items-center text-primary-500 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
+        <div className='flex items-center text-primary-500 cursor-pointer' data-testid='LoanDetailsCard.Toggle' onClick={() => setIsOpen(!isOpen)}>
           {!isOpen
             ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
             : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
         </div>
       </div>
       <div className='flex items-center justify-between mt-10'>
-        <span className='text-gray-500 text-sm' data-testid='LoanDetailsCard.LoanAmountTitle'>Loan Amount</span>
-        <span data-testid='LoanDetailsCard.LoanAmount'>{new BigNumber(props.loan.amount).toFixed(8)}</span>
+        <span className='text-gray-500 text-sm' data-testid='LoanDetailsCard.LoanValueTitle'>Loan Value (USD)</span>
+        <span data-testid='LoanDetailsCard.LoanValue'>{loanUsdAmount === undefined
+          ? ('N/A')
+          : (
+            <ReactNumberFormat
+              value={loanUsdAmount.toNumber().toFixed(2)}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />
+            )}
+        </span>
       </div>
 
-      {/* <Transition */}
-      {/*  enter='transition ease-out duration-200' */}
-      {/*  enterFrom='opacity-0 translate-y-0' */}
-      {/*  enterTo='opacity-100 translate-y-1' */}
-      {/*  leave='transition ease-in duration-150' */}
-      {/*  leaveFrom='opacity-100 translate-y-1' */}
-      {/*  leaveTo='opacity-100 translate-y-0' */}
-      {/*  className='w-full' */}
-      {/*  show={isOpen} */}
-      {/* > */}
-      {/* <div className='w-full mt-2 flex flex-col gap-y-1'> */}
-      {/*  <div className='w-full flex justify-between'> */}
-      {/*    <span className='text-gray-500 text-sm'>Loan ID</span> */}
-      {/*    <span className='text-gray-900'>{`${loan.id}`}</span> */}
-      {/*  </div> */}
-      {/* </div> */}
-      {/* </Transition> */}
+      <Transition
+        enter='transition ease-out duration-200'
+        enterFrom='opacity-0 translate-y-0'
+        enterTo='opacity-100 translate-y-1'
+        leave='transition ease-in duration-150'
+        leaveFrom='opacity-100 translate-y-1'
+        leaveTo='opacity-100 translate-y-0'
+        className='w-full'
+        show={isOpen}
+      >
+        <div className='w-full mt-2 flex flex-col gap-y-1'>
+          <VaultDetailsListItem
+            title='Loan Amount'
+            testId='LoanDetailsCard.LoanAmount'
+            titleClassNames='text-sm'
+          >
+            {new BigNumber(props.loan.amount).toFixed(8)}
+          </VaultDetailsListItem>
+
+          <VaultDetailsListItem
+            title='Total Interest Rate (APR)'
+            testId='LoanDetailsCard.TotalInterestRate'
+            titleClassNames='text-sm'
+          >
+            {props.interest.amount}
+          </VaultDetailsListItem>
+
+          <VaultDetailsListItem
+            title='Loan Interest Value (USD)'
+            testId='LoanDetailsCard.LoanInterestValue'
+            titleClassNames='text-sm'
+          >
+            {interestUsdAmount == null
+              ? ('N/A')
+              : (
+                <ReactNumberFormat
+                  value={interestUsdAmount?.toNumber().toFixed(2)}
+                  prefix='$'
+                  displayType='text'
+                  decimalScale={2}
+                  fixedDecimalScale
+                  thousandSeparator
+                />
+                )}
+          </VaultDetailsListItem>
+
+        </div>
+      </Transition>
     </div>
   )
 }
