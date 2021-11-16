@@ -40,11 +40,11 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
             Price Feeds
           </h1>
 
-          <div className='flex'>
-            <div className='flex flex-wrap gap-x-2' data-testid='FeedFilter.Types'>
+          <div className='flex text-sm mt-8 md:mt-0'>
+            <div className='flex flex-wrap gap-2' data-testid='FeedFilter.Types'>
               {types.map(type => (
                 <div
-                  className={classNames('rounded my-1 p-2 border cursor-pointer', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300')}
+                  className={classNames('rounded p-2 border cursor-pointer', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300 text-gray-900')}
                   onClick={() => setTypeCurrentSelection(type)}
                   key={type}
                   data-testid={`FeedFilter.Types.${type}`}
