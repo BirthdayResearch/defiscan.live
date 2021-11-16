@@ -37,5 +37,5 @@ export function LoanTotalInterestRate (props: LoanTotalInterestRateProps): JSX.E
     return <>N/A</>
   }
 
-  return <>{new BigNumber(props.vaultInterest).plus(new BigNumber(loanTokenData.interest)).toFixed(8)}</>
+  return <>{new BigNumber(props.vaultInterest).plus(new BigNumber(loanTokenData.interest)).toFixed(8)}%</>
 }
