@@ -153,8 +153,8 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
   return (
     <div className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
       <VaultDetailsListItem
-        title='Owner ID'
-        testId='VaultDetailList.OwnerID'
+        title={'Owner\'s Address'}
+        testId='VaultDetailList.OwnerAddress'
       >
         <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
           <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
