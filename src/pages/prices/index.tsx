@@ -41,27 +41,28 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
           </h1>
 
           <div className='flex'>
-            <div className='flex flex-wrap gap-x-2'>
+            <div className='flex flex-wrap gap-x-2' data-testid='FeedFilter.Types'>
               {types.map(type => (
                 <div
-                  className={classNames('rounded p-2 border cursor-pointer', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300')}
+                  className={classNames('rounded my-1 p-2 border cursor-pointer', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300')}
                   onClick={() => setTypeCurrentSelection(type)}
                   key={type}
+                  data-testid={`FeedFilter.Types.${type}`}
                 >
                   {type}
                 </div>
               ))}
             </div>
-            <div className='ml-4'>
+            <div className='ml-4' data-testid='FeedFilter.Availability'>
               <div
                 className={classNames('rounded p-2 border cursor-pointer text-center', availabilitySelection ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300')}
                 onClick={() => setAvailabilitySelection(!availabilitySelection)}
+                data-testid='FeedFilter.Availability.Btn'
               >
                 Available
               </div>
             </div>
           </div>
-
         </div>
 
         <div className='mt-4 -m-4 flex flex-wrap'>
