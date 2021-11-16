@@ -93,7 +93,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
         {new BigNumber(props.loan.amount).toFixed(8)}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {(loanUsdAmount === undefined)
+        {loanUsdAmount == null
           ? ('N/A')
           : (
             <ReactNumberFormat
@@ -110,7 +110,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
         {props.interest.amount}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {(interestUsdAmount === undefined)
+        {interestUsdAmount == null
           ? ('N/A')
           : (
             <ReactNumberFormat
