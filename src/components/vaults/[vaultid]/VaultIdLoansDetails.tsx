@@ -151,7 +151,7 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: Lo
 
   return (
     <div
-      className='p-4 border border-gray-200 rounded w-full justify-self-center md:justify-self-stretch'
+      className='mb-2 p-4 border border-gray-200 rounded w-full justify-self-center md:justify-self-stretch'
       data-testid='LoanDetailsCard'
     >
       <div className='flex items-center justify-between'>
