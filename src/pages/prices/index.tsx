@@ -54,10 +54,10 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
             </div>
             <div className='ml-4'>
               <div
-                className={classNames('rounded p-2 border cursor-pointer w-28 text-center', availabilitySelection ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300')}
+                className={classNames('rounded p-2 border cursor-pointer text-center', availabilitySelection ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300')}
                 onClick={() => setAvailabilitySelection(!availabilitySelection)}
               >
-                {availabilitySelection ? 'Available' : 'Unavailable'}
+                Available
               </div>
             </div>
           </div>
