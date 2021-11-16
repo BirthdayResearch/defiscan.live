@@ -177,6 +177,21 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
             />}
       </VaultDetailsListItem>
       <VaultDetailsListItem
+        title='Accumulated Interest (USD)'
+        testId='VaultDetailList.AccumulatedInterest'
+      >
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <ReactNumberFormat
+              value={new BigNumber(props.vault.interestValue).toFixed(2, BigNumber.ROUND_HALF_UP)}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />}
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
         title='Total Collateral Value (USD)'
         infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
         testId='VaultDetailList.TotalCollateralValue'
