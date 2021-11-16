@@ -8,8 +8,13 @@ import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 
-interface PriceFeedProps {
-  price: prices.PriceTicker
+export interface PriceFeedProps {
+  price: {
+    id: string
+    sort: string
+    price: prices.PriceFeed
+  }
+  copy: PriceCopy | undefined
 }
 
 export function PriceFeed (props: PriceFeedProps): JSX.Element {
