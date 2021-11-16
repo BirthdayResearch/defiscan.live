@@ -11,8 +11,8 @@ context('/prices on macbook-13', () => {
     cy.get('main').should('contain.text', 'Price Feeds')
   })
 
-  it('should contain at least 20 price feed', function () {
-    cy.findAllByTestId('PriceFeed').should('have.length.above', 20)
+  it('should contain at least 5 price feed', function () {
+    cy.findAllByTestId('PriceFeed').should('have.length.above', 5)
   })
 
   it('should have common PriceFeed texts', () => {
@@ -45,8 +45,8 @@ context('/prices on iphone-x', () => {
     cy.get('main').should('contain.text', 'Price Feeds')
   })
 
-  it('should contain at least 20 price feed', function () {
-    cy.findAllByTestId('PriceFeed').should('have.length.above', 20)
+  it('should contain at least 5 price feed', function () {
+    cy.findAllByTestId('PriceFeed').should('have.length.above', 5)
   })
 
   it('should have common PriceFeed texts', () => {
