@@ -19,6 +19,8 @@ export interface PriceCopy {
    * Long company name with a lot of incorporated text, affiliations, groups of companies.
    */
   description: string
+
+  tradable?: boolean
 }
 
 export const PRICES: Record<string, PriceCopy> = {
@@ -26,7 +28,8 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'TSLA-USD',
     type: 'STOCKS',
     description: 'Tesla, Inc. is an American electric vehicle and clean energy company based in Palo Alto, California. Tesla\'s current products include electric cars, battery energy storage from home to grid-scale, solar panels and solar roof tiles, as well as other related products and services.',
-    icon: require('./images/tesla.png')
+    icon: require('./images/tesla.png'),
+    tradable: true
   },
   'XCU-USD': {
     id: 'XCU-USD',
@@ -140,49 +143,57 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'BCH-USD',
     type: 'CRYPTO',
     icon: require('./images/bch.png'),
-    description: 'As Bitcoin Cash is a result of a chain split from Bitcoin, it shares much of Bitcoin’s fundamental workings. In fact, they even share the same history.'
+    description: 'As Bitcoin Cash is a result of a chain split from Bitcoin, it shares much of Bitcoin’s fundamental workings. In fact, they even share the same history.',
+    tradable: true
   },
   'BTC-USD': {
     id: 'BTC-USD',
     type: 'CRYPTO',
     icon: require('./images/btc.png'),
-    description: 'Bitcoin is a cryptocurrency. It is a decentralized digital currency that is based on cryptography. As such, it can operate without the need of a central authority like a central bank or a company. It is unlike government-issued or fiat currencies such as US Dollars or Euro in which they are controlled by the country’s central bank. The decentralized nature allows it to operate on a peer-to-peer network whereby users are able to send funds to each other without going through intermediaries.'
+    description: 'Bitcoin is a cryptocurrency. It is a decentralized digital currency that is based on cryptography. As such, it can operate without the need of a central authority like a central bank or a company. It is unlike government-issued or fiat currencies such as US Dollars or Euro in which they are controlled by the country’s central bank. The decentralized nature allows it to operate on a peer-to-peer network whereby users are able to send funds to each other without going through intermediaries.',
+    tradable: true
   },
   'DFI-USD': {
     id: 'DFI-USD',
     type: 'CRYPTO',
     icon: require('./images/dfi.png'),
-    description: 'DeFiChain is a decentralized blockchain platform dedicated to enable fast, intelligent, and transparent decentralized financial services.'
+    description: 'DeFiChain is a decentralized blockchain platform dedicated to enable fast, intelligent, and transparent decentralized financial services.',
+    tradable: true
   },
   'DOGE-USD': {
     id: 'DOGE-USD',
     type: 'CRYPTO',
     icon: require('./images/doge.png'),
-    description: 'Dogecoin is a cryptocurrency based on the popular "Doge" Internet meme and features a Shiba Inu on its logo. Dogecoin is a Litecoin fork. Introduced as a "joke currency" on 6 December 2013, Dogecoin quickly developed its own online community and reached a capitalization of US$60 million in January 2014. Compared with other cryptocurrencies, Dogecoin had a fast initial coin production schedule: 100 billion coins were in circulation by mid-2015, with an additional 5.256 billion coins every year thereafter. As of 30 June 2015, the 100 billionth Dogecoin had been mined.'
+    description: 'Dogecoin is a cryptocurrency based on the popular "Doge" Internet meme and features a Shiba Inu on its logo. Dogecoin is a Litecoin fork. Introduced as a "joke currency" on 6 December 2013, Dogecoin quickly developed its own online community and reached a capitalization of US$60 million in January 2014. Compared with other cryptocurrencies, Dogecoin had a fast initial coin production schedule: 100 billion coins were in circulation by mid-2015, with an additional 5.256 billion coins every year thereafter. As of 30 June 2015, the 100 billionth Dogecoin had been mined.',
+    tradable: true
   },
   'ETH-USD': {
     id: 'ETH-USD',
     type: 'CRYPTO',
     icon: require('./images/eth.png'),
-    description: 'Ethereum is a global, open-source platform for decentralized applications. In other words, the vision is to create a world computer that anyone can build applications in a decentralized manner; while all states and data are distributed and publicly accessible.'
+    description: 'Ethereum is a global, open-source platform for decentralized applications. In other words, the vision is to create a world computer that anyone can build applications in a decentralized manner; while all states and data are distributed and publicly accessible.',
+    tradable: true
   },
   'LTC-USD': {
     id: 'LTC-USD',
     type: 'CRYPTO',
     icon: require('./images/ltc.png'),
-    description: 'Litecoin (LTC) is a cryptocurrency that is largely similar to Bitcoin. Fundamentally, Litecoin is also a decentralized cryptocurrency which utilizes similar protocols as Bitcoin except for a few parameter tweaks.'
+    description: 'Litecoin (LTC) is a cryptocurrency that is largely similar to Bitcoin. Fundamentally, Litecoin is also a decentralized cryptocurrency which utilizes similar protocols as Bitcoin except for a few parameter tweaks.',
+    tradable: true
   },
   'USDC-USD': {
     id: 'USDC-USD',
     type: 'CRYPTO',
     icon: require('./images/usdc.png'),
-    description: 'USDC is a fully collateralized US dollar stablecoin. USDC is the bridge between dollars and trading on cryptocurrency exchanges. The technology behind CENTRE makes it possible to exchange value between people, businesses and financial institutions just like email between mail services and texts between SMS providers. We believe by removing artificial economic borders, we can create a more inclusive global economy.'
+    description: 'USDC is a fully collateralized US dollar stablecoin. USDC is the bridge between dollars and trading on cryptocurrency exchanges. The technology behind CENTRE makes it possible to exchange value between people, businesses and financial institutions just like email between mail services and texts between SMS providers. We believe by removing artificial economic borders, we can create a more inclusive global economy.',
+    tradable: true
   },
   'USDT-USD': {
     id: 'USDT-USD',
     type: 'CRYPTO',
     icon: require('./images/usdt.png'),
-    description: 'Tether is a stablecoin pegged to the US Dollar. A stablecoin is a type of cryptocurrency whose value is pegged to another fiat currency like the US Dollar or to a commodity like Gold.'
+    description: 'Tether is a stablecoin pegged to the US Dollar. A stablecoin is a type of cryptocurrency whose value is pegged to another fiat currency like the US Dollar or to a commodity like Gold.',
+    tradable: true
   },
   'U-USD': {
     id: 'U-USD',

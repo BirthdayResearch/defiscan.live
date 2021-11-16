@@ -4,12 +4,10 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
-import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 
 interface PricesPageProps {
   prices: {
     items: prices.PriceTicker[]
-    pages: CursorPage[]
   }
 }
 
@@ -19,9 +17,26 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
       <Head title='Prices' />
 
       <div>
-        <h1 className='text-2xl font-medium'>
-          Price Feeds
-        </h1>
+        <div className='flex flex-wrap justify-between'>
+          <h1 className='text-2xl font-medium'>
+            Price Feeds
+          </h1>
+
+          <div className='flex flex-wrap gap-x-2'>
+            <div className='rounded p-2 border border-gray-300 cursor-pointer'>
+              All
+            </div>
+            <div className='rounded p-2 border border-gray-300 cursor-pointer'>
+              Stocks
+            </div>
+            <div className='rounded p-2 border border-gray-300 cursor-pointer'>
+              ETF
+            </div>
+            <div className='rounded p-2 border border-gray-300 cursor-pointer'>
+              Commodity
+            </div>
+          </div>
+        </div>
 
         <div className='mt-4 -m-4 flex flex-wrap'>
           {props.prices.items.map(item => (
@@ -29,21 +44,24 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
           ))}
         </div>
       </div>
-      <div className='flex justify-end mt-8'>
-        <CursorPagination pages={props.prices.pages} path='/prices' />
-      </div>
     </Container>
   )
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PricesPageProps>> {
-  const next = CursorPagination.getNext(context)
-  const prices = await getWhaleApiClient(context).prices.list(60, next)
+  const prices: prices.PriceTicker[] = []
+
+  let pricesResponse = await getWhaleApiClient(context).prices.list(200)
+  prices.push(...pricesResponse)
+  while (pricesResponse.hasNext) {
+    pricesResponse = await getWhaleApiClient(context).prices.list(200, pricesResponse.nextToken)
+    prices.push(...pricesResponse)
+  }
+
   return {
     props: {
       prices: {
-        items: prices,
-        pages: CursorPagination.getPages(context, prices)
+        items: prices
       }
     }
   }
