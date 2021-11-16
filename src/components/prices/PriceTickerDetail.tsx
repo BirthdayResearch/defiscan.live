@@ -42,7 +42,7 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
         </div>
       </div>
 
-      <div className='border-b mt-5 mb-6 border-gray-100' />
+      <div className='border-b my-6 border-gray-100' />
 
       <div>
         <H6InfoCircleHoverPopover
