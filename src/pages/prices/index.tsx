@@ -94,12 +94,12 @@ function sortByType (tickers: PriceFeedProps[]): PriceFeedProps[] {
     if (key in groups) {
       groups[key].push(item)
     } else {
-      groups[key] = []
+      groups[key] = [item]
     }
     return groups
   }, {})
 
-  typeOrder.forEach((type) => {
+  typeOrder.forEach(type => {
     if (type in groups) {
       sortedArr = sortedArr.concat(groups[type])
     }
