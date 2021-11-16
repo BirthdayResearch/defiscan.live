@@ -25,14 +25,16 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
               <OverflowTable className='mt-3'>
                 <OverflowTable.Header>
                   <OverflowTable.Head title='Loan Token' testId='VaultLoansDesktop.LoanToken' />
-                  <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
                   <OverflowTable.Head title='Loan Value (USD)' testId='VaultLoansDesktop.LoanValue' alignRight />
+                  <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
                   <OverflowTable.Head
-                    title='Total Interest Rate (APR)' testId='VaultLoansDesktop.TotalInterestRate'
+                    title='Loan Interest Value (USD)' testId='VaultLoansDesktop.LoanInterestValue'
                     alignRight
                   />
                   <OverflowTable.Head
-                    title='Loan Interest Value (USD)' testId='VaultLoansDesktop.LoanInterestValue'
+                    title='Total Interest Rate (APR)'
+                    infoDesc='Total annual interest rate = Vault Interest Rate + Token Interest Rate.'
+                    testId='VaultLoansDesktop.TotalInterestRate'
                     alignRight
                   />
                 </OverflowTable.Header>
@@ -104,9 +106,6 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
-      </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
         {loanUsdAmount === undefined
           ? ('N/A')
           : (
@@ -121,7 +120,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {props.interest.amount}
+        {new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         {interestUsdAmount == null
@@ -136,6 +135,9 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
               thousandSeparator
             />
             )}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        {props.interest.amount}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
@@ -204,14 +206,6 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: Lo
           </VaultDetailsListItem>
 
           <VaultDetailsListItem
-            title='Total Interest Rate (APR)'
-            testId='LoanDetailsCard.TotalInterestRate'
-            titleClassNames='text-sm'
-          >
-            {props.interest.amount}
-          </VaultDetailsListItem>
-
-          <VaultDetailsListItem
             title='Loan Interest Value (USD)'
             testId='LoanDetailsCard.LoanInterestValue'
             titleClassNames='text-sm'
@@ -228,6 +222,15 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: Lo
                   thousandSeparator
                 />
                 )}
+          </VaultDetailsListItem>
+
+          <VaultDetailsListItem
+            title='Total Interest Rate (APR)'
+            infoDesc='Total annual interest rate = Vault Interest Rate + Token Interest Rate.'
+            testId='LoanDetailsCard.TotalInterestRate'
+            titleClassNames='text-sm'
+          >
+            {props.interest.amount}
           </VaultDetailsListItem>
 
         </div>

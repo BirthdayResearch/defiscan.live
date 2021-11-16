@@ -33,6 +33,7 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
             <OverflowTable.Head
               alignRight
               title='Accumulated Interest (USD)'
+              infoDesc='Total interest incurred to date'
               testId='VaultDetailsDesktop.AccumulatedInterest'
             />
 
@@ -151,7 +152,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
 
 function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <div className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
+    <div className={classNames('flex flex-col gap-y-0.5', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
       <VaultDetailsListItem
         title={'Owner\'s Address'}
         testId='VaultDetailList.OwnerAddress'
@@ -178,6 +179,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Accumulated Interest (USD)'
+        infoDesc='Total interest incurred to date'
         testId='VaultDetailList.AccumulatedInterest'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
