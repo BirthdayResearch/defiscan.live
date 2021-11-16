@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
-import ReactNumberFormat from 'react-number-format'
+import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 
 interface LoanTotalInterestRateProps {
   vaultInterest: string
@@ -38,13 +38,9 @@ export function LoanTotalInterestRate (props: LoanTotalInterestRateProps): JSX.E
     return <>N/A</>
   }
 
+  const totalInterestRate = new BigNumber(props.vaultInterest).plus(new BigNumber(loanTokenData.interest))
+
   return (
-    <ReactNumberFormat
-      value={new BigNumber(props.vaultInterest).plus(new BigNumber(loanTokenData.interest)).toFixed(2, BigNumber.ROUND_HALF_UP)}
-      suffix='%'
-      displayType='text'
-      decimalScale={2}
-      fixedDecimalScale={false}
-    />
+    <VaultNumberValues value={totalInterestRate} suffix='%' />
   )
 }

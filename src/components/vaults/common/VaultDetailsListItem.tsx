@@ -16,7 +16,9 @@ export function VaultDetailsListItem (props: PropsWithChildren<VaultDetailsListI
         <span className={classnames('text-gray-500', props.titleClassNames)}>{props.title}</span>
         {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
       </div>
-      {props.children}
+      <div>
+        {props.children}
+      </div>
     </div>
   )
 }

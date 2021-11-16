@@ -5,7 +5,7 @@ import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import classNames from 'classnames'
-import ReactNumberFormat from 'react-number-format'
+import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 
 export function VaultIdCollateralDetails (props: { collateralValue: string, vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
@@ -83,13 +83,7 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
         {(compositionPercentage != null) &&
         (
           <div className='font-medium text-gray-900'>
-            <ReactNumberFormat
-              value={compositionPercentage.multipliedBy(100).toFixed(2, BigNumber.ROUND_HALF_UP)}
-              suffix='%'
-              displayType='text'
-              decimalScale={2}
-              thousandSeparator
-            />
+            <VaultNumberValues value={compositionPercentage.multipliedBy(100)} suffix='%' />
           </div>
         )}
       </div>
@@ -97,24 +91,19 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
         <div className='text-sm text-gray-500' data-testid='CollateralCard.CollateralAmountTitle'>Collateral Amount
         </div>
         <div
-          className={classNames(props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+          className={classNames('flex items-center gap-x-1', props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
           data-testid='CollateralCard.CollateralAmount'
         >
           {`${new BigNumber(props.col.amount).toFixed(8)} ${props.col.displaySymbol}`}
-          <span className='text-sm text-gray-500'>
+          <div className='text-sm text-gray-500'>
             {(usdAmount != null) &&
             (
-              <ReactNumberFormat
-                value={usdAmount.toFixed(2, BigNumber.ROUND_HALF_UP)}
-                prefix=' / $'
-                suffix=' USD'
-                displayType='text'
-                decimalScale={2}
-                fixedDecimalScale
-                thousandSeparator
-              />
+              <div className='flex'>
+                <span className='ml-0.5 mr-1'>/</span>
+                <VaultNumberValues value={new BigNumber(usdAmount)} prefix='$' />
+              </div>
             )}
-          </span>
+          </div>
         </div>
       </div>
     </div>

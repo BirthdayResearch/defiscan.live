@@ -1,6 +1,5 @@
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { AddressLink } from '@components/commons/AddressLink'
-import ReactNumberFormat from 'react-number-format'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
@@ -8,6 +7,8 @@ import { VaultCollateralizationRatio } from '@components/vaults/common/VaultColl
 import classNames from 'classnames'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import BigNumber from 'bignumber.js'
+import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
+import React from 'react'
 
 export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -93,39 +94,27 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <ReactNumberFormat
-              value={new BigNumber(props.vault.loanValue).minus(props.vault.interestValue).toFixed(2, BigNumber.ROUND_HALF_UP)}
+          ? ('N/A')
+          : (
+            <VaultNumberValues
+              value={new BigNumber(props.vault.loanValue).minus(props.vault.interestValue)}
               prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />}
+            />
+            )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <ReactNumberFormat
-              value={new BigNumber(props.vault.interestValue).toFixed(2, BigNumber.ROUND_HALF_UP)}
-              prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />}
+          ? ('N/A')
+          : (
+            <VaultNumberValues value={new BigNumber(props.vault.interestValue)} prefix='$' />
+            )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <ReactNumberFormat
-              value={new BigNumber(props.vault.collateralValue).toFixed(2, BigNumber.ROUND_HALF_UP)}
-              prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />}
+          ? ('N/A')
+          : (
+            <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
+            )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
@@ -138,13 +127,15 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : `${props.vault.loanScheme.minColRatio}%`}
+          ? ('N/A')
+          : (`${props.vault.loanScheme.minColRatio}%`)}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : `${new BigNumber(props.vault.loanScheme.interestRate).toFixed(2, BigNumber.ROUND_HALF_UP)}%`}
+          ? ('N/A')
+          : (
+            <VaultNumberValues value={new BigNumber(props.vault.loanScheme.interestRate)} suffix='%' />
+            )}
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
@@ -152,7 +143,9 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
 
 function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <div className={classNames('flex flex-col gap-y-0.5', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
+    <div
+      className={classNames('flex flex-col gap-y-0.5', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+    >
       <VaultDetailsListItem
         title={'Owner\'s Address'}
         testId='VaultDetailList.OwnerAddress'
@@ -168,14 +161,12 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : <ReactNumberFormat
-              value={new BigNumber(props.vault.loanValue).minus(props.vault.interestValue).toFixed(2, BigNumber.ROUND_HALF_UP)}
+          : (
+            <VaultNumberValues
+              value={new BigNumber(props.vault.loanValue).minus(props.vault.interestValue)}
               prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />}
+            />
+            )}
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Accumulated Interest (USD)'
@@ -184,14 +175,9 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : <ReactNumberFormat
-              value={new BigNumber(props.vault.interestValue).toFixed(2, BigNumber.ROUND_HALF_UP)}
-              prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />}
+          : (
+            <VaultNumberValues value={new BigNumber(props.vault.interestValue)} prefix='$' />
+            )}
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Total Collateral Value (USD)'
@@ -199,15 +185,10 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultDetailList.TotalCollateralValue'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <ReactNumberFormat
-              value={new BigNumber(props.vault.collateralValue).toFixed(8)}
-              prefix='$'
-              displayType='text'
-              decimalScale={8}
-              fixedDecimalScale
-              thousandSeparator
-            />}
+          ? ('N/A')
+          : (
+            <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
+            )}
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Total Collateralization Ratio'
@@ -215,12 +196,12 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultDetailList.TotalCollateralizationRatio'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <VaultCollateralizationRatio
+          ? ('N/A')
+          : (<VaultCollateralizationRatio
               collateralizationRatio={props.vault.collateralRatio}
               loanScheme={props.vault.loanScheme}
               vaultState={props.vault.state}
-            />}
+             />)}
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Min Collateralization Ratio'
@@ -228,8 +209,8 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultDetailList.MinCollateralizationRatio'
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : `${props.vault.loanScheme.minColRatio}%`}
+          ? ('N/A')
+          : (`${props.vault.loanScheme.minColRatio}%`)}
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Vault Interest Rate (APR)'
@@ -238,7 +219,9 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? 'N/A'
-          : `${new BigNumber(props.vault.loanScheme.interestRate).toFixed(2, BigNumber.ROUND_HALF_UP)}%`}
+          : (
+            <VaultNumberValues value={new BigNumber(props.vault.loanScheme.interestRate)} suffix='%' />
+            )}
       </VaultDetailsListItem>
     </div>
   )

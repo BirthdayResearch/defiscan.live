@@ -5,11 +5,11 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import React, { useState } from 'react'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import BigNumber from 'bignumber.js'
-import ReactNumberFormat from 'react-number-format'
 import classNames from 'classnames'
 import { Transition } from '@headlessui/react'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import { LoanTotalInterestRate } from '@components/vaults/[vaultid]/LoanTotalInterestRate'
+import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 
 interface VaultIdLoansDetailsProps {
   vault: {
@@ -125,14 +125,7 @@ function VaultLoansTableRow (props: {
         {loanUsdAmount === undefined || interestUsdAmount === undefined
           ? ('N/A')
           : (
-            <ReactNumberFormat
-              value={loanUsdAmount.minus(interestUsdAmount).toFixed(2, BigNumber.ROUND_HALF_UP)}
-              prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />
+            <VaultNumberValues value={loanUsdAmount.minus(interestUsdAmount)} prefix='$' />
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
@@ -142,14 +135,7 @@ function VaultLoansTableRow (props: {
         {interestUsdAmount == null
           ? ('N/A')
           : (
-            <ReactNumberFormat
-              value={interestUsdAmount.toFixed(2, BigNumber.ROUND_HALF_UP)}
-              prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />
+            <VaultNumberValues value={interestUsdAmount} prefix='$' />
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
@@ -203,14 +189,7 @@ function VaultLoanDetailsCard (props: {
           {loanUsdAmount === undefined || interestUsdAmount === undefined
             ? ('N/A')
             : (
-              <ReactNumberFormat
-                value={loanUsdAmount.minus(interestUsdAmount).toFixed(2, BigNumber.ROUND_HALF_UP)}
-                prefix='$'
-                displayType='text'
-                decimalScale={2}
-                fixedDecimalScale
-                thousandSeparator
-              />
+              <VaultNumberValues value={loanUsdAmount.minus(interestUsdAmount)} prefix='$' />
               )}
         </span>
       </div>
@@ -242,14 +221,7 @@ function VaultLoanDetailsCard (props: {
             {interestUsdAmount == null
               ? ('N/A')
               : (
-                <ReactNumberFormat
-                  value={interestUsdAmount.toFixed(2, BigNumber.ROUND_HALF_UP)}
-                  prefix='$'
-                  displayType='text'
-                  decimalScale={2}
-                  fixedDecimalScale
-                  thousandSeparator
-                />
+                <VaultNumberValues value={interestUsdAmount} prefix='$' />
                 )}
           </VaultDetailsListItem>
 
