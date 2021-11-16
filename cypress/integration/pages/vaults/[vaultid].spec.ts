@@ -96,7 +96,7 @@ context('/vaults/[vaultid] on desktop', function () {
       cy.findByTestId('VaultLoansDesktop.LoanToken').should('be.visible').should('have.text', 'Loan Token')
       cy.findByTestId('VaultLoansDesktop.LoanValue').should('be.visible').should('have.text', 'Loan Value (USD)')
       cy.findByTestId('VaultLoansDesktop.LoanAmount').should('be.visible').should('have.text', 'Loan Amount')
-      cy.findByTestId('VaultLoansDesktop.LoanInterestValue').should('be.visible').should('have.text', 'Loan Interest Value (USD)')
+      cy.findByTestId('VaultLoansDesktop.AccumulatedInterest').should('be.visible').should('have.text', 'Accumulated Interest (USD)')
       cy.findByTestId('VaultLoansDesktop.TotalInterestRate').should('be.visible').should('have.text', 'Total Interest Rate (APR)')
       cy.findByTestId('VaultLoansDesktop.TotalInterestRate').within(() => {
         cy.findByTestId('InfoHoverPopover').should('be.visible')
@@ -191,7 +191,7 @@ context('/vaults/[vaultid] on mobile', function () {
           cy.findByTestId('LoanDetailsCard.LoanValue').should('be.visible')
           cy.findByTestId('LoanDetailsCard.Toggle').click()
           cy.findByTestId('LoanDetailsCard.LoanAmount').should('be.visible')
-          cy.findByTestId('LoanDetailsCard.LoanInterestValue').should('be.visible')
+          cy.findByTestId('LoanDetailsCard.AccumulatedInterest').should('be.visible')
           cy.findByTestId('LoanDetailsCard.TotalInterestRate').should('be.visible')
         })
       })

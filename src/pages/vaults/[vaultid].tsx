@@ -24,8 +24,19 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
           <VaultAuctions batches={props.vault.batches} />
         ) : (
           <>
-            <VaultIdCollateralDetails collateralValue={props.vault.collateralValue} vaultState={props.vault.state} collaterals={props.vault.collateralAmounts} />
-            <VaultIdLoansDetails loans={props.vault.loanAmounts} vaultState={props.vault.state} interests={props.vault.interestAmounts} />
+            <VaultIdCollateralDetails
+              collateralValue={props.vault.collateralValue}
+              vaultState={props.vault.state}
+              collaterals={props.vault.collateralAmounts}
+            />
+            <VaultIdLoansDetails
+              loans={props.vault.loanAmounts}
+              interests={props.vault.interestAmounts}
+              vault={{
+                interest: props.vault.loanScheme.interestRate,
+                state: props.vault.state
+              }}
+            />
           </>
         )
       }

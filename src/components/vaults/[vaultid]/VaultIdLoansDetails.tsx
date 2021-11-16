@@ -9,8 +9,18 @@ import ReactNumberFormat from 'react-number-format'
 import classNames from 'classnames'
 import { Transition } from '@headlessui/react'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
+import { LoanTotalInterestRate } from '@components/vaults/[vaultid]/LoanTotalInterestRate'
 
-export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], interests: LoanVaultTokenAmount[], vaultState: LoanVaultState }): JSX.Element {
+interface VaultIdLoansDetailsProps {
+  vault: {
+    state: LoanVaultState
+    interest: string
+  }
+  loans: LoanVaultTokenAmount[]
+  interests: LoanVaultTokenAmount[]
+}
+
+export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Element {
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
@@ -28,7 +38,7 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
                   <OverflowTable.Head title='Loan Value (USD)' testId='VaultLoansDesktop.LoanValue' alignRight />
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
                   <OverflowTable.Head
-                    title='Loan Interest Value (USD)' testId='VaultLoansDesktop.LoanInterestValue'
+                    title='Accumulated Interest (USD)' testId='VaultLoansDesktop.AccumulatedInterest'
                     alignRight
                   />
                   <OverflowTable.Head
@@ -42,7 +52,7 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
                   <VaultLoansTableRow
                     loan={loan}
                     interest={props.interests.filter(interest => interest.id === loan.id)[0]}
-                    vaultState={props.vaultState}
+                    vault={props.vault}
                     key={loan.id}
                   />
                 ))}
@@ -66,7 +76,7 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
                     <VaultLoanDetailsCard
                       loan={loan}
                       interest={props.interests.filter(interest => interest.id === loan.id)[0]}
-                      vaultState={props.vaultState}
+                      vault={props.vault}
                       key={loan.id}
                     />
                   ))}
@@ -90,14 +100,20 @@ function calculateUsdValues (loan: LoanVaultTokenAmount, interest: LoanVaultToke
   return [loanUsdAmount, interestUsdAmount]
 }
 
-function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
+function VaultLoansTableRow (props: {
+  loan: LoanVaultTokenAmount
+  interest: LoanVaultTokenAmount
+  vault: {
+    state: LoanVaultState
+    interest: string
+  }
+}): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
-
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)
 
   return (
     <OverflowTable.Row
-      className={classNames(props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+      className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
     >
       <OverflowTable.Cell>
         <div className='flex items-center space-x-1'>
@@ -106,11 +122,11 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {loanUsdAmount === undefined
+        {loanUsdAmount === undefined || interestUsdAmount === undefined
           ? ('N/A')
           : (
             <ReactNumberFormat
-              value={loanUsdAmount.toNumber().toFixed(2)}
+              value={loanUsdAmount.minus(interestUsdAmount).toFixed(2, BigNumber.ROUND_HALF_UP)}
               prefix='$'
               displayType='text'
               decimalScale={2}
@@ -127,7 +143,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
           ? ('N/A')
           : (
             <ReactNumberFormat
-              value={interestUsdAmount?.toNumber().toFixed(2)}
+              value={interestUsdAmount.toFixed(2, BigNumber.ROUND_HALF_UP)}
               prefix='$'
               displayType='text'
               decimalScale={2}
@@ -137,13 +153,22 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {props.interest.amount}
+        <div className='flex justify-end'>
+          <LoanTotalInterestRate vaultInterest={props.vault.interest} loanId={props.interest.id} />
+        </div>
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
 }
 
-function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
+function VaultLoanDetailsCard (props: {
+  loan: LoanVaultTokenAmount
+  interest: LoanVaultTokenAmount
+  vault: {
+    state: LoanVaultState
+    interest: string
+  }
+}): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -163,7 +188,10 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: Lo
           >{props.loan.displaySymbol}
           </span>
         </div>
-        <div className='flex items-center text-primary-500 cursor-pointer' data-testid='LoanDetailsCard.Toggle' onClick={() => setIsOpen(!isOpen)}>
+        <div
+          className='flex items-center text-primary-500 cursor-pointer' data-testid='LoanDetailsCard.Toggle'
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {!isOpen
             ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
             : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
@@ -171,18 +199,19 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: Lo
       </div>
       <div className='flex items-center justify-between mt-10'>
         <span className='text-gray-500 text-sm' data-testid='LoanDetailsCard.LoanValueTitle'>Loan Value (USD)</span>
-        <span data-testid='LoanDetailsCard.LoanValue'>{loanUsdAmount === undefined
-          ? ('N/A')
-          : (
-            <ReactNumberFormat
-              value={loanUsdAmount.toNumber().toFixed(2)}
-              prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />
-            )}
+        <span data-testid='LoanDetailsCard.LoanValue'>
+          {loanUsdAmount === undefined || interestUsdAmount === undefined
+            ? ('N/A')
+            : (
+              <ReactNumberFormat
+                value={loanUsdAmount.minus(interestUsdAmount).toFixed(2, BigNumber.ROUND_HALF_UP)}
+                prefix='$'
+                displayType='text'
+                decimalScale={2}
+                fixedDecimalScale
+                thousandSeparator
+              />
+              )}
         </span>
       </div>
 
@@ -206,15 +235,15 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: Lo
           </VaultDetailsListItem>
 
           <VaultDetailsListItem
-            title='Loan Interest Value (USD)'
-            testId='LoanDetailsCard.LoanInterestValue'
+            title='Accumulated Interest (USD)'
+            testId='LoanDetailsCard.AccumulatedInterest'
             titleClassNames='text-sm'
           >
             {interestUsdAmount == null
               ? ('N/A')
               : (
                 <ReactNumberFormat
-                  value={interestUsdAmount?.toNumber().toFixed(2)}
+                  value={interestUsdAmount.toFixed(2, BigNumber.ROUND_HALF_UP)}
                   prefix='$'
                   displayType='text'
                   decimalScale={2}
@@ -230,9 +259,8 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: Lo
             testId='LoanDetailsCard.TotalInterestRate'
             titleClassNames='text-sm'
           >
-            {props.interest.amount}
+            <LoanTotalInterestRate vaultInterest={props.vault.interest} loanId={props.interest.id} />
           </VaultDetailsListItem>
-
         </div>
       </Transition>
     </div>
