@@ -104,7 +104,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {new BigNumber(props.loan.amount).toFixed(8)}
+        {new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         {loanUsdAmount === undefined
@@ -200,7 +200,7 @@ function VaultLoanDetailsCard (props: { loan: LoanVaultTokenAmount, interest: Lo
             testId='LoanDetailsCard.LoanAmount'
             titleClassNames='text-sm'
           >
-            {new BigNumber(props.loan.amount).toFixed(8)}
+            {new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
           </VaultDetailsListItem>
 
           <VaultDetailsListItem

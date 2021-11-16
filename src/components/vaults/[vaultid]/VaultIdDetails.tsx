@@ -80,84 +80,6 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
   )
 }
 
-function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
-  return (
-    <div className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
-      <VaultDetailsListItem
-        title='Owner ID'
-        testId='VaultDetailList.OwnerID'
-      >
-        <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
-          <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
-        </AddressLink>
-      </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Total Loan Value (USD)'
-        infoDesc='Total loan value (in USD) taken by the vault.'
-        testId='VaultDetailList.TotalLoanValue'
-      >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <ReactNumberFormat
-              value={props.vault.loanValue}
-              prefix='$'
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-            />}
-      </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Total Collateral Value (USD)'
-        infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
-        testId='VaultDetailList.TotalCollateralValue'
-      >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <ReactNumberFormat
-              value={new BigNumber(props.vault.collateralValue).toFixed(8)}
-              prefix='$'
-              displayType='text'
-              decimalScale={8}
-              fixedDecimalScale
-              thousandSeparator
-            />}
-      </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Total Collateralization Ratio'
-        infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-        testId='VaultDetailList.TotalCollateralizationRatio'
-      >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : <VaultCollateralizationRatio
-              collateralizationRatio={props.vault.collateralRatio}
-              loanScheme={props.vault.loanScheme}
-              vaultState={props.vault.state}
-            />}
-      </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Min Collateralization Ratio'
-        infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-        testId='VaultDetailList.MinCollateralizationRatio'
-      >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : `${props.vault.loanScheme.minColRatio}%`}
-      </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Vault Interest Rate (APR)'
-        infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-        testId='VaultDetailList.VaultInterestRate'
-      >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : `${props.vault.loanScheme.interestRate}%`}
-      </VaultDetailsListItem>
-    </div>
-  )
-}
-
 function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <OverflowTable.Row
@@ -224,5 +146,83 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
           : `${props.vault.loanScheme.interestRate}%`}
       </OverflowTable.Cell>
     </OverflowTable.Row>
+  )
+}
+
+function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
+  return (
+    <div className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}>
+      <VaultDetailsListItem
+        title='Owner ID'
+        testId='VaultDetailList.OwnerID'
+      >
+        <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
+          <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
+        </AddressLink>
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
+        title='Total Loan Value (USD)'
+        infoDesc='Total loan value (in USD) taken by the vault.'
+        testId='VaultDetailList.TotalLoanValue'
+      >
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <ReactNumberFormat
+              value={new BigNumber(props.vault.loanValue).minus(props.vault.interestValue).toFixed(2, BigNumber.ROUND_HALF_UP)}
+              prefix='$'
+              displayType='text'
+              decimalScale={2}
+              fixedDecimalScale
+              thousandSeparator
+            />}
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
+        title='Total Collateral Value (USD)'
+        infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
+        testId='VaultDetailList.TotalCollateralValue'
+      >
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <ReactNumberFormat
+              value={new BigNumber(props.vault.collateralValue).toFixed(8)}
+              prefix='$'
+              displayType='text'
+              decimalScale={8}
+              fixedDecimalScale
+              thousandSeparator
+            />}
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
+        title='Total Collateralization Ratio'
+        infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+        testId='VaultDetailList.TotalCollateralizationRatio'
+      >
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : <VaultCollateralizationRatio
+              collateralizationRatio={props.vault.collateralRatio}
+              loanScheme={props.vault.loanScheme}
+              vaultState={props.vault.state}
+            />}
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
+        title='Min Collateralization Ratio'
+        infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+        testId='VaultDetailList.MinCollateralizationRatio'
+      >
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : `${props.vault.loanScheme.minColRatio}%`}
+      </VaultDetailsListItem>
+      <VaultDetailsListItem
+        title='Vault Interest Rate (APR)'
+        infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+        testId='VaultDetailList.VaultInterestRate'
+      >
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? 'N/A'
+          : `${props.vault.loanScheme.interestRate}%`}
+      </VaultDetailsListItem>
+    </div>
   )
 }
