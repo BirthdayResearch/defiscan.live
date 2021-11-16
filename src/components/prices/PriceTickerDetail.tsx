@@ -34,20 +34,15 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
             </h1>
 
             {copy !== undefined && (
-              <div className='ml-2 bg-gray-200 p-1 rounded self-auto'>
+              <div className='ml- bg-gray-200 p-1 rounded self-auto'>
                 <div className='text-xs font-medium'>{copy.type}</div>
               </div>
             )}
           </div>
-          {copy !== undefined && (
-            <div className='mt-1'>
-              <p className='text-black opacity-60 line-clamp-3 overflow-ellipsis'>{copy.description}</p>
-            </div>
-          )}
         </div>
       </div>
 
-      <div className='border-b my-8 border-gray-100' />
+      <div className='border-b mt-5 mb-6 border-gray-100' />
 
       <div>
         <H6InfoCircleHoverPopover
