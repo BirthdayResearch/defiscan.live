@@ -71,8 +71,8 @@ export function VaultIdLoansDetails (props: { loans: LoanVaultTokenAmount[], int
 function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount, vaultState: LoanVaultState }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.displaySymbol)
 
-  let loanUsdAmount = ((props.loan?.activePrice?.active) != null) && new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.loan.amount))
-  let interestUsdAmount = ((props.loan?.activePrice?.active) != null) && new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.interest.amount))
+  let loanUsdAmount = ((props.loan?.activePrice?.active) != null) ? new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.loan.amount)) : undefined
+  let interestUsdAmount = ((props.loan?.activePrice?.active) != null) ? new BigNumber(props.loan.activePrice.active.amount).multipliedBy(new BigNumber(props.interest.amount)) : undefined
 
   if (props.loan.id === '11') {
     loanUsdAmount = new BigNumber(props.loan.amount)
@@ -93,7 +93,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
         {new BigNumber(props.loan.amount).toFixed(8)}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {loanUsdAmount == null
+        {loanUsdAmount === undefined
           ? ('N/A')
           : (
             <ReactNumberFormat
@@ -114,7 +114,7 @@ function VaultLoansTableRow (props: { loan: LoanVaultTokenAmount, interest: Loan
           ? ('N/A')
           : (
             <ReactNumberFormat
-              value={interestUsdAmount.toNumber().toFixed(2)}
+              value={interestUsdAmount?.toNumber().toFixed(2)}
               prefix='$'
               displayType='text'
               decimalScale={2}

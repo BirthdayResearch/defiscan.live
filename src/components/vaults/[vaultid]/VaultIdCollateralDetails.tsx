@@ -66,8 +66,8 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
 function CollateralCard (props: { collateralValue: string, vaultState: LoanVaultState, col: LoanVaultTokenAmount }): JSX.Element {
   const TokenSymbol = getAssetIcon(props.col.displaySymbol)
 
-  const usdAmount = ((props.col?.activePrice?.active) != null) && new BigNumber(props.col.activePrice.active.amount).multipliedBy(new BigNumber(props.col.amount))
-  const compositionPercentage = usdAmount?.div(new BigNumber(props.collateralValue)).multipliedBy(100)
+  const usdAmount = ((props.col?.activePrice?.active) != null) ? new BigNumber(props.col.activePrice.active.amount).multipliedBy(new BigNumber(props.col.amount)) : undefined
+  const compositionPercentage = (usdAmount != null) ? usdAmount.div(new BigNumber(props.collateralValue)) : undefined
 
   return (
     <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
@@ -84,11 +84,10 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
         (
           <div className='font-medium text-gray-900'>
             <ReactNumberFormat
-              value={compositionPercentage.toFixed(2, BigNumber.ROUND_DOWN)}
+              value={compositionPercentage.multipliedBy(100).toFixed(2, BigNumber.ROUND_HALF_UP)}
               suffix='%'
               displayType='text'
               decimalScale={2}
-              fixedDecimalScale
               thousandSeparator
             />
           </div>
@@ -106,7 +105,7 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
             {(usdAmount != null) &&
             (
               <ReactNumberFormat
-                value={usdAmount.toNumber().toFixed(2)}
+                value={usdAmount.toFixed(2, BigNumber.ROUND_HALF_UP)}
                 prefix=' / $'
                 suffix=' USD'
                 displayType='text'
