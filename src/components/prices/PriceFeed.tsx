@@ -23,12 +23,12 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
   const copy: PriceCopy | undefined = getPriceCopy(id)
 
   return (
-    <Link href={{ pathname: `/prices/${id}` }}>
-      <a className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4' data-testid='PriceFeed'>
+    <div className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4' data-testid='PriceFeed'>
+      <Link href={{ pathname: `/prices/${id}` }}>
         <div className='bg-gray-50 rounded p-6 cursor-pointer'>
           <div className='flex'>
             {copy !== undefined ? (
-              <Image src={copy.icon} width={24} height={24} alt={copy.description} />
+              <Image src={copy.icon} width={24} height={24} />
             ) : (
               <MdShowChart className='h-6 w-6 p-1 bg-gray-300 rounded-full text-gray-900' />
             )}
@@ -78,8 +78,8 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
             </button>
           </div>
         </div>
-      </a>
-    </Link>
+      </Link>
+    </div>
   )
 }
 
