@@ -30,7 +30,7 @@ export default function SymbolPage (props: InferGetServerSidePropsType<typeof ge
       <Breadcrumb items={[
         {
           path: '/oracles',
-          name: 'Prices'
+          name: 'Oracles'
         },
         {
           path: `/oracles/${token}-${currency}`,

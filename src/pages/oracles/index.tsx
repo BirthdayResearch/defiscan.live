@@ -4,10 +4,11 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { getPriceCopy, PriceCopy } from '@content/prices'
 import classNames from 'classnames'
 import { Switch } from '@headlessui/react'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 interface PricesPageProps {
   prices: {
@@ -38,11 +39,11 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
       <div>
         <div className='flex flex-wrap justify-between'>
           <h1 className='text-2xl font-medium'>
-            Oracle Feeds
+            Prices provided by Oracles
           </h1>
 
           <div className='flex flex-wrap text-sm mt-8 lg:mt-0 gap-4'>
-            <div className='flex w-full lg:w-auto flex-wrap gap-2' data-testid='FeedFilter.Types'>
+            <div className='flex w-full lg:max-w-max flex-wrap gap-2' data-testid='FeedFilter.Types'>
               {types.map(type => (
                 <div
                   className={classNames('rounded p-2 border cursor-pointer', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300 text-gray-900')}
@@ -54,26 +55,25 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                 </div>
               ))}
             </div>
-            <div className='flex w-full lg:w-auto items-center' data-testid='FeedFilter.Availability'>
-              <Switch.Group>
-                <div className='flex items-center'>
-                  <Switch
-                    checked={availabilitySelection}
-                    onChange={setAvailabilitySelection}
-                    className={`${
-                      availabilitySelection ? 'bg-primary-500' : 'bg-gray-200'
-                    } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
-                  >
-                    <span
-                      className={`${
-              availabilitySelection ? 'translate-x-6' : 'translate-x-1'
-            } inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
-                    />
-                  </Switch>
-                  <Switch.Label className='ml-1'>Only show assets available on DeFiChain</Switch.Label>
-                </div>
-              </Switch.Group>
-            </div>
+            <Switch.Group data-testid='FeedFilter.Availability'>
+              <div className='flex items-center justify-end'>
+                <Switch
+                  checked={availabilitySelection}
+                  onChange={setAvailabilitySelection}
+                  className={`${
+                    availabilitySelection ? 'bg-primary-500' : 'bg-gray-200'
+                  } relative inline-flex items-center h-6 rounded-full w-11 transition-colors`}
+                >
+                  <span
+                    className={`${availabilitySelection ? 'translate-x-6' : 'translate-x-1'} inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
+                  />
+                </Switch>
+                <Switch.Label className='ml-2 flex items-center'>
+                  Loan/Collateral Tokens
+                  <InfoHoverPopover className='ml-1' description='Price of Loan Tokens and Collateral Tokens available on the decentralized loan service.' />
+                </Switch.Label>
+              </div>
+            </Switch.Group>
           </div>
         </div>
 
