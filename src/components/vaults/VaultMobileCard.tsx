@@ -1,6 +1,5 @@
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
-import NumberFormat from 'react-number-format'
 import { VaultStatus } from '@components/vaults/common/VaultStatus'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
@@ -9,6 +8,8 @@ import { Transition } from '@headlessui/react'
 import { Link } from '@components/commons/Link'
 import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
+import BigNumber from 'bignumber.js'
+import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -85,14 +86,9 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')
-          : (<NumberFormat
-              value={props.vault.loanValue}
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-              prefix='$'
-             />)}
+          : (
+            <VaultNumberValues value={new BigNumber(props.vault.loanValue)} prefix='$' />
+            )}
       </VaultDetailsListItem>
 
       <VaultDetailsListItem
@@ -112,14 +108,9 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')
-          : (<NumberFormat
-              value={props.vault.collateralValue}
-              displayType='text'
-              decimalScale={2}
-              fixedDecimalScale
-              thousandSeparator
-              prefix='$'
-             />)}
+          : (
+            <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
+            )}
       </VaultDetailsListItem>
 
       <VaultDetailsListItem

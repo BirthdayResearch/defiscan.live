@@ -2,7 +2,6 @@ import { Head } from '@components/commons/Head'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
-import NumberFormat from 'react-number-format'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
@@ -14,6 +13,8 @@ import { VaultCollateralizationRatio } from '@components/vaults/common/VaultColl
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import classNames from 'classnames'
 import { Link } from '@components/commons/Link'
+import BigNumber from 'bignumber.js'
+import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 
 interface VaultsPageData {
   vaults: {
@@ -132,14 +133,7 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
             : (
               <>
                 <VaultTokenSymbols tokens={props.vault.loanAmounts} />
-                <NumberFormat
-                  value={props.vault.loanValue}
-                  displayType='text'
-                  decimalScale={2}
-                  fixedDecimalScale
-                  thousandSeparator
-                  prefix='$'
-                />
+                <VaultNumberValues value={new BigNumber(props.vault.loanValue)} prefix='$' />
               </>
               )}
         </div>
@@ -151,14 +145,7 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
             : (
               <>
                 <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
-                <NumberFormat
-                  value={props.vault.collateralValue}
-                  displayType='text'
-                  decimalScale={2}
-                  fixedDecimalScale
-                  thousandSeparator
-                  prefix='$'
-                />
+                <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
               </>
               )}
         </div>

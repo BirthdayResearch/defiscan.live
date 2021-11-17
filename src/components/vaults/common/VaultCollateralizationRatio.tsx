@@ -1,6 +1,7 @@
 import { LoanScheme, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import classNames from 'classnames'
 import BigNumber from 'bignumber.js'
+import ReactNumberFormat from 'react-number-format'
 
 interface VaultCollateralizationRatioProps {
   collateralizationRatio: string // collateralizationRatio = collateralRatio
@@ -28,7 +29,14 @@ export function VaultCollateralizationRatio (props: VaultCollateralizationRatioP
       }
       data-testid={props.testId}
     >
-      {collateralRatio.lt(0) ? 'N/A' : `${props.collateralizationRatio}%`}
+      {collateralRatio.lt(0)
+        ? ('N/A')
+        : (<ReactNumberFormat
+            value={props.collateralizationRatio}
+            suffix='%'
+            displayType='text'
+            thousandSeparator
+           />)}
     </div>
   )
 }

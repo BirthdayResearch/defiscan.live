@@ -5,8 +5,10 @@ import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import classNames from 'classnames'
+import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
+import ReactNumberFormat from 'react-number-format'
 
-export function VaultIdCollateralDetails (props: { vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
+export function VaultIdCollateralDetails (props: { collateralValue: string, vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
     <>
       <div className='mt-10 hidden md:block' data-testid='CollateralDetailsDesktop'>
@@ -26,17 +28,23 @@ export function VaultIdCollateralDetails (props: { vaultState: LoanVaultState, c
                 data-testid='CollateralDetailsDesktop.Cards'
               >
                 {props.collaterals.map((col) => (
-                  <CollateralCard vaultState={props.vaultState} col={col} key={col.id} />
+                  <CollateralCard
+                    collateralValue={props.collateralValue} vaultState={props.vaultState} col={col}
+                    key={col.id}
+                  />
                 ))}
               </div>
             )}
       </div>
 
-      <VaultCollapsibleSection heading='Collateral Details' className='block md:hidden' testId='VaultCollapsibleSection.CollateralDetails'>
+      <VaultCollapsibleSection
+        heading='Collateral Details' className='block md:hidden'
+        testId='VaultCollapsibleSection.CollateralDetails'
+      >
         {props.collaterals.length === 0
           ? (
             <div className='text-gray-400 flex w-full justify-center p-8'>
-              There are no collaterals in the vault at this time
+              There are no collaterals in the vault at this times
             </div>
             ) : (
               <div
@@ -44,7 +52,10 @@ export function VaultIdCollateralDetails (props: { vaultState: LoanVaultState, c
                 data-testid='CollateralDetailsMobile.Cards'
               >
                 {props.collaterals.map((col) => (
-                  <CollateralCard vaultState={props.vaultState} col={col} key={col.id} />
+                  <CollateralCard
+                    collateralValue={props.collateralValue} vaultState={props.vaultState} col={col}
+                    key={col.id}
+                  />
                 ))}
               </div>
             )}
@@ -53,8 +64,12 @@ export function VaultIdCollateralDetails (props: { vaultState: LoanVaultState, c
   )
 }
 
-function CollateralCard (props: { vaultState: LoanVaultState, col: LoanVaultTokenAmount }): JSX.Element {
-  const TokenSymbol = getAssetIcon(props.col.displaySymbol)
+function CollateralCard (props: { collateralValue: string, vaultState: LoanVaultState, col: LoanVaultTokenAmount }): JSX.Element {
+  const TokenSymbol = getAssetIcon(props.col.symbol)
+
+  const usdAmount = ((props.col?.activePrice?.active) != null) ? new BigNumber(props.col.activePrice.active.amount).multipliedBy(new BigNumber(props.col.amount)) : undefined
+  const compositionPercentage = (usdAmount != null) ? usdAmount.div(new BigNumber(props.collateralValue)) : undefined
+
   return (
     <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
       <div className='flex justify-between items-start w-full'>
@@ -66,12 +81,37 @@ function CollateralCard (props: { vaultState: LoanVaultState, col: LoanVaultToke
           >{props.col.displaySymbol}
           </span>
         </div>
-        {/* <span>10%</span> */}
+        {(compositionPercentage != null) &&
+        (
+          <div className='font-medium text-gray-900'>
+            <VaultNumberValues value={compositionPercentage.multipliedBy(100)} suffix='%' />
+          </div>
+        )}
       </div>
       <div className='mt-4'>
-        <div className='text-sm text-gray-500' data-testid='CollateralCard.CollateralAmountTitle'>Collateral Amount</div>
-        <div className={classNames(props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')} data-testid='CollateralCard.CollateralAmount'>
-          {`${new BigNumber(props.col.amount).toFixed(8)} ${props.col.displaySymbol}`}
+        <div className='text-sm text-gray-500' data-testid='CollateralCard.CollateralAmountTitle'>Collateral Amount
+        </div>
+        <div
+          className={classNames('flex items-center gap-x-1', props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+          data-testid='CollateralCard.CollateralAmount'
+        >
+          <ReactNumberFormat
+            value={new BigNumber(props.col.amount).toFixed(8)}
+            displayType='text'
+            suffix={` ${props.col.displaySymbol}`}
+            decimalScale={8}
+            fixedDecimalScale
+            thousandSeparator
+          />
+          <div className='text-sm text-gray-500'>
+            {(usdAmount != null) &&
+            (
+              <div className='flex'>
+                <span className='ml-0.5 mr-1'>/</span>
+                <VaultNumberValues value={new BigNumber(usdAmount)} prefix='$' />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
