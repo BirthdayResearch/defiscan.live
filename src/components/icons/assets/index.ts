@@ -37,6 +37,8 @@ import { dTLT } from './dTLT'
 import { SVGProps } from 'react'
 import { USDT } from '@components/icons/assets/USDT'
 import { USDC } from '@components/icons/assets/USDC'
+import { ETH } from '@components/icons/assets/ETH'
+import { DOGE } from '@components/icons/assets/DOGE'
 
 const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> = {
   _UTXO: DFI,
@@ -48,6 +50,8 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   LTC: LTC,
   USDT: USDT,
   USDC: USDC,
+  ETH: ETH,
+  DOGE: DOGE,
   dBCH: dBCH,
   dBTC: dBTC,
   dDFI: dDFI,

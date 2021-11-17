@@ -5,7 +5,7 @@ import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/p
 import { format, formatDistanceToNow } from 'date-fns'
 import NumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
-import { getAssetIcon } from '@components/icons/assets'
+import { getNativeIcon } from '@components/icons/assets'
 
 interface PriceTickerDetailProps {
   price: PriceTicker
@@ -20,12 +20,12 @@ export function OracleTickerDetail ({
 
   return (
     <div className='pt-4 pb-12' data-testid='OracleTickerDetail'>
-      <div className='flex items-start items-center'>
-        <div className='flex flex-shrink-0'>
+      <div className='flex items-start items-center gap-x-3'>
+        <div className='flex'>
           {(() => {
             if (copy !== undefined && copy.type === 'CRYPTO') {
-              const NativeIcon = getAssetIcon(price.price.token)
-              return (<NativeIcon className='h-12 w-12 mr-3' />)
+              const NativeIcon = getNativeIcon(price.price.token)
+              return (<NativeIcon width={48} height={48} />)
             }
           })()}
         </div>
