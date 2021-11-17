@@ -32,7 +32,7 @@ export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.El
 
 export function AddressLinkExternal (props: {text: string, url: string, testId?: string}): JSX.Element {
   return (
-    <div className='text-lg  text-primary-500 hover:underline cursor-pointer' data-testid={props.testId}>
+    <div className='text-primary-500 hover:underline cursor-pointer' data-testid={props.testId}>
       <a href={props.url} target='_blank' rel='noreferrer'>
         {props.text}
       </a>
