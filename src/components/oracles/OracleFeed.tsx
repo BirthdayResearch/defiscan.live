@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import NumberFormat from 'react-number-format'
 import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
-import { getAssetIcon } from '@components/icons/assets'
+import { getAssetIcon, getNativeIcon } from '@components/icons/assets'
 
 export interface PriceFeedProps {
   price: PriceTicker
@@ -25,7 +25,7 @@ export function OracleFeed (props: PriceFeedProps): JSX.Element {
           <div className='flex'>
             {(() => {
               if (copy !== undefined && copy.type === 'CRYPTO') {
-                const NativeIcon = getAssetIcon(price.token)
+                const NativeIcon = getNativeIcon(price.token)
                 return (<NativeIcon className='h-6 w-6 mr-2' />)
               }
             })()}

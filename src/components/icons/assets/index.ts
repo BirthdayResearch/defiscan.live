@@ -2,6 +2,8 @@ import { _Default } from '@components/icons/assets/_Default'
 import { dBCH } from './dBCH'
 import { dBTC } from './dBTC'
 import { BTC } from './BTC'
+import { BCH } from './BCH'
+import { LTC } from './LTC'
 import { dDFI } from './dDFI'
 import { dDOGE } from './dDOGE'
 import { dETH } from './dETH'
@@ -33,13 +35,19 @@ import { dVNQ } from './dVNQ'
 import { dURTH } from './dURTH'
 import { dTLT } from './dTLT'
 import { SVGProps } from 'react'
+import { USDT } from '@components/icons/assets/USDT'
+import { USDC } from '@components/icons/assets/USDC'
 
 const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> = {
   _UTXO: DFI,
-  DFI: dDFI,
+  DFI: DFI,
   'DFI (UTXO)': DFI,
   'DFI (Token)': dDFI,
   BTC: BTC,
+  BCH: BCH,
+  LTC: LTC,
+  USDT: USDT,
+  USDC: USDC,
   dBCH: dBCH,
   dBTC: dBTC,
   dDFI: dDFI,
