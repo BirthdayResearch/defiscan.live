@@ -9,6 +9,10 @@ interface AddressLinkProps {
 }
 
 export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.Element {
+  if (props.address === undefined || props.address.length === 0) {
+    return <></>
+  }
+
   return (
     <div
       data-testid={props.testId}

@@ -9,6 +9,10 @@ interface TxIdLinkProps {
 }
 
 export function TxIdLink (props: PropsWithChildren<TxIdLinkProps>): JSX.Element {
+  if (props.txid === undefined || props.txid.length === 0) {
+    return <></>
+  }
+
   return (
     <div data-testid={props.testId} className={classnames('hover:underline text-primary-500 cursor-pointer', props.className)}>
       <Link href={{ pathname: `/transactions/${props.txid}` }}>
