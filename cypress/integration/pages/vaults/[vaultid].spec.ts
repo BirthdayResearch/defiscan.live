@@ -95,6 +95,9 @@ context('/vaults/[vaultid] on desktop', function () {
     it('should OverflowTable Header Information', function () {
       cy.findByTestId('VaultLoansDesktop.LoanToken').should('be.visible').should('have.text', 'Loan Token')
       cy.findByTestId('VaultLoansDesktop.TotalLoanValue').should('be.visible').should('have.text', 'Total Loan Value (USD)')
+      cy.findByTestId('VaultLoansDesktop.TotalLoanValue').within(() => {
+        cy.findByTestId('InfoHoverPopover').should('be.visible')
+      })
       cy.findByTestId('VaultLoansDesktop.LoanAmount').should('be.visible').should('have.text', 'Loan Amount')
       cy.findByTestId('VaultLoansDesktop.AccruedInterest').should('be.visible').should('have.text', 'Accrued Interest')
       cy.findByTestId('VaultLoansDesktop.AccruedInterest').within(() => {

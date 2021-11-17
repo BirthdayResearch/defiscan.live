@@ -38,6 +38,7 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
                   <OverflowTable.Head title='Loan Token' testId='VaultLoansDesktop.LoanToken' />
                   <OverflowTable.Head
                     title='Total Loan Value (USD)' testId='VaultLoansDesktop.TotalLoanValue'
+                    infoDesc='Total Loan Value = Loan Value + Accrued Interest Value'
                     alignRight
                   />
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
