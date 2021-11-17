@@ -23,7 +23,7 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
         <div className='bg-gray-50 rounded p-6 cursor-pointer'>
           <div className='flex'>
             {copy !== undefined ? (
-              <Image src={copy.icon} width={24} height={24} alt={copy.description} />
+              <Image src={copy.icon} width={24} height={24} />
             ) : (
               <MdShowChart className='h-6 w-6 p-1 bg-gray-300 rounded-full text-gray-900' />
             )}
