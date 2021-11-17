@@ -12,7 +12,7 @@ context('<Link/> preserve querystring ?network=TestNet', () => {
   it('should preserve network querystring when route to /oracles', function () {
     cy.interceptServerSideWait(() => {
       cy.get('footer')
-        .findAllByText('Prices')
+        .findAllByText('Oracles')
         .should('exist')
         .click()
     })
