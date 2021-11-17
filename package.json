@@ -19,7 +19,7 @@
     "@defichain/jellyfish-address": "^2.4.0",
     "@defichain/jellyfish-transaction": "^2.4.0",
     "@defichain/playground-api-client": "^0.11.3",
-    "@defichain/whale-api-client": "^0.14.1",
+    "@defichain/whale-api-client": "^0.14.3",
     "@headlessui/react": "^1.4.2",
     "@popperjs/core": "^2.10.2",
     "@reduxjs/toolkit": "^1.6.2",
