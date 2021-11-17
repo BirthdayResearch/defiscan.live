@@ -1,4 +1,4 @@
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import classnames from 'classnames'
 import { PropsWithChildren } from 'react'
 

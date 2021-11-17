@@ -1,7 +1,7 @@
 import { IoChevronForward } from 'react-icons/io5'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { formatDistanceToNow } from 'date-fns'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (

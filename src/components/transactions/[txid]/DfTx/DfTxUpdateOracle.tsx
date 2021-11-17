@@ -4,7 +4,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface DfTxUpdateOracleProps {
   dftx: DfTx<UpdateOracle>

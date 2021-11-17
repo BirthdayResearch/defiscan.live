@@ -6,7 +6,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { TokenBalance } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance'
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface DfTxPoolUpdatePairProps {
   dftx: DfTx<PoolUpdatePair>

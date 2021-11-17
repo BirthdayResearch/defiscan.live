@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactNode } from 'react'
 import { getAssetIcon } from '@components/icons/assets'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { IoChevronForward } from 'react-icons/io5'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import ReactNumberFormat from 'react-number-format'
 
 export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {

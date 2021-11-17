@@ -13,9 +13,10 @@ import { Head } from '@components/commons/Head'
 import { Container } from '@components/commons/Container'
 import { BsArrowRight } from 'react-icons/bs'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { Link } from '@components/commons/Link'
-import { AddressLink } from '@components/commons/AddressLink'
+import { Link } from '@components/commons/link/Link'
+import { AddressLink } from '@components/commons/link/AddressLink'
 import { isAlphanumeric } from '../../../utils/commons/StringValidator'
+import { BlockLink } from '@components/commons/link/BlockLink'
 
 interface BlockDetailsPageProps {
   block: Block
@@ -160,11 +161,11 @@ function ListLeft (props: { block: Block, nBlocks: number | undefined }): JSX.El
         {confirmations}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Minter' testId='block-detail-minter'>
-        <AddressLink address={props.block.minter} className='break-all' />
+        {(props.block.minter === undefined || props.block.minter.length === 0) ? ('N/A') : (<AddressLink address={props.block.minter} className='break-all' />)}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Masternode' testId='block-detail-masternode'>
         <div className='break-all'>
-          {props.block.masternode}
+          {props.block.masternode ?? 'N/A'}
         </div>
       </AdaptiveList.Row>
       {/* TODO(fuxingloh): need to properly expose this variable on whale */}
@@ -196,16 +197,10 @@ function ListRight (props: { block: Block }): JSX.Element {
         </div>
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Previous Block' testId='block-detail-previous-block'>
-        <Link href={{ pathname: `/blocks/${props.block.previousHash}` }}>
-          <a className='cursor-pointer hover:text-primary-500 break-all'>
-            {props.block.previousHash}
-          </a>
-        </Link>
+        {(props.block.previousHash === undefined || props.block.previousHash.length === 0) ? ('N/A') : (<BlockLink block={props.block.previousHash} className='break-all' />)}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Next Block' testId='block-detail-next-block'>
-        <Link href={{ pathname: `/blocks/${props.block.height + 1}` }}>
-          <a className='cursor-pointer hover:text-primary-500'>#{props.block.height + 1}</a>
-        </Link>
+        <BlockLink block={(props.block.height + 1).toString()} className='break-all' />
       </AdaptiveList.Row>
     </AdaptiveList>
   )

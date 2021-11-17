@@ -9,7 +9,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import NumberFormat from 'react-number-format'
 import { Container } from '@components/commons/Container'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 
 interface BlocksPageData {
   blocks: {

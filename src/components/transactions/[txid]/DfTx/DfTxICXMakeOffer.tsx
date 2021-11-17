@@ -3,8 +3,8 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
-import { AddressLink } from '@components/commons/AddressLink'
-import { TxIdLink } from '@components/commons/TxIdLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
+import { TxIdLink } from '@components/commons/link/TxIdLink'
 
 interface DfTxICXMakeOfferProps {
   dftx: DfTx<ICXMakeOffer>

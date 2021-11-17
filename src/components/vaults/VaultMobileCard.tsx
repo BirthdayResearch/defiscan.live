@@ -5,7 +5,7 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
 import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import BigNumber from 'bignumber.js'

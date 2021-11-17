@@ -1,5 +1,5 @@
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'

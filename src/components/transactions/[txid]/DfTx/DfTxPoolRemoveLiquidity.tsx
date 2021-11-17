@@ -5,7 +5,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface DfTxPoolRemoveLiquidityProps {
   dftx: DfTx<PoolRemoveLiquidity>

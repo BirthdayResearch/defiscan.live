@@ -4,7 +4,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface DfTxAccountToUtxosProps {
   dftx: DfTx<AccountToUtxos>

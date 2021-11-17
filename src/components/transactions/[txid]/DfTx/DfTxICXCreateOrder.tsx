@@ -5,7 +5,7 @@ import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import BigNumber from 'bignumber.js'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface DfTxICXCreateOrderProps {
   dftx: DfTx<ICXCreateOrder>

@@ -1,5 +1,5 @@
 import { NetworkName } from '@contexts/NetworkContext'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface TransactionVectorRowProps {
   label: 'INPUT' | 'OUTPUT'

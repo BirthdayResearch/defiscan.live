@@ -1,7 +1,7 @@
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { formatDistanceToNow } from 'date-fns'
 import BigNumber from 'bignumber.js'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   return (

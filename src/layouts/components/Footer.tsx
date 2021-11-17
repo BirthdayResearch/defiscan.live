@@ -1,4 +1,4 @@
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { PropsWithChildren } from 'react'
 import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube } from 'react-icons/fa'

@@ -6,8 +6,8 @@ import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { Container } from '@components/commons/Container'
-import { AddressLink } from '@components/commons/AddressLink'
-import { TxIdLink } from '@components/commons/TxIdLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
+import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { isNumeric } from '../../utils/commons/StringValidator'
 
 interface TokenAssetPageProps {

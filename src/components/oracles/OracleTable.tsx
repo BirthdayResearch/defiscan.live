@@ -6,7 +6,7 @@ import { IoAlertCircleOutline } from 'react-icons/io5'
 import { MdCheck } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { TxIdLink } from '@components/commons/TxIdLink'
+import { TxIdLink } from '@components/commons/link/TxIdLink'
 
 interface PriceOracleTableProps {
   price: PriceTicker

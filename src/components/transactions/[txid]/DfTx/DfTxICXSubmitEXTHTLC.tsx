@@ -1,8 +1,8 @@
 import { DfTx, ICXSubmitEXTHTLC } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { AddressLink } from '@components/commons/AddressLink'
-import { TxIdLink } from '@components/commons/TxIdLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
+import { TxIdLink } from '@components/commons/link/TxIdLink'
 
 interface DfTxICXSubmitEXTHTLCProps {
   dftx: DfTx<ICXSubmitEXTHTLC>
