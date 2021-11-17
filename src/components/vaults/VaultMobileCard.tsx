@@ -10,6 +10,7 @@ import { VaultCollateralizationRatio } from '@components/vaults/common/VaultColl
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
+import ReactNumberFormat from 'react-number-format'
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -125,6 +126,21 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
               loanScheme={props.vault.loanScheme}
               vaultState={props.vault.state}
               testId={`VaultRow.${props.vault.vaultId}.CollateralizationRatio`}
+             />)}
+      </VaultDetailsListItem>
+
+      <VaultDetailsListItem
+        title='Min Collateralization Ratio'
+        infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+        testId='VaultIdDetails.MinCollateralizationRatio'
+      >
+        {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
+          ? ('N/A')
+          : (<ReactNumberFormat
+              value={props.vault.loanScheme.minColRatio}
+              suffix='%'
+              displayType='text'
+              thousandSeparator
              />)}
       </VaultDetailsListItem>
     </div>
