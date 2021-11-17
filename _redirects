@@ -1,5 +1,8 @@
 http://defiscan.live/prices https://defiscan.live/oracles 301!
+https://defiscan.live/prices https://defiscan.live/oracles 301!
+
 http://defiscan.live/prices/* https://defiscan.live/oracles/:splat 301!
+https://defiscan.live/prices/* https://defiscan.live/oracles/:splat 301!
 
 http://defiscan.live/* https://defiscan.live/:splat 301!
 
