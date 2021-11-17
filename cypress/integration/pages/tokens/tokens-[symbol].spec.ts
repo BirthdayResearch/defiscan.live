@@ -81,7 +81,6 @@ context('/tokens/1 (Ether) Mobile', () => {
       cy.wrap(ele).should('contain.text', 'Destruction Height')
       cy.wrap(ele).should('contain.text', 'Destruction TX')
       cy.wrap(ele).should('contain.text', 'Backing Address')
-
     })
   })
 })
