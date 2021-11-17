@@ -116,272 +116,272 @@ export const PRICES: Record<string, PriceCopy> = {
   'BCH-USD': {
     id: 'BCH-USD',
     type: 'CRYPTO',
-    icon: require('./images/bch.png'),
+    icon: require('./images/bch.png')
   },
   'BTC-USD': {
     id: 'BTC-USD',
     type: 'CRYPTO',
-    icon: require('./images/btc.png'),
+    icon: require('./images/btc.png')
   },
   'DFI-USD': {
     id: 'DFI-USD',
     type: 'CRYPTO',
-    icon: require('./images/dfi.png'),
+    icon: require('./images/dfi.png')
   },
   'DOGE-USD': {
     id: 'DOGE-USD',
     type: 'CRYPTO',
-    icon: require('./images/doge.png'),
+    icon: require('./images/doge.png')
   },
   'ETH-USD': {
     id: 'ETH-USD',
     type: 'CRYPTO',
-    icon: require('./images/eth.png'),
+    icon: require('./images/eth.png')
   },
   'LTC-USD': {
     id: 'LTC-USD',
     type: 'CRYPTO',
-    icon: require('./images/ltc.png'),
+    icon: require('./images/ltc.png')
   },
   'USDC-USD': {
     id: 'USDC-USD',
     type: 'CRYPTO',
-    icon: require('./images/usdc.png'),
+    icon: require('./images/usdc.png')
   },
   'USDT-USD': {
     id: 'USDT-USD',
     type: 'CRYPTO',
-    icon: require('./images/usdt.png'),
+    icon: require('./images/usdt.png')
   },
   'U-USD': {
     id: 'U-USD',
     type: 'STOCKS',
-    icon: require('./images/unity.png'),
+    icon: require('./images/unity.png')
   },
   'TCEHY-USD': {
     id: 'TCHEY-USD',
     type: 'STOCKS',
-    icon: require('./images/tcehy.png'),
+    icon: require('./images/tcehy.png')
   },
   'SEDG-USD': {
     id: 'SEDG-USD',
     type: 'STOCKS',
-    icon: require('./images/sedg.png'),
+    icon: require('./images/sedg.png')
   },
   'VOO-USD': {
     id: 'VOO-USD',
     type: 'ETF',
-    icon: require('./images/vanguard.png'),
+    icon: require('./images/vanguard.png')
   },
   'V-USD': {
     id: 'V-USD',
     type: 'STOCKS',
-    icon: require('./images/visa.png'),
+    icon: require('./images/visa.png')
   },
   'TTWO-USD': {
     id: 'TTWO-USD',
     type: 'STOCKS',
-    icon: require('./images/ttwo.png'),
+    icon: require('./images/ttwo.png')
   },
   'TQQQ-USD': {
     id: 'TQQQ-USD',
     type: 'ETF',
-    icon: require('./images/proshares.png'),
+    icon: require('./images/proshares.png')
   },
   'TLRY-USD': {
     id: 'TLRY-USD',
     type: 'STOCKS',
-    icon: require('./images/tlry.png'),
+    icon: require('./images/tlry.png')
   },
   'SNAP-USD': {
     id: 'SNAP-USD',
     type: 'STOCKS',
-    icon: require('./images/snap.png'),
+    icon: require('./images/snap.png')
   },
   'SQ-USD': {
     id: 'SQ-USD',
     type: 'STOCKS',
-    icon: require('./images/sq.png'),
+    icon: require('./images/sq.png')
   },
   'SPY-USD': {
     id: 'SPY-USD',
     type: 'ETF',
-    icon: require('./images/spy.png'),
+    icon: require('./images/spy.png')
   },
   'SI-USD': {
     id: 'SI-USD',
     type: 'STOCKS',
-    icon: require('./images/si.png'),
+    icon: require('./images/si.png')
   },
   'RIOT-USD': {
     id: 'RIOT-USD',
     type: 'STOCKS',
-    icon: require('./images/riot.png'),
+    icon: require('./images/riot.png')
   },
   'PYPL-USD': {
     id: 'PYPL-USD',
     type: 'STOCKS',
-    icon: require('./images/pypl.png'),
+    icon: require('./images/pypl.png')
   },
   'PLTR-USD': {
     id: 'PLTR-USD',
     type: 'STOCKS',
-    icon: require('./images/pltr.png'),
+    icon: require('./images/pltr.png')
   },
   'NTDOF-USD': {
     id: 'NTDOF-USD',
     type: 'STOCKS',
-    icon: require('./images/nintendo.png'),
+    icon: require('./images/nintendo.png')
   },
   'NSRGY-USD': {
     id: 'NSRGY-USD',
     type: 'STOCKS',
-    icon: require('./images/nestle.png'),
+    icon: require('./images/nestle.png')
   },
   'SQQQ-USD': {
     id: 'SQQQ-USD',
     type: 'ETF',
-    icon: require('./images/proshares.png'),
+    icon: require('./images/proshares.png')
   },
   'SOXX-USD': {
     id: 'SOXX-USD',
     type: 'ETF',
-    icon: require('./images/ishares.png'),
+    icon: require('./images/ishares.png')
   },
   'BABA-USD': {
     id: 'BABA-USD',
     type: 'STOCKS',
-    icon: require('./images/baba.png'),
+    icon: require('./images/baba.png')
   },
   'DIS-USD': {
     id: 'DIS-USD',
     type: 'STOCKS',
-    icon: require('./images/dis.png'),
+    icon: require('./images/dis.png')
   },
   'NFLX-USD': {
     id: 'NFLX-USD',
     type: 'STOCKS',
-    icon: require('./images/nflx.png'),
+    icon: require('./images/nflx.png')
   },
   'MA-USD': {
     id: 'MA-USD',
     type: 'STOCKS',
-    icon: require('./images/ma.png'),
+    icon: require('./images/ma.png')
   },
   'RBLX-USD': {
     id: 'RBLX-USD',
     type: 'STOCKS',
-    icon: require('./images/rblx.png'),
+    icon: require('./images/rblx.png')
   },
   'MARA-USD': {
     id: 'MARA-USD',
     type: 'STOCKS',
-    icon: require('./images/mara.png'),
+    icon: require('./images/mara.png')
   },
   'MCHI-USD': {
     id: 'MCHI-USD',
     type: 'ETF',
-    icon: require('./images/ishares.png'),
+    icon: require('./images/ishares.png')
   },
   'EEM-USD': {
     id: 'EEM-USD',
     type: 'ETF',
-    icon: require('./images/ishares.png'),
+    icon: require('./images/ishares.png')
   },
   'NLLSF-USD': {
     id: 'NLLSF-USD',
     type: 'STOCKS',
-    icon: require('./images/nllsf.png'),
+    icon: require('./images/nllsf.png')
   },
   'GLO-USD': {
     id: 'GLO-USD',
     type: 'ETF',
-    icon: require('./images/glo.png'),
+    icon: require('./images/glo.png')
   },
   'KRBN-USD': {
     id: 'KRBN-USD',
     type: 'ETF',
-    icon: require('./images/krbn.png'),
+    icon: require('./images/krbn.png')
   },
   'PATH-USD': {
     id: 'PATH-USD',
     type: 'STOCKS',
-    icon: require('./images/uipath.png'),
+    icon: require('./images/uipath.png')
   },
   'MSFT-USD': {
     id: 'MSFT-USD',
     type: 'STOCKS',
-    icon: require('./images/msft.png'),
+    icon: require('./images/msft.png')
   },
   'INTC-USD': {
     id: 'INTC-USD',
     type: 'STOCKS',
-    icon: require('./images/intc.png'),
+    icon: require('./images/intc.png')
   },
   'SQNXF-USD': {
     id: 'SQNXF-USD',
     type: 'STOCKS',
-    icon: require('./images/sqnxf.png'),
+    icon: require('./images/sqnxf.png')
   },
   'SOXS-USD': {
     id: 'SOXS-USD',
     type: 'ETF',
-    icon: require('./images/direxion.png'),
+    icon: require('./images/direxion.png')
   },
   'SOXL-USD': {
     id: 'SOXL-USD',
     type: 'ETF',
-    icon: require('./images/direxion.png'),
+    icon: require('./images/direxion.png')
   },
   'QQQ-USD': {
     id: 'QQQ-USD',
     type: 'ETF',
-    icon: require('./images/invesco.png'),
+    icon: require('./images/invesco.png')
   },
   'LZAGY-USD': {
     id: 'LZAGY-USD',
     type: 'STOCKS',
-    icon: require('./images/lzagy.png'),
+    icon: require('./images/lzagy.png')
   },
   'CQQQ-USD': {
     id: 'CQQQ-USD',
     type: 'ETF',
-    icon: require('./images/invesco.png'),
+    icon: require('./images/invesco.png')
   },
   'BYDDF-USD': {
     id: 'BYDDF-USD',
     type: 'STOCKS',
-    icon: require('./images/byddf.png'),
+    icon: require('./images/byddf.png')
   },
   'ARKX-USD': {
     id: 'ARKX-USD',
     type: 'ETF',
-    icon: require('./images/ark.png'),
+    icon: require('./images/ark.png')
   },
   'ARKW-USD': {
     id: 'ARKW-USD',
     type: 'ETF',
-    icon: require('./images/ark.png'),
+    icon: require('./images/ark.png')
   },
   'ARKQ-USD': {
     id: 'ARKQ-USD',
     type: 'ETF',
-    icon: require('./images/ark.png'),
+    icon: require('./images/ark.png')
   },
   'ARKF-USD': {
     id: 'ARKF-USD',
     type: 'ETF',
-    icon: require('./images/ark.png'),
+    icon: require('./images/ark.png')
   },
   'ARKK-USD': {
     id: 'ARKK-USD',
     type: 'ETF',
-    icon: require('./images/ark.png'),
+    icon: require('./images/ark.png')
   },
   'ARKG-USD': {
     id: 'ARKG-USD',
     type: 'ETF',
-    icon: require('./images/ark.png'),
+    icon: require('./images/ark.png')
   }
 }
 
