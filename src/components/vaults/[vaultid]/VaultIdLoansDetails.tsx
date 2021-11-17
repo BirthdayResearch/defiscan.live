@@ -112,15 +112,15 @@ function TotalLoanValueInfoDesc (props: { totalLoanUsdAmount: BigNumber, interes
     >
       <div className='text-gray-900 grid grid-rows-3'>
         <div className='flex'>
-          <span className='w-48'>Total Loan Value (USD)</span>
+          <span className='w-48 text-gray-500'>Total Loan Value (USD)</span>
           <span className='ml-3 text-right'>${props.totalLoanUsdAmount.toFixed(8)}</span>
         </div>
         <div className='flex'>
-          <span className='w-48'>Loan Value (USD)</span>
+          <span className='w-48 text-gray-500'>Loan Value (USD)</span>
           <span className='ml-3 text-right'>${props.totalLoanUsdAmount.minus(props.interestUsdAmount).toFixed(8)}</span>
         </div>
         <div className='flex'>
-          <span className='w-48'>Accrued Interest Value (USD)</span>
+          <span className='w-48 text-gray-500'>Accrued Interest Value (USD)</span>
           <div className='ml-3 text-right'>${props.interestUsdAmount.toFixed(8)}</div>
         </div>
       </div>
