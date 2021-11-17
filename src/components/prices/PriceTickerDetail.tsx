@@ -21,7 +21,7 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
       <div className='flex items-start'>
         <div className='flex-shrink-0'>
           {copy !== undefined ? (
-            <Image src={copy.icon} width={48} height={48} alt={copy.description} />
+            <Image src={copy.icon} width={48} height={48} />
           ) : (
             <MdShowChart className='h-12 w-12 p-1 bg-gray-300 rounded-full text-gray-900' />
           )}
@@ -39,15 +39,10 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
               </div>
             )}
           </div>
-          {copy !== undefined && (
-            <div className='mt-1'>
-              <p className='text-black opacity-60 line-clamp-3 overflow-ellipsis'>{copy.description}</p>
-            </div>
-          )}
         </div>
       </div>
 
-      <div className='border-b my-8 border-gray-100' />
+      <div className='border-b my-6 border-gray-100' />
 
       <div>
         <H6InfoCircleHoverPopover
