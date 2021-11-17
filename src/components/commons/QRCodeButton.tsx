@@ -21,17 +21,17 @@ export function QRCodeButton (props: QRCodeButtonProps): JSX.Element {
   return (
     <div className={classNames('relative', props.className)} ref={setRefEle}>
       <button
-        className='cursor-pointer outline-none p-2 bg-gray-100 border border-black border-opacity-60 rounded'
+        className='cursor-pointer outline-none p-2 bg-white border border-gray-200 rounded'
         onClick={() => setOpen(!open)}
       >
         {
-          !open ? <MdQrCode className='h-5 w-5 text-black opacity-60' />
-            : <MdOutlineClose className='h-5 w-5 text-black opacity-60' />
+          !open ? <MdQrCode className='h-5 w-5 text-gray-600' />
+            : <MdOutlineClose className='h-5 w-5 text-gray-600' />
         }
       </button>
       {open && (
         <div ref={setPopperEle} style={styles.popper} {...attributes.popper}>
-          <div className='mt-2 text-xs rounded shadow-md ring-1 ring-gray-100 bg-white p-2'>
+          <div className='mt-2 text-xs rounded shadow-md ring-1 ring-gray-100 bg-white p-2 text-gray-900'>
             <div className='flex flex-wrap justify-center'>
               <QRCode value={props.content} size={128} />
               <div className='mt-3'>

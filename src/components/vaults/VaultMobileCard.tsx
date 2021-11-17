@@ -73,7 +73,7 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
     <div className='w-full mt-2'>
       <VaultDetailsListItem
         title='Loans'
-        testId='VaultIdDetails.Loans'
+        testId='VaultMobileCard.Loans'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')
@@ -81,9 +81,9 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
               : <VaultTokenSymbols tokens={props.vault.loanAmounts} />)}
       </VaultDetailsListItem>
       <VaultDetailsListItem
-        title='Loans Value (USD)'
+        title='Loan Value (USD)'
         infoDesc='Loan token(s) and value (in USD) taken by a vault.'
-        testId='VaultIdDetails.LoansValue'
+        testId='VaultMobileCard.LoansValue'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')
@@ -94,7 +94,7 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
 
       <VaultDetailsListItem
         title='Collateral'
-        testId='VaultIdDetails.Collateral'
+        testId='VaultMobileCard.Collateral'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')
@@ -105,7 +105,7 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       <VaultDetailsListItem
         title='Collateral Value (USD)'
         infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
-        testId='VaultIdDetails.CollateralValue'
+        testId='VaultMobileCard.CollateralValue'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')
@@ -117,7 +117,7 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       <VaultDetailsListItem
         title='Collateralization Ratio'
         infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-        testId='VaultIdDetails.CollateralizationRatio'
+        testId='VaultMobileCard.CollateralizationRatio'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')
@@ -132,7 +132,7 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       <VaultDetailsListItem
         title='Min Collateralization Ratio'
         infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-        testId='VaultIdDetails.MinCollateralizationRatio'
+        testId='VaultMobileCard.MinCollateralizationRatio'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? ('N/A')

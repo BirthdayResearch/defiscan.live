@@ -54,7 +54,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
                 <OverflowTable.Head
                   alignRight
-                  title='Loans Value (USD)'
+                  title='Loan Value (USD)'
                   infoDesc='Loan token(s) and value (in USD) taken by a vault.'
                   testId='VaultsTable.LoansValue'
                 />
