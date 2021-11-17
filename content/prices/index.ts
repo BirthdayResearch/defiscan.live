@@ -379,6 +379,36 @@ export const PRICES: Record<string, PriceCopy> = {
     type: 'ETF',
     available: false
   },
+  'VNQ-USD': {
+    id: 'VNQ-USD',
+    type: 'ETF',
+    available: false
+  },
+  'URTH-USD': {
+    id: 'URTH-USD',
+    type: 'ETF',
+    available: false
+  },
+  'TLT-USD': {
+    id: 'TLT-USD',
+    type: 'ETF',
+    available: false
+  },
+  'SLV-USD': {
+    id: 'SLV-USD',
+    type: 'ETF',
+    available: false
+  },
+  'PDBC-USD': {
+    id: 'PDBC-USD',
+    type: 'ETF',
+    available: false
+  },
+  'GLD-USD': {
+    id: 'GLD-USD',
+    type: 'ETF',
+    available: false
+  },
 
   // Playground
   'CS25-USD': {

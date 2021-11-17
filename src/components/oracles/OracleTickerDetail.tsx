@@ -21,27 +21,22 @@ export function OracleTickerDetail ({
   return (
     <div className='pt-4 pb-12' data-testid='OracleTickerDetail'>
       <div className='flex items-start items-center gap-x-3'>
-        <div className='flex'>
-          {(() => {
-            if (copy !== undefined && copy.type === 'CRYPTO') {
-              const NativeIcon = getNativeIcon(price.price.token)
-              return (<NativeIcon width={48} height={48} />)
-            }
-          })()}
-        </div>
+        {(() => {
+          if (copy !== undefined && copy.type === 'CRYPTO') {
+            const NativeIcon = getNativeIcon(price.price.token)
+            return (<NativeIcon width={48} height={48} />)
+          }
+        })()}
+        <div className='flex items-center'>
+          <h1 className='text-3xl font-bold'>
+            {price.price.token} / {price.price.currency}
+          </h1>
 
-        <div className='ml-2'>
-          <div className='flex items-center'>
-            <h1 className='text-3xl font-bold'>
-              {price.price.token} / {price.price.currency}
-            </h1>
-
-            {copy !== undefined && (
-              <div className='ml-2 bg-gray-200 p-1 rounded self-auto'>
-                <div className='text-xs font-medium'>{copy.type}</div>
-              </div>
-            )}
-          </div>
+          {copy !== undefined && (
+            <div className='ml-2 bg-gray-200 p-1 rounded self-auto'>
+              <div className='text-xs font-medium'>{copy.type}</div>
+            </div>
+          )}
         </div>
       </div>
 
