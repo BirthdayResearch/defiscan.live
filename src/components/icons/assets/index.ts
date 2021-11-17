@@ -12,7 +12,7 @@ import { dLTC } from './dLTC'
 import { dUSDC } from './dUSDC'
 import { dUSDT } from './dUSDT'
 import { dTSLA } from './dTSLA'
-import { dUSD } from './dUSD'
+import { DUSD } from './DUSD'
 import { dAAPL } from './dAAPL'
 import { dAMD } from './dAMD'
 import { dGME } from './dGME'
@@ -67,8 +67,8 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   dBABA: dBABA,
   dGOOG: dGOOG,
   dGOOGL: dGOOG,
-  dDUSD: dUSD,
-  DUSD: dUSD,
+  dDUSD: DUSD,
+  DUSD: DUSD,
   dPLTR: dPLTR,
   dARKK: dARKK,
   dAMZN: dAMZN,
