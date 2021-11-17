@@ -110,15 +110,19 @@ function TotalLoanValueInfoDesc (props: { totalLoanUsdAmount: BigNumber, interes
     <div
       className='px-4 py-3 font-normal text-sm bg-white text-gray-900 rounded-lg border border-gray-100 shadow-md'
     >
-      <div className='text-gray-900 grid grid-cols-2 grid-rows-3'>
-        <span>Total Loan Value (USD)</span>
-        <span className='text-right'>${props.totalLoanUsdAmount.toFixed(8)}</span>
-
-        <span>Loan Value (USD)</span>
-        <span className='text-right'>${props.totalLoanUsdAmount.minus(props.interestUsdAmount).toFixed(8)}</span>
-
-        <span>Accrued Interest Value (USD)</span>
-        <span className='text-right'>${props.interestUsdAmount.toFixed(8)}</span>
+      <div className='text-gray-900 grid grid-rows-3'>
+        <div className='flex'>
+          <span className='w-48'>Total Loan Value (USD)</span>
+          <span className='ml-3 text-right'>${props.totalLoanUsdAmount.toFixed(8)}</span>
+        </div>
+        <div className='flex'>
+          <span className='w-48'>Loan Value (USD)</span>
+          <span className='ml-3 text-right'>${props.totalLoanUsdAmount.minus(props.interestUsdAmount).toFixed(8)}</span>
+        </div>
+        <div className='flex'>
+          <span className='w-48'>Accrued Interest Value (USD)</span>
+          <div className='ml-3 text-right'>${props.interestUsdAmount.toFixed(8)}</div>
+        </div>
       </div>
     </div>
   )
@@ -150,7 +154,10 @@ function VaultLoansTableRow (props: {
           ? ('N/A')
           : (
             <HoverPopover
-              popover={<TotalLoanValueInfoDesc totalLoanUsdAmount={totalLoanUsdAmount} interestUsdAmount={interestUsdAmount} />}
+              popover={<TotalLoanValueInfoDesc
+                totalLoanUsdAmount={totalLoanUsdAmount}
+                interestUsdAmount={interestUsdAmount}
+                       />}
               placement='top-end'
             >
               <ReactNumberFormat
@@ -238,7 +245,10 @@ function VaultLoanDetailsCard (props: {
             ? ('N/A')
             : (
               <HoverPopover
-                popover={<TotalLoanValueInfoDesc totalLoanUsdAmount={totalLoanUsdAmount} interestUsdAmount={interestUsdAmount} />}
+                popover={<TotalLoanValueInfoDesc
+                  totalLoanUsdAmount={totalLoanUsdAmount}
+                  interestUsdAmount={interestUsdAmount}
+                         />}
                 placement='top-end'
               >
                 <ReactNumberFormat
