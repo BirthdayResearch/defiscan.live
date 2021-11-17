@@ -11,7 +11,7 @@ export interface PriceCopy {
   type: 'CRYPTO' | 'FOREX' | 'COMMODITY' | 'STOCKS' | 'ETF'
   /**
    * Icon with at least size of 100x100.png, must be symmetric.
-   * To be placed in /src/cms/prices/images/* directory.
+   * To be placed in /src/cms/oracles/images/* directory.
    * @example you can use https://icons8.com/icons/set/tesla are free because they are copyrighted images
    */
   icon: string

@@ -89,7 +89,7 @@ function FooterSectionSitemap (): JSX.Element {
           <FooterInternalLink pathname='/blocks' text='Blocks' />
         </div>
         <div className='space-x-2 py-2 w-1/2'>
-          <FooterInternalLink pathname='/prices' text='Prices' />
+          <FooterInternalLink pathname='/oracles' text='Oracles' />
         </div>
         <div className='space-x-2 py-2 w-1/2'>
           <FooterInternalLink pathname='/tokens' text='Tokens' />

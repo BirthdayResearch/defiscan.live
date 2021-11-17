@@ -9,7 +9,7 @@ context('<Link/> preserve querystring ?network=TestNet', () => {
     })
   })
 
-  it('should preserve network querystring when route to /prices', function () {
+  it('should preserve network querystring when route to /oracles', function () {
     cy.interceptServerSideWait(() => {
       cy.get('footer')
         .findAllByText('Prices')
@@ -18,7 +18,7 @@ context('<Link/> preserve querystring ?network=TestNet', () => {
     })
 
     cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/prices')
+      expect(loc.pathname).to.eq('/oracles')
       expect(loc.search).to.contains('network=TestNet')
     })
   })

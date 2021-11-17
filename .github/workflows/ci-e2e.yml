@@ -39,7 +39,7 @@ jobs:
           parallel: true
           build: npm run cypress:build
           start: npm run start
-          wait-on: 'http://localhost:3000/prices'
+          wait-on: 'http://localhost:3000/oracles'
           browser: chrome
           spec: cypress/integration/**
           tag: ${{ github.event_name }}

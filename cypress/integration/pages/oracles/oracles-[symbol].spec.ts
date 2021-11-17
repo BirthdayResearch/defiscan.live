@@ -1,6 +1,6 @@
-context('/prices/TSLA-USD macbook-13', () => {
+context('/oracles/TSLA-USD macbook-13', () => {
   before(function () {
-    cy.visit('/prices/TSLA-USD?network=MainNet')
+    cy.visit('/oracles/TSLA-USD?network=MainNet')
   })
 
   beforeEach(() => {
@@ -14,8 +14,8 @@ context('/prices/TSLA-USD macbook-13', () => {
       .should('contain.text', 'Prices')
   })
 
-  it('should have price details in <PriceTickerDetail>', () => {
-    cy.findByTestId('PriceTickerDetail')
+  it('should have price details in <OracleTickerDetail>', () => {
+    cy.findByTestId('OracleTickerDetail')
       .should('contain.text', 'TSLA / USD')
       .should('contain.text', 'STOCKS')
       .should('contain.text', 'Trusted Answer')
@@ -29,9 +29,9 @@ context('/prices/TSLA-USD macbook-13', () => {
     cy.get('main .recharts-responsive-container').should('exist')
   })
 
-  context('should have <PriceOracleTable>', () => {
+  context('should have <OracleTable>', () => {
     it('should have heading', () => {
-      cy.findByTestId('PriceOracleTable')
+      cy.findByTestId('OracleTable')
         .should('contain.text', 'Oracles')
     })
 
@@ -55,9 +55,9 @@ context('/prices/TSLA-USD macbook-13', () => {
   })
 })
 
-context('/prices/TSLA-USD iphone-x', () => {
+context('/oracles/TSLA-USD iphone-x', () => {
   before(function () {
-    cy.visit('/prices/TSLA-USD?network=MainNet')
+    cy.visit('/oracles/TSLA-USD?network=MainNet')
   })
 
   beforeEach(() => {
@@ -71,8 +71,8 @@ context('/prices/TSLA-USD iphone-x', () => {
       .should('contain.text', 'Prices')
   })
 
-  it('should have price details in <PriceTickerDetail>', () => {
-    cy.findByTestId('PriceTickerDetail')
+  it('should have price details in <OracleTickerDetail>', () => {
+    cy.findByTestId('OracleTickerDetail')
       .should('contain.text', 'TSLA / USD')
       .should('contain.text', 'STOCKS')
       .should('contain.text', 'Trusted Answer')
@@ -86,9 +86,9 @@ context('/prices/TSLA-USD iphone-x', () => {
     cy.get('main .recharts-responsive-container').should('exist')
   })
 
-  context('should have <PriceOracleTable>', () => {
+  context('should have <OracleTable>', () => {
     it('should have heading', () => {
-      cy.findByTestId('PriceOracleTable')
+      cy.findByTestId('OracleTable')
         .should('contain.text', 'Oracles')
     })
 

@@ -37,7 +37,7 @@ context('search macbook-13', () => {
   })
 })
 
-context('/prices/TSLA-USD iphone-x', () => {
+context('/oracles/TSLA-USD iphone-x', () => {
   before(function () {
     cy.visit('/?network=MainNet')
   })

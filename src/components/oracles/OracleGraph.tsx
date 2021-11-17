@@ -10,7 +10,7 @@ interface PriceGraphProps {
   price: PriceTicker
 }
 
-export function PriceGraph ({ price: { price: { token, currency } } }: PriceGraphProps): JSX.Element {
+export function OracleGraph ({ price: { price: { token, currency } } }: PriceGraphProps): JSX.Element {
   const api = useWhaleApiClient()
   const [feed, setFeed] = useState<PriceFeed[] | undefined>(undefined)
 

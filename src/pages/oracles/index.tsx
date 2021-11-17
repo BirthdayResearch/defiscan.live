@@ -1,5 +1,5 @@
 import { Head } from '@components/commons/Head'
-import { PriceFeed, PriceFeedProps } from '@components/prices/PriceFeed'
+import { OracleFeed, PriceFeedProps } from '@components/oracles/OracleFeed'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
@@ -7,6 +7,7 @@ import { Container } from '@components/commons/Container'
 import { useState } from 'react'
 import { getPriceCopy, PriceCopy } from '@content/prices'
 import classNames from 'classnames'
+import { Switch } from '@headlessui/react'
 
 interface PricesPageProps {
   prices: {
@@ -32,12 +33,12 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
 
   return (
     <Container className='pt-12 pb-20'>
-      <Head title='Prices' />
+      <Head title='Oracles' />
 
       <div>
         <div className='flex flex-wrap justify-between'>
           <h1 className='text-2xl font-medium'>
-            Price Feeds
+            Oracle Feeds
           </h1>
 
           <div className='flex text-sm mt-8 md:mt-0'>
@@ -53,14 +54,25 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                 </div>
               ))}
             </div>
-            <div className='ml-4' data-testid='FeedFilter.Availability'>
-              <div
-                className={classNames('rounded p-2 border cursor-pointer text-center', availabilitySelection ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300')}
-                onClick={() => setAvailabilitySelection(!availabilitySelection)}
-                data-testid='FeedFilter.Availability.Btn'
-              >
-                Available
-              </div>
+            <div className='ml-4 flex items-center' data-testid='FeedFilter.Availability'>
+              <Switch.Group>
+                <div className='flex items-center'>
+                  <Switch
+                    checked={availabilitySelection}
+                    onChange={setAvailabilitySelection}
+                    className={`${
+                      availabilitySelection ? 'bg-primary-500' : 'bg-gray-200'
+                    } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                  >
+                    <span
+                      className={`${
+              availabilitySelection ? 'translate-x-6' : 'translate-x-1'
+            } inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
+                    />
+                  </Switch>
+                  <Switch.Label className='ml-1'>Only show assets available on DeFiChain</Switch.Label>
+                </div>
+              </Switch.Group>
             </div>
           </div>
         </div>
@@ -75,7 +87,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                 </div>
               ) : (
                 sortedTickers.map(item => (
-                  <PriceFeed price={item.price} copy={item.copy} key={item.price.id} />
+                  <OracleFeed price={item.price} copy={item.copy} key={item.price.id} />
                 ))
               )
             )
