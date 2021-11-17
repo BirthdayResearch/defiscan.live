@@ -175,9 +175,9 @@ function BackingAddress ({ tokenName }: {tokenName: string}): JSX.Element {
             return <AddressLinkExternal url='https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba' text='D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba' testId='BackingAddress.DOGE' />
           case TokensWithBackingAddress.BTC:
             return <AddressLinkExternal url='https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT' text='38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT' testId='BackingAddress.BTC' />
-        case TokensWithBackingAddress.ETH:
-        case TokensWithBackingAddress.USDC:
-        case TokensWithBackingAddress.USDT:
+          case TokensWithBackingAddress.ETH:
+          case TokensWithBackingAddress.USDC:
+          case TokensWithBackingAddress.USDT:
             return <AddressLinkExternal url='https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac' text='0x94fa70d079d76279e1815ce403e9b985bccc82ac' testId='BackingAddress.ETH' />
         }
       })()}
