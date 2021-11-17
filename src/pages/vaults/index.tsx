@@ -15,6 +15,7 @@ import classNames from 'classnames'
 import { Link } from '@components/commons/Link'
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
+import ReactNumberFormat from 'react-number-format'
 
 interface VaultsPageData {
   vaults: {
@@ -70,6 +71,13 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
                   title='Collateralization Ratio'
                   infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
                   testId='VaultsTable.CollateralizationRatio'
+                />
+
+                <OverflowTable.Head
+                  alignRight
+                  title='Min Collateralization Ratio'
+                  infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+                  testId='VaultsTable.MinCollateralizationRatio'
                 />
               </OverflowTable.Header>
 
@@ -151,6 +159,16 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
               loanScheme={props.vault.loanScheme}
               vaultState={props.vault.state}
               testId='VaultRow.CollateralizationRatio'
+             />)}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
+        {props.vault.state === LoanVaultState.IN_LIQUIDATION
+          ? ('N/A')
+          : (<ReactNumberFormat
+              value={props.vault.loanScheme.minColRatio}
+              suffix='%'
+              displayType='text'
+              thousandSeparator
              />)}
       </OverflowTable.Cell>
     </OverflowTable.Row>

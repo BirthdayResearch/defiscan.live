@@ -9,6 +9,7 @@ import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsList
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import React from 'react'
+import ReactNumberFormat from 'react-number-format'
 
 export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -128,7 +129,12 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? ('N/A')
-          : (`${props.vault.loanScheme.minColRatio}%`)}
+          : (<ReactNumberFormat
+              value={props.vault.loanScheme.minColRatio}
+              suffix='%'
+              displayType='text'
+              thousandSeparator
+             />)}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
@@ -210,7 +216,12 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? ('N/A')
-          : (`${props.vault.loanScheme.minColRatio}%`)}
+          : (<ReactNumberFormat
+              value={props.vault.loanScheme.minColRatio}
+              suffix='%'
+              displayType='text'
+              thousandSeparator
+             />)}
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Vault Interest Rate (APR)'
