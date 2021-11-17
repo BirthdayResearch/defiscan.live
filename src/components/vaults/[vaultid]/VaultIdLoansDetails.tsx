@@ -152,10 +152,7 @@ function VaultLoansTableRow (props: {
           ? ('N/A')
           : (
             <HoverPopover
-              popover={<TotalLoanValueInfoDesc
-                totalLoanUsdAmount={totalLoanUsdAmount}
-                interestUsdAmount={interestUsdAmount}
-                       />}
+              popover={<TotalLoanValueInfoDesc totalLoanUsdAmount={totalLoanUsdAmount} interestUsdAmount={interestUsdAmount} />}
               placement='top-end'
             >
               <ReactNumberFormat
@@ -238,15 +235,12 @@ function VaultLoanDetailsCard (props: {
           data-testid='LoanDetailsCard.LoanValueTitle'
         >Total Loan Value (USD)
         </span>
-        <span data-testid='LoanDetailsCard.LoanValue'>
+        <span data-testid='LoanDetailsCard.TotalLoanValue'>
           {totalLoanUsdAmount === undefined || interestUsdAmount === undefined
             ? ('N/A')
             : (
               <HoverPopover
-                popover={<TotalLoanValueInfoDesc
-                  totalLoanUsdAmount={totalLoanUsdAmount}
-                  interestUsdAmount={interestUsdAmount}
-                         />}
+                popover={<TotalLoanValueInfoDesc totalLoanUsdAmount={totalLoanUsdAmount} interestUsdAmount={interestUsdAmount} />}
                 placement='top-end'
               >
                 <ReactNumberFormat
