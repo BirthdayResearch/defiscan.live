@@ -1,6 +1,6 @@
 import { SVGProps } from 'react'
 
-export function dUSD (props: SVGProps<SVGSVGElement>): JSX.Element {
+export function DUSD (props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <svg
       height={32}
