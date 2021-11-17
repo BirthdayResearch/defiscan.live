@@ -1,5 +1,5 @@
 import { JSX } from '@babel/types'
-import { isActive } from '@components/prices/PriceFeed'
+import { isActive } from '@components/oracles/OracleFeed'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format } from 'date-fns'
 import { IoAlertCircleOutline } from 'react-icons/io5'
@@ -13,12 +13,12 @@ interface PriceOracleTableProps {
   oracles: PriceOracle[]
 }
 
-export function PriceOracleTable ({
+export function OracleTable ({
   price,
   oracles
 }: PriceOracleTableProps): JSX.Element {
   return (
-    <div data-testid='PriceOracleTable'>
+    <div data-testid='OracleTable'>
       <h2 className='text-2xl font-semibold'>
         Oracles
       </h2>

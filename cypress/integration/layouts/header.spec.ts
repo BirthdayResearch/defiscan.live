@@ -17,8 +17,8 @@ context('<Header/> on macbook-13', () => {
     cy.findByTestId('Desktop.HeaderLink.Vaults').should('be.visible')
     cy.findByTestId('Desktop.HeaderLink.Vaults').should('have.attr', 'href', '/vaults')
 
-    cy.findByTestId('Desktop.HeaderLink.Prices').should('be.visible')
-    cy.findByTestId('Desktop.HeaderLink.Prices').should('have.attr', 'href', '/prices')
+    cy.findByTestId('Desktop.HeaderLink.Oracles').should('be.visible')
+    cy.findByTestId('Desktop.HeaderLink.Oracles').should('have.attr', 'href', '/oracles')
 
     cy.findByTestId('Desktop.HeaderLink.Tokens').should('be.visible')
     cy.findByTestId('Desktop.HeaderLink.Tokens').should('have.attr', 'href', '/tokens')
@@ -53,8 +53,8 @@ context('<Header/> on iphone-x', () => {
     cy.findByTestId('Mobile.HeaderLink.Vaults').should('be.visible')
     cy.findByTestId('Mobile.HeaderLink.Vaults').should('have.attr', 'href', '/vaults')
 
-    cy.findByTestId('Mobile.HeaderLink.Prices').should('be.visible')
-    cy.findByTestId('Mobile.HeaderLink.Prices').should('have.attr', 'href', '/prices')
+    cy.findByTestId('Mobile.HeaderLink.Oracles').should('be.visible')
+    cy.findByTestId('Mobile.HeaderLink.Oracles').should('have.attr', 'href', '/oracles')
 
     cy.findByTestId('Mobile.HeaderLink.Tokens').should('be.visible')
     cy.findByTestId('Mobile.HeaderLink.Tokens').should('have.attr', 'href', '/tokens')

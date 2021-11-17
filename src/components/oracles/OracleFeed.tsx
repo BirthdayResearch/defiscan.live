@@ -7,23 +7,25 @@ import Image from 'next/image'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
+import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 
-interface PriceFeedProps {
-  price: prices.PriceTicker
+export interface PriceFeedProps {
+  price: PriceTicker
+  copy: PriceCopy | undefined
 }
 
-export function PriceFeed (props: PriceFeedProps): JSX.Element {
+export function OracleFeed (props: PriceFeedProps): JSX.Element {
   const price: prices.PriceFeed = props.price.price
   const id = `${price.token}-${price.currency}`
   const copy: PriceCopy | undefined = getPriceCopy(id)
 
   return (
-    <Link href={{ pathname: `/prices/${id}` }}>
-      <a className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4' data-testid='PriceFeed'>
+    <div className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4' data-testid='OracleFeed'>
+      <Link href={{ pathname: `/oracles/${id}` }}>
         <div className='bg-gray-50 rounded p-6 cursor-pointer'>
           <div className='flex'>
             {copy !== undefined ? (
-              <Image src={copy.icon} width={24} height={24} alt={copy.description} />
+              <Image src={copy.icon} width={24} height={24} />
             ) : (
               <MdShowChart className='h-6 w-6 p-1 bg-gray-300 rounded-full text-gray-900' />
             )}
@@ -73,8 +75,8 @@ export function PriceFeed (props: PriceFeedProps): JSX.Element {
             </button>
           </div>
         </div>
-      </a>
-    </Link>
+      </Link>
+    </div>
   )
 }
 

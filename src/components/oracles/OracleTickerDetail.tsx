@@ -1,5 +1,5 @@
 import { JSX } from '@babel/types'
-import { isActive } from '@components/prices/PriceFeed'
+import { isActive } from '@components/oracles/OracleFeed'
 import { getPriceCopy, PriceCopy } from '@content/prices'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format, formatDistanceToNow } from 'date-fns'
@@ -13,15 +13,18 @@ interface PriceTickerDetailProps {
   oracles: PriceOracle[]
 }
 
-export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): JSX.Element {
+export function OracleTickerDetail ({
+  price,
+  oracles
+}: PriceTickerDetailProps): JSX.Element {
   const copy: PriceCopy | undefined = getPriceCopy(price.id)
 
   return (
-    <div className='pt-4 pb-12' data-testid='PriceTickerDetail'>
-      <div className='flex items-start'>
-        <div className='flex-shrink-0'>
+    <div className='pt-4 pb-12' data-testid='OracleTickerDetail'>
+      <div className='flex items-start items-center'>
+        <div className='flex flex-shrink-0'>
           {copy !== undefined ? (
-            <Image src={copy.icon} width={48} height={48} alt={copy.description} />
+            <Image src={copy.icon} width={48} height={48} />
           ) : (
             <MdShowChart className='h-12 w-12 p-1 bg-gray-300 rounded-full text-gray-900' />
           )}
@@ -39,15 +42,10 @@ export function PriceTickerDetail ({ price, oracles }: PriceTickerDetailProps): 
               </div>
             )}
           </div>
-          {copy !== undefined && (
-            <div className='mt-1'>
-              <p className='text-black opacity-60 line-clamp-3 overflow-ellipsis'>{copy.description}</p>
-            </div>
-          )}
         </div>
       </div>
 
-      <div className='border-b my-8 border-gray-100' />
+      <div className='border-b my-6 border-gray-100' />
 
       <div>
         <H6InfoCircleHoverPopover
