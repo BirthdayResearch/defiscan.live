@@ -97,6 +97,9 @@ context('/vaults/[vaultid] on desktop', function () {
       cy.findByTestId('VaultLoansDesktop.TotalLoanValue').should('be.visible').should('have.text', 'Total Loan Value (USD)')
       cy.findByTestId('VaultLoansDesktop.LoanAmount').should('be.visible').should('have.text', 'Loan Amount')
       cy.findByTestId('VaultLoansDesktop.AccruedInterest').should('be.visible').should('have.text', 'Accrued Interest')
+      cy.findByTestId('VaultLoansDesktop.AccruedInterest').within(() => {
+        cy.findByTestId('InfoHoverPopover').should('be.visible')
+      })
       cy.findByTestId('VaultLoansDesktop.TotalInterestRate').should('be.visible').should('have.text', 'Total Interest Rate (APR)')
       cy.findByTestId('VaultLoansDesktop.TotalInterestRate').within(() => {
         cy.findByTestId('InfoHoverPopover').should('be.visible')
