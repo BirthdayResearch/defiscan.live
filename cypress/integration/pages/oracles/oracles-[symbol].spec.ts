@@ -11,7 +11,7 @@ context('/oracles/TSLA-USD macbook-13', () => {
     cy.findByTestId('Breadcrumb')
       .should('have.length', 1)
       .should('contain.text', 'Scan')
-      .should('contain.text', 'Prices')
+      .should('contain.text', 'Oracles')
   })
 
   it('should have price details in <OracleTickerDetail>', () => {
@@ -68,7 +68,7 @@ context('/oracles/TSLA-USD iphone-x', () => {
     cy.findByTestId('Breadcrumb')
       .should('have.length', 1)
       .should('contain.text', 'Scan')
-      .should('contain.text', 'Prices')
+      .should('contain.text', 'Oracles')
   })
 
   it('should have price details in <OracleTickerDetail>', () => {
