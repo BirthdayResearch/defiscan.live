@@ -3,10 +3,9 @@ import { isActive } from '@components/oracles/OracleFeed'
 import { getPriceCopy, PriceCopy } from '@content/prices'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format, formatDistanceToNow } from 'date-fns'
-import Image from 'next/image'
-import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { getNativeIcon } from '@components/icons/assets'
 
 interface PriceTickerDetailProps {
   price: PriceTicker
@@ -21,27 +20,23 @@ export function OracleTickerDetail ({
 
   return (
     <div className='pt-4 pb-12' data-testid='OracleTickerDetail'>
-      <div className='flex items-start items-center'>
-        <div className='flex flex-shrink-0'>
-          {copy !== undefined ? (
-            <Image src={copy.icon} width={48} height={48} alt='Price Ticker Image' />
-          ) : (
-            <MdShowChart className='h-12 w-12 p-1 bg-gray-300 rounded-full text-gray-900' />
+      <div className='flex items-start items-center gap-x-3'>
+        {(() => {
+          if (copy !== undefined && copy.type === 'CRYPTO') {
+            const NativeIcon = getNativeIcon(price.price.token)
+            return (<NativeIcon width={48} height={48} />)
+          }
+        })()}
+        <div className='flex items-center'>
+          <h1 className='text-3xl font-bold'>
+            {price.price.token} / {price.price.currency}
+          </h1>
+
+          {copy !== undefined && (
+            <div className='ml-2 bg-gray-200 p-1 rounded self-auto'>
+              <div className='text-xs font-medium'>{copy.type}</div>
+            </div>
           )}
-        </div>
-
-        <div className='ml-2'>
-          <div className='flex items-center'>
-            <h1 className='text-3xl font-bold'>
-              {price.price.token} / {price.price.currency}
-            </h1>
-
-            {copy !== undefined && (
-              <div className='ml-2 bg-gray-200 p-1 rounded self-auto'>
-                <div className='text-xs font-medium'>{copy.type}</div>
-              </div>
-            )}
-          </div>
         </div>
       </div>
 

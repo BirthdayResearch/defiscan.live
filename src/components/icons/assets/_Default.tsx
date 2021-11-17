@@ -16,7 +16,7 @@ export function _Default (symbol: string): (props: SVGProps<SVGSVGElement>) => J
         <text
           dominantBaseline='central'
           fill={text}
-          fontSize='16'
+          fontSize={16}
           fontWeight='bolder'
           textAnchor='middle'
           x='50%'
