@@ -24,7 +24,7 @@ export function OracleTickerDetail ({
       <div className='flex items-start items-center'>
         <div className='flex flex-shrink-0'>
           {copy !== undefined ? (
-            <Image src={copy.icon} width={48} height={48} />
+            <Image src={copy.icon} width={48} height={48} alt='Price Ticker Image' />
           ) : (
             <MdShowChart className='h-12 w-12 p-1 bg-gray-300 rounded-full text-gray-900' />
           )}
