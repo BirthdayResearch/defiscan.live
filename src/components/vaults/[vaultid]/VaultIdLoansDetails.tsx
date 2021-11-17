@@ -10,6 +10,7 @@ import { Transition } from '@headlessui/react'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import { LoanTotalInterestRate } from '@components/vaults/[vaultid]/LoanTotalInterestRate'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
+import ReactNumberFormat from 'react-number-format'
 
 interface VaultIdLoansDetailsProps {
   vault: {
@@ -129,7 +130,13 @@ function VaultLoansTableRow (props: {
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
+        <ReactNumberFormat
+          value={new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
+          displayType='text'
+          decimalScale={8}
+          fixedDecimalScale
+          thousandSeparator
+        />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         {interestUsdAmount == null
@@ -210,7 +217,13 @@ function VaultLoanDetailsCard (props: {
             testId='LoanDetailsCard.LoanAmount'
             titleClassNames='text-sm'
           >
-            {new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
+            <ReactNumberFormat
+              value={new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
+              displayType='text'
+              decimalScale={8}
+              fixedDecimalScale
+              thousandSeparator
+            />
           </VaultDetailsListItem>
 
           <VaultDetailsListItem

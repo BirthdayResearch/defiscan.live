@@ -6,6 +6,7 @@ import BigNumber from 'bignumber.js'
 import React from 'react'
 import classNames from 'classnames'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
+import ReactNumberFormat from 'react-number-format'
 
 export function VaultIdCollateralDetails (props: { collateralValue: string, vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
@@ -94,7 +95,14 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
           className={classNames('flex items-center gap-x-1', props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
           data-testid='CollateralCard.CollateralAmount'
         >
-          {`${new BigNumber(props.col.amount).toFixed(8)} ${props.col.displaySymbol}`}
+          <ReactNumberFormat
+            value={new BigNumber(props.col.amount).toFixed(8)}
+            displayType='text'
+            suffix={` ${props.col.displaySymbol}`}
+            decimalScale={8}
+            fixedDecimalScale
+            thousandSeparator
+          />
           <div className='text-sm text-gray-500'>
             {(usdAmount != null) &&
             (
