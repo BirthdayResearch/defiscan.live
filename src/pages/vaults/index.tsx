@@ -28,13 +28,6 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
     <Container className='pt-12 pb-20'>
       <Head title='Vaults' />
 
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-orange-100 rounded p-3 text-center'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/vaults. Some features are not
-          available and may not work as expected.
-        </div>
-      </div>
-
       <h1 className='text-2xl font-medium'>Vaults</h1>
 
       <div className='my-6 hidden md:block'>
