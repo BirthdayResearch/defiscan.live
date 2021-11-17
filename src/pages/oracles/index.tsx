@@ -41,8 +41,8 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
             Oracle Feeds
           </h1>
 
-          <div className='flex text-sm mt-8 md:mt-0'>
-            <div className='flex flex-wrap gap-2' data-testid='FeedFilter.Types'>
+          <div className='flex flex-wrap text-sm mt-8 lg:mt-0 gap-4'>
+            <div className='flex w-full lg:w-auto flex-wrap gap-2' data-testid='FeedFilter.Types'>
               {types.map(type => (
                 <div
                   className={classNames('rounded p-2 border cursor-pointer', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300 text-gray-900')}
@@ -54,7 +54,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                 </div>
               ))}
             </div>
-            <div className='ml-4 flex items-center' data-testid='FeedFilter.Availability'>
+            <div className='flex w-full lg:w-auto items-center' data-testid='FeedFilter.Availability'>
               <Switch.Group>
                 <div className='flex items-center'>
                   <Switch
