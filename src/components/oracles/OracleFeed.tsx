@@ -3,11 +3,10 @@ import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { getPriceCopy, PriceCopy } from '@content/prices'
 import { prices } from '@defichain/whale-api-client'
 import { format } from 'date-fns'
-import Image from 'next/image'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
-import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
+import { getAssetIcon } from '@components/icons/assets'
 
 export interface PriceFeedProps {
   price: PriceTicker
@@ -24,12 +23,13 @@ export function OracleFeed (props: PriceFeedProps): JSX.Element {
       <Link href={{ pathname: `/oracles/${id}` }}>
         <div className='bg-gray-50 rounded p-6 cursor-pointer'>
           <div className='flex'>
-            {copy !== undefined ? (
-              <Image src={copy.icon} width={24} height={24} />
-            ) : (
-              <MdShowChart className='h-6 w-6 p-1 bg-gray-300 rounded-full text-gray-900' />
-            )}
-            <h4 className='ml-2'>
+            {(() => {
+              if (copy !== undefined && copy.type === 'CRYPTO') {
+                const NativeIcon = getAssetIcon(price.token)
+                return (<NativeIcon className='h-6 w-6 mr-2' />)
+              }
+            })()}
+            <h4>
               {price.token} / {price.currency}
             </h4>
           </div>

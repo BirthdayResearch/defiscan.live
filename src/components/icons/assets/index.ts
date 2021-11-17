@@ -54,6 +54,7 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   dGME: dGME,
   dBABA: dBABA,
   dGOOG: dGOOG,
+  dGOOGL: dGOOG,
   dDUSD: dUSD,
   DUSD: dUSD,
   dPLTR: dPLTR,

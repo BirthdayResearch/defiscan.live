@@ -3,10 +3,9 @@ import { isActive } from '@components/oracles/OracleFeed'
 import { getPriceCopy, PriceCopy } from '@content/prices'
 import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format, formatDistanceToNow } from 'date-fns'
-import Image from 'next/image'
-import { MdShowChart } from 'react-icons/md'
 import NumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { getAssetIcon } from '@components/icons/assets'
 
 interface PriceTickerDetailProps {
   price: PriceTicker
@@ -23,11 +22,12 @@ export function OracleTickerDetail ({
     <div className='pt-4 pb-12' data-testid='OracleTickerDetail'>
       <div className='flex items-start items-center'>
         <div className='flex flex-shrink-0'>
-          {copy !== undefined ? (
-            <Image src={copy.icon} width={48} height={48} alt='Price Ticker Image' />
-          ) : (
-            <MdShowChart className='h-12 w-12 p-1 bg-gray-300 rounded-full text-gray-900' />
-          )}
+          {(() => {
+            if (copy !== undefined && copy.type === 'CRYPTO') {
+              const NativeIcon = getAssetIcon(price.price.token)
+              return (<NativeIcon className='h-12 w-12 mr-3' />)
+            }
+          })()}
         </div>
 
         <div className='ml-2'>
