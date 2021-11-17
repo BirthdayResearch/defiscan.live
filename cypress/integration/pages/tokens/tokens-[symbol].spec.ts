@@ -36,6 +36,7 @@ context('/tokens/1 (Ether) Desktop', () => {
       cy.wrap(ele).should('contain.text', 'Finalized')
       cy.wrap(ele).should('contain.text', 'Destruction Height')
       cy.wrap(ele).should('contain.text', 'Destruction TX')
+      cy.wrap(ele).should('contain.text', 'Backing Address')
     })
   })
 })
@@ -79,6 +80,8 @@ context('/tokens/1 (Ether) Mobile', () => {
       cy.wrap(ele).should('contain.text', 'Finalized')
       cy.wrap(ele).should('contain.text', 'Destruction Height')
       cy.wrap(ele).should('contain.text', 'Destruction TX')
+      cy.wrap(ele).should('contain.text', 'Backing Address')
+
     })
   })
 })
