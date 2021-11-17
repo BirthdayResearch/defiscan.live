@@ -81,7 +81,7 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
               : <VaultTokenSymbols tokens={props.vault.loanAmounts} />)}
       </VaultDetailsListItem>
       <VaultDetailsListItem
-        title='Loans Value (USD)'
+        title='Loan Value (USD)'
         infoDesc='Loan token(s) and value (in USD) taken by a vault.'
         testId='VaultIdDetails.LoansValue'
       >

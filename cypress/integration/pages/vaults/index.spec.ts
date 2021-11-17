@@ -13,7 +13,7 @@ context('/vaults', () => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
 
-    cy.findByTestId('VaultsTable.LoansValue').should('be.visible').should('have.text', 'Loans Value (USD)')
+    cy.findByTestId('VaultsTable.LoansValue').should('be.visible').should('have.text', 'Loan Value (USD)')
     cy.findByTestId('VaultsTable.LoansValue').within(() => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
@@ -52,7 +52,7 @@ context('/vaults on mobile', () => {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Vault ID').should('not.be.visible')
       cy.wrap(ele).findByText('Status').should('not.be.visible')
-      cy.wrap(ele).findByText('Loans Value (USD)').should('not.be.visible')
+      cy.wrap(ele).findByText('Loan Value (USD)').should('not.be.visible')
       cy.wrap(ele).findByText('Collateral Value (USD)').should('not.be.visible')
       cy.wrap(ele).findByText('Collateralization Ratio').should('not.be.visible')
       cy.wrap(ele).findByText('Min Collateralization Ratio').should('not.be.visible')
