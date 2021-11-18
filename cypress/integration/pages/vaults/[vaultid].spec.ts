@@ -57,9 +57,9 @@ context('/vaults/[vaultid] on desktop', function () {
       })
     })
 
-    it('should have 7 cells in each row', function () {
+    it('should have 6 cells in each row', function () {
       cy.findAllByTestId('OverflowTable.Row').within(() => {
-        cy.findAllByTestId('OverflowTable.Cell').should('have.length', 7).should('be.visible')
+        cy.findAllByTestId('OverflowTable.Cell').should('have.length', 6).should('be.visible')
       })
     })
   })
@@ -97,10 +97,10 @@ context('/vaults/[vaultid] on desktop', function () {
       })
     })
 
-    it('should have 5 cells in each row', function () {
+    it('should have 4 cells in each row', function () {
       cy.findByTestId('VaultLoansDesktop').within(() => {
         cy.findByTestId('OverflowTable.Row').within(() => {
-          cy.findAllByTestId('OverflowTable.Cell').should('have.length', 5).should('be.visible')
+          cy.findAllByTestId('OverflowTable.Cell').should('have.length', 4).should('be.visible')
         })
       })
     })
