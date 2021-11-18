@@ -7,7 +7,6 @@ context('/transactions/[txid] - DfTx Set Loan Token on Desktop', () => {
     cy.viewport('macbook-16')
   })
 
-
   it('should have heading', () => {
     cy.findByTestId('DfTxHeader.Title').contains('DeFi Transaction')
   })
@@ -16,23 +15,23 @@ context('/transactions/[txid] - DfTx Set Loan Token on Desktop', () => {
     cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Set Loan Token')
   })
 
-  it('should have DfTxSetLoanToken Token Symbol',  () => {
+  it('should have DfTxSetLoanToken Token Symbol', () => {
     cy.findByTestId('DfTxSetLoanToken.TokenSymbol').should('have.text', 'DUSD')
   })
 
-  it('should have DfTxSetLoanToken Token Name',  () => {
+  it('should have DfTxSetLoanToken Token Name', () => {
     cy.findByTestId('DfTxSetLoanToken.TokenName').should('have.text', 'Decentralized USD')
   })
 
-  it('should have DfTxSetLoanToken currency pair',  () => {
+  it('should have DfTxSetLoanToken currency pair', () => {
     cy.findByTestId('DfTxSetLoanToken.CurrencyPair').should('have.text', 'DUSD-USD')
   })
 
-  it('should have DfTxSetLoanToken Mintable',  () => {
-   cy.findByTestId('DfTxSetLoanToken.Mintable').should('have.text', 'Yes')
+  it('should have DfTxSetLoanToken Mintable', () => {
+    cy.findByTestId('DfTxSetLoanToken.Mintable').should('have.text', 'Yes')
   })
 
-  it('should have DfTxSetLoanToken Interest',  () => {
+  it('should have DfTxSetLoanToken Interest', () => {
     cy.findByTestId('DfTxSetLoanToken.Interest').should('have.text', '0.00000000')
   })
 })
@@ -46,7 +45,6 @@ context('/transactions/[txid] - DfTx Set Loan Token on Mobile', () => {
     cy.viewport('iphone-x')
   })
 
-
   it('should have heading', () => {
     cy.findByTestId('DfTxHeader.Title').contains('DeFi Transaction')
   })
@@ -55,23 +53,23 @@ context('/transactions/[txid] - DfTx Set Loan Token on Mobile', () => {
     cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Set Loan Token')
   })
 
-  it('should have DfTxSetLoanToken Token Symbol',  () => {
+  it('should have DfTxSetLoanToken Token Symbol', () => {
     cy.findByTestId('DfTxSetLoanToken.TokenSymbol').should('have.text', 'DUSD')
   })
 
-  it('should have DfTxSetLoanToken Token Name',  () => {
+  it('should have DfTxSetLoanToken Token Name', () => {
     cy.findByTestId('DfTxSetLoanToken.TokenName').should('have.text', 'Decentralized USD')
   })
 
-  it('should have DfTxSetLoanToken currency pair',  () => {
+  it('should have DfTxSetLoanToken currency pair', () => {
     cy.findByTestId('DfTxSetLoanToken.CurrencyPair').should('have.text', 'DUSD-USD')
   })
 
-  it('should have DfTxSetLoanToken Mintable',  () => {
+  it('should have DfTxSetLoanToken Mintable', () => {
     cy.findByTestId('DfTxSetLoanToken.Mintable').should('have.text', 'Yes')
   })
 
-  it('should have DfTxSetLoanToken Interest',  () => {
+  it('should have DfTxSetLoanToken Interest', () => {
     cy.findByTestId('DfTxSetLoanToken.Interest').should('have.text', '0.00000000')
   })
 })
