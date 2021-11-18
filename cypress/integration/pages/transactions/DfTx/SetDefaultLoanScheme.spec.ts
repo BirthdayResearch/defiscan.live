@@ -1,4 +1,4 @@
-context('/transaction/[txid] - DfTx Set Default Loan Scheme on desktop', () => {
+context('/transaction/[txid] - DfTx Set Default Loan Scheme on Desktop', () => {
   before(() => {
     cy.visit('/transactions/edbe2c3e57115dd9ff6cfabc37c31c6c9506c4e01ea273ec05bbbe0885f0b1b9')
   })
@@ -20,7 +20,7 @@ context('/transaction/[txid] - DfTx Set Default Loan Scheme on desktop', () => {
   })
 })
 
-context('/transaction/[txid] - DfTx Set Default Loan Scheme on mobile', () => {
+context('/transaction/[txid] - DfTx Set Default Loan Scheme on Mobile', () => {
   before(() => {
     cy.visit('/transactions/edbe2c3e57115dd9ff6cfabc37c31c6c9506c4e01ea273ec05bbbe0885f0b1b9')
   })
