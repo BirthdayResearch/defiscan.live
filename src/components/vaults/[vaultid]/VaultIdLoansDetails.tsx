@@ -39,10 +39,6 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
                   <OverflowTable.Head title='Loan Value (USD)' testId='VaultLoansDesktop.LoanValue' alignRight />
                   <OverflowTable.Head title='Loan Amount' testId='VaultLoansDesktop.LoanAmount' alignRight />
                   <OverflowTable.Head
-                    title='Accumulated Interest (USD)' testId='VaultLoansDesktop.AccumulatedInterest'
-                    alignRight
-                  />
-                  <OverflowTable.Head
                     title='Total Interest Rate (APR)'
                     infoDesc='Total annual interest rate = Vault Interest Rate + Token Interest Rate.'
                     testId='VaultLoansDesktop.TotalInterestRate'
@@ -126,24 +122,17 @@ function VaultLoansTableRow (props: {
         {loanUsdAmount === undefined || interestUsdAmount === undefined
           ? ('N/A')
           : (
-            <VaultNumberValues value={loanUsdAmount.minus(interestUsdAmount)} prefix='$' />
+            <VaultNumberValues value={loanUsdAmount} prefix='$' />
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <ReactNumberFormat
-          value={new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
+          value={new BigNumber(props.loan.amount).toFixed(8)}
           displayType='text'
           decimalScale={8}
           fixedDecimalScale
           thousandSeparator
         />
-      </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        {interestUsdAmount == null
-          ? ('N/A')
-          : (
-            <VaultNumberValues value={interestUsdAmount} prefix='$' />
-            )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className='flex justify-end'>
@@ -196,7 +185,7 @@ function VaultLoanDetailsCard (props: {
           {loanUsdAmount === undefined || interestUsdAmount === undefined
             ? ('N/A')
             : (
-              <VaultNumberValues value={loanUsdAmount.minus(interestUsdAmount)} prefix='$' />
+              <VaultNumberValues value={loanUsdAmount} prefix='$' />
               )}
         </span>
       </div>
@@ -218,24 +207,12 @@ function VaultLoanDetailsCard (props: {
             titleClassNames='text-sm'
           >
             <ReactNumberFormat
-              value={new BigNumber(props.loan.amount).minus(props.interest.amount).toFixed(8)}
+              value={new BigNumber(props.loan.amount).toFixed(8)}
               displayType='text'
               decimalScale={8}
               fixedDecimalScale
               thousandSeparator
             />
-          </VaultDetailsListItem>
-
-          <VaultDetailsListItem
-            title='Accumulated Interest (USD)'
-            testId='LoanDetailsCard.AccumulatedInterest'
-            titleClassNames='text-sm'
-          >
-            {interestUsdAmount == null
-              ? ('N/A')
-              : (
-                <VaultNumberValues value={interestUsdAmount} prefix='$' />
-                )}
           </VaultDetailsListItem>
 
           <VaultDetailsListItem
