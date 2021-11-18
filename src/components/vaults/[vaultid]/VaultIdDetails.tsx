@@ -34,13 +34,6 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
 
             <OverflowTable.Head
               alignRight
-              title='Accumulated Interest (USD)'
-              infoDesc='Total interest incurred to date'
-              testId='VaultDetailsDesktop.AccumulatedInterest'
-            />
-
-            <OverflowTable.Head
-              alignRight
               title='Total Collateral Value (USD)'
               infoDesc='Total value of tokens (in USD) deposited as collaterals in the vault.'
               testId='VaultDetailsDesktop.TotalCollateralValue'
@@ -98,16 +91,9 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
           ? ('N/A')
           : (
             <VaultNumberValues
-              value={new BigNumber(props.vault.loanValue).minus(props.vault.interestValue)}
+              value={new BigNumber(props.vault.loanValue)}
               prefix='$'
             />
-            )}
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? ('N/A')
-          : (
-            <VaultNumberValues value={new BigNumber(props.vault.interestValue)} prefix='$' />
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
@@ -169,20 +155,9 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
           ? 'N/A'
           : (
             <VaultNumberValues
-              value={new BigNumber(props.vault.loanValue).minus(props.vault.interestValue)}
+              value={new BigNumber(props.vault.loanValue)}
               prefix='$'
             />
-            )}
-      </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Accumulated Interest (USD)'
-        infoDesc='Total interest incurred to date'
-        testId='VaultDetailList.AccumulatedInterest'
-      >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? 'N/A'
-          : (
-            <VaultNumberValues value={new BigNumber(props.vault.interestValue)} prefix='$' />
             )}
       </VaultDetailsListItem>
       <VaultDetailsListItem
