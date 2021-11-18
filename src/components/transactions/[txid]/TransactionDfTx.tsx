@@ -29,6 +29,7 @@ import {
   CSetDefaultLoanScheme,
   CSetCollateralToken,
   CCreateVault,
+  CUpdateVault,
   DfTx
 } from '@defichain/jellyfish-transaction'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
@@ -63,6 +64,7 @@ import { DfTxSetLoanScheme } from '@components/transactions/[txid]/DfTx/DfTxSetL
 import { DfTxSetCollateralToken } from '@components/transactions/[txid]/DfTx/DfTxSetCollateralToken'
 import { DfTxSetLoanToken } from '@components/transactions/[txid]/DfTx/DfTxSetLoanToken'
 import { DfTxCreateVault } from '@components/transactions/[txid]/DfTx/DfTxCreateVault'
+import { DfTxUpdateVault } from '@components/transactions/[txid]/DfTx/DfTxUpdateVault'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -138,6 +140,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxSetLoanToken dftx={props.dftx} />
     case CCreateVault.OP_CODE:
       return <DfTxCreateVault dftx={props.dftx} />
+    case CUpdateVault.OP_CODE:
+      return <DfTxUpdateVault dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
