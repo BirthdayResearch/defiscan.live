@@ -18,10 +18,10 @@ export function DfTxCreateVault (props: DfTxCreateVaultProps): JSX.Element {
       <DfTxHeader name='Create Vault' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name={'Owner\'s Address'} testId='DfTxCreateVault.OwnersAddress'>
+          <AdaptiveList.Row name={'Owner\'s Address'}>
             {(() => {
               if (ownerAddress != null) {
-                return <AddressLink address={ownerAddress.address} />
+                return <AddressLink address={ownerAddress.address} testId='DfTxCreateVault.OwnersAddress' className='break-all' />
               }
               return 'N/A'
             })()}
