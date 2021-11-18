@@ -1,4 +1,4 @@
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import { getPriceCopy, PriceCopy } from '@content/prices'
 import { prices } from '@defichain/whale-api-client'

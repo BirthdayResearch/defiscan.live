@@ -1,4 +1,4 @@
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import classNames from 'classnames'
 import { useRouter } from 'next/router'

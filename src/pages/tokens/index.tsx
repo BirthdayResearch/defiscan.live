@@ -1,7 +1,7 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { Head } from '@components/commons/Head'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { tokens } from '@defichain/whale-api-client'

@@ -4,7 +4,7 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useEffect, useState } from 'react'
 import { CgSpinner } from 'react-icons/cg'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 
 interface AddressTokenTableProps {
   address: string

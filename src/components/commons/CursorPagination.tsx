@@ -1,4 +1,4 @@
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import { ApiPagedResponse } from '@defichain/whale-api-client'
 import { last, takeRight } from 'lodash'
 import { GetServerSidePropsContext } from 'next'

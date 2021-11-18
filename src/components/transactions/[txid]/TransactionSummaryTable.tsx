@@ -2,7 +2,7 @@ import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-a
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
 import { JSX } from '@babel/types'

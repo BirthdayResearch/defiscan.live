@@ -3,7 +3,7 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import BigNumber from 'bignumber.js'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
-import { TxIdLink } from '@components/commons/TxIdLink'
+import { TxIdLink } from '@components/commons/link/TxIdLink'
 
 interface DfTxTokenUpdateAnyProps {
   dftx: DfTx<TokenUpdateAny>

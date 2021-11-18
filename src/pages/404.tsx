@@ -1,7 +1,7 @@
 import { Head } from '@components/commons/Head'
 import { Container } from '@components/commons/Container'
 import { BiErrorCircle } from 'react-icons/bi'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 
 export default function NotFound (): JSX.Element {
   return (

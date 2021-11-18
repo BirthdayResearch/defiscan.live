@@ -1,7 +1,7 @@
 import { DfTx, CreateMasternode } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface DfTxCreateMasternodeProps {
   dftx: DfTx<CreateMasternode>

@@ -1,4 +1,4 @@
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import classnames from 'classnames'
 import { PropsWithChildren } from 'react'
 
@@ -9,6 +9,10 @@ interface AddressLinkProps {
 }
 
 export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.Element {
+  if (props.address === undefined || props.address.length === 0) {
+    return <></>
+  }
+
   return (
     <div
       data-testid={props.testId}

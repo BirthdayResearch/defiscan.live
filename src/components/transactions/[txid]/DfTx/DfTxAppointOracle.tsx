@@ -5,7 +5,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { AddressLink } from '@components/commons/AddressLink'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface DfTxAppointOracleProps {
   dftx: DfTx<AppointOracle>

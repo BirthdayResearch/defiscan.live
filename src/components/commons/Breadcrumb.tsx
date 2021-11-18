@@ -1,5 +1,5 @@
 import { Head } from '@components/commons/Head'
-import { Link } from '@components/commons/Link'
+import { Link } from '@components/commons/link/Link'
 import { MdChevronRight } from 'react-icons/md'
 import { jsonLdScriptProps } from 'react-schemaorg'
 import { BreadcrumbList } from 'schema-dts'
