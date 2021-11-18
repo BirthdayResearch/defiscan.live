@@ -11,6 +11,7 @@ import { HeaderNetworkMenu } from './HeaderNetworkMenu'
 
 export function Header (): JSX.Element {
   const [menu, setMenu] = useState(false)
+  const [atTop, setAtTop] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
@@ -22,8 +23,19 @@ export function Header (): JSX.Element {
     return () => router.events.off('routeChangeStart', routeChangeStart)
   }, [])
 
+  useEffect(() => {
+    function scrollHandler (): void {
+      window.pageYOffset > 30 ? setAtTop(false) : setAtTop(true)
+    }
+
+    window.addEventListener('scroll', scrollHandler)
+    return () => {
+      window.removeEventListener('scroll', scrollHandler)
+    }
+  }, [])
+
   return (
-    <header className='bg-white shadow-lg md:shadow-none sticky top-0 md:static'>
+    <header className={classNames('bg-white z-50 sticky top-0 md:shadow-none md:static', { 'shadow-lg': !atTop })}>
       <div className='hidden md:block border-b border-gray-100 bg-primary-700'>
         <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
