@@ -3,7 +3,6 @@ context('/transaction/[txid] - DfTx Set Default Loan Scheme on desktop', () => {
     cy.visit('/transactions/edbe2c3e57115dd9ff6cfabc37c31c6c9506c4e01ea273ec05bbbe0885f0b1b9')
   })
 
-
   beforeEach(() => {
     cy.viewport('macbook-16')
   })
@@ -21,12 +20,10 @@ context('/transaction/[txid] - DfTx Set Default Loan Scheme on desktop', () => {
   })
 })
 
-
 context('/transaction/[txid] - DfTx Set Default Loan Scheme on mobile', () => {
   before(() => {
     cy.visit('/transactions/edbe2c3e57115dd9ff6cfabc37c31c6c9506c4e01ea273ec05bbbe0885f0b1b9')
   })
-
 
   beforeEach(() => {
     cy.viewport('iphone-x')
@@ -44,4 +41,3 @@ context('/transaction/[txid] - DfTx Set Default Loan Scheme on mobile', () => {
     cy.findByTestId('DfTxSetDefaultLoanScheme.Identifier').should('have.text', 'MIN200')
   })
 })
-
