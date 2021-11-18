@@ -1,7 +1,7 @@
 import { DfTx, SetCollateralToken } from '@defichain/jellyfish-transaction'
+import { Link } from '@components/commons/Link'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { Link } from '@components/commons/Link'
 
 interface DfTxSetCollateralTokenProps {
   dftx: DfTx<SetCollateralToken>
