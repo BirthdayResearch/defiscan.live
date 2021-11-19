@@ -200,7 +200,7 @@ function VaultLoanDetailsCard (props: {
         className='w-full'
         show={isOpen}
       >
-        <div className='w-full mt-2 flex flex-col gap-y-1'>
+        <div className='w-full mt-2 flex flex-col'>
           <VaultDetailsListItem
             title='Loan Amount'
             testId='LoanDetailsCard.LoanAmount'

@@ -52,7 +52,7 @@ function Stats (): JSX.Element {
   return (
     <div className='w-full bg-orange-50 py-3'>
       <Container>
-        <div className='flex flex-wrap gap-x-8 gap-y-1'>
+        <div className='grid gap-y-1 grid-cols-1 md:grid-cols-2 xl:grid-cols-none xl:grid-flow-col-dense'>
           <StatItem label='Price:' testId='StatItem.priceUsdt'>
             <ReactNumberFormat
               displayType='text'

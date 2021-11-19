@@ -81,7 +81,7 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
   }
 
   return (
-    <ul className={classNames(props.className, 'flex flex-wrap gap-x-6 overflow-hidden')}>
+    <ul className={classNames(props.className, 'flex flex-wrap space-x-6 overflow-hidden')}>
       <HeaderCount text='Blocks' count={count.blocks} />
       <HeaderCount text='Tokens' count={count.tokens} />
       <HeaderCount text='Masternodes' count={count.masternodes} />

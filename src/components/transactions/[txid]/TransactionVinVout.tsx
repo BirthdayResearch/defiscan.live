@@ -21,7 +21,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
       <h1 className='font-medium text-2xl mt-6' data-testid='details-subtitle'>Details</h1>
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <div className='w-full lg:w-1/2'>
-          <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsLeft.List'>
+          <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
             {props.vins.map((vin) => {
               const decoded = vin.vout !== undefined ? fromScriptHex(vin.vout.script?.hex, network) : undefined
               const address = decoded?.address ?? 'N/A'
@@ -58,7 +58,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
         </div>
 
         <div className='w-full lg:w-1/2'>
-          <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsRight.List'>
+          <div className='flex flex-col space-y-1' data-testid='TransactionDetailsRight.List'>
             {props.vouts.map((vout, index) => {
               const decoded = vout.script !== undefined ? fromScriptHex(vout.script?.hex, network) : undefined
 
@@ -96,11 +96,11 @@ function TransactionSummary (props: { transaction: Transaction, vins: Transactio
 
   return (
     <div className='flex flex-col items-end justify-between mt-8'>
-      <div className='flex justify-between gap-x-3' data-testid='TransactionDetailsSummary.fee'>
+      <div className='flex justify-between space-x-3' data-testid='TransactionDetailsSummary.fee'>
         <span>Fees:</span>
         <span>{fee}</span>
       </div>
-      <div className='flex justify-between gap-x-3 mt-2' data-testid='TransactionDetailsSummary.total'>
+      <div className='flex justify-between space-x-3 mt-2' data-testid='TransactionDetailsSummary.total'>
         <span>Total:</span>
         <span>{props.transaction.totalVoutValue} DFI</span>
       </div>

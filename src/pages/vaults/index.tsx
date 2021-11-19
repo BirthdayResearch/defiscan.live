@@ -95,7 +95,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
       </div>
 
       <div className='my-6 md:hidden'>
-        <div className='flex flex-wrap gap-y-2'>
+        <div className='flex flex-wrap space-y-2'>
           {vaults.items.map(vault => {
             return (<VaultMobileCard vault={vault} key={vault.vaultId} />)
           })}
@@ -128,7 +128,7 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className='flex gap-x-6 justify-end' data-testid='VaultRow.LoansValue'>
+        <div className='flex space-x-6 justify-end' data-testid='VaultRow.LoansValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? ('N/A')
             : (
@@ -140,7 +140,7 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className='flex gap-x-6 justify-end' data-testid='VaultRow.CollateralValue'>
+        <div className='flex space-x-6 justify-end' data-testid='VaultRow.CollateralValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? ('N/A')
             : (

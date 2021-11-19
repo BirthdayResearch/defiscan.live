@@ -20,7 +20,7 @@ export function OracleTickerDetail ({
 
   return (
     <div className='pt-4 pb-12' data-testid='OracleTickerDetail'>
-      <div className='flex items-start items-center gap-x-3'>
+      <div className='flex items-start items-center space-x-3'>
         {(() => {
           if (copy !== undefined && copy.type === 'CRYPTO') {
             const NativeIcon = getNativeIcon(price.price.token)

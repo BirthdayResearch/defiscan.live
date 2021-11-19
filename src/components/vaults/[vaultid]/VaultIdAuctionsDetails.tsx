@@ -20,7 +20,7 @@ export function VaultAuctions (props: { batches: LoanVaultLiquidationBatch[] }):
       </div>
 
       <VaultCollapsibleSection heading='In Auction' className='block md:hidden'>
-        <div className='flex flex-col items-center gap-y-2'>
+        <div className='flex flex-col items-center space-y-2'>
           {props.batches.map((batch) => (
             batch.collaterals.map((collateral) => (
               <VaultAuctionsDetailsCard batchIndex={batch.index} collateral={collateral} key={batch.index} />
