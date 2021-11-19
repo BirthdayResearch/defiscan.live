@@ -22,6 +22,10 @@ context('/transaction/[txid] - Dftx Update Vault on Desktop', () => {
   it('should have DfTxUpdateVault SchemeId', () => {
     cy.findByTestId('DfTxUpdateVault.SchemeId').should('have.text', 'MIN350')
   })
+
+  it('should have DfTxUpdateVault VaultId', () => {
+    cy.findByTestId('DfTxUpdateVault.VaultID').should('have.text', '5d1d9b003253...873f73f3b27b')
+  })
 })
 
 context('/transaction/[txid] - Dftx Update Vault on Mobile', () => {
@@ -47,5 +51,9 @@ context('/transaction/[txid] - Dftx Update Vault on Mobile', () => {
 
   it('should have DfTxUpdateVault SchemeId', () => {
     cy.findByTestId('DfTxUpdateVault.SchemeId').should('have.text', 'MIN350')
+  })
+
+  it('should have DfTxUpdateVault VaultId', () => {
+    cy.findByTestId('DfTxUpdateVault.VaultID').should('have.text', '5d1d9b003253...873f73f3b27b')
   })
 })

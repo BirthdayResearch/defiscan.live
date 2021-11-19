@@ -4,6 +4,8 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { fromScript } from '@defichain/jellyfish-address'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { AddressLink } from '@components/commons/link/AddressLink'
+import { Link } from '@components/commons/link/Link'
+import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 
 interface DfTxUpdateVaultProps {
   dftx: DfTx<UpdateVault>
@@ -18,6 +20,16 @@ export function DfTxUpdateVault (props: DfTxUpdateVaultProps): JSX.Element {
       <DfTxHeader name='Update Vault' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList className='w-full lg:w-1/2'>
+          <AdaptiveList.Row name='Vault Id'>
+            <Link href={{ pathname: `/vaults/${props.dftx.data.vaultId}` }}>
+              <a className='content'>
+                <TextMiddleTruncate
+                  textLength={12} text={props.dftx.data.vaultId} className='text-primary-500 hover:underline'
+                  testId='DfTxUpdateVault.VaultID'
+                />
+              </a>
+            </Link>
+          </AdaptiveList.Row>
           <AdaptiveList.Row name={'Owner\'s Address'}>
             {(() => {
               if (ownerAddress != null) {
