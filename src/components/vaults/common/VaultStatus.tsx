@@ -48,7 +48,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
 
     case LoanVaultState.IN_LIQUIDATION: {
       textClassName = 'text-red-500 bg-red-100'
-      text = 'Under Liquidation'
+      text = 'UNDER LIQUIDATION'
       break
     }
 
