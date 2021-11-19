@@ -194,7 +194,7 @@ function VaultStatusInfo (): JSX.Element {
       <span className='font-medium'>At Risk</span>: When the collateralization ratio of a vault is between 0% and 150%
       above the minimum collateralization ratio
       <br /><br />
-      <span className='font-medium'>Liquidated</span>: When a vault's collateralization ratio falls below the minimum
+      <span className='font-medium'>Under Liquidation</span>: When a vault's collateralization ratio falls below the minimum
       requirement and is now in auction.
       <br /><br />
       <span className='font-medium'>Halted</span>: The price of one or more token in the vault has fluctuated more than
