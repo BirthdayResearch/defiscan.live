@@ -1,9 +1,5 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import {
-  LoanVaultActive,
-  LoanVaultLiquidated,
-  LoanVaultState
-} from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 
 import { Container } from '@components/commons/Container'
 import { VaultIdHeading } from '@components/vaults/[vaultid]/VaultIdHeading'
