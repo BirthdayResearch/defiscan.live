@@ -199,24 +199,19 @@ function VaultRow (props: {
 function VaultStatusInfo (): JSX.Element {
   return (
     <div
-      className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
+      className='px-3 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
     >
-      A vault's status is determined by its collateralization ratio, where
+      A vault's status is determined by its collateralization ratio.
       <br /><br />
       <span className='font-medium'>Active</span>: When a vault is created but no loan has been taken yet
       <br /><br />
-      <span className='font-medium'>Healthy</span>: When the collateralization ratio of a vault is more than 150% above
-      the minimum collateralization ratio
+      <span className='font-medium'>At Risk</span>: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio
       <br /><br />
-      <span className='font-medium'>At Risk</span>: When the collateralization ratio of a vault is between 0% and 150%
-      above the minimum collateralization ratio
+      <span className='font-medium'>Healthy</span>: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio
       <br /><br />
-      <span className='font-medium'>Under Liquidation</span>: When a vault's collateralization ratio falls below the
-      minimum
-      requirement and is now in auction.
+      <span className='font-medium'>In Liquidation</span>: When a vault’s collateralization ratio falls below the minimum requirement
       <br /><br />
-      <span className='font-medium'>Halted</span>: The price of one or more token in the vault has fluctuated more than
-      30% in the past hour.
+      <span className='font-medium'>Halted</span>: When any token in the vault (collateral or loan tokens) has fluctuated more than 30% in the past hour
     </div>
   )
 }
