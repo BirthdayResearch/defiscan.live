@@ -46,7 +46,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
             <div className='flex w-full lg:max-w-max flex-wrap space-x-2' data-testid='FeedFilter.Types'>
               {types.map(type => (
                 <div
-                  className={classNames('rounded p-2 border cursor-pointer', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300 text-gray-900')}
+                  className={classNames('rounded p-2 border cursor-pointer mt-2 lg:mt-0', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300 text-gray-900 hover:bg-primary-50')}
                   onClick={() => setTypeCurrentSelection(type)}
                   key={type}
                   data-testid='FeedFilter.Types'
