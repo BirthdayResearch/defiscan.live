@@ -16,7 +16,6 @@ import { Link } from '@components/commons/link/Link'
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
-import { VaultStatsBar } from '@components/vaults/VaultStatsBar'
 
 interface VaultsPageData {
   vaults: {
@@ -27,93 +26,97 @@ interface VaultsPageData {
 
 export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <>
-      <VaultStatsBar />
-      <Container className='pt-12 pb-20'>
-        <Head title='Vaults' />
+    <Container className='pt-12 pb-20'>
+      <Head title='Vaults' />
 
-        <h1 className='text-2xl font-medium'>Vaults</h1>
+      <h1 className='text-2xl font-medium'>Vaults</h1>
 
-        <div className='my-6 hidden md:block'>
-          {vaults.items.length === 0
-            ? (
-              <div className='text-gray-400 flex w-full justify-center p-12'>
-                There are no vaults at this time
-              </div>
-              )
-            : (
-              <OverflowTable>
-                <OverflowTable.Header>
-                  <OverflowTable.Head
-                    title='Vault ID'
-                    testId='VaultsTable.VaultID'
-                  />
+      <div className='my-6 hidden md:block'>
+        {vaults.items.length === 0
+          ? (
+            <div className='text-gray-400 flex w-full justify-center p-12'>
+              There are no vaults at this time
+            </div>
+            )
+          : (
+            <OverflowTable>
+              <OverflowTable.Header>
+                <OverflowTable.Head
+                  title='Vault ID'
+                  testId='VaultsTable.VaultID'
+                />
 
-                  <OverflowTable.Head
-                    title='Status'
-                    infoDesc={<VaultStatusInfo />}
-                    testId='VaultsTable.Status'
-                  />
+                <OverflowTable.Head
+                  title='Status'
+                  infoDesc={<VaultStatusInfo />}
+                  testId='VaultsTable.Status'
+                />
 
-                  <OverflowTable.Head
-                    alignRight
-                    title='Loan Value (USD)'
-                    infoDesc='Loan token(s) and value (in USD) taken by a vault.'
-                    testId='VaultsTable.LoansValue'
-                  />
+                <OverflowTable.Head
+                  alignRight
+                  title='Loan Value (USD)'
+                  infoDesc='Loan token(s) and value (in USD) taken by a vault.'
+                  testId='VaultsTable.LoansValue'
+                />
 
-                  <OverflowTable.Head
-                    alignRight
-                    title='Collateral Value (USD)'
-                    infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
-                    testId='VaultsTable.CollateralValue'
-                  />
+                <OverflowTable.Head
+                  alignRight
+                  title='Collateral Value (USD)'
+                  infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
+                  testId='VaultsTable.CollateralValue'
+                />
 
-                  <OverflowTable.Head
-                    alignRight
-                    title='Collateralization Ratio'
-                    infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-                    testId='VaultsTable.CollateralizationRatio'
-                  />
+                <OverflowTable.Head
+                  alignRight
+                  title='Collateralization Ratio'
+                  infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+                  testId='VaultsTable.CollateralizationRatio'
+                />
 
-                  <OverflowTable.Head
-                    alignRight
-                    title='Min Collateralization Ratio'
-                    infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-                    testId='VaultsTable.MinCollateralizationRatio'
-                  />
-                </OverflowTable.Header>
+                <OverflowTable.Head
+                  alignRight
+                  title='Min Collateralization Ratio'
+                  infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+                  testId='VaultsTable.MinCollateralizationRatio'
+                />
+              </OverflowTable.Header>
+              {vaults.items.map(vault => {
+                return (
+                  <Link href={{ pathname: `/vaults/${vault.vaultId}` }} key={vault.vaultId}>
+                    <a className='contents'>
+                      <VaultRow vault={vault} liquidatedVaultDerivedValues={calculateLiquidationValues(vault)} />
+                    </a>
+                  </Link>
+                )
+              })}
+            </OverflowTable>
+            )}
+      </div>
 
-                {vaults.items.map(vault => {
-                  return (
-                    <Link href={{ pathname: `/vaults/${vault.vaultId}` }} key={vault.vaultId}>
-                      <a className='contents'>
-                        <VaultRow vault={vault} />
-                      </a>
-                    </Link>
-                  )
-                })}
-              </OverflowTable>
-              )}
+      <div className='my-6 md:hidden'>
+        <div className='flex flex-wrap space-y-2'>
+          {vaults.items.map(vault => {
+            return (
+              <VaultMobileCard
+                vault={vault} liquidatedVaultDerivedValues={calculateLiquidationValues(vault)}
+                key={vault.vaultId}
+              />
+            )
+          })}
         </div>
+      </div>
 
-        <div className='my-6 md:hidden'>
-          <div className='flex flex-wrap space-y-2'>
-            {vaults.items.map(vault => {
-              return (<VaultMobileCard vault={vault} key={vault.vaultId} />)
-            })}
-          </div>
-        </div>
-
-        <div className='flex justify-end mt-8'>
-          <CursorPagination pages={vaults.pages} path='/vaults' />
-        </div>
-      </Container>
-    </>
+      <div className='flex justify-end mt-8'>
+        <CursorPagination pages={vaults.pages} path='/vaults' />
+      </div>
+    </Container>
   )
 }
 
-function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
+function VaultRow (props: {
+  vault: LoanVaultActive | LoanVaultLiquidated
+  liquidatedVaultDerivedValues: LiquidatedVaultDerivedValues
+}): JSX.Element {
   return (
     <OverflowTable.Row
       className={classNames('cursor-pointer', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
@@ -134,7 +137,12 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
       <OverflowTable.Cell alignRight>
         <div className='flex space-x-6 justify-end' data-testid='VaultRow.LoansValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
-            ? ('N/A')
+            ? (
+              <VaultNumberValues
+                value={props.liquidatedVaultDerivedValues.totalLoanValue}
+                prefix='$'
+              />
+              )
             : (
               <>
                 <VaultTokenSymbols tokens={props.vault.loanAmounts} />
@@ -146,7 +154,12 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
       <OverflowTable.Cell alignRight>
         <div className='flex space-x-6 justify-end' data-testid='VaultRow.CollateralValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
-            ? ('N/A')
+            ? (
+              <VaultNumberValues
+                value={props.liquidatedVaultDerivedValues.totalCollateralValue}
+                prefix='$'
+              />
+              )
             : (
               <>
                 <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
@@ -157,7 +170,13 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? ('N/A')
+          ? (
+            <VaultCollateralizationRatio
+              collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+              loanScheme={props.vault.loanScheme}
+              vaultState={props.vault.state}
+            />
+            )
           : (<VaultCollateralizationRatio
               collateralizationRatio={props.vault.collateralRatio}
               loanScheme={props.vault.loanScheme}
@@ -166,14 +185,12 @@ function VaultRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX
              />)}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? ('N/A')
-          : (<ReactNumberFormat
-              value={props.vault.loanScheme.minColRatio}
-              suffix='%'
-              displayType='text'
-              thousandSeparator
-             />)}
+        <ReactNumberFormat
+          value={props.vault.loanScheme.minColRatio}
+          suffix='%'
+          displayType='text'
+          thousandSeparator
+        />
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
@@ -194,13 +211,44 @@ function VaultStatusInfo (): JSX.Element {
       <span className='font-medium'>At Risk</span>: When the collateralization ratio of a vault is between 0% and 150%
       above the minimum collateralization ratio
       <br /><br />
-      <span className='font-medium'>Under Liquidation</span>: When a vault's collateralization ratio falls below the minimum
+      <span className='font-medium'>Under Liquidation</span>: When a vault's collateralization ratio falls below the
+      minimum
       requirement and is now in auction.
       <br /><br />
       <span className='font-medium'>Halted</span>: The price of one or more token in the vault has fluctuated more than
       30% in the past hour.
     </div>
   )
+}
+
+export interface LiquidatedVaultDerivedValues {
+  totalLoanValue: BigNumber
+  totalCollateralValue: BigNumber
+  totalCollateralRatio: BigNumber
+}
+
+function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLiquidated): LiquidatedVaultDerivedValues {
+  let liquidationTotalLoanValue = new BigNumber(0)
+  let liquidationTotalCollateralValue = new BigNumber(0)
+  let liquidationTotalCollateralRatio = new BigNumber(0)
+
+  if (vault.state === LoanVaultState.IN_LIQUIDATION) {
+    vault.batches.forEach(batch => {
+      liquidationTotalLoanValue = liquidationTotalLoanValue.plus(new BigNumber(batch.loan.amount))
+
+      batch.collaterals.forEach(collateral => {
+        liquidationTotalCollateralValue = liquidationTotalCollateralValue.plus(new BigNumber(collateral.amount))
+      })
+    })
+
+    liquidationTotalCollateralRatio = liquidationTotalCollateralValue.div(liquidationTotalLoanValue).multipliedBy(100)
+  }
+
+  return {
+    totalLoanValue: liquidationTotalLoanValue,
+    totalCollateralValue: liquidationTotalCollateralValue,
+    totalCollateralRatio: liquidationTotalCollateralRatio
+  }
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {

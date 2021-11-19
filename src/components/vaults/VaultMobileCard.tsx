@@ -11,9 +11,11 @@ import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsList
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
+import { LiquidatedVaultDerivedValues } from '../../pages/vaults'
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
+  liquidatedVaultDerivedValues: LiquidatedVaultDerivedValues
 }
 
 export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {

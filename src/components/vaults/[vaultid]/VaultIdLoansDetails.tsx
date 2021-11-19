@@ -182,7 +182,7 @@ function VaultLoanDetailsCard (props: {
       <div className='w-full justify-between mt-10'>
         <VaultDetailsListItem
           title='Loan Value (USD)'
-          testId='LoanDetailsCard.LoanValueTitle'
+          testId='LoanDetailsCard.LoanValue'
           titleClassNames='text-sm'
         >
           {loanUsdAmount === undefined || interestUsdAmount === undefined

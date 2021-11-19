@@ -10,8 +10,9 @@ import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import React from 'react'
 import ReactNumberFormat from 'react-number-format'
+import { LiquidatedVaultDerivedValues } from '../../../pages/vaults'
 
-export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
+export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues: LiquidatedVaultDerivedValues }): JSX.Element {
   return (
     <>
       <div className='mt-8 hidden md:block'>
@@ -60,7 +61,10 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
               testId='VaultDetailsDesktop.VaultInterestRate '
             />
           </OverflowTable.Header>
-          <DesktopVaultDetailsRow vault={props.vault} />
+          <DesktopVaultDetailsRow
+            vault={props.vault}
+            liquidatedVaultDerivedValues={props.liquidatedVaultDerivedValues}
+          />
         </OverflowTable>
       </div>
 
@@ -69,16 +73,14 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
         testId='VaultCollapsibleSection.VaultIdDetails'
       >
         <div className='mb-8'>
-          <MobileVaultDetails vault={props.vault} />
+          <MobileVaultDetails vault={props.vault} liquidatedVaultDerivedValues={props.liquidatedVaultDerivedValues} />
         </div>
       </VaultCollapsibleSection>
     </>
   )
 }
 
-function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
-  const [liquidationTotalLoanValue, liquidationTotalCollateralValue, liquidationTotalCollateralRatio] = calculateLiquidationValues(props.vault)
-
+function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues: LiquidatedVaultDerivedValues }): JSX.Element {
   return (
     <OverflowTable.Row
       className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
@@ -92,7 +94,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
             <VaultNumberValues
-              value={liquidationTotalLoanValue}
+              value={props.liquidatedVaultDerivedValues.totalLoanValue}
               prefix='$'
             />
             )
@@ -106,7 +108,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (<VaultNumberValues
-              value={liquidationTotalCollateralValue}
+              value={props.liquidatedVaultDerivedValues.totalCollateralValue}
               prefix='$'
              />)
           : (
@@ -117,7 +119,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
             <VaultCollateralizationRatio
-              collateralizationRatio={liquidationTotalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+              collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
               loanScheme={props.vault.loanScheme}
               vaultState={props.vault.state}
             />
@@ -143,9 +145,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
   )
 }
 
-function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
-  const [liquidationTotalLoanValue, liquidationTotalCollateralValue, liquidationTotalCollateralRatio] = calculateLiquidationValues(props.vault)
-
+function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues: LiquidatedVaultDerivedValues }): JSX.Element {
   return (
     <div
       className={classNames('flex flex-col space-y-2', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
@@ -166,7 +166,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
             <VaultNumberValues
-              value={liquidationTotalLoanValue}
+              value={props.liquidatedVaultDerivedValues.totalLoanValue}
               prefix='$'
             />
             )
@@ -185,7 +185,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
             <VaultNumberValues
-              value={liquidationTotalCollateralValue}
+              value={props.liquidatedVaultDerivedValues.totalCollateralValue}
               prefix='$'
             />
             )
@@ -201,7 +201,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
             <VaultCollateralizationRatio
-              collateralizationRatio={liquidationTotalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+              collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
               loanScheme={props.vault.loanScheme}
               vaultState={props.vault.state}
             />
@@ -233,24 +233,4 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       </VaultDetailsListItem>
     </div>
   )
-}
-
-function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLiquidated): [BigNumber, BigNumber, BigNumber] {
-  let liquidationTotalLoanValue = new BigNumber(0)
-  let liquidationTotalCollateralValue = new BigNumber(0)
-  let liquidationTotalCollateralRatio = new BigNumber(0)
-
-  if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-    vault.batches.forEach(batch => {
-      liquidationTotalLoanValue = liquidationTotalLoanValue.plus(new BigNumber(batch.loan.amount))
-
-      batch.collaterals.forEach(collateral => {
-        liquidationTotalCollateralValue = liquidationTotalCollateralValue.plus(new BigNumber(collateral.amount))
-      })
-    })
-
-    liquidationTotalCollateralRatio = liquidationTotalCollateralValue.div(liquidationTotalLoanValue).multipliedBy(100)
-  }
-
-  return [liquidationTotalLoanValue, liquidationTotalCollateralValue, liquidationTotalCollateralRatio]
 }
