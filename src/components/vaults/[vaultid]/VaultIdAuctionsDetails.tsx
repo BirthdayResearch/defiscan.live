@@ -59,7 +59,7 @@ function VaultAuctionsDetailsCard (props: { batchIndex: number, loan: LoanVaultT
       </div>
 
       <div className='flex items-center justify-between mt-2'>
-        <span className='font-medium text-gray-500 text-xs'>{`BATCH ${props.batchIndex}`}</span>
+        <span className='font-medium text-gray-500 text-xs'>{`BATCH ${props.batchIndex + 1}`}</span>
       </div>
 
       <div className='flex items-center justify-between mt-6'>
