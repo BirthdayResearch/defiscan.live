@@ -179,15 +179,18 @@ function VaultLoanDetailsCard (props: {
             : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
         </div>
       </div>
-      <div className='flex items-center justify-between mt-10'>
-        <span className='text-gray-500 text-sm' data-testid='LoanDetailsCard.LoanValueTitle'>Loan Value (USD)</span>
-        <span data-testid='LoanDetailsCard.LoanValue'>
+      <div className='w-full justify-between mt-10'>
+        <VaultDetailsListItem
+          title='Loan Value (USD)'
+          testId='LoanDetailsCard.LoanValueTitle'
+          titleClassNames='text-sm'
+        >
           {loanUsdAmount === undefined || interestUsdAmount === undefined
             ? ('N/A')
             : (
               <VaultNumberValues value={loanUsdAmount} prefix='$' />
               )}
-        </span>
+        </VaultDetailsListItem>
       </div>
 
       <Transition
@@ -200,7 +203,7 @@ function VaultLoanDetailsCard (props: {
         className='w-full'
         show={isOpen}
       >
-        <div className='w-full mt-2 flex flex-col'>
+        <div className='w-full flex flex-col space-y-1.5 mt-1.5'>
           <VaultDetailsListItem
             title='Loan Amount'
             testId='LoanDetailsCard.LoanAmount'
