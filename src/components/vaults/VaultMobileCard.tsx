@@ -64,7 +64,7 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
         className='w-full'
         show={isOpen}
       >
-        <VaultMobileDetails vault={props.vault} />
+        <VaultMobileDetails vault={props.vault} liquidatedVaultDerivedValues={props.liquidatedVaultDerivedValues} />
       </Transition>
     </div>
   )
@@ -78,7 +78,13 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.Loans'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? ('N/A')
+          ? (
+              props.liquidatedVaultDerivedValues?.loanTokens === undefined
+                ? ('N/A')
+                : (
+                  <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.loanTokens} />
+                  )
+            )
           : (props.vault.collateralAmounts.length === 0 ? 'N/A'
               : <VaultTokenSymbols tokens={props.vault.loanAmounts} />)}
       </VaultDetailsListItem>
@@ -108,7 +114,13 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.Collateral'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? ('N/A')
+          ? (
+              props.liquidatedVaultDerivedValues?.collateralTokens === undefined
+                ? ('N/A')
+                : (
+                  <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.collateralTokens} />
+                  )
+            )
           : (props.vault.collateralAmounts.length === 0 ? 'N/A'
               : <VaultTokenSymbols tokens={props.vault.collateralAmounts} />)}
       </VaultDetailsListItem>
