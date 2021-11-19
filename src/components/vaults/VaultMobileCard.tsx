@@ -25,15 +25,15 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
       data-testid='VaultMobileCard'
     >
       <div className='w-full flex justify-between'>
-        <div className='flex items-center gap-x-1.5'>
+        <div className='flex items-center'>
           Vault ID
           <VaultStatus
-            vault={props.vault} className='px-2 py-1 inline-block text-xs'
+            vault={props.vault} className='ml-2 px-2 py-1 inline-block text-xs'
             testId='VaultMobileCard.VaultStatus'
           />
         </div>
         <div
-          className='flex items-center px-2 gap-x-0.5 text-primary-500 cursor-pointer'
+          className='flex items-center px-2 text-primary-500 cursor-pointer'
           onClick={() => setIsOpen(!isOpen)}
           data-testid='VaultMobileCard.Toggle'
         >

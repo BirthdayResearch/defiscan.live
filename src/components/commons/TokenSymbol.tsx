@@ -42,7 +42,7 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
   }
 
   return (
-    <div className='flex gap-x-1'>
+    <div className='flex space-x-1'>
       <div className={classNames(props.className)} data-testid={props.testId}>
         {tokenData.symbol}{!tokenData.isDAT && `#${tokenData.id}`}
       </div>

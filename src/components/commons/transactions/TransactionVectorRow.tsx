@@ -16,7 +16,7 @@ export function TransactionVectorRow (props: TransactionVectorRowProps): JSX.Ele
         <span className='bg-gray-200 rounded text-xs px-2 py-1 font-medium w-min mb-1.5'>
           {props.label}
         </span>
-        <div className='flex justify-between gap-x-2'>
+        <div className='flex justify-between'>
           {props.isAddressClickable ? (
             <AddressLink testId='TransactionVectorRow.Address' address={props.address} className='overflow-ellipsis overflow-hidden text-primary-400' />
           ) : (

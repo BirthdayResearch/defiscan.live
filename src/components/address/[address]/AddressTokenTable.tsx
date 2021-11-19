@@ -70,7 +70,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell className='align-middle'>
-        <div className='flex items-center gap-x-2'>
+        <div className='flex items-center space-x-2'>
           <div className='my-auto'>
             {(() => {
               if (props.token.isDAT) {
@@ -87,10 +87,8 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
           </div>
         </div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='text-right'>
-        <div className='flex gap-x-1 '>
-          <span>{props.token.amount}</span>
-        </div>
+      <OverflowTable.Cell>
+        {props.token.amount}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         {(() => {

@@ -78,19 +78,19 @@ function LoadingPanel (): JSX.Element {
     <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
       <div className='w-full lg:w-1/2'>
         <div className='flex flex-wrap w-full rounded border border-gray-200'>
-          <div className='flex w-full flex-wrap gap-x-2 border-b border-gray-100 p-4'>
+          <div className='flex w-full flex-wrap space-x-2 border-b border-gray-100 p-4'>
             <div className='w-14 animate-pulse py-2.5 rounded-md bg-gray-200' />
             <div className='w-3/4 animate-pulse py-2.5 rounded-md bg-gray-200' />
           </div>
-          <div className='flex w-full flex-wrap gap-x-2 border-b border-gray-100 p-4'>
+          <div className='flex w-full flex-wrap space-x-2 border-b border-gray-100 p-4'>
             <div className='w-14 animate-pulse py-2.5 rounded-md bg-gray-200' />
             <div className='w-3/5 animate-pulse py-2.5 rounded-md bg-gray-200' />
           </div>
-          <div className='flex w-full flex-wrap gap-x-2 border-b border-gray-100 p-4'>
+          <div className='flex w-full flex-wrap space-x-2 border-b border-gray-100 p-4'>
             <div className='w-14 animate-pulse py-2.5 rounded-md bg-gray-200' />
             <div className='w-4/5 animate-pulse py-2.5 rounded-md bg-gray-200' />
           </div>
-          <div className='flex w-full flex-wrap gap-x-2 p-4'>
+          <div className='flex w-full flex-wrap space-x-2 p-4'>
             <div className='w-14 animate-pulse py-2.5 rounded-md bg-gray-200' />
             <div className='w-1/2 animate-pulse py-2.5 rounded-md bg-gray-200' />
           </div>

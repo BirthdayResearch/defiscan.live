@@ -92,7 +92,7 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
         <div className='text-sm text-gray-500' data-testid='CollateralCard.CollateralAmountTitle'>Collateral Amount
         </div>
         <div
-          className={classNames('flex items-center gap-x-1', props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+          className={classNames('flex items-center space-x-1', props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
           data-testid='CollateralCard.CollateralAmount'
         >
           <ReactNumberFormat

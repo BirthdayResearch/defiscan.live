@@ -35,16 +35,16 @@ function DetailsTable (props: { symbol: string, decimal: number, name: string, l
           {props.name}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Symbol' testId='DfTxTokenCreate.symbol'>
-          <div className='flex gap-x-1'>
+          <div className='flex'>
             {props.symbol}
             {(() => {
               if (props.isDAT) {
                 const AssetIcon = getAssetIcon(props.symbol)
-                return <AssetIcon className='h-6 w-6' />
+                return <AssetIcon className='h-6 w-6 ml-1' />
               }
 
               const TokenIcon = getTokenIcon(props.symbol)
-              return <TokenIcon className='h-6 w-6' />
+              return <TokenIcon className='h-6 w-6 ml-1' />
             })()}
           </div>
         </AdaptiveList.Row>

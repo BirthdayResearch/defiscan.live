@@ -95,7 +95,7 @@ function TransactionDetails (props: { address: string, vins: TransactionVin[], v
 function TransactionDetailsLeft (props: { address: string, vins: TransactionVin[], network: NetworkName }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
-      <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsLeft.List'>
+      <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
         {props.vins.map((vin) => {
           const decoded = vin.vout !== undefined ? fromScriptHex(vin.vout.script?.hex, props.network) : undefined
           const address = decoded?.address ?? 'N/A'
@@ -131,7 +131,7 @@ function TransactionDetailsLeft (props: { address: string, vins: TransactionVin[
 function TransactionDetailsRight (props: { address: string, vouts: TransactionVout[], network: NetworkName, dftx: DfTx<any> | undefined }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
-      <div className='flex flex-col gap-y-1' data-testid='TransactionDetailsRight.List'>
+      <div className='flex flex-col space-y-1' data-testid='TransactionDetailsRight.List'>
         {props.vouts.map((vout, index) => {
           const decoded = vout.script !== undefined ? fromScriptHex(vout.script?.hex, props.network) : undefined
 

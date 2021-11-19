@@ -150,7 +150,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
 function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <div
-      className={classNames('flex flex-col gap-y-0.5', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+      className={classNames('flex flex-col space-y-2', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
     >
       <VaultDetailsListItem
         title={'Owner\'s Address'}

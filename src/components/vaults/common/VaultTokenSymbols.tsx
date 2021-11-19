@@ -9,7 +9,7 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
   const remainingTokens = props.tokens.length - 3
 
   return (
-    <div className='flex items-center gap-x-1'>
+    <div className='flex items-center space-x-1'>
       <div className='flex'>
         {props.tokens.map((loan, index) => {
           const TokenIcon = getAssetIcon(loan.symbol)

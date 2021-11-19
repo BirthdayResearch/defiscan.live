@@ -23,7 +23,7 @@ export function OracleFeed (props: PriceFeedProps): JSX.Element {
       <Link href={{ pathname: `/oracles/${id}` }}>
         <a>
           <div className='bg-gray-50 rounded p-6 cursor-pointer'>
-            <div className='flex gap-x-2'>
+            <div className='flex space-x-2'>
               {(() => {
                 if (copy !== undefined && copy.type === 'CRYPTO') {
                   const NativeIcon = getNativeIcon(price.token)
