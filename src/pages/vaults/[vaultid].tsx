@@ -9,6 +9,8 @@ import { VaultIdLoansDetails } from '@components/vaults/[vaultid]/VaultIdLoansDe
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
 import { VaultAuctions } from '@components/vaults/[vaultid]/VaultIdAuctionsDetails'
+import BigNumber from 'bignumber.js'
+import { LiquidatedVaultDerivedValues } from './index'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -18,7 +20,7 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
   return (
     <Container className='pt-4 pb-20'>
       <VaultIdHeading vault={props.vault} />
-      <VaultIdDetails vault={props.vault} />
+      <VaultIdDetails vault={props.vault} liquidatedVaultDerivedValues={calculateLiquidationValues(props.vault)} />
       {
         (props.vault.state === LoanVaultState.IN_LIQUIDATION) ? (
           <VaultAuctions batches={props.vault.batches} />
@@ -42,6 +44,30 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
       }
     </Container>
   )
+}
+
+function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLiquidated): LiquidatedVaultDerivedValues {
+  let liquidationTotalLoanValue = new BigNumber(0)
+  let liquidationTotalCollateralValue = new BigNumber(0)
+  let liquidationTotalCollateralRatio = new BigNumber(0)
+
+  if (vault.state === LoanVaultState.IN_LIQUIDATION) {
+    vault.batches.forEach(batch => {
+      liquidationTotalLoanValue = liquidationTotalLoanValue.plus(new BigNumber(batch.loan.amount))
+
+      batch.collaterals.forEach(collateral => {
+        liquidationTotalCollateralValue = liquidationTotalCollateralValue.plus(new BigNumber(collateral.amount))
+      })
+    })
+
+    liquidationTotalCollateralRatio = liquidationTotalCollateralValue.div(liquidationTotalLoanValue).multipliedBy(100)
+  }
+
+  return {
+    totalLoanValue: liquidationTotalLoanValue,
+    totalCollateralValue: liquidationTotalCollateralValue,
+    totalCollateralRatio: liquidationTotalCollateralRatio
+  }
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
