@@ -49,7 +49,7 @@ export function PoolPairSymbol (props: PoolPairSymbolProps): JSX.Element {
 
   return (
     <div className='flex items-center'>
-      <IconA className={classnames('absolute', props.symbolSizeClassName)} />
+      <IconA className={classnames('absolute z-10', props.symbolSizeClassName)} />
       <IconB className={classnames('absolute', props.symbolSizeClassName, props.symbolMarginClassName)} />
       <div className={classnames(props.textClassName)}>
         {poolPairData.symbol}
