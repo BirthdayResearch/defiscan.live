@@ -3,7 +3,12 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
-import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import {
+  LoanVaultActive,
+  LoanVaultLiquidated,
+  LoanVaultState,
+  LoanVaultTokenAmount
+} from '@defichain/whale-api-client/dist/api/loan'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { VaultStatus } from '@components/vaults/common/VaultStatus'
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
@@ -16,6 +21,7 @@ import { Link } from '@components/commons/link/Link'
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
+import { calculateLiquidationValues } from '../../utils/vaults/LiquidatedVaultDerivedValues'
 
 interface VaultsPageData {
   vaults: {
@@ -115,7 +121,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
 function VaultRow (props: {
   vault: LoanVaultActive | LoanVaultLiquidated
-  liquidatedVaultDerivedValues: LiquidatedVaultDerivedValues
+  liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues
 }): JSX.Element {
   return (
     <OverflowTable.Row
@@ -138,10 +144,17 @@ function VaultRow (props: {
         <div className='flex space-x-6 justify-end' data-testid='VaultRow.LoansValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? (
-              <VaultNumberValues
-                value={props.liquidatedVaultDerivedValues.totalLoanValue}
-                prefix='$'
-              />
+                props.liquidatedVaultDerivedValues?.totalLoanValue === undefined
+                  ? ('N/A')
+                  : (
+                    <>
+                      <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.loanTokens} />
+                      <VaultNumberValues
+                        value={props.liquidatedVaultDerivedValues.totalLoanValue}
+                        prefix='$'
+                      />
+                    </>
+                    )
               )
             : (
               <>
@@ -155,10 +168,17 @@ function VaultRow (props: {
         <div className='flex space-x-6 justify-end' data-testid='VaultRow.CollateralValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? (
-              <VaultNumberValues
-                value={props.liquidatedVaultDerivedValues.totalCollateralValue}
-                prefix='$'
-              />
+                props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
+                  ? ('N/A')
+                  : (
+                    <>
+                      <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.collateralTokens} />
+                      <VaultNumberValues
+                        value={props.liquidatedVaultDerivedValues.totalCollateralValue}
+                        prefix='$'
+                      />
+                    </>
+                    )
               )
             : (
               <>
@@ -171,11 +191,15 @@ function VaultRow (props: {
       <OverflowTable.Cell alignRight>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-            <VaultCollateralizationRatio
-              collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
-              loanScheme={props.vault.loanScheme}
-              vaultState={props.vault.state}
-            />
+              props.liquidatedVaultDerivedValues?.totalCollateralRatio === undefined
+                ? ('N/A')
+                : (
+                  <VaultCollateralizationRatio
+                    collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+                    loanScheme={props.vault.loanScheme}
+                    vaultState={props.vault.state}
+                  />
+                  )
             )
           : (<VaultCollateralizationRatio
               collateralizationRatio={props.vault.collateralRatio}
@@ -205,45 +229,27 @@ function VaultStatusInfo (): JSX.Element {
       <br /><br />
       <span className='font-medium'>Active</span>: When a vault is created but no loan has been taken yet
       <br /><br />
-      <span className='font-medium'>At Risk</span>: When the collateralization ratio of a vault is between 1x – 1.5x the minimum collateralization ratio
+      <span className='font-medium'>At Risk</span>: When the collateralization ratio of a vault is between 1x – 1.5x the
+      minimum collateralization ratio
       <br /><br />
-      <span className='font-medium'>Healthy</span>: When the collateralization ratio of a vault is more than 1.5x the minimum collateralization ratio
+      <span className='font-medium'>Healthy</span>: When the collateralization ratio of a vault is more than 1.5x the
+      minimum collateralization ratio
       <br /><br />
-      <span className='font-medium'>In Liquidation</span>: When a vault’s collateralization ratio falls below the minimum requirement
+      <span className='font-medium'>In Liquidation</span>: When a vault’s collateralization ratio falls below the
+      minimum requirement
       <br /><br />
-      <span className='font-medium'>Halted</span>: When any token in the vault (collateral or loan tokens) has fluctuated more than 30% in the past hour
+      <span className='font-medium'>Halted</span>: When any token in the vault (collateral or loan tokens) has
+      fluctuated more than 30% in the past hour
     </div>
   )
 }
 
 export interface LiquidatedVaultDerivedValues {
+  loanTokens: LoanVaultTokenAmount[]
+  collateralTokens: LoanVaultTokenAmount[]
   totalLoanValue: BigNumber
   totalCollateralValue: BigNumber
   totalCollateralRatio: BigNumber
-}
-
-function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLiquidated): LiquidatedVaultDerivedValues {
-  let liquidationTotalLoanValue = new BigNumber(0)
-  let liquidationTotalCollateralValue = new BigNumber(0)
-  let liquidationTotalCollateralRatio = new BigNumber(0)
-
-  if (vault.state === LoanVaultState.IN_LIQUIDATION) {
-    vault.batches.forEach(batch => {
-      liquidationTotalLoanValue = liquidationTotalLoanValue.plus(new BigNumber(batch.loan.amount))
-
-      batch.collaterals.forEach(collateral => {
-        liquidationTotalCollateralValue = liquidationTotalCollateralValue.plus(new BigNumber(collateral.amount))
-      })
-    })
-
-    liquidationTotalCollateralRatio = liquidationTotalCollateralValue.div(liquidationTotalLoanValue).multipliedBy(100)
-  }
-
-  return {
-    totalLoanValue: liquidationTotalLoanValue,
-    totalCollateralValue: liquidationTotalCollateralValue,
-    totalCollateralRatio: liquidationTotalCollateralRatio
-  }
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {

@@ -15,7 +15,7 @@ import { LiquidatedVaultDerivedValues } from '../../pages/vaults'
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
-  liquidatedVaultDerivedValues: LiquidatedVaultDerivedValues
+  liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues
 }
 
 export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
@@ -70,7 +70,7 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
   )
 }
 
-function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
+function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues }): JSX.Element {
   return (
     <div className='w-full mt-2 space-y-2'>
       <VaultDetailsListItem
@@ -88,7 +88,16 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.LoansValue'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? ('N/A')
+          ? (
+              props.liquidatedVaultDerivedValues?.totalLoanValue === undefined
+                ? ('N/A')
+                : (
+                  <VaultNumberValues
+                    value={props.liquidatedVaultDerivedValues.totalLoanValue}
+                    prefix='$'
+                  />
+                  )
+            )
           : (
             <VaultNumberValues value={new BigNumber(props.vault.loanValue)} prefix='$' />
             )}
@@ -110,7 +119,16 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.CollateralValue'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? ('N/A')
+          ? (
+              props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
+                ? ('N/A')
+                : (
+                  <VaultNumberValues
+                    value={props.liquidatedVaultDerivedValues.totalCollateralValue}
+                    prefix='$'
+                  />
+                  )
+            )
           : (
             <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
             )}
@@ -122,7 +140,17 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.CollateralizationRatio'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? ('N/A')
+          ? (
+              props.liquidatedVaultDerivedValues?.totalCollateralRatio === undefined
+                ? ('N/A')
+                : (
+                  <VaultCollateralizationRatio
+                    collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+                    loanScheme={props.vault.loanScheme}
+                    vaultState={props.vault.state}
+                  />
+                  )
+            )
           : (<VaultCollateralizationRatio
               collateralizationRatio={props.vault.collateralRatio}
               loanScheme={props.vault.loanScheme}
@@ -136,14 +164,12 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
         testId='VaultMobileCard.MinCollateralizationRatio'
       >
-        {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? ('N/A')
-          : (<ReactNumberFormat
-              value={props.vault.loanScheme.minColRatio}
-              suffix='%'
-              displayType='text'
-              thousandSeparator
-             />)}
+        <ReactNumberFormat
+          value={props.vault.loanScheme.minColRatio}
+          suffix='%'
+          displayType='text'
+          thousandSeparator
+        />
       </VaultDetailsListItem>
     </div>
   )
