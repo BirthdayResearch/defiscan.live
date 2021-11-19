@@ -12,7 +12,7 @@ import React from 'react'
 import ReactNumberFormat from 'react-number-format'
 import { LiquidatedVaultDerivedValues } from '../../../pages/vaults'
 
-export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues: LiquidatedVaultDerivedValues }): JSX.Element {
+export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
     <>
       <div className='mt-8 hidden md:block'>
