@@ -20,7 +20,7 @@ export function DfTxUpdateVault (props: DfTxUpdateVaultProps): JSX.Element {
       <DfTxHeader name='Update Vault' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name='Vault Id'>
+          <AdaptiveList.Row name='Vault ID'>
             <Link href={{ pathname: `/vaults/${props.dftx.data.vaultId}` }}>
               <a className='content'>
                 <TextMiddleTruncate
