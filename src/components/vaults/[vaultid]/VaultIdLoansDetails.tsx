@@ -1,6 +1,6 @@
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
-import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
+import { CollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import React from 'react'
 import BigNumber from 'bignumber.js'
@@ -55,7 +55,7 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
             )}
       </div>
 
-      <VaultCollapsibleSection
+      <CollapsibleSection
         heading='Loan Details' className='block md:hidden'
         testId='VaultCollapsibleSection.LoanDetails'
       >
@@ -78,7 +78,7 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
                 </div>
               )}
         </div>
-      </VaultCollapsibleSection>
+      </CollapsibleSection>
     </>
   )
 }
