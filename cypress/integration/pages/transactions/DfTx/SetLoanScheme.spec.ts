@@ -12,7 +12,7 @@ context('/transactions/[txid] - Set Loan Scheme on desktop', () => {
   })
 
   it('should have DfTx type', () => {
-    cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Create Loan Scheme')
+    cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Set Loan Scheme')
   })
 
   it('should have DfTxSetLoanScheme Identifier', function () {
@@ -46,7 +46,7 @@ context('/transactions/[txid] - Set Loan Scheme on Mobile', () => {
   })
 
   it('should have DfTx type', () => {
-    cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Create Loan Scheme')
+    cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Set Loan Scheme')
   })
 
   it('should have DfTxSetLoanScheme Identifier', function () {
