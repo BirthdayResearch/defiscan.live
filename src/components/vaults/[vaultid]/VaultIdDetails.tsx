@@ -10,7 +10,7 @@ import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import React from 'react'
 import ReactNumberFormat from 'react-number-format'
-import { LiquidatedVaultDerivedValues } from '../../../pages/vaults'
+import { LiquidatedVaultDerivedValues } from '../../../utils/vaults/LiquidatedVaultDerivedValues'
 
 export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues }): JSX.Element {
   return (

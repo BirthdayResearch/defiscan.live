@@ -4,8 +4,15 @@ import {
   LoanVaultState,
   LoanVaultTokenAmount
 } from '@defichain/whale-api-client/dist/api/loan'
-import { LiquidatedVaultDerivedValues } from '../../pages/vaults'
 import BigNumber from 'bignumber.js'
+
+export interface LiquidatedVaultDerivedValues {
+  loanTokens: LoanVaultTokenAmount[]
+  collateralTokens: LoanVaultTokenAmount[]
+  totalLoanValue: BigNumber
+  totalCollateralValue: BigNumber
+  totalCollateralRatio: BigNumber
+}
 
 export function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLiquidated): LiquidatedVaultDerivedValues | undefined {
   const loanTokens: LoanVaultTokenAmount[] = []

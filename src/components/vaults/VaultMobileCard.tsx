@@ -11,7 +11,7 @@ import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsList
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
-import { LiquidatedVaultDerivedValues } from '../../pages/vaults'
+import { LiquidatedVaultDerivedValues } from '../../utils/vaults/LiquidatedVaultDerivedValues'
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated

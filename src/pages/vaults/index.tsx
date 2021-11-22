@@ -6,8 +6,7 @@ import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import {
   LoanVaultActive,
   LoanVaultLiquidated,
-  LoanVaultState,
-  LoanVaultTokenAmount
+  LoanVaultState
 } from '@defichain/whale-api-client/dist/api/loan'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { VaultStatus } from '@components/vaults/common/VaultStatus'
@@ -21,7 +20,10 @@ import { Link } from '@components/commons/link/Link'
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
-import { calculateLiquidationValues } from '../../utils/vaults/LiquidatedVaultDerivedValues'
+import {
+  calculateLiquidationValues,
+  LiquidatedVaultDerivedValues
+} from '../../utils/vaults/LiquidatedVaultDerivedValues'
 
 interface VaultsPageData {
   vaults: {
@@ -242,14 +244,6 @@ function VaultStatusInfo (): JSX.Element {
       fluctuated more than 30% in the past hour
     </div>
   )
-}
-
-export interface LiquidatedVaultDerivedValues {
-  loanTokens: LoanVaultTokenAmount[]
-  collateralTokens: LoanVaultTokenAmount[]
-  totalLoanValue: BigNumber
-  totalCollateralValue: BigNumber
-  totalCollateralRatio: BigNumber
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<VaultsPageData>> {
