@@ -10,14 +10,6 @@ export function VaultStatsBar (): JSX.Element {
 
   return (
     <StatsBar>
-      <StatItem label='Total Active Vaults' testId='VaultStatsBar.TotalActiveVaults'>
-        <ReactNumberFormat
-          displayType='text'
-          thousandSeparator
-          value={stats.loan.count?.openVaults}
-          decimalScale={2}
-        />
-      </StatItem>
       <StatItem label='Total Collateral Value' testId='VaultStatsBar.TotalCollateralValue'>
         <ReactNumberFormat
           displayType='text'
@@ -36,6 +28,14 @@ export function VaultStatsBar (): JSX.Element {
           decimalScale={0}
           prefix='$'
           suffix=' USD'
+        />
+      </StatItem>
+      <StatItem label='Total Active Vaults' testId='VaultStatsBar.TotalActiveVaults'>
+        <ReactNumberFormat
+          displayType='text'
+          thousandSeparator
+          value={stats.loan.count?.openVaults}
+          decimalScale={2}
         />
       </StatItem>
       <StatItem label='Active Auctions' testId='VaultStatsBar.ActiveAuctions'>
