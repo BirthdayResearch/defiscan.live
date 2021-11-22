@@ -24,7 +24,7 @@ import {
   CICXSubmitEXTHTLC,
   CICXClaimDFCHTLC,
   CTokenUpdateAny,
-  CCreateLoanScheme,
+  CSetLoanScheme,
   DfTx
 } from '@defichain/jellyfish-transaction'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
@@ -120,7 +120,7 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxICXClaimDFCHTLC dftx={props.dftx} />
     case CTokenUpdateAny.OP_CODE:
       return <DfTxTokenUpdateAny dftx={props.dftx} />
-    case CCreateLoanScheme.OP_CODE:
+    case CSetLoanScheme.OP_CODE:
       return <DfTxCreateLoanScheme dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
