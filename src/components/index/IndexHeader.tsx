@@ -53,7 +53,7 @@ function Stats (): JSX.Element {
 
   return (
     <StatsBar>
-      <StatItem label='Price:' testId='StatItem.priceUsdt'>
+      <StatItem label='Price' testId='StatItem.priceUsdt'>
         <ReactNumberFormat
           displayType='text'
           thousandSeparator
@@ -63,7 +63,7 @@ function Stats (): JSX.Element {
           suffix=' USD'
         />
       </StatItem>
-      <StatItem label='Total Value Locked (TVL):' testId='StatItem.tvlTotal'>
+      <StatItem label='Total Value Locked (TVL)' testId='StatItem.tvlTotal'>
         <ReactNumberFormat
           displayType='text'
           thousandSeparator
@@ -73,7 +73,7 @@ function Stats (): JSX.Element {
           suffix=' USD'
         />
       </StatItem>
-      <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
+      <StatItem label='Total DFI Burned' testId='StatItem.totalDFIBurned'>
         <UnitSuffix
           value={stats.burned.total}
           units={{
@@ -85,7 +85,7 @@ function Stats (): JSX.Element {
         />
         <span className='ml-1'>DFI</span>
       </StatItem>
-      <StatItem label='Block Reward:' testId='StatItem.blockReward'>
+      <StatItem label='Block Reward' testId='StatItem.blockReward'>
         <ReactNumberFormat
           displayType='text'
           thousandSeparator
@@ -94,7 +94,7 @@ function Stats (): JSX.Element {
         />
         <span className='ml-1'>DFI</span>
       </StatItem>
-      <StatItem label='Difficulty:' testId='StatItem.difficulty'>
+      <StatItem label='Difficulty' testId='StatItem.difficulty'>
         <UnitSuffix
           value={stats.blockchain.difficulty}
           units={{

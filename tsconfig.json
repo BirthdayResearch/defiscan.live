@@ -20,11 +20,20 @@
     "jsx": "preserve",
     "baseUrl": "src",
     "paths": {
-      "@content/*": ["../content/*"],
-      "@contexts/*": ["layouts/contexts/*"],
-      "@components/*": ["components/*"],
-      "@store/*": ["store/*"],
-    }
+      "@content/*": [
+        "../content/*"
+      ],
+      "@contexts/*": [
+        "layouts/contexts/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@store/*": [
+        "store/*"
+      ]
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
