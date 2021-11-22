@@ -16,6 +16,7 @@ interface StatsState {
   tvl: {
     total?: number
     dex?: number
+    loan?: number
     masternodes?: number
   }
   burned: {
