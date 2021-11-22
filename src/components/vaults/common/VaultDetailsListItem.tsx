@@ -14,7 +14,7 @@ export function VaultDetailsListItem (props: PropsWithChildren<VaultDetailsListI
     <div className='flex justify-between items-center text-gray-900' data-testid='VaultDetailList'>
       <div className='flex items-center' data-testid={props.testId}>
         <span className={classnames('text-gray-500', props.titleClassNames)}>{props.title}</span>
-        {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
+        {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} placement='top' />)}
       </div>
       <div>
         {props.children}

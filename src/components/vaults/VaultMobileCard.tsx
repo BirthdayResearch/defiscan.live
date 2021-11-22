@@ -70,7 +70,7 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
 
 function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
-    <div className='w-full mt-2'>
+    <div className='w-full mt-2 space-y-2'>
       <VaultDetailsListItem
         title='Loans'
         testId='VaultMobileCard.Loans'
