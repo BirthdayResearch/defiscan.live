@@ -39,7 +39,7 @@ export function VaultAuctions (props: { batches: LoanVaultLiquidationBatch[] }):
 
 function VaultAuctionsDetailsCard (props: { batchIndex: number, loan: LoanVaultTokenAmount, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.symbol)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   return (
     <div

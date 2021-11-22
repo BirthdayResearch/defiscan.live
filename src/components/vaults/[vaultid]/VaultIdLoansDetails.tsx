@@ -152,7 +152,7 @@ function VaultLoanDetailsCard (props: {
   }
 }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.symbol)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)
 
