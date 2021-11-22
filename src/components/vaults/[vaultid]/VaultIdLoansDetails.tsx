@@ -89,7 +89,7 @@ function calculateUsdValues (loan: LoanVaultTokenAmount, interest: LoanVaultToke
   let loanUsdAmount = ((loan?.activePrice?.active) != null) ? new BigNumber(loan.activePrice.active.amount).multipliedBy(new BigNumber(loan.amount)) : undefined
   let interestUsdAmount = ((loan?.activePrice?.active) != null) ? new BigNumber(loan.activePrice.active.amount).multipliedBy(new BigNumber(interest.amount)) : undefined
 
-  if (loan.id === '15') {
+  if (loan.symbol === 'DUSD') {
     loanUsdAmount = new BigNumber(loan.amount)
     interestUsdAmount = new BigNumber(interest.amount)
   }

@@ -19,7 +19,7 @@ export function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLi
   if (vault.state === LoanVaultState.IN_LIQUIDATION) {
     vault.batches.forEach(batch => {
       if (batch.loan?.activePrice?.active == null) {
-        if (batch.loan.id === '15') {
+        if (batch.loan.symbol === 'DUSD') {
           loanTokens.push(batch.loan)
           totalLoanValue = totalLoanValue.plus(new BigNumber(batch.loan.amount))
         } else {
@@ -32,7 +32,7 @@ export function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLi
 
       batch.collaterals.forEach(collateral => {
         if (collateral.activePrice?.active == null) {
-          if (collateral.id === '15') {
+          if (collateral.symbol === 'DUSD') {
             collateralTokens.push(collateral)
             totalCollateralValue = totalCollateralValue.plus(new BigNumber(collateral.amount))
           } else {
