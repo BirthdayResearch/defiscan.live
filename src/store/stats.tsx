@@ -16,6 +16,7 @@ interface StatsState {
   tvl: {
     total?: number
     dex?: number
+    loan?: number
     masternodes?: number
   }
   burned: {
@@ -50,6 +51,19 @@ interface StatsState {
     subversion?: string
     protocolversion?: number
   }
+  loan: {
+    count?: {
+      collateralTokens: number
+      loanTokens: number
+      openAuctions: number
+      openVaults: number
+      schemes: number
+    }
+    value?: {
+      collateral: number
+      loan: number
+    }
+  }
 }
 
 const initialState: StatsState = {
@@ -60,7 +74,8 @@ const initialState: StatsState = {
   masternodes: {},
   emission: {},
   blockchain: {},
-  net: {}
+  net: {},
+  loan: {}
 }
 
 export const stats = createSlice({
@@ -76,6 +91,7 @@ export const stats = createSlice({
       state.emission = action.payload.emission
       state.blockchain = action.payload.blockchain
       state.net = action.payload.net
+      state.loan = action.payload.loan
     }
   }
 })

@@ -16,6 +16,7 @@ import { Link } from '@components/commons/link/Link'
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
+import { VaultStatsBar } from '@components/vaults/VaultStatsBar'
 
 interface VaultsPageData {
   vaults: {
@@ -26,86 +27,89 @@ interface VaultsPageData {
 
 export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <Container className='pt-12 pb-20'>
-      <Head title='Vaults' />
+    <>
+      <VaultStatsBar />
+      <Container className='pt-12 pb-20'>
+        <Head title='Vaults' />
 
-      <h1 className='text-2xl font-medium'>Vaults</h1>
+        <h1 className='text-2xl font-medium'>Vaults</h1>
 
-      <div className='my-6 hidden md:block'>
-        {vaults.items.length === 0
-          ? (
-            <div className='text-gray-400 flex w-full justify-center p-12'>
-              There are no vaults at this time
-            </div>
-            )
-          : (
-            <OverflowTable>
-              <OverflowTable.Header>
-                <OverflowTable.Head
-                  title='Vault ID'
-                  testId='VaultsTable.VaultID'
-                />
+        <div className='my-6 hidden md:block'>
+          {vaults.items.length === 0
+            ? (
+              <div className='text-gray-400 flex w-full justify-center p-12'>
+                There are no vaults at this time
+              </div>
+              )
+            : (
+              <OverflowTable>
+                <OverflowTable.Header>
+                  <OverflowTable.Head
+                    title='Vault ID'
+                    testId='VaultsTable.VaultID'
+                  />
 
-                <OverflowTable.Head
-                  title='Status'
-                  infoDesc={<VaultStatusInfo />}
-                  testId='VaultsTable.Status'
-                />
+                  <OverflowTable.Head
+                    title='Status'
+                    infoDesc={<VaultStatusInfo />}
+                    testId='VaultsTable.Status'
+                  />
 
-                <OverflowTable.Head
-                  alignRight
-                  title='Loan Value (USD)'
-                  infoDesc='Loan token(s) and value (in USD) taken by a vault.'
-                  testId='VaultsTable.LoansValue'
-                />
+                  <OverflowTable.Head
+                    alignRight
+                    title='Loan Value (USD)'
+                    infoDesc='Loan token(s) and value (in USD) taken by a vault.'
+                    testId='VaultsTable.LoansValue'
+                  />
 
-                <OverflowTable.Head
-                  alignRight
-                  title='Collateral Value (USD)'
-                  infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
-                  testId='VaultsTable.CollateralValue'
-                />
+                  <OverflowTable.Head
+                    alignRight
+                    title='Collateral Value (USD)'
+                    infoDesc='Value of tokens (in USD) deposited as collateral in a vault.'
+                    testId='VaultsTable.CollateralValue'
+                  />
 
-                <OverflowTable.Head
-                  alignRight
-                  title='Collateralization Ratio'
-                  infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-                  testId='VaultsTable.CollateralizationRatio'
-                />
+                  <OverflowTable.Head
+                    alignRight
+                    title='Collateralization Ratio'
+                    infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+                    testId='VaultsTable.CollateralizationRatio'
+                  />
 
-                <OverflowTable.Head
-                  alignRight
-                  title='Min Collateralization Ratio'
-                  infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-                  testId='VaultsTable.MinCollateralizationRatio'
-                />
-              </OverflowTable.Header>
+                  <OverflowTable.Head
+                    alignRight
+                    title='Min Collateralization Ratio'
+                    infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
+                    testId='VaultsTable.MinCollateralizationRatio'
+                  />
+                </OverflowTable.Header>
 
-              {vaults.items.map(vault => {
-                return (
-                  <Link href={{ pathname: `/vaults/${vault.vaultId}` }} key={vault.vaultId}>
-                    <a className='contents'>
-                      <VaultRow vault={vault} />
-                    </a>
-                  </Link>
-                )
-              })}
-            </OverflowTable>
-            )}
-      </div>
-
-      <div className='my-6 md:hidden'>
-        <div className='flex flex-wrap space-y-2'>
-          {vaults.items.map(vault => {
-            return (<VaultMobileCard vault={vault} key={vault.vaultId} />)
-          })}
+                {vaults.items.map(vault => {
+                  return (
+                    <Link href={{ pathname: `/vaults/${vault.vaultId}` }} key={vault.vaultId}>
+                      <a className='contents'>
+                        <VaultRow vault={vault} />
+                      </a>
+                    </Link>
+                  )
+                })}
+              </OverflowTable>
+              )}
         </div>
-      </div>
 
-      <div className='flex justify-end mt-8'>
-        <CursorPagination pages={vaults.pages} path='/vaults' />
-      </div>
-    </Container>
+        <div className='my-6 md:hidden'>
+          <div className='flex flex-wrap space-y-2'>
+            {vaults.items.map(vault => {
+              return (<VaultMobileCard vault={vault} key={vault.vaultId} />)
+            })}
+          </div>
+        </div>
+
+        <div className='flex justify-end mt-8'>
+          <CursorPagination pages={vaults.pages} path='/vaults' />
+        </div>
+      </Container>
+    </>
   )
 }
 

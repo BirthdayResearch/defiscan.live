@@ -11,24 +11,12 @@ context('/ on macbook-13', () => {
     cy.findByTestId('Header.title').should('have.text', 'DeFiChain Blockchain Explorer')
   })
 
-  it('should have StatItem.priceUsdt', () => {
-    cy.findByTestId('StatItem.priceUsdt').should('be.visible')
-  })
-
-  it('should have StatItem.tvlTotal', () => {
-    cy.findByTestId('StatItem.tvlTotal').should('be.visible')
-  })
-
-  it('should have StatItem.blockReward', () => {
-    cy.findByTestId('StatItem.blockReward').should('be.visible')
-  })
-
-  it('should have StatItem.totalDFIBurned', () => {
-    cy.findByTestId('StatItem.totalDFIBurned').should('be.visible')
-  })
-
-  it('should have StatItem.difficulty', () => {
-    cy.findByTestId('StatItem.difficulty').should('be.visible')
+  it('should have Stats Bar', () => {
+    cy.findByTestId('StatItem.priceUsdt').should('exist')
+    cy.findByTestId('StatItem.tvlTotal').should('exist')
+    cy.findByTestId('StatItem.blockReward').should('exist')
+    cy.findByTestId('StatItem.totalDFIBurned').should('exist')
+    cy.findByTestId('StatItem.difficulty').should('exist')
   })
 
   it('should have BlocksList.viewAllBlocksLink', () => {
@@ -65,24 +53,12 @@ context('/ on iphone-x', () => {
     cy.findByTestId('Header.title').should('have.text', 'DeFiChain Blockchain Explorer')
   })
 
-  it('should have StatItem.priceUsdt', () => {
-    cy.findByTestId('StatItem.priceUsdt').should('be.visible')
-  })
-
-  it('should have StatItem.tvlTotal', () => {
-    cy.findByTestId('StatItem.tvlTotal').should('be.visible')
-  })
-
-  it('should have StatItem.blockReward', () => {
-    cy.findByTestId('StatItem.blockReward').should('be.visible')
-  })
-
-  it('should have StatItem.totalDFIBurned', () => {
-    cy.findByTestId('StatItem.totalDFIBurned').should('be.visible')
-  })
-
-  it('should have StatItem.difficulty', () => {
-    cy.findByTestId('StatItem.difficulty').should('be.visible')
+  it('should have Stats Bar', () => {
+    cy.findByTestId('StatItem.priceUsdt').should('exist')
+    cy.findByTestId('StatItem.tvlTotal').should('exist')
+    cy.findByTestId('StatItem.blockReward').should('exist')
+    cy.findByTestId('StatItem.totalDFIBurned').should('exist')
+    cy.findByTestId('StatItem.difficulty').should('exist')
   })
 
   it('should have BlocksList.viewAllBlocksLink', () => {

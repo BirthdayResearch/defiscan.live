@@ -1,11 +1,20 @@
 context('/vaults', () => {
+  before(() => {
+    cy.visit('/vaults')
+  })
+
   beforeEach(() => {
     cy.viewport('macbook-13')
   })
 
-  it('should have OverflowTable header information', function () {
-    cy.visit('/vaults?network=TestNet')
+  it('should have Vaults Stat Bar', () => {
+    cy.findByTestId('VaultStatsBar.TotalActiveVaults').should('exist')
+    cy.findByTestId('VaultStatsBar.TotalCollateralValue').should('exist')
+    cy.findByTestId('VaultStatsBar.TotalLoanValue').should('exist')
+    cy.findByTestId('VaultStatsBar.ActiveAuctions').should('exist')
+  })
 
+  it('should have OverflowTable header information', function () {
     cy.findByTestId('VaultsTable.VaultID').should('be.visible').should('have.text', 'Vault ID')
 
     cy.findByTestId('VaultsTable.Status').should('be.visible').should('have.text', 'Status')
@@ -42,13 +51,22 @@ context('/vaults', () => {
 })
 
 context('/vaults on mobile', () => {
+  before(() => {
+    cy.visit('/vaults')
+  })
+
   beforeEach(() => {
     cy.viewport('iphone-x')
   })
 
-  it('should not have OverflowTable header information', function () {
-    cy.visit('/vaults?network=TestNet')
+  it('should have Vaults Stat Bar', () => {
+    cy.findByTestId('VaultStatsBar.TotalActiveVaults').should('exist')
+    cy.findByTestId('VaultStatsBar.TotalCollateralValue').should('exist')
+    cy.findByTestId('VaultStatsBar.TotalLoanValue').should('exist')
+    cy.findByTestId('VaultStatsBar.ActiveAuctions').should('exist')
+  })
 
+  it('should not have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Vault ID').should('not.be.visible')
       cy.wrap(ele).findByText('Status').should('not.be.visible')

@@ -4,11 +4,14 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { MasternodeData, MasternodeState } from '@defichain/whale-api-client/dist/api/masternodes'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import NumberFormat from 'react-number-format'
 import { Container } from '@components/commons/Container'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { AddressLink } from '@components/commons/link/AddressLink'
+import { StatsBar } from '@components/commons/stats/StatsBar'
+import ReactNumberFormat from 'react-number-format'
+import React from 'react'
+import { StatItem } from '@components/commons/stats/StatItem'
 
 interface MasternodesPageProps {
   masternodes: {
@@ -25,53 +28,42 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
     <>
       <Head title='Masternodes' />
 
-      <div className='bg-orange-50 py-3'>
-        <Container>
-          <div className='flex flex-wrap -mx-3'>
-            <div className='flex mx-3 my-1'>
-              <div className='text-gray-900'>Total value locked in Masternodes:</div>
-              <NumberFormat
-                className='ml-2 text-orange-600 font-medium'
-                value={tvl?.masternodes}
-                displayType='text'
-                decimalScale={0}
-                thousandSeparator
-                prefix='$'
-              />
-            </div>
-            <div className='flex mx-3 my-1'>
-              <div className='text-gray-900'>0 year locked:</div>
-              <NumberFormat
-                className='ml-2 text-orange-600 font-medium'
-                value={locked?.find(l => l.weeks === 0)?.count}
-                displayType='text'
-                decimalScale={0}
-                thousandSeparator
-              />
-            </div>
-            <div className='flex mx-3 my-1'>
-              <div className='text-gray-900'>5 year locked:</div>
-              <NumberFormat
-                className='ml-2 text-orange-600 font-medium'
-                value={locked?.find(l => l.weeks === 260)?.count}
-                displayType='text'
-                decimalScale={0}
-                thousandSeparator
-              />
-            </div>
-            <div className='flex mx-3 my-1'>
-              <div className='text-gray-900'>10 year locked:</div>
-              <NumberFormat
-                className='ml-2 text-orange-600 font-medium'
-                value={locked?.find(l => l.weeks === 520)?.count}
-                displayType='text'
-                decimalScale={0}
-                thousandSeparator
-              />
-            </div>
-          </div>
-        </Container>
-      </div>
+      <StatsBar>
+        <StatItem label='Total Value Locked in Masternodes' testId='Masternodes.Stats.TVL'>
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={tvl?.masternodes}
+            decimalScale={0}
+            prefix='$'
+            suffix=' USD'
+          />
+        </StatItem>
+        <StatItem label='0 Year Locked' testId='Masternodes.Stats.ZeroYearLock'>
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={locked?.find(l => l.weeks === 0)?.count}
+            decimalScale={0}
+          />
+        </StatItem>
+        <StatItem label='5 Year Locked' testId='Masternodes.Stats.FiveYearLock'>
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={locked?.find(l => l.weeks === 260)?.count}
+            decimalScale={0}
+          />
+        </StatItem>
+        <StatItem label='10 Year Locked' testId='Masternodes.Stats.TenYearLock'>
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={locked?.find(l => l.weeks === 520)?.count}
+            decimalScale={0}
+          />
+        </StatItem>
+      </StatsBar>
 
       <Container className='pt-12 pb-20'>
         <h1 className='text-2xl font-medium'>Masternodes</h1>
@@ -112,7 +104,7 @@ function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <NumberFormat
+        <ReactNumberFormat
           value={data.creation.height}
           fixedDecimalScale
           displayType='text'
@@ -121,7 +113,7 @@ function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         {data.resign?.height !== undefined ? (
-          <NumberFormat
+          <ReactNumberFormat
             value={data.resign?.height}
             fixedDecimalScale
             displayType='text'
@@ -132,7 +124,7 @@ function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
         )}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <NumberFormat
+        <ReactNumberFormat
           value={data.mintedBlocks}
           fixedDecimalScale
           thousandSeparator=','

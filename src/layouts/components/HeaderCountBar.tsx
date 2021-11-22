@@ -51,7 +51,7 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
     function PopoverTVLAmount (props: { text: string, count?: number, className: string }): JSX.Element {
       return (
         <li className={classNames(props.className, 'flex justify-between')}>
-          <span className='text-sm mr-4'>{props.text}: </span>
+          <span className='text-sm mr-4'>{props.text} </span>
           <span className='text-sm font-medium'>
             {props.count !== undefined ? (
               <NumberFormat
@@ -71,11 +71,12 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
 
     return (
       <div
-        className='py-3 px-4 font-normal text-sm bg-black text-white rounded shadow-md ring-1 ring-gray-200 max-w-xs'
+        className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
       >
         <PopoverTVLAmount className='py-1' text='DEX' count={tvl.dex} />
         <PopoverTVLAmount className='py-1' text='Masternode' count={tvl.masternodes} />
-        <PopoverTVLAmount className='py-1' text='TOTAL' count={tvl.total} />
+        <PopoverTVLAmount className='py-1' text='Loan' count={tvl.loan} />
+        <PopoverTVLAmount className='py-1' text='Total' count={tvl.total} />
       </div>
     )
   }
