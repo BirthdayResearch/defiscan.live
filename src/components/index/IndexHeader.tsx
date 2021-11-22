@@ -12,20 +12,22 @@ import { StatsBar } from '@components/commons/stats/StatsBar'
 
 export function IndexHeader (): JSX.Element {
   return (
-    <div
-      className='flex flex-col items-center'
-      style={{ backgroundImage: 'linear-gradient(to bottom left, #FFFFFF, #fff7f4,  #f7e6f0' }}
-    >
-      <Container className='h-full'>
-        <div className='h-full flex flex-wrap items-center justify-center mt-14 mb-16'>
-          <h1 className='text-3xl lg:text-4xl mb-6 font-semibold text-center' data-testid='Header.title'>
-            DeFiChain Blockchain Explorer
-          </h1>
-          <SearchBar />
-        </div>
-      </Container>
+    <>
       <Stats />
-    </div>
+      <div
+        className='flex flex-col items-center'
+        style={{ backgroundImage: 'linear-gradient(to bottom left, #FFFFFF, #fff7f4,  #f7e6f0' }}
+      >
+        <Container className='h-full'>
+          <div className='h-full flex flex-wrap items-center justify-center mt-14 mb-16'>
+            <h1 className='text-3xl lg:text-4xl mb-6 font-semibold text-center' data-testid='Header.title'>
+              DeFiChain Blockchain Explorer
+            </h1>
+            <SearchBar />
+          </div>
+        </Container>
+      </div>
+    </>
   )
 }
 
