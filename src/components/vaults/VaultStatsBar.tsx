@@ -38,7 +38,7 @@ export function VaultStatsBar (): JSX.Element {
           suffix=' USD'
         />
       </StatItem>
-      <StatItem label='Active Auctions' testId='VaultStatsBar.ActiceAuctions'>
+      <StatItem label='Active Auctions' testId='VaultStatsBar.ActiveAuctions'>
         <ReactNumberFormat
           displayType='text'
           thousandSeparator
