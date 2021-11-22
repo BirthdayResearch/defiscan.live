@@ -1,9 +1,9 @@
-import { LoanScheme, DfTx } from '@defichain/jellyfish-transaction'
+import { SetLoanScheme, DfTx } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 
 interface DfTxCreateLoanSchemeProps {
-  dftx: DfTx<LoanScheme>
+  dftx: DfTx<SetLoanScheme>
 }
 
 export function DfTxCreateLoanScheme (props: DfTxCreateLoanSchemeProps): JSX.Element {
