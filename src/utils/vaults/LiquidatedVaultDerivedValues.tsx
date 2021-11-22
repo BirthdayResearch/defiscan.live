@@ -55,7 +55,7 @@ export function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLi
     totalCollateralRatio = totalCollateralValue.div(totalLoanValue).multipliedBy(100)
   }
 
-  if (isMissingActivePrice) {
+  if (isMissingActivePrice || totalLoanValue.eq(0) || totalCollateralValue.eq(0) || totalCollateralRatio.lt(0)) {
     return undefined
   }
 
