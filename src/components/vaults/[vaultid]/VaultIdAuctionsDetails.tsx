@@ -83,7 +83,7 @@ function VaultAuctionsDetailsCard (props: { batchIndex: number, loan: LoanVaultT
         <div className='w-full mt-4 pt-4 flex flex-col border-t-2 border-gray-100'>
           <div className='flex items-center mb-2'>
             <span className='text-sm text-gray-500'>Collaterals</span>
-            <InfoHoverPopover className='ml-1' description='' />
+            <InfoHoverPopover className='ml-1' description='Collateral token(s) for auction.' />
           </div>
           {
             props.collaterals.map(collateral => (
