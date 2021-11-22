@@ -23,9 +23,7 @@ context('/ on macbook-13', () => {
     cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
   })
 
-  it('should have BlocksList.viewAllBlocksButton', () => {
-    cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
-  })
+
 
   it('should have LiquidityPools', () => {
     cy.findByTestId('LiquidityPoolList').should('be.visible')
@@ -65,9 +63,6 @@ context('/ on iphone-x', () => {
     cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
   })
 
-  it('should have BlocksList.viewAllBlocksButton', () => {
-    cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
-  })
 
   it('should have LiquidityPools', () => {
     cy.findByTestId('LiquidityPoolList').should('be.visible')
