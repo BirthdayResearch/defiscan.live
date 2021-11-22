@@ -79,13 +79,13 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? (
-              props.liquidatedVaultDerivedValues?.loanTokens === undefined
+              props.liquidatedVaultDerivedValues?.loanTokens === undefined || props.liquidatedVaultDerivedValues?.loanTokens.length === 0
                 ? ('N/A')
                 : (
                   <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.loanTokens} />
                   )
             )
-          : (props.vault.collateralAmounts.length === 0 ? 'N/A'
+          : (props.vault.loanAmounts.length === 0 ? 'N/A'
               : <VaultTokenSymbols tokens={props.vault.loanAmounts} />)}
       </VaultDetailsListItem>
       <VaultDetailsListItem
@@ -115,7 +115,7 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? (
-              props.liquidatedVaultDerivedValues?.collateralTokens === undefined
+              props.liquidatedVaultDerivedValues?.collateralTokens === undefined || props.liquidatedVaultDerivedValues.collateralTokens.length === 0
                 ? ('N/A')
                 : (
                   <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.collateralTokens} />
