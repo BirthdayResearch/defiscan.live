@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { UnitSuffix } from '@components/commons/UnitSuffix'
 import ReactNumberFormat from 'react-number-format'
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import { IoSearchSharp } from 'react-icons/io5'
 import { useRouter } from 'next/router'
 import { useNetwork } from '@contexts/NetworkContext'
+import { StatItem } from '@components/commons/stats/StatItem'
+import { StatsBar } from '@components/commons/stats/StatsBar'
 
 export function IndexHeader (): JSX.Element {
   return (
@@ -50,76 +52,59 @@ function Stats (): JSX.Element {
   const stats = useSelector((state: RootState) => state.stats)
 
   return (
-    <div className='w-full bg-orange-50 py-3'>
-      <Container>
-        <div className='grid gap-y-1 grid-cols-1 md:grid-cols-2 xl:grid-cols-none xl:grid-flow-col-dense'>
-          <StatItem label='Price:' testId='StatItem.priceUsdt'>
-            <ReactNumberFormat
-              displayType='text'
-              thousandSeparator
-              value={stats.price.usdt}
-              decimalScale={2}
-              prefix='$'
-              suffix=' USD'
-            />
-          </StatItem>
-          <StatItem label='Total Value Locked (TVL):' testId='StatItem.tvlTotal'>
-            <ReactNumberFormat
-              displayType='text'
-              thousandSeparator
-              value={stats.tvl.total}
-              decimalScale={0}
-              prefix='$'
-              suffix=' USD'
-            />
-          </StatItem>
-          <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
-            <UnitSuffix
-              value={stats.burned.total}
-              units={{
-                3: 'K',
-                6: 'M',
-                9: 'G',
-                12: 'T'
-              }}
-            />
-            <span className='ml-1'>DFI</span>
-          </StatItem>
-          <StatItem label='Block Reward:' testId='StatItem.blockReward'>
-            <ReactNumberFormat
-              displayType='text'
-              thousandSeparator
-              value={stats.emission.total}
-              decimalScale={2}
-            />
-            <span className='ml-1'>DFI</span>
-          </StatItem>
-          <StatItem label='Difficulty:' testId='StatItem.difficulty'>
-            <UnitSuffix
-              value={stats.blockchain.difficulty}
-              units={{
-                3: 'K',
-                6: 'M',
-                9: 'G',
-                12: 'T'
-              }}
-            />
-          </StatItem>
-        </div>
-      </Container>
-    </div>
-  )
-}
-
-function StatItem ({
-  label,
-  children,
-  testId
-}: PropsWithChildren<{ label: string, testId?: string }>): JSX.Element {
-  return (
-    <div className='flex' data-testid={testId}>
-      <div className='text-gray-900'>{label}</div>
-      <div className='ml-2 text-orange-600 font-medium'>{children}</div>
-    </div>
+    <StatsBar>
+      <StatItem label='Price:' testId='StatItem.priceUsdt'>
+        <ReactNumberFormat
+          displayType='text'
+          thousandSeparator
+          value={stats.price.usdt}
+          decimalScale={2}
+          prefix='$'
+          suffix=' USD'
+        />
+      </StatItem>
+      <StatItem label='Total Value Locked (TVL):' testId='StatItem.tvlTotal'>
+        <ReactNumberFormat
+          displayType='text'
+          thousandSeparator
+          value={stats.tvl.total}
+          decimalScale={0}
+          prefix='$'
+          suffix=' USD'
+        />
+      </StatItem>
+      <StatItem label='Total DFI Burned:' testId='StatItem.totalDFIBurned'>
+        <UnitSuffix
+          value={stats.burned.total}
+          units={{
+            3: 'K',
+            6: 'M',
+            9: 'G',
+            12: 'T'
+          }}
+        />
+        <span className='ml-1'>DFI</span>
+      </StatItem>
+      <StatItem label='Block Reward:' testId='StatItem.blockReward'>
+        <ReactNumberFormat
+          displayType='text'
+          thousandSeparator
+          value={stats.emission.total}
+          decimalScale={2}
+        />
+        <span className='ml-1'>DFI</span>
+      </StatItem>
+      <StatItem label='Difficulty:' testId='StatItem.difficulty'>
+        <UnitSuffix
+          value={stats.blockchain.difficulty}
+          units={{
+            3: 'K',
+            6: 'M',
+            9: 'G',
+            12: 'T'
+          }}
+        />
+      </StatItem>
+    </StatsBar>
   )
 }
