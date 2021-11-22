@@ -13,7 +13,7 @@ export function VaultAuctions (props: { batches: LoanVaultLiquidationBatch[] }):
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
         <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>In Auction</h2>
-        <div className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
+        <div className='mt-4 mb-8 items-start grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
           {props.batches.map((batch) => (
             <VaultAuctionsDetailsCard
               batchIndex={batch.index} loan={batch.loan} collaterals={batch.collaterals}
