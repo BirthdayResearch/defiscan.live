@@ -1,6 +1,6 @@
 context('/vaults/[vaultid] on desktop', function () {
   before(() => {
-    cy.visit('/vaults?network=TestNet')
+    cy.visit('/vaults')
     cy.findAllByTestId('OverflowTable.Row').within(() => {
       cy.findByTestId('VaultRow.VaultStatus').should('have.text', 'HEALTHY').click()
     })
@@ -109,7 +109,7 @@ context('/vaults/[vaultid] on desktop', function () {
 
 context('/vaults/[vaultid] on mobile', function () {
   before(() => {
-    cy.visit('/vaults?network=TestNet')
+    cy.visit('/vaults')
     cy.findAllByTestId('OverflowTable.Row').within(() => {
       cy.findByTestId('VaultRow.VaultStatus').should('have.text', 'HEALTHY').click()
     })
