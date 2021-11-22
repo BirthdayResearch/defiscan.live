@@ -7,6 +7,13 @@ context('/masternodes on macbook-16', () => {
     cy.viewport('macbook-16')
   })
 
+  it('should have Stats Bar', () => {
+    cy.findByTestId('Masternodes.Stats.TVL').should('exist')
+    cy.findByTestId('Masternodes.Stats.ZeroYearLock').should('exist')
+    cy.findByTestId('Masternodes.Stats.FiveYearLock').should('exist')
+    cy.findByTestId('Masternodes.Stats.TenYearLock').should('exist')
+  })
+
   it('should have heading', () => {
     cy.get('h1').should('have.text', 'Masternodes')
   })
@@ -61,6 +68,13 @@ context('/masternodes on iphone-x', () => {
 
   beforeEach(() => {
     cy.viewport('iphone-x')
+  })
+
+  it('should have Stats Bar', () => {
+    cy.findByTestId('Masternodes.Stats.TVL').should('exist')
+    cy.findByTestId('Masternodes.Stats.ZeroYearLock').should('exist')
+    cy.findByTestId('Masternodes.Stats.FiveYearLock').should('exist')
+    cy.findByTestId('Masternodes.Stats.TenYearLock').should('exist')
   })
 
   it('should have heading', () => {
