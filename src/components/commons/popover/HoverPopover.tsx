@@ -30,7 +30,7 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
         ref={setRefEle}
         onMouseOver={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
-        onClick={() => setIsHover(!isHover)}
+        onTouchCancel={() => setIsHover(false)}
         className={classNames(props.className)}
       >
         {props.children}
