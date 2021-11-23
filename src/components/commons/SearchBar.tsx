@@ -1,6 +1,6 @@
 import { IoCloseCircleSharp, IoSearchSharp, IoWalletOutline } from 'react-icons/io5'
 import { CgSpinner } from 'react-icons/cg'
-import React, { Fragment, PropsWithChildren, useMemo, useState } from 'react'
+import React, { Fragment, PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import debounce from 'lodash.debounce'
 import { usePopper } from 'react-popper'
@@ -31,6 +31,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   const network = useNetwork().name
 
   const [isActive, setIsActive] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
   const [refEle, setRefEle] = useState<any>()
@@ -58,6 +59,14 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
   const onChangeDebounceHandler = useMemo(() => debounce(changeHandler, 200), [])
 
+  const inputEle = useRef<HTMLInputElement>(null)
+  useEffect(() => {
+    if (isOpen && inputEle.current !== null) {
+      inputEle.current.focus()
+      setIsOpen(false)
+    }
+  }, [isOpen])
+
   return (
     <Menu as={Fragment}>
       {({ open }) => (
@@ -75,8 +84,14 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
                   className='ml-1.5 w-full focus:outline-none'
                   data-testid='SearchBar.Input'
                   onChange={onChangeDebounceHandler}
-                  onFocus={() => setIsActive(true)}
-                  onBlur={() => setIsActive(false)}
+                  onFocus={() => {
+                    setIsActive(true)
+                  }}
+                  onBlur={() => {
+                    setIsActive(false)
+                    setIsOpen(open)
+                  }}
+                  ref={inputEle}
                 />
               </div>
             </Menu.Button>
@@ -91,7 +106,12 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
             leaveTo='opacity-0 translate-y-1'
             show={isActive || open}
           >
-            <div className='z-40' ref={setPopperEle} style={{ ...styles.popper, minWidth: refEle?.scrollWidth }} {...attributes.popper}>
+            <div
+              className='z-40' ref={setPopperEle} style={{
+                ...styles.popper,
+                minWidth: refEle?.scrollWidth
+              }} {...attributes.popper}
+            >
               <div className='w-full mt-1.5 py-3 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
                 <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
               </div>
