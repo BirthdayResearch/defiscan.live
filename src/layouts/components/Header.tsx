@@ -6,8 +6,8 @@ import React, { useEffect, useState } from 'react'
 import { MdClose, MdMenu } from 'react-icons/md'
 import { Container } from '@components/commons/Container'
 import { HeaderCountBar } from './HeaderCountBar'
-import { HeaderSearchBar } from './HeaderSearchBar'
 import { HeaderNetworkMenu } from './HeaderNetworkMenu'
+import { SearchBar } from '@components/commons/SearchBar'
 
 export function Header (): JSX.Element {
   const [menu, setMenu] = useState(false)
@@ -39,7 +39,7 @@ export function Header (): JSX.Element {
       <div className='hidden md:block border-b border-gray-100 bg-primary-700'>
         <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
-            <HeaderCountBar className='h-full flex ' />
+            <HeaderCountBar className='h-full flex' />
             <HeaderNetworkMenu />
           </div>
         </Container>
@@ -111,7 +111,7 @@ function DesktopNavbar (): JSX.Element {
         />
       </div>
       <div className='hidden ml-4 md:flex' data-testid='Desktop.HeaderSearchBar'>
-        <HeaderSearchBar />
+        <SearchBar collapsable />
       </div>
     </div>
   )
@@ -150,7 +150,7 @@ function MobileMenu (): JSX.Element {
         </div>
 
         <div className='mt-4' data-testid='Mobile.HeaderSearchBar'>
-          <HeaderSearchBar />
+          <SearchBar collapsable={false} />
         </div>
       </Container>
 

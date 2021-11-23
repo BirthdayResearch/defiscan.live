@@ -1,23 +1,21 @@
-import {
-  IoCloseCircleSharp,
-  IoCubeOutline,
-  IoSearchSharp,
-  IoSwapHorizontalOutline,
-  IoWalletOutline
-} from 'react-icons/io5'
+import { IoCloseCircleSharp, IoSearchSharp, IoWalletOutline } from 'react-icons/io5'
 import { CgSpinner } from 'react-icons/cg'
-import React, { PropsWithChildren, useMemo, useState } from 'react'
+import React, { Fragment, PropsWithChildren, useMemo, useState } from 'react'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import debounce from 'lodash.debounce'
 import { usePopper } from 'react-popper'
-import { Link } from '@components/commons/Link'
-import { Transition } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { fromAddress } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { WhaleApiClient } from '@defichain/whale-api-client'
+import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
+import { SearchLink } from '@components/commons/link/Link'
+import classNames from 'classnames'
+import { Modifier } from '@popperjs/core'
+import { MdShield, MdStairs, MdSwapHorizontalCircle } from 'react-icons/md'
 
 interface SearchBarInterface {
   collapsable: boolean
@@ -34,16 +32,43 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   const network = useNetwork().name
 
   const [isActive, setIsActive] = useState<boolean>(false)
-  const [isCollapse, setIsCollapse] = useState<boolean>(true)
+  const [setIsCollapse] = useState<boolean>(true)
   const [isSearching, setIsSearching] = useState<boolean>(false)
-  const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>([])
+  const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
   const [refEle, setRefEle] = useState<any>()
   const [popperEle, setPopperEle] = useState<any>()
+
+  const widthModifier = useMemo((): Modifier<string, Record<string, unknown>> => (
+    {
+      name: 'matchReferenceSize',
+      enabled: true,
+      fn: ({
+        state,
+        instance
+      }) => {
+        const popperSize = popperEle.offsetWidth
+        const referenceSize = state.rects.reference.width
+
+        if (Math.round(popperSize) === Math.round(referenceSize)) {
+          return
+        }
+
+        popperEle.style.width = `${referenceSize}px`
+        void instance.update()
+      },
+      phase: 'beforeWrite',
+      requires: ['computeStyles']
+    }
+  ), [popperEle]
+  )
 
   const {
     styles,
     attributes
-  } = usePopper(refEle, popperEle, { placement: 'bottom-start' })
+  } = usePopper(refEle, popperEle, {
+    placement: 'bottom',
+    modifiers: [widthModifier]
+  })
 
   async function changeHandler (event): Promise<void> {
     const query = event.target.value.trim()
@@ -61,58 +86,48 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   const onChangeDebounceHandler = useMemo(() => debounce(changeHandler, 200), [])
 
   return (
-    <>
-      <div
-        className={`flex w-full p-2 rounded h-10 bg-white border ${isActive ? 'border-primary-200' : ''} ${isCollapse ? 'cursor-pointer' : ''}`}
-        onClick={() => setIsCollapse(false)}
-        ref={setRefEle}
-        data-testid='SearchBar'
-      >
-        <IoSearchSharp size={22} className='text-gray-400 ml-0.5 self-center' />
-        <Transition
-          className='flex w-full'
-          enter='transition ease-in duration-200'
-          enterFrom='translate-x-0'
-          enterTo='opacity-100 translate-x-1'
-          leave='transition ease-in duration-150'
-          leaveFrom='opacity-100 translate-x-1'
-          leaveTo='opacity-0 translate-y-0'
-          show={!isCollapse || !props.collapsable}
+    <Menu as={Fragment}>
+      <div className={classNames('flex w-full md:w-3/4 xl:w-1/2')}>
+        <div
+          className={`flex w-full p-2 rounded-3xl h-10 bg-white border ${isActive ? 'border-primary-200' : ''}`}
+          onClick={() => setIsCollapse(false)}
+          data-testid='SearchBar'
+          ref={setRefEle}
         >
-          <input
-            onChange={onChangeDebounceHandler}
-            onFocus={() => setIsActive(true)}
-            onBlur={() => {
-              setIsActive(false)
-              setIsCollapse(true)
-            }}
-            placeholder='Search by Transaction ID, Block Hash, Block Height or Address'
-            className='ml-1.5 w-full focus:outline-none'
-            data-testid='SearchBar.Input'
-            autoFocus={props.collapsable}
-          />
+          <IoSearchSharp size={22} className='text-gray-600 ml-0.5 self-center' />
+          <Menu.Button as={Fragment}>
+            <input
+              onChange={onChangeDebounceHandler}
+              onFocus={() => setIsActive(true)}
+              onBlur={() => {
+                setIsActive(false)
+                setIsCollapse(true)
+              }}
+              placeholder='Search Block / Txn / Vault ID and more'
+              className='ml-1.5 w-full focus:outline-none'
+              data-testid='SearchBar.Input'
+              autoFocus={props.collapsable}
+            />
+          </Menu.Button>
+        </div>
+
+        <Transition
+          enter='transition ease-in duration-150'
+          enterFrom='opacity-0 translate-y-1'
+          enterTo='opacity-100 translate-y-0'
+          leave='transition ease-in duration-150'
+          leaveFrom='opacity-100 translate-y-0'
+          leaveTo='opacity-0 translate-y-1'
+          show={isActive || searchResults?.length > 0}
+        >
+          <div className='w-full z-40' ref={setPopperEle} style={styles.popper} {...attributes.popper}>
+            <div className='w-full mt-1.5 pt-1 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
+              <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
+            </div>
+          </div>
         </Transition>
       </div>
-
-      <Transition
-        enter='transition ease-in duration-150'
-        enterFrom='opacity-0 translate-y-1'
-        enterTo='opacity-100 translate-y-0'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-0'
-        leaveTo='opacity-0 translate-y-1'
-        show={isActive}
-      >
-        <div
-          ref={setPopperEle} style={styles.popper} {...attributes.popper}
-          className='w-full px-4 lg:px-0 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/5 z-10'
-        >
-          <div className='w-full mt-1.5 py-2 px-4 rounded shadow-lg filter drop-shadow bg-white'>
-            <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
-          </div>
-        </div>
-      </Transition>
-    </>
+    </Menu>
   )
 }
 
@@ -127,55 +142,75 @@ function SearchResultTable (props: { searchResults?: SearchResult[], isSearching
 
   if (props.searchResults === undefined) {
     return (
-      <SearchStatusMessage message='No Results'>
-        <IoCloseCircleSharp size={88} className='text-gray-400 opacity-30' />
-      </SearchStatusMessage>
-    )
-  }
-
-  if (props.searchResults.length === 0) {
-    return (
       <SearchStatusMessage message='Search by Transaction ID, Block Hash, Block Height or Address'>
         <IoSearchSharp size={96} className='text-gray-400 opacity-30' />
       </SearchStatusMessage>
     )
   }
 
+  if (props.searchResults.length === 0) {
+    return (
+      <SearchStatusMessage message='No Results'>
+        <IoCloseCircleSharp size={88} className='text-gray-400 opacity-30' />
+      </SearchStatusMessage>
+    )
+  }
+
   return (
     <>
-      {props.searchResults.map(searchResult => {
-        return (
-          <SearchResultRow {...searchResult} key={searchResult.title} />
-        )
-      })}
+      <Menu.Items className='focus:outline-none'>
+        {props.searchResults.map((searchResult, index) => {
+          return (
+            <SearchResultRow searchResults={searchResult} index={index} key={searchResult.title} />
+          )
+        })}
+      </Menu.Items>
     </>
   )
 }
 
-function SearchResultRow (props: SearchResult): JSX.Element {
+function SearchResultRow (props: { searchResults: SearchResult, index: number }): JSX.Element {
   return (
-    <Link href={{ pathname: props.url }}>
-      <div
-        className='rounded mt-1 bg-white py-2 cursor-pointer'
-        data-testid={`SearchResultRow.${props.type}.${props.title}`}
-      >
-        <div className='bg-white flex flex-row items-center gap-x-2'>
-          <div>
-            {props.type === 'Block' && <IoCubeOutline size={20} />}
-            {props.type === 'Transaction' && <IoSwapHorizontalOutline size={20} />}
-            {props.type === 'Address' && <IoWalletOutline size={20} />}
-          </div>
-          <div className='overflow-hidden'>
-            <div className='font-medium overflow-hidden overflow-ellipsis'>{props.title}</div>
-            <div className='text-sm'>{props.type}</div>
+    <>
+      <Menu.Item as='div' disabled>
+        <div className='flex flex-wrap px-3 py-2 pb-0 text-gray-900 font-medium justify-center'>
+          <div className={classNames('w-full text-sm mb-0.5', { 'border-t pt-4': props.index !== 0 })}>
+            {props.searchResults.type === 'Block' && 'Blocks'}
+            {props.searchResults.type === 'Transaction' && 'Transactions'}
+            {props.searchResults.type === 'Address' && 'Addresses'}
+            {props.searchResults.type === 'Vault' && 'Vaults'}
           </div>
         </div>
-      </div>
-    </Link>
+      </Menu.Item>
+      <Menu.Item as={Fragment}>
+        {({ active }) => (
+          <SearchLink href={{ pathname: props.searchResults.url }}>
+            <div
+              className={classNames('bg-white px-3 py-2 cursor-pointer', { 'bg-primary-50 ': active })}
+              data-testid={`SearchResultRow.${props.searchResults.type}.${props.searchResults.title}`}
+            >
+              <div className='flex flex-row items-center gap-x-2'>
+                <div className='text-primary-500'>
+                  {props.searchResults.type === 'Block' && <MdStairs size={20} />}
+                  {props.searchResults.type === 'Transaction' && <MdSwapHorizontalCircle size={20} />}
+                  {props.searchResults.type === 'Address' && <IoWalletOutline size={20} />}
+                  {props.searchResults.type === 'Vault' && <MdShield size={20} />}
+                </div>
+                <div className='overflow-hidden'>
+                  <div className='overflow-hidden overflow-ellipsis'>{props.searchResults.title}</div>
+                </div>
+              </div>
+            </div>
+          </SearchLink>
+        )}
+      </Menu.Item>
+    </>
   )
 }
 
-async function getSearchResults (api: WhaleApiClient, network: NetworkName, query: string): Promise<(SearchResult[] | undefined)> {
+async function getSearchResults (api: WhaleApiClient, network: NetworkName, query: string): Promise<(SearchResult[])> {
+  const searchResults: SearchResult[] = []
+
   const txnData = await api.transactions.get(query)
     .then((data: Transaction) => {
       if (data === undefined) {
@@ -193,7 +228,7 @@ async function getSearchResults (api: WhaleApiClient, network: NetworkName, quer
     })
 
   if (txnData !== undefined) {
-    return [txnData]
+    searchResults.push(txnData)
   }
 
   const blocksData = await api.blocks.get(query)
@@ -212,19 +247,38 @@ async function getSearchResults (api: WhaleApiClient, network: NetworkName, quer
     })
 
   if (blocksData !== undefined) {
-    return [blocksData]
+    searchResults.push(blocksData)
   }
 
   const addressData = fromAddress(query, network)
   if (addressData !== undefined) {
-    return [{
+    searchResults.push({
       url: `/address/${query}`,
       title: query,
       type: 'Address'
-    }]
+    })
   }
 
-  return undefined
+  const vaultsData = await api.loan.getVault(query)
+    .then((data: LoanVaultActive | LoanVaultLiquidated) => {
+      if (data === undefined) {
+        return undefined
+      }
+
+      return {
+        url: `/vaults/${data.vaultId}`,
+        title: `${data.vaultId}`,
+        type: 'Vault'
+      }
+    }).catch(() => {
+      return undefined
+    })
+
+  if (vaultsData !== undefined) {
+    searchResults.push(vaultsData)
+  }
+
+  return searchResults
 }
 
 function SearchStatusMessage (props: PropsWithChildren<{ message: string }>): JSX.Element {
