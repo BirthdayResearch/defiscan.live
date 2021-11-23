@@ -18,8 +18,8 @@ export function IndexHeader (): JSX.Element {
       >
         <Container className='h-full'>
           <div className='h-full flex flex-wrap items-center justify-center mt-14 mb-16'>
-            <h1 className='text-3xl lg:text-4xl w-full mb-6 font-semibold text-center' data-testid='Header.title'>
-              DeFiChain Blockchain Explorer
+            <h1 className='text-4xl lg:text-5xl w-full mb-6 font-medium text-center' data-testid='Header.title'>
+              DeFiChain <span className='font-normal'>Explorer</span>
             </h1>
             <SearchBar atHeader={false} />
           </div>

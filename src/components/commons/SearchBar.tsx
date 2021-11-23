@@ -68,7 +68,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
             ref={setRefEle}
           >
             <Menu.Button as={Fragment}>
-              <>
+              <div className='flex w-full'>
                 <IoSearchSharp size={22} className='text-gray-600 ml-0.5 self-center' />
                 <input
                   placeholder='Search Block / Txn / Vault ID and more'
@@ -78,7 +78,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
                   onFocus={() => setIsActive(true)}
                   onBlur={() => setIsActive(false)}
                 />
-              </>
+              </div>
             </Menu.Button>
           </div>
 
