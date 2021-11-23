@@ -48,7 +48,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
 
     case LoanVaultState.IN_LIQUIDATION: {
       textClassName = 'text-red-500 bg-red-100'
-      text = 'LIQUIDATED'
+      text = 'IN LIQUIDATION'
       break
     }
 
@@ -60,7 +60,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
   }
 
   return (
-    <div className={classNames(props.className, textClassName)} data-testid={props.testId}>
+    <div className={classNames('min-w-max', props.className, textClassName)} data-testid={props.testId}>
       {text}
     </div>
   )

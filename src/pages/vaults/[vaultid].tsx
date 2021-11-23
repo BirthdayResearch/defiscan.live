@@ -9,6 +9,7 @@ import { VaultIdLoansDetails } from '@components/vaults/[vaultid]/VaultIdLoansDe
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
 import { VaultAuctions } from '@components/vaults/[vaultid]/VaultIdAuctionsDetails'
+import { calculateLiquidationValues } from '../../utils/vaults/LiquidatedVaultDerivedValues'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -18,7 +19,7 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
   return (
     <Container className='pt-4 pb-20'>
       <VaultIdHeading vault={props.vault} />
-      <VaultIdDetails vault={props.vault} />
+      <VaultIdDetails vault={props.vault} liquidatedVaultDerivedValues={calculateLiquidationValues(props.vault)} />
       {
         (props.vault.state === LoanVaultState.IN_LIQUIDATION) ? (
           <VaultAuctions batches={props.vault.batches} />

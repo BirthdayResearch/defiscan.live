@@ -89,7 +89,7 @@ function calculateUsdValues (loan: LoanVaultTokenAmount, interest: LoanVaultToke
   let loanUsdAmount = ((loan?.activePrice?.active) != null) ? new BigNumber(loan.activePrice.active.amount).multipliedBy(new BigNumber(loan.amount)) : undefined
   let interestUsdAmount = ((loan?.activePrice?.active) != null) ? new BigNumber(loan.activePrice.active.amount).multipliedBy(new BigNumber(interest.amount)) : undefined
 
-  if (loan.id === '15') {
+  if (loan.symbol === 'DUSD') {
     loanUsdAmount = new BigNumber(loan.amount)
     interestUsdAmount = new BigNumber(interest.amount)
   }
@@ -152,7 +152,7 @@ function VaultLoanDetailsCard (props: {
   }
 }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.symbol)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)
 
@@ -179,15 +179,18 @@ function VaultLoanDetailsCard (props: {
             : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
         </div>
       </div>
-      <div className='flex items-center justify-between mt-10'>
-        <span className='text-gray-500 text-sm' data-testid='LoanDetailsCard.LoanValueTitle'>Loan Value (USD)</span>
-        <span data-testid='LoanDetailsCard.LoanValue'>
+      <div className='w-full justify-between mt-10'>
+        <VaultDetailsListItem
+          title='Loan Value (USD)'
+          testId='LoanDetailsCard.LoanValue'
+          titleClassNames='text-sm'
+        >
           {loanUsdAmount === undefined || interestUsdAmount === undefined
             ? ('N/A')
             : (
               <VaultNumberValues value={loanUsdAmount} prefix='$' />
               )}
-        </span>
+        </VaultDetailsListItem>
       </div>
 
       <Transition
@@ -200,7 +203,7 @@ function VaultLoanDetailsCard (props: {
         className='w-full'
         show={isOpen}
       >
-        <div className='w-full mt-2 flex flex-col'>
+        <div className='w-full flex flex-col space-y-1.5 mt-1.5'>
           <VaultDetailsListItem
             title='Loan Amount'
             testId='LoanDetailsCard.LoanAmount'
