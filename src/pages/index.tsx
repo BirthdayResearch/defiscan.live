@@ -26,7 +26,7 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
     <>
       <IndexHeader />
       <Container className='mt-12 pb-20'>
-        <div className='flex flex-col space-y-12 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+        <div className='flex flex-col space-y-12 items-start lg:flex-row-reverse lg:space-x-4 lg:space-x-reverse lg:space-y-0'>
           <BlocksList blocks={props.blocks} />
           <TransactionsList transactions={props.transactions} />
         </div>

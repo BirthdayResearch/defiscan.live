@@ -12,43 +12,21 @@ import { BlockLink } from '@components/commons/link/BlockLink'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
-    <>
-      <div className='w-full lg:w-1/2'>
-        <div className='hidden md:block'>
-          <div className='flex justify-between'>
-            <h1 className='text-xl font-semibold'>Blocks</h1>
-            <Link href={{ pathname: '/blocks' }}>
-              <a
-                className='flex items-center font-medium cursor-pointer text-primary-500'
-                data-testid='BlocksList.viewAllBlocksLink'
-              >
-                VIEW ALL BLOCKS <IoChevronForward size={18} className='inline' />
-              </a>
-            </Link>
-          </div>
-          <div className='mt-6 w-full space-y-1'>
-            {
-              blocks.map((block) => {
-                return (
-                  <BlockDetails
-                    key={block.id}
-                    height={block.height.toString()}
-                    mintedBy={block.minter}
-                    transactionCount={block.transactionCount}
-                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-                  />
-                )
-              })
-            }
-          </div>
-          <ViewMoreButton />
+    <div className='w-full lg:w-1/3'>
+      <div className='hidden md:block'>
+        <div className='flex justify-between'>
+          <h1 className='text-xl font-semibold'>Blocks</h1>
+          <Link href={{ pathname: '/blocks' }}>
+            <a
+              className='flex items-center font-medium cursor-pointer text-primary-500'
+              data-testid='BlocksList.viewAllBlocksLink'
+            >
+              VIEW ALL BLOCKS <IoChevronForward size={18} className='inline' />
+            </a>
+          </Link>
         </div>
-        <CollapsibleSection
-          heading='Blocks'
-          className='block md:hidden'
-        >
-          <div className='mt-6 w-full space-y-1'>
-            {
+        <div className='mt-6 w-full space-y-1'>
+          {
               blocks.map((block) => {
                 return (
                   <BlockDetails
@@ -61,11 +39,31 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
                 )
               })
             }
-          </div>
-          <ViewMoreButton />
-        </CollapsibleSection>
+        </div>
+        <ViewMoreButton />
       </div>
-    </>
+      <CollapsibleSection
+        heading='Blocks'
+        className='block md:hidden'
+      >
+        <div className='mt-6 w-full space-y-1'>
+          {
+              blocks.map((block) => {
+                return (
+                  <BlockDetails
+                    key={block.id}
+                    height={block.height.toString()}
+                    mintedBy={block.minter}
+                    transactionCount={block.transactionCount}
+                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
+                  />
+                )
+              })
+            }
+        </div>
+        <ViewMoreButton />
+      </CollapsibleSection>
+    </div>
   )
 }
 
@@ -79,7 +77,7 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
       <div className='flex items-baseline space-x-2'>
         <MdStairs className='text-primary-500 bg-white h-4 w-4 rounded' />
         <div>
-          <BlockLink className='sm:text-lg md:text-xl font-medium text-primary-500' block={props.height}>
+          <BlockLink className='sm:text-lg md:text-xl font-medium text-primary-500 underline md:no-underline' block={props.height}>
             {props.height}
           </BlockLink>
           <div className='text-xs text-opacity-40 text-black font-medium flex mt-1'>
@@ -129,35 +127,33 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
         leave='transition ease-in duration-150'
         leaveFrom='opacity-100 translate-y-1'
         leaveTo='opacity-100 translate-y-0'
-        className='w-full'
+        className='w-full mt-3'
         show={isOpen}
       >
-        <div className='mt-3'>
-          <div className='flex w-full mt-2 text-sm justify-between'>
-            <span className='min-w-max text-right text-gray-400'>
-              Minted by:
-            </span>
-            {(() => {
-              if (props.mintedBy !== undefined) {
-                return (
-                  <AddressLink address={`${props.mintedBy}`}>
-                    <TextMiddleTruncate
-                      text={props.mintedBy} textLength={6}
-                      className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'
-                    />
-                  </AddressLink>
-                )
-              }
-            })()}
-          </div>
-          <div className='flex w-full text-sm mt-1 justify-between'>
-            <span className='min-w-max text-right text-gray-400'>
-              Transactions:
-            </span>
-            <span className='pl-2 md:pl-3 overflow-ellipsis overflow-hidden'>
-              {props.transactionCount}
-            </span>
-          </div>
+        <div className='flex w-full mt-2 text-sm justify-between'>
+          <span className='min-w-max text-right text-gray-400'>
+            Minted by:
+          </span>
+          {(() => {
+            if (props.mintedBy !== undefined) {
+              return (
+                <AddressLink address={`${props.mintedBy}`}>
+                  <TextMiddleTruncate
+                    text={props.mintedBy} textLength={6}
+                    className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'
+                  />
+                </AddressLink>
+              )
+            }
+          })()}
+        </div>
+        <div className='flex w-full text-sm mt-1 justify-between'>
+          <span className='min-w-max text-right text-gray-400'>
+            Transactions:
+          </span>
+          <span className='pl-2 md:pl-3 overflow-ellipsis overflow-hidden'>
+            {props.transactionCount}
+          </span>
         </div>
       </Transition>
     </div>
