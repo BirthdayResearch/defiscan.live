@@ -20,12 +20,6 @@ import { dBABA } from './dBABA'
 import { dGOOG } from './dGOOG'
 import { dPLTR } from './dPLTR'
 import { dARKK } from './dARKK'
-import { dAMZN } from './dAMZN'
-import { dCOIN } from './dCOIN'
-import { dFB } from './dFB'
-import { dTWTR } from './dTWTR'
-import { dNVDA } from './dNVDA'
-import { dMSFT } from './dMSFT'
 import { dSPY } from './dSPY'
 import { dQQQ } from './dQQQ'
 import { dGLD } from './dGLD'
@@ -60,7 +54,6 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   dLTC: dLTC,
   dUSDT: dUSDT,
   dUSDC: dUSDC,
-  dTSLA: dTSLA,
   dAAPL: dAAPL,
   dAMD: dAMD,
   dGME: dGME,
@@ -71,12 +64,6 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   DUSD: DUSD,
   dPLTR: dPLTR,
   dARKK: dARKK,
-  dAMZN: dAMZN,
-  dCOIN: dCOIN,
-  dFB: dFB,
-  dTWTR: dTWTR,
-  dNVDA: dNVDA,
-  dMSFT: dMSFT,
   dSPY: dSPY,
   dQQQ: dQQQ,
   dGLD: dGLD,
@@ -84,7 +71,8 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   dPDBC: dPDBC,
   dVNQ: dVNQ,
   dURTH: dURTH,
-  dTLT: dTLT
+  dTLT: dTLT,
+  dTSLA: dTSLA
 }
 
 // TODO(@defich): move assets into it's own repo where anyone can create pull request into.
