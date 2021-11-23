@@ -1,4 +1,4 @@
-import { IoCloseCircleSharp, IoSearchSharp, IoWalletOutline } from 'react-icons/io5'
+import { IoCloseCircleSharp, IoSearchSharp } from 'react-icons/io5'
 import { CgSpinner } from 'react-icons/cg'
 import React, { Fragment, PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
@@ -14,7 +14,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
 import { SearchResultLink } from '@components/commons/link/Link'
 import classNames from 'classnames'
-import { MdShield, MdStairs, MdSwapHorizontalCircle } from 'react-icons/md'
+import { MdShield, MdStairs, MdSwapHorizontalCircle, MdAccountBalanceWallet } from 'react-icons/md'
 
 interface SearchBarInterface {
   atHeader: boolean
@@ -175,7 +175,7 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
                 <div className='text-primary-600'>
                   {props.searchResults.type === 'Block' && <MdStairs size={24} />}
                   {props.searchResults.type === 'Transaction' && <MdSwapHorizontalCircle size={24} />}
-                  {props.searchResults.type === 'Address' && <IoWalletOutline size={24} />}
+                  {props.searchResults.type === 'Address' && <MdAccountBalanceWallet size={24} />}
                   {props.searchResults.type === 'Vault' && <MdShield size={24} />}
                 </div>
                 <div className='overflow-hidden'>
