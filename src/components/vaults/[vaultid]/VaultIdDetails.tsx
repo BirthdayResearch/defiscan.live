@@ -1,6 +1,6 @@
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { CollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
+import { CollapsibleSection } from '@components/commons/CollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import classNames from 'classnames'
