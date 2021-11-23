@@ -21,7 +21,7 @@ export function IndexHeader (): JSX.Element {
             <h1 className='text-3xl lg:text-4xl w-full mb-6 font-semibold text-center' data-testid='Header.title'>
               DeFiChain Blockchain Explorer
             </h1>
-            <SearchBar collapsable={false} />
+            <SearchBar atHeader={false} />
           </div>
         </Container>
       </div>
