@@ -32,7 +32,6 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   const network = useNetwork().name
 
   const [isActive, setIsActive] = useState<boolean>(false)
-  const [setIsCollapse] = useState<boolean>(true)
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
   const [refEle, setRefEle] = useState<any>()
@@ -90,7 +89,6 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
       <div className={classNames('flex w-full md:w-3/4 xl:w-1/2')}>
         <div
           className={`flex w-full p-2 rounded-3xl h-10 bg-white border ${isActive ? 'border-primary-200' : ''}`}
-          onClick={() => setIsCollapse(false)}
           data-testid='SearchBar'
           ref={setRefEle}
         >
@@ -101,7 +99,6 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
               onFocus={() => setIsActive(true)}
               onBlur={() => {
                 setIsActive(false)
-                setIsCollapse(true)
               }}
               placeholder='Search Block / Txn / Vault ID and more'
               className='ml-1.5 w-full focus:outline-none'
