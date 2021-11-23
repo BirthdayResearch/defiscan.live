@@ -23,8 +23,6 @@ context('/ on macbook-13', () => {
     cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
   })
 
-
-
   it('should have LiquidityPools', () => {
     cy.findByTestId('LiquidityPoolList').should('be.visible')
   })
@@ -62,7 +60,6 @@ context('/ on iphone-x', () => {
   it('should have BlocksList.viewAllBlocksLink', () => {
     cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
   })
-
 
   it('should have LiquidityPools', () => {
     cy.findByTestId('LiquidityPoolList').should('be.visible')
