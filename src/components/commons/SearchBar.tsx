@@ -115,7 +115,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
           leave='transition ease-in duration-150'
           leaveFrom='opacity-100 translate-y-0'
           leaveTo='opacity-0 translate-y-1'
-          show={isActive || searchResults!.length > 0}
+          show={isActive || (searchResults !== undefined && searchResults.length > 0)}
         >
           <div className='w-full z-40' ref={setPopperEle} style={styles.popper} {...attributes.popper}>
             <div className='w-full mt-1.5 pt-1 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
