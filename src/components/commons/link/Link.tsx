@@ -40,7 +40,7 @@ export function Link (props: PropsWithChildren<LinkProps>): JSX.Element {
   )
 }
 
-export function SearchLink (props: PropsWithChildren<LinkProps>): JSX.Element {
+export function SearchResultLink (props: PropsWithChildren<LinkProps>): JSX.Element {
   const connection = useNetwork().connection
   const { href, children, ...rest } = props
 

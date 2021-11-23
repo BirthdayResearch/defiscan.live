@@ -12,7 +12,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { NetworkName } from '@defichain/jellyfish-network'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
-import { SearchLink } from '@components/commons/link/Link'
+import { SearchResultLink } from '@components/commons/link/Link'
 import classNames from 'classnames'
 import { MdShield, MdStairs, MdSwapHorizontalCircle } from 'react-icons/md'
 
@@ -41,7 +41,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
     styles,
     attributes
   } = usePopper(refEle, popperEle, {
-    placement: 'bottom'
+    placement: 'bottom-start'
   })
 
   async function changeHandler (event): Promise<void> {
@@ -166,10 +166,9 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
     <>
       <Menu.Item as={Fragment}>
         {({ active }) => (
-          <SearchLink href={{ pathname: props.searchResults.url }}>
+          <SearchResultLink href={{ pathname: props.searchResults.url }} data-testid={`SearchResultRow.${props.searchResults.type}.${props.searchResults.title}`}>
             <div
               className={classNames('bg-white p-3 cursor-pointer', { 'bg-primary-50 ': active })}
-              data-testid={`SearchResultRow.${props.searchResults.type}.${props.searchResults.title}`}
             >
               <div className='flex flex-row items-start gap-x-2'>
                 <div className='text-primary-600'>
@@ -184,7 +183,7 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
                 </div>
               </div>
             </div>
-          </SearchLink>
+          </SearchResultLink>
         )}
       </Menu.Item>
     </>
