@@ -16,6 +16,5 @@ export function dAAPL (props: SVGProps<SVGSVGElement>): JSX.Element {
         </clipPath>
       </defs>
     </svg>
-
   )
 }
