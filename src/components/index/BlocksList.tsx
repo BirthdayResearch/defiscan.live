@@ -4,7 +4,7 @@ import { formatDistanceToNow } from 'date-fns'
 import { Link } from '@components/commons/link/Link'
 import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdStairs } from 'react-icons/md'
 import { CollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { Transition } from '@headlessui/react'
 import React, { useState } from 'react'
@@ -76,12 +76,15 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
     <div
       className='flex flex-wrap p-4 border border-gray-200 cursor-pointer items-baseline justify-between'
     >
-      <div>
-        <BlockLink className='sm:text-lg md:text-xl font-medium text-primary-500' block={props.height}>
-          {props.height}
-        </BlockLink>
-        <div className='text-xs text-opacity-40 text-black font-medium flex mt-1'>
-          <span>{props.age}</span>
+      <div className='flex items-baseline space-x-2'>
+        <MdStairs className='text-primary-500 bg-white h-4 w-4 rounded' />
+        <div>
+          <BlockLink className='sm:text-lg md:text-xl font-medium text-primary-500' block={props.height}>
+            {props.height}
+          </BlockLink>
+          <div className='text-xs text-opacity-40 text-black font-medium flex mt-1'>
+            <span>{props.age}</span>
+          </div>
         </div>
       </div>
       <div className='flex flex-wrap my-auto hidden md:block'>
@@ -129,22 +132,32 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
         className='w-full'
         show={isOpen}
       >
-        <div className='flex w-full mt-2 text-sm justify-between'>
-          <span className='min-w-max text-right text-gray-400'>
-            Minted by:
-          </span>
-          {(() => {
-            if (props.mintedBy !== undefined) {
-              return (
-                <AddressLink address={`${props.mintedBy}`}>
-                  <TextMiddleTruncate
-                    text={props.mintedBy} textLength={6}
-                    className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'
-                  />
-                </AddressLink>
-              )
-            }
-          })()}
+        <div className='mt-3'>
+          <div className='flex w-full mt-2 text-sm justify-between'>
+            <span className='min-w-max text-right text-gray-400'>
+              Minted by:
+            </span>
+            {(() => {
+              if (props.mintedBy !== undefined) {
+                return (
+                  <AddressLink address={`${props.mintedBy}`}>
+                    <TextMiddleTruncate
+                      text={props.mintedBy} textLength={6}
+                      className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'
+                    />
+                  </AddressLink>
+                )
+              }
+            })()}
+          </div>
+          <div className='flex w-full text-sm mt-1 justify-between'>
+            <span className='min-w-max text-right text-gray-400'>
+              Transactions:
+            </span>
+            <span className='pl-2 md:pl-3 overflow-ellipsis overflow-hidden'>
+              {props.transactionCount}
+            </span>
+          </div>
         </div>
       </Transition>
     </div>
