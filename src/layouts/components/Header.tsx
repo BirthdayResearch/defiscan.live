@@ -110,7 +110,7 @@ function DesktopNavbar (): JSX.Element {
           testId='Desktop.HeaderLink.Masternodes'
         />
       </div>
-      <div className='hidden ml-4 md:flex' data-testid='Desktop.HeaderSearchBar'>
+      <div className='hidden w-1/4 md:block' data-testid='Desktop.HeaderSearchBar'>
         <SearchBar atHeader />
       </div>
     </div>
