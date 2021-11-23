@@ -109,7 +109,8 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
             <div
               className='z-40' ref={setPopperEle} style={{
                 ...styles.popper,
-                minWidth: refEle?.scrollWidth
+                minWidth: refEle?.scrollWidth,
+                maxWidth: refEle?.scrollWidth
               }} {...attributes.popper}
             >
               <div className='w-full mt-1.5 py-3 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
