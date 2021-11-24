@@ -38,13 +38,13 @@ interface LoanStats {
 
 export function VaultList ({ vaults }: { vaults: Array<LoanVaultActive | LoanVaultLiquidated> }): JSX.Element {
   return (
-    <div className='mt-12' data-testid='LiquidityPoolList'>
+    <div className='mt-12' data-testid='VaultList'>
       <div className='flex justify-between'>
-        <h1 className='text-xl font-semibold' data-testid='LiquidityPoolList.title'>Decentralized Loans</h1>
+        <h1 className='text-xl font-semibold' data-testid='VaultList.title'>Decentralized Loans</h1>
         <Link href={{ pathname: '/vaults' }}>
           <a
             className='flex items-center font-medium cursor-pointer text-primary-500'
-            data-testid='LiquidityPoolList.viewLiquidityPools'
+            data-testid='VaultList.viewVaults'
           >
             VIEW FULL DETAILS
           </a>

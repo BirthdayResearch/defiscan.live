@@ -38,6 +38,13 @@ context('/ on macbook-13', () => {
   it('should have LiquidityPoolList.viewLiquidityPools', () => {
     cy.findByTestId('LiquidityPoolList.viewLiquidityPools').should('have.attr', 'href', '/dex')
   })
+
+  it('should have VaultList.title', () => {
+    cy.findByTestId('VaultList.title').should('have.text', 'Decentralized Loans')
+  })
+  it('should have VaultList.viewVaults', () => {
+    cy.findByTestId('VaultList.viewVaults').should('have.attr', 'href', '/vaults')
+  })
 })
 
 context('/ on iphone-x', () => {
@@ -79,5 +86,12 @@ context('/ on iphone-x', () => {
 
   it('should have LiquidityPoolList.viewLiquidityPools', () => {
     cy.findByTestId('LiquidityPoolList.viewLiquidityPools').should('have.attr', 'href', '/dex')
+  })
+
+  it('should have VaultList.title', () => {
+    cy.findByTestId('VaultList.title').should('have.text', 'Decentralized Loans')
+  })
+  it('should have VaultList.viewVaults', () => {
+    cy.findByTestId('VaultList.viewVaults').should('have.attr', 'href', '/vaults')
   })
 })
