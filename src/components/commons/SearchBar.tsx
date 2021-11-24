@@ -1,6 +1,6 @@
 import { IoCloseCircleSharp, IoSearchSharp } from 'react-icons/io5'
 import { CgSpinner } from 'react-icons/cg'
-import React, { Fragment, PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, PropsWithChildren, useMemo, useState } from 'react'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import debounce from 'lodash.debounce'
 import { usePopper } from 'react-popper'
@@ -31,7 +31,6 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   const network = useNetwork().name
 
   const [isActive, setIsActive] = useState<boolean>(false)
-  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
   const [refEle, setRefEle] = useState<any>()
@@ -59,67 +58,57 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
   const onChangeDebounceHandler = useMemo(() => debounce(changeHandler, 200), [])
 
-  const inputEle = useRef<HTMLInputElement>(null)
-  useEffect(() => {
-    if (isOpen && inputEle.current !== null) {
-      inputEle.current.focus()
-      setIsOpen(false)
-    }
-  }, [isOpen])
-
   return (
     <Menu as={Fragment}>
-      {({ open }) => (
-        <div className={classNames('flex w-full', { 'md:w-3/4 xl:w-1/2': !props.atHeader })}>
-          <div
-            className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white border', { 'border-primary-200': isActive })}
-            data-testid='SearchBar'
-            ref={setRefEle}
-          >
-            <Menu.Button as={Fragment}>
-              <div className='flex w-full'>
-                <IoSearchSharp size={22} className='text-gray-600 ml-0.5 self-center' />
-                <input
-                  placeholder='Search Block / Txn / Vault ID and more'
-                  className='ml-1.5 w-full focus:outline-none'
-                  data-testid='SearchBar.Input'
-                  onChange={onChangeDebounceHandler}
-                  onFocus={() => {
-                    setIsActive(true)
-                  }}
-                  onBlur={() => {
-                    setIsActive(false)
-                    setIsOpen(open)
-                  }}
-                  ref={inputEle}
-                />
-              </div>
-            </Menu.Button>
-          </div>
-
-          <Transition
-            enter='transition ease-in duration-150'
-            enterFrom='opacity-0 translate-y-1'
-            enterTo='opacity-100 translate-y-0'
-            leave='transition ease-in duration-150'
-            leaveFrom='opacity-100 translate-y-0'
-            leaveTo='opacity-0 translate-y-1'
-            show={isActive || open}
-          >
-            <div
-              className='z-40' ref={setPopperEle} style={{
-                ...styles.popper,
-                minWidth: refEle?.scrollWidth,
-                maxWidth: refEle?.scrollWidth
-              }} {...attributes.popper}
-            >
-              <div className='w-full mt-1.5 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
-                <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
-              </div>
+      <div
+        className={classNames('flex w-full', { 'md:w-3/4 xl:w-1/2': !props.atHeader })}
+        onFocus={() => {
+          setIsActive(true)
+        }}
+        onBlur={() => {
+          setIsActive(false)
+        }}
+      >
+        <div
+          className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white border', { 'border-primary-200': isActive })}
+          data-testid='SearchBar'
+          ref={setRefEle}
+        >
+          <Menu.Button as={Fragment}>
+            <div className='flex w-full'>
+              <IoSearchSharp size={22} className='text-gray-600 ml-0.5 self-center' />
+              <input
+                placeholder='Search Block / Txn / Vault ID and more'
+                className='ml-1.5 h-full w-full focus:outline-none'
+                data-testid='SearchBar.Input'
+                onChange={onChangeDebounceHandler}
+              />
             </div>
-          </Transition>
+          </Menu.Button>
         </div>
-      )}
+
+        <Transition
+          enter='transition ease-in duration-150'
+          enterFrom='opacity-0 translate-y-1'
+          enterTo='opacity-100 translate-y-0'
+          leave='transition ease-in duration-150'
+          leaveFrom='opacity-100 translate-y-0'
+          leaveTo='opacity-0 translate-y-1'
+          show={isActive}
+        >
+          <div
+            className='z-40' ref={setPopperEle} style={{
+              ...styles.popper,
+              minWidth: refEle?.scrollWidth,
+              maxWidth: refEle?.scrollWidth
+            }} {...attributes.popper}
+          >
+            <div className='w-full mt-1.5 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
+              <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
+            </div>
+          </div>
+        </Transition>
+      </div>
     </Menu>
   )
 }

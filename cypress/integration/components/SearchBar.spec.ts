@@ -32,7 +32,7 @@ context('search component macbook-16', () => {
 
 context('search component macbook-16 - different network', () => {
   before(function () {
-    cy.visit('/blocks?network=Playground')
+    cy.visit('/blocks?network=TestNet')
   })
 
   beforeEach(() => {
@@ -43,7 +43,7 @@ context('search component macbook-16 - different network', () => {
     cy.findByTestId('SearchBar.Input').clear()
     cy.findByTestId('SearchBar.Input').type('1')
     cy.findByTestId('SearchResultRow.Block.1').click()
-    cy.url().should('include', '?network=Playground')
+    cy.url().should('include', '?network=TestNet')
   })
 })
 
@@ -90,7 +90,7 @@ context('search component iphone-x', () => {
 
 context('search component iphone-x - different network', () => {
   before(function () {
-    cy.visit('/blocks?network=Playground')
+    cy.visit('/blocks?network=TestNet')
   })
 
   beforeEach(() => {
@@ -103,7 +103,7 @@ context('search component iphone-x - different network', () => {
       cy.findByTestId('SearchBar.Input').clear()
       cy.findByTestId('SearchBar.Input').type('1')
       cy.findByTestId('SearchResultRow.Block.1').click()
-      cy.url().should('include', '?network=Playground')
+      cy.url().should('include', '?network=TestNet')
     })
   })
 })
