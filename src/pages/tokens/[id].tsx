@@ -1,26 +1,48 @@
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { getWhaleApiClient, useWhaleApiClient } from '@contexts/WhaleContext'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { Container } from '@components/commons/Container'
-import { AddressLink, AddressLinkExternal } from '@components/commons/link/AddressLink'
+import { AddressLinkExternal } from '@components/commons/link/AddressLink'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { isNumeric } from '../../utils/commons/StringValidator'
+import React, { useEffect, useState } from 'react'
+import BigNumber from 'bignumber.js'
+import ReactNumberFormat from 'react-number-format'
 
 interface TokenAssetPageProps {
   token: TokenData
 }
 
 export default function TokenIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const api = useWhaleApiClient()
+  const [burnedAmount, setBurnedAmount] = useState<BigNumber | undefined>(new BigNumber(0))
+  const [netSupply, setNetSupply] = useState<BigNumber | undefined>(new BigNumber(0))
+
+  useEffect(() => {
+    api.address.listToken('8defichainBurnAddressXXXXXXXdRQkSm').then(data => {
+      const filteredTokens = data.filter(token => token.symbol === props.token.symbol)
+      if (filteredTokens.length === 1) {
+        setBurnedAmount(new BigNumber(filteredTokens[0].amount))
+        setNetSupply(new BigNumber(props.token.minted).minus(filteredTokens[0].amount))
+      } else {
+        setBurnedAmount(undefined)
+        setNetSupply(undefined)
+      }
+    }).catch(() => {
+      setNetSupply(undefined)
+    })
+  }, [])
+
   return (
     <Container className='pt-12 pb-24'>
       <TokenPageHeading token={props.token} />
 
       <div className='flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <ListLeft token={props.token} />
+        <ListLeft token={props.token} burnedAmount={burnedAmount} netSupply={netSupply} />
         <ListRight token={props.token} />
       </div>
     </Container>
@@ -99,18 +121,20 @@ function ListRight ({ token }: { token: TokenData }): JSX.Element {
       <AdaptiveList.Row name='Destruction TX' className='flex space-x-10 items-center'>
         <div className='break-all'>{token.destruction.tx}</div>
       </AdaptiveList.Row>
-
-      <BackingAddress tokenName={token.symbol} />
+      <BackingAddress tokenSymbol={token.symbol} />
     </AdaptiveList>
   )
 }
 
-function ListLeft ({ token }: { token: TokenData }): JSX.Element {
+function ListLeft ({
+  token,
+  burnedAmount,
+  netSupply
+}: { token: TokenData, burnedAmount?: BigNumber, netSupply?: BigNumber }): JSX.Element {
   return (
     <AdaptiveList>
       <AdaptiveList.Row name='Category'>{token.isDAT ? 'DAT' : 'LPS'}</AdaptiveList.Row>
       <AdaptiveList.Row name='Symbol'>{token.displaySymbol}</AdaptiveList.Row>
-      <AdaptiveList.Row name='Net Supply'>{token.limit}</AdaptiveList.Row>
       <AdaptiveList.Row name='Mintable'>
         {(() => {
           if (token.mintable) {
@@ -129,31 +153,68 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
           )
         })()}
       </AdaptiveList.Row>
-      <AdaptiveList.Row name='Minted'>{token.minted}</AdaptiveList.Row>
-      <AdaptiveList.Row name='Creation Height'>{token.creation.height}</AdaptiveList.Row>
+      <AdaptiveList.Row name='Net Supply'>
+        {
+          netSupply === undefined ? (
+            'N/A'
+          ) : (
+            <ReactNumberFormat
+              displayType='text'
+              thousandSeparator
+              value={netSupply.toFixed(8)}
+              decimalScale={8}
+            />
+          )
+        }
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Minted'>
+        <ReactNumberFormat
+          displayType='text'
+          thousandSeparator
+          value={new BigNumber(token.minted).toFixed(8)}
+          decimalScale={8}
+        />
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Burned'>
+        {
+          burnedAmount === undefined ? (
+            'N/A'
+          ) : (
+            <ReactNumberFormat
+              displayType='text'
+              thousandSeparator
+              value={burnedAmount.toFixed(8)}
+              decimalScale={8}
+            />
+          )
+        }
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Creation Height'>
+        <ReactNumberFormat
+          displayType='text'
+          thousandSeparator
+          value={token.creation.height}
+          decimalScale={8}
+        />
+      </AdaptiveList.Row>
       <AdaptiveList.Row name='Creation Tx' className='flex space-x-10 items-center'>
         <TxIdLink txid={token.creation.tx} className='break-all' />
       </AdaptiveList.Row>
-      {(token.collateralAddress !== undefined && token.collateralAddress !== 'undefined') && (
-        <AdaptiveList.Row name={'Owner\'s Address'} className='flex space-x-10 items-center'>
-          <AddressLink address={token.collateralAddress} className='break-all' />
-        </AdaptiveList.Row>
-      )}
     </AdaptiveList>
   )
 }
 
-function BackingAddress ({ tokenName }: { tokenName: string }): JSX.Element {
+function BackingAddress ({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
   const tokensWithBackingAddress = ['BCH', 'LTC', 'DOGE', 'BTC', 'ETH', 'USDC', 'USDT']
 
-  if (!tokensWithBackingAddress.includes(tokenName)) {
+  if (!tokensWithBackingAddress.includes(tokenSymbol)) {
     return <></>
   }
 
   return (
     <AdaptiveList.Row name='Backing Address' className='break-all'>
       {(() => {
-        switch (tokenName) {
+        switch (tokenSymbol) {
           case 'BCH':
             return (
               <AddressLinkExternal
