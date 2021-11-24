@@ -3,6 +3,10 @@ context('/tokens/1 (Ether) Desktop', () => {
     cy.visit('/tokens/1?network=MainNet')
   })
 
+  beforeEach(() => {
+    cy.viewport('macbook-13')
+  })
+
   it('should have page header', function () {
     cy.findByTestId('PageHeading').should('contain.text', 'Ether')
   })
@@ -36,14 +40,18 @@ context('/tokens/1 (Ether) Desktop', () => {
       cy.wrap(ele).should('contain.text', 'Finalized')
       cy.wrap(ele).should('contain.text', 'Destruction Height')
       cy.wrap(ele).should('contain.text', 'Destruction TX')
+      cy.wrap(ele).should('contain.text', 'Backing Address')
     })
   })
 })
 
 context('/tokens/1 (Ether) Mobile', () => {
   before(function () {
-    cy.viewport('iphone-6')
     cy.visit('/tokens/1?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('iphone-6')
   })
 
   it('should have page header', function () {
@@ -79,6 +87,76 @@ context('/tokens/1 (Ether) Mobile', () => {
       cy.wrap(ele).should('contain.text', 'Finalized')
       cy.wrap(ele).should('contain.text', 'Destruction Height')
       cy.wrap(ele).should('contain.text', 'Destruction TX')
+      cy.wrap(ele).should('contain.text', 'Backing Address')
     })
+  })
+})
+
+context('/tokens/* Backing Addresses', () => {
+  beforeEach(() => {
+    cy.viewport('macbook-13')
+  })
+
+  it('should have backing address for BTC', function () {
+    cy.visit('/tokens/2?network=MainNet')
+    cy.findAllByTestId('AdaptiveList').eq(1).then(ele => {
+      cy.wrap(ele).should('contain.text', 'Backing Address')
+    })
+    cy.findByTestId('BackingAddress.BTC').should('have.text', '38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT')
+    cy.findByTestId('BackingAddress.BTC').find('a').should('have.attr', 'href', 'https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT')
+  })
+
+  it('should have backing address for ETH', function () {
+    cy.visit('/tokens/1?network=MainNet')
+    cy.findAllByTestId('AdaptiveList').eq(1).then(ele => {
+      cy.wrap(ele).should('contain.text', 'Backing Address')
+    })
+    cy.findByTestId('BackingAddress.ETH').should('have.text', '0x94fa70d079d76279e1815ce403e9b985bccc82ac')
+    cy.findByTestId('BackingAddress.ETH').find('a').should('have.attr', 'href', 'https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac')
+  })
+
+  it('should have backing address for USDT', function () {
+    cy.visit('/tokens/3?network=MainNet')
+    cy.findAllByTestId('AdaptiveList').eq(1).then(ele => {
+      cy.wrap(ele).should('contain.text', 'Backing Address')
+    })
+    cy.findByTestId('BackingAddress.ETH').should('have.text', '0x94fa70d079d76279e1815ce403e9b985bccc82ac')
+    cy.findByTestId('BackingAddress.ETH').find('a').should('have.attr', 'href', 'https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac')
+  })
+
+  it('should have backing address for USDC', function () {
+    cy.visit('/tokens/13?network=MainNet')
+    cy.findAllByTestId('AdaptiveList').eq(1).then(ele => {
+      cy.wrap(ele).should('contain.text', 'Backing Address')
+    })
+    cy.findByTestId('BackingAddress.ETH').should('have.text', '0x94fa70d079d76279e1815ce403e9b985bccc82ac')
+    cy.findByTestId('BackingAddress.ETH').find('a').should('have.attr', 'href', 'https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac')
+  })
+
+  it('should have backing address for DOGE', function () {
+    cy.visit('/tokens/7?network=MainNet')
+    cy.findAllByTestId('AdaptiveList').eq(1).then(ele => {
+      cy.wrap(ele).should('contain.text', 'Backing Address')
+    })
+    cy.findByTestId('BackingAddress.DOGE').should('have.text', 'D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba')
+    cy.findByTestId('BackingAddress.DOGE').find('a').should('have.attr', 'href', 'https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba')
+  })
+
+  it('should have backing address for LTC', function () {
+    cy.visit('/tokens/9?network=MainNet')
+    cy.findAllByTestId('AdaptiveList').eq(1).then(ele => {
+      cy.wrap(ele).should('contain.text', 'Backing Address')
+    })
+    cy.findByTestId('BackingAddress.LTC').should('have.text', 'MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE')
+    cy.findByTestId('BackingAddress.LTC').find('a').should('have.attr', 'href', 'https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE')
+  })
+
+  it('should have backing address for BCH', function () {
+    cy.visit('/tokens/11?network=MainNet')
+    cy.findAllByTestId('AdaptiveList').eq(1).then(ele => {
+      cy.wrap(ele).should('contain.text', 'Backing Address')
+    })
+    cy.findByTestId('BackingAddress.BCH').should('have.text', '38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf')
+    cy.findByTestId('BackingAddress.BCH').find('a').should('have.attr', 'href', 'https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf')
   })
 })
