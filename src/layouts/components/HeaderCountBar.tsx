@@ -48,11 +48,11 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
   }
 
   function PopoverTVL (): JSX.Element {
-    function PopoverTVLAmount (props: { text: string, count?: number, className: string }): JSX.Element {
+    function PopoverTVLAmount (props: { text: string, count?: number }): JSX.Element {
       return (
-        <li className={classNames(props.className, 'flex justify-between')}>
+        <div className='text-gray-900 grid grid-cols-2 grid mt-0.5'>
           <span className='text-sm mr-4'>{props.text} </span>
-          <span className='text-sm font-medium'>
+          <span className='text-sm font-medium text-right'>
             {props.count !== undefined ? (
               <NumberFormat
                 value={props.count}
@@ -65,18 +65,18 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
               '...'
             )}
           </span>
-        </li>
+        </div>
       )
     }
 
     return (
       <div
-        className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
+        className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md '
       >
-        <PopoverTVLAmount className='py-1' text='DEX' count={tvl.dex} />
-        <PopoverTVLAmount className='py-1' text='Masternode' count={tvl.masternodes} />
-        <PopoverTVLAmount className='py-1' text='Loan' count={tvl.loan} />
-        <PopoverTVLAmount className='py-1' text='Total' count={tvl.total} />
+        <PopoverTVLAmount text='DEX' count={tvl.dex} />
+        <PopoverTVLAmount text='Masternode' count={tvl.masternodes} />
+        <PopoverTVLAmount text='Vault Collateral' count={tvl.loan} />
+        <PopoverTVLAmount text='Total' count={tvl.total} />
       </div>
     )
   }
