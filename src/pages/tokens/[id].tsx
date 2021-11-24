@@ -25,7 +25,7 @@ export default function TokenIdPage (props: InferGetServerSidePropsType<typeof g
   useEffect(() => {
     api.address.listToken('8defichainBurnAddressXXXXXXXdRQkSm').then(data => {
       const filteredTokens = data.filter(token => token.symbol === props.token.symbol)
-      if (filteredTokens.length === 1) {
+      if (filteredTokens.length === 1 && filteredTokens[0].symbol !== 'DFI') {
         setBurnedAmount(new BigNumber(filteredTokens[0].amount))
         setNetSupply(new BigNumber(props.token.minted).minus(filteredTokens[0].amount))
       } else {
@@ -153,20 +153,6 @@ function ListLeft ({
           )
         })()}
       </AdaptiveList.Row>
-      <AdaptiveList.Row name='Net Supply'>
-        {
-          netSupply === undefined ? (
-            'N/A'
-          ) : (
-            <ReactNumberFormat
-              displayType='text'
-              thousandSeparator
-              value={netSupply.toFixed(8)}
-              decimalScale={8}
-            />
-          )
-        }
-      </AdaptiveList.Row>
       <AdaptiveList.Row name='Minted'>
         <ReactNumberFormat
           displayType='text'
@@ -184,6 +170,20 @@ function ListLeft ({
               displayType='text'
               thousandSeparator
               value={burnedAmount.toFixed(8)}
+              decimalScale={8}
+            />
+          )
+        }
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Net Supply'>
+        {
+          netSupply === undefined ? (
+            'N/A'
+          ) : (
+            <ReactNumberFormat
+              displayType='text'
+              thousandSeparator
+              value={netSupply.toFixed(8)}
               decimalScale={8}
             />
           )
