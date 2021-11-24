@@ -113,7 +113,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
                 maxWidth: refEle?.scrollWidth
               }} {...attributes.popper}
             >
-              <div className='w-full mt-1.5 py-3 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
+              <div className='w-full mt-1.5 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
                 <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
               </div>
             </div>
