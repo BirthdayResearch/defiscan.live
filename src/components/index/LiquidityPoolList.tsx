@@ -1,7 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react'
 import { getAssetIcon } from '@components/icons/assets'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { IoChevronForward } from 'react-icons/io5'
 import { Link } from '@components/commons/link/Link'
 import ReactNumberFormat from 'react-number-format'
 
@@ -15,7 +14,7 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
             className='flex items-center font-medium cursor-pointer text-primary-500'
             data-testid='LiquidityPoolList.viewLiquidityPools'
           >
-            VIEW FULL DETAILS <IoChevronForward size={18} className='inline' />
+            VIEW FULL DETAILS
           </a>
         </Link>
       </div>
