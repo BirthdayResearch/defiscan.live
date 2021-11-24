@@ -165,7 +165,7 @@ function BackingAddress ({ tokenName }: { tokenName: string }): JSX.Element {
             return (
               <AddressLinkExternal
                 url='https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE'
-                text='MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE' testId='BackingAddress.LCH'
+                text='MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE' testId='BackingAddress.LTC'
               />
             )
           case 'DOGE':
