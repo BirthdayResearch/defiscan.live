@@ -191,7 +191,7 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
                         return <MdShield size={24} />
                       }
                     }
-                  })}
+                  })()}
                 </div>
                 <div className='overflow-hidden'>
                   <div className='overflow-hidden font-medium overflow-ellipsis'>{props.searchResults.title}</div>
