@@ -1,4 +1,3 @@
-import { IoChevronForward } from 'react-icons/io5'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { formatDistanceToNow } from 'date-fns'
 import { Link } from '@components/commons/link/Link'
@@ -12,7 +11,7 @@ import { BlockLink } from '@components/commons/link/BlockLink'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/3'>
+    <div className='w-full lg:w-1/2 xl:w-1/3'>
       <div className='hidden md:block'>
         <div className='flex justify-between'>
           <h1 className='text-xl font-semibold'>Blocks</h1>
@@ -21,7 +20,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
               className='flex items-center font-medium cursor-pointer text-primary-500'
               data-testid='BlocksList.viewAllBlocksLink'
             >
-              VIEW ALL BLOCKS <IoChevronForward size={18} className='inline' />
+              VIEW ALL BLOCKS
             </a>
           </Link>
         </div>

@@ -10,7 +10,7 @@ import { Transition } from '@headlessui/react'
 
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   return (
-    <div className='w-full md:w-1/2 lg:w-2/3'>
+    <div className='w-full lg:w-1/2 xl:w-2/3'>
       <div className='hidden md:block'>
         <div className='flex justify-between'>
           <h1 className='text-xl font-semibold'>
@@ -60,15 +60,21 @@ function TransactionDetails (props: {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
-    <div className='p-4 border border-gray-200'>
-      <div className='flex flex-row justify-between'>
-        <div className='flex space-x-2 items-baseline w-full md:w-max'>
-          <MdSwapHorizontalCircle className='text-primary-500 bg-white h-4 w-4' />
+    <div className='p-4 border border-gray-200 rounded'>
+      <div className='flex justify-between'>
+        <div className='flex space-x-2 items-baseline w-full md:w-2/4 xl:w-2/3'>
+          <div className='flex'>
+            <MdSwapHorizontalCircle className='text-primary-500 bg-white h-4 w-4 ' />
+          </div>
           <div className='flex flex-col w-full'>
-            <div className='flex flex-row justify-between w-full'>
-              <TxIdLink txid={props.txid} className='text-lg underline md:no-underline font-medium md:w-4/5'>
-                <span className='hidden md:block overflow-ellipsis overflow-hidden'>{props.txid}</span>
-                <TextMiddleTruncate text={props.txid} textLength={6} className='block md:hidden' />
+            <div className='flex flex-row justify-between text-lg font-medium'>
+              <TxIdLink
+                txid={props.txid}
+                className=' overflow-ellipsis overflow-hidden hidden md:block underline lg:no-underline'
+              />
+
+              <TxIdLink txid={props.txid} className='underline lg:no-underline block md:hidden'>
+                <TextMiddleTruncate text={props.txid} textLength={6} />
               </TxIdLink>
               <div
                 className='text-primary-500 cursor-pointer text-xs flex items-center block md:hidden'
@@ -79,7 +85,7 @@ function TransactionDetails (props: {
                   : (<>HIDE<MdOutlineKeyboardArrowUp size={22} /></>)}
               </div>
             </div>
-            <div className='flex text-xs text-opacity-40 text-black mt-1'>
+            <div className='flex text-xs text-opacity-40 text-black mt-1 w-full'>
               <span>{props.age}</span>
             </div>
           </div>
