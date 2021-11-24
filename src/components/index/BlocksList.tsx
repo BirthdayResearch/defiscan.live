@@ -11,7 +11,7 @@ import { BlockLink } from '@components/commons/link/BlockLink'
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
     <div className=''>
-      <div className='hidden md:block'>
+      <div className='hidden md:block' data-testid='Desktop.Blocks'>
         <div className='flex justify-between'>
           <h1 className='text-xl font-semibold'>Latest Blocks</h1>
           <Link href={{ pathname: '/blocks' }}>
@@ -40,7 +40,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
           <ViewMoreButton />
         </div>
       </div>
-      <CollapsibleSection heading='Latest Blocks' className='block md:hidden'>
+      <CollapsibleSection heading='Latest Blocks' className='block md:hidden' testId='CollapsibleSection.Blocks'>
         <div className='mt-6 w-full space-y-2'>
           {blocks.map((block) => {
             return (
