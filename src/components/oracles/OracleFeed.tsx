@@ -11,6 +11,7 @@ import { getNativeIcon } from '@components/icons/assets'
 export interface PriceFeedProps {
   price: PriceTicker
   copy: PriceCopy | undefined
+  isToken: boolean
 }
 
 export function OracleFeed (props: PriceFeedProps): JSX.Element {
