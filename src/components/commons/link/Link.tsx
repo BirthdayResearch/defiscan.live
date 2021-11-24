@@ -39,3 +39,21 @@ export function Link (props: PropsWithChildren<LinkProps>): JSX.Element {
     </NextLink>
   )
 }
+
+export function SearchResultLink (props: PropsWithChildren<LinkProps>): JSX.Element {
+  const connection = useNetwork().connection
+  const { href, children, ...rest } = props
+
+  if (!getEnvironment().isDefaultConnection(connection)) {
+    props.href.query = {
+      ...props.href.query ?? {},
+      network: connection
+    }
+  }
+
+  return (
+    <NextLink href={href}>
+      <a {...rest}>{children}</a>
+    </NextLink>
+  )
+}

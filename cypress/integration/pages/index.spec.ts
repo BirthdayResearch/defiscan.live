@@ -7,8 +7,8 @@ context('/ on macbook-13', () => {
     cy.viewport('macbook-13')
   })
 
-  it('should have banner-title is DeFiChain Blockchain Explorer', () => {
-    cy.findByTestId('Header.title').should('have.text', 'DeFiChain Blockchain Explorer')
+  it('should have banner-title is DeFiChain Explorer', () => {
+    cy.findByTestId('Header.title').should('have.text', 'DeFiChain Explorer')
   })
 
   it('should have Stats Bar', () => {
@@ -49,8 +49,8 @@ context('/ on iphone-x', () => {
     cy.viewport('iphone-x')
   })
 
-  it('should have banner-title is DeFiChain Blockchain Explorer', () => {
-    cy.findByTestId('Header.title').should('have.text', 'DeFiChain Blockchain Explorer')
+  it('should have banner-title is DeFiChain Explorer', () => {
+    cy.findByTestId('Header.title').should('have.text', 'DeFiChain Explorer')
   })
 
   it('should have Stats Bar', () => {
