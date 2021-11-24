@@ -9,427 +9,342 @@ export interface PriceCopy {
    * price ticker type
    */
   type: 'CRYPTO' | 'FOREX' | 'COMMODITY' | 'STOCKS' | 'ETF'
-
-  available: boolean
 }
 
 export const PRICES: Record<string, PriceCopy> = {
   'TSLA-USD': {
     id: 'TSLA-USD',
-    type: 'STOCKS',
-    available: true
+    type: 'STOCKS'
   },
   'XCU-USD': {
     id: 'XCU-USD',
-    type: 'COMMODITY',
-    available: false
+    type: 'COMMODITY'
   },
   'XAU-USD': {
     id: 'XAU-USD',
-    type: 'COMMODITY',
-    available: false
+    type: 'COMMODITY'
   },
   'XAG-USD': {
     id: 'XAG-USD',
-    type: 'COMMODITY',
-    available: false
+    type: 'COMMODITY'
   },
   'SGD-USD': {
     id: 'SGD-USD',
-    type: 'FOREX',
-    available: false
+    type: 'FOREX'
   },
   'EUR-USD': {
     id: 'EUR-USD',
-    type: 'FOREX',
-    available: false
+    type: 'FOREX'
   },
   'BCO-USD': {
     id: 'BCO-USD',
-    type: 'COMMODITY',
-    available: false
+    type: 'COMMODITY'
   },
   'UBER-USD': {
     id: 'UBER-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'GME-USD': {
     id: 'GME-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'AMD-USD': {
     id: 'AMD-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'TWTR-USD': {
     id: 'TWTR-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'NVDA-USD': {
     id: 'NVDA-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'MSTR-USD': {
     id: 'MSTR-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'GOOGL-USD': {
     id: 'GOOGL-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'FB-USD': {
     id: 'FB-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'COIN-USD': {
     id: 'COIN-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'AMZN-USD': {
     id: 'AMZN-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'AAPL-USD': {
     id: 'AAPL-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'OTGLY-USD': {
     id: 'OTGLY-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'BCH-USD': {
     id: 'BCH-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'BTC-USD': {
     id: 'BTC-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'DFI-USD': {
     id: 'DFI-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'DOGE-USD': {
     id: 'DOGE-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'ETH-USD': {
     id: 'ETH-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'LTC-USD': {
     id: 'LTC-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'USDC-USD': {
     id: 'USDC-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'USDT-USD': {
     id: 'USDT-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'U-USD': {
     id: 'U-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'TCEHY-USD': {
     id: 'TCHEY-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'SEDG-USD': {
     id: 'SEDG-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'VOO-USD': {
     id: 'VOO-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'V-USD': {
     id: 'V-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'TTWO-USD': {
     id: 'TTWO-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'TQQQ-USD': {
     id: 'TQQQ-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'TLRY-USD': {
     id: 'TLRY-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'SNAP-USD': {
     id: 'SNAP-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'SQ-USD': {
     id: 'SQ-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'SPY-USD': {
     id: 'SPY-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'SI-USD': {
     id: 'SI-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'RIOT-USD': {
     id: 'RIOT-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'PYPL-USD': {
     id: 'PYPL-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'PLTR-USD': {
     id: 'PLTR-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'NTDOF-USD': {
     id: 'NTDOF-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'NSRGY-USD': {
     id: 'NSRGY-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'SQQQ-USD': {
     id: 'SQQQ-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'SOXX-USD': {
     id: 'SOXX-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'BABA-USD': {
     id: 'BABA-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'DIS-USD': {
     id: 'DIS-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'NFLX-USD': {
     id: 'NFLX-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'MA-USD': {
     id: 'MA-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'RBLX-USD': {
     id: 'RBLX-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'MARA-USD': {
     id: 'MARA-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'MCHI-USD': {
     id: 'MCHI-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'EEM-USD': {
     id: 'EEM-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'NLLSF-USD': {
     id: 'NLLSF-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'GLO-USD': {
     id: 'GLO-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'KRBN-USD': {
     id: 'KRBN-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'PATH-USD': {
     id: 'PATH-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'MSFT-USD': {
     id: 'MSFT-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'INTC-USD': {
     id: 'INTC-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'SQNXF-USD': {
     id: 'SQNXF-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'SOXS-USD': {
     id: 'SOXS-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'SOXL-USD': {
     id: 'SOXL-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'QQQ-USD': {
     id: 'QQQ-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'LZAGY-USD': {
     id: 'LZAGY-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'CQQQ-USD': {
     id: 'CQQQ-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'BYDDF-USD': {
     id: 'BYDDF-USD',
-    type: 'STOCKS',
-    available: false
+    type: 'STOCKS'
   },
   'ARKX-USD': {
     id: 'ARKX-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'ARKW-USD': {
     id: 'ARKW-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'ARKQ-USD': {
     id: 'ARKQ-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'ARKF-USD': {
     id: 'ARKF-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'ARKK-USD': {
     id: 'ARKK-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'ARKG-USD': {
     id: 'ARKG-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'VNQ-USD': {
     id: 'VNQ-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'URTH-USD': {
     id: 'URTH-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'TLT-USD': {
     id: 'TLT-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'SLV-USD': {
     id: 'SLV-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'PDBC-USD': {
     id: 'PDBC-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
   'GLD-USD': {
     id: 'GLD-USD',
-    type: 'ETF',
-    available: false
+    type: 'ETF'
   },
 
   // Playground
   'CS25-USD': {
     id: 'CS25-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'CU10-USD': {
     id: 'CU10-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'CR50-USD': {
     id: 'CR50-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   },
   'CD10-USD': {
     id: 'CD10-USD',
-    type: 'CRYPTO',
-    available: true
+    type: 'CRYPTO'
   }
 }
 

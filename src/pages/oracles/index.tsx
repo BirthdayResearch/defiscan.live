@@ -9,11 +9,14 @@ import { getPriceCopy, PriceCopy } from '@content/prices'
 import classNames from 'classnames'
 import { Switch } from '@headlessui/react'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { CollateralToken, LoanToken } from '@defichain/whale-api-client/dist/api/loan'
+import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 
 interface PricesPageProps {
   prices: {
     items: prices.PriceTicker[]
   }
+  collateralAndLoanTokens: string[]
 }
 
 export default function PricesPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -22,12 +25,18 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
   const [typeSelection, setTypeCurrentSelection] = useState<string>('All')
   const [availabilitySelection, setAvailabilitySelection] = useState<boolean>(true)
   const tickers: PriceFeedProps[] = []
+  const collateralAndLoanTokensSet: Set<string> = new Set<string>()
+
+  props.collateralAndLoanTokens.forEach(collateralAndLoanToken => {
+    collateralAndLoanTokensSet.add(collateralAndLoanToken)
+  })
 
   props.prices.items.forEach(item => {
     const copy: PriceCopy | undefined = getPriceCopy(item.id)
     const ticker = {
       price: item,
-      copy: copy
+      copy: copy,
+      isToken: collateralAndLoanTokensSet.has(item.id)
     }
     tickers.push(ticker)
   })
@@ -70,7 +79,10 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                 </Switch>
                 <Switch.Label className='ml-1 flex items-center text-gray-900'>
                   Loan/Collateral Tokens
-                  <InfoHoverPopover className='ml-0.5' description='Price of Loan Tokens and Collateral Tokens available on the decentralized loan service.' />
+                  <InfoHoverPopover
+                    className='ml-0.5'
+                    description='Price of Loan Tokens and Collateral Tokens available on the decentralized loan service.'
+                  />
                 </Switch.Label>
               </div>
             </Switch.Group>
@@ -79,7 +91,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
 
         <div className='mt-4 -m-4 flex flex-wrap'>
           {(() => {
-            const sortedTickers = sortByType(tickers.filter(item => (typeSelection === 'All' || item.copy?.type === typeSelection.toUpperCase()) && (!availabilitySelection || item.copy?.available === availabilitySelection)))
+            const sortedTickers = sortByType(tickers.filter(item => (typeSelection === 'All' || item.copy?.type === typeSelection.toUpperCase()) && (!availabilitySelection || item.isToken === availabilitySelection)))
             return (
               sortedTickers.length === 0 ? (
                 <div className='w-full flex justify-center my-32 text-gray-400'>No price feed matched your filter
@@ -87,7 +99,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                 </div>
               ) : (
                 sortedTickers.map(item => (
-                  <OracleFeed price={item.price} copy={item.copy} key={item.price.id} />
+                  <OracleFeed price={item.price} copy={item.copy} key={item.price.id} isToken={item.isToken} />
                 ))
               )
             )
@@ -122,20 +134,62 @@ function sortByType (tickers: PriceFeedProps[]): PriceFeedProps[] {
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PricesPageProps>> {
-  const prices: prices.PriceTicker[] = []
+  const api = getWhaleApiClient(context)
 
-  let pricesResponse = await getWhaleApiClient(context).prices.list(200)
-  prices.push(...pricesResponse)
-  while (pricesResponse.hasNext) {
-    pricesResponse = await getWhaleApiClient(context).prices.list(200, pricesResponse.nextToken)
+  async function getPrices (): Promise<PriceTicker[]> {
+    const prices: prices.PriceTicker[] = []
+
+    let pricesResponse = await api.prices.list(200)
     prices.push(...pricesResponse)
+    while (pricesResponse.hasNext) {
+      pricesResponse = await api.prices.list(200, pricesResponse.nextToken)
+      prices.push(...pricesResponse)
+    }
+    return prices
   }
+
+  async function getCollateralTokens (): Promise<CollateralToken[]> {
+    const collateralTokens: CollateralToken[] = []
+
+    let collateralTokensResponse = await api.loan.listCollateralToken(200)
+    collateralTokens.push(...collateralTokensResponse)
+    while (collateralTokensResponse.hasNext) {
+      collateralTokensResponse = await api.loan.listCollateralToken(200, collateralTokensResponse.nextToken)
+      collateralTokens.push(...collateralTokensResponse)
+    }
+    return collateralTokens
+  }
+
+  async function getLoanTokens (): Promise<LoanToken[]> {
+    const loanTokens: LoanToken[] = []
+
+    let loanTokensResponse = await api.loan.listLoanToken(200)
+    loanTokens.push(...loanTokensResponse)
+    while (loanTokensResponse.hasNext) {
+      loanTokensResponse = await api.loan.listLoanToken(200, loanTokensResponse.nextToken)
+      loanTokens.push(...loanTokensResponse)
+    }
+    return loanTokens
+  }
+
+  const [prices, collateralTokens, loanTokens] = await Promise.all([getPrices(), getCollateralTokens(), getLoanTokens()])
+
+  const collateralAndLoanTokens: string[] = []
+
+  collateralTokens.forEach(collateralToken => {
+    collateralAndLoanTokens.push(collateralToken.fixedIntervalPriceId.replace('/', '-'))
+  })
+
+  loanTokens.forEach(loanToken => {
+    collateralAndLoanTokens.push(loanToken.fixedIntervalPriceId.replace('/', '-'))
+  })
 
   return {
     props: {
       prices: {
         items: prices
-      }
+      },
+      collateralAndLoanTokens: collateralAndLoanTokens
     }
   }
 }

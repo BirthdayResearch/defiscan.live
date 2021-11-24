@@ -12,7 +12,7 @@ context('/oracles on macbook-13', () => {
   })
 
   it('should contain at least 5 price feed', function () {
-    cy.findAllByTestId('OracleFeed').should('have.length.above', 5)
+    cy.findAllByTestId('OracleFeed').should('have.length.at.least', 5)
   })
 
   it('should contain at least 6 filter btns', function () {
@@ -54,7 +54,7 @@ context('/oracles on iphone-x', () => {
   })
 
   it('should contain at least 5 price feed', function () {
-    cy.findAllByTestId('OracleFeed').should('have.length.above', 5)
+    cy.findAllByTestId('OracleFeed').should('have.length.at.least', 5)
   })
 
   it('should contain at least 6 filter btns', function () {
