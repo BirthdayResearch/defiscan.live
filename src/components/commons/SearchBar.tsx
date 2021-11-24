@@ -14,7 +14,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
 import { SearchResultLink } from '@components/commons/link/Link'
 import classNames from 'classnames'
-import { MdShield, MdStairs, MdSwapHorizontalCircle, MdAccountBalanceWallet } from 'react-icons/md'
+import { MdAccountBalanceWallet, MdShield, MdStairs, MdSwapHorizontalCircle } from 'react-icons/md'
 
 interface SearchBarInterface {
   atHeader: boolean
@@ -72,7 +72,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
       {({ open }) => (
         <div className={classNames('flex w-full', { 'md:w-3/4 xl:w-1/2': !props.atHeader })}>
           <div
-            className={`flex w-full p-2 rounded-3xl h-10 bg-white border ${isActive ? 'border-primary-200' : ''}`}
+            className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white border', { 'border-primary-200': isActive })}
             data-testid='SearchBar'
             ref={setRefEle}
           >
@@ -167,16 +167,31 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
     <>
       <Menu.Item as={Fragment}>
         {({ active }) => (
-          <SearchResultLink href={{ pathname: props.searchResults.url }} data-testid={`SearchResultRow.${props.searchResults.type}.${props.searchResults.title}`}>
+          <SearchResultLink
+            href={{ pathname: props.searchResults.url }}
+            data-testid={`SearchResultRow.${props.searchResults.type}.${props.searchResults.title}`}
+          >
             <div
-              className={classNames('bg-white p-3 cursor-pointer', { 'bg-primary-50 ': active })}
+              className={classNames('bg-white p-3 cursor-pointer', { 'bg-primary-50': active })}
             >
               <div className='flex flex-row items-start gap-x-2'>
                 <div className='text-primary-600'>
-                  {props.searchResults.type === 'Block' && <MdStairs size={24} />}
-                  {props.searchResults.type === 'Transaction' && <MdSwapHorizontalCircle size={24} />}
-                  {props.searchResults.type === 'Address' && <MdAccountBalanceWallet size={24} />}
-                  {props.searchResults.type === 'Vault' && <MdShield size={24} />}
+                  {(() => {
+                    switch (props.searchResults.type) {
+                      case 'Block': {
+                        return <MdStairs size={24} />
+                      }
+                      case 'Transaction': {
+                        return <MdSwapHorizontalCircle size={24} />
+                      }
+                      case 'Address': {
+                        return <MdAccountBalanceWallet size={24} />
+                      }
+                      case 'Vault': {
+                        return <MdShield size={24} />
+                      }
+                    }
+                  })}
                 </div>
                 <div className='overflow-hidden'>
                   <div className='overflow-hidden font-medium overflow-ellipsis'>{props.searchResults.title}</div>
