@@ -4,20 +4,18 @@ import BigNumber from 'bignumber.js'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdSwapHorizontalCircle } from 'react-icons/md'
 import { CollapsibleSection } from '@components/commons/CollapsibleSection'
-import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
 
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2 xl:w-2/3'>
+    <>
       <div className='hidden md:block'>
         <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold'>
-            Transactions
-          </h1>
+          <h1 className='text-xl font-semibold'>Latest Transactions</h1>
         </div>
-        <div className='mt-6 w-full space-y-1'>
+
+        <div className='mt-6 space-y-1.5'>
           {transactions.map(t => {
             return (
               <TransactionDetails
@@ -30,6 +28,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
           })}
         </div>
       </div>
+
       <CollapsibleSection
         heading='Transactions'
         className='block md:hidden'
@@ -48,7 +47,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
           })}
         </div>
       </CollapsibleSection>
-    </div>
+    </>
   )
 }
 
@@ -57,45 +56,55 @@ function TransactionDetails (props: {
   age: string
   totalVoutValue: string
 }): JSX.Element {
+  return (
+    <div className='grid grid-cols-2 lg:grid-cols-5 p-4 rounded-sm border border-gray-200 cursor-pointer items-center'>
+      <div className='col-span-1 lg:col-span-3 flex space-x-2'>
+        <span className='text-lg leading-6'>
+          <MdSwapHorizontalCircle className='text-primary-600 inline-block' size={22} />
+        </span>
+        <div className='overflow-ellipsis overflow-hidden'>
+          <TxIdLink
+            txid={props.txid}
+            className='overflow-ellipsis overflow-hidden text-lg font-medium text-primary-500 underline md:no-underline'
+          />
+          <div className='text-xs text-gray-400 leading-5'>
+            <span>{props.age}</span>
+          </div>
+        </div>
+      </div>
+      <DesktopTransactionDetails totalVoutValue={props.totalVoutValue} />
+      <MobileTransactionDetails totalVoutValue={props.totalVoutValue} />
+    </div>
+  )
+}
+
+function DesktopTransactionDetails (props: { totalVoutValue: string }): JSX.Element {
+  return (
+    <div className='hidden md:block col-span-1 lg:col-span-2'>
+      <div className='grid grid-cols-2 grid-rows-2'>
+        <div className='text-right text-sm text-gray-500'>
+          Amount
+        </div>
+        <div className='text-right text-sm text-gray-900'>
+          {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MobileTransactionDetails (props: { totalVoutValue: string }): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   return (
-    <div className='p-4 border border-gray-200 rounded'>
-      <div className='flex justify-between'>
-        <div className='flex space-x-2 items-baseline w-full md:w-2/4 xl:w-2/3'>
-          <div className='flex'>
-            <MdSwapHorizontalCircle className='text-primary-500 bg-white h-4 w-4 ' />
-          </div>
-          <div className='flex flex-col w-full'>
-            <div className='flex flex-row justify-between text-lg font-medium'>
-              <TxIdLink
-                txid={props.txid}
-                className=' overflow-ellipsis overflow-hidden hidden md:block underline lg:no-underline'
-              />
-
-              <TxIdLink txid={props.txid} className='underline lg:no-underline block md:hidden'>
-                <TextMiddleTruncate text={props.txid} textLength={6} />
-              </TxIdLink>
-              <div
-                className='text-primary-500 cursor-pointer text-xs flex items-center block md:hidden'
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {(!isOpen)
-                  ? (<>VIEW<MdOutlineKeyboardArrowDown size={22} /></>)
-                  : (<>HIDE<MdOutlineKeyboardArrowUp size={22} /></>)}
-              </div>
-            </div>
-            <div className='flex text-xs text-opacity-40 text-black mt-1 w-full'>
-              <span>{props.age}</span>
-            </div>
-          </div>
-        </div>
-        <div className='inline text-sm hidden md:block'>
-          <span className='text-right text-gray-400'>Amount:</span>
-          <span className='pl-3 '>
-            {new BigNumber(props.totalVoutValue).toFixed(8)} DFI
-          </span>
-        </div>
+    <>
+      <div
+        className='text-primary-500 flex justify-end items-center self-start block md:hidden'
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {(!isOpen)
+          ? (<>VIEW<MdOutlineKeyboardArrowDown size={22} /></>)
+          : (<>HIDE<MdOutlineKeyboardArrowUp size={22} /></>)}
       </div>
       <Transition
         enter='transition ease-out duration-200'
@@ -104,16 +113,18 @@ function TransactionDetails (props: {
         leave='transition ease-in duration-150'
         leaveFrom='opacity-100 translate-y-1'
         leaveTo='opacity-100 translate-y-0'
-        className='w-full mt-3'
+        className='col-span-3 mt-5'
         show={isOpen}
       >
-        <div className='inline text-sm'>
-          <span className='text-right text-gray-400'>Amount</span>
-          <span className='pl-3 '>
-            {new BigNumber(props.totalVoutValue).toFixed(8)} DFI
-          </span>
+        <div className='grid grid-cols-2 items-center'>
+          <div className='text-gray-500 text-sm'>
+            Amount
+          </div>
+          <div className='text-right text-gray-900'>
+            {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
+          </div>
         </div>
       </Transition>
-    </div>
+    </>
   )
 }
