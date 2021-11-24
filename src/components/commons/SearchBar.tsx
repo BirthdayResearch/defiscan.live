@@ -135,7 +135,7 @@ function SearchResultTable (props: { searchResults?: SearchResult[], isSearching
 
   if (props.searchResults === undefined) {
     return (
-      <SearchStatusMessage message='Search by Transaction ID, Block Hash, Block Height or Address'>
+      <SearchStatusMessage message='Search by Block Hash, Block Height, Transaction ID, Vault ID or Address'>
         <IoSearchSharp size={96} className='text-gray-400 opacity-30' />
       </SearchStatusMessage>
     )
@@ -191,7 +191,7 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
                         return <MdShield size={24} />
                       }
                     }
-                  })}
+                  })()}
                 </div>
                 <div className='overflow-hidden'>
                   <div className='overflow-hidden font-medium overflow-ellipsis'>{props.searchResults.title}</div>
@@ -281,7 +281,7 @@ async function getSearchResults (api: WhaleApiClient, network: NetworkName, quer
 
 function SearchStatusMessage (props: PropsWithChildren<{ message: string }>): JSX.Element {
   return (
-    <div className='w-full rounded mt-1 bg-white p-4'>
+    <div className='w-full rounded mt-1 bg-white px-4 py-8'>
       <div className='w-full flex flex-col bg-white items-center'>
         {props.children}
         <span className='text-center text-gray-400'>{props.message}</span>
