@@ -1,7 +1,6 @@
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { formatDistanceToNow } from 'date-fns'
 import { Link } from '@components/commons/link/Link'
-import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdStairs } from 'react-icons/md'
 import { CollapsibleSection } from '@components/commons/CollapsibleSection'
@@ -14,7 +13,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
     <div className='w-full lg:w-1/2 xl:w-1/3'>
       <div className='hidden md:block'>
         <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold'>Blocks</h1>
+          <h1 className='text-xl font-semibold'>Latest Blocks</h1>
           <Link href={{ pathname: '/blocks' }}>
             <a
               className='flex items-center font-medium cursor-pointer text-primary-500'
@@ -26,93 +25,105 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
         </div>
         <div className='mt-6 w-full space-y-1'>
           {
-              blocks.map((block) => {
-                return (
-                  <BlockDetails
-                    key={block.id}
-                    height={block.height.toString()}
-                    mintedBy={block.minter}
-                    transactionCount={block.transactionCount}
-                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-                  />
-                )
-              })
-            }
+            blocks.map((block) => {
+              return (
+                <BlockDetails
+                  key={block.id}
+                  height={block.height.toString()}
+                  mintedBy={block.minter}
+                  transactionCount={block.transactionCount}
+                  age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
+                />
+              )
+            })
+          }
         </div>
-        <ViewMoreButton />
+        <div className='flex justify-center'>
+          <ViewMoreButton />
+        </div>
       </div>
-      <CollapsibleSection
-        heading='Blocks'
-        className='block md:hidden'
-      >
+      <CollapsibleSection heading='Latest Blocks' className='block md:hidden'>
         <div className='mt-6 w-full space-y-1'>
-          {
-              blocks.map((block) => {
-                return (
-                  <BlockDetails
-                    key={block.id}
-                    height={block.height.toString()}
-                    mintedBy={block.minter}
-                    transactionCount={block.transactionCount}
-                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-                  />
-                )
-              })
-            }
+          {blocks.map((block) => {
+            return (
+              <BlockDetails
+                key={block.id}
+                height={block.height.toString()}
+                mintedBy={block.minter}
+                transactionCount={block.transactionCount}
+                age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
+              />
+            )
+          })}
         </div>
-        <ViewMoreButton />
+        <div className='flex justify-center'>
+          <ViewMoreButton />
+        </div>
       </CollapsibleSection>
     </div>
   )
 }
 
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
   return (
     <div
-      className='flex flex-wrap p-4 border border-gray-200 cursor-pointer items-baseline justify-between'
+      className='grid grid-cols-3 lg:grid-cols-2 p-4 rounded-sm border border-gray-200 cursor-pointer items-baseline'
     >
-      <div className='flex items-baseline space-x-2'>
-        <MdStairs className='text-primary-500 bg-white h-4 w-4 rounded' />
+      <div className='flex space-x-2 col-span-2 lg:col-span-1 '>
+        <span className='text-lg leading-6'>
+          <MdStairs className='text-primary-600 inline-block' size={20} />
+        </span>
         <div>
-          <BlockLink className='sm:text-lg md:text-xl font-medium text-primary-500 underline md:no-underline' block={props.height}>
+          <BlockLink className='text-lg font-medium text-primary-500 underline md:no-underline' block={props.height}>
             {props.height}
           </BlockLink>
-          <div className='text-xs text-opacity-40 text-black font-medium flex mt-1'>
+          <div className='text-xs text-gray-400 leading-5'>
             <span>{props.age}</span>
           </div>
         </div>
       </div>
-      <div className='flex flex-wrap my-auto hidden md:block'>
-        <div className='flex w-full text-sm justify-between'>
-          <span className='min-w-max text-right text-gray-400'>
-            Minted by:
-          </span>
-          {(() => {
-            if (props.mintedBy !== undefined) {
-              return (
-                <AddressLink address={`${props.mintedBy}`}>
-                  <TextMiddleTruncate
-                    text={props.mintedBy} textLength={6}
-                    className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'
-                  />
-                </AddressLink>
-              )
-            }
-          })()}
+      <DesktopBlockDetails height={props.height} transactionCount={props.transactionCount} mintedBy={props.mintedBy} />
+      <MobileBlockDetails height={props.height} transactionCount={props.transactionCount} mintedBy={props.mintedBy} />
+    </div>
+  )
+}
+
+function DesktopBlockDetails (props: { height: string, mintedBy?: string, transactionCount: number }): JSX.Element {
+  return (
+    <div className='hidden md:block'>
+      <div className='grid grid-cols-2 text-sm justify-between'>
+        <div className='text-gray-500'>
+          Minted by
         </div>
-        <div className='flex w-full text-sm mt-1 justify-between'>
-          <span className='min-w-max text-right text-gray-400'>
-            Transactions:
-          </span>
-          <span className='pl-2 md:pl-3 overflow-ellipsis overflow-hidden'>
-            {props.transactionCount}
-          </span>
-        </div>
+        {
+          props.mintedBy === undefined ? ('N/A') : (
+            <AddressLink address={`${props.mintedBy}`}>
+              <div className='text-right text-primary-500 overflow-hidden overflow-ellipsis'>
+                {props.mintedBy}
+              </div>
+            </AddressLink>
+          )
+        }
       </div>
+      <div className='grid grid-cols-2 text-sm mt-1 justify-between'>
+        <div className='text-gray-500'>
+          Transactions
+        </div>
+        <span className='text-right text-gray-900'>
+          {props.transactionCount}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function MobileBlockDetails (props: { height: string, mintedBy?: string, transactionCount: number }): JSX.Element {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  return (
+    <>
       <div
-        className='text-primary-500 text-xs flex items-center block md:hidden'
+        className='text-primary-500 flex justify-end items-center block md:hidden'
         onClick={() => setIsOpen(!isOpen)}
       >
         {(!isOpen)
@@ -126,36 +137,33 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
         leave='transition ease-in duration-150'
         leaveFrom='opacity-100 translate-y-1'
         leaveTo='opacity-100 translate-y-0'
-        className='w-full mt-3'
+        className='col-span-3 mt-5'
         show={isOpen}
       >
-        <div className='flex w-full mt-2 text-sm justify-between'>
-          <span className='min-w-max text-right text-gray-400'>
-            Minted by:
-          </span>
-          {(() => {
-            if (props.mintedBy !== undefined) {
-              return (
-                <AddressLink address={`${props.mintedBy}`}>
-                  <TextMiddleTruncate
-                    text={props.mintedBy} textLength={6}
-                    className='pl-2 md:pl-4 overflow-ellipsis overflow-hidden'
-                  />
-                </AddressLink>
-              )
-            }
-          })()}
+        <div className='grid grid-cols-2 text-sm justify-between'>
+          <div className='text-gray-500'>
+            Minted by
+          </div>
+          {
+            props.mintedBy === undefined ? ('N/A') : (
+              <AddressLink address={`${props.mintedBy}`}>
+                <div className='text-right text-primary-500 overflow-hidden overflow-ellipsis underline'>
+                  {props.mintedBy}
+                </div>
+              </AddressLink>
+            )
+          }
         </div>
-        <div className='flex w-full text-sm mt-1 justify-between'>
-          <span className='min-w-max text-right text-gray-400'>
-            Transactions:
-          </span>
-          <span className='pl-2 md:pl-3 overflow-ellipsis overflow-hidden'>
+        <div className='grid grid-cols-2 text-sm mt-1 justify-between'>
+          <div className='text-gray-500'>
+            Transactions
+          </div>
+          <span className='text-right text-gray-900'>
             {props.transactionCount}
           </span>
         </div>
       </Transition>
-    </div>
+    </>
   )
 }
 
@@ -163,13 +171,12 @@ function ViewMoreButton (): JSX.Element {
   return (
     <Link href={{ pathname: '/blocks' }}>
       <a
-        className='flex items-center font-medium cursor-pointer text-primary-500'
+        className='font-medium cursor-pointer text-primary-500'
         data-testid='BlocksList.viewAllBlocksButton'
       >
         <button
           type='button'
-          className='w-full mt-2 py-3 border border-gray-200'
-
+          className='mt-2 py-2 px-14 border border-gray-200'
         >
           VIEW ALL BLOCKS
         </button>
