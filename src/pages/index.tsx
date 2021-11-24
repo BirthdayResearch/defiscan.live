@@ -14,11 +14,14 @@ import { IndexHeader } from '@components/index/IndexHeader'
 import { LiquidityPoolList } from '@components/index/LiquidityPoolList'
 import { BlocksList } from '@components/index/BlocksList'
 import { TransactionsList } from '@components/index/TransactionsList'
+import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
+import { VaultList } from '@components/index/VaultList'
 
 interface HomePageProps {
   blocks: Block[]
   transactions: Transaction[]
   liquidityPools: PoolPairData[]
+  vaults: Array<LoanVaultActive | LoanVaultLiquidated>
 }
 
 export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -31,6 +34,7 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
           <TransactionsList transactions={props.transactions} />
         </div>
         <LiquidityPoolList liquidityPools={props.liquidityPools} />
+        <VaultList vaults={props.vaults} />
       </Container>
     </>
   )
@@ -56,12 +60,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   transactions = transactions.slice(0, 8)
 
   const liquidityPools = await api.poolpairs.list()
+  const vaults = await api.loan.listVault(10)
 
   return {
     props: {
       blocks,
       transactions,
-      liquidityPools
+      liquidityPools,
+      vaults
     }
   }
 }

@@ -85,7 +85,7 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
   )
 }
 
-function calculateUsdValues (loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount): [BigNumber | undefined, BigNumber | undefined] {
+export function calculateUsdValues (loan: LoanVaultTokenAmount, interest: LoanVaultTokenAmount): [BigNumber | undefined, BigNumber | undefined] {
   let loanUsdAmount = ((loan?.activePrice?.active) != null) ? new BigNumber(loan.activePrice.active.amount).multipliedBy(new BigNumber(loan.amount)) : undefined
   let interestUsdAmount = ((loan?.activePrice?.active) != null) ? new BigNumber(loan.activePrice.active.amount).multipliedBy(new BigNumber(interest.amount)) : undefined
 
