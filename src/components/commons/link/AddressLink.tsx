@@ -1,6 +1,7 @@
 import { Link } from '@components/commons/link/Link'
 import classnames from 'classnames'
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
+import { WarningHoverPopover } from '@components/commons/popover/WarningHoverPopover'
 
 interface AddressLinkProps {
   address: string
@@ -32,10 +33,11 @@ export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.El
 
 export function AddressLinkExternal (props: {text: string, url: string, testId?: string}): JSX.Element {
   return (
-    <div className='text-primary-500 hover:underline cursor-pointer' data-testid={props.testId}>
+    <div className='flex items-center text-primary-500 hover:underline cursor-pointer' data-testid={props.testId}>
       <a href={props.url} target='_blank' rel='noreferrer'>
         {props.text}
       </a>
+      <WarningHoverPopover className='ml-1' description='This link opens in a new window and goes to an external site.' />
     </div>
   )
 }
