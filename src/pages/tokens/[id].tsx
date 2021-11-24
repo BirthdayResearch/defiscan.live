@@ -6,23 +6,13 @@ import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { Container } from '@components/commons/Container'
-import { AddressLink } from '@components/commons/link/AddressLink'
+import { AddressLink, AddressLinkExternal } from '@components/commons/link/AddressLink'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
-import { AddressLinkExternal } from '@components/commons/AddressLink'
 import { isNumeric } from '../../utils/commons/StringValidator'
+import React from 'react'
 
 interface TokenAssetPageProps {
   token: TokenData
-}
-
-enum TokensWithBackingAddress {
-  USDT = 'USDT',
-  USDC = 'USDC',
-  ETH = 'ETH',
-  BTC = 'BTC',
-  BCH = 'BCH',
-  DOGE ='DOGE',
-  LCH = 'LCH'
 }
 
 export default function TokenIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -110,11 +100,8 @@ function ListRight ({ token }: { token: TokenData }): JSX.Element {
       <AdaptiveList.Row name='Destruction TX' className='flex space-x-10 items-center'>
         <div className='break-all'>{token.destruction.tx}</div>
       </AdaptiveList.Row>
-      {(() => {
-        if (token.symbol in TokensWithBackingAddress) {
-          return <BackingAddress tokenName={token.symbol} />
-        }
-      })()}
+
+      <BackingAddress tokenName={token.symbol} />
     </AdaptiveList>
   )
 }
@@ -157,28 +144,54 @@ function ListLeft ({ token }: { token: TokenData }): JSX.Element {
   )
 }
 
-function BackingAddress ({ tokenName }: {tokenName: string}): JSX.Element {
-  const isEth = tokenName === TokensWithBackingAddress.ETH || tokenName === TokensWithBackingAddress.USDC || tokenName === TokensWithBackingAddress.USDT
+function BackingAddress ({ tokenName }: { tokenName: string }): JSX.Element {
+  const tokensWithBackingAddress = ['BCH', 'LTC', 'DOGE', 'BTC', 'ETH', 'USDC', 'USDT']
+
+  if (!tokensWithBackingAddress.includes(tokenName)) {
+    return <></>
+  }
 
   return (
     <AdaptiveList.Row name='Backing Address' className='break-all'>
       {(() => {
-        if (isEth) {
-          return <AddressLinkExternal url='https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac' text='0x94fa70d079d76279e1815ce403e9b985bccc82ac' testId='BackingAddress.ETH' />
-        }
         switch (tokenName) {
-          case TokensWithBackingAddress.BCH:
-            return <AddressLinkExternal url='https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf' text='38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf' testId='BackingAddress.BCH' />
-          case TokensWithBackingAddress.LCH:
-            return <AddressLinkExternal url='https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE' text='MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE' testId='BackingAddress.LCH' />
-          case TokensWithBackingAddress.DOGE:
-            return <AddressLinkExternal url='https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba' text='D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba' testId='BackingAddress.DOGE' />
-          case TokensWithBackingAddress.BTC:
-            return <AddressLinkExternal url='https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT' text='38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT' testId='BackingAddress.BTC' />
-          case TokensWithBackingAddress.ETH:
-          case TokensWithBackingAddress.USDC:
-          case TokensWithBackingAddress.USDT:
-            return <AddressLinkExternal url='https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac' text='0x94fa70d079d76279e1815ce403e9b985bccc82ac' testId='BackingAddress.ETH' />
+          case 'BCH':
+            return (
+              <AddressLinkExternal
+                url='https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf'
+                text='38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf' testId='BackingAddress.BCH'
+              />
+            )
+          case 'LTC':
+            return (
+              <AddressLinkExternal
+                url='https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE'
+                text='MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE' testId='BackingAddress.LCH'
+              />
+            )
+          case 'DOGE':
+            return (
+              <AddressLinkExternal
+                url='https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba'
+                text='D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba' testId='BackingAddress.DOGE'
+              />
+            )
+          case 'BTC':
+            return (
+              <AddressLinkExternal
+                url='https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT'
+                text='38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT' testId='BackingAddress.BTC'
+              />
+            )
+          case 'ETH':
+          case 'USDC':
+          case 'USDT':
+            return (
+              <AddressLinkExternal
+                url='https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac'
+                text='0x94fa70d079d76279e1815ce403e9b985bccc82ac' testId='BackingAddress.ETH'
+              />
+            )
         }
       })()}
     </AdaptiveList.Row>
