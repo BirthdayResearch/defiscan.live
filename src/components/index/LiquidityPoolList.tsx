@@ -53,11 +53,11 @@ function LiquidityPoolCard (
   const SymbolBIcon = getAssetIcon(props.tokenBSymbol)
   const SymbolAIcon = getAssetIcon(props.tokenASymbol)
   return (
-    <div className='flex flex-col p-4 md:p-6 border border-gray-300 h-30 space-y-3'>
+    <div className='flex flex-col p-6 border border-gray-300 h-30 space-y-3'>
       <div className='flex items-center space-x-1 my-auto'>
-        <div className='flex icons transform rotate-45'>
+        <div className='flex icons transform'>
           <SymbolAIcon className='h-6 w-6 z-10' />
-          <SymbolBIcon className='h-6 w-6 -ml-2' />
+          <SymbolBIcon className='h-6 w-6 -ml-3 mt-3' />
         </div>
         <h1 className='font-semibold text-sm md:text-base'>{props.poolSymbol}</h1>
       </div>
