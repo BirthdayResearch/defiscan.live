@@ -10,7 +10,7 @@ import { BlockLink } from '@components/commons/link/BlockLink'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2 xl:w-1/3'>
+    <div className=''>
       <div className='hidden md:block'>
         <div className='flex justify-between'>
           <h1 className='text-xl font-semibold'>Latest Blocks</h1>
@@ -23,7 +23,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
             </a>
           </Link>
         </div>
-        <div className='mt-6 w-full space-y-1'>
+        <div className='mt-6 space-y-1.5'>
           {
             blocks.map((block) => {
               return (
@@ -67,11 +67,11 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
     <div
-      className='grid grid-cols-3 lg:grid-cols-2 p-4 rounded-sm border border-gray-200 cursor-pointer items-baseline'
+      className='grid grid-cols-3 lg:grid-cols-2 p-4 rounded-sm border border-gray-200 cursor-pointer items-center'
     >
-      <div className='flex space-x-2 col-span-2 lg:col-span-1 '>
+      <div className='col-span-2 lg:col-span-1 flex space-x-2 '>
         <span className='text-lg leading-6'>
-          <MdStairs className='text-primary-600 inline-block' size={20} />
+          <MdStairs className='text-primary-600 inline-block' size={22} />
         </span>
         <div>
           <BlockLink className='text-lg font-medium text-primary-500 underline md:no-underline' block={props.height}>
@@ -91,7 +91,7 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
 function DesktopBlockDetails (props: { height: string, mintedBy?: string, transactionCount: number }): JSX.Element {
   return (
     <div className='hidden md:block'>
-      <div className='grid grid-cols-2 text-sm justify-between'>
+      <div className='grid grid-cols-2 text-sm '>
         <div className='text-gray-500'>
           Minted by
         </div>
@@ -123,7 +123,7 @@ function MobileBlockDetails (props: { height: string, mintedBy?: string, transac
   return (
     <>
       <div
-        className='text-primary-500 flex justify-end items-center block md:hidden'
+        className='text-primary-500 flex justify-end items-center self-start block md:hidden'
         onClick={() => setIsOpen(!isOpen)}
       >
         {(!isOpen)
@@ -140,8 +140,8 @@ function MobileBlockDetails (props: { height: string, mintedBy?: string, transac
         className='col-span-3 mt-5'
         show={isOpen}
       >
-        <div className='grid grid-cols-2 text-sm justify-between'>
-          <div className='text-gray-500'>
+        <div className='grid grid-cols-2 items-center'>
+          <div className='text-gray-500 text-sm'>
             Minted by
           </div>
           {
@@ -154,8 +154,8 @@ function MobileBlockDetails (props: { height: string, mintedBy?: string, transac
             )
           }
         </div>
-        <div className='grid grid-cols-2 text-sm mt-1 justify-between'>
-          <div className='text-gray-500'>
+        <div className='grid grid-cols-2 mt-1 justify-between'>
+          <div className='text-gray-500 text-sm'>
             Transactions
           </div>
           <span className='text-right text-gray-900'>
