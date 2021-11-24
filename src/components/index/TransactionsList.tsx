@@ -58,7 +58,7 @@ function TransactionDetails (props: {
 }): JSX.Element {
   return (
     <div className='grid grid-cols-2 lg:grid-cols-5 p-4 rounded-sm border border-gray-200 cursor-pointer items-center'>
-      <div className='col-span-1 lg:col-span-3 flex space-x-2'>
+      <div className='col-span-1 lg:col-span-2 xl:col-span-3 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdSwapHorizontalCircle className='text-primary-600 inline-block' size={22} />
         </span>
@@ -80,9 +80,9 @@ function TransactionDetails (props: {
 
 function DesktopTransactionDetails (props: { totalVoutValue: string }): JSX.Element {
   return (
-    <div className='hidden md:block col-span-1 lg:col-span-2'>
+    <div className='hidden md:block col-span-1 lg:col-span-3 xl:col-span-2'>
       <div className='grid grid-cols-2 grid-rows-2'>
-        <div className='text-right text-sm text-gray-500'>
+        <div className='text-right text-sm text-gray-500 lg:mr-2 xl:mr-0'>
           Amount
         </div>
         <div className='text-right text-sm text-gray-900'>
