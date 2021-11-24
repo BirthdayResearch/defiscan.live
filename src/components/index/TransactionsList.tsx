@@ -15,7 +15,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
           <h1 className='text-xl font-semibold'>Latest Transactions</h1>
         </div>
 
-        <div className='mt-6 space-y-1.5'>
+        <div className='mt-6 space-y-2'>
           {transactions.map(t => {
             return (
               <TransactionDetails
@@ -33,8 +33,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
         heading='Transactions'
         className='block md:hidden'
       >
-        <div className='mt-6 w-full space-y-1'>
-
+        <div className='mt-6 w-full space-y-2'>
           {transactions.map(t => {
             return (
               <TransactionDetails

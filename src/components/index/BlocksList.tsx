@@ -23,27 +23,25 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
             </a>
           </Link>
         </div>
-        <div className='mt-6 space-y-1.5'>
-          {
-            blocks.map((block) => {
-              return (
-                <BlockDetails
-                  key={block.id}
-                  height={block.height.toString()}
-                  mintedBy={block.minter}
-                  transactionCount={block.transactionCount}
-                  age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-                />
-              )
-            })
-          }
+        <div className='mt-6 space-y-2'>
+          {blocks.map((block) => {
+            return (
+              <BlockDetails
+                key={block.id}
+                height={block.height.toString()}
+                mintedBy={block.minter}
+                transactionCount={block.transactionCount}
+                age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
+              />
+            )
+          })}
         </div>
         <div className='flex justify-center'>
           <ViewMoreButton />
         </div>
       </div>
       <CollapsibleSection heading='Latest Blocks' className='block md:hidden'>
-        <div className='mt-6 w-full space-y-1'>
+        <div className='mt-6 w-full space-y-2'>
           {blocks.map((block) => {
             return (
               <BlockDetails
