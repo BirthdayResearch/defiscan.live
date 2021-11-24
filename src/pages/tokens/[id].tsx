@@ -9,7 +9,6 @@ import { Container } from '@components/commons/Container'
 import { AddressLink, AddressLinkExternal } from '@components/commons/link/AddressLink'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { isNumeric } from '../../utils/commons/StringValidator'
-import React from 'react'
 
 interface TokenAssetPageProps {
   token: TokenData
