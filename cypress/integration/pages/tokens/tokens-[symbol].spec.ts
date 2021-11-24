@@ -148,7 +148,7 @@ context('/tokens/* Backing Addresses', () => {
       cy.wrap(ele).should('contain.text', 'Backing Address')
     })
     cy.findByTestId('BackingAddress.LTC').should('have.text', 'MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE')
-    cy.findByTestId('BackingAddress.LTC').find('a').should('have.attr', 'href', 'https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE/')
+    cy.findByTestId('BackingAddress.LTC').find('a').should('have.attr', 'href', 'https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE')
   })
 
   it('should have backing address for BCH', function () {
