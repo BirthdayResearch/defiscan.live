@@ -30,7 +30,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
       </div>
 
       <CollapsibleSection
-        heading='Transactions'
+        heading='Latest Transactions'
         className='block md:hidden'
       >
         <div className='mt-6 w-full space-y-2'>
@@ -56,7 +56,7 @@ function TransactionDetails (props: {
   totalVoutValue: string
 }): JSX.Element {
   return (
-    <div className='grid grid-cols-2 lg:grid-cols-5 p-4 rounded-sm border border-gray-200 cursor-pointer items-center'>
+    <div className='grid grid-cols-2 lg:grid-cols-5 p-4 rounded border border-gray-200 cursor-pointer items-center'>
       <div className='col-span-1 lg:col-span-2 xl:col-span-3 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdSwapHorizontalCircle className='text-primary-600 inline-block' size={22} />

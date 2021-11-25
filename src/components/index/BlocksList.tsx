@@ -65,7 +65,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
     <div
-      className='grid grid-cols-3 lg:grid-cols-2 p-4 rounded-sm border border-gray-200 cursor-pointer items-center'
+      className='grid grid-cols-3 lg:grid-cols-2 p-4 rounded border border-gray-200 cursor-pointer items-center'
     >
       <div className='col-span-2 lg:col-span-1 flex space-x-2 '>
         <span className='text-lg leading-6'>
