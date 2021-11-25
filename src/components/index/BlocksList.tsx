@@ -174,7 +174,7 @@ function ViewMoreButton (): JSX.Element {
       >
         <button
           type='button'
-          className='mt-2 py-2 px-14 border border-gray-200'
+          className='mt-2 py-2 px-14 border border-gray-200 rounded-sm'
         >
           VIEW ALL BLOCKS
         </button>
