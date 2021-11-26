@@ -2,7 +2,6 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import classNames from 'classnames'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
@@ -11,6 +10,7 @@ import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import React from 'react'
 import ReactNumberFormat from 'react-number-format'
 import { LiquidatedVaultDerivedValues } from '../../../utils/vaults/LiquidatedVaultDerivedValues'
+import { TextTruncate } from '@components/commons/text/TextTruncate'
 
 export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues }): JSX.Element {
   return (
@@ -87,7 +87,7 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
     >
       <OverflowTable.Cell>
         <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
-          <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
+          <TextTruncate text={props.vault.ownerAddress} />
         </AddressLink>
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
@@ -169,7 +169,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultDetailList.OwnerAddress'
       >
         <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
-          <TextMiddleTruncate text={props.vault.ownerAddress} textLength={6} />
+          <TextTruncate text={props.vault.ownerAddress} />
         </AddressLink>
       </VaultDetailsListItem>
       <VaultDetailsListItem
