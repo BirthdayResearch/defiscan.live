@@ -154,7 +154,7 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
     case CDepositToVault.OP_CODE:
       return <DfTxDepositToVault dftx={props.dftx} />
     case CCloseVault.OP_CODE:
-      return <DfTxCloseVault dfxt={props.dftx} />
+      return <DfTxCloseVault dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
