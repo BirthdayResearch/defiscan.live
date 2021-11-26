@@ -76,7 +76,7 @@ function VaultAuctionsDetailsCard (props: { batch: LoanVaultLiquidationBatch }):
         <div>
           {
             props.batch.highestBid === undefined ? (
-              <>N/A</>
+              <span>N/A</span>
             )
               : (
                 <>
@@ -126,7 +126,7 @@ function VaultAuctionsDetailsCard (props: { batch: LoanVaultLiquidationBatch }):
         <div className='w-full mt-4 pt-4 flex flex-col border-t-2 border-gray-100'>
           <div className='flex items-center mb-2'>
             <span className='text-sm text-gray-500'>Collaterals</span>
-            <InfoHoverPopover className='ml-1' description='Collateral token(s) for auction.' />
+            <InfoHoverPopover className='ml-1' description='The winning bidder will receive the tokens listed here.' />
           </div>
           {
             props.batch.collaterals.map(collateral => (
