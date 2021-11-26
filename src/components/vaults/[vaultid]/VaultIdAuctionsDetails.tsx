@@ -1,10 +1,8 @@
 import { LoanVaultLiquidationBatch, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
-import React, { useState } from 'react'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import React from 'react'
 import BigNumber from 'bignumber.js'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
-import { Transition } from '@headlessui/react'
 import ReactNumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
@@ -41,7 +39,6 @@ export function VaultAuctions (props: { batches: LoanVaultLiquidationBatch[] }):
 
 function VaultAuctionsDetailsCard (props: { batch: LoanVaultLiquidationBatch }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.batch.loan.symbol)
-  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const minStartingBid = new BigNumber(props.batch.loan.amount).multipliedBy(1.05)
   let minStartingBidValue: BigNumber | undefined
@@ -59,11 +56,6 @@ function VaultAuctionsDetailsCard (props: { batch: LoanVaultLiquidationBatch }):
         <div className='flex items-center'>
           <LoanSymbol className='h-6 w-6' />
           <span className='ml-1.5 font-medium text-gray-900'>{props.batch.loan.displaySymbol}</span>
-        </div>
-        <div className='flex items-center text-primary-500 cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
-          {!isOpen
-            ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
-            : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
         </div>
       </div>
 
@@ -113,28 +105,17 @@ function VaultAuctionsDetailsCard (props: { batch: LoanVaultLiquidationBatch }):
         </div>
       </div>
 
-      <Transition
-        enter='transition ease-out duration-200'
-        enterFrom='opacity-0 translate-y-0'
-        enterTo='opacity-100 translate-y-1'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-1'
-        leaveTo='opacity-100 translate-y-0'
-        className='w-full'
-        show={isOpen}
-      >
-        <div className='w-full mt-4 pt-4 flex flex-col border-t-2 border-gray-100'>
-          <div className='flex items-center mb-2'>
-            <span className='text-sm text-gray-500'>Collaterals</span>
-            <InfoHoverPopover className='ml-1' description='The winning bidder will receive the tokens listed here.' />
-          </div>
-          {
-            props.batch.collaterals.map(collateral => (
-              <CollateralListItem collateral={collateral} key={collateral.id} />
-            ))
-          }
+      <div className='w-full mt-4 pt-4 flex flex-col border-t-2 border-gray-100'>
+        <div className='flex items-center mb-2'>
+          <span className='text-sm text-gray-500'>Collaterals</span>
+          <InfoHoverPopover className='ml-1' description='The winning bidder will receive the tokens listed here.' />
         </div>
-      </Transition>
+        {
+          props.batch.collaterals.map(collateral => (
+            <CollateralListItem collateral={collateral} key={collateral.id} />
+          ))
+        }
+      </div>
     </div>
   )
 }
