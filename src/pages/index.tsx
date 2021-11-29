@@ -55,7 +55,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   })
   transactions = transactions.slice(0, 8)
 
-  const liquidityPools = await api.poolpairs.list()
+  const liquidityPools = await api.poolpairs.list(8)
 
   return {
     props: {
