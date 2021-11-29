@@ -54,6 +54,14 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   it('should DftxCompositeSwap Max Price', function () {
     cy.findByTestId('DftxCompositeSwap.MaxPrice').should('have.text', '9223372036854775807.00000000')
   })
+
+  it('should DftxCompositeSwap Swap Path Title', function () {
+    cy.findByTestId('DftxCompositeSwap.SwapPathTitle').should('have.text', 'Swap path')
+  })
+
+  it('should DftxCompositeSwap Swap Path', function () {
+    cy.findByTestId('DftxCompositeSwap.SwapPathDiv').should('be.visible')
+  })
 })
 
 context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
@@ -111,5 +119,13 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
 
   it('should DftxCompositeSwap Max Price', function () {
     cy.findByTestId('DftxCompositeSwap.MaxPrice').should('have.text', '9223372036854775807.00000000')
+  })
+
+  it('should DftxCompositeSwap Swap Path Title', function () {
+    cy.findByTestId('DftxCompositeSwap.SwapPathTitle').should('have.text', 'Swap path')
+  })
+
+  it('should DftxCompositeSwap Swap Path', function () {
+    cy.findByTestId('DftxCompositeSwap.SwapPathDiv').should('be.visible')
   })
 })
