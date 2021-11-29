@@ -2,7 +2,6 @@ import { Head } from '@components/commons/Head'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
-import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import {
   LoanVaultActive,
   LoanVaultLiquidated,
@@ -25,6 +24,7 @@ import {
   LiquidatedVaultDerivedValues
 } from '../../utils/vaults/LiquidatedVaultDerivedValues'
 import { VaultStatsBar } from '@components/vaults/VaultStatsBar'
+import { TextTruncate } from '@components/commons/text/TextTruncate'
 
 interface VaultsPageData {
   vaults: {
@@ -134,10 +134,7 @@ function VaultRow (props: {
       className={classNames('cursor-pointer', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
     >
       <OverflowTable.Cell sticky>
-        <TextMiddleTruncate
-          textLength={6} text={props.vault.vaultId} className='text-primary-500 group-hover:underline'
-          testId='VaultRow.VaultID'
-        />
+        <TextTruncate text={props.vault.vaultId} className='text-primary-500 group-hover:underline' testId='VaultRow.VaultID' />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <VaultStatus

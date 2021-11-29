@@ -3,8 +3,9 @@ import { Head } from '@components/commons/Head'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { CopyButton } from '@components/commons/CopyButton'
 import { VaultStatus } from '@components/vaults/common/VaultStatus'
-import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
 import { FcInfo } from 'react-icons/fc'
+import { TextTruncate } from '@components/commons/text/TextTruncate'
+import React from 'react'
 
 export function VaultIdHeading (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -17,7 +18,8 @@ export function VaultIdHeading (props: { vault: LoanVaultActive | LoanVaultLiqui
         },
         {
           path: `/vaults/${props.vault.vaultId}`,
-          name: (<TextMiddleTruncate text={props.vault.vaultId} textLength={6} />),
+          name: (<TextTruncate text={props.vault.vaultId} />
+          ),
           isCurrentPath: true
         }
       ]}

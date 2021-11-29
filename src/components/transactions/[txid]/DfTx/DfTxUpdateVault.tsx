@@ -1,11 +1,12 @@
-import { UpdateVault, DfTx } from '@defichain/jellyfish-transaction'
+import { DfTx, UpdateVault } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { useNetwork } from '@contexts/NetworkContext'
 import { fromScript } from '@defichain/jellyfish-address'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { Link } from '@components/commons/link/Link'
-import { TextMiddleTruncate } from '@components/commons/TextMiddleTruncate'
+import { TextTruncate } from '@components/commons/text/TextTruncate'
+import React from 'react'
 
 interface DfTxUpdateVaultProps {
   dftx: DfTx<UpdateVault>
@@ -23,8 +24,8 @@ export function DfTxUpdateVault (props: DfTxUpdateVaultProps): JSX.Element {
           <AdaptiveList.Row name='Vault ID'>
             <Link href={{ pathname: `/vaults/${props.dftx.data.vaultId}` }}>
               <a className='content'>
-                <TextMiddleTruncate
-                  textLength={12} text={props.dftx.data.vaultId} className='text-primary-500 hover:underline'
+                <TextTruncate
+                  text={props.dftx.data.vaultId} className='text-primary-500 hover:underline'
                   testId='DfTxUpdateVault.VaultID'
                 />
               </a>
@@ -33,7 +34,12 @@ export function DfTxUpdateVault (props: DfTxUpdateVaultProps): JSX.Element {
           <AdaptiveList.Row name={'Owner\'s Address'}>
             {(() => {
               if (ownerAddress != null) {
-                return <AddressLink address={ownerAddress.address} testId='DfTxUpdateVault.OwnersAddress' className='break-all' />
+                return (
+                  <AddressLink
+                    address={ownerAddress.address} testId='DfTxUpdateVault.OwnersAddress'
+                    className='break-all'
+                  />
+                )
               }
               return 'N/A'
             })()}
