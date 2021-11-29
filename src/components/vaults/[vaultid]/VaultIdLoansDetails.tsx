@@ -2,11 +2,9 @@ import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-clien
 import { getAssetIcon } from '@components/icons/assets'
 import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import React, { useState } from 'react'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import React from 'react'
 import BigNumber from 'bignumber.js'
 import classNames from 'classnames'
-import { Transition } from '@headlessui/react'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import { LoanTotalInterestRate } from '@components/vaults/[vaultid]/LoanTotalInterestRate'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
@@ -152,7 +150,6 @@ function VaultLoanDetailsCard (props: {
   }
 }): JSX.Element {
   const LoanSymbol = getAssetIcon(props.loan.symbol)
-  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)
 
@@ -170,16 +167,9 @@ function VaultLoanDetailsCard (props: {
           >{props.loan.displaySymbol}
           </span>
         </div>
-        <div
-          className='flex items-center text-primary-500 cursor-pointer' data-testid='LoanDetailsCard.Toggle'
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {!isOpen
-            ? <>VIEW<MdOutlineKeyboardArrowDown size={28} /></>
-            : <>HIDE<MdOutlineKeyboardArrowUp size={28} /></>}
-        </div>
       </div>
-      <div className='w-full justify-between mt-10'>
+
+      <div className='w-full flex flex-col space-y-1.5 mt-4'>
         <VaultDetailsListItem
           title='Loan Value (USD)'
           testId='LoanDetailsCard.LoanValue'
@@ -191,43 +181,30 @@ function VaultLoanDetailsCard (props: {
               <VaultNumberValues value={loanUsdAmount} prefix='$' />
               )}
         </VaultDetailsListItem>
+
+        <VaultDetailsListItem
+          title='Loan Amount'
+          testId='LoanDetailsCard.LoanAmount'
+          titleClassNames='text-sm'
+        >
+          <ReactNumberFormat
+            value={new BigNumber(props.loan.amount).toFixed(8)}
+            displayType='text'
+            decimalScale={8}
+            fixedDecimalScale
+            thousandSeparator
+          />
+        </VaultDetailsListItem>
+
+        <VaultDetailsListItem
+          title='Total Interest Rate (APR)'
+          infoDesc='Total annual interest rate = Vault Interest Rate + Token Interest Rate.'
+          testId='LoanDetailsCard.TotalInterestRate'
+          titleClassNames='text-sm'
+        >
+          <LoanTotalInterestRate vaultInterest={props.vault.interest} loanId={props.interest.id} />
+        </VaultDetailsListItem>
       </div>
-
-      <Transition
-        enter='transition ease-out duration-200'
-        enterFrom='opacity-0 translate-y-0'
-        enterTo='opacity-100 translate-y-1'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-1'
-        leaveTo='opacity-100 translate-y-0'
-        className='w-full'
-        show={isOpen}
-      >
-        <div className='w-full flex flex-col space-y-1.5 mt-1.5'>
-          <VaultDetailsListItem
-            title='Loan Amount'
-            testId='LoanDetailsCard.LoanAmount'
-            titleClassNames='text-sm'
-          >
-            <ReactNumberFormat
-              value={new BigNumber(props.loan.amount).toFixed(8)}
-              displayType='text'
-              decimalScale={8}
-              fixedDecimalScale
-              thousandSeparator
-            />
-          </VaultDetailsListItem>
-
-          <VaultDetailsListItem
-            title='Total Interest Rate (APR)'
-            infoDesc='Total annual interest rate = Vault Interest Rate + Token Interest Rate.'
-            testId='LoanDetailsCard.TotalInterestRate'
-            titleClassNames='text-sm'
-          >
-            <LoanTotalInterestRate vaultInterest={props.vault.interest} loanId={props.interest.id} />
-          </VaultDetailsListItem>
-        </div>
-      </Transition>
     </div>
   )
 }

@@ -181,7 +181,6 @@ context('/vaults/[vaultid] on mobile', function () {
           cy.findByTestId('LoanDetailsCard.AssetIcon').should('be.visible')
           cy.findByTestId('LoanDetailsCard.displaySymbol').should('be.visible')
           cy.findByTestId('LoanDetailsCard.LoanValue').should('be.visible')
-          cy.findByTestId('LoanDetailsCard.Toggle').click()
           cy.findByTestId('LoanDetailsCard.LoanAmount').should('be.visible')
           cy.findByTestId('LoanDetailsCard.TotalInterestRate').should('be.visible')
         })
