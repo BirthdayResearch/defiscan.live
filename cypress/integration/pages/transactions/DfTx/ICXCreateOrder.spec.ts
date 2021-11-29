@@ -16,7 +16,7 @@ context('/transactions/[txid] - DfTx ICXCreateOrder on desktop', () => {
   })
 
   it('should have DfTxICXCreateOrder token', () => {
-    cy.findByTestId('DfTxICXCreateOrder.token').should('have.text', 'BTC')
+    cy.findByTestId('DfTxICXCreateOrder.token').should('have.text', 'dBTC')
   })
 
   it('should have DfTxICXCreateOrder amountFrom', () => {
@@ -67,7 +67,7 @@ context('/transactions/[txid] - DfTx ICXCreateOrder on mobile', () => {
   })
 
   it('should have DfTxICXCreateOrder token', () => {
-    cy.findByTestId('DfTxICXCreateOrder.token').should('have.text', 'BTC')
+    cy.findByTestId('DfTxICXCreateOrder.token').should('have.text', 'dBTC')
   })
 
   it('should have DfTxICXCreateOrder amountFrom', () => {

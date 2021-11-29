@@ -25,7 +25,7 @@ context('/transactions/[txid] - DfTx any account to account on desktop', () => {
   })
 
   it('should have DfTxAnyAccountToAccount fromSymbol', () => {
-    cy.findByTestId('DfTxAnyAccountToAccount.fromSymbol').should('have.text', 'BTC')
+    cy.findByTestId('DfTxAnyAccountToAccount.fromSymbol').should('have.text', 'dBTC')
   })
 
   it('should have DfTxAnyAccountToAccount to', () => {
@@ -38,7 +38,7 @@ context('/transactions/[txid] - DfTx any account to account on desktop', () => {
   })
 
   it('should have DfTxAnyAccountToAccount toSymbol', () => {
-    cy.findByTestId('DfTxAnyAccountToAccount.toSymbol').should('have.text', 'BTC')
+    cy.findByTestId('DfTxAnyAccountToAccount.toSymbol').should('have.text', 'dBTC')
   })
 })
 
@@ -69,7 +69,7 @@ context('/transactions/[txid] - DfTx any account to account on mobile', () => {
   })
 
   it('should have DfTxAnyAccountToAccount fromSymbol', () => {
-    cy.findByTestId('DfTxAnyAccountToAccount.fromSymbol').should('have.text', 'BTC')
+    cy.findByTestId('DfTxAnyAccountToAccount.fromSymbol').should('have.text', 'dBTC')
   })
 
   it('should have DfTxAnyAccountToAccount to', () => {
@@ -82,6 +82,6 @@ context('/transactions/[txid] - DfTx any account to account on mobile', () => {
   })
 
   it('should have DfTxAnyAccountToAccount toSymbol', () => {
-    cy.findByTestId('DfTxAnyAccountToAccount.toSymbol').should('have.text', 'BTC')
+    cy.findByTestId('DfTxAnyAccountToAccount.toSymbol').should('have.text', 'dBTC')
   })
 })

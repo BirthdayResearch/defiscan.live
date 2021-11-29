@@ -16,7 +16,7 @@ context('/transactions/[txid] - DfTx Token Mint on desktop', () => {
   })
 
   it('should have DfTxTokenMint Token USDT', function () {
-    cy.findByTestId('DfTxTokenMint.Token3').should('have.text', 'USDT')
+    cy.findByTestId('DfTxTokenMint.Token3').should('have.text', 'dUSDT')
   })
 
   it('should have DfTxTokenMint Amount USDT', function () {
@@ -42,7 +42,7 @@ context('/transactions/[txid] - DfTx Token Mint on mobile', () => {
   })
 
   it('should have DfTxTokenMint Token USDT', function () {
-    cy.findByTestId('DfTxTokenMint.Token3').should('have.text', 'USDT')
+    cy.findByTestId('DfTxTokenMint.Token3').should('have.text', 'dUSDT')
   })
 
   it('should have DfTxTokenMint Amount USDT', function () {

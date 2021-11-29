@@ -38,7 +38,7 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on desktop', () => {
   })
 
   it('should have DfTxAddPoolLiquidity Token 2 Symbol', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.3-Symbol').should('have.text', 'USDT')
+    cy.findByTestId('DfTxPoolAddLiquidity.3-Symbol').should('have.text', 'dUSDT')
   })
 })
 
@@ -82,6 +82,6 @@ context('/transactions/[txid] - DfTx Pool Add Liquidity on mobile', () => {
   })
 
   it('should have DfTxAddPoolLiquidity Token 2 Symbol', () => {
-    cy.findByTestId('DfTxPoolAddLiquidity.3-Symbol').should('have.text', 'USDT')
+    cy.findByTestId('DfTxPoolAddLiquidity.3-Symbol').should('have.text', 'dUSDT')
   })
 })

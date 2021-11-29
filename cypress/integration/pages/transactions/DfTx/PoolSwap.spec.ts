@@ -38,7 +38,7 @@ context('/transactions/[txid] - DfTx pool swap on desktop', () => {
   })
 
   it('should have DfTxPoolSwap maxPriceSymbol', () => {
-    cy.findByTestId('DfTxPoolSwap.maxPriceSymbol').should('have.text', 'BTC')
+    cy.findByTestId('DfTxPoolSwap.maxPriceSymbol').should('have.text', 'dBTC')
   })
 })
 
@@ -82,6 +82,6 @@ context('/transactions/[txid] - DfTx pool swap on mobile', () => {
   })
 
   it('should have DfTxPoolSwap maxPriceSymbol', () => {
-    cy.findByTestId('DfTxPoolSwap.maxPriceSymbol').should('have.text', 'BTC')
+    cy.findByTestId('DfTxPoolSwap.maxPriceSymbol').should('have.text', 'dBTC')
   })
 })
