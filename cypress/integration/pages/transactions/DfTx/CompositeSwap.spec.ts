@@ -24,15 +24,15 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   })
 
   it('should DftxCompositeSwap From Address', function () {
-    cy.findByTestId('DftxCompositeSwap.FromAddress').should('have.text', 'dSPPfAPY8BA3TQdqfZRnzJ7212HPWunDms')
+    cy.findByTestId('DftxCompositeSwap.FromAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
   })
 
   it('should DftxCompositeSwap To Address', function () {
-    cy.findByTestId('DftxCompositeSwap.ToAddress').should('have.text', 'dV9DpVVVjatib3Ksge4RAeZ5yU2cdcK98q')
+    cy.findByTestId('DftxCompositeSwap.ToAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
   })
 
   it('should DftxCompositeSwap From Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'dETH')
+    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'DUSD')
   })
 
   it('should DftxCompositeSwap From Token Symbol', function () {
@@ -40,7 +40,7 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   })
 
   it('should DftxCompositeSwap To Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', 'DFI')
+    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', 'dBTC')
   })
 
   it('should DftxCompositeSwap To Token Symbol', function () {
@@ -48,11 +48,11 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   })
 
   it('should DftxCompositeSwap From Amount', function () {
-    cy.findByTestId('DftxCompositeSwap.FromAmount').should('have.text', '0.00108176')
+    cy.findByTestId('DftxCompositeSwap.FromAmount').should('have.text', '0.00100000')
   })
 
   it('should DftxCompositeSwap Max Price', function () {
-    cy.findByTestId('DftxCompositeSwap.MaxPrice').should('have.text', '9223372036854775807.00000000')
+    cy.findByTestId('DftxCompositeSwap.MaxPrice').should('have.text', '51500.00000000')
   })
 
   it('should DftxCompositeSwap Swap Path Title', function () {
@@ -90,15 +90,15 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
   })
 
   it('should DftxCompositeSwap From Address', function () {
-    cy.findByTestId('DftxCompositeSwap.FromAddress').should('have.text', 'dSPPfAPY8BA3TQdqfZRnzJ7212HPWunDms')
+    cy.findByTestId('DftxCompositeSwap.FromAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
   })
 
   it('should DftxCompositeSwap To Address', function () {
-    cy.findByTestId('DftxCompositeSwap.ToAddress').should('have.text', 'dV9DpVVVjatib3Ksge4RAeZ5yU2cdcK98q')
+    cy.findByTestId('DftxCompositeSwap.ToAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
   })
 
   it('should DftxCompositeSwap From Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'dETH')
+    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'DUSD')
   })
 
   it('should DftxCompositeSwap From Token Symbol', function () {
@@ -106,7 +106,7 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
   })
 
   it('should DftxCompositeSwap To Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', 'DFI')
+    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', 'dBTC')
   })
 
   it('should DftxCompositeSwap To Token Symbol', function () {
@@ -114,11 +114,11 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
   })
 
   it('should DftxCompositeSwap From Amount', function () {
-    cy.findByTestId('DftxCompositeSwap.FromAmount').should('have.text', '0.00108176')
+    cy.findByTestId('DftxCompositeSwap.FromAmount').should('have.text', '0.00100000')
   })
 
   it('should DftxCompositeSwap Max Price', function () {
-    cy.findByTestId('DftxCompositeSwap.MaxPrice').should('have.text', '9223372036854775807.00000000')
+    cy.findByTestId('DftxCompositeSwap.MaxPrice').should('have.text', '51500.00000000')
   })
 
   it('should DftxCompositeSwap Swap Path Title', function () {
