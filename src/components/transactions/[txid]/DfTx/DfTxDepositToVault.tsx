@@ -3,9 +3,9 @@ import { DfTxHeader } from '@components/transactions/[txid]/DfTx/DfTxHeader'
 import { useNetwork } from '@contexts/NetworkContext'
 import { fromScript } from '@defichain/jellyfish-address'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { Link } from '@components/commons/link/Link'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { VaultLink } from '@components/commons/link/VaultLink'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DepositToVaultProps {
   dftx: DfTx<DepositToVault>
@@ -18,7 +18,7 @@ export function DfTxDepositToVault (props: DepositToVaultProps): JSX.Element {
       <DfTxHeader name='Deposit To Vault' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name='Vault Id'>
+          <AdaptiveList.Row name='Vault ID'>
             <VaultLink
               vault={props.dftx.data.vaultId}
               className='break-all'
@@ -41,12 +41,8 @@ export function DfTxDepositToVault (props: DepositToVaultProps): JSX.Element {
           </AdaptiveList.Row>
         </AdaptiveList>
         <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name='Token Id' testId='DfTxDepositToVault.Token'>
-            <Link href={{ pathname: `/tokens/${props.dftx.data.tokenAmount.token}` }}>
-              <a className='content text-primary-500 hover:underline'>
-                {props.dftx.data.tokenAmount.token}
-              </a>
-            </Link>
+          <AdaptiveList.Row name='Token' testId='DfTxDepositToVault.Token'>
+            <TokenSymbol tokenId={props.dftx.data.tokenAmount.token} testId='DfTxDepositToVault.TokenSymbol' />
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Amount' testId='DfTxDepositToVault.Amount'>
             {props.dftx.data.tokenAmount.amount.toFixed(8)}

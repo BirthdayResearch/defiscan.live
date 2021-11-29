@@ -24,7 +24,7 @@ context('/transactions/[txid] - DfTx Deposit To Vault on desktop', () => {
   })
 
   it('should have DfTxDepositToVault Token', function () {
-    cy.findByTestId('DfTxDepositToVault.Token').should('have.text', '2')
+    cy.findByTestId('DfTxDepositToVault.Token').should('have.text', 'dBTC')
   })
 
   it('should have DfTxDepositToVault Amount', function () {
@@ -57,7 +57,7 @@ context('/transactions/[txid] - DfTx Deposit To Vault on mobile', () => {
   })
 
   it('should have DfTxDepositToVault Token', function () {
-    cy.findByTestId('DfTxDepositToVault.Token').should('have.text', '2')
+    cy.findByTestId('DfTxDepositToVault.Token').should('have.text', 'dBTC')
   })
 
   it('should have DfTxDepositToVault Amount', function () {

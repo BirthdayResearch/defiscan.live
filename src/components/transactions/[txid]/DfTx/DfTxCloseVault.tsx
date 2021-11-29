@@ -19,7 +19,7 @@ export function DfTxCloseVault (props: DfTxCloseVaultProps): JSX.Element {
       <DfTxHeader name='Close Vault' />
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <AdaptiveList className='w-full lg:w-1/2'>
-          <AdaptiveList.Row name='Vault Id'>
+          <AdaptiveList.Row name='Vault ID'>
             <VaultLink
               vault={props.dftx.data.vaultId}
               className='break-all'
