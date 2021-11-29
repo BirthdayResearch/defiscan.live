@@ -16,7 +16,7 @@ context('/transactions/[txid] - DfTx pool create pair on desktop', () => {
   })
 
   it('should have DfTxPoolCreatePair tokenA Symbol', () => {
-    cy.findByTestId('DfTxPoolCreatePair.tokenASymbol').should('have.text', 'USDC')
+    cy.findByTestId('DfTxPoolCreatePair.tokenASymbol').should('have.text', 'dUSDC')
   })
 
   it('should have DfTxPoolCreatePair tokenB Symbol', () => {
@@ -55,7 +55,7 @@ context('/transactions/[txid] - DfTx Pool Create Pair on mobile', () => {
   })
 
   it('should have DfTxPoolCreatePair tokenA Symbol', () => {
-    cy.findByTestId('DfTxPoolCreatePair.tokenASymbol').should('have.text', 'USDC')
+    cy.findByTestId('DfTxPoolCreatePair.tokenASymbol').should('have.text', 'dUSDC')
   })
 
   it('should have DfTxPoolCreatePair tokenB Symbol', () => {

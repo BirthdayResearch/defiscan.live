@@ -7,7 +7,7 @@ import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
 interface TokenSymbolProps {
   tokenId: number
   className?: string
-  testId: string
+  testId?: string
 }
 
 export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
@@ -44,7 +44,7 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
   return (
     <div className='flex space-x-1'>
       <div className={classNames(props.className)} data-testid={props.testId}>
-        {tokenData.symbol}{!tokenData.isDAT && `#${tokenData.id}`}
+        {tokenData.displaySymbol}{!tokenData.isDAT && `#${tokenData.id}`}
       </div>
       <div className='my-auto'>
         {(() => {
