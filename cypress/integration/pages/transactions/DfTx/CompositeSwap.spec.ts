@@ -32,11 +32,19 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   })
 
   it('should DftxCompositeSwap From Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', '1')
+    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'ETH')
+  })
+
+  it('should DftxCompositeSwap From Token Symbol', function () {
+    cy.findByTestId('DftxCompositeSwap.FromTokenSymbol').should('be.visible')
   })
 
   it('should DftxCompositeSwap To Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', '0')
+    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', 'DFI')
+  })
+
+  it('should DftxCompositeSwap To Token Symbol', function () {
+    cy.findByTestId('DftxCompositeSwap.ToTokenSymbol').should('be.visible')
   })
 
   it('should DftxCompositeSwap From Amount', function () {
@@ -82,11 +90,19 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
   })
 
   it('should DftxCompositeSwap From Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', '1')
+    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'ETH')
+  })
+
+  it('should DftxCompositeSwap From Token Symbol', function () {
+    cy.findByTestId('DftxCompositeSwap.FromTokenSymbol').should('be.visible')
   })
 
   it('should DftxCompositeSwap To Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', '0')
+    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', 'DFI')
+  })
+
+  it('should DftxCompositeSwap To Token Symbol', function () {
+    cy.findByTestId('DftxCompositeSwap.ToTokenSymbol').should('be.visible')
   })
 
   it('should DftxCompositeSwap From Amount', function () {

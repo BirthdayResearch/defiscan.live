@@ -4,7 +4,7 @@ import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { Link } from '@components/commons/link/Link'
+import { TokenSymbol } from '@components/commons/TokenSymbol'
 
 interface DftxCompositeSwapProps {
   dftx: DfTx<CompositeSwap>
@@ -49,10 +49,8 @@ function PoolFrom ({
             return 'N/A'
           })()}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token Id' testId='DftxCompositeSwap.TokenFrom'>
-          <Link href={{ pathname: `/tokens/${poolswap.fromTokenId}` }}>
-            <a className='contents text-primary-500 hover:underline'>{poolswap.fromTokenId}</a>
-          </Link>
+        <AdaptiveList.Row name='Token' testId='DftxCompositeSwap.TokenFrom'>
+          <TokenSymbol tokenId={poolswap.fromTokenId} testId='DftxCompositeSwap.FromTokenSymbol' />
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Amount' testId='DftxCompositeSwap.FromAmount'>
           {poolswap.fromAmount.toFixed(8)}
@@ -84,10 +82,8 @@ function PoolTo ({
             return 'N/A'
           })()}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token Id' testId='DftxCompositeSwap.TokenTo'>
-          <Link href={{ pathname: `/tokens/${poolswap.toTokenId}` }}>
-            <a className='contents text-primary-500 hover:underline'>{poolswap.toTokenId}</a>
-          </Link>
+        <AdaptiveList.Row name='Token' testId='DftxCompositeSwap.TokenTo'>
+          <TokenSymbol tokenId={poolswap.toTokenId} testId='DftxCompositeSwap.ToTokenSymbol' />
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Max Amount' testId='DftxCompositeSwap.MaxPrice'>
           {poolswap.maxPrice.toFixed(8)}
