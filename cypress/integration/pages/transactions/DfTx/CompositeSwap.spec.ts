@@ -1,6 +1,6 @@
 context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   before(() => {
-    cy.visit('/transactions/f671bb667c0a283fb73d9ace4961e7e8da933fc616c32872647b21eadce75617?network=MainNet')
+    cy.visit('/transactions/8958eb8541bf65a8604b828b4aac33bd2933f5879827b89d4dd25cb52bd6de61?network=MainNet')
   })
 
   beforeEach(() => {
@@ -56,7 +56,7 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   })
 
   it('should DftxCompositeSwap Swap Path Title', function () {
-    cy.findByTestId('DftxCompositeSwap.SwapPathTitle').should('have.text', 'Swap path')
+    cy.findByTestId('DftxCompositeSwap.SwapPathTitle').should('have.text', 'Swap Path')
   })
 
   it('should DftxCompositeSwap Swap Path', function () {
@@ -66,7 +66,7 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
 
 context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
   before(() => {
-    cy.visit('/transactions/f671bb667c0a283fb73d9ace4961e7e8da933fc616c32872647b21eadce75617?network=MainNet')
+    cy.visit('/transactions/8958eb8541bf65a8604b828b4aac33bd2933f5879827b89d4dd25cb52bd6de61?network=MainNet')
   })
 
   beforeEach(() => {
@@ -122,7 +122,7 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
   })
 
   it('should DftxCompositeSwap Swap Path Title', function () {
-    cy.findByTestId('DftxCompositeSwap.SwapPathTitle').should('have.text', 'Swap path')
+    cy.findByTestId('DftxCompositeSwap.SwapPathTitle').should('have.text', 'Swap Path')
   })
 
   it('should DftxCompositeSwap Swap Path', function () {
