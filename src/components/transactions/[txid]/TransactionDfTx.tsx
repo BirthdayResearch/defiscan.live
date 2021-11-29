@@ -30,6 +30,7 @@ import {
   CSetCollateralToken,
   CCreateVault,
   CUpdateVault,
+  CCompositeSwap,
   DfTx
 } from '@defichain/jellyfish-transaction'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
@@ -65,6 +66,7 @@ import { DfTxSetCollateralToken } from '@components/transactions/[txid]/DfTx/DfT
 import { DfTxSetLoanToken } from '@components/transactions/[txid]/DfTx/DfTxSetLoanToken'
 import { DfTxCreateVault } from '@components/transactions/[txid]/DfTx/DfTxCreateVault'
 import { DfTxUpdateVault } from '@components/transactions/[txid]/DfTx/DfTxUpdateVault'
+import { DftxCompositeSwap } from '@components/transactions/[txid]/DfTx/DftxCompositeSwap'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -142,6 +144,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxCreateVault dftx={props.dftx} />
     case CUpdateVault.OP_CODE:
       return <DfTxUpdateVault dftx={props.dftx} />
+    case CCompositeSwap.OP_CODE:
+      return <DftxCompositeSwap dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
