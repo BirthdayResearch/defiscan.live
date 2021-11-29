@@ -42,20 +42,18 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
   }
 
   return (
-    <div className='flex space-x-1'>
+    <div className='flex items-center space-x-1'>
+      {(() => {
+        if (tokenData.isDAT) {
+          const AssetIcon = getAssetIcon(tokenData.symbol)
+          return <AssetIcon className='h-6 w-6' />
+        }
+
+        const TokenIcon = getTokenIcon(tokenData.symbol)
+        return <TokenIcon className='h-6 w-6' />
+      })()}
       <div className={classNames(props.className)} data-testid={props.testId}>
         {tokenData.displaySymbol}{!tokenData.isDAT && `#${tokenData.id}`}
-      </div>
-      <div className='my-auto'>
-        {(() => {
-          if (tokenData.isDAT) {
-            const AssetIcon = getAssetIcon(tokenData.symbol)
-            return <AssetIcon className='h-6 w-6' />
-          }
-
-          const TokenIcon = getTokenIcon(tokenData.symbol)
-          return <TokenIcon className='h-6 w-6' />
-        })()}
       </div>
     </div>
   )

@@ -24,7 +24,7 @@ function Row (props: PropsWithChildren<{ name: string, className?: string, testI
       <div className='table-cell px-4 md:px-6 py-3'>
         {props.name}:
       </div>
-      <div className={classNames('table-cell px-4 md:px-6 py-3 text-gray-600', props.className)} data-testid={props.testId}>
+      <div className={classNames('table-cell px-4 md:px-6 py-3 text-gray-600 align-middle', props.className)} data-testid={props.testId}>
         {props.children}
       </div>
     </div>
