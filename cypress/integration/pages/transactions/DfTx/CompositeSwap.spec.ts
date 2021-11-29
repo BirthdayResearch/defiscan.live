@@ -32,7 +32,7 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   })
 
   it('should DftxCompositeSwap From Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'ETH')
+    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'dETH')
   })
 
   it('should DftxCompositeSwap From Token Symbol', function () {
@@ -98,7 +98,7 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
   })
 
   it('should DftxCompositeSwap From Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'ETH')
+    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'dETH')
   })
 
   it('should DftxCompositeSwap From Token Symbol', function () {
