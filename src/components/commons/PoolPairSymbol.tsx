@@ -52,7 +52,7 @@ export function PoolPairSymbol (props: PoolPairSymbolProps): JSX.Element {
       <IconA className={classnames('absolute z-10', props.symbolSizeClassName)} />
       <IconB className={classnames('absolute', props.symbolSizeClassName, props.symbolMarginClassName)} />
       <div className={classnames(props.textClassName)}>
-        {poolPairData.symbol}
+        {`${poolPairData.tokenA.displaySymbol}-${poolPairData.tokenB.displaySymbol}`}
       </div>
     </div>
   )
