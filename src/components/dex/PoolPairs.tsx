@@ -39,8 +39,6 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
 }
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
-  const [symbolA, symbolB] = data.symbol.split('-')
-
   return (
     <AdaptiveTable.Row>
       <AdaptiveTable.Cell title='PAIR' className='align-middle'>
@@ -71,7 +69,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             displayType='text'
             thousandSeparator
             decimalScale={0}
-            suffix={` ${symbolA}`}
+            suffix={` ${data.tokenA.displaySymbol}`}
           />
         </div>
         <div>
@@ -80,7 +78,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             displayType='text'
             thousandSeparator
             decimalScale={0}
-            suffix={` ${symbolB}`}
+            suffix={` ${data.tokenB.displaySymbol}`}
           />
         </div>
       </AdaptiveTable.Cell>
@@ -90,7 +88,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             value={Number(new BigNumber(data.priceRatio.ab).toPrecision(4))}
             displayType='text'
             thousandSeparator
-            suffix={` ${symbolA}/${symbolB}`}
+            suffix={` ${data.tokenA.displaySymbol}/${data.tokenB.displaySymbol}`}
           />
         </div>
         <div>
@@ -98,7 +96,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             value={Number(new BigNumber(data.priceRatio.ba).toPrecision(4))}
             displayType='text'
             thousandSeparator
-            suffix={` ${symbolB}/${symbolA}`}
+            suffix={` ${data.tokenB.displaySymbol}/${data.tokenA.displaySymbol}`}
           />
         </div>
       </AdaptiveTable.Cell>
