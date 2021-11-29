@@ -32,7 +32,7 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   })
 
   it('should DftxCompositeSwap From Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenFrom').should('have.text', 'DUSD')
+    cy.findByTestId('DftxCompositeSwap.FromTokenSymbol').should('have.text', 'DUSD')
   })
 
   it('should DftxCompositeSwap From Token Symbol', function () {
@@ -40,7 +40,7 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
   })
 
   it('should DftxCompositeSwap To Token', function () {
-    cy.findByTestId('DftxCompositeSwap.TokenTo').should('have.text', 'dBTC')
+    cy.findByTestId('DftxCompositeSwap.ToTokenSymbol').should('have.text', 'dBTC')
   })
 
   it('should DftxCompositeSwap To Token Symbol', function () {
