@@ -66,7 +66,7 @@ import { DfTxSetCollateralToken } from '@components/transactions/[txid]/DfTx/DfT
 import { DfTxSetLoanToken } from '@components/transactions/[txid]/DfTx/DfTxSetLoanToken'
 import { DfTxCreateVault } from '@components/transactions/[txid]/DfTx/DfTxCreateVault'
 import { DfTxUpdateVault } from '@components/transactions/[txid]/DfTx/DfTxUpdateVault'
-import { DftxCompositeSwap } from '@components/transactions/[txid]/DfTx/DftxCompositeSwap'
+import { DfTxCompositeSwap } from '@components/transactions/[txid]/DfTx/DfTxCompositeSwap'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -145,7 +145,7 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
     case CUpdateVault.OP_CODE:
       return <DfTxUpdateVault dftx={props.dftx} />
     case CCompositeSwap.OP_CODE:
-      return <DftxCompositeSwap dftx={props.dftx} />
+      return <DfTxCompositeSwap dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }

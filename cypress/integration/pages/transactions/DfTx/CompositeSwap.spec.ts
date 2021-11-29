@@ -15,39 +15,39 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
     cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Composite Swap')
   })
 
-  it('should have DftxCompositeSwap SwapFrom', () => {
-    cy.findByTestId('DftxCompositeSwap.SwapFrom').within(() => {
-      cy.findByTestId('DftxCompositeSwap.SwapFromTitle').should('have.text', 'Swap From')
+  it('should have DfTxCompositeSwap SwapFrom', () => {
+    cy.findByTestId('DfTxCompositeSwap.SwapFrom').within(() => {
+      cy.findByTestId('DfTxCompositeSwap.SwapFromTitle').should('have.text', 'Swap From')
 
-      cy.findByTestId('DftxCompositeSwap.FromAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
+      cy.findByTestId('DfTxCompositeSwap.FromAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
 
-      cy.findByTestId('DftxCompositeSwap.FromTokenSymbol').should('have.text', 'DUSD')
+      cy.findByTestId('DfTxCompositeSwap.FromTokenSymbol').should('have.text', 'DUSD')
 
-      cy.findByTestId('DftxCompositeSwap.FromTokenSymbol').should('be.visible')
+      cy.findByTestId('DfTxCompositeSwap.FromTokenSymbol').should('be.visible')
 
-      cy.findByTestId('DftxCompositeSwap.FromAmount').should('have.text', '0.00100000')
+      cy.findByTestId('DfTxCompositeSwap.FromAmount').should('have.text', '0.00100000')
     })
   })
 
-  it('should have DftxCompositeSwap SwapTo', () => {
-    cy.findByTestId('DftxCompositeSwap.SwapTo').within(() => {
-      cy.findByTestId('DftxCompositeSwap.SwapToTitle').should('have.text', 'Swap To')
+  it('should have DfTxCompositeSwap SwapTo', () => {
+    cy.findByTestId('DfTxCompositeSwap.SwapTo').within(() => {
+      cy.findByTestId('DfTxCompositeSwap.SwapToTitle').should('have.text', 'Swap To')
 
-      cy.findByTestId('DftxCompositeSwap.ToAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
+      cy.findByTestId('DfTxCompositeSwap.ToAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
 
-      cy.findByTestId('DftxCompositeSwap.ToTokenSymbol').should('have.text', 'dBTC')
+      cy.findByTestId('DfTxCompositeSwap.ToTokenSymbol').should('have.text', 'dBTC')
 
-      cy.findByTestId('DftxCompositeSwap.ToTokenSymbol').should('be.visible')
+      cy.findByTestId('DfTxCompositeSwap.ToTokenSymbol').should('be.visible')
 
-      cy.findByTestId('DftxCompositeSwap.MaxPrice').should('have.text', '51500.00000000')
+      cy.findByTestId('DfTxCompositeSwap.MaxPrice').should('have.text', '51500.00000000')
     })
   })
 
-  it('should have DftxCompositeSwap SwapPath', () => {
-    cy.findByTestId('DftxCompositeSwap.SwapPath').within(() => {
-      cy.findByTestId('DftxCompositeSwap.SwapPathTitle').should('have.text', 'Swap Path')
+  it('should have DfTxCompositeSwap SwapPath', () => {
+    cy.findByTestId('DfTxCompositeSwap.SwapPath').within(() => {
+      cy.findByTestId('DfTxCompositeSwap.SwapPathTitle').should('have.text', 'Swap Path')
 
-      cy.findByTestId('DftxCompositeSwap.SwapPathDiv').should('be.visible')
+      cy.findByTestId('DfTxCompositeSwap.SwapPathDiv').should('be.visible')
     })
   })
 })
@@ -69,39 +69,39 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
     cy.findByTestId('DfTxHeader.Subtitle').contains('Type:Composite Swap')
   })
 
-  it('should have DftxCompositeSwap SwapFrom', () => {
-    cy.findByTestId('DftxCompositeSwap.SwapFrom').within(() => {
-      cy.findByTestId('DftxCompositeSwap.SwapFromTitle').should('have.text', 'Swap From')
+  it('should have DfTxCompositeSwap SwapFrom', () => {
+    cy.findByTestId('DfTxCompositeSwap.SwapFrom').within(() => {
+      cy.findByTestId('DfTxCompositeSwap.SwapFromTitle').should('have.text', 'Swap From')
 
-      cy.findByTestId('DftxCompositeSwap.FromAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
+      cy.findByTestId('DfTxCompositeSwap.FromAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
 
-      cy.findByTestId('DftxCompositeSwap.FromTokenSymbol').should('have.text', 'DUSD')
+      cy.findByTestId('DfTxCompositeSwap.FromTokenSymbol').should('have.text', 'DUSD')
 
-      cy.findByTestId('DftxCompositeSwap.FromTokenSymbol').should('be.visible')
+      cy.findByTestId('DfTxCompositeSwap.FromTokenSymbol').should('be.visible')
 
-      cy.findByTestId('DftxCompositeSwap.FromAmount').should('have.text', '0.00100000')
+      cy.findByTestId('DfTxCompositeSwap.FromAmount').should('have.text', '0.00100000')
     })
   })
 
-  it('should have DftxCompositeSwap SwapTo', () => {
-    cy.findByTestId('DftxCompositeSwap.SwapTo').within(() => {
-      cy.findByTestId('DftxCompositeSwap.SwapToTitle').should('have.text', 'Swap To')
+  it('should have DfTxCompositeSwap SwapTo', () => {
+    cy.findByTestId('DfTxCompositeSwap.SwapTo').within(() => {
+      cy.findByTestId('DfTxCompositeSwap.SwapToTitle').should('have.text', 'Swap To')
 
-      cy.findByTestId('DftxCompositeSwap.ToAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
+      cy.findByTestId('DfTxCompositeSwap.ToAddress').should('have.text', 'df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm')
 
-      cy.findByTestId('DftxCompositeSwap.ToTokenSymbol').should('have.text', 'dBTC')
+      cy.findByTestId('DfTxCompositeSwap.ToTokenSymbol').should('have.text', 'dBTC')
 
-      cy.findByTestId('DftxCompositeSwap.ToTokenSymbol').should('be.visible')
+      cy.findByTestId('DfTxCompositeSwap.ToTokenSymbol').should('be.visible')
 
-      cy.findByTestId('DftxCompositeSwap.MaxPrice').should('have.text', '51500.00000000')
+      cy.findByTestId('DfTxCompositeSwap.MaxPrice').should('have.text', '51500.00000000')
     })
   })
 
-  it('should have DftxCompositeSwap SwapPath', () => {
-    cy.findByTestId('DftxCompositeSwap.SwapPath').within(() => {
-      cy.findByTestId('DftxCompositeSwap.SwapPathTitle').should('have.text', 'Swap Path')
+  it('should have DfTxCompositeSwap SwapPath', () => {
+    cy.findByTestId('DfTxCompositeSwap.SwapPath').within(() => {
+      cy.findByTestId('DfTxCompositeSwap.SwapPathTitle').should('have.text', 'Swap Path')
 
-      cy.findByTestId('DftxCompositeSwap.SwapPathDiv').should('be.visible')
+      cy.findByTestId('DfTxCompositeSwap.SwapPathDiv').should('be.visible')
     })
   })
 })

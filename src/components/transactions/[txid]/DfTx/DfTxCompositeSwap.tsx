@@ -12,14 +12,14 @@ interface DftxCompositeSwapProps {
   dftx: DfTx<CompositeSwap>
 }
 
-export function DftxCompositeSwap ({ dftx: { data } }: DftxCompositeSwapProps): JSX.Element {
+export function DfTxCompositeSwap ({ dftx: { data } }: DftxCompositeSwapProps): JSX.Element {
   const network = useNetwork().name
 
   const toAddress = fromScript(data.poolSwap.toScript, network)
   const fromAddress = fromScript(data.poolSwap.fromScript, network)
 
-  const FromTokenSymbol = <TokenSymbol tokenId={data.poolSwap.fromTokenId} testId='DftxCompositeSwap.FromTokenSymbol' />
-  const ToTokenSymbol = <TokenSymbol tokenId={data.poolSwap.toTokenId} testId='DftxCompositeSwap.ToTokenSymbol' />
+  const FromTokenSymbol = <TokenSymbol tokenId={data.poolSwap.fromTokenId} testId='DfTxCompositeSwap.FromTokenSymbol' />
+  const ToTokenSymbol = <TokenSymbol tokenId={data.poolSwap.toTokenId} testId='DfTxCompositeSwap.ToTokenSymbol' />
 
   return (
     <div>
@@ -39,8 +39,8 @@ function PoolFrom ({
   address
 }: { poolswap: PoolSwap, FromTokenSymbol: JSX.Element, address: string | undefined }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2 lg:pl-3 lg:pr-1.5' data-testid='DftxCompositeSwap.SwapFrom'>
-      <h2 className='my-3 font-medium' data-testid='DftxCompositeSwap.SwapFromTitle'>Swap From</h2>
+    <div className='w-full lg:w-1/2 lg:pl-3 lg:pr-1.5' data-testid='DfTxCompositeSwap.SwapFrom'>
+      <h2 className='my-3 font-medium' data-testid='DfTxCompositeSwap.SwapFromTitle'>Swap From</h2>
       <AdaptiveList>
         <AdaptiveList.Row name='Address'>
           {(() => {
@@ -48,7 +48,7 @@ function PoolFrom ({
               return (
                 <AddressLink
                   address={address}
-                  testId='DftxCompositeSwap.FromAddress'
+                  testId='DfTxCompositeSwap.FromAddress'
                   className='break-all'
                 />
               )
@@ -56,10 +56,10 @@ function PoolFrom ({
             return 'N/A'
           })()}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token' testId='DftxCompositeSwap.TokenFrom'>
+        <AdaptiveList.Row name='Token' testId='DfTxCompositeSwap.TokenFrom'>
           {FromTokenSymbol}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Amount' testId='DftxCompositeSwap.FromAmount'>
+        <AdaptiveList.Row name='Amount' testId='DfTxCompositeSwap.FromAmount'>
           {poolswap.fromAmount.toFixed(8)}
         </AdaptiveList.Row>
       </AdaptiveList>
@@ -73,8 +73,8 @@ function PoolTo ({
   address
 }: { poolswap: PoolSwap, ToTokenSymbol: JSX.Element, address: string | undefined }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2 lg:pr-3 lg:pl-1.5 mt-4 lg:mt-0' data-testid='DftxCompositeSwap.SwapTo'>
-      <h2 className='my-3 font-medium' data-testid='DftxCompositeSwap.SwapToTitle'>Swap To</h2>
+    <div className='w-full lg:w-1/2 lg:pr-3 lg:pl-1.5 mt-4 lg:mt-0' data-testid='DfTxCompositeSwap.SwapTo'>
+      <h2 className='my-3 font-medium' data-testid='DfTxCompositeSwap.SwapToTitle'>Swap To</h2>
       <AdaptiveList>
         <AdaptiveList.Row name='Address'>
           {(() => {
@@ -82,7 +82,7 @@ function PoolTo ({
               return (
                 <AddressLink
                   address={address}
-                  testId='DftxCompositeSwap.ToAddress'
+                  testId='DfTxCompositeSwap.ToAddress'
                   className='break-all'
                 />
               )
@@ -90,10 +90,10 @@ function PoolTo ({
             return 'N/A'
           })()}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Token' testId='DftxCompositeSwap.TokenTo'>
+        <AdaptiveList.Row name='Token' testId='DfTxCompositeSwap.TokenTo'>
           {ToTokenSymbol}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name='Max Amount' testId='DftxCompositeSwap.MaxPrice'>
+        <AdaptiveList.Row name='Max Amount' testId='DfTxCompositeSwap.MaxPrice'>
           {poolswap.maxPrice.toFixed(8)}
         </AdaptiveList.Row>
       </AdaptiveList>
@@ -103,10 +103,13 @@ function PoolTo ({
 
 function Path (props: { pools: PoolId[], FromTokenSymbol: JSX.Element, ToTokenSymbol: JSX.Element }): JSX.Element {
   return (
-    <div className='w-full lg:px-3 mt-4' data-testid='DftxCompositeSwap.SwapPath'>
-      <h2 className='my-3 font-medium' data-testid='DftxCompositeSwap.SwapPathTitle'>Swap Path</h2>
-      <div className='p-3 border-gray-200 border rounded-lg flex flex-wrap justify-center items-center space-x-4' data-testid='DftxCompositeSwap.SwapPathDiv'>
-        {props.FromTokenSymbol}
+    <div className='w-full lg:px-3 mt-4' data-testid='DfTxCompositeSwap.SwapPath'>
+      <h2 className='my-3 font-medium' data-testid='DfTxCompositeSwap.SwapPathTitle'>Swap Path</h2>
+      <div
+        className='px-2 py-1.5 border-gray-200 border rounded-lg flex flex-wrap justify-center items-center space-x-4'
+        data-testid='DfTxCompositeSwap.SwapPathDiv'
+      >
+        <div className='my-1.5'>{props.FromTokenSymbol}</div>
         <IoArrowForwardOutline size={18} />
         {props.pools.map(pool =>
           (
@@ -118,7 +121,7 @@ function Path (props: { pools: PoolId[], FromTokenSymbol: JSX.Element, ToTokenSy
               <IoArrowForwardOutline size={18} />
             </div>
           ))}
-        {props.ToTokenSymbol}
+        <div className='my-1.5'>{props.ToTokenSymbol}</div>
       </div>
     </div>
   )
