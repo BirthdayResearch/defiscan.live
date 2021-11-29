@@ -70,7 +70,6 @@ import { DfTxCreateVault } from '@components/transactions/[txid]/DfTx/DfTxCreate
 import { DfTxUpdateVault } from '@components/transactions/[txid]/DfTx/DfTxUpdateVault'
 import { DfTxDepositToVault } from '@components/transactions/[txid]/DfTx/DfTxDepositToVault'
 import { DfTxCloseVault } from '@components/transactions/[txid]/DfTx/DfTxCloseVault'
-import { DftxCompositeSwap } from '@components/transactions/[txid]/DfTx/DftxCompositeSwap'
 import { DfTxCompositeSwap } from '@components/transactions/[txid]/DfTx/DfTxCompositeSwap'
 
 interface TransactionDfTxProps {
@@ -150,7 +149,7 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
     case CUpdateVault.OP_CODE:
       return <DfTxUpdateVault dftx={props.dftx} />
     case CCompositeSwap.OP_CODE:
-      return <DftxCompositeSwap dftx={props.dftx} />
+      return <DfTxCompositeSwap dftx={props.dftx} />
     case CDepositToVault.OP_CODE:
       return <DfTxDepositToVault dftx={props.dftx} />
     case CCloseVault.OP_CODE:
