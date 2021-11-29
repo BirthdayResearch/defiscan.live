@@ -33,7 +33,7 @@ function PoolFrom ({
 }: { poolswap: PoolSwap, address: string | undefined }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
-      <h2 className='my-3 font-medium text-lg mt-6' data-testid='DftxCompositeSwap.SwapFromTitle'>Swap From</h2>
+      <h2 className='my-3 font-medium' data-testid='DftxCompositeSwap.SwapFromTitle'>Swap From</h2>
       <AdaptiveList>
         <AdaptiveList.Row name='Address'>
           {(() => {
@@ -66,7 +66,7 @@ function PoolTo ({
 }: { poolswap: PoolSwap, address: string | undefined }): JSX.Element {
   return (
     <div className='w-full lg:w-1/2'>
-      <h2 className='my-3 font-medium text-lg mt-6' data-testid='DftxCompositeSwap.SwapToTitle'>Swap To</h2>
+      <h2 className='my-3 font-medium' data-testid='DftxCompositeSwap.SwapToTitle'>Swap To</h2>
       <AdaptiveList>
         <AdaptiveList.Row name='Address'>
           {(() => {
