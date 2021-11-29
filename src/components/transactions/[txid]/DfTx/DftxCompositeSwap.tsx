@@ -39,7 +39,7 @@ function PoolFrom ({
   address
 }: { poolswap: PoolSwap, FromTokenSymbol: JSX.Element, address: string | undefined }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2 lg:pl-3 lg:pr-1.5'>
+    <div className='w-full lg:w-1/2 lg:pl-3 lg:pr-1.5' data-testid='DftxCompositeSwap.SwapFrom'>
       <h2 className='my-3 font-medium' data-testid='DftxCompositeSwap.SwapFromTitle'>Swap From</h2>
       <AdaptiveList>
         <AdaptiveList.Row name='Address'>
@@ -73,7 +73,7 @@ function PoolTo ({
   address
 }: { poolswap: PoolSwap, ToTokenSymbol: JSX.Element, address: string | undefined }): JSX.Element {
   return (
-    <div className='w-full lg:w-1/2 lg:pr-3 lg:pl-1.5 mt-4 lg:mt-0'>
+    <div className='w-full lg:w-1/2 lg:pr-3 lg:pl-1.5 mt-4 lg:mt-0' data-testid='DftxCompositeSwap.SwapTo'>
       <h2 className='my-3 font-medium' data-testid='DftxCompositeSwap.SwapToTitle'>Swap To</h2>
       <AdaptiveList>
         <AdaptiveList.Row name='Address'>
@@ -103,7 +103,7 @@ function PoolTo ({
 
 function Path (props: { pools: PoolId[], FromTokenSymbol: JSX.Element, ToTokenSymbol: JSX.Element }): JSX.Element {
   return (
-    <div className='w-full lg:px-3 mt-4'>
+    <div className='w-full lg:px-3 mt-4' data-testid='DftxCompositeSwap.SwapPath'>
       <h2 className='my-3 font-medium' data-testid='DftxCompositeSwap.SwapPathTitle'>Swap Path</h2>
       <div className='p-3 border-gray-200 border rounded-lg flex flex-wrap justify-center items-center space-x-4' data-testid='DftxCompositeSwap.SwapPathDiv'>
         {props.FromTokenSymbol}
