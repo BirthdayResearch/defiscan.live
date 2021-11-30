@@ -4,7 +4,6 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
 import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
-import { Link } from '@components/commons/link/Link'
 import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import BigNumber from 'bignumber.js'
@@ -12,6 +11,7 @@ import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
 import { LiquidatedVaultDerivedValues } from '../../utils/vaults/LiquidatedVaultDerivedValues'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
+import { VaultLink } from '@components/commons/link/VaultLink'
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -45,9 +45,9 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
         </div>
       </div>
 
-      <Link href={{ pathname: `/vaults/${props.vault.vaultId}` }}>
+      <VaultLink vault={props.vault.vaultId}>
         <TextTruncate text={props.vault.vaultId} className='mt-2 text-primary-500 underline cursor-pointer' testId='VaultMobileCard.VaultID' />
-      </Link>
+      </VaultLink>
 
       <Transition
         enter='transition ease-out duration-200'
