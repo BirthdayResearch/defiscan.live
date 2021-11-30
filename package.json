@@ -18,7 +18,7 @@
   "dependencies": {
     "@defichain/jellyfish-address": "^2.10.0",
     "@defichain/jellyfish-transaction": "^2.10.0",
-    "@defichain/playground-api-client": "^0.12.1",
+    "@defichain/playground-api-client": "^0.12.2",
     "@defichain/whale-api-client": "^0.16.3",
     "@headlessui/react": "^1.4.2",
     "@popperjs/core": "^2.11.0",
