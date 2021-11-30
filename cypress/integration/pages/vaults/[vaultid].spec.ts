@@ -1,8 +1,11 @@
 context('/vaults/[vaultid] on desktop', function () {
   before(() => {
     cy.visit('/vaults')
-    cy.findAllByTestId('OverflowTable.Row').within(() => {
-      cy.findByTestId('VaultRow.VaultStatus').should('have.text', 'HEALTHY').click()
+
+    cy.findAllByTestId('VaultRow.VaultStatus').each(($status) => {
+      if ($status.text().match('HEALTHY')) {
+        $status.trigger('click')
+      }
     })
   })
 
