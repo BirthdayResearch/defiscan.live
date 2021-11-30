@@ -18,6 +18,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
 
   function getTransactions (): void {
     setIsLoading(true)
+
     api.address.listTransaction(props.address, 10, next).then(data => {
       setTransactionData(transactionData.concat([...data]))
       if (data.hasNext) {
@@ -41,10 +42,10 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
   }, [props.address])
 
   useEffect(() => {
-    if (transactionData.length === 0) {
+    if (isInitialLoad) {
       getTransactions()
     }
-  }, [props.address, transactionData])
+  }, [isInitialLoad])
 
   if (isInitialLoad) {
     return (
