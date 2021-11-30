@@ -1,8 +1,15 @@
 context('/vaults/[vaultid] on desktop', function () {
   before(() => {
     cy.visit('/vaults')
-    cy.findAllByTestId('OverflowTable.Row').within(() => {
-      cy.findByTestId('VaultRow.VaultStatus').should('have.text', 'HEALTHY').click()
+
+    cy.findAllByTestId('VaultRow.VaultStatus').each(($status) => {
+      if ($status === null) {
+        throw new Error('Unable to locate Vault Status')
+      }
+
+      if ($status.text().match('HEALTHY') != null) {
+        $status.trigger('click')
+      }
     })
   })
 
@@ -110,8 +117,14 @@ context('/vaults/[vaultid] on desktop', function () {
 context('/vaults/[vaultid] on mobile', function () {
   before(() => {
     cy.visit('/vaults')
-    cy.findAllByTestId('OverflowTable.Row').within(() => {
-      cy.findByTestId('VaultRow.VaultStatus').should('have.text', 'HEALTHY').click()
+    cy.findAllByTestId('VaultRow.VaultStatus').each(($status) => {
+      if ($status === null) {
+        throw new Error('Unable to locate Vault Status')
+      }
+
+      if ($status.text().match('HEALTHY') != null) {
+        $status.trigger('click')
+      }
     })
   })
 
