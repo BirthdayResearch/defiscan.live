@@ -1,15 +1,17 @@
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
+import classNames from 'classnames'
 
 interface VaultTokenSymbolsProps {
   tokens: LoanVaultTokenAmount[]
+  className?: string
 }
 
 export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
   const remainingTokens = props.tokens.length - 3
 
   return (
-    <div className='flex items-center space-x-1'>
+    <div className={classNames('flex items-center space-x-1', props.className)}>
       <div className='flex'>
         {props.tokens.map((loan, index) => {
           const TokenIcon = getAssetIcon(loan.symbol)
