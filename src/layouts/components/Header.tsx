@@ -98,6 +98,10 @@ function DesktopNavbar (): JSX.Element {
           testId='Desktop.HeaderLink.Vaults'
         />
         <HeaderLink
+          className='ml-1 lg:ml-4' text='Auctions' pathname='/auctions'
+          testId='Desktop.HeaderLink.Auctions'
+        />
+        <HeaderLink
           className='ml-1 lg:ml-4' text='Oracles' pathname='/oracles'
           testId='Desktop.HeaderLink.Oracles'
         />
@@ -133,6 +137,10 @@ function MobileMenu (): JSX.Element {
           <HeaderLink
             className='flex justify-center border-b border-gray-100' text='Vaults' pathname='/vaults'
             testId='Mobile.HeaderLink.Vaults'
+          />
+          <HeaderLink
+            className='flex justify-center border-b border-gray-100' text='Auctions' pathname='/auctions'
+            testId='Mobile.HeaderLink.Auctions'
           />
           <HeaderLink
             className='flex justify-center border-b border-gray-100' text='Oracles' pathname='/oracles'
