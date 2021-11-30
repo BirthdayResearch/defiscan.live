@@ -3,7 +3,11 @@ context('/vaults/[vaultid] on desktop', function () {
     cy.visit('/vaults')
 
     cy.findAllByTestId('VaultRow.VaultStatus').each(($status) => {
-      if ($status.text().match('HEALTHY')) {
+      if ($status === null) {
+        throw new Error('Unable to locate Vault Status')
+      }
+
+      if ($status.text().match('HEALTHY') != null) {
         $status.trigger('click')
       }
     })
