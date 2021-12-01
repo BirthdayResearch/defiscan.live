@@ -66,6 +66,7 @@ function VaultAuctionsDetailsCard (props: { batch: LoanVaultLiquidationBatch }):
       <div className='flex justify-between mt-6'>
         <span className='text-gray-500 text-sm'>Current Highest Bid</span>
         <div>
+          {JSON.stringify(props.batch)}
           {
             props.batch.highestBid === undefined ? (
               <span>N/A</span>
