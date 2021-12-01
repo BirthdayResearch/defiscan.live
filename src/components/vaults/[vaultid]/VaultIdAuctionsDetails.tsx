@@ -66,7 +66,6 @@ function VaultAuctionsDetailsCard (props: { batch: LoanVaultLiquidationBatch }):
       <div className='flex justify-between mt-6'>
         <span className='text-gray-500 text-sm'>Current Highest Bid</span>
         <div>
-          {JSON.stringify(props.batch)}
           {
             props.batch.highestBid === undefined ? (
               <span>N/A</span>
@@ -108,7 +107,7 @@ function VaultAuctionsDetailsCard (props: { batch: LoanVaultLiquidationBatch }):
 
       <div className='w-full mt-4 pt-4 flex flex-col border-t-2 border-gray-100'>
         <div className='flex items-center mb-2'>
-          <span className='text-sm text-gray-500'>Collaterals</span>
+          <span className='text-sm text-gray-500'>Collaterals for Auction</span>
           <InfoHoverPopover className='ml-1' description='The winning bidder will receive the tokens listed here.' />
         </div>
         {
