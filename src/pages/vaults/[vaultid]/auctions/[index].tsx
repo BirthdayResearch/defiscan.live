@@ -226,7 +226,7 @@ function MobileAuctionDetails (props: {
         </div>
 
         <div className='flex items-center justify-between mt-2'>
-          <span className='font-medium text-gray-500 text-xs'>{`BATCH ${Number(props.batchIndex) + 1}`}</span>
+          <span className='font-medium text-gray-500 text-xs'>{`BATCH #${Number(props.batchIndex) + 1}`}</span>
         </div>
 
         <div className='flex justify-between mt-6'>
