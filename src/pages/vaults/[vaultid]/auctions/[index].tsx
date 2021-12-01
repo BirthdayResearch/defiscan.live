@@ -15,6 +15,7 @@ import { getAssetIcon } from '@components/icons/assets'
 import BigNumber from 'bignumber.js'
 import ReactNumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { VaultLink } from '@components/commons/link/VaultLink'
 
 interface ActionsPageProps {
   vaultId: string
@@ -180,7 +181,9 @@ function DesktopAuctionDetails (props: {
               <div className='w-full text-sm text-gray-500'>
                 Vault ID
               </div>
-              <TextTruncate text={props.vaultId} className='w-80' />
+              <VaultLink vault={props.vaultId} className='overflow-hidden overflow-ellipsis'>
+                {props.vaultId}
+              </VaultLink>
             </div>
           </div>
           <div className='w-full flex flex-wrap border-t mt-4'>
@@ -269,6 +272,13 @@ function MobileAuctionDetails (props: {
               }
             </div>
           </div>
+        </div>
+
+        <div className='flex justify-between mt-6'>
+          <span className='text-gray-500 text-sm'>Vault ID</span>
+          <VaultLink vault={props.vaultId}>
+            <TextTruncate text={props.vaultId} />
+          </VaultLink>
         </div>
 
         <div className='w-full mt-4 pt-4 flex flex-col border-t-2 border-gray-100'>
