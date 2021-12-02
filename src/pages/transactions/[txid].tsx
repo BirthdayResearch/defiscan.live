@@ -11,7 +11,6 @@ import { SmartBuffer } from 'smart-buffer'
 import { AccountToUtxos, CAccountToUtxos, DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
 import { Head } from '@components/commons/Head'
-import React from 'react'
 
 interface TransactionPageProps {
   txid: string
