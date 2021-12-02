@@ -56,15 +56,15 @@ function TransactionDetails (props: {
   totalVoutValue: string
 }): JSX.Element {
   return (
-    <div className='grid grid-cols-2 lg:grid-cols-5 p-4 rounded border border-gray-200 cursor-pointer items-center'>
-      <div className='col-span-1 lg:col-span-2 xl:col-span-3 flex space-x-2'>
+    <div className='w-full flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer'>
+      <div className='w-1/2 lg:w-2/5 xl:w-3/5 flex space-x-2'>
         <span className='text-lg leading-6'>
-          <MdSwapHorizontalCircle className='text-primary-600 inline-block' size={22} />
+          <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
         </span>
         <div className='overflow-ellipsis overflow-hidden'>
           <TxIdLink
             txid={props.txid}
-            className='overflow-ellipsis overflow-hidden text-lg font-medium text-primary-500 underline md:no-underline'
+            className='overflow-ellipsis overflow-hidden font-medium text-gray-900'
           />
           <div className='text-xs text-gray-400 leading-5'>
             <span>{props.age}</span>
@@ -79,12 +79,12 @@ function TransactionDetails (props: {
 
 function DesktopTransactionDetails (props: { totalVoutValue: string }): JSX.Element {
   return (
-    <div className='hidden md:block col-span-1 lg:col-span-3 xl:col-span-2'>
-      <div className='grid grid-cols-2 grid-rows-2'>
-        <div className='text-right text-sm text-gray-500 lg:mr-2 xl:mr-0'>
+    <div className='hidden md:block w-1/2 lg:w-3/5 xl:w-2/5'>
+      <div className='w-full flex'>
+        <div className='w-1/2 text-right text-sm text-gray-500 lg:mr-2 xl:mr-0'>
           Amount
         </div>
-        <div className='text-right text-sm text-gray-900'>
+        <div className='w-1/2 text-right text-sm text-gray-900'>
           {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
         </div>
       </div>
@@ -98,7 +98,7 @@ function MobileTransactionDetails (props: { totalVoutValue: string }): JSX.Eleme
   return (
     <>
       <div
-        className='text-primary-500 flex justify-end items-center self-start block md:hidden'
+        className='w-1/2 text-primary-500 flex flex-wrap justify-end items-center self-start block md:hidden'
         onClick={() => setIsOpen(!isOpen)}
       >
         {(!isOpen)
@@ -112,14 +112,14 @@ function MobileTransactionDetails (props: { totalVoutValue: string }): JSX.Eleme
         leave='transition ease-in duration-150'
         leaveFrom='opacity-100 translate-y-1'
         leaveTo='opacity-100 translate-y-0'
-        className='col-span-3 mt-5'
+        className='w-full mt-5'
         show={isOpen}
       >
-        <div className='grid grid-cols-2 items-center'>
-          <div className='text-gray-500 text-sm'>
+        <div className='flex flex-wrap items-center'>
+          <div className='w-1/2 text-gray-500 text-sm'>
             Amount
           </div>
-          <div className='text-right text-gray-900'>
+          <div className='w-1/2 text-right text-gray-900'>
             {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
           </div>
         </div>

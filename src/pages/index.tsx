@@ -22,11 +22,11 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
     <>
       <IndexHeader />
       <Container className='mt-12 pb-20'>
-        <div className='grid lg:grid-cols-2 xl:grid-cols-5 gap-x-4 gap-y-12'>
-          <div className='col-span-1 xl:col-span-3'>
+        <div className='flex flex-wrap -mx-2'>
+          <div className='w-full lg:w-1/2 xl:w-3/5 px-1'>
             <TransactionsList transactions={props.transactions} />
           </div>
-          <div className='col-span-1 xl:col-span-2'>
+          <div className='w-full lg:w-1/2 xl:w-2/5 px-1'>
             <BlocksList blocks={props.blocks} />
           </div>
         </div>

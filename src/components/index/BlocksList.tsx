@@ -65,14 +65,14 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
     <div
-      className='grid grid-cols-3 lg:grid-cols-2 p-4 rounded border border-gray-200 cursor-pointer items-center'
+      className='flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer items-center'
     >
-      <div className='col-span-2 lg:col-span-1 flex space-x-2 '>
+      <div className='w-2/3 lg:w-1/2 flex space-x-2'>
         <span className='text-lg leading-6'>
-          <MdStairs className='text-primary-600 inline-block' size={22} />
+          <MdStairs className='text-gray-400 inline-block' size={22} />
         </span>
         <div>
-          <BlockLink className='text-lg font-medium text-primary-500 underline md:no-underline' block={props.height}>
+          <BlockLink className='font-medium text-gray-900' block={props.height}>
             {props.height}
           </BlockLink>
           <div className='text-xs text-gray-400 leading-5'>
@@ -88,14 +88,14 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
 
 function DesktopBlockDetails (props: { height: string, mintedBy?: string, transactionCount: number }): JSX.Element {
   return (
-    <div className='hidden md:block'>
-      <div className='grid grid-cols-2 text-sm '>
-        <div className='text-gray-500'>
+    <div className='w-1/3 lg:w-1/2 hidden md:block'>
+      <div className='flex flex-wrap text-sm'>
+        <div className='w-1/2 text-gray-500'>
           Minted by
         </div>
         {
           props.mintedBy === undefined ? ('N/A') : (
-            <AddressLink address={`${props.mintedBy}`}>
+            <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
               <div className='text-right text-primary-500 overflow-hidden overflow-ellipsis'>
                 {props.mintedBy}
               </div>
@@ -103,11 +103,11 @@ function DesktopBlockDetails (props: { height: string, mintedBy?: string, transa
           )
         }
       </div>
-      <div className='grid grid-cols-2 text-sm mt-1 justify-between'>
-        <div className='text-gray-500'>
+      <div className='w-full flex flex-wrap text-sm mt-1 justify-between'>
+        <div className='w-1/2 text-gray-500'>
           Transactions
         </div>
-        <span className='text-right text-gray-900'>
+        <span className='w-1/2 text-right text-gray-900'>
           {props.transactionCount}
         </span>
       </div>
@@ -121,7 +121,7 @@ function MobileBlockDetails (props: { height: string, mintedBy?: string, transac
   return (
     <>
       <div
-        className='text-primary-500 flex justify-end items-center self-start block md:hidden'
+        className='w-1/3 text-primary-500 flex justify-end items-center self-start block md:hidden'
         onClick={() => setIsOpen(!isOpen)}
       >
         {(!isOpen)
@@ -135,16 +135,16 @@ function MobileBlockDetails (props: { height: string, mintedBy?: string, transac
         leave='transition ease-in duration-150'
         leaveFrom='opacity-100 translate-y-1'
         leaveTo='opacity-100 translate-y-0'
-        className='col-span-3 mt-5'
+        className='w-full mt-5'
         show={isOpen}
       >
-        <div className='grid grid-cols-2 items-center'>
-          <div className='text-gray-500 text-sm'>
+        <div className='flex flex-wrap items-center'>
+          <div className='w-1/2 text-gray-500 text-sm'>
             Minted by
           </div>
           {
             props.mintedBy === undefined ? ('N/A') : (
-              <AddressLink address={`${props.mintedBy}`}>
+              <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
                 <div className='text-right text-primary-500 overflow-hidden overflow-ellipsis underline'>
                   {props.mintedBy}
                 </div>
@@ -152,11 +152,11 @@ function MobileBlockDetails (props: { height: string, mintedBy?: string, transac
             )
           }
         </div>
-        <div className='grid grid-cols-2 mt-1 justify-between'>
-          <div className='text-gray-500 text-sm'>
+        <div className='flex flex-wrap mt-1 justify-between'>
+          <div className='w-1/2 text-gray-500 text-sm'>
             Transactions
           </div>
-          <span className='text-right text-gray-900'>
+          <span className='w-1/2 text-right text-gray-900'>
             {props.transactionCount}
           </span>
         </div>
