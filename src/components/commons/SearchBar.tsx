@@ -164,7 +164,7 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
               className={classNames('bg-white p-3 cursor-pointer', { 'bg-primary-50': active })}
             >
               <div className='flex flex-row items-start gap-x-2'>
-                <div className='text-primary-600'>
+                <div className='text-gray-400'>
                   {(() => {
                     switch (props.searchResults.type) {
                       case 'Block': {
