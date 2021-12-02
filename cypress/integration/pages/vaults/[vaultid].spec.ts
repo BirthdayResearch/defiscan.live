@@ -106,7 +106,7 @@ context('/vaults/[vaultid] on desktop', function () {
 
     it('should have 4 cells in each row', function () {
       cy.findByTestId('VaultLoansDesktop').within(() => {
-        cy.findByTestId('OverflowTable.Row').within(() => {
+        cy.findAllByTestId('OverflowTable.Row').within(() => {
           cy.findAllByTestId('OverflowTable.Cell').should('have.length', 4).should('be.visible')
         })
       })

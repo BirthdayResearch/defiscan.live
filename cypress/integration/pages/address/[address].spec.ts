@@ -23,8 +23,16 @@ context('/address/[address] on desktop', () => {
     cy.findByTestId('Balances').within(() => {
       cy.findByTestId('OverflowTable.Header').then(ele => {
         cy.wrap(ele).findByText('TOKEN').should('be.visible')
-        cy.wrap(ele).findByText('NAME').should('be.visible')
         cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+        cy.wrap(ele).findByText('NAME').should('be.visible')
+        cy.wrap(ele).findByText('CATEGORY').should('be.visible')
+      })
+      cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
+
+      it('should have Show More button', function () {
+        cy.findByTestId('AddressBalanceTable.showMoreBtn').should('have.text', 'SHOW MORE')
+        cy.findByTestId('AddressBalanceTable.showMoreBtn').click()
+        cy.findAllByTestId('OverflowTable.Row').should('be.greaterThan', 10)
       })
     })
   })
@@ -90,6 +98,14 @@ context('/address/[address] on mobile', () => {
         cy.wrap(ele).findByText('TOKEN').should('be.visible')
         cy.wrap(ele).findByText('NAME').should('be.visible')
         cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+        cy.wrap(ele).findByText('CATEGORY').should('exist')
+      })
+      cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
+
+      it('should have Show More button', function () {
+        cy.findByTestId('AddressBalanceTable.showMoreBtn').should('have.text', 'SHOW MORE')
+        cy.findByTestId('AddressBalanceTable.showMoreBtn').click()
+        cy.findAllByTestId('OverflowTable.Row').should('be.greaterThan', 10)
       })
     })
   })
