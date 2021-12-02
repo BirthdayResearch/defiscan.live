@@ -12,26 +12,45 @@ interface AddressTokenTableProps {
 
 export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
   const api = useWhaleApiClient()
-  const [tokensData, setTokensData] = useState<AddressToken[] | undefined>(undefined)
+  const [tokensData, setTokensData] = useState<AddressToken[]>([])
+  const [next, setNext] = useState<string | undefined>(undefined)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true)
 
-  function getAggregation (): void {
-    api.address.listToken(props.address).then((data: AddressToken[]) => {
-      setTokensData(data)
+  function getBalances (): void {
+    setIsLoading(true)
+
+    api.address.listToken(props.address, 10, next).then((data) => {
+      setTokensData(tokensData.concat([...data]))
+      if (data.hasNext) {
+        setNext(data.nextToken)
+      } else {
+        setNext(undefined)
+      }
     }).catch(() => {
-      setTokensData(undefined)
+      setTokensData([])
+      setNext(undefined)
     }).finally(() => {
       setIsLoading(false)
+      setIsInitialLoad(false)
     })
   }
 
   useEffect(() => {
-    getAggregation()
+    setTokensData([])
+    setNext(undefined)
+    setIsInitialLoad(true)
   }, [props.address])
 
-  if (isLoading) {
+  useEffect(() => {
+    if (isInitialLoad) {
+      getBalances()
+    }
+  }, [isInitialLoad])
+
+  if (isInitialLoad) {
     return (
-      <div className='mt-6 flex flex-wrap' data-testid='Balances'>
+      <div className='mt-8 flex flex-wrap' data-testid='Balances'>
         <span className='font-medium text-xl mb-2 text-gray-800' data-testid='Balances.title'>Balances</span>
         <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-100'>
           <CgSpinner size={32} className='animate-spin text-gray-600' />
@@ -41,9 +60,9 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
   }
 
   return (
-    <div className='mt-6 flex flex-wrap' data-testid='Balances'>
+    <div className='mt-8 flex flex-wrap' data-testid='Balances'>
       <span className='font-medium text-xl mb-2 text-gray-800' data-testid='Balances.title'>Balances</span>
-      {tokensData !== undefined && tokensData.length > 0 ? (
+      {tokensData.length > 0 ? (
         <OverflowTable className='w-full'>
           <OverflowTable.Header>
             <OverflowTable.Head title='TOKEN' />
@@ -62,6 +81,7 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
           })}
         </OverflowTable>
       ) : (<NoTokensInfo />)}
+      <ShowMoreButton isLoading={isLoading} next={next} handleGetBalances={getBalances} />
     </div>
   )
 }
@@ -110,6 +130,36 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
         })()}
       </OverflowTable.Cell>
     </OverflowTable.Row>
+  )
+}
+
+function ShowMoreButton (props: { isLoading: boolean, next?: string, handleGetBalances: () => void }): JSX.Element {
+  if (props.next === undefined) {
+    return <></>
+  }
+
+  if (props.isLoading) {
+    return (
+      <div className='flex w-full justify-center mt-4'>
+        <div className='flex justify-center pt-2 pb-4'>
+          <CgSpinner size={32} className='animate-spin text-gray-600' />
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className='flex w-full justify-center mt-4' onClick={props.handleGetBalances}
+      data-testid='AddressBalanceTable.showMoreBtn'
+    >
+      <button
+        type='button'
+        className='w-full md:w-1/3 py-2.5 text-primary-300 hover:text-primary-500 border border-primary-200 hover:border-primary-500 rounded'
+      >
+        SHOW MORE
+      </button>
+    </div>
   )
 }
 
