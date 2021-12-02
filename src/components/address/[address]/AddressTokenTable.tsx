@@ -113,7 +113,7 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
                 return (
                   <PoolPairSymbol
                     poolPairId={props.token.id} symbolSizeClassName='h-6 w-6'
-                    symbolMarginClassName='ml-5' textClassName='ml-12'
+                    symbolMarginClassName='ml-3.5' textClassName='ml-12'
                   />
                 )
               }
