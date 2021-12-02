@@ -10,8 +10,8 @@ import { BlockLink } from '@components/commons/link/BlockLink'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
-    <div className=''>
-      <div className='hidden md:block' data-testid='Desktop.Blocks'>
+    <>
+      <div className='hidden md:block md:mt-8 lg:mt-0' data-testid='Desktop.Blocks'>
         <div className='flex justify-between'>
           <h1 className='text-xl font-semibold'>Latest Blocks</h1>
           <Link href={{ pathname: '/blocks' }}>
@@ -23,7 +23,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
             </a>
           </Link>
         </div>
-        <div className='mt-6 space-y-2'>
+        <div className='mt-6 space-y-1.5'>
           {blocks.map((block) => {
             return (
               <BlockDetails
@@ -41,7 +41,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
         </div>
       </div>
       <CollapsibleSection heading='Latest Blocks' className='block md:hidden' testId='CollapsibleSection.Blocks'>
-        <div className='mt-6 w-full space-y-2'>
+        <div className='mt-6 w-full space-y-1.5'>
           {blocks.map((block) => {
             return (
               <BlockDetails
@@ -58,7 +58,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
           <ViewMoreButton />
         </div>
       </CollapsibleSection>
-    </div>
+    </>
   )
 }
 
