@@ -23,8 +23,9 @@ context('/address/[address] on desktop', () => {
     cy.findByTestId('Balances').within(() => {
       cy.findByTestId('OverflowTable.Header').then(ele => {
         cy.wrap(ele).findByText('TOKEN').should('be.visible')
-        cy.wrap(ele).findByText('NAME').should('be.visible')
         cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+        cy.wrap(ele).findByText('NAME').should('be.visible')
+        cy.wrap(ele).findByText('CATEGORY').should('be.visible')
       })
       cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
 
@@ -97,6 +98,7 @@ context('/address/[address] on mobile', () => {
         cy.wrap(ele).findByText('TOKEN').should('be.visible')
         cy.wrap(ele).findByText('NAME').should('be.visible')
         cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+        cy.wrap(ele).findByText('CATEGORY').should('exist')
       })
     })
   })
