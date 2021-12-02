@@ -47,7 +47,7 @@ export default function AuctionsPage ({ auctions }: InferGetServerSidePropsType<
         ) : (
           <>
             <div className='flex items-center'>
-              <h1 className='text-2xl font-medium'>Auctions</h1>
+              <h1 className='text-2xl font-medium' data-testid='AuctionsPage.Heading'>Auctions</h1>
               <InfoHoverPopover className='ml-1' description='Auctions' />
             </div>
             <div className='my-6 hidden md:block'>
@@ -124,12 +124,12 @@ function AuctionsTableRow (props: AuctionDetailProps): JSX.Element {
   const totalCollateral = CalculateCollateralsValue(props.batch.collaterals).value
     .toFixed(2, BigNumber.ROUND_HALF_UP)
 
-  const timeLeft = useAuctionTimeLeft(props.vault.liquidationHeight, props.blockCount ?? 0)
+  const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, props.blockCount ?? 0)
 
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        {timeLeft.timeRemaining}
+        {timeRemaining ?? '00 hr 00 mins'}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         {props.batch.loan.displaySymbol}
@@ -168,7 +168,7 @@ function AuctionsTableRow (props: AuctionDetailProps): JSX.Element {
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <Link href={{ pathname: `/auctions/${props.batch.index}` }}>
+        <Link href={{ pathname: `/vaults/${props.vault.vaultId}/auctions/${props.batch.index}` }}>
           <a className='contents'>
             <div className='flex justify-end'>
               <MdChevronRight className='h-6  w-6' />
@@ -273,7 +273,7 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
             data-testid='AuctionsMobileCard.ViewBatchesButton'
             className='text-primary-500 p-2 text-center border border-gray-200 rounded-sm'
           >
-            <Link href={{ pathname: `/auctions/${props.batch.index}` }}>
+            <Link href={{ pathname: `/vaults/${props.vault.vaultId}/auctions/${props.batch.index}` }}>
               <a className='contents'>
                 VIEW BATCH DETAILS
               </a>
