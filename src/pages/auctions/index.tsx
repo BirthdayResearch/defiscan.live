@@ -192,7 +192,7 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
   return (
     <div
       className='w-full flex flex-col rounded border border-gray-200 p-4 text-gray-500'
-      data-testid='VaultMobileCard'
+      data-testid='AuctionsMobileCard'
     >
       <div className='w-full flex justify-between'>
         <div className='flex items-center space-x-1 font-medium'>
@@ -202,7 +202,7 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
         <div
           className='flex items-center px-2  cursor-pointer'
           onClick={() => setIsOpen(!isOpen)}
-          data-testid='VaultMobileCard.Toggle'
+          data-testid='AuctionsMobileCard.Toggle'
         >
           {(!isOpen)
             ? <MdOutlineKeyboardArrowDown size={28} />
@@ -210,7 +210,7 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
         </div>
       </div>
       <div className='text-xs mt-1 mb-4'>
-        {(timeRemaining !== undefined) ? <span>{timeRemaining} left</span> : ''}
+        {(timeRemaining !== undefined) ? <span>{timeRemaining} left</span> : '00 hr 00 mins'}
       </div>
 
       <VaultDetailsListItem
@@ -250,12 +250,14 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
           <VaultDetailsListItem
             title='Collateral For Auction'
             infoDesc='Collateral For Auction'
+            testId='AuctionsMobileCard.CollateralsForAuction'
           >
             <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} />
           </VaultDetailsListItem>
           <VaultDetailsListItem
             title='Collateral Value (USD)'
             infoDesc='Collateral Value (USD)'
+            testId='AuctionsMobileCard.CollateralValue'
           >
             <ReactNumberFormat
               value={totalCollateral}
@@ -267,7 +269,10 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
           </VaultDetailsListItem>
         </div>
         <div className='flex justify-center mt-5'>
-          <div className='text-primary-500 p-2 text-center border border-gray-200 rounded-sm'>
+          <div
+            data-testid='AuctionsMobileCard.ViewBatchesButton'
+            className='text-primary-500 p-2 text-center border border-gray-200 rounded-sm'
+          >
             <Link href={{ pathname: `/auctions/${props.batch.index}` }}>
               <a className='contents'>
                 VIEW BATCH DETAILS
