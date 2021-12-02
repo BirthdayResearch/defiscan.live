@@ -10,6 +10,7 @@ import { TransactionDfTx } from '@components/transactions/[txid]/TransactionDfTx
 import { SmartBuffer } from 'smart-buffer'
 import { AccountToUtxos, CAccountToUtxos, DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
+import { Head } from '@components/commons/Head'
 
 interface TransactionPageProps {
   txid: string
@@ -33,27 +34,31 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
   const feeRate = fee.multipliedBy(100000000).dividedBy(props.transaction.size)
 
   return (
-    <Container className='pt-12 pb-20'>
-      <TransactionHeading transaction={props.transaction} />
-      <TransactionSummaryTable
-        transaction={props.transaction}
-        vins={props.vins}
-        vouts={props.vouts}
-        fee={fee}
-        feeRate={feeRate}
-        isDeFiTransaction={isDeFiTransaction}
-      />
-      <TransactionVinVout
-        transaction={props.transaction}
-        vins={props.vins}
-        vouts={props.vouts}
-        fee={fee}
-        dftxName={dftx?.name}
-      />
-      <TransactionDfTx
-        dftx={dftx}
-      />
-    </Container>
+    <>
+      <Head title={`Transaction #${props.transaction.txid}`} />
+
+      <Container className='pt-12 pb-20'>
+        <TransactionHeading transaction={props.transaction} />
+        <TransactionSummaryTable
+          transaction={props.transaction}
+          vins={props.vins}
+          vouts={props.vouts}
+          fee={fee}
+          feeRate={feeRate}
+          isDeFiTransaction={isDeFiTransaction}
+        />
+        <TransactionVinVout
+          transaction={props.transaction}
+          vins={props.vins}
+          vouts={props.vouts}
+          fee={fee}
+          dftxName={dftx?.name}
+        />
+        <TransactionDfTx
+          dftx={dftx}
+        />
+      </Container>
+    </>
   )
 }
 
