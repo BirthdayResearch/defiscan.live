@@ -154,7 +154,7 @@ function AuctionsTableRow (props: AuctionDetailProps): JSX.Element {
         })()}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} />
+        <VaultTokenSymbols className='justify-end' spacing='space-x-1' tokens={props.batch.collaterals} />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className='text-right'>
@@ -252,7 +252,7 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
             infoDesc='Collateral For Auction'
             testId='AuctionsMobileCard.CollateralsForAuction'
           >
-            <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} />
+            <VaultTokenSymbols className='justify-end' spacing='space-x-1' tokens={props.batch.collaterals} />
           </VaultDetailsListItem>
           <VaultDetailsListItem
             title='Collateral Value (USD)'
