@@ -5,6 +5,7 @@ import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useEffect, useState } from 'react'
 import { CgSpinner } from 'react-icons/cg'
 import { Link } from '@components/commons/link/Link'
+import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 
 interface AddressTokenTableProps {
   address: string
@@ -90,20 +91,34 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell className='align-middle'>
-        <div className='flex items-center space-x-2'>
+        <div className='flex items-center'>
           <div className='my-auto'>
             {(() => {
+              if (props.token.isLPS) {
+                return <></>
+              }
+
               if (props.token.isDAT) {
                 const AssetIcon = getAssetIcon(props.token.symbol)
-                return <AssetIcon className='h-6 w-6' />
+                return <AssetIcon className='h-6 w-6 mr-1' />
               }
 
               const TokenIcon = getTokenIcon(props.token.displaySymbol)
-              return <TokenIcon className='h-6 w-6' />
+              return <TokenIcon className='h-6 w-6 mr-1' />
             })()}
           </div>
           <div className='text-primary-500 group-hover:underline'>
-            {props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}
+            {(() => {
+              if (props.token.isLPS) {
+                return (
+                  <PoolPairSymbol
+                    poolPairId={props.token.id} symbolSizeClassName='h-6 w-6'
+                    symbolMarginClassName='ml-5' textClassName='ml-12'
+                  />
+                )
+              }
+              return <>{props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}</>
+            })()}
           </div>
         </div>
       </OverflowTable.Cell>
