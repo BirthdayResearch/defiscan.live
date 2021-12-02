@@ -7,6 +7,7 @@ import { AddressTokenTable } from '@components/address/[address]/AddressTokenTab
 import { fromAddress } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
+import { Head } from '@components/commons/Head'
 
 interface AddressPageProps {
   address: string
@@ -22,12 +23,16 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
   }
 
   return (
-    <Container className='pt-12 pb-20'>
-      <AddressHeading address={props.address} />
-      <AddressSummaryTable address={props.address} />
-      <AddressTokenTable address={props.address} />
-      <AddressTransactionTable address={props.address} />
-    </Container>
+    <>
+      <Head title={`Address #${props.address}`} />
+
+      <Container className='pt-12 pb-20'>
+        <AddressHeading address={props.address} />
+        <AddressSummaryTable address={props.address} />
+        <AddressTokenTable address={props.address} />
+        <AddressTransactionTable address={props.address} />
+      </Container>
+    </>
   )
 }
 

@@ -36,6 +36,8 @@ interface VaultsPageData {
 export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <>
+      <Head title='Vaults' />
+
       <VaultStatsBar />
       <Container className='pt-12 pb-20'>
         <Head title='Vaults' />

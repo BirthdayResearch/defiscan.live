@@ -12,6 +12,7 @@ import { isNumeric } from '../../utils/commons/StringValidator'
 import React, { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import ReactNumberFormat from 'react-number-format'
+import { Head } from '@components/commons/Head'
 
 interface TokenAssetPageProps {
   token: TokenData
@@ -38,14 +39,18 @@ export default function TokenIdPage (props: InferGetServerSidePropsType<typeof g
   }, [])
 
   return (
-    <Container className='pt-12 pb-24'>
-      <TokenPageHeading token={props.token} />
+    <>
+      <Head title={`${props.token.displaySymbol}`} />
 
-      <div className='flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-        <ListLeft token={props.token} burnedAmount={burnedAmount} netSupply={netSupply} />
-        <ListRight token={props.token} />
-      </div>
-    </Container>
+      <Container className='pt-12 pb-24'>
+        <TokenPageHeading token={props.token} />
+
+        <div className='flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
+          <ListLeft token={props.token} burnedAmount={burnedAmount} netSupply={netSupply} />
+          <ListRight token={props.token} />
+        </div>
+      </Container>
+    </>
   )
 }
 

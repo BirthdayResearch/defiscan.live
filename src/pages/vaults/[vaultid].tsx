@@ -10,6 +10,8 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
 import { VaultAuctions } from '@components/vaults/[vaultid]/VaultIdAuctionsDetails'
 import { calculateLiquidationValues } from '../../utils/vaults/LiquidatedVaultDerivedValues'
+import { Head } from '@components/commons/Head'
+import React from 'react'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -17,31 +19,35 @@ interface VaultsPageData {
 
 export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <Container className='pt-4 pb-20'>
-      <VaultIdHeading vault={props.vault} />
-      <VaultIdDetails vault={props.vault} liquidatedVaultDerivedValues={calculateLiquidationValues(props.vault)} />
-      {
-        (props.vault.state === LoanVaultState.IN_LIQUIDATION) ? (
-          <VaultAuctions batches={props.vault.batches} />
-        ) : (
-          <>
-            <VaultIdCollateralDetails
-              collateralValue={props.vault.collateralValue}
-              vaultState={props.vault.state}
-              collaterals={props.vault.collateralAmounts}
-            />
-            <VaultIdLoansDetails
-              loans={props.vault.loanAmounts}
-              interests={props.vault.interestAmounts}
-              vault={{
-                interest: props.vault.loanScheme.interestRate,
-                state: props.vault.state
-              }}
-            />
-          </>
-        )
-      }
-    </Container>
+    <>
+      <Head title={`Vault #${props.vault.vaultId}`} />
+
+      <Container className='pt-4 pb-20'>
+        <VaultIdHeading vault={props.vault} />
+        <VaultIdDetails vault={props.vault} liquidatedVaultDerivedValues={calculateLiquidationValues(props.vault)} />
+        {
+          (props.vault.state === LoanVaultState.IN_LIQUIDATION) ? (
+            <VaultAuctions batches={props.vault.batches} />
+          ) : (
+            <>
+              <VaultIdCollateralDetails
+                collateralValue={props.vault.collateralValue}
+                vaultState={props.vault.state}
+                collaterals={props.vault.collateralAmounts}
+              />
+              <VaultIdLoansDetails
+                loans={props.vault.loanAmounts}
+                interests={props.vault.interestAmounts}
+                vault={{
+                  interest: props.vault.loanScheme.interestRate,
+                  state: props.vault.state
+                }}
+              />
+            </>
+          )
+        }
+      </Container>
+    </>
   )
 }
 
