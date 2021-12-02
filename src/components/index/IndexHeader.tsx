@@ -13,8 +13,8 @@ export function IndexHeader (): JSX.Element {
     <>
       <Stats />
       <div
-        className='flex flex-col items-center'
-        style={{ backgroundImage: 'linear-gradient(to bottom left, #FFFFFF, #fff7f4,  #f7e6f0' }}
+        className='flex flex-col items-center pb-24 -mb-20'
+        style={{ backgroundImage: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 25.4%, #FFFFFF 94.76%), url(\'/assets/hero/fortcanning.svg\')', backgroundSize: 'cover', backgroundPosition: 'right center' }}
       >
         <Container className='h-full'>
           <div className='h-full flex flex-wrap items-center justify-center mt-14 mb-16'>
