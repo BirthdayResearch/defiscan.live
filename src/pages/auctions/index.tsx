@@ -55,29 +55,29 @@ export default function AuctionsPage ({ auctions }: InferGetServerSidePropsType<
                 <OverflowTable.Header>
                   <OverflowTable.Head
                     title='Time Left'
-                    infoDesc=''
+                    infoDesc='Time Left'
                     testId='AuctionPage.TimeLeft'
                   />
                   <OverflowTable.Head
                     title='Loan Token'
-                    infoDesc=''
+                    infoDesc='Loan Token'
                     testId='AuctionsPage.LoanToken'
                   />
                   <OverflowTable.Head
                     title='Highest Bid'
-                    infoDesc=''
+                    infoDesc='Highest Bid'
                     testId='AuctionsPage.HighestBid'
                     alignRight
                   />
                   <OverflowTable.Head
                     title='Collateral For Auction'
-                    infoDesc=''
+                    infoDesc='Collateral For Auction'
                     testId='AuctionsPage.CollateralForAuction'
                     alignRight
                   />
                   <OverflowTable.Head
                     title='Collateral Value (USD)'
-                    infoDesc=''
+                    infoDesc='Collateral Value (USD)'
                     testId='AuctionsPage.CollateralValue'
                     alignRight
                   />
