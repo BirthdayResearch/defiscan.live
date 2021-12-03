@@ -5,7 +5,6 @@ import classNames from 'classnames'
 interface VaultTokenSymbolsProps {
   tokens: LoanVaultTokenAmount[]
   className?: string
-  spacing?: string
 }
 
 export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
@@ -13,7 +12,7 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
 
   return (
     <div className={classNames('flex items-center space-x-5', props.className)}>
-      <div className={classNames('flex', props.spacing)}>
+      <div className='flex space-x-1'>
         {props.tokens.map((loan, index) => {
           const TokenIcon = getAssetIcon(loan.symbol)
           if (index < 3) {

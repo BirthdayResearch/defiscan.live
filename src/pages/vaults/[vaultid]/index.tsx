@@ -27,7 +27,7 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
         <VaultIdDetails vault={props.vault} liquidatedVaultDerivedValues={calculateLiquidationValues(props.vault)} />
         {
           (props.vault.state === LoanVaultState.IN_LIQUIDATION) ? (
-            <VaultAuctions batches={props.vault.batches} />
+            <VaultAuctions vault={props.vault} />
           ) : (
             <>
               <VaultIdCollateralDetails
