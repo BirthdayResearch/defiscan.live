@@ -1,8 +1,8 @@
 import { PropsWithChildren, ReactNode } from 'react'
-import { getAssetIcon } from '@components/icons/assets'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { Link } from '@components/commons/link/Link'
 import ReactNumberFormat from 'react-number-format'
+import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 
 export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {
   return (
@@ -26,12 +26,12 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
             return (
               <LiquidityPoolCard
                 key={pool.symbol}
-                poolSymbol={pool.symbol}
+                poolId={pool.id}
                 apr={pool.apr != null ? pool.apr.total * 100 : undefined}
                 totalLiquidity={pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''}
                 priceRatio={pool.priceRatio.ba}
-                tokenASymbol={pool.tokenA.symbol}
-                tokenBSymbol={pool.tokenB.symbol}
+                tokenASymbol={pool.tokenA.displaySymbol}
+                tokenBSymbol={pool.tokenB.displaySymbol}
               />
             )
           })
@@ -43,24 +43,19 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
 
 function LiquidityPoolCard (
   props: {
-    poolSymbol: string
+    poolId: string
     apr: number | undefined
     totalLiquidity: string
     priceRatio: string
     tokenASymbol: string
     tokenBSymbol: string
   }): JSX.Element {
-  const SymbolBIcon = getAssetIcon(props.tokenBSymbol)
-  const SymbolAIcon = getAssetIcon(props.tokenASymbol)
   return (
-    <div className='flex flex-col p-6 border border-gray-300 h-30 space-y-3'>
-      <div className='flex items-center space-x-1 my-auto'>
-        <div className='flex icons transform'>
-          <SymbolAIcon className='h-6 w-6 z-10' />
-          <SymbolBIcon className='h-6 w-6 -ml-3 mt-3' />
-        </div>
-        <h1 className='font-semibold text-sm md:text-base'>{props.poolSymbol}</h1>
-      </div>
+    <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3'>
+      <PoolPairSymbol
+        poolPairId={props.poolId} symbolSizeClassName='h-6 w-6' symbolMarginClassName='ml-3.5'
+        textClassName='ml-11 font-medium'
+      />
       <div className='my-auto'>
         <LiquidityCardStat label='APR'>
           <ReactNumberFormat
