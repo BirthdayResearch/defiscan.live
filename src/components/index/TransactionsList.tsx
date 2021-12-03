@@ -6,6 +6,7 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdSwapHorizontalC
 import { CollapsibleSection } from '@components/commons/CollapsibleSection'
 import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
+import { Link } from '@components/commons/link/Link'
 
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   return (
@@ -15,15 +16,18 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
           <h1 className='text-xl font-semibold'>Latest Transactions</h1>
         </div>
 
-        <div className='mt-6 space-y-1.5'>
-          {transactions.map(t => {
+        <div className='mt-6'>
+          {transactions.map(transaction => {
             return (
-              <TransactionDetails
-                key={t.hash}
-                txid={t.txid}
-                age={formatDistanceToNow(t.block.medianTime * 1000, { addSuffix: true })}
-                totalVoutValue={t.totalVoutValue}
-              />
+              <Link href={{ pathname: `/transactions/${transaction.id}` }} key={transaction.hash}>
+                <a className='content'>
+                  <TransactionDetails
+                    txid={transaction.txid}
+                    age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
+                    totalVoutValue={transaction.totalVoutValue}
+                  />
+                </a>
+              </Link>
             )
           })}
         </div>
@@ -33,15 +37,18 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
         heading='Latest Transactions'
         className='block md:hidden'
       >
-        <div className='mt-6 w-full space-y-1.5'>
-          {transactions.map(t => {
+        <div className='mt-6 w-full'>
+          {transactions.map(transaction => {
             return (
-              <TransactionDetails
-                key={t.hash}
-                txid={t.txid}
-                age={formatDistanceToNow(t.block.medianTime * 1000, { addSuffix: true })}
-                totalVoutValue={t.totalVoutValue}
-              />
+              <Link href={{ pathname: `/transactions/${transaction.id}` }} key={transaction.hash}>
+                <a className='content'>
+                  <TransactionDetails
+                    txid={transaction.txid}
+                    age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
+                    totalVoutValue={transaction.totalVoutValue}
+                  />
+                </a>
+              </Link>
             )
           })}
         </div>
@@ -56,7 +63,7 @@ function TransactionDetails (props: {
   totalVoutValue: string
 }): JSX.Element {
   return (
-    <div className='w-full flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer'>
+    <div className='w-full flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer my-1.5 hover:shadow-md'>
       <div className='w-1/2 lg:w-2/5 xl:w-3/5 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
