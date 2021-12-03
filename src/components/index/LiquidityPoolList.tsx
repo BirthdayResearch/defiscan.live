@@ -61,7 +61,7 @@ function LiquidityPoolCard (
         </div>
         <h1 className='font-semibold text-sm md:text-base'>{props.poolSymbol}</h1>
       </div>
-      <div className='w-3/4 my-auto ml-2'>
+      <div className='my-auto'>
         <LiquidityCardStat label='APR'>
           <ReactNumberFormat
             displayType='text'
