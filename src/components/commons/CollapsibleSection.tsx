@@ -1,14 +1,14 @@
 import { ReactNode, useState } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 
-interface VaultCollapsibleSectionProps {
+interface CollapsibleSectionProps {
   children: ReactNode
   heading: string
   className?: string
   testId?: string
 }
 
-export function VaultCollapsibleSection (props: VaultCollapsibleSectionProps): JSX.Element {
+export function CollapsibleSection (props: CollapsibleSectionProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(true)
 
   function handleToggle (): void {

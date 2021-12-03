@@ -2,7 +2,7 @@ import { LoanVaultLiquidationBatch, LoanVaultTokenAmount } from '@defichain/whal
 import { getAssetIcon } from '@components/icons/assets'
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
+import { CollapsibleSection } from '@components/commons/CollapsibleSection'
 import ReactNumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
@@ -23,7 +23,7 @@ export function VaultAuctions (props: { batches: LoanVaultLiquidationBatch[] }):
         </div>
       </div>
 
-      <VaultCollapsibleSection heading='In Auction' className='block md:hidden'>
+      <CollapsibleSection heading='In Auction' className='block md:hidden'>
         <div className='flex flex-col items-center space-y-2'>
           {props.batches.map((batch) => (
             <VaultAuctionsDetailsCard
@@ -32,7 +32,7 @@ export function VaultAuctions (props: { batches: LoanVaultLiquidationBatch[] }):
             />
           ))}
         </div>
-      </VaultCollapsibleSection>
+      </CollapsibleSection>
     </>
   )
 }

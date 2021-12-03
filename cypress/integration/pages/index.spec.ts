@@ -24,7 +24,9 @@ context('/ on macbook-13', () => {
   })
 
   it('should have BlocksList.viewAllBlocksButton', () => {
-    cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
+    cy.findByTestId('Desktop.Blocks').within(() => {
+      cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
+    })
   })
 
   it('should have LiquidityPools', () => {
@@ -66,7 +68,9 @@ context('/ on iphone-x', () => {
   })
 
   it('should have BlocksList.viewAllBlocksButton', () => {
-    cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
+    cy.findByTestId('CollapsibleSection.Blocks').within(() => {
+      cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
+    })
   })
 
   it('should have LiquidityPools', () => {

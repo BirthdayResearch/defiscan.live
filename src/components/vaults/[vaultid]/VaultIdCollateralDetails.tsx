@@ -1,4 +1,4 @@
-import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
+import { CollapsibleSection } from '@components/commons/CollapsibleSection'
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
@@ -37,7 +37,7 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
             )}
       </div>
 
-      <VaultCollapsibleSection
+      <CollapsibleSection
         heading='Collateral Details' className='block md:hidden'
         testId='VaultCollapsibleSection.CollateralDetails'
       >
@@ -59,7 +59,7 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
                 ))}
               </div>
             )}
-      </VaultCollapsibleSection>
+      </CollapsibleSection>
     </>
   )
 }

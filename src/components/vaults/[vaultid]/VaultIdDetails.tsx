@@ -1,6 +1,6 @@
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { VaultCollapsibleSection } from '@components/vaults/common/VaultCollapsibleSection'
+import { CollapsibleSection } from '@components/commons/CollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import classNames from 'classnames'
@@ -68,14 +68,14 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
         </OverflowTable>
       </div>
 
-      <VaultCollapsibleSection
+      <CollapsibleSection
         heading='Vault Details' className='block md:hidden'
         testId='VaultCollapsibleSection.VaultIdDetails'
       >
         <div className='mb-8'>
           <MobileVaultDetails vault={props.vault} liquidatedVaultDerivedValues={props.liquidatedVaultDerivedValues} />
         </div>
-      </VaultCollapsibleSection>
+      </CollapsibleSection>
     </>
   )
 }

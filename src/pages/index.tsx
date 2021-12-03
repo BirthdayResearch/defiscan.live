@@ -1,8 +1,4 @@
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  InferGetServerSidePropsType
-} from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
@@ -26,9 +22,13 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
     <>
       <IndexHeader />
       <Container className='mt-12 pb-20'>
-        <div className='flex flex-col space-y-12 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
-          <BlocksList blocks={props.blocks} />
-          <TransactionsList transactions={props.transactions} />
+        <div className='flex flex-wrap -mx-2'>
+          <div className='w-full lg:w-1/2 xl:w-3/5 px-1'>
+            <TransactionsList transactions={props.transactions} />
+          </div>
+          <div className='w-full lg:w-1/2 xl:w-2/5 px-1'>
+            <BlocksList blocks={props.blocks} />
+          </div>
         </div>
         <LiquidityPoolList liquidityPools={props.liquidityPools} />
       </Container>
