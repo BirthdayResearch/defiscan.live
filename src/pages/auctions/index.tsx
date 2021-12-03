@@ -3,11 +3,10 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Head } from '@components/commons/Head'
 import { Container } from '@components/commons/Container'
-import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { Link } from '@components/commons/link/Link'
-import { MdChevronRight, MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 import ReactNumberFormat from 'react-number-format'
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
 import { CalculateCollateralsValue } from '../../utils/vaults/CalculateCollateralsValue'
@@ -21,7 +20,7 @@ import { getAssetIcon } from '@components/icons/assets'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 
 interface ActionsPageProps {
-  auctions: {
+  vaults: {
     items: LoanVaultLiquidated[]
     pages: CursorPage[]
   }
@@ -33,75 +32,69 @@ interface AuctionDetailProps {
   blockCount: number | undefined
 }
 
-export default function AuctionsPage ({ auctions }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
 
   return (
     <>
       <Container className='pt-12 pb-20'>
         <Head title='Auctions' />
-        {auctions.items.length === 0 ? (
+
+        <div className='flex items-center'>
+          <h1 className='text-2xl font-medium' data-testid='AuctionsPage.Heading'>Auctions</h1>
+        </div>
+
+        {vaults.items.length === 0 ? (
           <div className='text-gray-400 flex w-full justify-center p-12'>
             There are no active auctions at this time.
           </div>
         ) : (
           <>
-            <div className='flex items-center'>
-              <h1 className='text-2xl font-medium' data-testid='AuctionsPage.Heading'>Auctions</h1>
-              <InfoHoverPopover className='ml-1' description='Auctions' />
-            </div>
             <div className='my-6 hidden md:block'>
               <OverflowTable>
                 <OverflowTable.Header>
                   <OverflowTable.Head
                     title='Time Left'
-                    infoDesc='Time Left'
                     testId='AuctionPage.TimeLeft'
                   />
                   <OverflowTable.Head
                     title='Loan Token'
-                    infoDesc='Loan Token'
                     testId='AuctionsPage.LoanToken'
                   />
                   <OverflowTable.Head
                     title='Highest Bid'
-                    infoDesc='Highest Bid'
                     testId='AuctionsPage.HighestBid'
                     alignRight
                   />
                   <OverflowTable.Head
                     title='Collateral For Auction'
-                    infoDesc='Collateral For Auction'
                     testId='AuctionsPage.CollateralForAuction'
                     alignRight
                   />
                   <OverflowTable.Head
                     title='Collateral Value (USD)'
-                    infoDesc='Collateral Value (USD)'
                     testId='AuctionsPage.CollateralValue'
                     alignRight
                   />
-                  <OverflowTable.Head
-                    title='View Batch Details'
-                    testId='AuctionsPage.ViewDetails'
-                    alignRight
-                  />
                 </OverflowTable.Header>
-                {auctions.items.map(auction => {
-                  return auction.batches.map(batch => (
-                    <AuctionsTableRow
-                      batch={batch}
-                      key={batch.index}
-                      vault={auction}
-                      blockCount={blocks}
-                    />
+                {vaults.items.map(vault => {
+                  return vault.batches.map(batch => (
+                    <Link href={{ pathname: `/vaults/${vault.vaultId}/auctions/${batch.index}` }} key={batch.index}>
+                      <a className='contents'>
+                        <AuctionsTableRow
+                          batch={batch}
+                          vault={vault}
+                          blockCount={blocks}
+                        />
+                      </a>
+                    </Link>
                   ))
                 })}
               </OverflowTable>
             </div>
             <div className='my-6 block md:hidden'>
               <div className='flex flex-wrap space-y-2'>
-                {auctions.items.map(auction => {
+                {vaults.items.map(auction => {
                   return auction.batches.map(batch => (
                     <AuctionsMobileCard
                       batch={batch}
@@ -147,7 +140,6 @@ function AuctionsTableRow (props: AuctionDetailProps): JSX.Element {
                 />
                 {props.batch.highestBid.amount.displaySymbol}
               </span>
-
             )
           }
           return 'N/A'
@@ -166,15 +158,6 @@ function AuctionsTableRow (props: AuctionDetailProps): JSX.Element {
             displayType='text'
           />
         </div>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell>
-        <Link href={{ pathname: `/vaults/${props.vault.vaultId}/auctions/${props.batch.index}` }}>
-          <a className='contents'>
-            <div className='flex justify-end'>
-              <MdChevronRight className='h-6  w-6' />
-            </div>
-          </a>
-        </Link>
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
@@ -215,7 +198,6 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
 
       <VaultDetailsListItem
         title='Current Highest Bid'
-        infoDesc='Current Highest Bid'
       >
         {(() => {
           if (props.batch.highestBid?.amount !== undefined) {
@@ -229,7 +211,6 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
                 />
                 {props.batch.highestBid.amount.displaySymbol}
               </span>
-
             )
           }
           return 'N/A'
@@ -249,14 +230,12 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
         <div className='w-full mt-2 space-y-2'>
           <VaultDetailsListItem
             title='Collateral For Auction'
-            infoDesc='Collateral For Auction'
             testId='AuctionsMobileCard.CollateralsForAuction'
           >
             <VaultTokenSymbols className='justify-end' spacing='space-x-1' tokens={props.batch.collaterals} />
           </VaultDetailsListItem>
           <VaultDetailsListItem
             title='Collateral Value (USD)'
-            infoDesc='Collateral Value (USD)'
             testId='AuctionsMobileCard.CollateralValue'
           >
             <ReactNumberFormat
@@ -292,7 +271,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     const items = await getWhaleApiClient(context).loan.listAuction(30, next)
     return {
       props: {
-        auctions: {
+        vaults: {
           items,
           pages: CursorPagination.getPages(context, items)
         }
