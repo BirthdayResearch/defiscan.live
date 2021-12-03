@@ -1,9 +1,8 @@
 import { PropsWithChildren, ReactNode } from 'react'
-import { getAssetIcon } from '@components/icons/assets'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { IoChevronForward } from 'react-icons/io5'
 import { Link } from '@components/commons/link/Link'
 import ReactNumberFormat from 'react-number-format'
+import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 
 export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {
   return (
@@ -15,7 +14,7 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
             className='flex items-center font-medium cursor-pointer text-primary-500'
             data-testid='LiquidityPoolList.viewLiquidityPools'
           >
-            VIEW FULL DETAILS <IoChevronForward size={18} className='inline' />
+            VIEW FULL DETAILS
           </a>
         </Link>
       </div>
@@ -27,12 +26,12 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
             return (
               <LiquidityPoolCard
                 key={pool.symbol}
-                poolSymbol={pool.symbol}
+                poolId={pool.id}
                 apr={pool.apr != null ? pool.apr.total * 100 : undefined}
                 totalLiquidity={pool.totalLiquidity.usd !== undefined ? pool.totalLiquidity.usd : ''}
                 priceRatio={pool.priceRatio.ba}
-                tokenASymbol={pool.tokenA.symbol}
-                tokenBSymbol={pool.tokenB.symbol}
+                tokenASymbol={pool.tokenA.displaySymbol}
+                tokenBSymbol={pool.tokenB.displaySymbol}
               />
             )
           })
@@ -44,25 +43,20 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
 
 function LiquidityPoolCard (
   props: {
-    poolSymbol: string
+    poolId: string
     apr: number | undefined
     totalLiquidity: string
     priceRatio: string
     tokenASymbol: string
     tokenBSymbol: string
   }): JSX.Element {
-  const SymbolBIcon = getAssetIcon(props.tokenBSymbol)
-  const SymbolAIcon = getAssetIcon(props.tokenASymbol)
   return (
-    <div className='flex p-4 md:p-6 border border-gray-300 h-30'>
-      <div className='flex flex-col justify-between my-auto w-1/4'>
-        <div className='flex icons'>
-          <SymbolAIcon className='h-6 w-6 z-10' />
-          <SymbolBIcon className='h-6 w-6 -ml-2' />
-        </div>
-        <h1 className='font-semibold text-sm md:text-base'>{props.poolSymbol}</h1>
-      </div>
-      <div className='w-3/4 my-auto ml-2'>
+    <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3'>
+      <PoolPairSymbol
+        poolPairId={props.poolId} symbolSizeClassName='h-6 w-6' symbolMarginClassName='ml-3.5'
+        textClassName='ml-11 font-medium'
+      />
+      <div className='my-auto'>
         <LiquidityCardStat label='APR'>
           <ReactNumberFormat
             displayType='text'
@@ -104,7 +98,7 @@ function LiquidityCardStat ({
   return (
     <div className='table-row border-collapse text-sm'>
       <div className='table-cell opacity-40'>
-        {label}:
+        {label}
       </div>
       <div className='table-cell pl-2 md:pl-4'>{children}</div>
     </div>
