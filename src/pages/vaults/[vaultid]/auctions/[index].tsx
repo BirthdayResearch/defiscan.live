@@ -7,6 +7,7 @@ import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import React from 'react'
 import {
+  LoanVaultLiquidated,
   LoanVaultLiquidationBatch,
   LoanVaultState,
   LoanVaultTokenAmount
@@ -16,14 +17,20 @@ import BigNumber from 'bignumber.js'
 import ReactNumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import { VaultLink } from '@components/commons/link/VaultLink'
+import { useAuctionTimeLeft } from '../../../../hooks/useAuctionTimeLeft'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/index'
 
 interface ActionsPageProps {
-  vaultId: string
+  vault: LoanVaultLiquidated
   batchIndex: string
   liquidationBatch: LoanVaultLiquidationBatch
 }
 
 export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
+  const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, blocks ?? 0)
+
   const minStartingBid = new BigNumber(props.liquidationBatch.loan.amount).multipliedBy(1.05)
   let minStartingBidValue: BigNumber | undefined
 
@@ -35,23 +42,23 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
     <>
       <Container className='pt-4 pb-20'>
 
-        <Head title={`Vault #${props.vaultId}`} />
+        <Head title={`Vault #${props.vault.vaultId}`} />
         <Breadcrumb items={[
           {
             path: '/vaults',
             name: 'Vaults'
           },
           {
-            path: `/vaults/${props.vaultId}`,
-            name: (<TextTruncate text={props.vaultId} />
+            path: `/vaults/${props.vault.vaultId}`,
+            name: (<TextTruncate text={props.vault.vaultId} />
             )
           },
           {
-            path: `/vaults/${props.vaultId}`,
+            path: `/vaults/${props.vault.vaultId}`,
             name: 'Auctions'
           },
           {
-            path: `/vaults/${props.vaultId}/auctions/${0}`,
+            path: `/vaults/${props.vault.vaultId}/auctions/${0}`,
             name: props.batchIndex,
             isCurrentPath: true
           }
@@ -63,9 +70,10 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
         </h2>
 
         <DesktopAuctionDetails
-          vaultId={props.vaultId}
+          vaultId={props.vault.vaultId}
           batchIndex={props.batchIndex}
           liquidationBatch={props.liquidationBatch}
+          timeRemaining={timeRemaining}
           minStartingBid={{
             amount: minStartingBid,
             value: minStartingBidValue
@@ -73,9 +81,10 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
         />
 
         <MobileAuctionDetails
-          vaultId={props.vaultId}
+          vaultId={props.vault.vaultId}
           batchIndex={props.batchIndex}
           liquidationBatch={props.liquidationBatch}
+          timeRemaining={timeRemaining}
           minStartingBid={{
             amount: minStartingBid,
             value: minStartingBidValue
@@ -102,7 +111,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
     return {
       props: {
-        vaultId: vault.vaultId,
+        vault: vault,
         batchIndex: batchIndex,
         liquidationBatch: vault.batches[batchIndex]
       }
@@ -118,6 +127,7 @@ function DesktopAuctionDetails (props: {
   vaultId: string
   batchIndex: string
   liquidationBatch: LoanVaultLiquidationBatch
+  timeRemaining: string | undefined
   minStartingBid: {
     amount: BigNumber
     value: BigNumber | undefined
@@ -134,8 +144,9 @@ function DesktopAuctionDetails (props: {
         </div>
         <div className='flex flex-wrap'>
           <div className='w-full flex flex-wrap -m-4'>
-            <div className='w-1/2 lg:w-1/4 p-4'>
-              <span className='text-sm text-gray-500'>{`BATCH #${Number(props.batchIndex) + 1}`}</span>
+            <div className='flex flex-wrap w-1/2 lg:w-1/4 p-4'>
+              <div className='w-full text-sm text-gray-500'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
+              <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
             </div>
             <div className='w-1/2 lg:w-1/4 flex flex-wrap p-4'>
               <div className='w-full text-gray-500 text-sm'>Current Highest Bid</div>
@@ -208,6 +219,7 @@ function MobileAuctionDetails (props: {
   vaultId: string
   batchIndex: string
   liquidationBatch: LoanVaultLiquidationBatch
+  timeRemaining: string | undefined
   minStartingBid: {
     amount: BigNumber
     value: BigNumber | undefined
@@ -228,8 +240,9 @@ function MobileAuctionDetails (props: {
           </div>
         </div>
 
-        <div className='flex items-center justify-between mt-2'>
-          <span className='font-medium text-gray-500 text-xs'>{`BATCH #${Number(props.batchIndex) + 1}`}</span>
+        <div className='items-center mt-2'>
+          <div className='font-medium text-gray-500 text-xs'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
+          <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
         </div>
 
         <div className='flex justify-between mt-6'>
