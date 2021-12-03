@@ -1,4 +1,5 @@
 import { NetworkConnection, useNetwork } from '@contexts/NetworkContext'
+import BigNumber from 'bignumber.js'
 
 interface AuctionTimeLeft {
   timeRemaining: string | undefined
@@ -9,7 +10,7 @@ interface AuctionTimeLeft {
 export function useAuctionTimeLeft (liquidationHeight: number, blockCount: number): AuctionTimeLeft {
   const network = useNetwork().connection
   const blocksPerAuction = network === NetworkConnection.MainNet || network === NetworkConnection.TestNet ? 720 : 36
-  const blocksRemaining = liquidationHeight - blockCount
+  const blocksRemaining = BigNumber.max(liquidationHeight - blockCount, 0).toNumber()
 
   return {
     timeRemaining: (blocksRemaining > 0) ? secondsToHm(blocksRemaining * 30) : undefined,
