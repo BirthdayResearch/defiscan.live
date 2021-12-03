@@ -23,16 +23,19 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
             </a>
           </Link>
         </div>
-        <div className='mt-6 space-y-1.5'>
+        <div className='mt-6'>
           {blocks.map((block) => {
             return (
-              <BlockDetails
-                key={block.id}
-                height={block.height.toString()}
-                mintedBy={block.minter}
-                transactionCount={block.transactionCount}
-                age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-              />
+              <Link href={{ pathname: `/blocks/${block.id}` }} key={block.id}>
+                <a className='content'>
+                  <BlockDetails
+                    height={block.height.toString()}
+                    mintedBy={block.minter}
+                    transactionCount={block.transactionCount}
+                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
+                  />
+                </a>
+              </Link>
             )
           })}
         </div>
@@ -41,16 +44,19 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
         </div>
       </div>
       <CollapsibleSection heading='Latest Blocks' className='block md:hidden' testId='CollapsibleSection.Blocks'>
-        <div className='mt-6 w-full space-y-1.5'>
+        <div className='mt-6 w-full'>
           {blocks.map((block) => {
             return (
-              <BlockDetails
-                key={block.id}
-                height={block.height.toString()}
-                mintedBy={block.minter}
-                transactionCount={block.transactionCount}
-                age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-              />
+              <Link href={{ pathname: `/blocks/${block.id}` }} key={block.id}>
+                <a className='content'>
+                  <BlockDetails
+                    height={block.height.toString()}
+                    mintedBy={block.minter}
+                    transactionCount={block.transactionCount}
+                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
+                  />
+                </a>
+              </Link>
             )
           })}
         </div>
@@ -65,7 +71,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
     <div
-      className='flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer items-center'
+      className='flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer items-center my-1.5 hover:shadow-md'
     >
       <div className='w-2/3 lg:w-1/2 flex space-x-2'>
         <span className='text-lg leading-6'>
@@ -96,7 +102,7 @@ function DesktopBlockDetails (props: { height: string, mintedBy?: string, transa
         {
           props.mintedBy === undefined ? ('N/A') : (
             <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
-              <div className='text-right text-primary-500 overflow-hidden overflow-ellipsis'>
+              <div className='text-right text-gray-900 overflow-hidden overflow-ellipsis'>
                 {props.mintedBy}
               </div>
             </AddressLink>
