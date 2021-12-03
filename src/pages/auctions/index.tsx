@@ -92,6 +92,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                 })}
               </OverflowTable>
             </div>
+
             <div className='my-6 block md:hidden'>
               <div className='flex flex-wrap space-y-2'>
                 {vaults.items.map(auction => {
@@ -114,9 +115,6 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
 }
 
 function AuctionsTableRow (props: AuctionDetailProps): JSX.Element {
-  const totalCollateral = CalculateCollateralsValue(props.batch.collaterals).value
-    .toFixed(2, BigNumber.ROUND_HALF_UP)
-
   const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, props.blockCount ?? 0)
 
   return (
@@ -131,15 +129,13 @@ function AuctionsTableRow (props: AuctionDetailProps): JSX.Element {
         {(() => {
           if (props.batch.highestBid?.amount !== undefined) {
             return (
-              <span>
-                <ReactNumberFormat
-                  value={props.batch.highestBid.amount.amount}
-                  thousandSeparator
-                  decimalScale={2}
-                  displayType='text'
-                />
-                {props.batch.highestBid.amount.displaySymbol}
-              </span>
+              <ReactNumberFormat
+                value={new BigNumber(props.batch.highestBid.amount.amount).toFixed(8)}
+                thousandSeparator
+                decimalScale={8}
+                suffix={` ${props.batch.highestBid.amount.displaySymbol}`}
+                displayType='text'
+              />
             )
           }
           return 'N/A'
@@ -151,7 +147,7 @@ function AuctionsTableRow (props: AuctionDetailProps): JSX.Element {
       <OverflowTable.Cell alignRight>
         <div className='text-right'>
           <ReactNumberFormat
-            value={totalCollateral}
+            value={CalculateCollateralsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
             thousandSeparator
             decimalScale={2}
             prefix='$'
@@ -168,9 +164,6 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
   const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, props.blockCount ?? 0)
 
   const LoanSymbol = getAssetIcon(props.batch.loan.displaySymbol)
-
-  const totalCollateral = CalculateCollateralsValue(props.batch.collaterals).value
-    .toFixed(2, BigNumber.ROUND_HALF_UP)
 
   return (
     <div
@@ -198,19 +191,18 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
 
       <VaultDetailsListItem
         title='Current Highest Bid'
+        titleClassNames='text-sm'
       >
         {(() => {
           if (props.batch.highestBid?.amount !== undefined) {
             return (
-              <span>
-                <ReactNumberFormat
-                  value={props.batch.highestBid.amount.amount}
-                  thousandSeparator
-                  decimalScale={2}
-                  displayType='text'
-                />
-                {props.batch.highestBid.amount.displaySymbol}
-              </span>
+              <ReactNumberFormat
+                value={new BigNumber(props.batch.highestBid.amount.amount).toFixed(8)}
+                thousandSeparator
+                decimalScale={8}
+                suffix={` ${props.batch.highestBid.amount.displaySymbol}`}
+                displayType='text'
+              />
             )
           }
           return 'N/A'
@@ -230,16 +222,18 @@ function AuctionsMobileCard (props: AuctionDetailProps): JSX.Element {
         <div className='w-full mt-2 space-y-2'>
           <VaultDetailsListItem
             title='Collateral For Auction'
+            titleClassNames='text-sm'
             testId='AuctionsMobileCard.CollateralsForAuction'
           >
             <VaultTokenSymbols className='justify-end' spacing='space-x-1' tokens={props.batch.collaterals} />
           </VaultDetailsListItem>
           <VaultDetailsListItem
             title='Collateral Value (USD)'
+            titleClassNames='text-sm'
             testId='AuctionsMobileCard.CollateralValue'
           >
             <ReactNumberFormat
-              value={totalCollateral}
+              value={CalculateCollateralsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
               thousandSeparator
               decimalScale={2}
               prefix='$'
