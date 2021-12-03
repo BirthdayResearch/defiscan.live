@@ -46,7 +46,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
 
         {vaults.items.length === 0 ? (
           <div className='text-gray-400 flex w-full justify-center p-12'>
-            There are no active auctions at this time.
+            There are no active auctions at this time
           </div>
         ) : (
           <>
