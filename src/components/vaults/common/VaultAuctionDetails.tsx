@@ -71,16 +71,16 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
   return (
     <div
       className='w-full flex flex-col rounded border border-gray-200 p-4 text-gray-500'
-      data-testid='AuctionsMobileCard'
+      data-testid='MobileAuctionDetailCard'
     >
       <div className='w-full flex justify-between'>
-        <div className='flex items-center font-medium text-gray-900'>
+        <div className='flex items-center font-medium text-gray-900' data-testid='MobileAuctionDetailCard.Token'>
           <TokenSymbol className='w-6 h-6 mr-1.5' />
           <span>{props.batch.loan.displaySymbol}</span>
         </div>
         <div
           className='cursor-pointer text-primary-500'
-          data-testid='AuctionsMobileCard.Toggle'
+          data-testid='MobileAuctionDetailCard.View'
         >
           <Link href={{ pathname: `/vaults/${props.vault.vaultId}/auctions/${props.batch.index}` }}>
             <a className='contents'>
@@ -89,13 +89,14 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
           </Link>
         </div>
       </div>
-      <div className='text-xs mt-1 mb-4'>
+      <div className='text-xs mt-1 mb-4' data-testid='MobileAuctionDetailCard.TimeLeft'>
         {(timeRemaining !== undefined) ? <span>{timeRemaining} left</span> : '00 hr 00 mins'}
       </div>
 
       <VaultDetailsListItem
         title='Current Highest Bid'
         titleClassNames='text-sm'
+        testId='MobileAuctionDetailCard.CurrentHighestBid'
       >
         {(() => {
           if (props.batch.highestBid?.amount !== undefined) {

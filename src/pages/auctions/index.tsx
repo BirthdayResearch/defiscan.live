@@ -9,6 +9,7 @@ import { RootState } from '@store/index'
 import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/common/VaultAuctionDetails'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
+import React from 'react'
 
 interface ActionsPageProps {
   vaults: {
@@ -22,9 +23,9 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
 
   return (
     <>
-      <Container className='pt-12 pb-20'>
-        <Head title='Auctions' />
+      <Head title='Auctions' />
 
+      <Container className='pt-12 pb-20'>
         <div className='flex items-center'>
           <h1 className='text-2xl font-medium' data-testid='AuctionsPage.Heading'>Auctions</h1>
         </div>
@@ -40,25 +41,25 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                 <OverflowTable.Header>
                   <OverflowTable.Head
                     title='Time Left'
-                    testId='AuctionPage.TimeLeft'
+                    testId='AuctionTable.TimeLeft'
                   />
                   <OverflowTable.Head
                     title='Loan Token'
-                    testId='AuctionsPage.LoanToken'
+                    testId='AuctionTable.LoanToken'
                   />
                   <OverflowTable.Head
                     title='Highest Bid'
-                    testId='AuctionsPage.HighestBid'
+                    testId='AuctionTable.HighestBid'
                     alignRight
                   />
                   <OverflowTable.Head
                     title='Collateral For Auction'
-                    testId='AuctionsPage.CollateralForAuction'
+                    testId='AuctionTable.CollateralForAuction'
                     alignRight
                   />
                   <OverflowTable.Head
                     title='Collateral Value (USD)'
-                    testId='AuctionsPage.CollateralValue'
+                    testId='AuctionTable.CollateralValue'
                     alignRight
                   />
                 </OverflowTable.Header>
@@ -82,7 +83,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
             </div>
 
             <div className='my-6 block md:hidden'>
-              <div className='flex flex-wrap space-y-2'>
+              <div className='flex flex-wrap space-y-2' data-testid='MobileAuctionDetailsCards'>
                 {vaults.items.map(vault => {
                   return vault.batches.map(batch => (
                     <MobileAuctionDetailsCard
