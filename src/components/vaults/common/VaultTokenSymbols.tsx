@@ -8,26 +8,29 @@ interface VaultTokenSymbolsProps {
 }
 
 export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
-  const remainingTokens = props.tokens.length - 3
+  const remainingTokens = props.tokens.length - 4
 
   return (
-    <div className={classNames('flex items-center space-x-5', props.className)}>
-      <div className='flex space-x-1'>
+    <div className={classNames('flex items-center', props.className)}>
+      {
+        props.tokens.length === 0 && (<div className='text-gray-500 text-sm'>N/A</div>)
+      }
+
+      <div className='flex space-x-1 items-center'>
         {props.tokens.map((loan, index) => {
           const TokenIcon = getAssetIcon(loan.symbol)
-          if (index < 3) {
+          if (index < 4) {
             if (index >= 1) {
-              return <TokenIcon className='h-6 w-6 -ml-2' key={loan.id} />
+              return <TokenIcon className='h-6 w-6' key={loan.id} />
             }
             return <TokenIcon className='h-6 w-6' key={loan.id} />
           }
           return null
         })}
+        {remainingTokens > 0 && (
+          <span className='text-xs text-gray-500'>{`+${remainingTokens}`}</span>
+        )}
       </div>
-
-      {remainingTokens > 0 && (
-        <span className='text-xs text-gray-500'>{`+${remainingTokens}`}</span>
-      )}
     </div>
   )
 }

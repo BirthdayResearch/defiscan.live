@@ -90,7 +90,7 @@ export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element 
             <div className='w-full flex flex-wrap mt-1 -my-2'>
               {
                 props.liquidationBatch.collaterals.map(collateral => (
-                  <CollateralListItem collateral={collateral} key={collateral.id} />
+                  <DesktopCollateralListItem collateral={collateral} key={collateral.id} />
                 ))
               }
             </div>
@@ -122,7 +122,7 @@ export function MobileAuctionDetails (props: AuctionDetailsProps): JSX.Element {
           <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
         </div>
 
-        <div className='flex justify-between mt-6'>
+        <div className='flex justify-between mt-4'>
           <span className='text-gray-500 text-sm'>Current Highest Bid</span>
           <div>
             {
@@ -139,7 +139,7 @@ export function MobileAuctionDetails (props: AuctionDetailsProps): JSX.Element {
           </div>
         </div>
 
-        <div className='flex justify-between mt-6'>
+        <div className='flex justify-between mt-4'>
           <span className='text-gray-500 text-sm'>Min. Starting Bid</span>
           <div>
             <div>
@@ -164,7 +164,7 @@ export function MobileAuctionDetails (props: AuctionDetailsProps): JSX.Element {
           </div>
         </div>
 
-        <div className='flex justify-between mt-6'>
+        <div className='flex justify-between mt-4'>
           <span className='text-gray-500 text-sm'>Vault ID</span>
           <VaultLink vault={props.vaultId}>
             <TextTruncate text={props.vaultId} />
@@ -178,7 +178,7 @@ export function MobileAuctionDetails (props: AuctionDetailsProps): JSX.Element {
           </div>
           {
             props.liquidationBatch.collaterals.map(collateral => (
-              <CollateralListItem collateral={collateral} key={collateral.id} />
+              <MobileCollateralListItem collateral={collateral} key={collateral.id} />
             ))
           }
         </div>
@@ -187,7 +187,7 @@ export function MobileAuctionDetails (props: AuctionDetailsProps): JSX.Element {
   )
 }
 
-function CollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.Element {
+function DesktopCollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.Element {
   const CollateralSymbol = getAssetIcon(props.collateral.symbol)
   let collateralValue: BigNumber | undefined
 
@@ -213,6 +213,50 @@ function CollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.E
           />
         </div>
         <div className='text-sm text-gray-500 text-right'>
+          {
+            (collateralValue != null) && (
+              <ReactNumberFormat
+                value={collateralValue.toFixed(2, BigNumber.ROUND_HALF_UP)}
+                displayType='text'
+                decimalScale={2}
+                prefix='$'
+                suffix=' USD'
+                fixedDecimalScale
+                thousandSeparator
+              />
+            )
+          }
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MobileCollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.Element {
+  const CollateralSymbol = getAssetIcon(props.collateral.symbol)
+  let collateralValue: BigNumber | undefined
+
+  if (props.collateral.activePrice?.active != null) {
+    const price = new BigNumber(props.collateral.activePrice.active.amount)
+    collateralValue = price.multipliedBy(props.collateral.amount)
+  }
+
+  return (
+
+    <div className='flex justify-between mt-4'>
+      <div className='flex'>
+        <CollateralSymbol className='h-6 w-6 mr-1.5' />
+        <span className='font-medium text-gray-900'>{props.collateral.displaySymbol}</span>
+      </div>
+      <div className='text-right text-gray-900'>
+        <ReactNumberFormat
+          value={props.collateral.amount}
+          displayType='text'
+          decimalScale={8}
+          fixedDecimalScale
+          thousandSeparator
+        />
+        <div className='text-sm text-gray-500'>
           {
             (collateralValue != null) && (
               <ReactNumberFormat

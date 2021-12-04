@@ -17,6 +17,7 @@ interface VaultAuctionDetailsProps {
 
 export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element {
   const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, props.blockCount ?? 0)
+  const TokenSymbol = getAssetIcon(props.batch.loan.symbol)
 
   return (
     <OverflowTable.Row>
@@ -24,7 +25,10 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
         {timeRemaining ?? '00 hr 00 mins'}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        {props.batch.loan.displaySymbol}
+        <div className='flex'>
+          <TokenSymbol className='w-6 h-6 mr-1.5' />
+          <span>{props.batch.loan.displaySymbol}</span>
+        </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         {(() => {
@@ -62,7 +66,7 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
 
 export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.Element {
   const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, props.blockCount ?? 0)
-  const LoanSymbol = getAssetIcon(props.batch.loan.displaySymbol)
+  const TokenSymbol = getAssetIcon(props.batch.loan.symbol)
 
   return (
     <div
@@ -70,8 +74,8 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
       data-testid='AuctionsMobileCard'
     >
       <div className='w-full flex justify-between'>
-        <div className='flex items-center space-x-1 font-medium'>
-          <LoanSymbol className='w-6 h-6' />
+        <div className='flex items-center font-medium text-gray-900'>
+          <TokenSymbol className='w-6 h-6 mr-1.5' />
           <span>{props.batch.loan.displaySymbol}</span>
         </div>
         <div
