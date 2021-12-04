@@ -2,11 +2,7 @@ import { Head } from '@components/commons/Head'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
-import {
-  LoanVaultActive,
-  LoanVaultLiquidated,
-  LoanVaultState
-} from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { VaultStatus } from '@components/vaults/common/VaultStatus'
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
@@ -67,9 +63,21 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
                   <OverflowTable.Head
                     alignRight
+                    title='Loans Taken'
+                    testId='VaultsTable.LoansTaken'
+                  />
+
+                  <OverflowTable.Head
+                    alignRight
                     title='Loan Value (USD)'
                     infoDesc='Loan token(s) and value (in USD) taken by a vault.'
                     testId='VaultsTable.LoansValue'
+                  />
+
+                  <OverflowTable.Head
+                    alignRight
+                    title='Collaterals'
+                    testId='VaultsTable.Collaterals'
                   />
 
                   <OverflowTable.Head
@@ -136,7 +144,10 @@ function VaultRow (props: {
       className={classNames('cursor-pointer', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
     >
       <OverflowTable.Cell sticky>
-        <TextTruncate text={props.vault.vaultId} className='text-primary-500 group-hover:underline' testId='VaultRow.VaultID' />
+        <TextTruncate
+          text={props.vault.vaultId} className='text-primary-500 group-hover:underline'
+          testId='VaultRow.VaultID'
+        />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <VaultStatus
@@ -149,23 +160,41 @@ function VaultRow (props: {
         <div className='flex space-x-6 justify-end' data-testid='VaultRow.LoansValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? (
+                ((props.liquidatedVaultDerivedValues?.loanTokens) != null) &&
+                  <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.loanTokens} />
+              )
+            : (
+              <VaultTokenSymbols tokens={props.vault.loanAmounts} />
+              )}
+        </div>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        <div className='flex space-x-6 justify-end' data-testid='VaultRow.LoansValue'>
+          {props.vault.state === LoanVaultState.IN_LIQUIDATION
+            ? (
                 props.liquidatedVaultDerivedValues?.totalLoanValue === undefined
                   ? ('N/A')
                   : (
-                    <>
-                      <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.loanTokens} />
-                      <VaultNumberValues
-                        value={props.liquidatedVaultDerivedValues.totalLoanValue}
-                        prefix='$'
-                      />
-                    </>
+                    <VaultNumberValues
+                      value={props.liquidatedVaultDerivedValues.totalLoanValue}
+                      prefix='$'
+                    />
                     )
               )
             : (
-              <>
-                <VaultTokenSymbols tokens={props.vault.loanAmounts} />
-                <VaultNumberValues value={new BigNumber(props.vault.loanValue)} prefix='$' />
-              </>
+              <VaultNumberValues value={new BigNumber(props.vault.loanValue)} prefix='$' />
+              )}
+        </div>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        <div className='flex space-x-6 justify-end' data-testid='VaultRow.Collaterals'>
+          {props.vault.state === LoanVaultState.IN_LIQUIDATION
+            ? (
+                ((props.liquidatedVaultDerivedValues?.collateralTokens) != null) &&
+                  <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.collateralTokens} />
+              )
+            : (
+              <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
               )}
         </div>
       </OverflowTable.Cell>
@@ -176,20 +205,14 @@ function VaultRow (props: {
                 props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
                   ? ('N/A')
                   : (
-                    <>
-                      <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.collateralTokens} />
-                      <VaultNumberValues
-                        value={props.liquidatedVaultDerivedValues.totalCollateralValue}
-                        prefix='$'
-                      />
-                    </>
+                    <VaultNumberValues
+                      value={props.liquidatedVaultDerivedValues.totalCollateralValue}
+                      prefix='$'
+                    />
                     )
               )
             : (
-              <>
-                <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
-                <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
-              </>
+              <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
               )}
         </div>
       </OverflowTable.Cell>
