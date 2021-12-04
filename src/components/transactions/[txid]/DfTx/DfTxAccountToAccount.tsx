@@ -65,11 +65,17 @@ function BalanceRow (props: {
   balance: TokenBalance
 }): JSX.Element {
   return (
-    <AdaptiveList.Row name='Amount'>
-      <div className='flex flex-row'>
-        <span data-testid='DfTxAccountToAccount.toAmount'>{props.balance.amount.toFixed(8)}</span>
-        <TokenSymbol tokenId={props.balance.token} className='ml-1' testId='DfTxAccountToAccount.toSymbol' />
-      </div>
-    </AdaptiveList.Row>
+    <>
+      <AdaptiveList.Row name='Token'>
+        <div className='flex flex-row'>
+          <TokenSymbol tokenId={props.balance.token} className='ml-1' testId='DfTxAccountToAccount.toSymbol' />
+        </div>
+      </AdaptiveList.Row>
+      <AdaptiveList.Row name='Amount'>
+        <div className='flex flex-row'>
+          <span data-testid='DfTxAccountToAccount.toAmount'>{props.balance.amount.toFixed(8)}</span>
+        </div>
+      </AdaptiveList.Row>
+    </>
   )
 }
