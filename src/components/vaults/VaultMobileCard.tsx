@@ -35,13 +35,13 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
           />
         </div>
         <div
-          className='flex items-center px-2 text-primary-500 cursor-pointer'
+          className='text-gray-600 cursor-pointer'
           onClick={() => setIsOpen(!isOpen)}
           data-testid='VaultMobileCard.Toggle'
         >
           {(!isOpen)
-            ? (<>VIEW<MdOutlineKeyboardArrowDown size={28} /></>)
-            : (<>HIDE<MdOutlineKeyboardArrowUp size={28} /></>)}
+            ? (<MdOutlineKeyboardArrowDown size={28} />)
+            : (<MdOutlineKeyboardArrowUp size={28} />)}
         </div>
       </div>
 

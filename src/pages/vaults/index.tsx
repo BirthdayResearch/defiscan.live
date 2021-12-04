@@ -53,6 +53,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
                   <OverflowTable.Head
                     title='Vault ID'
                     testId='VaultsTable.VaultID'
+                    sticky
                   />
 
                   <OverflowTable.Head
@@ -63,8 +64,8 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
                   <OverflowTable.Head
                     alignRight
-                    title='Loans Taken'
-                    testId='VaultsTable.LoansTaken'
+                    title='Loans'
+                    testId='VaultsTable.Loans'
                   />
 
                   <OverflowTable.Head
