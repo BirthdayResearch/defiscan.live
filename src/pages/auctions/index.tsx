@@ -6,10 +6,7 @@ import { Container } from '@components/commons/Container'
 import { LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
-import {
-  AuctionsTableRow,
-  MobileAuctionDetailsCard
-} from '@components/vaults/common/VaultAuctionDetails'
+import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/common/VaultAuctionDetails'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
 
@@ -79,6 +76,9 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                   ))
                 })}
               </OverflowTable>
+              <div className='flex justify-end mt-4'>
+                <CursorPagination pages={vaults.pages} path='/auctions' />
+              </div>
             </div>
 
             <div className='my-6 block md:hidden'>
@@ -94,6 +94,9 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                   ))
                 })}
               </div>
+              <div className='flex justify-end mt-4'>
+                <CursorPagination pages={vaults.pages} path='/auctions' />
+              </div>
             </div>
           </>
         )}
@@ -105,7 +108,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<ActionsPageProps>> {
   const next = CursorPagination.getNext(context)
   try {
-    const items = await getWhaleApiClient(context).loan.listAuction(30, next)
+    const items = await getWhaleApiClient(context).loan.listAuction(10, next)
     return {
       props: {
         vaults: {
