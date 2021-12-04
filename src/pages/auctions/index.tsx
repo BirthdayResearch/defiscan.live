@@ -10,6 +10,7 @@ import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/c
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
 import React from 'react'
+import { EmptySection } from '@components/commons/sections/EmptySection'
 
 interface ActionsPageProps {
   vaults: {
@@ -31,9 +32,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
         </div>
 
         {vaults.items.length === 0 ? (
-          <div className='text-gray-400 flex w-full justify-center p-12'>
-            There are no active auctions at this time
-          </div>
+          <EmptySection message='There are no active auctions at this time' />
         ) : (
           <>
             <div className='my-6 hidden md:block'>

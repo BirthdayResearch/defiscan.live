@@ -1,6 +1,6 @@
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
-import { CollapsibleSection } from '@components/commons/CollapsibleSection'
+import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import React from 'react'
 import BigNumber from 'bignumber.js'
@@ -9,6 +9,7 @@ import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsList
 import { LoanTotalInterestRate } from '@components/vaults/[vaultid]/LoanTotalInterestRate'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
+import { EmptySection } from '@components/commons/sections/EmptySection'
 
 interface VaultIdLoansDetailsProps {
   vault: {
@@ -27,11 +28,9 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
 
         {props.loans.length === 0
           ? (
-            <div className='text-gray-400 flex w-full justify-center p-12'>
-              There are no loans taken in the vault at this time
-            </div>
+            <EmptySection message='There are no loans taken in the vault at this time' />
             ) : (
-              <OverflowTable className='mt-3'>
+              <OverflowTable className='mt-4'>
                 <OverflowTable.Header>
                   <OverflowTable.Head title='Loan Token' testId='VaultLoansDesktop.LoanToken' />
                   <OverflowTable.Head title='Loan Value (USD)' testId='VaultLoansDesktop.LoanValue' alignRight />
@@ -59,13 +58,11 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
         heading='Loan Details' className='block md:hidden'
         testId='VaultCollapsibleSection.LoanDetails'
       >
-        <div className='flex flex-col items-center'>
-          {props.loans.length === 0
-            ? (
-              <div className='text-gray-400 flex w-full justify-center p-12'>
-                There are no loans taken in the vault at this time
-              </div>
-              ) : (
+        {props.loans.length === 0
+          ? (
+            <EmptySection message='There are no loans taken in the vault at this time' />
+            ) : (
+              <div className='flex flex-col items-center'>
                 <div className='w-full' data-testid='LoanDetailsMobile.Cards'>
                   {props.loans.map((loan) => (
                     <VaultLoanDetailsCard
@@ -76,8 +73,8 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
                     />
                   ))}
                 </div>
-              )}
-        </div>
+              </div>
+            )}
       </CollapsibleSection>
     </>
   )

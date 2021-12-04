@@ -21,6 +21,7 @@ import {
 } from '../../utils/vaults/LiquidatedVaultDerivedValues'
 import { VaultStatsBar } from '@components/vaults/VaultStatsBar'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
+import { EmptySection } from '@components/commons/sections/EmptySection'
 
 interface VaultsPageData {
   vaults: {
@@ -43,9 +44,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
         <div className='my-6 hidden md:block'>
           {vaults.items.length === 0
             ? (
-              <div className='text-gray-400 flex w-full justify-center p-12'>
-                There are no vaults at this time
-              </div>
+              <EmptySection message='There are no vaults at this time' />
               )
             : (
               <OverflowTable>

@@ -1,6 +1,6 @@
 import { LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
 import React from 'react'
-import { CollapsibleSection } from '@components/commons/CollapsibleSection'
+import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
 import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/common/VaultAuctionDetails'
