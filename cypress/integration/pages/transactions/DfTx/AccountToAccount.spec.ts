@@ -30,7 +30,7 @@ context('/transactions/[txid] - DfTx account to account on desktop', () => {
   })
 
   it('should have DfTxAccountToAccount toSymbol', () => {
-    cy.findByTestId('DfTxAccountToAccount.toSymbol').should('have.text', 'BTC-DFI')
+    cy.findByTestId('DfTxAccountToAccount.toSymbol').should('have.text', 'dBTC-DFI')
   })
 })
 
@@ -66,6 +66,6 @@ context('/transactions/[txid] - DfTx account to account on mobile', () => {
   })
 
   it('should have DfTxAccountToAccount toSymbol', () => {
-    cy.findByTestId('DfTxAccountToAccount.toSymbol').should('have.text', 'BTC-DFI')
+    cy.findByTestId('DfTxAccountToAccount.toSymbol').should('have.text', 'dBTC-DFI')
   })
 })

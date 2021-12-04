@@ -25,7 +25,7 @@ context('/transactions/[txid] - DfTx Pool Remove Liquidity on desktop', () => {
   })
 
   it('should have DfTxPoolRemoveLiquidity Symbol', () => {
-    cy.findByTestId('DfTxPoolRemoveLiquidity.Symbol').should('have.text', 'USDT-DFI')
+    cy.findByTestId('DfTxPoolRemoveLiquidity.Symbol').should('have.text', 'dUSDT-DFI')
   })
 })
 
@@ -56,6 +56,6 @@ context('/transactions/[txid] - DfTx Pool Removed Liquidity on mobile', () => {
   })
 
   it('should have DfTxPoolRemoveLiquidity Symbol', () => {
-    cy.findByTestId('DfTxPoolRemoveLiquidity.Symbol').should('have.text', 'USDT-DFI')
+    cy.findByTestId('DfTxPoolRemoveLiquidity.Symbol').should('have.text', 'dUSDT-DFI')
   })
 })
