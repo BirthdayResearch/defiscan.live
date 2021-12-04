@@ -8,7 +8,7 @@ interface TokenSymbolProps {
   tokenId: number
   className?: string
   testId?: string
-  symbolLeft: boolean
+  symbolLeft?: boolean
 }
 
 export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
@@ -45,7 +45,7 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
   return (
     <div className={classNames('flex items-center')}>
       <div
-        className={classNames(props.className, (props.symbolLeft ? 'ml-1.5 order-last' : 'mr-1.5 order-first'))}
+        className={classNames(props.className, (props.symbolLeft === undefined || !props.symbolLeft ? 'mr-1.5' : 'ml-1.5 order-last'))}
         data-testid={props.testId}
       >
         {tokenData.displaySymbol}{!tokenData.isDAT && `#${tokenData.id}`}
