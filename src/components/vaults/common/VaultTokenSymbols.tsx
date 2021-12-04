@@ -13,7 +13,7 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
   return (
     <div className={classNames('flex items-center', props.className)}>
       {
-        props.tokens.length === 0 && (<div className='text-gray-500 text-sm'>N/A</div>)
+        props.tokens.length === 0 && (<span>N/A</span>)
       }
 
       <div className='flex space-x-1 items-center'>
@@ -28,7 +28,7 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
           return null
         })}
         {remainingTokens > 0 && (
-          <span className='text-xs text-gray-500'>{`+${remainingTokens}`}</span>
+          <span className='text-xs text-gray-500 font-medium inline-block align-middle'>{`+${remainingTokens}`}</span>
         )}
       </div>
     </div>

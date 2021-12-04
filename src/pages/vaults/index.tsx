@@ -157,7 +157,7 @@ function VaultRow (props: {
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className='flex space-x-6 justify-end' data-testid='VaultRow.LoansValue'>
+        <div className='flex justify-end' data-testid='VaultRow.LoansValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? (
                 ((props.liquidatedVaultDerivedValues?.loanTokens) != null) &&
@@ -169,7 +169,7 @@ function VaultRow (props: {
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className='flex space-x-6 justify-end' data-testid='VaultRow.LoansValue'>
+        <div className='flex justify-end' data-testid='VaultRow.LoansValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? (
                 props.liquidatedVaultDerivedValues?.totalLoanValue === undefined
@@ -187,7 +187,7 @@ function VaultRow (props: {
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className='flex space-x-6 justify-end' data-testid='VaultRow.Collaterals'>
+        <div className='flex justify-end' data-testid='VaultRow.Collaterals'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? (
                 ((props.liquidatedVaultDerivedValues?.collateralTokens) != null) &&
@@ -199,7 +199,7 @@ function VaultRow (props: {
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className='flex space-x-6 justify-end' data-testid='VaultRow.CollateralValue'>
+        <div className='flex justify-end' data-testid='VaultRow.CollateralValue'>
           {props.vault.state === LoanVaultState.IN_LIQUIDATION
             ? (
                 props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
