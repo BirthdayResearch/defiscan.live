@@ -8,6 +8,7 @@ interface TokenSymbolProps {
   tokenId: number
   className?: string
   testId?: string
+  symbolLeft?: boolean
 }
 
 export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
@@ -42,7 +43,13 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
   }
 
   return (
-    <div className='flex items-center space-x-1'>
+    <div className={classNames('flex items-center')}>
+      <div
+        className={classNames(props.className, (props.symbolLeft === undefined || !props.symbolLeft ? 'mr-1.5' : 'ml-1.5 order-last'))}
+        data-testid={props.testId}
+      >
+        {tokenData.displaySymbol}{!tokenData.isDAT && `#${tokenData.id}`}
+      </div>
       {(() => {
         if (tokenData.isDAT) {
           const AssetIcon = getAssetIcon(tokenData.symbol)
@@ -52,9 +59,6 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
         const TokenIcon = getTokenIcon(tokenData.symbol)
         return <TokenIcon className='h-6 w-6' />
       })()}
-      <div className={classNames(props.className)} data-testid={props.testId}>
-        {tokenData.displaySymbol}{!tokenData.isDAT && `#${tokenData.id}`}
-      </div>
     </div>
   )
 }
