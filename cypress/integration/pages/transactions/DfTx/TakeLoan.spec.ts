@@ -24,8 +24,7 @@ context('/transactions/[txid] - Take Loan on desktop', () => {
   })
 
   it('should have a clickable vaultId', () => {
-    const a = cy.findByTestId('transaction-take-loan-vaultId').children('a')
-    a.contains('27a8209d6b851d9aa4b1402aa5e50368c40aaf360eb547a905e1d8b4c5a2e2d9')
+    cy.findByTestId('transaction-take-loan-vaultId').children('a').contains('27a8209d6b851d9aa4b1402aa5e50368c40aaf360eb547a905e1d8b4c5a2e2d9')
   })
 
   it('should have a signature', () => {
