@@ -10,6 +10,12 @@ interface DfTxTakeLoanProps {
   dftx: DfTx<TakeLoan>
 }
 
+interface Stack {
+  type: string
+  code?: string
+  hex?: string
+}
+
 export function DfTxTakeLoan (props: DfTxTakeLoanProps): JSX.Element {
   return (
     <>
@@ -37,7 +43,7 @@ export function DfTxTakeLoan (props: DfTxTakeLoanProps): JSX.Element {
               <AdaptiveTable.Head>Type</AdaptiveTable.Head>
               <AdaptiveTable.Head>Code/Hex</AdaptiveTable.Head>
             </AdaptiveTable.Header>
-            {props.dftx.data.to.stack.map((stack, i) => (
+            {props.dftx.data.to.stack.map((stack: Stack, i) => (
               <AdaptiveTable.Row key={`stack-to-row-${i}`}>
                 <AdaptiveTable.Cell testId={`transaction-take-loan-data-to-stack-type-${i}`}>{stack.type}</AdaptiveTable.Cell>
                 <AdaptiveTable.Cell testId={`transaction-take-loan-data-to-stack-code-${i}`}>{stack.code !== undefined ? stack.code : stack.hex}</AdaptiveTable.Cell>
