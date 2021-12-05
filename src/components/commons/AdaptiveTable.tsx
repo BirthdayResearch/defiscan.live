@@ -53,10 +53,10 @@ function Head (props: PropsWithChildren<{ className?: string }>): JSX.Element {
   )
 }
 
-function Cell (props: PropsWithChildren<{ className?: string, title?: string }>): JSX.Element {
+function Cell (props: PropsWithChildren<{ className?: string, title?: string, testId?: string}>): JSX.Element {
   return (
     <div
-      data-testid='AdaptiveTable.Cell'
+      data-testid={`${props.testId === undefined ? 'AdaptiveTable.Cell' : props.testId}`}
       className={classNames('table-cell w-full sm:w-auto flex-grow', props.className)}
     >
       <div className='lg:hidden py-2 px-6 bg-gray-50 text-black text-opacity-60 text-xs font-semibold'>

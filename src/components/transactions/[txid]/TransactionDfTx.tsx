@@ -33,8 +33,10 @@ import {
   CDepositToVault,
   CCloseVault,
   CCompositeSwap,
-  DfTx
+  DfTx,
+  CTakeLoan
 } from '@defichain/jellyfish-transaction'
+import { DfTxTakeLoan } from '@components/transactions/[txid]/DfTx/DfTxTakeLoan'
 import { DfTxUnmapped } from '@components/transactions/[txid]/DfTx/DfTxUnmapped'
 import { DfTxPoolAddLiquidity } from '@components/transactions/[txid]/DfTx/DfTxPoolAddLiquidity'
 import { DfTxResignMasternode } from '@components/transactions/[txid]/DfTx/DfTxResignMasternode'
@@ -154,6 +156,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxDepositToVault dftx={props.dftx} />
     case CCloseVault.OP_CODE:
       return <DfTxCloseVault dftx={props.dftx} />
+    case CTakeLoan.OP_CODE:
+      return <DfTxTakeLoan dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
