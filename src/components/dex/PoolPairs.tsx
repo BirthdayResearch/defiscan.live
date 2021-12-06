@@ -5,8 +5,6 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store/index'
 import React from 'react'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
@@ -42,9 +40,6 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
 }
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
-  const emissionTotal = useSelector((state: RootState) => state.stats.emission.total)
-  const dfiPrice = useSelector((state: RootState) => state.stats.price.usdt)
-
   return (
     <AdaptiveTable.Row>
       <AdaptiveTable.Cell title='PAIR' className='align-middle'>
@@ -108,71 +103,26 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
       </AdaptiveTable.Cell>
       <AdaptiveTable.Cell title='APR' className='align-middle lg:text-right'>
         {(() => {
-          const percent = getPercent(data)
-          if (percent === 0) {
-            if (data.apr !== undefined) {
-              return (
-                <NumberFormat
-                  value={data.apr.total * 100}
-                  displayType='text'
-                  thousandSeparator
-                  decimalScale={2}
-                  fixedDecimalScale
-                  suffix=' %'
-                />
-              )
-            } else {
-              return (
-                <div className='text-yellow-500'>
-                  Error
-                </div>
-              )
-            }
+          if (data.apr !== undefined) {
+            return (
+              <NumberFormat
+                value={data.apr.total * 100}
+                displayType='text'
+                thousandSeparator
+                decimalScale={2}
+                fixedDecimalScale
+                suffix=' %'
+              />
+            )
+          } else {
+            return (
+              <div className='text-yellow-500'>
+                Error
+              </div>
+            )
           }
-
-          const yearlyUSD = getYearlyCustomRewardUSD(percent, new BigNumber(dfiPrice ?? 0), new BigNumber(emissionTotal ?? 0))
-          const total = yearlyUSD.div(data.totalLiquidity.usd ?? 1).toNumber()
-          return (
-            <NumberFormat
-              value={total * 100}
-              displayType='text'
-              thousandSeparator
-              decimalScale={2}
-              fixedDecimalScale
-              suffix=' %'
-            />
-          )
         })()}
       </AdaptiveTable.Cell>
     </AdaptiveTable.Row>
   )
-}
-
-function getPercent (data: PoolPairData): number {
-  const reward = {
-    17: 0.50000000,
-    18: 0.10980000,
-    25: 0.04990000,
-    32: 0.02390000,
-    33: 0.03350000,
-    35: 0.02630000,
-    36: 0.03780000,
-    38: 0.07860000,
-    39: 0.04790000,
-    40: 0.01070000,
-    41: 0.00960000,
-    42: 0.02220000,
-    43: 0.01080000,
-    44: 0.00800000,
-    45: 0.01440000,
-    46: 0.01660000
-  }
-  return reward[data.id] ?? 0
-}
-
-function getYearlyCustomRewardUSD (percent: number, dfiPrice: BigNumber, emissionTotal: BigNumber): BigNumber {
-  return new BigNumber(emissionTotal.multipliedBy(percent).multipliedBy(0.2468))
-    .multipliedBy(60 * 60 * 24 / 30) // 30 seconds = 1 block
-    .multipliedBy(365) // 1 year
-    .multipliedBy(dfiPrice)
 }
