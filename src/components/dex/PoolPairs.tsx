@@ -130,7 +130,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             }
           }
 
-          const yearlyUSD = getYearlyCustomRewardUSD(percent, dfiPrice ?? 0, emissionTotal ?? 0)
+          const yearlyUSD = getYearlyCustomRewardUSD(percent, new BigNumber(dfiPrice ?? 0), new BigNumber(emissionTotal ?? 0))
           const total = yearlyUSD.div(data.totalLiquidity.usd ?? 1).toNumber()
           return (
             <NumberFormat
@@ -170,9 +170,9 @@ function getPercent (data: PoolPairData): number {
   return reward[data.id] ?? 0
 }
 
-function getYearlyCustomRewardUSD (percent: number, dfiPrice: number, emissionTotal: number): BigNumber {
-  return new BigNumber(emissionTotal * 0.2468 * percent)
-    .times(60 * 60 * 24 / 30) // 30 seconds = 1 block
-    .times(365) // 1 year
-    .times(dfiPrice)
+function getYearlyCustomRewardUSD (percent: number, dfiPrice: BigNumber, emissionTotal: BigNumber): BigNumber {
+  return new BigNumber(emissionTotal.multipliedBy(percent).multipliedBy(0.2468))
+    .multipliedBy(60 * 60 * 24 / 30) // 30 seconds = 1 block
+    .multipliedBy(365) // 1 year
+    .multipliedBy(dfiPrice)
 }

@@ -1,8 +1,11 @@
-import { PropsWithChildren, ReactNode } from 'react'
+import React, { PropsWithChildren, ReactNode } from 'react'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { Link } from '@components/commons/link/Link'
 import ReactNumberFormat from 'react-number-format'
 import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
+import BigNumber from 'bignumber.js'
+import { useSelector } from 'react-redux'
+import { RootState } from '@store/index'
 
 export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPairData[] }): JSX.Element {
   return (
@@ -50,6 +53,9 @@ function LiquidityPoolCard (
     tokenASymbol: string
     tokenBSymbol: string
   }): JSX.Element {
+  const emissionTotal = useSelector((state: RootState) => state.stats.emission.total)
+  const dfiPrice = useSelector((state: RootState) => state.stats.price.usdt)
+
   return (
     <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3'>
       <PoolPairSymbol
@@ -57,15 +63,44 @@ function LiquidityPoolCard (
         textClassName='ml-11 font-medium'
       />
       <div className='my-auto'>
-        <LiquidityCardStat label='APR'>
-          <ReactNumberFormat
-            displayType='text'
-            thousandSeparator
-            value={props.apr}
-            decimalScale={2}
-            suffix='%'
-          />
-        </LiquidityCardStat>
+        {(() => {
+          const percent = getPercent(Number(props.poolId))
+          if (percent === 0) {
+            if (props.apr !== undefined) {
+              return (
+                <LiquidityCardStat label='APR'>
+                  <ReactNumberFormat
+                    displayType='text'
+                    thousandSeparator
+                    value={props.apr}
+                    decimalScale={2}
+                    suffix='%'
+                  />
+                </LiquidityCardStat>
+              )
+            } else {
+              return (
+                <div className='text-yellow-500'>
+                  Error
+                </div>
+              )
+            }
+          }
+
+          const yearlyUSD = getYearlyCustomRewardUSD(percent, new BigNumber(dfiPrice ?? 0), new BigNumber(emissionTotal ?? 0))
+          const total = yearlyUSD.div(props.totalLiquidity ?? 1).toNumber()
+          return (
+            <LiquidityCardStat label='APR'>
+              <ReactNumberFormat
+                displayType='text'
+                thousandSeparator
+                value={total * 100}
+                decimalScale={2}
+                suffix='%'
+              />
+            </LiquidityCardStat>
+          )
+        })()}
         <LiquidityCardStat label='Liquidity'>
           <ReactNumberFormat
             displayType='text'
@@ -103,4 +138,33 @@ function LiquidityCardStat ({
       <div className='table-cell pl-2 md:pl-4'>{children}</div>
     </div>
   )
+}
+
+function getPercent (id: number): number {
+  const reward = {
+    17: 0.50000000,
+    18: 0.10980000,
+    25: 0.04990000,
+    32: 0.02390000,
+    33: 0.03350000,
+    35: 0.02630000,
+    36: 0.03780000,
+    38: 0.07860000,
+    39: 0.04790000,
+    40: 0.01070000,
+    41: 0.00960000,
+    42: 0.02220000,
+    43: 0.01080000,
+    44: 0.00800000,
+    45: 0.01440000,
+    46: 0.01660000
+  }
+  return reward[id] ?? 0
+}
+
+function getYearlyCustomRewardUSD (percent: number, dfiPrice: BigNumber, emissionTotal: BigNumber): BigNumber {
+  return new BigNumber(emissionTotal.multipliedBy(percent).multipliedBy(0.2468))
+    .multipliedBy(60 * 60 * 24 / 30) // 30 seconds = 1 block
+    .multipliedBy(365) // 1 year
+    .multipliedBy(dfiPrice)
 }
