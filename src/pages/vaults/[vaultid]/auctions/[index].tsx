@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { DesktopAuctionDetails, MobileAuctionDetails } from '@components/vaults/[vaultid]/auctions/AuctionDetails'
 import { AuctionDetailsHeading } from '@components/vaults/[vaultid]/auctions/AuctionDetailsHeading'
+import { EmptySection } from '@components/commons/sections/EmptySection'
 
 interface ActionsPageProps {
   vault: LoanVaultLiquidated
@@ -98,9 +99,7 @@ function BiddingHistory (): JSX.Element {
       <h2 className='text-xl font-semibold mt-8' data-testid='BiddingHistory.Heading'>
         Bidding Details
       </h2>
-      <div className='text-gray-400 flex w-full justify-center p-12'>
-        Bidding history is not supported at this time
-      </div>
+      <EmptySection message='Bidding history is not supported at this time' />
     </>
   )
 }
