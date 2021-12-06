@@ -6,6 +6,7 @@ import ReactNumberFormat from 'react-number-format'
 import { VaultLink } from '@components/commons/link/VaultLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { MinNextBid } from '@components/auctions/commons/MinNextBid'
 
 interface AuctionDetailsProps {
   vaultId: string
@@ -35,20 +36,12 @@ export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element 
               <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
             </div>
             <div className='w-1/2 lg:w-1/4 flex flex-wrap p-4'>
-              <div className='w-full text-gray-500 text-sm'>Current Highest Bid</div>
-              <div>
-                {
-                  props.liquidationBatch.highestBid === undefined ? (
-                    <span>N/A</span>
-                  )
-                    : (
-                      <>
-                        <span>{new BigNumber(props.liquidationBatch.highestBid.amount.amount).toFixed(8)}</span>
-                        <span className='ml-1'>{props.liquidationBatch.loan.displaySymbol}</span>
-                      </>
-                      )
-                }
-              </div>
+              <div className='w-full text-gray-500 text-sm'>Min. Next Bid</div>
+              <MinNextBid
+                displaySymbol={props.liquidationBatch.loan.displaySymbol}
+                loan={props.liquidationBatch.loan}
+                highestBid={props.liquidationBatch.highestBid?.amount.amount}
+              />
             </div>
             <div className='w-1/2 lg:w-1/4 p-4 flex flex-wrap'>
               <div className='w-full text-gray-500 text-sm'>Min. Starting Bid</div>
@@ -123,20 +116,12 @@ export function MobileAuctionDetails (props: AuctionDetailsProps): JSX.Element {
         </div>
 
         <div className='flex justify-between mt-4'>
-          <span className='text-gray-500 text-sm'>Current Highest Bid</span>
-          <div>
-            {
-              props.liquidationBatch.highestBid === undefined ? (
-                <span>N/A</span>
-              )
-                : (
-                  <>
-                    <span>{new BigNumber(props.liquidationBatch.highestBid.amount.amount).toFixed(8)}</span>
-                    <span className='ml-1'>{props.liquidationBatch.loan.displaySymbol}</span>
-                  </>
-                  )
-            }
-          </div>
+          <span className='text-gray-500 text-sm'>Min. Next Bid</span>
+          <MinNextBid
+            displaySymbol={props.liquidationBatch.loan.displaySymbol}
+            loan={props.liquidationBatch.loan}
+            highestBid={props.liquidationBatch.highestBid?.amount.amount}
+          />
         </div>
 
         <div className='flex justify-between mt-4'>

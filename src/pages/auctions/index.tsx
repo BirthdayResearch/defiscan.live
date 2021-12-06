@@ -47,8 +47,8 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                     testId='AuctionTable.LoanToken'
                   />
                   <OverflowTable.Head
-                    title='Highest Bid'
-                    testId='AuctionTable.HighestBid'
+                    title='Min. Next Bid'
+                    testId='AuctionTable.MinNextBid'
                     alignRight
                   />
                   <OverflowTable.Head
