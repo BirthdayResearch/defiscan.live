@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react'
-import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
 
 interface CollapsibleSectionProps {
   children: ReactNode
@@ -25,9 +25,9 @@ export function CollapsibleSection (props: CollapsibleSectionProps): JSX.Element
         </h2>
         {(() => {
           if (isOpen) {
-            return <IoIosArrowUp className='h-6 w-6 text-gray-900' />
+            return <MdOutlineKeyboardArrowUp className='h-6 w-6 text-gray-900' />
           }
-          return <IoIosArrowDown className='h-6 w-6 text-gray-900' />
+          return <MdOutlineKeyboardArrowDown className='h-6 w-6 text-gray-900' />
         })()}
       </div>
       {isOpen && (

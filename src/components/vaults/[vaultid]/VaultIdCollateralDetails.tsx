@@ -1,4 +1,4 @@
-import { CollapsibleSection } from '@components/commons/CollapsibleSection'
+import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
@@ -7,6 +7,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
+import { EmptySection } from '@components/commons/sections/EmptySection'
 
 export function VaultIdCollateralDetails (props: { collateralValue: string, vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (
@@ -19,9 +20,7 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
 
         {props.collaterals.length === 0
           ? (
-            <div className='text-gray-400 flex w-full justify-center p-12'>
-              There are no collaterals in the vault at this time
-            </div>
+            <EmptySection message='There are no collaterals in the vault at this time' />
             ) : (
               <div
                 className='mt-3 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch'
@@ -43,9 +42,7 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
       >
         {props.collaterals.length === 0
           ? (
-            <div className='text-gray-400 flex w-full justify-center p-8'>
-              There are no collaterals in the vault at this times
-            </div>
+            <EmptySection message='There are no collaterals in the vault at this time' />
             ) : (
               <div
                 className='mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'
@@ -82,11 +79,11 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
           </span>
         </div>
         {(compositionPercentage != null) &&
-        (
-          <div className='font-medium text-gray-900'>
-            <VaultNumberValues value={compositionPercentage.multipliedBy(100)} suffix='%' />
-          </div>
-        )}
+          (
+            <div className='font-medium text-gray-900'>
+              <VaultNumberValues value={compositionPercentage.multipliedBy(100)} suffix='%' />
+            </div>
+          )}
       </div>
       <div className='mt-4'>
         <div className='text-sm text-gray-500' data-testid='CollateralCard.CollateralAmountTitle'>Collateral Amount
@@ -105,12 +102,12 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
           />
           <div className='text-sm text-gray-500'>
             {(usdAmount != null) &&
-            (
-              <div className='flex'>
-                <span className='ml-0.5 mr-1'>/</span>
-                <VaultNumberValues value={new BigNumber(usdAmount)} prefix='$' />
-              </div>
-            )}
+              (
+                <div className='flex'>
+                  <span className='ml-0.5 mr-1'>/</span>
+                  <VaultNumberValues value={new BigNumber(usdAmount)} prefix='$' />
+                </div>
+              )}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ context('/vaults', () => {
   })
 
   beforeEach(() => {
-    cy.viewport('macbook-13')
+    cy.viewport('macbook-16')
   })
 
   it('should have Vaults Stat Bar', () => {
@@ -22,10 +22,14 @@ context('/vaults', () => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
 
+    cy.findByTestId('VaultsTable.Loans').should('be.visible').should('have.text', 'Loans')
+
     cy.findByTestId('VaultsTable.LoansValue').should('be.visible').should('have.text', 'Loan Value (USD)')
     cy.findByTestId('VaultsTable.LoansValue').within(() => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
+
+    cy.findByTestId('VaultsTable.Collaterals').should('be.visible').should('have.text', 'Collaterals')
 
     cy.findByTestId('VaultsTable.CollateralValue').should('be.visible').should('have.text', 'Collateral Value (USD)')
     cy.findByTestId('VaultsTable.CollateralValue').within(() => {
@@ -43,9 +47,9 @@ context('/vaults', () => {
     })
   })
 
-  it('should have 6 cells in each row', function () {
+  it('should have 8 cells in each row', function () {
     cy.findAllByTestId('OverflowTable.Row').within(() => {
-      cy.findAllByTestId('OverflowTable.Cell').should('have.length', 6).should('be.visible')
+      cy.findAllByTestId('OverflowTable.Cell').should('have.length', 8).should('be.visible')
     })
   })
 })
@@ -70,7 +74,9 @@ context('/vaults on mobile', () => {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Vault ID').should('not.be.visible')
       cy.wrap(ele).findByText('Status').should('not.be.visible')
+      cy.wrap(ele).findByText('Loans').should('not.be.visible')
       cy.wrap(ele).findByText('Loan Value (USD)').should('not.be.visible')
+      cy.wrap(ele).findByText('Collaterals').should('not.be.visible')
       cy.wrap(ele).findByText('Collateral Value (USD)').should('not.be.visible')
       cy.wrap(ele).findByText('Collateralization Ratio').should('not.be.visible')
       cy.wrap(ele).findByText('Min Collateralization Ratio').should('not.be.visible')
