@@ -8,6 +8,8 @@ import { CalculateCollateralsValue } from '../../../utils/vaults/CalculateCollat
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
+import { MinNextBid } from '@components/auctions/commons/MinNextBid'
+import React from 'react'
 
 interface VaultAuctionDetailsProps {
   batch: LoanVaultLiquidationBatch
@@ -31,20 +33,11 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        {(() => {
-          if (props.batch.highestBid?.amount !== undefined) {
-            return (
-              <ReactNumberFormat
-                value={new BigNumber(props.batch.highestBid.amount.amount).toFixed(8)}
-                thousandSeparator
-                decimalScale={8}
-                suffix={` ${props.batch.highestBid.amount.displaySymbol}`}
-                displayType='text'
-              />
-            )
-          }
-          return 'N/A'
-        })()}
+        <MinNextBid
+          displaySymbol={props.batch.loan.displaySymbol}
+          loan={props.batch.loan}
+          highestBid={props.batch.highestBid?.amount.amount}
+        />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} />
@@ -94,24 +87,15 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
       </div>
 
       <VaultDetailsListItem
-        title='Current Highest Bid'
+        title='Min. Next Bid'
         titleClassNames='text-sm'
-        testId='MobileAuctionDetailCard.CurrentHighestBid'
+        testId='MobileAuctionDetailCard.MinNextBid'
       >
-        {(() => {
-          if (props.batch.highestBid?.amount !== undefined) {
-            return (
-              <ReactNumberFormat
-                value={new BigNumber(props.batch.highestBid.amount.amount).toFixed(8)}
-                thousandSeparator
-                decimalScale={8}
-                suffix={` ${props.batch.highestBid.amount.displaySymbol}`}
-                displayType='text'
-              />
-            )
-          }
-          return 'N/A'
-        })()}
+        <MinNextBid
+          displaySymbol={props.batch.loan.displaySymbol}
+          loan={props.batch.loan}
+          highestBid={props.batch.highestBid}
+        />
       </VaultDetailsListItem>
 
       <div className='w-full mt-2 space-y-2'>
