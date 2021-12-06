@@ -145,7 +145,7 @@ function VaultRow (props: {
     >
       <OverflowTable.Cell sticky>
         <TextTruncate
-          text={props.vault.vaultId} className='text-primary-500 group-hover:underline'
+          text={props.vault.vaultId} className='text-grey-500 group-hover:underline'
           testId='VaultRow.VaultID'
         />
       </OverflowTable.Cell>
