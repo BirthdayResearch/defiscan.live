@@ -63,7 +63,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
                   <OverflowTable.Head
                     alignRight
-                    title='Loans'
+                    title='Loan Taken'
                     testId='VaultsTable.Loans'
                   />
 
@@ -89,14 +89,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
 
                   <OverflowTable.Head
                     alignRight
-                    title='Collateralization Ratio'
-                    infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-                    testId='VaultsTable.CollateralizationRatio'
-                  />
-
-                  <OverflowTable.Head
-                    alignRight
-                    title='Min Collateralization Ratio'
+                    title='Collateralization Ratio / Min.'
                     infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
                     testId='VaultsTable.MinCollateralizationRatio'
                   />
@@ -145,7 +138,7 @@ function VaultRow (props: {
     >
       <OverflowTable.Cell sticky>
         <TextTruncate
-          text={props.vault.vaultId} className='text-grey-500 group-hover:underline'
+          text={props.vault.vaultId} className='text-grey-500 group-hover:underline capitalize'
           testId='VaultRow.VaultID'
         />
       </OverflowTable.Cell>
@@ -216,33 +209,39 @@ function VaultRow (props: {
               )}
         </div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell alignRight>
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? (
-              props.liquidatedVaultDerivedValues?.totalCollateralRatio === undefined
-                ? ('N/A')
-                : (
-                  <VaultCollateralizationRatio
-                    collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
-                    loanScheme={props.vault.loanScheme}
-                    vaultState={props.vault.state}
-                  />
-                  )
-            )
-          : (<VaultCollateralizationRatio
-              collateralizationRatio={props.vault.collateralRatio}
-              loanScheme={props.vault.loanScheme}
-              vaultState={props.vault.state}
-              testId='VaultRow.CollateralizationRatio'
-             />)}
-      </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        <ReactNumberFormat
+        <span className='flex flex-row justify-end' data-testid='VaultRow.CollateralizationRatio'>
+          {(() => {
+            if(props.vault.state === LoanVaultState.IN_LIQUIDATION) {
+              if(props.liquidatedVaultDerivedValues?.totalCollateralRatio === undefined) {
+                 return 'N/A'
+              } else {
+                return <VaultCollateralizationRatio
+                  collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+                  loanScheme={props.vault.loanScheme}
+                  vaultState={props.vault.state}
+                  noSuffix
+                />
+              }
+            } else {
+             return  (<VaultCollateralizationRatio
+                collateralizationRatio={props.vault.collateralRatio}
+                loanScheme={props.vault.loanScheme}
+                vaultState={props.vault.state}
+                noSuffix
+
+              />)
+            }
+
+          })()} <ReactNumberFormat
           value={props.vault.loanScheme.minColRatio}
           suffix='%'
           displayType='text'
           thousandSeparator
+          className='ml-1'
+          prefix={` / `}
         />
+        </span>
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
