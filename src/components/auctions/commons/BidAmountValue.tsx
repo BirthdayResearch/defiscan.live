@@ -20,18 +20,20 @@ export function BidAmountValue (props: MinNextBidProps): JSX.Element {
 
   if (props.highestBid?.amount === undefined || props.isStartingBid!) {
     minBidAmount = new BigNumber(props.loan.amount).multipliedBy(1.05)
+
     if (props.loan.activePrice?.active != null) {
       minBidValue = new BigNumber(props.loan.activePrice.active.amount).multipliedBy(minBidAmount)
     }
   } else {
     minBidAmount = new BigNumber(props.highestBid.amount.amount).multipliedBy(1.01)
+
     if (props.highestBid.amount.activePrice?.active?.amount != null) {
       minBidValue = new BigNumber(props.highestBid.amount.activePrice.active.amount).multipliedBy(minBidAmount)
     }
   }
 
   if (props.loan.displaySymbol === 'DUSD') {
-    minBidValue = new BigNumber(props.loan.amount)
+    minBidValue = minBidAmount
   }
 
   return (

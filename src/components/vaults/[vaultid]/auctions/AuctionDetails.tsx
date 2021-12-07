@@ -28,11 +28,11 @@ export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element 
         <div className='flex flex-wrap'>
           <div className='w-full flex flex-wrap -m-4 items-start'>
             <div className='flex flex-wrap w-1/2 lg:w-1/4 p-4'>
-              <div className='w-full text-sm text-gray-500 mb-1'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
+              <div className='w-full text-sm text-gray-500 mb-0.5'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
               <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
             </div>
             <div className='w-1/2 lg:w-1/4 flex flex-wrap p-4'>
-              <div className='w-full text-gray-500 text-sm mb-1'>Min. Next Bid</div>
+              <div className='w-full text-gray-500 text-sm mb-0.5'>Min. Next Bid</div>
               <BidAmountValue
                 displaySymbol={props.liquidationBatch.loan.displaySymbol}
                 loan={props.liquidationBatch.loan}
@@ -42,7 +42,7 @@ export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element 
               />
             </div>
             <div className='w-1/2 lg:w-1/4 p-4 flex flex-wrap'>
-              <div className='w-full text-gray-500 text-sm mb-1'>Min. Starting Bid</div>
+              <div className='w-full text-gray-500 text-sm mb-0.5'>Min. Starting Bid</div>
               <BidAmountValue
                 isStartingBid
                 displaySymbol={props.liquidationBatch.loan.displaySymbol}
@@ -52,7 +52,7 @@ export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element 
               />
             </div>
             <div className='w-1/2 lg:w-1/4 p-4 flex flex-wrap'>
-              <div className='w-full text-sm text-gray-500 mb-1'>
+              <div className='w-full text-sm text-gray-500 mb-0.5'>
                 Vault ID
               </div>
               <VaultLink vault={props.vaultId} className='overflow-hidden overflow-ellipsis'>
