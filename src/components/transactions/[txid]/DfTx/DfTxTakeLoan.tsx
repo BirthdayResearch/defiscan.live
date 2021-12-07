@@ -45,8 +45,8 @@ export function DfTxTakeLoan (props: DfTxTakeLoanProps): JSX.Element {
             </AdaptiveTable.Header>
             {props.dftx.data.to.stack.map((stack: Stack, i) => (
               <AdaptiveTable.Row key={`stack-to-row-${i}`}>
-                <AdaptiveTable.Cell testId={`transaction-take-loan-data-to-stack-type-${i}`}>{stack.type}</AdaptiveTable.Cell>
-                <AdaptiveTable.Cell testId={`transaction-take-loan-data-to-stack-code-${i}`}>{stack.code !== undefined ? stack.code : stack.hex}</AdaptiveTable.Cell>
+                <AdaptiveTable.Cell title='Type' testId={`transaction-take-loan-data-to-stack-type-${i}`}>{stack.type}</AdaptiveTable.Cell>
+                <AdaptiveTable.Cell title='Code/Hex' testId={`transaction-take-loan-data-to-stack-code-${i}`}>{stack.code !== undefined ? stack.code : stack.hex}</AdaptiveTable.Cell>
               </AdaptiveTable.Row>
             ))}
           </AdaptiveTable>
@@ -63,12 +63,12 @@ export function DfTxTakeLoan (props: DfTxTakeLoanProps): JSX.Element {
             </AdaptiveTable.Header>
             {props.dftx.data.tokenAmounts.map((tokenData, i) => (
               <AdaptiveTable.Row key={`tokenAmounts-row-${i}`}>
-                <AdaptiveTable.Cell testId={`transaction-take-loan-data-tokenAmounts-token-${i}`}>
+                <AdaptiveTable.Cell title='Token number' testId={`transaction-take-loan-data-tokenAmounts-token-${i}`}>
                   <Link href={{ pathname: `/tokens/${tokenData.token}` }}>
                     <a>{tokenData.token.toString()}</a>
                   </Link>
                 </AdaptiveTable.Cell>
-                <AdaptiveTable.Cell testId={`transaction-take-loan-data-tokenAmounts-amount-${i}`}>
+                <AdaptiveTable.Cell title='Amount' testId={`transaction-take-loan-data-tokenAmounts-amount-${i}`}>
                   {tokenData.amount.toNumber()}
                 </AdaptiveTable.Cell>
               </AdaptiveTable.Row>
