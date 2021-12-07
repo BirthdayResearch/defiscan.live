@@ -22,7 +22,7 @@ context('/vaults', () => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
 
-    cy.findByTestId('VaultsTable.Loans').should('be.visible').should('have.text', 'Loans')
+    cy.findByTestId('VaultsTable.Loans').should('be.visible').should('have.text', 'Loan Taken')
 
     cy.findByTestId('VaultsTable.LoansValue').should('be.visible').should('have.text', 'Loan Value (USD)')
     cy.findByTestId('VaultsTable.LoansValue').within(() => {
@@ -36,12 +36,7 @@ context('/vaults', () => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
 
-    cy.findByTestId('VaultsTable.CollateralizationRatio').should('be.visible').should('have.text', 'Collateralization Ratio')
-    cy.findByTestId('VaultsTable.CollateralizationRatio').within(() => {
-      cy.findByTestId('InfoHoverPopover').should('be.visible')
-    })
-
-    cy.findByTestId('VaultsTable.MinCollateralizationRatio').should('be.visible').should('have.text', 'Min Collateralization Ratio')
+    cy.findByTestId('VaultsTable.MinCollateralizationRatio').should('be.visible').should('have.text', 'Collateralization Ratio / Min.')
     cy.findByTestId('VaultsTable.MinCollateralizationRatio').within(() => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
@@ -49,7 +44,7 @@ context('/vaults', () => {
 
   it('should have 8 cells in each row', function () {
     cy.findAllByTestId('OverflowTable.Row').within(() => {
-      cy.findAllByTestId('OverflowTable.Cell').should('have.length', 8).should('be.visible')
+      cy.findAllByTestId('OverflowTable.Cell').should('have.length', 7).should('be.visible')
     })
   })
 })
@@ -74,12 +69,11 @@ context('/vaults on mobile', () => {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Vault ID').should('not.be.visible')
       cy.wrap(ele).findByText('Status').should('not.be.visible')
-      cy.wrap(ele).findByText('Loans').should('not.be.visible')
+      cy.wrap(ele).findByText('Loan Taken').should('not.be.visible')
       cy.wrap(ele).findByText('Loan Value (USD)').should('not.be.visible')
       cy.wrap(ele).findByText('Collaterals').should('not.be.visible')
       cy.wrap(ele).findByText('Collateral Value (USD)').should('not.be.visible')
-      cy.wrap(ele).findByText('Collateralization Ratio').should('not.be.visible')
-      cy.wrap(ele).findByText('Min Collateralization Ratio').should('not.be.visible')
+      cy.wrap(ele).findByText('Collateralization Ratio / Min.').should('not.be.visible')
     })
 
     it('should have vault mobile cards', function () {
@@ -92,7 +86,6 @@ context('/vaults on mobile', () => {
         cy.findByTestId('VaultMobileCard.LoansValue').should('be.visible')
         cy.findByTestId('VaultMobileCard.Collateral').should('be.visible')
         cy.findByTestId('VaultMobileCard.CollateralValue').should('be.visible')
-        cy.findByTestId('VaultMobileCard.CollateralizationRatio').should('be.visible')
         cy.findByTestId('VaultMobileCard.MinCollateralizationRatio').should('be.visible')
       })
     })
