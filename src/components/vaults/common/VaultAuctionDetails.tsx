@@ -8,7 +8,7 @@ import { CalculateCollateralsValue } from '../../../utils/vaults/CalculateCollat
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
-import { MinNextBid } from '@components/auctions/commons/MinNextBid'
+import { BidAmountValue } from '@components/auctions/commons/BidAmountValue'
 import React from 'react'
 
 interface VaultAuctionDetailsProps {
@@ -33,13 +33,6 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <MinNextBid
-          displaySymbol={props.batch.loan.displaySymbol}
-          loan={props.batch.loan}
-          highestBid={props.batch.highestBid?.amount.amount}
-        />
-      </OverflowTable.Cell>
-      <OverflowTable.Cell>
         <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
@@ -52,6 +45,13 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
             displayType='text'
           />
         </div>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        <BidAmountValue
+          displaySymbol={props.batch.loan.displaySymbol}
+          loan={props.batch.loan}
+          highestBid={props.batch.highestBid}
+        />
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
@@ -91,10 +91,12 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
         titleClassNames='text-sm'
         testId='MobileAuctionDetailCard.MinNextBid'
       >
-        <MinNextBid
+        <BidAmountValue
           displaySymbol={props.batch.loan.displaySymbol}
           loan={props.batch.loan}
           highestBid={props.batch.highestBid}
+          valueClassName='text-right text-sm'
+          valueSuffix
         />
       </VaultDetailsListItem>
 

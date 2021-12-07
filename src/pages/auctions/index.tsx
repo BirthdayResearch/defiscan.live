@@ -47,11 +47,6 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                     testId='AuctionTable.LoanToken'
                   />
                   <OverflowTable.Head
-                    title='Min. Next Bid'
-                    testId='AuctionTable.MinNextBid'
-                    alignRight
-                  />
-                  <OverflowTable.Head
                     title='Collateral For Auction'
                     testId='AuctionTable.CollateralForAuction'
                     alignRight
@@ -59,6 +54,11 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                   <OverflowTable.Head
                     title='Collateral Value (USD)'
                     testId='AuctionTable.CollateralValue'
+                    alignRight
+                  />
+                  <OverflowTable.Head
+                    title='Min. Next Bid'
+                    testId='AuctionTable.MinNextBid'
                     alignRight
                   />
                 </OverflowTable.Header>

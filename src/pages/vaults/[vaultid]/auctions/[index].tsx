@@ -8,7 +8,6 @@ import {
   LoanVaultLiquidationBatch,
   LoanVaultState
 } from '@defichain/whale-api-client/dist/api/loan'
-import BigNumber from 'bignumber.js'
 import { useAuctionTimeLeft } from '../../../../hooks/useAuctionTimeLeft'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
@@ -26,13 +25,6 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
   const { count: { blocks } } = useSelector((state: RootState) => state.stats)
   const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, blocks ?? 0)
 
-  const minStartingBid = new BigNumber(props.liquidationBatch.loan.amount).multipliedBy(1.05)
-  let minStartingBidValue: BigNumber | undefined
-
-  if (props.liquidationBatch.loan.activePrice?.active != null) {
-    minStartingBidValue = new BigNumber(props.liquidationBatch.loan.activePrice.active.amount).multipliedBy(minStartingBid)
-  }
-
   return (
     <>
       <Container className='pt-4 pb-20'>
@@ -44,10 +36,6 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
           batchIndex={props.batchIndex}
           liquidationBatch={props.liquidationBatch}
           timeRemaining={timeRemaining}
-          minStartingBid={{
-            amount: minStartingBid,
-            value: minStartingBidValue
-          }}
         />
 
         <MobileAuctionDetails
@@ -55,10 +43,6 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
           batchIndex={props.batchIndex}
           liquidationBatch={props.liquidationBatch}
           timeRemaining={timeRemaining}
-          minStartingBid={{
-            amount: minStartingBid,
-            value: minStartingBidValue
-          }}
         />
 
         <BiddingHistory />
