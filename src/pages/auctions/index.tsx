@@ -4,8 +4,6 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Head } from '@components/commons/Head'
 import { Container } from '@components/commons/Container'
 import { LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store/index'
 import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/common/VaultAuctionDetails'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
@@ -20,8 +18,6 @@ interface ActionsPageProps {
 }
 
 export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-
   return (
     <>
       <Head title='Auctions' />
@@ -40,6 +36,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                 <OverflowTable.Header>
                   <OverflowTable.Head
                     title='Time Left'
+                    infoDesc='Estimated based on the number of blocks remaining.'
                     testId='AuctionTable.TimeLeft'
                   />
                   <OverflowTable.Head
@@ -47,18 +44,19 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                     testId='AuctionTable.LoanToken'
                   />
                   <OverflowTable.Head
-                    title='Highest Bid'
-                    testId='AuctionTable.HighestBid'
-                    alignRight
-                  />
-                  <OverflowTable.Head
                     title='Collateral For Auction'
                     testId='AuctionTable.CollateralForAuction'
+                    className='lg:w-52'
                     alignRight
                   />
                   <OverflowTable.Head
                     title='Collateral Value (USD)'
                     testId='AuctionTable.CollateralValue'
+                    alignRight
+                  />
+                  <OverflowTable.Head
+                    title='Min. Next Bid'
+                    testId='AuctionTable.MinNextBid'
                     alignRight
                   />
                 </OverflowTable.Header>
@@ -69,7 +67,6 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                         <AuctionsTableRow
                           batch={batch}
                           vault={vault}
-                          blockCount={blocks}
                         />
                       </a>
                     </Link>
@@ -89,7 +86,6 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                       batch={batch}
                       key={batch.index}
                       vault={vault}
-                      blockCount={blocks}
                     />
                   ))
                 })}

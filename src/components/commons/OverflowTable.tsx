@@ -70,7 +70,7 @@ function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean, 
       {(left) => (
         <div
           data-testid='OverflowTable.Cell'
-          className={classNames('table-cell px-4 md:px-6 py-4 align-middle bg-white group-hover:bg-primary-50', props.className, {
+          className={classNames('table-cell px-4 md:px-6 py-4 align-top bg-white group-hover:bg-primary-50', props.className, {
             'sticky left-0': props.sticky!,
             'text-right': props.alignRight!
           })}

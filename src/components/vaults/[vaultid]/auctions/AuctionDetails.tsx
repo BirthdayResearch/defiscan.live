@@ -6,16 +6,14 @@ import ReactNumberFormat from 'react-number-format'
 import { VaultLink } from '@components/commons/link/VaultLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { BidAmountValue } from '@components/auctions/commons/BidAmountValue'
+import { AuctionTimeLeft } from '@components/auctions/commons/AuctionTimeLeft'
 
 interface AuctionDetailsProps {
   vaultId: string
   batchIndex: string
   liquidationBatch: LoanVaultLiquidationBatch
-  timeRemaining: string | undefined
-  minStartingBid: {
-    amount: BigNumber
-    value: BigNumber | undefined
-  }
+  liquidationHeight: number
 }
 
 export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element {
@@ -29,53 +27,36 @@ export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element 
           <span className='ml-1.5 font-medium text-gray-900'>{props.liquidationBatch.loan.displaySymbol}</span>
         </div>
         <div className='flex flex-wrap'>
-          <div className='w-full flex flex-wrap -m-4'>
+          <div className='w-full flex flex-wrap -m-4 items-start'>
             <div className='flex flex-wrap w-1/2 lg:w-1/4 p-4'>
-              <div className='w-full text-sm text-gray-500'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
-              <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
+              <div className='w-full text-sm text-gray-500 mb-0.5'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
+              <AuctionTimeLeft
+                liquidationHeight={props.liquidationHeight} className='text-sm text-gray-500'
+                showApproximateSymbol
+              />
             </div>
             <div className='w-1/2 lg:w-1/4 flex flex-wrap p-4'>
-              <div className='w-full text-gray-500 text-sm'>Current Highest Bid</div>
-              <div>
-                {
-                  props.liquidationBatch.highestBid === undefined ? (
-                    <span>N/A</span>
-                  )
-                    : (
-                      <>
-                        <span>{new BigNumber(props.liquidationBatch.highestBid.amount.amount).toFixed(8)}</span>
-                        <span className='ml-1'>{props.liquidationBatch.loan.displaySymbol}</span>
-                      </>
-                      )
-                }
-              </div>
+              <div className='w-full text-gray-500 text-sm mb-0.5'>Min. Next Bid</div>
+              <BidAmountValue
+                displaySymbol={props.liquidationBatch.loan.displaySymbol}
+                loan={props.liquidationBatch.loan}
+                highestBid={props.liquidationBatch.highestBid}
+                valueSuffix
+                valueClassName='text-left text-sm'
+              />
             </div>
             <div className='w-1/2 lg:w-1/4 p-4 flex flex-wrap'>
-              <div className='w-full text-gray-500 text-sm'>Min. Starting Bid</div>
-              <div>
-                <div>
-                  <span>{props.minStartingBid.amount.toFixed(8)}</span>
-                  <span className='ml-1'>{props.liquidationBatch.loan.displaySymbol}</span>
-                </div>
-                <div className='text-sm text-gray-500 text-right'>
-                  {
-                    (props.minStartingBid.value != null) && (
-                      <ReactNumberFormat
-                        value={props.minStartingBid.value.toFixed(2, BigNumber.ROUND_HALF_UP)}
-                        displayType='text'
-                        decimalScale={2}
-                        prefix='$'
-                        suffix=' USD'
-                        fixedDecimalScale
-                        thousandSeparator
-                      />
-                    )
-                  }
-                </div>
-              </div>
+              <div className='w-full text-gray-500 text-sm mb-0.5'>Min. Starting Bid</div>
+              <BidAmountValue
+                isStartingBid
+                displaySymbol={props.liquidationBatch.loan.displaySymbol}
+                loan={props.liquidationBatch.loan}
+                valueSuffix
+                valueClassName='text-left text-sm'
+              />
             </div>
             <div className='w-1/2 lg:w-1/4 p-4 flex flex-wrap'>
-              <div className='w-full text-sm text-gray-500'>
+              <div className='w-full text-sm text-gray-500 mb-0.5'>
                 Vault ID
               </div>
               <VaultLink vault={props.vaultId} className='overflow-hidden overflow-ellipsis'>
@@ -119,49 +100,32 @@ export function MobileAuctionDetails (props: AuctionDetailsProps): JSX.Element {
 
         <div className='items-center mt-2'>
           <div className='font-medium text-gray-500 text-xs'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
-          <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
+          <AuctionTimeLeft
+            liquidationHeight={props.liquidationHeight} className='text-sm text-gray-500'
+            showApproximateSymbol
+          />
         </div>
 
         <div className='flex justify-between mt-4'>
-          <span className='text-gray-500 text-sm'>Current Highest Bid</span>
-          <div>
-            {
-              props.liquidationBatch.highestBid === undefined ? (
-                <span>N/A</span>
-              )
-                : (
-                  <>
-                    <span>{new BigNumber(props.liquidationBatch.highestBid.amount.amount).toFixed(8)}</span>
-                    <span className='ml-1'>{props.liquidationBatch.loan.displaySymbol}</span>
-                  </>
-                  )
-            }
-          </div>
+          <span className='text-gray-500 text-sm'>Min. Next Bid</span>
+          <BidAmountValue
+            displaySymbol={props.liquidationBatch.loan.displaySymbol}
+            loan={props.liquidationBatch.loan}
+            highestBid={props.liquidationBatch.highestBid}
+            valueClassName='text-right text-sm'
+            valueSuffix
+          />
         </div>
 
         <div className='flex justify-between mt-4'>
           <span className='text-gray-500 text-sm'>Min. Starting Bid</span>
-          <div>
-            <div>
-              <span>{props.minStartingBid.amount.toFixed(8)}</span>
-              <span className='ml-1'>{props.liquidationBatch.loan.displaySymbol}</span>
-            </div>
-            <div className='text-sm text-gray-500 text-right'>
-              {
-                (props.minStartingBid.value != null) && (
-                  <ReactNumberFormat
-                    value={props.minStartingBid.value.toFixed(2, BigNumber.ROUND_HALF_UP)}
-                    displayType='text'
-                    decimalScale={2}
-                    prefix='$'
-                    suffix=' USD'
-                    fixedDecimalScale
-                    thousandSeparator
-                  />
-                )
-              }
-            </div>
-          </div>
+          <BidAmountValue
+            isStartingBid
+            displaySymbol={props.liquidationBatch.loan.displaySymbol}
+            loan={props.liquidationBatch.loan}
+            valueClassName='text-right text-sm'
+            valueSuffix
+          />
         </div>
 
         <div className='flex justify-between mt-4'>
@@ -212,7 +176,7 @@ function DesktopCollateralListItem (props: { collateral: LoanVaultTokenAmount })
             thousandSeparator
           />
         </div>
-        <div className='text-sm text-gray-500 text-right'>
+        <div className='text-sm text-gray-500'>
           {
             (collateralValue != null) && (
               <ReactNumberFormat

@@ -4,12 +4,8 @@ import { CollapsibleSection } from '@components/commons/sections/CollapsibleSect
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
 import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/common/VaultAuctionDetails'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store/index'
 
 export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Element {
-  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
@@ -20,25 +16,27 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
             <OverflowTable.Header>
               <OverflowTable.Head
                 title='Time Left'
-                testId='AuctionPage.TimeLeft'
+                infoDesc='Estimated based on the number of blocks remaining.'
+                testId='AuctionTable.TimeLeft'
               />
               <OverflowTable.Head
                 title='Loan Token'
-                testId='AuctionsPage.LoanToken'
-              />
-              <OverflowTable.Head
-                title='Highest Bid'
-                testId='AuctionsPage.HighestBid'
-                alignRight
+                testId='AuctionTable.LoanToken'
               />
               <OverflowTable.Head
                 title='Collateral For Auction'
-                testId='AuctionsPage.CollateralForAuction'
+                testId='AuctionTable.CollateralForAuction'
                 alignRight
+                className='lg:w-52'
               />
               <OverflowTable.Head
                 title='Collateral Value (USD)'
-                testId='AuctionsPage.CollateralValue'
+                testId='AuctionTable.CollateralValue'
+                alignRight
+              />
+              <OverflowTable.Head
+                title='Min. Next Bid'
+                testId='AuctionTable.MinNextBid'
                 alignRight
               />
             </OverflowTable.Header>
@@ -49,7 +47,6 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
                     <AuctionsTableRow
                       batch={batch}
                       vault={props.vault}
-                      blockCount={blocks}
                     />
                   </a>
                 </Link>
@@ -67,7 +64,6 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
                 batch={batch}
                 key={batch.index}
                 vault={props.vault}
-                blockCount={blocks}
               />
             ))
           }
