@@ -24,7 +24,7 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        ~{timeRemaining ?? '0h 0m'}
+        {timeRemaining ?? '0h 0m'}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <div className='flex'>

@@ -40,6 +40,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                 <OverflowTable.Header>
                   <OverflowTable.Head
                     title='Time Left'
+                    infoDesc='Estimated based on the number of blocks remaining.'
                     testId='AuctionTable.TimeLeft'
                   />
                   <OverflowTable.Head

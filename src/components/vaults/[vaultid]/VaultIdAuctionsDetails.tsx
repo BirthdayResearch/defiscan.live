@@ -20,6 +20,7 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
             <OverflowTable.Header>
               <OverflowTable.Head
                 title='Time Left'
+                infoDesc='Estimated based on the number of blocks remaining.'
                 testId='AuctionTable.TimeLeft'
               />
               <OverflowTable.Head
