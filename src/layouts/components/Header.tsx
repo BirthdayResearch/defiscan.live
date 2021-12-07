@@ -82,6 +82,8 @@ export function Header (): JSX.Element {
 }
 
 function DesktopNavbar (): JSX.Element {
+  const router = useRouter()
+
   return (
     <div className='hidden md:flex ml-2 lg:ml-8 md:w-full md:justify-between items-center text-gray-600'>
       <div className='hidden md:flex'>
@@ -114,14 +116,18 @@ function DesktopNavbar (): JSX.Element {
           testId='Desktop.HeaderLink.Masternodes'
         />
       </div>
-      <div className='hidden w-1/4 md:block' data-testid='Desktop.HeaderSearchBar'>
-        <SearchBar atHeader />
-      </div>
+      {router.pathname !== '/' && (
+        <div className='hidden w-1/4 md:block' data-testid='Desktop.HeaderSearchBar'>
+          <SearchBar atHeader />
+        </div>
+      )}
     </div>
   )
 }
 
 function MobileMenu (): JSX.Element {
+  const router = useRouter()
+
   return (
     <div className='md:hidden'>
       <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm text-gray-600'>
@@ -156,10 +162,11 @@ function MobileMenu (): JSX.Element {
             testId='Mobile.HeaderLink.Masternodes'
           />
         </div>
-
-        <div className='mt-4' data-testid='Mobile.HeaderSearchBar'>
-          <SearchBar atHeader={false} />
-        </div>
+        {router.pathname !== '/' && (
+          <div className='mt-4' data-testid='Mobile.HeaderSearchBar'>
+            <SearchBar atHeader={false} />
+          </div>
+        )}
       </Container>
 
       <div className='p-2 bg-primary-700 flex flex-wrap p-4 md:p-0'>
