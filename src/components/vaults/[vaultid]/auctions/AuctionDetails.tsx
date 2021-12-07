@@ -7,12 +7,13 @@ import { VaultLink } from '@components/commons/link/VaultLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import { BidAmountValue } from '@components/auctions/commons/BidAmountValue'
+import { AuctionTimeLeft } from '@components/auctions/commons/AuctionTimeLeft'
 
 interface AuctionDetailsProps {
   vaultId: string
   batchIndex: string
   liquidationBatch: LoanVaultLiquidationBatch
-  timeRemaining: string | undefined
+  liquidationHeight: number
 }
 
 export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element {
@@ -29,7 +30,10 @@ export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element 
           <div className='w-full flex flex-wrap -m-4 items-start'>
             <div className='flex flex-wrap w-1/2 lg:w-1/4 p-4'>
               <div className='w-full text-sm text-gray-500 mb-0.5'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
-              <div className='text-sm text-gray-500'>~{props.timeRemaining ?? '0 hr 0 mins'} left</div>
+              <AuctionTimeLeft
+                liquidationHeight={props.liquidationHeight} className='text-sm text-gray-500'
+                showApproximateSymbol
+              />
             </div>
             <div className='w-1/2 lg:w-1/4 flex flex-wrap p-4'>
               <div className='w-full text-gray-500 text-sm mb-0.5'>Min. Next Bid</div>
@@ -96,7 +100,10 @@ export function MobileAuctionDetails (props: AuctionDetailsProps): JSX.Element {
 
         <div className='items-center mt-2'>
           <div className='font-medium text-gray-500 text-xs'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
-          <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
+          <AuctionTimeLeft
+            liquidationHeight={props.liquidationHeight} className='text-sm text-gray-500'
+            showApproximateSymbol
+          />
         </div>
 
         <div className='flex justify-between mt-4'>

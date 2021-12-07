@@ -8,9 +8,6 @@ import {
   LoanVaultLiquidationBatch,
   LoanVaultState
 } from '@defichain/whale-api-client/dist/api/loan'
-import { useAuctionTimeLeft } from '../../../../hooks/useAuctionTimeLeft'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store/index'
 import { DesktopAuctionDetails, MobileAuctionDetails } from '@components/vaults/[vaultid]/auctions/AuctionDetails'
 import { AuctionDetailsHeading } from '@components/vaults/[vaultid]/auctions/AuctionDetailsHeading'
 import { EmptySection } from '@components/commons/sections/EmptySection'
@@ -22,9 +19,6 @@ interface ActionsPageProps {
 }
 
 export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-  const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, blocks ?? 0)
-
   return (
     <>
       <Container className='pt-4 pb-20'>
@@ -35,14 +29,14 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
           vaultId={props.vault.vaultId}
           batchIndex={props.batchIndex}
           liquidationBatch={props.liquidationBatch}
-          timeRemaining={timeRemaining}
+          liquidationHeight={props.vault.liquidationHeight}
         />
 
         <MobileAuctionDetails
           vaultId={props.vault.vaultId}
           batchIndex={props.batchIndex}
           liquidationBatch={props.liquidationBatch}
-          timeRemaining={timeRemaining}
+          liquidationHeight={props.vault.liquidationHeight}
         />
 
         <BiddingHistory />

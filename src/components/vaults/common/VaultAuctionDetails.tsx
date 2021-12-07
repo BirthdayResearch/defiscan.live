@@ -1,6 +1,5 @@
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
-import { useAuctionTimeLeft } from '../../../hooks/useAuctionTimeLeft'
 import ReactNumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
@@ -10,21 +9,20 @@ import { getAssetIcon } from '@components/icons/assets'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import { BidAmountValue } from '@components/auctions/commons/BidAmountValue'
 import React from 'react'
+import { AuctionTimeLeft } from '@components/auctions/commons/AuctionTimeLeft'
 
 interface VaultAuctionDetailsProps {
   batch: LoanVaultLiquidationBatch
   vault: LoanVaultLiquidated
-  blockCount: number | undefined
 }
 
 export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element {
-  const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, props.blockCount ?? 0)
   const TokenSymbol = getAssetIcon(props.batch.loan.symbol)
 
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        {timeRemaining ?? '0h 0m'}
+        <AuctionTimeLeft liquidationHeight={props.vault.liquidationHeight} />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <div className='flex'>
@@ -58,7 +56,6 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
 }
 
 export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.Element {
-  const { timeRemaining } = useAuctionTimeLeft(props.vault.liquidationHeight, props.blockCount ?? 0)
   const TokenSymbol = getAssetIcon(props.batch.loan.symbol)
 
   return (
@@ -83,7 +80,10 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
         </div>
       </div>
       <div className='text-sm mt-1 mb-4' data-testid='MobileAuctionDetailCard.TimeLeft'>
-        ~{(timeRemaining !== undefined) ? <span>{timeRemaining} left</span> : '00 hr 00 mins'}
+        <AuctionTimeLeft
+          liquidationHeight={props.vault.liquidationHeight} className='text-sm text-gray-500'
+          showApproximateSymbol
+        />
       </div>
 
       <VaultDetailsListItem

@@ -4,12 +4,8 @@ import { CollapsibleSection } from '@components/commons/sections/CollapsibleSect
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
 import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/common/VaultAuctionDetails'
-import { useSelector } from 'react-redux'
-import { RootState } from '@store/index'
 
 export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Element {
-  const { count: { blocks } } = useSelector((state: RootState) => state.stats)
-
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
@@ -51,7 +47,6 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
                     <AuctionsTableRow
                       batch={batch}
                       vault={props.vault}
-                      blockCount={blocks}
                     />
                   </a>
                 </Link>
@@ -69,7 +64,6 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
                 batch={batch}
                 key={batch.index}
                 vault={props.vault}
-                blockCount={blocks}
               />
             ))
           }
