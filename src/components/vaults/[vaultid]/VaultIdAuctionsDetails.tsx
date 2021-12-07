@@ -20,25 +20,26 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
             <OverflowTable.Header>
               <OverflowTable.Head
                 title='Time Left'
-                testId='AuctionPage.TimeLeft'
+                testId='AuctionTable.TimeLeft'
               />
               <OverflowTable.Head
                 title='Loan Token'
-                testId='AuctionsPage.LoanToken'
-              />
-              <OverflowTable.Head
-                title='Highest Bid'
-                testId='AuctionsPage.HighestBid'
-                alignRight
+                testId='AuctionTable.LoanToken'
               />
               <OverflowTable.Head
                 title='Collateral For Auction'
-                testId='AuctionsPage.CollateralForAuction'
+                testId='AuctionTable.CollateralForAuction'
                 alignRight
+                className='lg:w-52'
               />
               <OverflowTable.Head
                 title='Collateral Value (USD)'
-                testId='AuctionsPage.CollateralValue'
+                testId='AuctionTable.CollateralValue'
+                alignRight
+              />
+              <OverflowTable.Head
+                title='Min. Next Bid'
+                testId='AuctionTable.MinNextBid'
                 alignRight
               />
             </OverflowTable.Header>

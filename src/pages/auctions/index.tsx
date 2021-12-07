@@ -49,6 +49,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                   <OverflowTable.Head
                     title='Collateral For Auction'
                     testId='AuctionTable.CollateralForAuction'
+                    className='lg:w-52'
                     alignRight
                   />
                   <OverflowTable.Head

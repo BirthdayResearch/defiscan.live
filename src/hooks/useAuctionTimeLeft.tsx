@@ -22,7 +22,7 @@ export function useAuctionTimeLeft (liquidationHeight: number, blockCount: numbe
 export function secondsToHm (d: number): string {
   const h = Math.floor(d / 3600)
   const m = Math.floor(d % 3600 / 60)
-  const hDisplay = h > 0 ? `${h} hr` : '0 hr'
-  const mDisplay = m >= 0 ? `${m.toString().padStart(2, '0')} mins` : ''
+  const hDisplay = h > 0 ? `${h}h` : '0h'
+  const mDisplay = m >= 0 ? `${m.toString().padStart(2, '0')}m` : ''
   return `${hDisplay} ${mDisplay}`
 }
