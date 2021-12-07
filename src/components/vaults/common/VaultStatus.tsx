@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
+import { MdSignalCellular1Bar } from 'react-icons/md'
 
 interface VaultStatusProps {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -14,9 +15,15 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
 
   switch (props.vault.state) {
     case LoanVaultState.ACTIVE: {
-      if (Number(props.vault.loanAmounts.length) === 0) {
-        textClassName = 'text-blue-500 bg-blue-100'
-        text = 'ACTIVE'
+      if (Number(props.vault.loanAmounts.length) === 0 && Number(props.vault.collateralAmounts.length) === 0) {
+        textClassName = 'text-gray-500 bg-gray-100'
+        text = 'EMPTY'
+        break
+      }
+
+      if (Number(props.vault.loanAmounts.length) === 0 && Number(props.vault.collateralAmounts.length) !== 0) {
+        textClassName = 'text-gray-500 bg-gray-100'
+        text = 'READY'
         break
       }
 
@@ -26,10 +33,10 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
 
       if (currentPercentage > new BigNumber(1.5)) {
         textClassName = 'text-green-500 bg-green-100'
-        text = 'HEALTHY'
+        text = 'ACTIVE'
       } else {
         textClassName = 'text-orange-500 bg-orange-100'
-        text = 'AT RISK'
+        text = 'ACTIVE'
       }
       break
     }
@@ -62,6 +69,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
   return (
     <div className={classNames('min-w-max', props.className, textClassName)} data-testid={props.testId}>
       {text}
+      <MdSignalCellular1Bar />
     </div>
   )
 }
