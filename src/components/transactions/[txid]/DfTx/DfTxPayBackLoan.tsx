@@ -23,7 +23,7 @@ export function DfTxPayBackLoan (props: DfTxPayBackLoanProps): JSX.Element {
           <AdaptiveList.Row name='Vault ID'>
             <VaultLink vault={props.dftx.data.vaultId} className='break-all' testId='DfTxPayBackLoan.VaultId' />
           </AdaptiveList.Row>
-          <AdaptiveList.Row name={'Owner\'s address'}>
+          <AdaptiveList.Row name={'Owner\'s Address'}>
             {(() => {
               if (address?.address !== undefined) {
                 return (
