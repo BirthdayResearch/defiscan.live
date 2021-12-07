@@ -82,8 +82,8 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
           </Link>
         </div>
       </div>
-      <div className='text-xs mt-1 mb-4' data-testid='MobileAuctionDetailCard.TimeLeft'>
-        {(timeRemaining !== undefined) ? <span>{timeRemaining} left</span> : '00 hr 00 mins'}
+      <div className='text-sm mt-1 mb-4' data-testid='MobileAuctionDetailCard.TimeLeft'>
+        ~{(timeRemaining !== undefined) ? <span>{timeRemaining} left</span> : '00 hr 00 mins'}
       </div>
 
       <VaultDetailsListItem
