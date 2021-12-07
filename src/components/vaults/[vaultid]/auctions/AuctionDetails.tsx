@@ -29,7 +29,7 @@ export function DesktopAuctionDetails (props: AuctionDetailsProps): JSX.Element 
           <div className='w-full flex flex-wrap -m-4 items-start'>
             <div className='flex flex-wrap w-1/2 lg:w-1/4 p-4'>
               <div className='w-full text-sm text-gray-500 mb-0.5'>{`BATCH #${Number(props.batchIndex) + 1}`}</div>
-              <div className='text-sm text-gray-500'>{props.timeRemaining ?? '0 hr 0 mins'} left</div>
+              <div className='text-sm text-gray-500'>~{props.timeRemaining ?? '0 hr 0 mins'} left</div>
             </div>
             <div className='w-1/2 lg:w-1/4 flex flex-wrap p-4'>
               <div className='w-full text-gray-500 text-sm mb-0.5'>Min. Next Bid</div>
