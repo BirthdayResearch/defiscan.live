@@ -19,6 +19,14 @@ context('/ on macbook-13', () => {
     cy.findByTestId('StatItem.difficulty').should('exist')
   })
 
+  it('should have latest transactions title', () => {
+    cy.findByTestId('Desktop.LatestTransactions.title').should('have.text', 'Latest Transactions')
+  })
+
+  it('should have latest transactions list', () => {
+    cy.findByTestId('Desktop.LatestTransactions.List').should('be.visible')
+  })
+
   it('should have BlocksList.viewAllBlocksLink', () => {
     cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
   })
@@ -63,14 +71,16 @@ context('/ on iphone-x', () => {
     cy.findByTestId('StatItem.difficulty').should('exist')
   })
 
-  it('should have BlocksList.viewAllBlocksLink', () => {
-    cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
+  it('should have LatestTransactions list', () => {
+    cy.findByTestId('Mobile.LatestTransactionsList').should('be.visible')
   })
 
-  it('should have BlocksList.viewAllBlocksButton', () => {
-    cy.findByTestId('CollapsibleSection.Blocks').within(() => {
-      cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
-    })
+  it('should have Collapsible that wraps transaction list', () => {
+    cy.findByTestId('Mobile.LatestTransactions.CollapsibleSection').should('be.visible')
+  })
+
+  it('should have BlocksList.viewAllBlocksLink', () => {
+    cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
   })
 
   it('should have LiquidityPools', () => {

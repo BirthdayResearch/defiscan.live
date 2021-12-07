@@ -1,173 +1,133 @@
+
+import React from 'react'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { formatDistanceToNow } from 'date-fns'
 import { Link } from '@components/commons/link/Link'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdStairs } from 'react-icons/md'
-import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
-import { Transition } from '@headlessui/react'
-import React, { useState } from 'react'
+import { MdOutlineKeyboardArrowRight, MdStairs } from 'react-icons/md'
 import { BlockLink } from '@components/commons/link/BlockLink'
+import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
     <>
-      <div className='hidden md:block md:mt-8 lg:mt-0' data-testid='Desktop.Blocks'>
-        <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold'>Latest Blocks</h1>
+      <div className='hidden md:flex justify-between md:mt-6 lg:mt-0' data-testid='Desktop.LatestBlocks'>
+        <h1 className='text-xl font-semibold'>Latest Blocks</h1>
+        <div className='hidden md:flex'>
           <Link href={{ pathname: '/blocks' }}>
             <a
-              className='flex items-center font-medium cursor-pointer text-primary-500'
+              className='flex items-center font-medium text-primary-500'
               data-testid='BlocksList.viewAllBlocksLink'
             >
               VIEW ALL BLOCKS
             </a>
           </Link>
         </div>
-        <div className='mt-6'>
-          {blocks.map((block) => {
-            return (
-              <Link href={{ pathname: `/blocks/${block.id}` }} key={block.id}>
-                <a className='content'>
-                  <BlockDetails
-                    height={block.height.toString()}
-                    mintedBy={block.minter}
-                    transactionCount={block.transactionCount}
-                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-                  />
-                </a>
-              </Link>
-            )
-          })}
-        </div>
+      </div>
+      <div className='md:hidden'>
+        <CollapsibleSection heading='Latest Blocks' testId='BlockList.CollapsibleSection'>
+          <BlockDetailCards blocks={blocks} />
+        </CollapsibleSection>
         <div className='flex justify-center'>
           <ViewMoreButton />
         </div>
       </div>
-      <CollapsibleSection heading='Latest Blocks' className='block md:hidden' testId='CollapsibleSection.Blocks'>
-        <div className='mt-6 w-full'>
-          {blocks.map((block) => {
-            return (
-              <Link href={{ pathname: `/blocks/${block.id}` }} key={block.id}>
-                <a className='content'>
-                  <BlockDetails
-                    height={block.height.toString()}
-                    mintedBy={block.minter}
-                    transactionCount={block.transactionCount}
-                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-                  />
-                </a>
-              </Link>
-            )
-          })}
-        </div>
+      <div className='hidden md:block mt-6 cursor-pointer' data-testid='Desktop.Blocks'>
+        <BlockDetailCards blocks={blocks} />
         <div className='flex justify-center'>
           <ViewMoreButton />
         </div>
-      </CollapsibleSection>
+      </div>
+    </>
+  )
+}
+
+function BlockDetailCards (props: { blocks: Block[] }): JSX.Element {
+  return (
+    <>
+      {props.blocks.map((block) => {
+        return (
+          <Link href={{ pathname: `/blocks/${block.id}` }} key={block.id}>
+            <span className='content'>
+              <BlockDetails
+                height={block.height.toString()}
+                mintedBy={block.minter}
+                transactionCount={block.transactionCount}
+                age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
+              />
+            </span>
+          </Link>
+        )
+      })}
     </>
   )
 }
 
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
-    <div
-      className='flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer items-center my-1.5 hover:shadow-md'
-    >
-      <div className='w-2/3 lg:w-1/2 flex space-x-2'>
-        <span className='text-lg leading-6'>
-          <MdStairs className='text-gray-400 inline-block' size={22} />
-        </span>
-        <div>
-          <BlockLink className='font-medium text-gray-900' block={props.height}>
-            {props.height}
-          </BlockLink>
-          <div className='text-xs text-gray-400 leading-5'>
-            <span>{props.age}</span>
+    <div className='flex p-4 rounded border border-gray-200 my-1.5 hover:shadow-md'>
+      <div className='flex-none w-11/12'>
+        <div className='flex'>
+          <div className='flex-none w-8'>
+            <MdStairs className='text-gray-400 inline-block' size={22} />
+          </div>
+          <div className='flex-none w-36'>
+            <BlockLink className='font-medium text-gray-900' block={props.height}>
+              {props.height}
+            </BlockLink>
+            <div className='hidden md:block text-xs text-gray-400'>
+              <span>{props.age}</span>
+            </div>
+          </div>
+          <div className='flex-none w-3' />
+          <div className='flex-grow w-10'>
+            <MintedBy mintedBy={props.mintedBy} className='hidden md:flex text-sm' />
+            <TransactionCount transactionCount={props.transactionCount} className='hidden md:flex text-sm' />
+            <div className='md:hidden text-center text-xs text-gray-400'>
+              <span>{props.age}</span>
+            </div>
+          </div>
+        </div>
+        <div className='md:hidden flex'>
+          <div className='flex-none w-8' />
+          <div>
+            <MintedBy mintedBy={props.mintedBy} className='md:hidden flex text-sm' />
+            <TransactionCount transactionCount={props.transactionCount} className='md:hidden block text-sm' />
           </div>
         </div>
       </div>
-      <DesktopBlockDetails height={props.height} transactionCount={props.transactionCount} mintedBy={props.mintedBy} />
-      <MobileBlockDetails height={props.height} transactionCount={props.transactionCount} mintedBy={props.mintedBy} />
-    </div>
-  )
-}
-
-function DesktopBlockDetails (props: { height: string, mintedBy?: string, transactionCount: number }): JSX.Element {
-  return (
-    <div className='w-1/3 lg:w-1/2 hidden md:block'>
-      <div className='flex flex-wrap text-sm'>
-        <div className='w-1/2 text-gray-500'>
-          Minted by
-        </div>
-        {
-          props.mintedBy === undefined ? ('N/A') : (
-            <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
-              <div className='text-right text-gray-900 overflow-hidden overflow-ellipsis'>
-                {props.mintedBy}
-              </div>
-            </AddressLink>
-          )
-        }
-      </div>
-      <div className='w-full flex flex-wrap text-sm mt-1 justify-between'>
-        <div className='w-1/2 text-gray-500'>
-          Transactions
-        </div>
-        <span className='w-1/2 text-right text-gray-900'>
-          {props.transactionCount}
-        </span>
+      <div className='flex items-center'>
+        <MdOutlineKeyboardArrowRight size={38} />
       </div>
     </div>
   )
 }
 
-function MobileBlockDetails (props: { height: string, mintedBy?: string, transactionCount: number }): JSX.Element {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
+function MintedBy (props: { mintedBy: string | undefined, className: string }): JSX.Element {
   return (
-    <>
-      <div
-        className='w-1/3 text-primary-500 flex justify-end items-center self-start block md:hidden'
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {(!isOpen)
-          ? (<>VIEW<MdOutlineKeyboardArrowDown size={22} /></>)
-          : (<>HIDE<MdOutlineKeyboardArrowUp size={22} /></>)}
+    <div className={`${props.className}`}>
+      <div className='text-gray-400'>
+        <span>Minted by&nbsp;</span>
       </div>
-      <Transition
-        enter='transition ease-out duration-200'
-        enterFrom='opacity-0 translate-y-0'
-        enterTo='opacity-100 translate-y-1'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-1'
-        leaveTo='opacity-100 translate-y-0'
-        className='w-full mt-5'
-        show={isOpen}
-      >
-        <div className='flex flex-wrap items-center'>
-          <div className='w-1/2 text-gray-500 text-sm'>
-            Minted by
-          </div>
-          {
-            props.mintedBy === undefined ? ('N/A') : (
-              <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
-                <div className='text-right text-primary-500 overflow-hidden overflow-ellipsis underline'>
-                  {props.mintedBy}
-                </div>
-              </AddressLink>
-            )
-          }
-        </div>
-        <div className='flex flex-wrap mt-1 justify-between'>
-          <div className='w-1/2 text-gray-500 text-sm'>
-            Transactions
-          </div>
-          <span className='w-1/2 text-right text-gray-900'>
-            {props.transactionCount}
-          </span>
-        </div>
-      </Transition>
-    </>
+      {
+        props.mintedBy === undefined ? ('N/A') : (
+          <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
+            <div className='text-gray-900 overflow-hidden overflow-ellipsis'>
+              {props.mintedBy}
+            </div>
+          </AddressLink>
+        )
+      }
+    </div>
+  )
+}
+
+function TransactionCount (props: { transactionCount: number, className: string }): JSX.Element {
+  return (
+    <div className={`${props.className}`}>
+      <span className='text-gray-400'>Transactions&nbsp;</span>
+      <span className='text-gray-900'>{props.transactionCount}</span>
+    </div>
   )
 }
 

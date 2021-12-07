@@ -2,135 +2,89 @@ import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { formatDistanceToNow } from 'date-fns'
 import BigNumber from 'bignumber.js'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdSwapHorizontalCircle } from 'react-icons/md'
-import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
-import React, { useState } from 'react'
-import { Transition } from '@headlessui/react'
+import { MdOutlineKeyboardArrowRight, MdSwapHorizontalCircle } from 'react-icons/md'
+import React from 'react'
 import { Link } from '@components/commons/link/Link'
+import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   return (
     <>
-      <div className='hidden md:block'>
-        <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold'>Latest Transactions</h1>
-        </div>
-
-        <div className='mt-6'>
-          {transactions.map(transaction => {
-            return (
-              <Link href={{ pathname: `/transactions/${transaction.id}` }} key={transaction.hash}>
-                <a className='content'>
-                  <TransactionDetails
-                    txid={transaction.txid}
-                    age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
-                    totalVoutValue={transaction.totalVoutValue}
-                  />
-                </a>
-              </Link>
-            )
-          })}
-        </div>
+      <div className='hidden md:flex justify-between'>
+        <h1 className='text-xl font-semibold' data-testid='Desktop.LatestTransactions.title'>Latest Transactions</h1>
       </div>
-
-      <CollapsibleSection
-        heading='Latest Transactions'
-        className='block md:hidden'
-      >
-        <div className='mt-6 w-full'>
-          {transactions.map(transaction => {
-            return (
-              <Link href={{ pathname: `/transactions/${transaction.id}` }} key={transaction.hash}>
-                <a className='content'>
-                  <TransactionDetails
-                    txid={transaction.txid}
-                    age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
-                    totalVoutValue={transaction.totalVoutValue}
-                  />
-                </a>
-              </Link>
-            )
-          })}
-        </div>
-      </CollapsibleSection>
+      <div className='md:hidden' data-testid='Mobile.LatestTransactionsList'>
+        <CollapsibleSection heading='Latest Transactions' testId='Mobile.LatestTransactions.CollapsibleSection'>
+          <BlockDetailCards transactions={transactions} />
+        </CollapsibleSection>
+      </div>
+      <div className='hidden md:block mt-6 cursor-pointer' data-testid='Desktop.LatestTransactions.List'>
+        <BlockDetailCards transactions={transactions} />
+      </div>
     </>
   )
 }
 
-function TransactionDetails (props: {
-  txid: string
-  age: string
-  totalVoutValue: string
-}): JSX.Element {
-  return (
-    <div className='w-full flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer my-1.5 hover:shadow-md'>
-      <div className='w-1/2 lg:w-2/5 xl:w-3/5 flex space-x-2'>
-        <span className='text-lg leading-6'>
-          <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
-        </span>
-        <div className='overflow-ellipsis overflow-hidden'>
-          <TxIdLink
-            txid={props.txid}
-            className='overflow-ellipsis overflow-hidden font-medium text-gray-900'
-          />
-          <div className='text-xs text-gray-400 leading-5'>
-            <span>{props.age}</span>
-          </div>
-        </div>
-      </div>
-      <DesktopTransactionDetails totalVoutValue={props.totalVoutValue} />
-      <MobileTransactionDetails totalVoutValue={props.totalVoutValue} />
-    </div>
-  )
-}
-
-function DesktopTransactionDetails (props: { totalVoutValue: string }): JSX.Element {
-  return (
-    <div className='hidden md:block w-1/2 lg:w-3/5 xl:w-2/5'>
-      <div className='w-full flex'>
-        <div className='w-1/2 text-right text-sm text-gray-500 lg:mr-2 xl:mr-0'>
-          Amount
-        </div>
-        <div className='w-1/2 text-right text-sm text-gray-900'>
-          {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function MobileTransactionDetails (props: { totalVoutValue: string }): JSX.Element {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
+function BlockDetailCards (props: { transactions: Transaction[] }): JSX.Element {
   return (
     <>
-      <div
-        className='w-1/2 text-primary-500 flex flex-wrap justify-end items-center self-start block md:hidden'
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {(!isOpen)
-          ? (<>VIEW<MdOutlineKeyboardArrowDown size={22} /></>)
-          : (<>HIDE<MdOutlineKeyboardArrowUp size={22} /></>)}
-      </div>
-      <Transition
-        enter='transition ease-out duration-200'
-        enterFrom='opacity-0 translate-y-0'
-        enterTo='opacity-100 translate-y-1'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-1'
-        leaveTo='opacity-100 translate-y-0'
-        className='w-full mt-5'
-        show={isOpen}
-      >
-        <div className='flex flex-wrap items-center'>
-          <div className='w-1/2 text-gray-500 text-sm'>
-            Amount
+      {props.transactions.map(transaction => {
+        return (
+          <Link href={{ pathname: `/transactions/${transaction.id}` }} key={transaction.hash}>
+            <span className='content'>
+              <TransactionDetails
+                txid={transaction.txid}
+                age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
+                totalVoutValue={transaction.totalVoutValue}
+              />
+            </span>
+          </Link>
+        )
+      })}
+    </>
+  )
+}
+
+function TransactionDetails (props: { txid: string, age: string, totalVoutValue: string }): JSX.Element {
+  return (
+    <div className='flex p-4 rounded border border-gray-200 my-1.5 hover:shadow-md'>
+      <div className='flex-none w-11/12 lg:w-18/19'>
+        <div className='flex'>
+          <div className='flex-none w-8'>
+            <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
           </div>
-          <div className='w-1/2 text-right text-gray-900'>
-            {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
+          <div className='flex-none w-28 md:w-36 xl:w-96'>
+            <div className='overflow-ellipsis overflow-hidden'>
+              <TxIdLink txid={props.txid} className='overflow-ellipsis overflow-hidden font-medium text-gray-900' />
+            </div>
+            <div className='hidden md:block text-xs text-gray-400'>
+              <span>{props.age}</span>
+            </div>
+          </div>
+          <div className='flex-none w-9' />
+          <div className='flex-grow w-10'>
+            <div className='hidden md:block text-sm'>
+              <span className='text-gray-400'>Amount&nbsp;</span>
+              <span>{`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}</span>
+            </div>
+            <div className='md:hidden text-center text-xs text-gray-400'>
+              <span>{props.age}</span>
+            </div>
           </div>
         </div>
-      </Transition>
-    </>
+        <div className='md:hidden flex'>
+          <div className='flex-none w-8' />
+          <div>
+            <div className='sm:block text-sm text-center'>
+              <span className='text-gray-400'>Amount&nbsp;</span>
+              <span>{`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='flex items-center'>
+        <MdOutlineKeyboardArrowRight size={38} />
+      </div>
+    </div>
   )
 }

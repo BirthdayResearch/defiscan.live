@@ -48,7 +48,6 @@ context('<Header/> on macbook-13', () => {
 })
 
 context('<Header/> on iphone-x', () => {
-
   beforeEach(() => {
     cy.viewport('iphone-x')
   })
@@ -91,7 +90,7 @@ context('<Header/> on iphone-x', () => {
       cy.visit('/transactions/04fe77d0176dd8c22a135253c4cc71a4fdefc48ca2bb6aa8d33954714585a186?network=MainNet')
     })
 
-    it('should have Desktop.HeaderSearchBar', () => {
+    it('should have Mobile.HeaderSearchBar', () => {
       cy.findByTestId('Header.OpenMenu').click()
       cy.findByTestId('Mobile.HeaderSearchBar').should('be.visible')
     })

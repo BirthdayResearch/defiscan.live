@@ -78,6 +78,11 @@ module.exports = {
         200: '#D6EAF9',
         500: '#5AA9E6',
       }
+    },
+    extend: {
+      width: {
+        '18/19': '95%'
+      }
     }
   },
   variants: {
