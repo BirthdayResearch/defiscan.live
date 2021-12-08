@@ -38,7 +38,7 @@ context('/transactions/[txid] - DfTx Place Auction Bid on Desktop', () => {
 
 context('/transactions/[txid] - DfTx Place Auction Bid on Mobile', () => {
   before(() => {
-    cy.visit('/transactions/47a1babbff52678f88cef7f5d41e7b9cd6a56d08affefd37de4e4dcb45abf033')
+    cy.visit('/transactions/bddbd785df3e27c817c0e1054ebb04c1e932efd08a0e3f8f97663ddba6cf3d00')
   })
 
   beforeEach(() => {
