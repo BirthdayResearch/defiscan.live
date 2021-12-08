@@ -35,6 +35,7 @@ import {
   CCompositeSwap,
   CPaybackLoan,
   CTakeLoan,
+  CPlaceAuctionBid,
   DfTx
 } from '@defichain/jellyfish-transaction'
 import { DfTxTakeLoan } from '@components/transactions/[txid]/DfTx/DfTxTakeLoan'
@@ -74,6 +75,7 @@ import { DfTxUpdateVault } from '@components/transactions/[txid]/DfTx/DfTxUpdate
 import { DfTxDepositToVault } from '@components/transactions/[txid]/DfTx/DfTxDepositToVault'
 import { DfTxCloseVault } from '@components/transactions/[txid]/DfTx/DfTxCloseVault'
 import { DfTxCompositeSwap } from '@components/transactions/[txid]/DfTx/DfTxCompositeSwap'
+import { DfTxPlaceAuctionBid } from '@components/transactions/[txid]/DfTx/DfTxPlaceAuctionBid'
 import { DfTxPayBackLoan } from '@components/transactions/[txid]/DfTx/DfTxPayBackLoan'
 
 interface TransactionDfTxProps {
@@ -162,6 +164,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxPayBackLoan dftx={props.dftx} />
     case CTakeLoan.OP_CODE:
       return <DfTxTakeLoan dftx={props.dftx} />
+    case CPlaceAuctionBid.OP_CODE:
+      return <DfTxPlaceAuctionBid dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
