@@ -2,9 +2,7 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
-
 import { getWhaleApiClient, useWhaleApiClient } from '@contexts/WhaleContext'
-
 import { Container } from '@components/commons/Container'
 import { IndexHeader } from '@components/index/IndexHeader'
 import { LiquidityPoolList } from '@components/index/LiquidityPoolList'
@@ -19,14 +17,13 @@ interface HomePageProps {
 }
 
 export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const api = useWhaleApiClient()
+  const [clientSide, setClientSide] = useState<boolean>(false)
   const [data, setData] = useState<HomePageProps>({
     blocks: [],
     transactions: [],
     liquidityPools: []
   })
-
-  const [clientSide, setClientSide] = useState<boolean>(false)
-  const api = useWhaleApiClient()
 
   useEffect(() => {
     void fetchData()
@@ -38,7 +35,6 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
 
   async function fetchData (): Promise<void> {
     const blocks = await api.blocks.list(8)
-
     let transactions: Transaction[] = []
     await Promise.all(
       blocks.map(async block =>
