@@ -1,5 +1,5 @@
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
-import { getAssetIcon } from '@components/icons/assets'
+import { getAssetIcon } from '@components/icons/assets/tokens'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import React from 'react'

@@ -50,6 +50,14 @@ export function VaultIdHeading (props: { vault: LoanVaultActive | LoanVaultLiqui
         </div>
         <CopyButton className='ml-2' content={props.vault.vaultId} />
       </div>
+      <div className='flex items-center'>
+        <div
+          className='text-lg text-gray-500 font-medium break-all'
+          data-testid='VaultIdHeading.vaultId'
+        >{props.vault.vaultId}
+        </div>
+        <CopyButton className='ml-2' content={props.vault.vaultId} />
+      </div>
     </>
   )
 }

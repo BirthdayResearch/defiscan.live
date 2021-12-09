@@ -1,6 +1,6 @@
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { LoanVaultState, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
-import { getAssetIcon } from '@components/icons/assets'
+import { getAssetIcon } from '@components/icons/assets/tokens'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import BigNumber from 'bignumber.js'
 import React from 'react'

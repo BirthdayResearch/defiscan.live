@@ -1,6 +1,6 @@
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
-import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
+import { getAssetIcon, getTokenIcon } from '@components/icons/assets/tokens'
 import { getWhaleApiClient, useWhaleApiClient } from '@contexts/WhaleContext'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'

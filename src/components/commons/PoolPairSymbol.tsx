@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import classnames from 'classnames'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { getAssetIcon } from '@components/icons/assets'
+import { getAssetIcon } from '@components/icons/assets/tokens'
 
 interface PoolPairSymbolProps {
   poolPairId: string | number

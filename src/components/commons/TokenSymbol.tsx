@@ -2,7 +2,7 @@ import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useEffect, useState } from 'react'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import classNames from 'classnames'
-import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
+import { getAssetIcon, getTokenIcon } from '@components/icons/assets/tokens'
 
 interface TokenSymbolProps {
   tokenId: number

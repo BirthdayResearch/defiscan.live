@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import NumberFormat from 'react-number-format'
 import { PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
-import { getNativeIcon } from '@components/icons/assets'
+import { getNativeIcon } from '@components/icons/assets/tokens'
 
 export interface PriceFeedProps {
   price: PriceTicker
