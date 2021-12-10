@@ -10,7 +10,7 @@ export function VaultStatsBar (): JSX.Element {
 
   return (
     <StatsBar>
-      <StatItem label='Total Active Vaults' testId='VaultStatsBar.TotalActiveVaults'>
+      <StatItem label='Total Vaults' testId='VaultStatsBar.TotalActiveVaults'>
         <ReactNumberFormat
           displayType='text'
           thousandSeparator
