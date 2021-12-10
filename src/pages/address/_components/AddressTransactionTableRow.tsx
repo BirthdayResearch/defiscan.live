@@ -68,7 +68,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
           </div>
         </OverflowTable.Cell>
       </OverflowTable.Row>
-      <AddressVinVout address={props.address} txid={props.addressActivity.txid} expanded={expanded} />
+      <AddressVinVout address={props.address} txid={props.addressActivity.txid} expanded />
     </>
   )
 }
