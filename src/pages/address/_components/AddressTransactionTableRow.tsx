@@ -14,7 +14,7 @@ interface TransactionTableRowProps {
 }
 
 export function AddressTransactionTableRow (props: TransactionTableRowProps): JSX.Element {
-  const [expanded, setExpanded] = useState<boolean>(false)
+  const [expanded, setExpanded] = useState<boolean>(true)
 
   function expandRow (event): void {
     const target = event.target as HTMLElement
@@ -68,7 +68,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
           </div>
         </OverflowTable.Cell>
       </OverflowTable.Row>
-      <AddressVinVout address={props.address} txid={props.addressActivity.txid} expanded />
+      <AddressVinVout address={props.address} txid={props.addressActivity.txid} expanded={expanded} />
     </>
   )
 }
