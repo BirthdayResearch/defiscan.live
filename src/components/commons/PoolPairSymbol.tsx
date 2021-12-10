@@ -11,6 +11,8 @@ interface PoolPairSymbolProps {
   symbolMarginClassName: string
   textClassName: string
   testId?: string
+  iconATop?: string
+  iconBTop?: string
 }
 
 export function PoolPairSymbol (props: PoolPairSymbolProps): JSX.Element {
@@ -48,9 +50,9 @@ export function PoolPairSymbol (props: PoolPairSymbolProps): JSX.Element {
   const IconB = getAssetIcon(symbolB)
 
   return (
-    <div className='flex items-center'>
-      <IconA className={classnames('absolute z-10', props.symbolSizeClassName)} />
-      <IconB className={classnames('absolute', props.symbolSizeClassName, props.symbolMarginClassName)} />
+    <div className='flex items-center relative'>
+      <IconA className={classnames(`absolute z-10 ${props.iconATop ?? ''}`, props.symbolSizeClassName)} />
+      <IconB className={classnames(`absolute ${props.iconBTop ?? ''}`, props.symbolSizeClassName, props.symbolMarginClassName)} />
       <div className={classnames(props.textClassName)}>
         {`${poolPairData.tokenA.displaySymbol}-${poolPairData.tokenB.displaySymbol}`}
       </div>

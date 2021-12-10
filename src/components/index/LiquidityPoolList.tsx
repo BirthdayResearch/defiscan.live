@@ -53,8 +53,12 @@ function LiquidityPoolCard (
   return (
     <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3'>
       <PoolPairSymbol
-        poolPairId={props.poolId} symbolSizeClassName='h-6 w-6' symbolMarginClassName='ml-3.5'
+        poolPairId={props.poolId}
+        symbolSizeClassName='h-6 w-6'
+        symbolMarginClassName='ml-3.5'
         textClassName='ml-11 font-medium'
+        iconATop='-top-1'
+        iconBTop='top-2'
       />
       <div className='my-auto'>
         {(() => {
