@@ -9,6 +9,7 @@ interface VaultCollateralizationRatioProps {
   vaultState: LoanVaultState
   className?: string
   testId?: string
+  suffix?: string
 }
 
 export function VaultCollateralizationRatio (props: VaultCollateralizationRatioProps): JSX.Element {
@@ -33,7 +34,7 @@ export function VaultCollateralizationRatio (props: VaultCollateralizationRatioP
         ? ('N/A')
         : (<ReactNumberFormat
             value={props.collateralizationRatio}
-            suffix='%'
+            suffix={props.suffix === undefined ? '%' : ''}
             displayType='text'
             thousandSeparator
            />)}
