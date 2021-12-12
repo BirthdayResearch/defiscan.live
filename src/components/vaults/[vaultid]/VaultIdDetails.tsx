@@ -14,6 +14,8 @@ import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { VaultHealthBar } from '@components/vaults/common/VaultHealthBar'
 
 export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues }): JSX.Element {
+  const isVaultActive = (props.vault.state !== LoanVaultState.IN_LIQUIDATION && (props.vault.loanAmounts.length > 0 && props.vault.collateralAmounts.length > 0))
+
   return (
     <>
       <div className='mt-8 hidden md:block'>
@@ -21,7 +23,7 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
           Vault Details
         </h2>
         <div className='flex flex-wrap mt-3 items-center'>
-          <OverflowTable className='md:w-full lg:w-2/3'>
+          <OverflowTable className={`md:w-full lg:${isVaultActive ? 'w-2/3' : 'w-full'}`}>
             <OverflowTable.Header>
               <OverflowTable.Head
                 title={'Owner\'s Address'}
@@ -55,7 +57,7 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
             />
           </OverflowTable>
           {
-            props.vault.state !== LoanVaultState.IN_LIQUIDATION && (
+            (props.vault.state !== LoanVaultState.IN_LIQUIDATION && isVaultActive) && (
               <VaultHealthBar vault={props.vault} />
             )
           }
@@ -69,7 +71,7 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
         <div className='mb-8'>
           <MobileVaultDetails vault={props.vault} liquidatedVaultDerivedValues={props.liquidatedVaultDerivedValues} />
           {
-            props.vault.state !== LoanVaultState.IN_LIQUIDATION && (
+            (props.vault.state !== LoanVaultState.IN_LIQUIDATION && isVaultActive) && (
               <VaultHealthBar vault={props.vault} />
             )
           }
