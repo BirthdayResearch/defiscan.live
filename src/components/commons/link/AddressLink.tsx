@@ -6,6 +6,7 @@ import { WarningHoverPopover } from '@components/commons/popover/WarningHoverPop
 interface AddressLinkProps {
   address: string
   className?: string
+  textClassName?: string
   testId?: string
 }
 
@@ -17,7 +18,7 @@ export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.El
   return (
     <div
       data-testid={props.testId}
-      className={classnames('hover:underline text-primary-500 cursor-pointer', props.className)}
+      className={classnames('hover:underline cursor-pointer', props.className, props.textClassName === undefined ? 'text-blue-400' : props.textClassName)}
     >
       <Link href={{ pathname: `/address/${props.address}` }}>
         {(() => {
@@ -31,13 +32,16 @@ export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.El
   )
 }
 
-export function AddressLinkExternal (props: {text: string, url: string, testId?: string}): JSX.Element {
+export function AddressLinkExternal (props: { text: string, url: string, testId?: string }): JSX.Element {
   return (
-    <div className='flex items-center text-primary-500 hover:underline cursor-pointer' data-testid={props.testId}>
+    <div className='flex items-center text-blue-400 hover:underline cursor-pointer' data-testid={props.testId}>
       <a href={props.url} target='_blank' rel='noreferrer'>
         {props.text}
       </a>
-      <WarningHoverPopover className='ml-1' description='This link opens in a new window and goes to an external site.' />
+      <WarningHoverPopover
+        className='ml-1'
+        description='This link opens in a new window and goes to an external site.'
+      />
     </div>
   )
 }

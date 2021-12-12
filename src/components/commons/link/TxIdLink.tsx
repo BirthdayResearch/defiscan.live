@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react'
 interface TxIdLinkProps {
   txid: string
   className?: string
+  textClassName?: string
   testId?: string
 }
 
@@ -14,7 +15,10 @@ export function TxIdLink (props: PropsWithChildren<TxIdLinkProps>): JSX.Element 
   }
 
   return (
-    <div data-testid={props.testId} className={classnames('hover:underline text-primary-500 cursor-pointer', props.className)}>
+    <div
+      data-testid={props.testId}
+      className={classnames('hover:underline cursor-pointer', props.className, props.textClassName === undefined ? 'text-blue-400' : props.textClassName)}
+    >
       <Link href={{ pathname: `/transactions/${props.txid}` }}>
         {(() => {
           if (props.children !== undefined) {

@@ -1,7 +1,6 @@
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { formatDistanceToNow } from 'date-fns'
 import BigNumber from 'bignumber.js'
-import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdSwapHorizontalCircle } from 'react-icons/md'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import React, { useState } from 'react'
@@ -69,10 +68,7 @@ function TransactionDetails (props: {
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
         </span>
         <div className='overflow-ellipsis overflow-hidden'>
-          <TxIdLink
-            txid={props.txid}
-            className='overflow-ellipsis overflow-hidden font-medium text-gray-900'
-          />
+          <span className='text-gray-900 font-medium'>{props.txid}</span>
           <div className='text-xs text-gray-400 leading-5'>
             <span>{props.age}</span>
           </div>

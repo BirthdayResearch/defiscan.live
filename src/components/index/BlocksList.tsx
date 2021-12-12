@@ -6,7 +6,6 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdStairs } from '
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { Transition } from '@headlessui/react'
 import React, { useState } from 'react'
-import { BlockLink } from '@components/commons/link/BlockLink'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
@@ -78,9 +77,7 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
           <MdStairs className='text-gray-400 inline-block' size={22} />
         </span>
         <div>
-          <BlockLink className='font-medium text-gray-900' block={props.height}>
-            {props.height}
-          </BlockLink>
+          <span className='text-gray-900 font-medium'>{props.height}</span>
           <div className='text-xs text-gray-400 leading-5'>
             <span>{props.age}</span>
           </div>
@@ -101,8 +98,8 @@ function DesktopBlockDetails (props: { height: string, mintedBy?: string, transa
         </div>
         {
           props.mintedBy === undefined ? ('N/A') : (
-            <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
-              <div className='text-right text-gray-900 overflow-hidden overflow-ellipsis'>
+            <AddressLink address={`${props.mintedBy}`} className='w-1/2' textClassName='text-gray-900'>
+              <div className='text-right overflow-hidden overflow-ellipsis'>
                 {props.mintedBy}
               </div>
             </AddressLink>

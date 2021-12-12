@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react'
 interface BlockLinkProps {
   block: string
   className?: string
+  textClassName?: string
   testId?: string
 }
 
@@ -16,7 +17,7 @@ export function BlockLink (props: PropsWithChildren<BlockLinkProps>): JSX.Elemen
   return (
     <div
       data-testid={props.testId}
-      className={classnames('hover:underline text-primary-500 cursor-pointer', props.className)}
+      className={classnames('hover:underline cursor-pointer', props.className, props.textClassName === undefined ? 'text-blue-400' : props.textClassName)}
     >
       <Link href={{ pathname: `/blocks/${props.block}` }}>
         {(() => {

@@ -46,7 +46,7 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
       </div>
 
       <VaultLink vault={props.vault.vaultId}>
-        <TextTruncate text={props.vault.vaultId} className='mt-2 text-primary-500 underline cursor-pointer' testId='VaultMobileCard.VaultID' />
+        <TextTruncate text={props.vault.vaultId} className='mt-2 underline cursor-pointer' testId='VaultMobileCard.VaultID' />
       </VaultLink>
 
       <Transition
