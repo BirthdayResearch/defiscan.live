@@ -18,15 +18,13 @@ interface HomePageProps {
 
 export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const api = useWhaleApiClient()
-  const [clientSide, setClientSide] = useState<boolean>(false)
   const [data, setData] = useState<HomePageProps>({
-    blocks: [],
-    transactions: [],
-    liquidityPools: []
+    blocks: props.blocks,
+    transactions: props.transactions,
+    liquidityPools: props.liquidityPools
   })
 
   useEffect(() => {
-    void fetchData()
     const interval = setInterval(() => {
       void fetchData()
     }, 15000)
@@ -57,8 +55,6 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
       blocks,
       liquidityPools
     })
-
-    setClientSide(true)
   }
 
   return (
@@ -67,13 +63,13 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
       <Container className='pb-20'>
         <div className='flex flex-wrap -mx-2'>
           <div className='w-full lg:w-1/2 xl:w-3/5 px-1'>
-            <TransactionsList transactions={clientSide ? data.transactions : props.transactions} />
+            <TransactionsList transactions={data.transactions} />
           </div>
           <div className='w-full lg:w-1/2 xl:w-2/5 px-1'>
-            <BlocksList blocks={clientSide ? data.blocks : props.blocks} />
+            <BlocksList blocks={data.blocks} />
           </div>
         </div>
-        <LiquidityPoolList liquidityPools={clientSide ? data.liquidityPools : props.liquidityPools} />
+        <LiquidityPoolList liquidityPools={data.liquidityPools} />
       </Container>
     </>
   )
