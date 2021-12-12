@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import ReactNumberFormat from 'react-number-format'
 
 interface VaultCollateralizationRatioProps {
-  collateralizationRatio: string // collateralizationRatio = collateralRatio
+  collateralizationRatio: string
   loanScheme: LoanScheme
   vaultState: LoanVaultState
   className?: string

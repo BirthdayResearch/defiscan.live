@@ -5,7 +5,7 @@ interface CollateralsValue {
   value: BigNumber
 }
 
-export function CalculateCollateralsValue (batches: LoanVaultTokenAmount[]): CollateralsValue {
+export function calculateCollateralsValue (batches: LoanVaultTokenAmount[]): CollateralsValue {
   let totalCollateralValue = new BigNumber(0)
   batches.forEach(collateral => {
     if (collateral.activePrice?.active == null) {
