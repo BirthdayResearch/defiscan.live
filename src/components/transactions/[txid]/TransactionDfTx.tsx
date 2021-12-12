@@ -3,39 +3,42 @@ import {
   CAccountToUtxos,
   CAnyAccountToAccount,
   CAppointOracle,
+  CAutoAuthPrep,
+  CCloseVault,
+  CCompositeSwap,
   CCreateMasternode,
+  CCreateVault,
+  CDepositToVault,
+  CICXClaimDFCHTLC,
+  CICXCloseOffer,
+  CICXCloseOrder,
   CICXCreateOrder,
+  CICXMakeOffer,
+  CICXSubmitDFCHTLC,
+  CICXSubmitEXTHTLC,
+  CPaybackLoan,
+  CPlaceAuctionBid,
   CPoolAddLiquidity,
   CPoolCreatePair,
   CPoolRemoveLiquidity,
   CPoolSwap,
-  CRemoveOracle,
   CPoolUpdatePair,
+  CRemoveOracle,
   CResignMasternode,
-  CSetGovernance,
-  CSetOracleData,
-  CTokenCreate, CTokenMint, CUpdateOracle,
-  CUtxosToAccount,
-  CAutoAuthPrep,
-  CICXMakeOffer,
-  CICXCloseOffer,
-  CICXCloseOrder,
-  CICXSubmitDFCHTLC,
-  CICXSubmitEXTHTLC,
-  CICXClaimDFCHTLC,
-  CTokenUpdateAny,
-  CSetLoanToken,
-  CSetLoanScheme,
-  CSetDefaultLoanScheme,
   CSetCollateralToken,
-  CCreateVault,
-  CUpdateVault,
-  CDepositToVault,
-  CCloseVault,
-  CCompositeSwap,
-  CPaybackLoan,
+  CSetDefaultLoanScheme,
+  CSetGovernance,
+  CSetLoanScheme,
+  CSetLoanToken,
+  CSetOracleData,
   CTakeLoan,
-  CPlaceAuctionBid,
+  CTokenCreate,
+  CTokenMint,
+  CTokenUpdateAny,
+  CUpdateOracle,
+  CUpdateVault,
+  CUtxosToAccount,
+  CWithdrawFromVault,
   DfTx
 } from '@defichain/jellyfish-transaction'
 import { DfTxTakeLoan } from '@components/transactions/[txid]/DfTx/DfTxTakeLoan'
@@ -77,6 +80,7 @@ import { DfTxCloseVault } from '@components/transactions/[txid]/DfTx/DfTxCloseVa
 import { DfTxCompositeSwap } from '@components/transactions/[txid]/DfTx/DfTxCompositeSwap'
 import { DfTxPlaceAuctionBid } from '@components/transactions/[txid]/DfTx/DfTxPlaceAuctionBid'
 import { DfTxPayBackLoan } from '@components/transactions/[txid]/DfTx/DfTxPayBackLoan'
+import { DfTxWithdrawFromVault } from '@components/transactions/[txid]/DfTx/DfTxWithdrawFromVault'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -166,6 +170,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxTakeLoan dftx={props.dftx} />
     case CPlaceAuctionBid.OP_CODE:
       return <DfTxPlaceAuctionBid dftx={props.dftx} />
+    case CWithdrawFromVault.OP_CODE:
+      return <DfTxWithdrawFromVault dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
