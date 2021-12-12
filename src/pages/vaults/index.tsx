@@ -253,15 +253,11 @@ function VaultStatusInfo (): JSX.Element {
     <div
       className='px-3 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
     >
-      A vault's status is determined by its collateralization ratio.
+      <span className='font-medium'>Empty</span>: When a vault has been created but no collateral has been deposited yet.
       <br /><br />
-      <span className='font-medium'>Active</span>: When a vault is created but no loan has been taken yet
+      <span className='font-medium'>Ready</span>: When collateral has been deposited into the vault, but no loan has been taken yet.
       <br /><br />
-      <span className='font-medium'>At Risk</span>: When the collateralization ratio of a vault is between 1x – 1.5x the
-      minimum collateralization ratio
-      <br /><br />
-      <span className='font-medium'>Healthy</span>: When the collateralization ratio of a vault is more than 1.5x the
-      minimum collateralization ratio
+      <span className='font-medium'>Active</span>: When a vault's collateralization ratio is above its minimum requirement.
       <br /><br />
       <span className='font-medium'>In Liquidation</span>: When a vault’s collateralization ratio falls below the
       minimum requirement
