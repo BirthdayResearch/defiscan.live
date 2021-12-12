@@ -221,7 +221,6 @@ function VaultRow (props: {
                     collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
                     loanScheme={props.vault.loanScheme}
                     vaultState={props.vault.state}
-                    suffix=''
                   />
                 )
               }
@@ -231,18 +230,18 @@ function VaultRow (props: {
                   collateralizationRatio={props.vault.collateralRatio}
                   loanScheme={props.vault.loanScheme}
                   vaultState={props.vault.state}
-                  suffix=''
                 />
               )
             }
-          })()} <ReactNumberFormat
+          })()}
+          <ReactNumberFormat
             value={props.vault.loanScheme.minColRatio}
             suffix='%'
             displayType='text'
             thousandSeparator
             className='ml-1'
             prefix=' / '
-                />
+          />
         </span>
       </OverflowTable.Cell>
     </OverflowTable.Row>
@@ -278,9 +277,11 @@ function CollateralizationRatioMinInfo (): JSX.Element {
     <div
       className='px-3 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
     >
-      <span className='font-medium'>Collateralization Ratio</span>: Percentage of collaterals deposited in a vault in relation to the amount of loan taken.
+      <span className='font-medium'>Collateralization Ratio</span>: Percentage of collaterals deposited in a vault in
+      relation to the amount of loan taken.
       <br /><br />
-      <span className='font-medium'>Min. Collateralization Ratio</span>: Minimum required collateral ratio based on vault scheme selected by vault owner.
+      <span className='font-medium'>Min. Collateralization Ratio</span>: Minimum required collateral ratio based on
+      vault scheme selected by vault owner.
     </div>
   )
 }
