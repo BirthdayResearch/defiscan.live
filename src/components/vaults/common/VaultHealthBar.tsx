@@ -48,18 +48,18 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
         </div>
       </div>
       <div className='relative flex mt-2.5 items-center'>
-        <div className='w-full flex rounded-lg h-4 bg-gray-100 border bg-black overflow-hidden'>
+        <div className='w-full flex rounded-lg h-4 bg-gray-100 border overflow-hidden'>
           <div className='bg-white h-4 overflow-hidden' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }} data-testid='VaultHealthBar.BarProgress' />
         </div>
         <span
-          className='absolute left-0 h-5 border-r border-black'
+          className='absolute h-5 border-l border-black'
           style={{ left: `${BigNumber.min(normalizedColRatio.multipliedBy(100), 99.7).toFixed(2)}%` }}
           data-testid='VaultHealthBar.CurrentLine'
         />
         {
           normalizedNextRatio !== undefined && (
             <span
-              className='absolute h-5 border-r border-black border-dashed'
+              className='absolute h-5 border-l border-black border-dashed'
               style={{ left: `${BigNumber.min(normalizedNextRatio, 99.7).toFixed(2)}%` }}
               data-testid='VaultHealthBar.NextLine'
             />

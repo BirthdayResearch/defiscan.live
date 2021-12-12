@@ -13,8 +13,8 @@ interface InfoHoverPopoverProps {
 
 export function InfoHoverPopover (props: PropsWithChildren<InfoHoverPopoverProps>): JSX.Element {
   return (
-    <HoverPopover popover={props.description} placement={props.placement}>
-      <div className={classNames('cursor-help group', props.className)} data-testid='InfoHoverPopover'>
+    <HoverPopover className={classNames('cursor-help group', props.className)} popover={props.description} placement={props.placement}>
+      <div data-testid='InfoHoverPopover'>
         <IoMdInformationCircleOutline className='h-4 w-4 text-blue-500' />
       </div>
     </HoverPopover>
