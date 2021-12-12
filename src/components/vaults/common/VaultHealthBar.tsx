@@ -31,12 +31,17 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
             collateralizationRatio={new BigNumber(props.vault.collateralRatio).toFixed(0, BigNumber.ROUND_HALF_UP)}
             loanScheme={props.vault.loanScheme}
             vaultState={props.vault.state}
+            testId='VaultHealthBar.CollateralizationRatio'
           />
         </div>
       </div>
       <div className='mt-0.5 w-full flex flex-wrap text-sm text-gray-500'>
-        <div className='w-1/2'>{`Min: ${minColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`}</div>
-        <div className='w-1/2 text-right'>
+        <div
+          className='w-1/2'
+          data-testid='VaultHealthBar.MinCollateralizationRatio'
+        >{`Min: ${minColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`}
+        </div>
+        <div className='w-1/2 text-right' data-testid='VaultHealthBar.NextCollateralizationRatio'>
           {
             nextColRatio === undefined ? ('N/A') : (`Next ~${nextColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`)
           }
@@ -44,17 +49,19 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
       </div>
       <div className='relative flex mt-2.5 items-center'>
         <div className='w-full flex rounded-lg h-4 bg-gray-100 border bg-black overflow-hidden'>
-          <div className='bg-white h-4 overflow-hidden' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }} />
+          <div className='bg-white h-4 overflow-hidden' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }} data-testid='VaultHealthBar.BarProgress' />
         </div>
         <span
           className='absolute left-0 h-5 border-r border-black'
           style={{ left: `${BigNumber.min(normalizedColRatio.multipliedBy(100), 99.7).toFixed(2)}%` }}
+          data-testid='VaultHealthBar.CurrentLine'
         />
         {
           normalizedNextRatio !== undefined && (
             <span
               className='absolute h-5 border-r border-black border-dashed'
               style={{ left: `${BigNumber.min(normalizedNextRatio, 99.7).toFixed(2)}%` }}
+              data-testid='VaultHealthBar.NextLine'
             />
           )
         }
@@ -69,7 +76,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
 
 function ColorScale (props: { normalizedLiquidatedThreshold: BigNumber, normalizedAtRiskThreshold: BigNumber }): JSX.Element {
   return (
-    <div className='w-full flex flex-row mt-1.5'>
+    <div className='w-full flex flex-row mt-1.5' data-testid='VaultHealthBar.ColorScale'>
       <div
         className='h-1 mr-0.5 bg-red-300'
         style={{ width: `${props.normalizedLiquidatedThreshold.toFixed(2)}%` }}

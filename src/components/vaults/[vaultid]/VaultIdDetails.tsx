@@ -18,7 +18,7 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
 
   return (
     <>
-      <div className='mt-8 hidden md:block'>
+      <div className='mt-8 hidden md:block' data-testid='VaultDetailsDesktop'>
         <h2 className='text-xl font-semibold' data-testid='VaultDetailsDesktop.Heading'>
           Vault Details
         </h2>
@@ -137,6 +137,7 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
   return (
     <div
       className={classNames('flex flex-col space-y-2', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+      data-testid='VaultDetailsMobile'
     >
       <VaultDetailsListItem
         title={'Owner\'s Address'}
