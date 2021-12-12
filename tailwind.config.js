@@ -4,7 +4,6 @@ module.exports = {
     './src/layouts/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}'
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
       sans: ['"IBM Plex Sans"', 'sans-serif']
