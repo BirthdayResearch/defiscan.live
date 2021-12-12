@@ -36,8 +36,8 @@ context('/vaults', () => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
 
-    cy.findByTestId('VaultsTable.MinCollateralizationRatio').should('be.visible').should('have.text', 'Collateralization Ratio / Min.')
-    cy.findByTestId('VaultsTable.MinCollateralizationRatio').within(() => {
+    cy.findByTestId('VaultsTable.CollateralizationRatios').should('be.visible').should('have.text', 'Collateralization Ratio / Min.')
+    cy.findByTestId('VaultsTable.CollateralizationRatios').within(() => {
       cy.findByTestId('InfoHoverPopover').should('be.visible')
     })
   })

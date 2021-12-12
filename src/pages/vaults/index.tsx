@@ -91,7 +91,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
                     alignRight
                     title='Collateralization Ratio / Min.'
                     infoDesc={<CollateralizationRatioMinInfo />}
-                    testId='VaultsTable.MinCollateralizationRatio'
+                    testId='VaultsTable.CollateralizationRatios'
                   />
                 </OverflowTable.Header>
                 {vaults.items.map(vault => {
