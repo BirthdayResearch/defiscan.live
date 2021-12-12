@@ -2,13 +2,11 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import classNames from 'classnames'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import BigNumber from 'bignumber.js'
 import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import React from 'react'
-import ReactNumberFormat from 'react-number-format'
 import { LiquidatedVaultDerivedValues } from '../../../utils/vaults/LiquidatedVaultDerivedValues'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { VaultHealthBar } from '@components/vaults/common/VaultHealthBar'
@@ -68,7 +66,7 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
         heading='Vault Details' className='block md:hidden'
         testId='VaultCollapsibleSection.VaultIdDetails'
       >
-        <div className='mb-8'>
+        <div className='mb-8' data-testid='VaultDetailsMobile'>
           <MobileVaultDetails vault={props.vault} liquidatedVaultDerivedValues={props.liquidatedVaultDerivedValues} />
           {
             (props.vault.state !== LoanVaultState.IN_LIQUIDATION && isVaultActive) && (
@@ -137,7 +135,6 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
   return (
     <div
       className={classNames('flex flex-col space-y-2', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
-      data-testid='VaultDetailsMobile'
     >
       <VaultDetailsListItem
         title={'Owner\'s Address'}
@@ -189,41 +186,6 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
           : (
             <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
             )}
-      </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Total Collateralization Ratio'
-        infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-        testId='VaultDetailList.TotalCollateralizationRatio'
-      >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION
-          ? (
-              props.liquidatedVaultDerivedValues?.totalCollateralRatio === undefined
-                ? ('N/A')
-                : (
-                  <VaultCollateralizationRatio
-                    collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
-                    loanScheme={props.vault.loanScheme}
-                    vaultState={props.vault.state}
-                  />
-                  )
-            )
-          : (<VaultCollateralizationRatio
-              collateralizationRatio={props.vault.collateralRatio}
-              loanScheme={props.vault.loanScheme}
-              vaultState={props.vault.state}
-             />)}
-      </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Min Collateralization Ratio'
-        infoDesc='Minimum required collateral ratio based on vault scheme selected by vault owner.'
-        testId='VaultDetailList.MinCollateralizationRatio'
-      >
-        <ReactNumberFormat
-          value={props.vault.loanScheme.minColRatio}
-          suffix='%'
-          displayType='text'
-          thousandSeparator
-        />
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Vault Interest Rate (APR)'

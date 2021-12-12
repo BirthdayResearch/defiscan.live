@@ -159,8 +159,6 @@ context('/vaults/[vaultid] on mobile', function () {
       cy.findByTestId('VaultDetailList.OwnerAddress').should('be.visible')
       cy.findByTestId('VaultDetailList.TotalLoanValue').should('be.visible')
       cy.findByTestId('VaultDetailList.TotalCollateralValue').should('be.visible')
-      cy.findByTestId('VaultDetailList.TotalCollateralizationRatio').should('be.visible')
-      cy.findByTestId('VaultDetailList.MinCollateralizationRatio').should('be.visible')
       cy.findByTestId('VaultDetailList.VaultInterestRate').should('be.visible')
     })
 
