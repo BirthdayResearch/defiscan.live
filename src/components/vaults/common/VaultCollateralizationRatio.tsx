@@ -22,9 +22,9 @@ export function VaultCollateralizationRatio (props: VaultCollateralizationRatioP
         classNames(props.className, (props.vaultState === LoanVaultState.FROZEN
           ? ('text-gray-200')
           : {
-              'text-red-500': currentPercentage.gt(new BigNumber(0)) && currentPercentage.lt(new BigNumber(1)),
-              'text-orange-500': currentPercentage.gte(new BigNumber(1)) && currentPercentage.lte(new BigNumber(1.5)),
-              'text-green-500': currentPercentage.gt(new BigNumber(1.5))
+              'text-red-500': currentPercentage.gt(1) && currentPercentage.lt(1.25),
+              'text-orange-500': currentPercentage.gte(1.25) && currentPercentage.lte(1.5),
+              'text-green-500': currentPercentage.gt(1.5)
             }))
       }
       data-testid={props.testId}

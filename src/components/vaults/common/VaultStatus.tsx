@@ -35,14 +35,18 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
       const collateralRatio = new BigNumber(props.vault.collateralRatio)
       const currentPercentage = collateralRatio.div(minColRatio)
 
-      if (currentPercentage > new BigNumber(1.5)) {
+      if (currentPercentage.gt(1.5)) {
         textClassName = 'text-green-500 bg-green-100'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular3 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
-      } else {
+      } else if (currentPercentage.gte(1.25) && currentPercentage.lte(1.5)) {
         textClassName = 'text-orange-500 bg-orange-100'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular2 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
+      } else {
+        textClassName = 'text-red-500 bg-red-100'
+        text = 'ACTIVE'
+        signalSymbol = <SignalCellular1 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       }
       break
     }
