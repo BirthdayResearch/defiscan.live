@@ -3,9 +3,9 @@ import { Link } from '@components/commons/link/Link'
 import ReactNumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
-import { CalculateCollateralsValue } from '../../../utils/vaults/CalculateCollateralsValue'
+import { calculateCollateralsValue } from '../../../utils/vaults/CalculateCollateralsValue'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
-import { getAssetIcon } from '@components/icons/assets'
+import { getAssetIcon } from '@components/icons/assets/tokens'
 import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import { BidAmountValue } from '@components/auctions/commons/BidAmountValue'
 import React from 'react'
@@ -36,7 +36,7 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
       <OverflowTable.Cell alignRight>
         <div className='text-right'>
           <ReactNumberFormat
-            value={CalculateCollateralsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
+            value={calculateCollateralsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
             thousandSeparator
             decimalScale={2}
             prefix='$'
@@ -114,7 +114,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
           testId='AuctionsMobileCard.CollateralValue'
         >
           <ReactNumberFormat
-            value={CalculateCollateralsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
+            value={calculateCollateralsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
             thousandSeparator
             decimalScale={2}
             prefix='$'

@@ -1,5 +1,5 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
-import { getAssetIcon, getTokenIcon } from '@components/icons/assets'
+import { getAssetIcon, getTokenIcon } from '@components/icons/assets/tokens'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { useEffect, useState } from 'react'

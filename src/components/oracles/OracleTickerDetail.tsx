@@ -5,7 +5,7 @@ import { PriceOracle, PriceTicker } from '@defichain/whale-api-client/dist/api/p
 import { format, formatDistanceToNow } from 'date-fns'
 import NumberFormat from 'react-number-format'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
-import { getNativeIcon } from '@components/icons/assets'
+import { getNativeIcon } from '@components/icons/assets/tokens'
 
 interface PriceTickerDetailProps {
   price: PriceTicker

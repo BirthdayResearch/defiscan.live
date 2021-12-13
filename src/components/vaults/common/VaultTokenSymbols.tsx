@@ -1,5 +1,5 @@
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
-import { getAssetIcon } from '@components/icons/assets'
+import { getAssetIcon } from '@components/icons/assets/tokens'
 import classNames from 'classnames'
 
 interface VaultTokenSymbolsProps {

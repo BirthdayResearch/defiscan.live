@@ -1,7 +1,7 @@
 import React from 'react'
 import { LoanVaultLiquidationBatch, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
-import { getAssetIcon } from '@components/icons/assets'
+import { getAssetIcon } from '@components/icons/assets/tokens'
 import ReactNumberFormat from 'react-number-format'
 import { VaultLink } from '@components/commons/link/VaultLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'

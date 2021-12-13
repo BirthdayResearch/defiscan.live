@@ -7,7 +7,7 @@ context('/vaults/[vaultid] on desktop', function () {
         throw new Error('Unable to locate Vault Status')
       }
 
-      if ($status.text().match('HEALTHY') != null) {
+      if ($status.text().match('ACTIVE') != null) {
         $status.trigger('click')
       }
     })
@@ -48,25 +48,28 @@ context('/vaults/[vaultid] on desktop', function () {
         cy.findByTestId('InfoHoverPopover').should('be.visible')
       })
 
-      cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').should('be.visible').should('have.text', 'Total Collateralization Ratio')
-      cy.findByTestId('VaultDetailsDesktop.TotalCollateralizationRatio').within(() => {
-        cy.findByTestId('InfoHoverPopover').should('be.visible')
-      })
-
-      cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').should('be.visible').should('have.text', 'Min Collateralization Ratio')
-      cy.findByTestId('VaultDetailsDesktop.MinCollateralizationRatio').within(() => {
-        cy.findByTestId('InfoHoverPopover').should('be.visible')
-      })
-
       cy.findByTestId('VaultDetailsDesktop.VaultInterestRate').should('be.visible').should('have.text', 'Vault Interest Rate (APR)')
       cy.findByTestId('VaultDetailsDesktop.VaultInterestRate').within(() => {
         cy.findByTestId('InfoHoverPopover').should('be.visible')
       })
     })
 
-    it('should have 6 cells in each row', function () {
+    it('should have 4 cells in each row', function () {
       cy.findAllByTestId('OverflowTable.Row').within(() => {
-        cy.findAllByTestId('OverflowTable.Cell').should('have.length', 6).should('be.visible')
+        cy.findAllByTestId('OverflowTable.Cell').should('have.length', 4).should('be.visible')
+      })
+    })
+
+    it('should have health bar', function () {
+      cy.findAllByTestId('VaultDetailsDesktop').within(() => {
+        cy.findByTestId('VaultHealthBar.CollateralizationRatio').should('be.visible')
+        cy.findByTestId('VaultHealthBar.MinCollateralizationRatio').should('be.visible')
+        cy.findByTestId('VaultHealthBar.NextCollateralizationRatio').should('be.visible')
+        cy.findByTestId('VaultHealthBar.BarProgress').should('be.visible')
+        cy.findByTestId('VaultHealthBar.CurrentLine').should('be.visible')
+        cy.findByTestId('VaultHealthBar.NextLine').should('be.visible')
+        cy.findByTestId('VaultHealthBar.CollateralizationRatio').should('be.visible')
+        cy.findByTestId('VaultHealthBar.ColorScale').should('be.visible')
       })
     })
   })
@@ -122,7 +125,7 @@ context('/vaults/[vaultid] on mobile', function () {
         throw new Error('Unable to locate Vault Status')
       }
 
-      if ($status.text().match('HEALTHY') != null) {
+      if ($status.text().match('ACTIVE') != null) {
         $status.trigger('click')
       }
     })
@@ -156,9 +159,20 @@ context('/vaults/[vaultid] on mobile', function () {
       cy.findByTestId('VaultDetailList.OwnerAddress').should('be.visible')
       cy.findByTestId('VaultDetailList.TotalLoanValue').should('be.visible')
       cy.findByTestId('VaultDetailList.TotalCollateralValue').should('be.visible')
-      cy.findByTestId('VaultDetailList.TotalCollateralizationRatio').should('be.visible')
-      cy.findByTestId('VaultDetailList.MinCollateralizationRatio').should('be.visible')
       cy.findByTestId('VaultDetailList.VaultInterestRate').should('be.visible')
+    })
+
+    it('should have health bar', function () {
+      cy.findAllByTestId('VaultDetailsMobile').within(() => {
+        cy.findByTestId('VaultHealthBar.CollateralizationRatio').should('be.visible')
+        cy.findByTestId('VaultHealthBar.MinCollateralizationRatio').should('be.visible')
+        cy.findByTestId('VaultHealthBar.NextCollateralizationRatio').should('be.visible')
+        cy.findByTestId('VaultHealthBar.BarProgress').should('be.visible')
+        cy.findByTestId('VaultHealthBar.CurrentLine').should('be.visible')
+        cy.findByTestId('VaultHealthBar.NextLine').should('be.visible')
+        cy.findByTestId('VaultHealthBar.CollateralizationRatio').should('be.visible')
+        cy.findByTestId('VaultHealthBar.ColorScale').should('be.visible')
+      })
     })
   })
 
