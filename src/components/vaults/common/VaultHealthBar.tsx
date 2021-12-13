@@ -25,7 +25,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
   return (
     <div className='md:w-full lg:w-1/3 mt-4 md:mt-4 lg:px-4 lg:mt-0'>
       <div className='w-full flex'>
-        <div className='w-1/2 text-gray-500'>Collaterlization Ratio</div>
+        <div className='w-1/2 text-gray-500'>Collateralization Ratio</div>
         <div className='w-1/2 text-right'>
           <VaultCollateralizationRatio
             collateralizationRatio={new BigNumber(props.vault.collateralRatio).toFixed(0, BigNumber.ROUND_HALF_UP)}
