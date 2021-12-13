@@ -22,7 +22,7 @@
     "@defichain/whale-api-client": "^0.17.2",
     "@headlessui/react": "^1.4.2",
     "@popperjs/core": "^2.11.0",
-    "@reduxjs/toolkit": "^1.6.2",
+    "@reduxjs/toolkit": "^1.7.0",
     "@tailwindcss/line-clamp": "^0.3.0",
     "bignumber.js": "^9.0.1",
     "classnames": "^2.3.1",
