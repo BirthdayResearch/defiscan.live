@@ -101,6 +101,12 @@ function FooterSectionSitemap (): JSX.Element {
           <FooterInternalLink pathname='/blocks' text='Blocks' />
         </div>
         <div className='space-x-2 py-2 w-1/2'>
+          <FooterInternalLink pathname='/vaults' text='Vaults' />
+        </div>
+        <div className='space-x-2 py-2 w-1/2'>
+          <FooterInternalLink pathname='/auctions' text='Auctions' />
+        </div>
+        <div className='space-x-2 py-2 w-1/2'>
           <FooterInternalLink pathname='/oracles' text='Oracles' />
         </div>
         <div className='space-x-2 py-2 w-1/2'>
@@ -140,7 +146,10 @@ function FooterSectionAbout (): JSX.Element {
         DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
         and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services,
         accessible by everyone. For more info, visit
-        <a className='ml-1 text-primary-500 cursor-pointer' href='https://defichain.com' target='_blank' rel='noreferrer'>
+        <a
+          className='ml-1 text-primary-500 cursor-pointer' href='https://defichain.com' target='_blank'
+          rel='noreferrer'
+        >
           DeFiChain.com
         </a>
       </p>
