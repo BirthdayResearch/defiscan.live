@@ -215,12 +215,18 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
             <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
             )}
       </VaultDetailsListItem>
-
+      <VaultDetailsListItem
+        title='Vault Interest Rate (APR)'
+        infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
+        testId='VaultDetailList.VaultInterestRate'
+      >
+        <VaultNumberValues value={new BigNumber(props.vault.loanScheme.interestRate)} suffix='%' />
+      </VaultDetailsListItem>
       {props.vault.state === LoanVaultState.IN_LIQUIDATION && (
         <VaultDetailsListItem
           title='Collateralization Ratio'
           infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
-          testId='VaultDetailList.VaultInterestRate'
+          testId='VaultDetailList.CollateralizationRatio'
         >
           {
             props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
