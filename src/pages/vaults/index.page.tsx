@@ -6,7 +6,7 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { VaultStatus } from '@components/vaults/common/VaultStatus'
 import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
-import { VaultMobileCard } from '@components/vaults/VaultMobileCard'
+import { VaultMobileCard } from './_components/VaultMobileCard'
 import React from 'react'
 import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
@@ -19,7 +19,7 @@ import {
   calculateLiquidationValues,
   LiquidatedVaultDerivedValues
 } from '../../utils/vaults/LiquidatedVaultDerivedValues'
-import { VaultStatsBar } from '@components/vaults/VaultStatsBar'
+import { VaultStatsBar } from './_components/VaultStatsBar'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { EmptySection } from '@components/commons/sections/EmptySection'
 

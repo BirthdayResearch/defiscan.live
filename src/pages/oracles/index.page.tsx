@@ -1,5 +1,5 @@
 import { Head } from '@components/commons/Head'
-import { OracleFeed, PriceFeedProps } from '@components/oracles/OracleFeed'
+import { OracleFeed, PriceFeedProps } from './_components/OracleFeed'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { prices } from '@defichain/whale-api-client'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
