@@ -146,11 +146,11 @@ function FooterSectionAbout (): JSX.Element {
   return (
     <section className='max-w-md' data-testid='FooterSectionAbout'>
       <div className='text-sm text-gray-500'>
-        <p data-testid='FooterSectionAbout.Desc'>
+        <span data-testid='FooterSectionAbout.Desc'>
           DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
           and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services,
           accessible by everyone. For more info, visit
-        </p>
+        </span>
         <a
           className='ml-1 text-primary-500 cursor-pointer' href='https://defichain.com' target='_blank'
           rel='noreferrer' data-testid='FooterSectionAbout.DFCLink'
