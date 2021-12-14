@@ -1,6 +1,6 @@
-context('<Header/> on macbook-13', () => {
+context('<Footer/> on macbook-16', () => {
   before(() => {
-    cy.visit('/?network=MainNet')
+    cy.visit('/tokens?network=MainNet')
   })
 
   beforeEach(() => {
@@ -121,9 +121,9 @@ context('<Header/> on macbook-13', () => {
   })
 })
 
-context('<Header/> on iphone-x', () => {
+context('<Footer/> on iphone-x', () => {
   before(() => {
-    cy.visit('/?network=MainNet')
+    cy.visit('/tokens?network=MainNet')
   })
 
   beforeEach(() => {
