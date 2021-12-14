@@ -10,6 +10,8 @@ import React from 'react'
 import { LiquidatedVaultDerivedValues } from '../../../utils/vaults/LiquidatedVaultDerivedValues'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { VaultHealthBar } from '@components/vaults/common/VaultHealthBar'
+import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues }): JSX.Element {
   const isVaultActive = (props.vault.state !== LoanVaultState.IN_LIQUIDATION && (props.vault.loanAmounts.length > 0 && props.vault.collateralAmounts.length > 0))
@@ -48,6 +50,15 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
                 infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
                 testId='VaultDetailsDesktop.VaultInterestRate '
               />
+
+              {props.vault.state === LoanVaultState.IN_LIQUIDATION && (
+                <OverflowTable.Head
+                  alignRight
+                  title='Collateralization Ratio'
+                  infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+                  testId='VaultDetailsDesktop.CollateralizationRatio '
+                />
+              )}
             </OverflowTable.Header>
             <DesktopVaultDetailsRow
               vault={props.vault}
@@ -127,6 +138,23 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         <VaultNumberValues value={new BigNumber(props.vault.loanScheme.interestRate)} suffix='%' />
       </OverflowTable.Cell>
+      {props.vault.state === LoanVaultState.IN_LIQUIDATION && (
+        <OverflowTable.Cell className='text-right'>
+          {
+            props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
+              ? ('N/A')
+              : (
+                <div className='inline-flex items-center'>
+                  <VaultCollateralizationRatio
+                    collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+                    loanScheme={props.vault.loanScheme} vaultState={props.vault.state}
+                  />
+                  <InfoHoverPopover description='A vault in liquidation may return to Active status if the shift in oracle prices brings the collateralization ratio above the minimum requirement. Collateral on auction with no bids placed will be returned to the vault as collateral.' className='ml-1' />
+                </div>
+                )
+          }
+        </OverflowTable.Cell>
+      )}
     </OverflowTable.Row>
   )
 }
@@ -187,13 +215,28 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
             <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
             )}
       </VaultDetailsListItem>
-      <VaultDetailsListItem
-        title='Vault Interest Rate (APR)'
-        infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
-        testId='VaultDetailList.VaultInterestRate'
-      >
-        <VaultNumberValues value={new BigNumber(props.vault.loanScheme.interestRate)} suffix='%' />
-      </VaultDetailsListItem>
+
+      {props.vault.state === LoanVaultState.IN_LIQUIDATION && (
+        <VaultDetailsListItem
+          title='Collateralization Ratio'
+          infoDesc='Percentage of collaterals deposited in a vault in relation to the amount of loan taken.'
+          testId='VaultDetailList.VaultInterestRate'
+        >
+          {
+            props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
+              ? ('N/A')
+              : (
+                <div className='inline-flex items-center'>
+                  <VaultCollateralizationRatio
+                    collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+                    loanScheme={props.vault.loanScheme} vaultState={props.vault.state}
+                  />
+                  <InfoHoverPopover description='A vault in liquidation may return to Active status if the shift in oracle prices brings the collateralization ratio above the minimum requirement. Collateral on auction with no bids placed will be returned to the vault as collateral.' className='ml-1' />
+                </div>
+                )
+          }
+        </VaultDetailsListItem>
+      )}
     </div>
   )
 }

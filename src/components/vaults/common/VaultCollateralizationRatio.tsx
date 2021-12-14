@@ -21,8 +21,9 @@ export function VaultCollateralizationRatio (props: VaultCollateralizationRatioP
     <div
       className={
         classNames(props.className, (props.vaultState === LoanVaultState.FROZEN
-          ? ('text-gray-200')
+          ? ('text-gray-300')
           : {
+              'text-gray-300': currentPercentage.lt(1),
               'text-red-500': currentPercentage.gt(1) && currentPercentage.lt(1.25),
               'text-orange-500': currentPercentage.gte(1.25) && currentPercentage.lte(1.5),
               'text-green-500': currentPercentage.gt(1.5)
