@@ -1,7 +1,16 @@
 import { Link } from '@components/commons/link/Link'
 import { DeFiChainLogo } from '@components/icons/DeFiChainLogo'
 import { PropsWithChildren } from 'react'
-import { FaFacebook, FaGithub, FaLinkedin, FaReddit, FaTelegram, FaTwitterSquare, FaYoutube } from 'react-icons/fa'
+import {
+  FaDiscord,
+  FaFacebook,
+  FaGithub,
+  FaLinkedin,
+  FaReddit,
+  FaTelegram,
+  FaTwitterSquare,
+  FaYoutube
+} from 'react-icons/fa'
 import { Container } from '@components/commons/Container'
 import { NetlifyLightLogo } from '@components/icons/NetlifyLightLogo'
 import { useSelector } from 'react-redux'
@@ -71,6 +80,9 @@ function FooterSectionSocial (): JSX.Element {
         </FooterSocialRow>
         <FooterSocialRow url='https://t.me/defiblockchain' text='Telegram'>
           <FaTelegram size={24} />
+        </FooterSocialRow>
+        <FooterSocialRow url='https://discord.com/invite/py55egyaGy' text='Discord'>
+          <FaDiscord size={24} />
         </FooterSocialRow>
       </div>
     </section>
