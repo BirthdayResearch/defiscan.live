@@ -47,8 +47,8 @@ function BlockDetailCards (props: { transactions: Transaction[] }): JSX.Element 
 
 function TransactionDetails (props: { txid: string, age: string, totalVoutValue: string }): JSX.Element {
   return (
-    <div className='flex p-4 rounded border border-gray-200 my-1.5 hover:shadow-md'>
-      <div className='flex-none w-11/12 lg:w-18/19'>
+    <div className='flex p-4 rounded border border-gray-200 my-1.5 justify-between hover:shadow-md'>
+      <div className='flex-none w-11/12'>
         <div className='flex'>
           <div className='flex-none w-8'>
             <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
