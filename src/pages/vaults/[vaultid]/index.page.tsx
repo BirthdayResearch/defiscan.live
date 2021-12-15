@@ -9,7 +9,7 @@ import { VaultIdLoansDetails } from './_components/VaultIdLoansDetails'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { isAlphanumeric } from '../../../utils/commons/StringValidator'
 import { VaultAuctions } from './_components/VaultIdAuctionsDetails'
-import { calculateLiquidationValues } from '../../../utils/vaults/LiquidatedVaultDerivedValues'
+import { calculateLiquidationValues } from '../utils/LiquidatedVaultDerivedValues'
 import { Head } from '@components/commons/Head'
 import React from 'react'
 

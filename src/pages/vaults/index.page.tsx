@@ -14,7 +14,7 @@ import ReactNumberFormat from 'react-number-format'
 import {
   calculateLiquidationValues,
   LiquidatedVaultDerivedValues
-} from '../../utils/vaults/LiquidatedVaultDerivedValues'
+} from './utils/LiquidatedVaultDerivedValues'
 import { VaultStatsBar } from './_components/VaultStatsBar'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { EmptySection } from '@components/commons/sections/EmptySection'

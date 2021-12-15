@@ -2,7 +2,7 @@ import React from 'react'
 import BigNumber from 'bignumber.js'
 import { VaultCollateralizationRatio } from './VaultCollateralizationRatio'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { getNextCollateralizationRatio } from '../../../../utils/vaults/NextCollateralizationRatio'
+import { getNextCollateralizationRatio } from '../../utils/NextCollateralizationRatio'
 
 interface VaultHealthBarProps {
   vault: LoanVaultActive
