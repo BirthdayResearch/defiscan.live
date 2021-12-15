@@ -4,11 +4,11 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Head } from '@components/commons/Head'
 import { Container } from '@components/commons/Container'
 import { LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
-import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/common/VaultAuctionDetails'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
 import React from 'react'
 import { EmptySection } from '@components/commons/sections/EmptySection'
+import { AuctionsTableRow, MobileAuctionDetailsCard } from '../vaults/_components/commons/VaultAuctionDetails'
 
 interface ActionsPageProps {
   vaults: {

@@ -3,13 +3,13 @@ import { AddressLink } from '@components/commons/link/AddressLink'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import classNames from 'classnames'
-import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import BigNumber from 'bignumber.js'
-import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import React from 'react'
 import { LiquidatedVaultDerivedValues } from '../../../../utils/vaults/LiquidatedVaultDerivedValues'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
-import { VaultHealthBar } from '@components/vaults/common/VaultHealthBar'
+import { VaultHealthBar } from '../../_components/commons/VaultHealthBar'
+import { VaultNumberValues } from '../../_components/commons/VaultNumberValues'
+import { VaultDetailsListItem } from '../../_components/commons/VaultDetailsListItem'
 
 export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiquidated, liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues }): JSX.Element {
   const isVaultActive = (props.vault.state !== LoanVaultState.IN_LIQUIDATION && (props.vault.loanAmounts.length > 0 && props.vault.collateralAmounts.length > 0))

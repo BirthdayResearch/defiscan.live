@@ -1,4 +1,4 @@
-import { SetLoanScheme, DfTx } from '@defichain/jellyfish-transaction'
+import { DfTx, SetLoanScheme } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from './DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 

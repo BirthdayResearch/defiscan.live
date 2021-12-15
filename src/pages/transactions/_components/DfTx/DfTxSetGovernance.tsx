@@ -4,7 +4,9 @@ import { DfTxHeader } from './DfTxHeader'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import {
   GovernanceLpDailyReward,
-  GovernanceLpSplits, GovernanceUnmapped, LiqPoolSplit
+  GovernanceLpSplits,
+  GovernanceUnmapped,
+  LiqPoolSplit
 } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_governance'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 
@@ -49,7 +51,10 @@ export function DfTxSetGovernance (props: DfTxSetGovernanceProps): JSX.Element {
                           <OverflowTable.Head title='Value' />
                         </OverflowTable.Header>
                         {governanceLpSplits.value.map(liqPoolSplit => (
-                          <GovernanceLpSplitsTableRow liqPoolSplit={liqPoolSplit} key={`${liqPoolSplit.tokenId}-${liqPoolSplit.value.toFixed(8)}`} />
+                          <GovernanceLpSplitsTableRow
+                            liqPoolSplit={liqPoolSplit}
+                            key={`${liqPoolSplit.tokenId}-${liqPoolSplit.value.toFixed(8)}`}
+                          />
                         )
                         )}
                       </OverflowTable>

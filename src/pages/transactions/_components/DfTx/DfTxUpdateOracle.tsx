@@ -9,6 +9,7 @@ import { AddressLink } from '@components/commons/link/AddressLink'
 interface DfTxUpdateOracleProps {
   dftx: DfTx<UpdateOracle>
 }
+
 export function DfTxUpdateOracle (props: DfTxUpdateOracleProps): JSX.Element {
   const network = useNetwork().name
   const address = fromScript(props.dftx.data.script, network)?.address

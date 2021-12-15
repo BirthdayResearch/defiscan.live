@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { Head } from '@components/commons/Head'
 import { OverflowTable } from '@components/commons/OverflowTable'

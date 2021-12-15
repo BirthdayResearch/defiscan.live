@@ -21,7 +21,12 @@ export function DfTxCreateVault (props: DfTxCreateVaultProps): JSX.Element {
           <AdaptiveList.Row name={'Owner\'s Address'}>
             {(() => {
               if (ownerAddress != null) {
-                return <AddressLink address={ownerAddress.address} testId='DfTxCreateVault.OwnersAddress' className='break-all' />
+                return (
+                  <AddressLink
+                    address={ownerAddress.address} testId='DfTxCreateVault.OwnersAddress'
+                    className='break-all'
+                  />
+                )
               }
               return 'N/A'
             })()}

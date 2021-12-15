@@ -38,7 +38,8 @@ function ListLeft (props: { block: Block, nBlocks: number | undefined }): JSX.El
         {confirmations}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Minter' testId='block-detail-minter'>
-        {(props.block.minter === undefined || props.block.minter.length === 0) ? ('N/A') : (<AddressLink address={props.block.minter} className='break-all' />)}
+        {(props.block.minter === undefined || props.block.minter.length === 0) ? ('N/A') : (
+          <AddressLink address={props.block.minter} className='break-all' />)}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Masternode' testId='block-detail-masternode'>
         <div className='break-all'>
@@ -74,7 +75,8 @@ function ListRight (props: { block: Block }): JSX.Element {
         </div>
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Previous Block' testId='block-detail-previous-block'>
-        {(props.block.previousHash === undefined || props.block.previousHash.length === 0) ? ('N/A') : (<BlockLink block={props.block.previousHash} className='break-all' />)}
+        {(props.block.previousHash === undefined || props.block.previousHash.length === 0) ? ('N/A') : (
+          <BlockLink block={props.block.previousHash} className='break-all' />)}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Next Block' testId='block-detail-next-block'>
         <BlockLink block={(props.block.height + 1).toString()} className='break-all' />

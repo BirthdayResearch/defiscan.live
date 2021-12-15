@@ -1,4 +1,4 @@
-import { DfTx, TokenMint, TokenBalance } from '@defichain/jellyfish-transaction'
+import { DfTx, TokenBalance, TokenMint } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from './DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { TokenSymbol } from '@components/commons/TokenSymbol'

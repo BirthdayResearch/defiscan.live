@@ -3,7 +3,7 @@ import React from 'react'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
-import { AuctionsTableRow, MobileAuctionDetailsCard } from '@components/vaults/common/VaultAuctionDetails'
+import { AuctionsTableRow, MobileAuctionDetailsCard } from '../../_components/commons/VaultAuctionDetails'
 
 export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Element {
   return (

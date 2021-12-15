@@ -1,9 +1,9 @@
 import React from 'react'
-import { useAuctionTimeLeft } from '../../../hooks/useAuctionTimeLeft'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import classNames from 'classnames'
+import { useAuctionTimeLeft } from '../../../../hooks/useAuctionTimeLeft'
 
 interface MinNextBidProps {
   liquidationHeight: number

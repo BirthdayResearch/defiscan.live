@@ -1,4 +1,4 @@
-import { DfTx, AccountToUtxos, TokenBalance } from '@defichain/jellyfish-transaction'
+import { AccountToUtxos, DfTx, TokenBalance } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from './DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'

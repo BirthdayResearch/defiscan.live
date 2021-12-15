@@ -18,8 +18,18 @@ export function DfTxCompositeSwap ({ dftx: { data } }: DftxCompositeSwapProps): 
   const toAddress = fromScript(data.poolSwap.toScript, network)
   const fromAddress = fromScript(data.poolSwap.fromScript, network)
 
-  const FromTokenSymbol = <TokenSymbol tokenId={data.poolSwap.fromTokenId} testId='DfTxCompositeSwap.FromTokenSymbol' symbolLeft />
-  const ToTokenSymbol = <TokenSymbol tokenId={data.poolSwap.toTokenId} testId='DfTxCompositeSwap.ToTokenSymbol' symbolLeft />
+  const FromTokenSymbol = (
+    <TokenSymbol
+      tokenId={data.poolSwap.fromTokenId} testId='DfTxCompositeSwap.FromTokenSymbol'
+      symbolLeft
+    />
+  )
+  const ToTokenSymbol = (
+    <TokenSymbol
+      tokenId={data.poolSwap.toTokenId} testId='DfTxCompositeSwap.ToTokenSymbol'
+      symbolLeft
+    />
+  )
 
   return (
     <div>

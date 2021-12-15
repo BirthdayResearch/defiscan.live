@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { LoanToken } from '@defichain/whale-api-client/dist/api/loan'
 import BigNumber from 'bignumber.js'
-import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
+import { VaultNumberValues } from '../../_components/commons/VaultNumberValues'
 
 interface LoanTotalInterestRateProps {
   vaultInterest: string

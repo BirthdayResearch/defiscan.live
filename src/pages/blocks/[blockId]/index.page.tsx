@@ -10,6 +10,7 @@ import { Container } from '@components/commons/Container'
 import { isAlphanumeric } from '../../../utils/commons/StringValidator'
 import { BlockTransactions } from './_components/BlockTransactions'
 import { BlockDetailTable } from './_components/BlockDetailTable'
+
 interface BlockDetailsPageProps {
   block: Block
   transactions: {

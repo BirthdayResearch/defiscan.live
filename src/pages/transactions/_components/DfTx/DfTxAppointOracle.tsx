@@ -1,4 +1,4 @@
-import { DfTx, AppointOracle, CurrencyPair } from '@defichain/jellyfish-transaction'
+import { AppointOracle, CurrencyPair, DfTx } from '@defichain/jellyfish-transaction'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 
@@ -22,7 +22,12 @@ export function DfTxAppointOracle (props: DfTxAppointOracleProps): JSX.Element {
           <AdaptiveList.Row name='Address'>
             {(() => {
               if (script?.address !== undefined) {
-                return <AddressLink address={script?.address} className='break-all' testId='DfTxAppointOracle.Address' />
+                return (
+                  <AddressLink
+                    address={script?.address} className='break-all'
+                    testId='DfTxAppointOracle.Address'
+                  />
+                )
               }
               return 'N/A'
             })()}

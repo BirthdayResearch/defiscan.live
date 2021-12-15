@@ -6,8 +6,8 @@ import ReactNumberFormat from 'react-number-format'
 import { VaultLink } from '@components/commons/link/VaultLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
-import { BidAmountValue } from '@components/auctions/commons/BidAmountValue'
-import { AuctionTimeLeft } from '@components/auctions/commons/AuctionTimeLeft'
+import { BidAmountValue } from '../../../../auctions/_components/commons/BidAmountValue'
+import { AuctionTimeLeft } from '../../../../auctions/_components/commons/AuctionTimeLeft'
 
 interface AuctionDetailsProps {
   vaultId: string

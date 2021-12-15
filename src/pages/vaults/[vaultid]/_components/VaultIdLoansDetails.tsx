@@ -5,11 +5,11 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import React from 'react'
 import BigNumber from 'bignumber.js'
 import classNames from 'classnames'
-import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import { LoanTotalInterestRate } from './LoanTotalInterestRate'
-import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
 import { EmptySection } from '@components/commons/sections/EmptySection'
+import { VaultNumberValues } from '../../_components/commons/VaultNumberValues'
+import { VaultDetailsListItem } from '../../_components/commons/VaultDetailsListItem'
 
 interface VaultIdLoansDetailsProps {
   vault: {

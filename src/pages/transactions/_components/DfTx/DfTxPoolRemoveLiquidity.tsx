@@ -35,7 +35,12 @@ function PoolRemoveLiquidityTable (props: { address?: string, amount: BigNumber,
       <AdaptiveList.Row name='Address'>
         {(() => {
           if (props.address !== undefined) {
-            return <AddressLink address={props.address} testId='DfTxPoolRemoveLiquidity.Address' className='break-all' />
+            return (
+              <AddressLink
+                address={props.address} testId='DfTxPoolRemoveLiquidity.Address'
+                className='break-all'
+              />
+            )
           }
           return 'N/A'
         })()}

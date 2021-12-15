@@ -5,9 +5,9 @@ import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import classNames from 'classnames'
-import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
 import { EmptySection } from '@components/commons/sections/EmptySection'
+import { VaultNumberValues } from '../../_components/commons/VaultNumberValues'
 
 export function VaultIdCollateralDetails (props: { collateralValue: string, vaultState: LoanVaultState, collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   return (

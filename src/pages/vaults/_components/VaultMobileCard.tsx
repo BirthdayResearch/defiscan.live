@@ -1,17 +1,17 @@
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
-import { VaultStatus } from '@components/vaults/common/VaultStatus'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
-import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
 import React, { useState } from 'react'
 import { Transition } from '@headlessui/react'
-import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
-import { VaultDetailsListItem } from '@components/vaults/common/VaultDetailsListItem'
 import BigNumber from 'bignumber.js'
-import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
 import { LiquidatedVaultDerivedValues } from '../../../utils/vaults/LiquidatedVaultDerivedValues'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { VaultLink } from '@components/commons/link/VaultLink'
+import { VaultStatus } from './commons/VaultStatus'
+import { VaultDetailsListItem } from './commons/VaultDetailsListItem'
+import { VaultTokenSymbols } from './commons/VaultTokenSymbols'
+import { VaultNumberValues } from './commons/VaultNumberValues'
+import { VaultCollateralizationRatio } from './commons/VaultCollateralizationRatio'
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated
@@ -46,7 +46,10 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
       </div>
 
       <VaultLink vault={props.vault.vaultId}>
-        <TextTruncate text={props.vault.vaultId} className='mt-2 text-primary-500 underline cursor-pointer' testId='VaultMobileCard.VaultID' />
+        <TextTruncate
+          text={props.vault.vaultId} className='mt-2 text-primary-500 underline cursor-pointer'
+          testId='VaultMobileCard.VaultID'
+        />
       </VaultLink>
 
       <Transition

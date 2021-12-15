@@ -1,8 +1,8 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
-import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
+import { VaultCollateralizationRatio } from './VaultCollateralizationRatio'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { getNextCollateralizationRatio } from '../../../utils/vaults/NextCollateralizationRatio'
+import { getNextCollateralizationRatio } from '../../../../utils/vaults/NextCollateralizationRatio'
 
 interface VaultHealthBarProps {
   vault: LoanVaultActive
@@ -49,7 +49,10 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
       </div>
       <div className='relative flex mt-2.5 items-center'>
         <div className='w-full flex rounded-lg h-4 bg-gray-100 border overflow-hidden'>
-          <div className='bg-white h-4 overflow-hidden' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }} data-testid='VaultHealthBar.BarProgress' />
+          <div
+            className='bg-white h-4 overflow-hidden' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }}
+            data-testid='VaultHealthBar.BarProgress'
+          />
         </div>
         <span
           className='absolute h-5 border-l border-black'

@@ -1,4 +1,4 @@
-import { DfTx, CreateMasternode } from '@defichain/jellyfish-transaction'
+import { CreateMasternode, DfTx } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from './DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { AddressLink } from '@components/commons/link/AddressLink'

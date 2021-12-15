@@ -2,10 +2,10 @@ import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain
 import { Head } from '@components/commons/Head'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { CopyButton } from '@components/commons/CopyButton'
-import { VaultStatus } from '@components/vaults/common/VaultStatus'
 import { FcInfo } from 'react-icons/fc'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import React from 'react'
+import { VaultStatus } from '../../_components/commons/VaultStatus'
 
 export function VaultIdHeading (props: { vault: LoanVaultActive | LoanVaultLiquidated }): JSX.Element {
   return (
@@ -29,7 +29,8 @@ export function VaultIdHeading (props: { vault: LoanVaultActive | LoanVaultLiqui
         <div className='p-3 flex items-center max-w-max bg-blue-50 mt-8 rounded ring-2 ring-blue-200'>
           <FcInfo size={20} />
           <div className='ml-2 text-gray-600'>
-            The activity of this vault has been temporarily halted due to price volatility in the market. This vault will
+            The activity of this vault has been temporarily halted due to price volatility in the market. This vault
+            will
             resume its activity once the market stabilizes.
           </div>
         </div>

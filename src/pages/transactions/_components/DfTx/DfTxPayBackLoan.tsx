@@ -44,7 +44,7 @@ export function DfTxPayBackLoan (props: DfTxPayBackLoanProps): JSX.Element {
   )
 }
 
-function LoanTokenAmounts ({ amount }: {amount: TokenBalance}): JSX.Element {
+function LoanTokenAmounts ({ amount }: { amount: TokenBalance }): JSX.Element {
   return (
     <>
       <AdaptiveList.Row name='Token'>

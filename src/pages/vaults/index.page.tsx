@@ -4,16 +4,12 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import { Container } from '@components/commons/Container'
 import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
-import { VaultStatus } from '@components/vaults/common/VaultStatus'
-import { VaultTokenSymbols } from '@components/vaults/common/VaultTokenSymbols'
 import { VaultMobileCard } from './_components/VaultMobileCard'
 import React from 'react'
-import { VaultCollateralizationRatio } from '@components/vaults/common/VaultCollateralizationRatio'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import classNames from 'classnames'
 import { Link } from '@components/commons/link/Link'
 import BigNumber from 'bignumber.js'
-import { VaultNumberValues } from '@components/vaults/common/VaultNumberValues'
 import ReactNumberFormat from 'react-number-format'
 import {
   calculateLiquidationValues,
@@ -22,6 +18,10 @@ import {
 import { VaultStatsBar } from './_components/VaultStatsBar'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { EmptySection } from '@components/commons/sections/EmptySection'
+import { VaultStatus } from './_components/commons/VaultStatus'
+import { VaultTokenSymbols } from './_components/commons/VaultTokenSymbols'
+import { VaultNumberValues } from './_components/commons/VaultNumberValues'
+import { VaultCollateralizationRatio } from './_components/commons/VaultCollateralizationRatio'
 
 interface VaultsPageData {
   vaults: {

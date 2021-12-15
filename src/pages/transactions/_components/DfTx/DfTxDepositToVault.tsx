@@ -10,6 +10,7 @@ import { TokenSymbol } from '@components/commons/TokenSymbol'
 interface DepositToVaultProps {
   dftx: DfTx<DepositToVault>
 }
+
 export function DfTxDepositToVault (props: DepositToVaultProps): JSX.Element {
   const network = useNetwork().name
   const address = fromScript(props.dftx.data.from, network)

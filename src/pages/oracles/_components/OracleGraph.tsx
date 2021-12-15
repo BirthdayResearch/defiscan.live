@@ -10,7 +10,14 @@ interface PriceGraphProps {
   price: PriceTicker
 }
 
-export function OracleGraph ({ price: { price: { token, currency } } }: PriceGraphProps): JSX.Element {
+export function OracleGraph ({
+  price: {
+    price: {
+      token,
+      currency
+    }
+  }
+}: PriceGraphProps): JSX.Element {
   const api = useWhaleApiClient()
   const [feed, setFeed] = useState<PriceFeed[] | undefined>(undefined)
 
@@ -30,14 +37,22 @@ export function OracleGraph ({ price: { price: { token, currency } } }: PriceGra
 }
 
 function PriceAreaChart ({ feed }: { feed: PriceFeed[] }): JSX.Element {
-  const data = feed.map(value => ({ feed: value, time: value.block.medianTime * 1000 }))
+  const data = feed.map(value => ({
+    feed: value,
+    time: value.block.medianTime * 1000
+  }))
   return (
     <ResponsiveContainer width='100%' height='100%' className='bg-gray-50 rounded-md'>
       <AreaChart
         width={600}
         height={400}
         data={data}
-        margin={{ top: 48, right: 64, bottom: 48, left: 32 }}
+        margin={{
+          top: 48,
+          right: 64,
+          bottom: 48,
+          left: 32
+        }}
       >
         <defs>
           <linearGradient id='gradient' x1='0' y1='0' x2='0' y2='1'>
