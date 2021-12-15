@@ -55,6 +55,22 @@ context('/address/[address] on desktop', () => {
       })
     })
   })
+
+  it('should have vaults', () => {
+    cy.findByTestId('Vaults.title').should('have.text', 'Vaults')
+    cy.findByTestId('Vaults.title').scrollIntoView()
+    cy.findByTestId('Vaults.list').within(() => {
+      cy.findByTestId('OverflowTable.Header').then(el => {
+        cy.wrap(el).findByText('Vault ID').should('be.visible')
+        cy.wrap(el).findByText('Status').should('be.visible')
+        cy.wrap(el).findByText('Loan Taken').should('be.visible')
+        cy.wrap(el).findByText('Loan Value (USD)').should('be.visible')
+        cy.wrap(el).findByText('Collaterals').should('be.visible')
+        cy.wrap(el).findByText('Collateral Value (USD)').should('be.visible')
+        cy.wrap(el).findByText('Collateralization Ratio / Min.').should('be.visible')
+      })
+    })
+  })
 })
 
 context('/address/[address] on desktop - invalid address', () => {
@@ -127,6 +143,18 @@ context('/address/[address] on mobile', () => {
         cy.findAllByTestId('OverflowTable.Row').should('have.length', 20)
       })
     })
+  })
+
+  it('should have vaults', function () {
+    cy.findByTestId('VaultMobileCard').should('contain.text', 'Vault ID')
+    cy.findByTestId('VaultMobileCard.VaultStatus').should('be.visible')
+    cy.findByTestId('VaultMobileCard.VaultStatus').should('contain.text', 'ACTIVE')
+    cy.findByTestId('VaultMobileCard.Toggle').click()
+    cy.findByTestId('VaultMobileCard.Loans').should('be.visible')
+    cy.findByTestId('VaultMobileCard.LoansValue').should('be.visible')
+    cy.findByTestId('VaultMobileCard.Collateral').should('be.visible')
+    cy.findByTestId('VaultMobileCard.CollateralValue').should('be.visible')
+    cy.findByTestId('VaultMobileCard.MinCollateralizationRatio').should('be.visible')
   })
 })
 
