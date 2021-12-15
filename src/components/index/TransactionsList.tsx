@@ -63,7 +63,7 @@ function TransactionDetails (props: { txid: string, age: string, totalVoutValue:
           </div>
           <div className='flex-none w-9' />
           <div className='flex-grow w-10'>
-            <div className='hidden md:block text-sm'>
+            <div className='hidden md:block text-sm text-right'>
               <span className='text-gray-400'>Amount&nbsp;</span>
               <span>{`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}</span>
             </div>
@@ -75,7 +75,7 @@ function TransactionDetails (props: { txid: string, age: string, totalVoutValue:
         <div className='md:hidden flex'>
           <div className='flex-none w-8' />
           <div>
-            <div className='sm:block text-sm text-center'>
+            <div className='sm:block text-sm text-right'>
               <span className='text-gray-400'>Amount&nbsp;</span>
               <span>{`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}</span>
             </div>
