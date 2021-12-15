@@ -1,0 +1,132 @@
+import React from 'react'
+import ReactNumberFormat from 'react-number-format'
+import BigNumber from 'bignumber.js'
+import classNames from 'classnames'
+import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { OverflowTable } from '@components/commons/OverflowTable'
+import { VaultStatus } from './VaultStatus'
+import { VaultTokenSymbols } from './VaultTokenSymbols'
+import { VaultCollateralizationRatio } from './VaultCollateralizationRatio'
+import { VaultNumberValues } from './VaultNumberValues'
+import { LiquidatedVaultDerivedValues } from '../../utils/LiquidatedVaultDerivedValues'
+import { TextTruncate } from '@components/commons/text/TextTruncate'
+
+export function VaultRow (props: {
+  vault: LoanVaultActive | LoanVaultLiquidated
+  liquidatedVaultDerivedValues?: LiquidatedVaultDerivedValues
+}): JSX.Element {
+  return (
+    <OverflowTable.Row
+      className={classNames('cursor-pointer', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+    >
+      <OverflowTable.Cell sticky>
+        <TextTruncate
+          text={props.vault.vaultId} className='text-grey-500'
+          testId='VaultRow.VaultID'
+        />
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
+        <VaultStatus
+          vault={props.vault}
+          className='px-2 py-1 inline-block text-xs'
+          testId='VaultRow.VaultStatus'
+        />
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        <div className='flex justify-end' data-testid='VaultRow.LoansValue'>
+          {props.vault.state === LoanVaultState.IN_LIQUIDATION
+            ? (
+                ((props.liquidatedVaultDerivedValues?.loanTokens) != null) &&
+                  <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.loanTokens} />
+              )
+            : (
+              <VaultTokenSymbols tokens={props.vault.loanAmounts} />
+              )}
+        </div>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        <div className='flex justify-end' data-testid='VaultRow.LoansValue'>
+          {props.vault.state === LoanVaultState.IN_LIQUIDATION
+            ? (
+                props.liquidatedVaultDerivedValues?.totalLoanValue === undefined
+                  ? ('N/A')
+                  : (
+                    <VaultNumberValues
+                      value={props.liquidatedVaultDerivedValues.totalLoanValue}
+                      prefix='$'
+                    />
+                    )
+              )
+            : (
+              <VaultNumberValues value={new BigNumber(props.vault.loanValue)} prefix='$' />
+              )}
+        </div>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        <div className='flex justify-end' data-testid='VaultRow.Collaterals'>
+          {props.vault.state === LoanVaultState.IN_LIQUIDATION
+            ? (
+                ((props.liquidatedVaultDerivedValues?.collateralTokens) != null) &&
+                  <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.collateralTokens} />
+              )
+            : (
+              <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
+              )}
+        </div>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        <div className='flex justify-end' data-testid='VaultRow.CollateralValue'>
+          {props.vault.state === LoanVaultState.IN_LIQUIDATION
+            ? (
+                props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
+                  ? ('N/A')
+                  : (
+                    <VaultNumberValues
+                      value={props.liquidatedVaultDerivedValues.totalCollateralValue}
+                      prefix='$'
+                    />
+                    )
+              )
+            : (
+              <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
+              )}
+        </div>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='text-right'>
+        <span className='flex flex-row justify-end' data-testid='VaultRow.CollateralizationRatio'>
+          {(() => {
+            if (props.vault.state === LoanVaultState.IN_LIQUIDATION) {
+              if (props.liquidatedVaultDerivedValues?.totalCollateralRatio === undefined) {
+                return 'N/A'
+              } else {
+                return (
+                  <VaultCollateralizationRatio
+                    collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+                    loanScheme={props.vault.loanScheme}
+                    vaultState={props.vault.state}
+                  />
+                )
+              }
+            } else {
+              return (
+                <VaultCollateralizationRatio
+                  collateralizationRatio={props.vault.collateralRatio}
+                  loanScheme={props.vault.loanScheme}
+                  vaultState={props.vault.state}
+                />
+              )
+            }
+          })()}
+          <ReactNumberFormat
+            value={props.vault.loanScheme.minColRatio}
+            suffix='%'
+            displayType='text'
+            thousandSeparator
+            className='ml-1'
+            prefix=' / '
+          />
+        </span>
+      </OverflowTable.Cell>
+    </OverflowTable.Row>
+  )
+}

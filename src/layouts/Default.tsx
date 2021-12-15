@@ -5,7 +5,7 @@ import { WhaleProvider } from '@contexts/WhaleContext'
 import { StatsProvider } from '@store/stats'
 import Head from 'next/head'
 import { PropsWithChildren } from 'react'
-import { ScanAppProps } from '../pages/_app'
+import { ScanAppProps } from '../pages/_app.page'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 

@@ -16,10 +16,10 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
-    "@defichain/jellyfish-address": "^2.10.0",
-    "@defichain/jellyfish-transaction": "^2.10.0",
-    "@defichain/playground-api-client": "^0.13.0",
-    "@defichain/whale-api-client": "^0.17.2",
+    "@defichain/jellyfish-address": "^2.10.1",
+    "@defichain/jellyfish-transaction": "^2.10.1",
+    "@defichain/playground-api-client": "^0.13.1",
+    "@defichain/whale-api-client": "^0.18.0",
     "@headlessui/react": "^1.4.2",
     "@popperjs/core": "^2.11.0",
     "@reduxjs/toolkit": "^1.7.0",
@@ -27,7 +27,7 @@
     "bignumber.js": "^9.0.2",
     "classnames": "^2.3.1",
     "date-fns": "^2.27.0",
-    "defichain": "^2.10.0",
+    "defichain": "^2.10.1",
     "lodash": "^4.17.21",
     "next": "12.0.7",
     "next-sitemap": "^1.6.189",
@@ -41,7 +41,7 @@
     "react-popper": "^2.2.5",
     "react-redux": "^7.2.6",
     "react-schemaorg": "^2.0.0",
-    "recharts": "^2.1.6",
+    "recharts": "^2.1.8",
     "schema-dts": "^1.0.0"
   },
   "devDependencies": {
@@ -61,9 +61,9 @@
     "eslint-plugin-cypress": "^2.12.1",
     "husky": "^7.0.2",
     "lint-staged": "^12.1.2",
-    "postcss": "^8.4.4",
-    "tailwindcss": "^3.0.1",
-    "typescript": "4.5.3"
+    "postcss": "^8.4.5",
+    "tailwindcss": "^2.2.19",
+    "typescript": "4.5.4"
   },
   "lint-staged": {
     "./src/**/*.{ts,tsx,js}": "eslint --fix"
