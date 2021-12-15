@@ -8,8 +8,8 @@ import {
   LoanVaultLiquidationBatch,
   LoanVaultState
 } from '@defichain/whale-api-client/dist/api/loan'
-import { DesktopAuctionDetails, MobileAuctionDetails } from '@components/vaults/[vaultid]/auctions/AuctionDetails'
-import { AuctionDetailsHeading } from '@components/vaults/[vaultid]/auctions/AuctionDetailsHeading'
+import { DesktopAuctionDetails, MobileAuctionDetails } from './_components/AuctionDetails'
+import { AuctionDetailsHeading } from './_components/AuctionDetailsHeading'
 import { EmptySection } from '@components/commons/sections/EmptySection'
 
 interface ActionsPageProps {
