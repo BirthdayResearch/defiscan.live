@@ -21,7 +21,7 @@ export function AddressTokenTable (props: AddressTokenTableProps): JSX.Element {
   function getBalances (): void {
     setIsLoading(true)
 
-    api.address.listToken(props.address, 10, next).then((data) => {
+    api.address.listToken(props.address, 200, next).then((data) => {
       setTokensData(tokensData.concat([...data]))
       if (data.hasNext) {
         setNext(data.nextToken)
