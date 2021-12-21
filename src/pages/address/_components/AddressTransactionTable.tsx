@@ -1,9 +1,10 @@
 import { AddressActivity } from '@defichain/whale-api-client/dist/api/address'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AddressTransactionTableRow } from './AddressTransactionTableRow'
 import { CgSpinner } from 'react-icons/cg'
+import { EmptySection } from '@components/commons/sections/EmptySection'
 
 interface AddressTransactionTableProps {
   address: string
@@ -49,8 +50,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
 
   if (isInitialLoad) {
     return (
-      <div className='mt-8 flex flex-wrap' data-testid='Transactions'>
-        <span className='font-medium text-xl mb-2 text-gray-800' data-testid='Transactions.title'>Transactions</span>
+      <div className='flex flex-wrap'>
         <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-100'>
           <CgSpinner size={32} className='animate-spin text-gray-600' />
         </div>
@@ -59,8 +59,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
   }
 
   return (
-    <div className='mt-8 flex flex-wrap' data-testid='Transactions'>
-      <span className='font-medium text-xl mb-2 text-gray-800' data-testid='Transactions.title'>Transactions</span>
+    <div className='flex flex-wrap'>
       {transactionData.length > 0 ? (
         <OverflowTable className='w-full'>
           <OverflowTable.Header>
@@ -80,7 +79,9 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
           })}
         </OverflowTable>
       )
-        : (<NoTransactionsInfo />)}
+        : (
+          <EmptySection message='No Transactions' className='-mt-0' />
+          )}
       <ShowMoreButton isLoading={isLoading} next={next} handleGetTransactions={getTransactions} />
     </div>
   )
@@ -112,14 +113,6 @@ function ShowMoreButton (props: { isLoading: boolean, next?: string, handleGetTr
       >
         SHOW MORE
       </button>
-    </div>
-  )
-}
-
-function NoTransactionsInfo (): JSX.Element {
-  return (
-    <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-200'>
-      <span>No Transactions</span>
     </div>
   )
 }
