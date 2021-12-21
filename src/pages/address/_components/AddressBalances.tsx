@@ -1,10 +1,11 @@
 import { AddressToken } from '@defichain/whale-api-client/dist/api/address'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets/tokens'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CgSpinner } from 'react-icons/cg'
 import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import { Link } from '@components/commons/link/Link'
+import { EmptySection } from '@components/commons/sections/EmptySection'
 
 interface AddressTokenTableProps {
   address: string
@@ -64,7 +65,9 @@ export function AddressBalances (props: AddressTokenTableProps): JSX.Element {
             )
           })}
         </div>
-      ) : (<NoTokensInfo />)}
+      ) : (
+        <EmptySection message='No Balances' className='-mt-0' />
+      )}
     </div>
   )
 }
@@ -126,13 +129,5 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
       </div>
     </div>
 
-  )
-}
-
-function NoTokensInfo (): JSX.Element {
-  return (
-    <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-200'>
-      <span>No Tokens</span>
-    </div>
   )
 }
