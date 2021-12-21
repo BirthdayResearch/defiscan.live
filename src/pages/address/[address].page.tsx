@@ -30,9 +30,11 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
       <Container className='pt-12 pb-20'>
         <AddressHeading address={props.address} />
         <AddressSummaryTable address={props.address} />
+
         <CollapsibleSection
           heading='Balances'
           className='mt-8'
+          testId='Balances'
         >
           <AddressBalances address={props.address} />
         </CollapsibleSection>
@@ -40,6 +42,7 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
         <CollapsibleSection
           heading='Transactions'
           className='mt-8'
+          testId='Transactions'
         >
           <AddressTransactionTable address={props.address} />
         </CollapsibleSection>

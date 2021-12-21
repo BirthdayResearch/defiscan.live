@@ -50,7 +50,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
 
   if (isInitialLoad) {
     return (
-      <div className='flex flex-wrap' data-testid='Transactions'>
+      <div className='flex flex-wrap'>
         <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-100'>
           <CgSpinner size={32} className='animate-spin text-gray-600' />
         </div>
@@ -59,7 +59,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
   }
 
   return (
-    <div className='flex flex-wrap' data-testid='Transactions'>
+    <div className='flex flex-wrap'>
       {transactionData.length > 0 ? (
         <OverflowTable className='w-full'>
           <OverflowTable.Header>

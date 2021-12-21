@@ -4,7 +4,7 @@ context('/address/[address] on desktop', () => {
   })
 
   beforeEach(() => {
-    cy.viewport('macbook-13')
+    cy.viewport('macbook-16')
   })
 
   it('should have heading', () => {
@@ -19,27 +19,24 @@ context('/address/[address] on desktop', () => {
   })
 
   it('should have Balances', function () {
-    cy.findByTestId('Balances.title').should('have.text', 'Balances')
     cy.findByTestId('Balances').within(() => {
-      cy.findByTestId('OverflowTable.Header').then(ele => {
-        cy.wrap(ele).findByText('TOKEN').should('be.visible')
-        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
-        cy.wrap(ele).findByText('NAME').should('be.visible')
-        cy.wrap(ele).findByText('CATEGORY').should('be.visible')
-      })
-      cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 10)
+      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Balances')
 
-      // it('should have Show More button', function () {
-      //   cy.findByTestId('AddressBalanceTable.showMoreBtn').should('have.text', 'SHOW MORE')
-      //   cy.findByTestId('AddressBalanceTable.showMoreBtn').click()
-      //   cy.findAllByTestId('OverflowTable.Row').should('have.length.greaterThan', 10)
-      // })
+      cy.findAllByTestId('AddressTokenCard').within(() => {
+        cy.findByTestId('AddressTokenCard.TokenSymbol').should('be.visible')
+        cy.findByTestId('AddressTokenCard.TokenName').should('be.visible')
+        cy.findByTestId('AddressTokenCard.Type').should('be.visible').contains(/^[A-Z]{3}$/)
+        cy.findByTestId('AddressTokenCard.Amount').should('be.visible').contains(/\d+.\d+/)
+      })
+
+      cy.findAllByTestId('AddressTokenCard').should('have.length.at.least', 10)
     })
   })
 
   it('should have Transactions', function () {
-    cy.findByTestId('Transactions.title').should('have.text', 'Transactions')
     cy.findByTestId('Transactions').within(() => {
+      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Transactions')
+
       cy.findByTestId('OverflowTable.Header').then(ele => {
         cy.wrap(ele).findByText('TX ID').should('be.visible')
         cy.wrap(ele).findByText('BLOCK').should('be.visible')
@@ -92,32 +89,29 @@ context('/address/[address] on mobile', () => {
   })
 
   it('should have Balances', function () {
-    cy.findByTestId('Balances.title').should('have.text', 'Balances')
     cy.findByTestId('Balances').within(() => {
-      cy.findByTestId('OverflowTable.Header').then(ele => {
-        cy.wrap(ele).findByText('TOKEN').should('be.visible')
-        cy.wrap(ele).findByText('NAME').should('be.visible')
-        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
-        cy.wrap(ele).findByText('CATEGORY').should('exist')
-      })
-      cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 10)
+      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Balances')
 
-      // it('should have Show More button', function () {
-      //   cy.findByTestId('AddressBalanceTable.showMoreBtn').should('have.text', 'SHOW MORE')
-      //   cy.findByTestId('AddressBalanceTable.showMoreBtn').click()
-      //   cy.findAllByTestId('OverflowTable.Row').should('have.length.greaterThan', 10)
-      // })
+      cy.findAllByTestId('AddressTokenCard').within(() => {
+        cy.findByTestId('AddressTokenCard.TokenSymbol').should('be.visible')
+        cy.findByTestId('AddressTokenCard.TokenName').should('be.visible')
+        cy.findByTestId('AddressTokenCard.Type').should('be.visible').contains(/^[A-Z]{3}$/)
+        cy.findByTestId('AddressTokenCard.Amount').should('be.visible').contains(/\d+.\d+/)
+      })
+
+      cy.findAllByTestId('AddressTokenCard').should('have.length.at.least', 10)
     })
   })
 
   it('should have Transactions', function () {
-    cy.findByTestId('Transactions.title').should('have.text', 'Transactions')
     cy.findByTestId('Transactions').within(() => {
+      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Transactions')
+
       cy.findByTestId('OverflowTable.Header').then(ele => {
         cy.wrap(ele).findByText('TX ID').should('be.visible')
         cy.wrap(ele).findByText('BLOCK').should('be.visible')
         cy.wrap(ele).findByText('AGE').should('be.visible')
-        cy.wrap(ele).findByText('AMOUNT').should('exist')
+        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
       })
       cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
 

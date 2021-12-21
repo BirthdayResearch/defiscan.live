@@ -47,7 +47,7 @@ export function AddressBalances (props: AddressTokenTableProps): JSX.Element {
 
   if (isInitialLoad) {
     return (
-      <div className='flex flex-wrap' data-testid='Balances'>
+      <div className='flex flex-wrap'>
         <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-100'>
           <CgSpinner size={32} className='animate-spin text-gray-600' />
         </div>
@@ -56,7 +56,7 @@ export function AddressBalances (props: AddressTokenTableProps): JSX.Element {
   }
 
   return (
-    <div className='flex flex-wrap' data-testid='Balances'>
+    <div className='flex flex-wrap'>
       {(() => {
         if (tokensData.length === 0) {
           return (<EmptySection message='No Balances' className='-mt-0' />)
@@ -78,13 +78,13 @@ export function AddressBalances (props: AddressTokenTableProps): JSX.Element {
 
 function AddressTokenCard (props: { token: AddressToken }): JSX.Element {
   return (
-    <div className='w-full md:w-1/3 lg:w-1/4 xl:w-1/5 p-1'>
+    <div className='w-full md:w-1/3 lg:w-1/4 xl:w-1/5 p-1' data-testid='AddressTokenCard'>
       <div className='flex flex-wrap p-3 rounded border border-gray-200'>
         <div className='w-full flex justify-between'>
           <TokenSymbolName token={props.token} />
 
           <div className='bg-gray-200 p-1 rounded'>
-            <div className='text-xs font-medium text-gray-600'>
+            <div className='text-xs font-medium text-gray-600' data-testid='AddressTokenCard.Type'>
               {(() => {
                 if (props.token.isLPS) {
                   return 'LPS'
@@ -98,7 +98,7 @@ function AddressTokenCard (props: { token: AddressToken }): JSX.Element {
           </div>
         </div>
 
-        <div className='w-full mt-2.5 text-gray-900 font-medium'>
+        <div className='w-full mt-2.5 text-gray-900 font-medium' data-testid='AddressTokenCard.Amount'>
           {props.token.amount}
         </div>
       </div>
@@ -113,7 +113,7 @@ function TokenSymbolName (props: { token: AddressToken }): JSX.Element {
         {(() => {
           if (props.token.isLPS) {
             return (
-              <div className='mr-11'>
+              <div className='mr-11' data-testid='AddressTokenCard.TokenSymbol'>
                 <PoolPairSymbol
                   poolPairId={props.token.id} symbolSizeClassName='h-6 w-6'
                   symbolMarginClassName='ml-3.5' textClassName='hidden'
@@ -124,14 +124,14 @@ function TokenSymbolName (props: { token: AddressToken }): JSX.Element {
 
           if (props.token.isDAT) {
             const AssetIcon = getAssetIcon(props.token.symbol)
-            return <AssetIcon className='h-6 w-6 mr-1' />
+            return <AssetIcon className='h-6 w-6 mr-1' data-testid='AddressTokenCard.TokenSymbol' />
           }
 
           const TokenIcon = getTokenIcon(props.token.displaySymbol)
-          return <TokenIcon className='h-6 w-6 mr-1' />
+          return <TokenIcon className='h-6 w-6 mr-1' data-testid='AddressTokenCard.TokenSymbol' />
         })()}
 
-        <div className='text-gray-900 hover:text-primary-500'>
+        <div className='text-gray-900 hover:text-primary-500' data-testid='AddressTokenCard.TokenName'>
           <Link href={{ pathname: `/tokens/${props.token.id}` }}>
             <a className='contents'>
               {props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}
