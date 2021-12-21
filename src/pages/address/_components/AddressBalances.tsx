@@ -57,56 +57,31 @@ export function AddressBalances (props: AddressTokenTableProps): JSX.Element {
 
   return (
     <div className='flex flex-wrap' data-testid='Balances'>
-      {tokensData.length > 0 ? (
-        <div className='flex flex-wrap w-full -m-1'>
-          {tokensData.map((token) => {
-            return (
-              <AddressTokenTableRow token={token} key={token.id} />
-            )
-          })}
-        </div>
-      ) : (
-        <EmptySection message='No Balances' className='-mt-0' />
-      )}
+      {(() => {
+        if (tokensData.length === 0) {
+          return (<EmptySection message='No Balances' className='-mt-0' />)
+        }
+
+        return (
+          <div className='flex flex-wrap w-full -m-1'>
+            {tokensData.map((token) => {
+              return (
+                <AddressTokenCard token={token} key={token.id} />
+              )
+            })}
+          </div>
+        )
+      })()}
     </div>
   )
 }
 
-function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
+function AddressTokenCard (props: { token: AddressToken }): JSX.Element {
   return (
     <div className='w-full md:w-1/3 lg:w-1/4 xl:w-1/5 p-1'>
       <div className='flex flex-wrap p-3 rounded border border-gray-200'>
-        <div className='w-full flex  justify-between'>
-          <div className='flex items-center'>
-            {(() => {
-              if (props.token.isLPS) {
-                return (
-                  <div className='mr-11'>
-                    <PoolPairSymbol
-                      poolPairId={props.token.id} symbolSizeClassName='h-6 w-6'
-                      symbolMarginClassName='ml-3.5' textClassName='hidden'
-                    />
-                  </div>
-                )
-              }
-
-              if (props.token.isDAT) {
-                const AssetIcon = getAssetIcon(props.token.symbol)
-                return <AssetIcon className='h-6 w-6 mr-1' />
-              }
-
-              const TokenIcon = getTokenIcon(props.token.displaySymbol)
-              return <TokenIcon className='h-6 w-6 mr-1' />
-            })()}
-
-            <div className='text-gray-900 hover:text-primary-500'>
-              <Link href={{ pathname: `/tokens/${props.token.id}` }}>
-                <a className='contents'>
-                  {props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}
-                </a>
-              </Link>
-            </div>
-          </div>
+        <div className='w-full flex justify-between'>
+          <TokenSymbolName token={props.token} />
 
           <div className='bg-gray-200 p-1 rounded'>
             <div className='text-xs font-medium text-gray-600'>
@@ -128,6 +103,42 @@ function AddressTokenTableRow (props: { token: AddressToken }): JSX.Element {
         </div>
       </div>
     </div>
+  )
+}
 
+function TokenSymbolName (props: { token: AddressToken }): JSX.Element {
+  return (
+    <>
+      <div className='flex items-center'>
+        {(() => {
+          if (props.token.isLPS) {
+            return (
+              <div className='mr-11'>
+                <PoolPairSymbol
+                  poolPairId={props.token.id} symbolSizeClassName='h-6 w-6'
+                  symbolMarginClassName='ml-3.5' textClassName='hidden'
+                />
+              </div>
+            )
+          }
+
+          if (props.token.isDAT) {
+            const AssetIcon = getAssetIcon(props.token.symbol)
+            return <AssetIcon className='h-6 w-6 mr-1' />
+          }
+
+          const TokenIcon = getTokenIcon(props.token.displaySymbol)
+          return <TokenIcon className='h-6 w-6 mr-1' />
+        })()}
+
+        <div className='text-gray-900 hover:text-primary-500'>
+          <Link href={{ pathname: `/tokens/${props.token.id}` }}>
+            <a className='contents'>
+              {props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}
+            </a>
+          </Link>
+        </div>
+      </div>
+    </>
   )
 }
