@@ -8,6 +8,7 @@ import { fromAddress } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
 import { Head } from '@components/commons/Head'
+import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 
 interface AddressPageProps {
   address: string
@@ -29,8 +30,18 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
       <Container className='pt-12 pb-20'>
         <AddressHeading address={props.address} />
         <AddressSummaryTable address={props.address} />
-        <AddressTokenTable address={props.address} />
-        <AddressTransactionTable address={props.address} />
+        <CollapsibleSection
+          heading='Balances'
+        >
+          <AddressTokenTable address={props.address} />
+        </CollapsibleSection>
+
+        <CollapsibleSection
+          heading='Transactions'
+        >
+          <AddressTransactionTable address={props.address} />
+        </CollapsibleSection>
+
       </Container>
     </>
   )
