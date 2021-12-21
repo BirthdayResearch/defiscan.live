@@ -3,7 +3,7 @@ import { Container } from '@components/commons/Container'
 import { AddressHeading, AddressNotFoundHeading } from './_components/AddressHeadings'
 import { AddressSummaryTable } from './_components/AddressSummaryTable'
 import { AddressTransactionTable } from './_components/AddressTransactionTable'
-import { AddressTokenTable } from './_components/AddressTokenTable'
+import { AddressBalances } from './_components/AddressBalances'
 import { fromAddress } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
@@ -33,7 +33,7 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
         <CollapsibleSection
           heading='Balances'
         >
-          <AddressTokenTable address={props.address} />
+          <AddressBalances address={props.address} />
         </CollapsibleSection>
 
         <CollapsibleSection
