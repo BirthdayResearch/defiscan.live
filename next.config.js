@@ -3,12 +3,13 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: `default-src 'none';` +
       `base-uri 'none';` +
+      `child-src 'self' app.netlify.com;` +
       `form-action 'none';` +
       `frame-ancestors 'none';` +
       `img-src 'self';` +
       `media-src 'self';` +
       `object-src 'none';` +
-      `script-src 'self' ${process.env.NODE_ENV === 'development' ? `'unsafe-eval'` : ''};` +
+      `script-src 'self' app.netlify.com netlify-cdp-loader.netlify.app ${process.env.NODE_ENV === 'development' ? `'unsafe-eval'` : ''};` +
       `style-src 'self' fonts.googleapis.com 'unsafe-inline';` +
       `font-src fonts.gstatic.com;` +
       `connect-src 'self' ocean.defichain.com;`
