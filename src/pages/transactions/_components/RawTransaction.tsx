@@ -15,7 +15,7 @@ import { fromScript } from '@defichain/jellyfish-address'
 import BigNumber from 'bignumber.js'
 import { SmartBuffer } from 'smart-buffer'
 
-export function RawTransaction ({ rawTx }: {rawTx: string}): JSX.Element {
+export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
   const network = useNetwork().name
   let transaction: TransactionSegWit | Transaction | undefined
 
@@ -37,6 +37,7 @@ export function RawTransaction ({ rawTx }: {rawTx: string}): JSX.Element {
     }
     return value.toFixed(8)
   }
+
   return (
     <div>
       <h1 className='font-medium text-2xl mt-6' data-testid='RawTransaction.Title'>Pending Transactions</h1>
@@ -69,7 +70,7 @@ export function RawTransaction ({ rawTx }: {rawTx: string}): JSX.Element {
   )
 }
 
-function TransactionInput ({ vin }: {vin: Vin}): JSX.Element {
+function TransactionInput ({ vin }: { vin: Vin }): JSX.Element {
   return (
     <AdaptiveList className='space-y-2'>
       <AdaptiveList.Row name='Index' testId='RawTransaction.VinIndex'>
@@ -82,7 +83,7 @@ function TransactionInput ({ vin }: {vin: Vin}): JSX.Element {
   )
 }
 
-function TransactionOutput ({ vout, address }: {vout: Vout, address: string | undefined}): JSX.Element {
+function TransactionOutput ({ vout, address }: { vout: Vout, address: string | undefined }): JSX.Element {
   return (
     <AdaptiveList>
       <AdaptiveList.Row name='Token' testId='RawTransaction.VoutToken'>
