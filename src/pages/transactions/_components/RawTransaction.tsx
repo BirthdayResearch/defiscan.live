@@ -39,26 +39,28 @@ export function RawTransaction ({ rawTx }: {rawTx: string}): JSX.Element {
   }
   return (
     <div>
-      <h1 className='font-medium text-2xl mt-6' data-testid='DfTxHeader.Title'>Pending Transactions</h1>
-      <div className='flex space-x-2 space-y-2'>
+      <h1 className='font-medium text-2xl mt-6' data-testid='RawTransaction.Title'>Pending Transactions</h1>
+      <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-2 lg:space-x-2'>
         <div className='w-full lg:w-1/2'>
           <h3 className='text-lg font-semibold mb-4'>Input</h3>
           {transaction?.vin.map(vin => (
             <TransactionInput vin={vin} key={vin.txid} />
           ))}
         </div>
-        <div className='w-full lg:w-1/2'>
+        <div className='w-full lg:w-1/2 '>
           <h3 className='text-lg font-semibold mb-4'>Output</h3>
-          {transaction?.vout.map((vout, index) => {
-            const decoded = fromScript(vout.script, network)
-            return (
-              <TransactionOutput key={index} vout={vout} address={decoded?.address} />
-            )
-          })}
+          <div className='space-y-2'>
+            {transaction?.vout.map((vout, index) => {
+              const decoded = fromScript(vout.script, network)
+              return (
+                <TransactionOutput key={index} vout={vout} address={decoded?.address} />
+              )
+            })}
+          </div>
         </div>
       </div>
       <div className='flex flex-col items-end justify-between mt-8'>
-        <div className='flex justify-between space-x-3 mt-2' data-testid='TransactionDetailsSummary.total'>
+        <div className='flex justify-between space-x-3 mt-2' data-testid='RawTransaction.total'>
           <span>Total:</span>
           <span>{getTotalVoutValue(transaction?.vout)} DFI</span>
         </div>
@@ -69,12 +71,12 @@ export function RawTransaction ({ rawTx }: {rawTx: string}): JSX.Element {
 
 function TransactionInput ({ vin }: {vin: Vin}): JSX.Element {
   return (
-    <AdaptiveList>
-      <AdaptiveList.Row name='Index'>
+    <AdaptiveList className='space-y-2'>
+      <AdaptiveList.Row name='Index' testId='RawTransaction.VinIndex'>
         {vin.index}
       </AdaptiveList.Row>
       <AdaptiveList.Row name='TxId'>
-        <TxIdLink txid={vin.txid} className='break-all' />
+        <TxIdLink txid={vin.txid} className='break-all' testId='RawTransaction.VinTxId' />
       </AdaptiveList.Row>
     </AdaptiveList>
   )
@@ -83,15 +85,15 @@ function TransactionInput ({ vin }: {vin: Vin}): JSX.Element {
 function TransactionOutput ({ vout, address }: {vout: Vout, address: string | undefined}): JSX.Element {
   return (
     <AdaptiveList>
-      <AdaptiveList.Row name='Token'>
+      <AdaptiveList.Row name='Token' testId='RawTransaction.VoutToken'>
         <TokenSymbol tokenId={vout.tokenId} />
       </AdaptiveList.Row>
-      <AdaptiveList.Row name='Value'>{vout.value.toFixed(8)}</AdaptiveList.Row>
+      <AdaptiveList.Row name='Value' testId='RawTransaction.VoutValue'>{vout.value.toFixed(8)}</AdaptiveList.Row>
       {(() => {
         if (address !== undefined) {
           return (
-            <AdaptiveList.Row name='Address'>
-              <AddressLink address={address} />
+            <AdaptiveList.Row name='Address' testId='RawTransaction.VoutAddress'>
+              <AddressLink address={address} className='break-all' />
             </AdaptiveList.Row>
           )
         }
