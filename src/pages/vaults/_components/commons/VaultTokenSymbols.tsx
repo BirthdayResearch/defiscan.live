@@ -9,6 +9,9 @@ interface VaultTokenSymbolsProps {
 
 export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
   const remainingTokens = props.tokens.length - 4
+  const tokens = props.tokens.filter((token, index) => {
+    return index === props.tokens.findIndex(t => t.symbol === token.symbol)
+  })
 
   return (
     <div className={classNames('flex items-center', props.className)}>
@@ -17,7 +20,7 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
       }
 
       <div className='flex space-x-1 items-center'>
-        {props.tokens.map((loan, index) => {
+        {tokens.map((loan, index) => {
           const TokenIcon = getAssetIcon(loan.symbol)
           if (index < 4) {
             if (index >= 1) {
