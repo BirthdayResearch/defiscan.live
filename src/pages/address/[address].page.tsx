@@ -9,6 +9,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
 import { Head } from '@components/commons/Head'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
+import { AddressVaults } from './_components/AddressVaults'
 
 interface AddressPageProps {
   address: string
@@ -37,6 +38,14 @@ export default function AddressPage (props: InferGetServerSidePropsType<typeof g
           testId='Balances'
         >
           <AddressBalances address={props.address} />
+        </CollapsibleSection>
+
+        <CollapsibleSection
+          heading='Vaults'
+          className='mt-8'
+          testId='Vaults'
+        >
+          <AddressVaults address={props.address} />
         </CollapsibleSection>
 
         <CollapsibleSection

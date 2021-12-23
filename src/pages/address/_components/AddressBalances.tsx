@@ -7,11 +7,11 @@ import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import { Link } from '@components/commons/link/Link'
 import { EmptySection } from '@components/commons/sections/EmptySection'
 
-interface AddressTokenTableProps {
+interface AddressBalancesProps {
   address: string
 }
 
-export function AddressBalances (props: AddressTokenTableProps): JSX.Element {
+export function AddressBalances (props: AddressBalancesProps): JSX.Element {
   const api = useWhaleApiClient()
   const [tokensData, setTokensData] = useState<AddressToken[]>([])
   const [next, setNext] = useState<string | undefined>(undefined)
