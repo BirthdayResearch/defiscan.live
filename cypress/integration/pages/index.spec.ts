@@ -19,13 +19,9 @@ context('/ on macbook-13', () => {
     cy.findByTestId('StatItem.difficulty').should('exist')
   })
 
-  it('should have BlocksList.viewAllBlocksLink', () => {
-    cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
-  })
-
   it('should have BlocksList.viewAllBlocksButton', () => {
     cy.findByTestId('Desktop.Blocks').within(() => {
-      cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
+      cy.findByTestId('BlocksList.viewAllBlocksButton').should('be.visible').should('have.attr', 'href', '/blocks')
     })
   })
 
@@ -34,11 +30,11 @@ context('/ on macbook-13', () => {
   })
 
   it('should have LiquidityPools.title', () => {
-    cy.findByTestId('LiquidityPoolList.title').should('have.text', 'Liquidity Pools')
+    cy.findByTestId('LiquidityPoolList.title').should('be.visible').should('have.text', 'Liquidity Pools')
   })
 
-  it('should have LiquidityPoolList.viewLiquidityPools', () => {
-    cy.findByTestId('LiquidityPoolList.viewLiquidityPools').should('have.attr', 'href', '/dex')
+  it('should have LiquidityPoolList.viewAllPoolsButton', () => {
+    cy.findByTestId('LiquidityPoolList.viewAllPoolsButton').should('be.visible').should('have.attr', 'href', '/dex')
   })
 })
 
@@ -69,7 +65,7 @@ context('/ on iphone-x', () => {
 
   it('should have BlocksList.viewAllBlocksButton', () => {
     cy.findByTestId('CollapsibleSection.Blocks').within(() => {
-      cy.findByTestId('BlocksList.viewAllBlocksButton').should('have.attr', 'href', '/blocks')
+      cy.findByTestId('BlocksList.viewAllBlocksButton').should('be.visible').should('have.attr', 'href', '/blocks')
     })
   })
 
@@ -78,10 +74,10 @@ context('/ on iphone-x', () => {
   })
 
   it('should have LiquidityPools.title', () => {
-    cy.findByTestId('LiquidityPoolList.title').should('have.text', 'Liquidity Pools')
+    cy.findByTestId('LiquidityPoolList.title').should('be.visible').should('have.text', 'Liquidity Pools')
   })
 
-  it('should have LiquidityPoolList.viewLiquidityPools', () => {
-    cy.findByTestId('LiquidityPoolList.viewLiquidityPools').should('have.attr', 'href', '/dex')
+  it('should have LiquidityPoolList.viewAllPoolsButton', () => {
+    cy.findByTestId('LiquidityPoolList.viewAllPoolsButton').should('be.visible').should('have.attr', 'href', '/dex')
   })
 })
