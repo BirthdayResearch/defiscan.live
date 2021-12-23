@@ -22,16 +22,16 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        <AuctionTimeLeft liquidationHeight={props.vault.liquidationHeight} />
+        <AuctionTimeLeft liquidationHeight={props.vault.liquidationHeight} testId='AuctionsTableRow.AuctionTimeLeft' />
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <div className='flex'>
-          <TokenSymbol className='w-6 h-6 mr-1.5' />
-          <span>{props.batch.loan.displaySymbol}</span>
+          <TokenSymbol className='w-6 h-6 mr-1.5' data-testid='AuctionsTableRow.LoanToken.TokenSymbol' />
+          <span data-testid='AuctionsTableRow.LoanToken.displaySymbol'>{props.batch.loan.displaySymbol}</span>
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} />
+        <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} testId='AuctionsTableRow.CollateralSymbols' />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className='text-right'>
@@ -41,6 +41,7 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
             decimalScale={2}
             prefix='$'
             displayType='text'
+            data-testid='AuctionsTableRow.CollateralValue'
           />
         </div>
       </OverflowTable.Cell>

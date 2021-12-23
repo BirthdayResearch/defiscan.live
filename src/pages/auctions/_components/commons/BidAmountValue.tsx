@@ -11,7 +11,6 @@ interface MinNextBidProps {
   isStartingBid?: boolean
   valueClassName?: string
   valueSuffix?: boolean
-  testId?: string
 }
 
 export function BidAmountValue (props: MinNextBidProps): JSX.Element {
@@ -38,8 +37,11 @@ export function BidAmountValue (props: MinNextBidProps): JSX.Element {
         decimalScale={8}
         suffix={` ${props.displaySymbol}`}
         displayType='text'
+        data-testid='BidAmountValue.MinBidAmount'
       />
-      <div className={classNames('text-gray-500', props.valueClassName)}>
+      <div
+        className={classNames('text-gray-500', props.valueClassName)} data-testid='BidAmountValue.MinBidValue'
+      >
         {
           minBidValue === undefined ? (
             'N/A'
