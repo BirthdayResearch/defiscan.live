@@ -4,12 +4,16 @@ import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import React from 'react'
 
 interface VaultNumberValuesProps {
-  value: BigNumber
+  value?: BigNumber
   prefix?: string
   suffix?: string
 }
 
 export function VaultNumberValues (props: VaultNumberValuesProps): JSX.Element {
+  if (props.value === undefined) {
+    return <span>N/A</span>
+  }
+
   const HoverDesc = (
     <div
       className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'

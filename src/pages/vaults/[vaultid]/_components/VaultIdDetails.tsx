@@ -92,11 +92,11 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-              props.liquidatedVaultDerivedValues?.totalLoanValue === undefined
+              props.liquidatedVaultDerivedValues?.loanValue === undefined
                 ? ('N/A')
                 : (
                   <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.totalLoanValue}
+                    value={props.liquidatedVaultDerivedValues.loanValue}
                     prefix='$'
                   />
                   )
@@ -111,11 +111,11 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-              props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
+              props.liquidatedVaultDerivedValues?.collateralValue === undefined
                 ? ('N/A')
                 : (
                   <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.totalCollateralValue}
+                    value={props.liquidatedVaultDerivedValues.collateralValue}
                     prefix='$'
                   />
                   )
@@ -151,11 +151,11 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-              props.liquidatedVaultDerivedValues?.totalLoanValue === undefined
+              props.liquidatedVaultDerivedValues?.loanValue === undefined
                 ? ('N/A')
                 : (
                   <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.totalLoanValue}
+                    value={props.liquidatedVaultDerivedValues.loanValue}
                     prefix='$'
                   />
                   )
@@ -174,11 +174,11 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-              props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
+              props.liquidatedVaultDerivedValues?.collateralValue === undefined
                 ? ('N/A')
                 : (
                   <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.totalCollateralValue}
+                    value={props.liquidatedVaultDerivedValues.collateralValue}
                     prefix='$'
                   />
                   )

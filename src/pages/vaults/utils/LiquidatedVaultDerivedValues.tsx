@@ -7,11 +7,11 @@ import {
 import BigNumber from 'bignumber.js'
 
 export interface LiquidatedVaultDerivedValues {
-  loanTokens: LoanVaultTokenAmount[]
-  collateralTokens: LoanVaultTokenAmount[]
-  totalLoanValue: BigNumber
-  totalCollateralValue: BigNumber
-  totalCollateralRatio: BigNumber
+  loanAmounts: LoanVaultTokenAmount[]
+  collateralAmounts: LoanVaultTokenAmount[]
+  loanValue: BigNumber
+  collateralValue: BigNumber
+  collateralRatio: BigNumber
 }
 
 export function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLiquidated): LiquidatedVaultDerivedValues | undefined {
@@ -60,10 +60,10 @@ export function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLi
   }
 
   return {
-    loanTokens: loanTokens,
-    collateralTokens: collateralTokens,
-    totalLoanValue: totalLoanValue,
-    totalCollateralValue: totalCollateralValue,
-    totalCollateralRatio: totalCollateralRatio
+    loanAmounts: loanTokens,
+    collateralAmounts: collateralTokens,
+    loanValue: totalLoanValue,
+    collateralValue: totalCollateralValue,
+    collateralRatio: totalCollateralRatio
   }
 }
