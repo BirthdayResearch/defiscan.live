@@ -6,16 +6,18 @@ import React from 'react'
 import {
   LoanVaultLiquidated,
   LoanVaultLiquidationBatch,
-  LoanVaultState
+  LoanVaultState,
+  VaultAuctionBatchHistory
 } from '@defichain/whale-api-client/dist/api/loan'
 import { DesktopAuctionDetails, MobileAuctionDetails } from './_components/AuctionDetails'
 import { AuctionDetailsHeading } from './_components/AuctionDetailsHeading'
-import { EmptySection } from '@components/commons/sections/EmptySection'
+import { BiddingHistory } from './_components/AuctionBiddingHistory'
 
 interface ActionsPageProps {
   vault: LoanVaultLiquidated
   batchIndex: string
   liquidationBatch: LoanVaultLiquidationBatch
+  auctionHistory: VaultAuctionBatchHistory[] | undefined
 }
 
 export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -39,19 +41,26 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
           liquidationHeight={props.vault.liquidationHeight}
         />
 
-        <BiddingHistory />
+        <BiddingHistory
+          history={props.auctionHistory}
+        />
       </Container>
     </>
   )
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<ActionsPageProps>> {
+  const api = getWhaleApiClient(context)
+
   const vaultid = context.params?.vaultid?.toString().trim() as string
   const batchIndex = context.params?.index?.toString().trim() as string
+  let auctionHistory: VaultAuctionBatchHistory[] | undefined
 
   try {
-    const vault = await getWhaleApiClient(context).loan.getVault(vaultid)
-    if (vault.state !== LoanVaultState.IN_LIQUIDATION) {
+    const vault = await api.loan.getVault(vaultid)
+    if (vault.state === LoanVaultState.IN_LIQUIDATION) {
+      auctionHistory = await api.loan.listVaultAuctionHistory(vaultid, vault.liquidationHeight, Number(batchIndex))
+    } else {
       return {
         notFound: true
       }
@@ -59,6 +68,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
     return {
       props: {
+        auctionHistory,
         vault: vault,
         batchIndex: batchIndex,
         liquidationBatch: vault.batches[batchIndex]
@@ -69,15 +79,4 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       notFound: true
     }
   }
-}
-
-function BiddingHistory (): JSX.Element {
-  return (
-    <>
-      <h2 className='text-xl font-semibold mt-8' data-testid='BiddingHistory.Heading'>
-        Bidding Details
-      </h2>
-      <EmptySection message='Bidding history is not supported at this time' />
-    </>
-  )
 }
