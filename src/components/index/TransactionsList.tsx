@@ -3,7 +3,7 @@ import { formatDistanceToNow } from 'date-fns'
 import BigNumber from 'bignumber.js'
 import { MdSwapHorizontalCircle } from 'react-icons/md'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Link } from '@components/commons/link/Link'
 import { IoChevronForwardSharp } from 'react-icons/io5'
 
@@ -18,15 +18,13 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
         <div className='mt-6'>
           {transactions.map(transaction => {
             return (
-              <Link href={{ pathname: `/transactions/${transaction.id}` }} key={transaction.hash}>
-                <a className='content'>
-                  <TransactionDetails
-                    txid={transaction.txid}
-                    age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
-                    totalVoutValue={transaction.totalVoutValue}
-                  />
-                </a>
-              </Link>
+              <TransactionCard id={transaction.id} key={`Desktop.${transaction.txid}`}>
+                <DesktopTransactionCardDetails
+                  txid={transaction.txid}
+                  age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
+                  totalVoutValue={transaction.totalVoutValue}
+                />
+              </TransactionCard>
             )
           })}
         </div>
@@ -39,15 +37,13 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
         <div className='mt-6 w-full'>
           {transactions.map(transaction => {
             return (
-              <Link href={{ pathname: `/transactions/${transaction.id}` }} key={transaction.hash}>
-                <a className='content'>
-                  <TransactionDetails
-                    txid={transaction.txid}
-                    age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
-                    totalVoutValue={transaction.totalVoutValue}
-                  />
-                </a>
-              </Link>
+              <TransactionCard id={transaction.id} key={`Mobile.${transaction.txid}`}>
+                <MobileTransactionCardDetails
+                  txid={transaction.txid}
+                  age={formatDistanceToNow(transaction.block.medianTime * 1000, { addSuffix: true })}
+                  totalVoutValue={transaction.totalVoutValue}
+                />
+              </TransactionCard>
             )
           })}
         </div>
@@ -56,20 +52,19 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
   )
 }
 
-function TransactionDetails (props: {
-  txid: string
-  age: string
-  totalVoutValue: string
-}): JSX.Element {
+function TransactionCard (props: PropsWithChildren<{ id: string }>): JSX.Element {
   return (
-    <div className='w-full flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer my-1.5 hover:shadow-md'>
-      <DesktopTransactionDetails txid={props.txid} age={props.age} totalVoutValue={props.totalVoutValue} />
-      <MobileTransactionDetails txid={props.txid} age={props.age} totalVoutValue={props.totalVoutValue} />
-    </div>
+    <Link href={{ pathname: `/transactions/${props.id}` }}>
+      <a className='content'>
+        <div className='w-full flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer my-1.5 hover:shadow-md'>
+          {props.children}
+        </div>
+      </a>
+    </Link>
   )
 }
 
-function DesktopTransactionDetails (props: {
+function DesktopTransactionCardDetails (props: {
   txid: string
   age: string
   totalVoutValue: string
@@ -106,7 +101,7 @@ function DesktopTransactionDetails (props: {
   )
 }
 
-function MobileTransactionDetails (props: {
+function MobileTransactionCardDetails (props: {
   txid: string
   age: string
   totalVoutValue: string

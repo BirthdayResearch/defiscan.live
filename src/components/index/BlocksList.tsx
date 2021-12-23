@@ -12,28 +12,18 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
       <div className='hidden md:block md:mt-8 lg:mt-0' data-testid='Desktop.Blocks'>
         <div className='flex justify-between'>
           <h1 className='text-xl font-semibold'>Latest Blocks</h1>
-          <Link href={{ pathname: '/blocks' }}>
-            <a
-              className='flex items-center font-medium cursor-pointer text-primary-500'
-              data-testid='BlocksList.viewAllBlocksLink'
-            >
-              VIEW ALL BLOCKS
-            </a>
-          </Link>
         </div>
         <div className='mt-6'>
           {blocks.map((block) => {
             return (
-              <Link href={{ pathname: `/blocks/${block.id}` }} key={block.id}>
-                <a className='content'>
-                  <BlockDetails
-                    height={block.height.toString()}
-                    mintedBy={block.minter}
-                    transactionCount={block.transactionCount}
-                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-                  />
-                </a>
-              </Link>
+              <BlockCard
+                id={block.id}
+                height={block.height.toString()}
+                minter={block.minter}
+                transactionCount={block.transactionCount}
+                medianTime={block.medianTime}
+                key={`Desktop.${block.id}`}
+              />
             )
           })}
         </div>
@@ -45,16 +35,14 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
         <div className='mt-6 w-full'>
           {blocks.map((block) => {
             return (
-              <Link href={{ pathname: `/blocks/${block.id}` }} key={block.id}>
-                <a className='content'>
-                  <BlockDetails
-                    height={block.height.toString()}
-                    mintedBy={block.minter}
-                    transactionCount={block.transactionCount}
-                    age={formatDistanceToNow(block.medianTime * 1000, { addSuffix: true })}
-                  />
-                </a>
-              </Link>
+              <BlockCard
+                id={block.id}
+                height={block.height.toString()}
+                minter={block.minter}
+                transactionCount={block.transactionCount}
+                medianTime={block.medianTime}
+                key={`Mobile.${block.id}`}
+              />
             )
           })}
         </div>
@@ -66,7 +54,22 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   )
 }
 
-function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
+function BlockCard (props: { id: string, height: string, minter?: string, transactionCount: number, medianTime: number }): JSX.Element {
+  return (
+    <Link href={{ pathname: `/blocks/${props.id}` }}>
+      <a className='content'>
+        <BlockCardDetails
+          height={props.height.toString()}
+          minter={props.minter}
+          transactionCount={props.transactionCount}
+          age={formatDistanceToNow(props.medianTime * 1000, { addSuffix: true })}
+        />
+      </a>
+    </Link>
+  )
+}
+
+function BlockCardDetails (props: { height: string, minter?: string, transactionCount: number, age: string }): JSX.Element {
   return (
     <div
       className='flex flex-wrap justify-between p-4 rounded border border-gray-200 cursor-pointer items-center my-1.5 hover:shadow-md'
@@ -90,7 +93,7 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
             Minted by
           </div>
           <div className='w-1/2 overflow-hidden overflow-ellipsis'>
-            {props.mintedBy === undefined ? ('N/A') : (props.mintedBy)}
+            {props.minter === undefined ? ('N/A') : (props.minter)}
           </div>
         </div>
         <div className='w-full flex flex-wrap justify-between text-sm'>

@@ -19,7 +19,7 @@ export function CollapsibleSection (props: CollapsibleSectionProps): JSX.Element
     <div className={props.className} data-testid={props.testId}>
       <div className='flex items-center justify-between mt-6 cursor-pointer' onClick={() => handleToggle()}>
         <h2
-          className='text-lg lg:text-xl font-medium text-gray-900'
+          className='text-lg lg:text-xl font-semibold text-gray-900'
           data-testid='VaultCollapsibleSection.Heading'
         >
           {props.heading}
