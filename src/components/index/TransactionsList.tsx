@@ -10,9 +10,9 @@ import { IoChevronForwardSharp } from 'react-icons/io5'
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   return (
     <>
-      <div className='hidden md:block'>
+      <div className='hidden md:block' data-testid='Desktop.TransactionList'>
         <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold'>Latest Transactions</h1>
+          <h1 className='text-xl font-semibold' data-testid='Desktop.TransactionList.Title'>Latest Transactions</h1>
         </div>
 
         <div className='mt-6'>
@@ -33,6 +33,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
       <CollapsibleSection
         heading='Latest Transactions'
         className='block md:hidden'
+        testId='Mobile.TransactionList'
       >
         <div className='mt-6 w-full'>
           {transactions.map(transaction => {
@@ -70,26 +71,26 @@ function DesktopTransactionCardDetails (props: {
   totalVoutValue: string
 }): JSX.Element {
   return (
-    <div className='flex flex-wrap w-full'>
+    <div className='flex flex-wrap w-full' data-testid='Desktop.TransactionCard'>
       <div className='md:w-1/2 lg:w-2/5 xl:w-3/5 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
         </span>
         <div className='overflow-hidden'>
-          <div className='overflow-ellipsis overflow-hidden font-medium text-gray-900'>
+          <div className='overflow-ellipsis overflow-hidden font-medium text-gray-900' data-testid='Desktop.TransactionCard.txid'>
             {props.txid}
           </div>
-          <div className='text-xs text-gray-400 leading-5'>
+          <div className='text-xs text-gray-400 leading-5' data-testid='Desktop.TransactionCard.age'>
             {props.age}
           </div>
         </div>
       </div>
       <div className='w-1/2 lg:w-3/5 xl:w-2/5 flex justify-between'>
         <div className='w-10/12 text-right text-sm flex'>
-          <div className='w-1/2 text-gray-500 lg:mr-2 xl:mr-0'>
+          <div className='w-1/2 text-gray-500 lg:mr-2 xl:mr-0' data-testid='Desktop.TransactionCard.AmountLabel'>
             Amount
           </div>
-          <div className='w-1/2 text-gray-900'>
+          <div className='w-1/2 text-gray-900' data-testid='Desktop.TransactionCard.AmountValue'>
             {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
           </div>
         </div>
@@ -108,24 +109,24 @@ function MobileTransactionCardDetails (props: {
 }): JSX.Element {
   return (
     <>
-      <div className='w-11/12 flex space-x-2'>
+      <div className='w-11/12 flex space-x-2' data-testid='Mobile.TransactionCard'>
         <span className='text-lg leading-6'>
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
         </span>
         <div className='overflow-hidden'>
           <div className='flex'>
-            <div className='w-1/2 overflow-ellipsis overflow-hidden font-medium text-gray-900'>
+            <div className='w-1/2 overflow-ellipsis overflow-hidden font-medium text-gray-900' data-testid='Mobile.TransactionCard.txid'>
               {props.txid}
             </div>
-            <div className='w-1/2 text-right text-xs text-gray-400 leading-5 mr-3'>
+            <div className='w-1/2 text-right text-xs text-gray-400 leading-5 mr-3' data-testid='Mobile.TransactionCard.age'>
               <span>{props.age}</span>
             </div>
           </div>
-          <div className='block flex flex-wrap items-center'>
-            <div className='text-gray-500 text-sm'>
+          <div className='flex flex-wrap items-center'>
+            <div className='text-gray-500 text-sm' data-testid='Mobile.TransactionCard.AmountLabel'>
               Amount
             </div>
-            <div className='text-right text-gray-900 text-sm ml-2'>
+            <div className='text-right text-gray-900 text-sm ml-2' data-testid='Mobile.TransactionCard.AmountValue'>
               {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
             </div>
           </div>

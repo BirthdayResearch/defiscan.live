@@ -20,7 +20,7 @@ context('/address/[address] on desktop', () => {
 
   it('should have Balances', function () {
     cy.findByTestId('Balances').within(() => {
-      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Balances')
+      cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Balances')
 
       cy.findAllByTestId('AddressTokenCard').within(() => {
         cy.findByTestId('AddressTokenCard.TokenSymbol').should('be.visible')
@@ -35,7 +35,7 @@ context('/address/[address] on desktop', () => {
 
   it('should have Vaults', function () {
     cy.findByTestId('Vaults').within(() => {
-      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Vaults')
+      cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Vaults')
 
       it('should have Vaults OverflowTable', function () {
         it('should have OverflowTable header information', function () {
@@ -83,7 +83,7 @@ context('/address/[address] on desktop', () => {
 
   it('should have Transactions', function () {
     cy.findByTestId('Transactions').within(() => {
-      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Transactions')
+      cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Transactions')
 
       it('should have Transactions OverflowTable', function () {
         cy.findByTestId('OverflowTable.Header').then(ele => {
@@ -140,7 +140,7 @@ context('/address/[address] on mobile', () => {
 
   it('should have Balances', function () {
     cy.findByTestId('Balances').within(() => {
-      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Balances')
+      cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Balances')
 
       cy.findAllByTestId('AddressTokenCard').within(() => {
         cy.findByTestId('AddressTokenCard.TokenSymbol').should('be.visible')
@@ -155,7 +155,7 @@ context('/address/[address] on mobile', () => {
 
   it('should have Vaults', function () {
     cy.findByTestId('Vaults').within(() => {
-      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Vaults')
+      cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Vaults')
 
       it('should have Vaults OverflowTable', function () {
         it('should have OverflowTable header information', function () {
@@ -203,7 +203,7 @@ context('/address/[address] on mobile', () => {
 
   it('should have Transactions', function () {
     cy.findByTestId('Transactions').within(() => {
-      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Transactions')
+      cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Transactions')
 
       it('should have Transactions OverflowTable', function () {
         cy.findByTestId('OverflowTable.Header').then(ele => {
