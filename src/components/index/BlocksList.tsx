@@ -74,7 +74,7 @@ function BlockCardDetails (props: { height: string, minter?: string, transaction
     <div
       className='flex flex-wrap justify-between p-4 rounded border border-gray-200 cursor-pointer items-center my-1.5 hover:shadow-md'
     >
-      <div className='w-5/12 flex space-x-2'>
+      <div className='w-1/2 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdStairs className='text-gray-400 inline-block' size={22} />
         </span>
@@ -87,24 +87,26 @@ function BlockCardDetails (props: { height: string, minter?: string, transaction
           </div>
         </div>
       </div>
-      <div className='w-5/12 flex flex-wrap'>
-        <div className='w-full flex flex-wrap items-center text-sm overflow-hidden'>
-          <div className='w-1/2 text-gray-500'>
-            Minted by
+      <div className='w-1/2 flex flex-wrap justify-between'>
+        <div className='w-10/12 flex flex-wrap'>
+          <div className='w-full flex flex-wrap items-center text-sm overflow-hidden'>
+            <div className='w-1/2 text-gray-500'>
+              Minted by
+            </div>
+            <div className='w-1/2 overflow-hidden overflow-ellipsis'>
+              {props.minter === undefined ? ('N/A') : (props.minter)}
+            </div>
           </div>
-          <div className='w-1/2 overflow-hidden overflow-ellipsis'>
-            {props.minter === undefined ? ('N/A') : (props.minter)}
+          <div className='w-full flex flex-wrap justify-between text-sm'>
+            <div className='w-1/2 text-gray-500'>
+              Transactions
+            </div>
+            <span className='w-1/2 text-right text-gray-900'>{props.transactionCount}</span>
           </div>
         </div>
-        <div className='w-full flex flex-wrap justify-between text-sm'>
-          <div className='w-1/2 text-gray-500'>
-            Transactions
-          </div>
-          <span className='w-1/2 text-right text-gray-900'>{props.transactionCount}</span>
+        <div className='flex items-center'>
+          <IoChevronForwardSharp size={24} />
         </div>
-      </div>
-      <div className='flex items-center ml-8'>
-        <IoChevronForwardSharp size={24} />
       </div>
     </div>
   )
@@ -119,7 +121,7 @@ function ViewMoreButton (): JSX.Element {
       >
         <button
           type='button'
-          className='mt-2 py-2 px-14 border border-gray-200 rounded-sm'
+          className='mt-2 py-2 px-14 border border-gray-200 rounded-sm hover:shadow-md'
         >
           VIEW ALL BLOCKS
         </button>

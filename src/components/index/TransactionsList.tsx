@@ -70,7 +70,7 @@ function DesktopTransactionCardDetails (props: {
   totalVoutValue: string
 }): JSX.Element {
   return (
-    <div className='hidden xl:flex xl:flex-wrap xl:w-full'>
+    <div className='flex flex-wrap w-full'>
       <div className='md:w-1/2 lg:w-2/5 xl:w-3/5 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
@@ -84,8 +84,8 @@ function DesktopTransactionCardDetails (props: {
           </div>
         </div>
       </div>
-      <div className='w-1/2 lg:w-3/5 xl:w-2/5 flex'>
-        <div className='w-full text-right text-sm flex'>
+      <div className='w-1/2 lg:w-3/5 xl:w-2/5 flex justify-between'>
+        <div className='w-10/12 text-right text-sm flex'>
           <div className='w-1/2 text-gray-500 lg:mr-2 xl:mr-0'>
             Amount
           </div>
@@ -93,7 +93,7 @@ function DesktopTransactionCardDetails (props: {
             {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
           </div>
         </div>
-        <div className='flex items-center ml-8'>
+        <div className='flex items-center'>
           <IoChevronForwardSharp size={24} />
         </div>
       </div>
@@ -108,7 +108,7 @@ function MobileTransactionCardDetails (props: {
 }): JSX.Element {
   return (
     <>
-      <div className='block xl:hidden w-11/12 flex space-x-2'>
+      <div className='w-11/12 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
         </span>
@@ -131,7 +131,7 @@ function MobileTransactionCardDetails (props: {
           </div>
         </div>
       </div>
-      <div className='block xl:hidden w-1/12 flex items-center justify-end'>
+      <div className='w-1/12 flex items-center justify-end'>
         <IoChevronForwardSharp size={24} />
       </div>
     </>
