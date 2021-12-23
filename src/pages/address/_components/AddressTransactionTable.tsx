@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { AddressTransactionTableRow } from './AddressTransactionTableRow'
 import { CgSpinner } from 'react-icons/cg'
 import { EmptySection } from '@components/commons/sections/EmptySection'
+import { ShowMoreButton } from './ShowMoreButton'
 
 interface AddressTransactionTableProps {
   address: string
@@ -82,37 +83,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
         : (
           <EmptySection message='No Transactions' className='-mt-0' />
           )}
-      <ShowMoreButton isLoading={isLoading} next={next} handleGetTransactions={getTransactions} />
-    </div>
-  )
-}
-
-function ShowMoreButton (props: { isLoading: boolean, next?: string, handleGetTransactions: () => void }): JSX.Element {
-  if (props.next === undefined) {
-    return <></>
-  }
-
-  if (props.isLoading) {
-    return (
-      <div className='flex w-full justify-center mt-4'>
-        <div className='flex justify-center pt-2 pb-4'>
-          <CgSpinner size={32} className='animate-spin text-gray-600' />
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <div
-      className='flex w-full justify-center mt-4' onClick={props.handleGetTransactions}
-      data-testid='AddressTransactionTable.showMoreBtn'
-    >
-      <button
-        type='button'
-        className='w-full md:w-1/3 py-2.5 text-primary-300 hover:text-primary-500 border border-primary-200 hover:border-primary-500 rounded'
-      >
-        SHOW MORE
-      </button>
+      <ShowMoreButton isLoading={isLoading} next={next} handleOnClick={getTransactions} />
     </div>
   )
 }

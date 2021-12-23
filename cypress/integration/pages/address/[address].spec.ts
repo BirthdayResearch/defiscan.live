@@ -33,17 +33,67 @@ context('/address/[address] on desktop', () => {
     })
   })
 
+  it('should have Vaults', function () {
+    cy.findByTestId('Vaults').within(() => {
+      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Vaults')
+
+      it('should have Vaults OverflowTable', function () {
+        it('should have OverflowTable header information', function () {
+          cy.findByTestId('VaultsTable.VaultID').should('be.visible').should('have.text', 'Vault ID')
+
+          cy.findByTestId('VaultsTable.Status').should('be.visible').should('have.text', 'Status')
+          cy.findByTestId('VaultsTable.Status').within(() => {
+            cy.findByTestId('InfoHoverPopover').should('be.visible')
+          })
+
+          cy.findByTestId('VaultsTable.Loans').should('be.visible').should('have.text', 'Loan Taken')
+
+          cy.findByTestId('VaultsTable.LoansValue').should('be.visible').should('have.text', 'Loan Value (USD)')
+          cy.findByTestId('VaultsTable.LoansValue').within(() => {
+            cy.findByTestId('InfoHoverPopover').should('be.visible')
+          })
+
+          cy.findByTestId('VaultsTable.Collaterals').should('be.visible').should('have.text', 'Collaterals')
+
+          cy.findByTestId('VaultsTable.CollateralValue').should('be.visible').should('have.text', 'Collateral Value (USD)')
+          cy.findByTestId('VaultsTable.CollateralValue').within(() => {
+            cy.findByTestId('InfoHoverPopover').should('be.visible')
+          })
+
+          cy.findByTestId('VaultsTable.CollateralizationRatios').should('be.visible').should('have.text', 'Collateralization Ratio / Min.')
+          cy.findByTestId('VaultsTable.CollateralizationRatios').within(() => {
+            cy.findByTestId('InfoHoverPopover').should('be.visible')
+          })
+        })
+
+        it('should have 8 cells in each row', function () {
+          cy.findAllByTestId('OverflowTable.Row').within(() => {
+            cy.findAllByTestId('OverflowTable.Cell').should('have.length', 7).should('be.visible')
+          })
+        })
+      })
+
+      it('should have Show More button', function () {
+        cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')
+        cy.findByTestId('AddressTransactionTable.showMoreBtn').click()
+        cy.findAllByTestId('OverflowTable.Row').should('have.length', 20)
+      })
+    })
+  })
+
   it('should have Transactions', function () {
     cy.findByTestId('Transactions').within(() => {
       cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Transactions')
 
-      cy.findByTestId('OverflowTable.Header').then(ele => {
-        cy.wrap(ele).findByText('TX ID').should('be.visible')
-        cy.wrap(ele).findByText('BLOCK').should('be.visible')
-        cy.wrap(ele).findByText('AGE').should('be.visible')
-        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+      it('should have Transactions OverflowTable', function () {
+        cy.findByTestId('OverflowTable.Header').then(ele => {
+          cy.wrap(ele).findByText('TX ID').should('be.visible')
+          cy.wrap(ele).findByText('BLOCK').should('be.visible')
+          cy.wrap(ele).findByText('AGE').should('be.visible')
+          cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+        })
+        cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
       })
-      cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
 
       it('should have Show More button', function () {
         cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')
@@ -103,17 +153,67 @@ context('/address/[address] on mobile', () => {
     })
   })
 
+  it('should have Vaults', function () {
+    cy.findByTestId('Vaults').within(() => {
+      cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Vaults')
+
+      it('should have Vaults OverflowTable', function () {
+        it('should have OverflowTable header information', function () {
+          cy.findByTestId('VaultsTable.VaultID').should('be.visible').should('have.text', 'Vault ID')
+
+          cy.findByTestId('VaultsTable.Status').should('be.visible').should('have.text', 'Status')
+          cy.findByTestId('VaultsTable.Status').within(() => {
+            cy.findByTestId('InfoHoverPopover').should('be.visible')
+          })
+
+          cy.findByTestId('VaultsTable.Loans').should('be.visible').should('have.text', 'Loan Taken')
+
+          cy.findByTestId('VaultsTable.LoansValue').should('be.visible').should('have.text', 'Loan Value (USD)')
+          cy.findByTestId('VaultsTable.LoansValue').within(() => {
+            cy.findByTestId('InfoHoverPopover').should('be.visible')
+          })
+
+          cy.findByTestId('VaultsTable.Collaterals').should('be.visible').should('have.text', 'Collaterals')
+
+          cy.findByTestId('VaultsTable.CollateralValue').should('be.visible').should('have.text', 'Collateral Value (USD)')
+          cy.findByTestId('VaultsTable.CollateralValue').within(() => {
+            cy.findByTestId('InfoHoverPopover').should('be.visible')
+          })
+
+          cy.findByTestId('VaultsTable.CollateralizationRatios').should('be.visible').should('have.text', 'Collateralization Ratio / Min.')
+          cy.findByTestId('VaultsTable.CollateralizationRatios').within(() => {
+            cy.findByTestId('InfoHoverPopover').should('be.visible')
+          })
+        })
+
+        it('should have 8 cells in each row', function () {
+          cy.findAllByTestId('OverflowTable.Row').within(() => {
+            cy.findAllByTestId('OverflowTable.Cell').should('have.length', 7).should('be.visible')
+          })
+        })
+      })
+
+      it('should have Show More button', function () {
+        cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')
+        cy.findByTestId('AddressTransactionTable.showMoreBtn').click()
+        cy.findAllByTestId('OverflowTable.Row').should('have.length', 20)
+      })
+    })
+  })
+
   it('should have Transactions', function () {
     cy.findByTestId('Transactions').within(() => {
       cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Transactions')
 
-      cy.findByTestId('OverflowTable.Header').then(ele => {
-        cy.wrap(ele).findByText('TX ID').should('be.visible')
-        cy.wrap(ele).findByText('BLOCK').should('be.visible')
-        cy.wrap(ele).findByText('AGE').should('be.visible')
-        cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+      it('should have Transactions OverflowTable', function () {
+        cy.findByTestId('OverflowTable.Header').then(ele => {
+          cy.wrap(ele).findByText('TX ID').should('be.visible')
+          cy.wrap(ele).findByText('BLOCK').should('be.visible')
+          cy.wrap(ele).findByText('AGE').should('be.visible')
+          cy.wrap(ele).findByText('AMOUNT').should('be.visible')
+        })
+        cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
       })
-      cy.findAllByTestId('OverflowTable.Row').should('have.length', 10)
 
       it('should have Show More button', function () {
         cy.findByTestId('AddressTransactionTable.showMoreBtn').should('have.text', 'SHOW MORE')

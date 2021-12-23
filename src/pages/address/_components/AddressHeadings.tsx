@@ -8,13 +8,6 @@ interface AddressHeadingProps {
 export function AddressHeading (props: AddressHeadingProps): JSX.Element {
   return (
     <>
-      <div className='flex items-center justify-center pb-6'>
-        <div className='bg-orange-100 rounded p-3 text-center'>
-          🚧 Work in progress, this is an early iteration of defiscan.live/address/*. Some features are not
-          available and may not work as expected.
-        </div>
-      </div>
-
       <span className='leading-6 opacity-60' data-testid='title'>
         Address
       </span>

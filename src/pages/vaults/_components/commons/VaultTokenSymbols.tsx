@@ -3,11 +3,15 @@ import { getAssetIcon } from '@components/icons/assets/tokens'
 import classNames from 'classnames'
 
 interface VaultTokenSymbolsProps {
-  tokens: LoanVaultTokenAmount[]
+  tokens?: LoanVaultTokenAmount[]
   className?: string
 }
 
 export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
+  if (props.tokens === undefined) {
+    return <span>N/A</span>
+  }
+
   const remainingTokens = props.tokens.length - 4
 
   return (
