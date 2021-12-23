@@ -21,7 +21,7 @@ context('/vaults/[vaultid] on desktop', function () {
     cy.findByTestId('Breadcrumb')
       .should('have.length', 1)
       .should('contain.text', 'Scan')
-      .should('contain.text', 'Vaults')
+      .should('contain.tOverflowTable.Rowext', 'Vaults')
   })
 
   it('should have page header', function () {
