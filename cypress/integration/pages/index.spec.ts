@@ -59,10 +59,6 @@ context('/ on iphone-x', () => {
     cy.findByTestId('StatItem.difficulty').should('exist')
   })
 
-  it('should have BlocksList.viewAllBlocksLink', () => {
-    cy.findByTestId('BlocksList.viewAllBlocksLink').should('have.attr', 'href', '/blocks')
-  })
-
   it('should have BlocksList.viewAllBlocksButton', () => {
     cy.findByTestId('CollapsibleSection.Blocks').within(() => {
       cy.findByTestId('BlocksList.viewAllBlocksButton').should('be.visible').should('have.attr', 'href', '/blocks')
