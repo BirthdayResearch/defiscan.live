@@ -76,15 +76,8 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.Loans'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? (
-              props.liquidatedVaultDerivedValues?.loanTokens === undefined || props.liquidatedVaultDerivedValues?.loanTokens.length === 0
-                ? ('N/A')
-                : (
-                  <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.loanTokens} />
-                  )
-            )
-          : (props.vault.loanAmounts.length === 0 ? 'N/A'
-              : <VaultTokenSymbols tokens={props.vault.loanAmounts} />)}
+          ? (<VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues?.loanAmounts} />)
+          : (<VaultTokenSymbols tokens={props.vault.loanAmounts} />)}
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title='Loan Value (USD)'
@@ -92,19 +85,8 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.LoansValue'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? (
-              props.liquidatedVaultDerivedValues?.totalLoanValue === undefined
-                ? ('N/A')
-                : (
-                  <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.totalLoanValue}
-                    prefix='$'
-                  />
-                  )
-            )
-          : (
-            <VaultNumberValues value={new BigNumber(props.vault.loanValue)} prefix='$' />
-            )}
+          ? (<VaultNumberValues value={props.liquidatedVaultDerivedValues?.loanValue} prefix='$' />)
+          : (<VaultNumberValues value={new BigNumber(props.vault.loanValue)} prefix='$' />)}
       </VaultDetailsListItem>
 
       <VaultDetailsListItem
@@ -112,15 +94,8 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.Collateral'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? (
-              props.liquidatedVaultDerivedValues?.collateralTokens === undefined || props.liquidatedVaultDerivedValues.collateralTokens.length === 0
-                ? ('N/A')
-                : (
-                  <VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues.collateralTokens} />
-                  )
-            )
-          : (props.vault.collateralAmounts.length === 0 ? 'N/A'
-              : <VaultTokenSymbols tokens={props.vault.collateralAmounts} />)}
+          ? (<VaultTokenSymbols tokens={props.liquidatedVaultDerivedValues?.collateralAmounts} />)
+          : (<VaultTokenSymbols tokens={props.vault.collateralAmounts} />)}
       </VaultDetailsListItem>
 
       <VaultDetailsListItem
@@ -129,19 +104,8 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         testId='VaultMobileCard.CollateralValue'
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
-          ? (
-              props.liquidatedVaultDerivedValues?.totalCollateralValue === undefined
-                ? ('N/A')
-                : (
-                  <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.totalCollateralValue}
-                    prefix='$'
-                  />
-                  )
-            )
-          : (
-            <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
-            )}
+          ? (<VaultNumberValues value={props.liquidatedVaultDerivedValues?.collateralValue} prefix='$' />)
+          : (<VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />)}
       </VaultDetailsListItem>
 
       <VaultDetailsListItem
@@ -151,15 +115,11 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {(props.vault.state === LoanVaultState.IN_LIQUIDATION)
           ? (
-              props.liquidatedVaultDerivedValues?.totalCollateralRatio === undefined
-                ? ('N/A')
-                : (
-                  <VaultCollateralizationRatio
-                    collateralizationRatio={props.liquidatedVaultDerivedValues.totalCollateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
-                    loanScheme={props.vault.loanScheme}
-                    vaultState={props.vault.state}
-                  />
-                  )
+            <VaultCollateralizationRatio
+              collateralizationRatio={props.liquidatedVaultDerivedValues?.collateralRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}
+              loanScheme={props.vault.loanScheme}
+              vaultState={props.vault.state}
+            />
             )
           : (<VaultCollateralizationRatio
               collateralizationRatio={props.vault.collateralRatio}

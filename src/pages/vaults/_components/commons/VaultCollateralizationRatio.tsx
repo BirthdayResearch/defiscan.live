@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import ReactNumberFormat from 'react-number-format'
 
 interface VaultCollateralizationRatioProps {
-  collateralizationRatio: string
+  collateralizationRatio?: string
   loanScheme: LoanScheme
   vaultState: LoanVaultState
   className?: string
@@ -13,6 +13,10 @@ interface VaultCollateralizationRatioProps {
 }
 
 export function VaultCollateralizationRatio (props: VaultCollateralizationRatioProps): JSX.Element {
+  if (props.collateralizationRatio === undefined) {
+    return <span>N/A</span>
+  }
+
   const minColRatio = new BigNumber(props.loanScheme.minColRatio)
   const collateralRatio = new BigNumber(props.collateralizationRatio)
   const currentPercentage = collateralRatio.div(minColRatio)
