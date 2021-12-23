@@ -55,7 +55,7 @@ context('/vaults/[vaultid]/batch/[index] on desktop', () => {
   })
 })
 
-context('/auctions on mobile', () => {
+context('/vaults/[vaultid]/batch/[index] on mobile', () => {
   before(() => {
     cy.request('https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1')
       .then(function (response) {
