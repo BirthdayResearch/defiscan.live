@@ -9,14 +9,6 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
     <div className='mt-12' data-testid='LiquidityPoolList'>
       <div className='flex justify-between'>
         <h1 className='text-xl font-semibold' data-testid='LiquidityPoolList.title'>Liquidity Pools</h1>
-        <Link href={{ pathname: '/dex' }}>
-          <a
-            className='flex items-center font-medium cursor-pointer text-primary-500'
-            data-testid='LiquidityPoolList.viewLiquidityPools'
-          >
-            VIEW FULL DETAILS
-          </a>
-        </Link>
       </div>
       <div
         className='mt-6 grid gap-1 lg:gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'
@@ -36,6 +28,21 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
             )
           })
         }
+      </div>
+      <div className='flex justify-center mt-1.5'>
+        <Link href={{ pathname: '/dex' }}>
+          <a
+            className='font-medium cursor-pointer text-primary-500'
+            data-testid='LiquidityPoolList.viewAllPoolsButton'
+          >
+            <button
+              type='button'
+              className='mt-2 py-2 px-14 border border-gray-200 rounded-sm hover:shadow-md'
+            >
+              VIEW ALL POOLS
+            </button>
+          </a>
+        </Link>
       </div>
     </div>
   )
