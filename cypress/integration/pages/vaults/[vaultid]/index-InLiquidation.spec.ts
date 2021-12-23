@@ -1,4 +1,4 @@
-context('/vaults/[vaultid]/batch/[index] on desktop', () => {
+context('/vaults/[vaultid] - In Liquidation on desktop', () => {
   before(() => {
     cy.request('https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1')
       .then(function (response) {
@@ -103,7 +103,7 @@ context('/vaults/[vaultid]/batch/[index] on desktop', () => {
   })
 })
 
-context('/vaults/[vaultid]/batch/[index] on mobile', () => {
+context('/vaults/[vaultid] - In Liquidation on mobile', () => {
   before(() => {
     cy.request('https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1')
       .then(function (response) {
