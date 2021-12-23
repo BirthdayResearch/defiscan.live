@@ -4,7 +4,6 @@ import { Link } from '@components/commons/link/Link'
 import { MdStairs } from 'react-icons/md'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import React from 'react'
-import { BlockLink } from '@components/commons/link/BlockLink'
 import { IoChevronForwardSharp } from 'react-icons/io5'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
@@ -77,9 +76,9 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
           <MdStairs className='text-gray-400 inline-block' size={22} />
         </span>
         <div>
-          <BlockLink className='font-medium text-gray-900' block={props.height}>
+          <div className='font-medium text-gray-900'>
             {props.height}
-          </BlockLink>
+          </div>
           <div className='text-xs text-gray-400 leading-5'>
             <span>{props.age}</span>
           </div>
