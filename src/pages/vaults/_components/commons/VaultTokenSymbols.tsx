@@ -14,14 +14,16 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
 
   const remainingTokens = props.tokens.length - 4
   const tokens = props.tokens.filter((token, index) => {
+    if (props.tokens === undefined) {
+      return false
+    }
+
     return index === props.tokens.findIndex(t => t.symbol === token.symbol)
   })
 
   return (
     <div className={classNames('flex items-center', props.className)}>
-      {
-        props.tokens.length === 0 && (<span>N/A</span>)
-      }
+      {props.tokens.length === 0 && (<span>N/A</span>)}
 
       <div className='flex space-x-1 items-center'>
         {tokens.map((loan, index) => {
