@@ -1,12 +1,11 @@
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { formatDistanceToNow } from 'date-fns'
 import BigNumber from 'bignumber.js'
-import { TxIdLink } from '@components/commons/link/TxIdLink'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdSwapHorizontalCircle } from 'react-icons/md'
+import { MdSwapHorizontalCircle } from 'react-icons/md'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
-import React, { useState } from 'react'
-import { Transition } from '@headlessui/react'
+import React from 'react'
 import { Link } from '@components/commons/link/Link'
+import { IoChevronForwardSharp } from 'react-icons/io5'
 
 export function TransactionsList ({ transactions }: { transactions: Transaction[] }): JSX.Element {
   return (
@@ -64,73 +63,82 @@ function TransactionDetails (props: {
 }): JSX.Element {
   return (
     <div className='w-full flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer my-1.5 hover:shadow-md'>
-      <div className='w-1/2 lg:w-2/5 xl:w-3/5 flex space-x-2'>
+      <DesktopTransactionDetails txid={props.txid} age={props.age} totalVoutValue={props.totalVoutValue} />
+      <MobileTransactionDetails txid={props.txid} age={props.age} totalVoutValue={props.totalVoutValue} />
+    </div>
+  )
+}
+
+function DesktopTransactionDetails (props: {
+  txid: string
+  age: string
+  totalVoutValue: string
+}): JSX.Element {
+  return (
+    <div className='hidden xl:flex xl:flex-wrap xl:w-full'>
+      <div className='md:w-1/2 lg:w-2/5 xl:w-3/5 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
         </span>
-        <div className='overflow-ellipsis overflow-hidden'>
-          <TxIdLink
-            txid={props.txid}
-            className='overflow-ellipsis overflow-hidden font-medium text-gray-900'
-          />
+        <div className='overflow-hidden'>
+          <div className='overflow-ellipsis overflow-hidden font-medium text-gray-900'>
+            {props.txid}
+          </div>
           <div className='text-xs text-gray-400 leading-5'>
-            <span>{props.age}</span>
+            {props.age}
           </div>
         </div>
       </div>
-      <DesktopTransactionDetails totalVoutValue={props.totalVoutValue} />
-      <MobileTransactionDetails totalVoutValue={props.totalVoutValue} />
-    </div>
-  )
-}
-
-function DesktopTransactionDetails (props: { totalVoutValue: string }): JSX.Element {
-  return (
-    <div className='hidden md:block w-1/2 lg:w-3/5 xl:w-2/5'>
-      <div className='w-full flex'>
-        <div className='w-1/2 text-right text-sm text-gray-500 lg:mr-2 xl:mr-0'>
-          Amount
-        </div>
-        <div className='w-1/2 text-right text-sm text-gray-900'>
-          {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function MobileTransactionDetails (props: { totalVoutValue: string }): JSX.Element {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
-  return (
-    <>
-      <div
-        className='w-1/2 text-primary-500 flex flex-wrap justify-end items-center self-start block md:hidden'
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {(!isOpen)
-          ? (<>VIEW<MdOutlineKeyboardArrowDown size={22} /></>)
-          : (<>HIDE<MdOutlineKeyboardArrowUp size={22} /></>)}
-      </div>
-      <Transition
-        enter='transition ease-out duration-200'
-        enterFrom='opacity-0 translate-y-0'
-        enterTo='opacity-100 translate-y-1'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-1'
-        leaveTo='opacity-100 translate-y-0'
-        className='w-full mt-5'
-        show={isOpen}
-      >
-        <div className='flex flex-wrap items-center'>
-          <div className='w-1/2 text-gray-500 text-sm'>
+      <div className='w-1/2 lg:w-3/5 xl:w-2/5 flex'>
+        <div className='w-full text-right text-sm flex'>
+          <div className='w-1/2 text-gray-500 lg:mr-2 xl:mr-0'>
             Amount
           </div>
-          <div className='w-1/2 text-right text-gray-900'>
+          <div className='w-1/2 text-gray-900'>
             {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
           </div>
         </div>
-      </Transition>
+        <div className='flex items-center ml-8'>
+          <IoChevronForwardSharp size={24} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MobileTransactionDetails (props: {
+  txid: string
+  age: string
+  totalVoutValue: string
+}): JSX.Element {
+  return (
+    <>
+      <div className='block xl:hidden w-11/12 flex space-x-2'>
+        <span className='text-lg leading-6'>
+          <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
+        </span>
+        <div className='overflow-hidden'>
+          <div className='flex'>
+            <div className='w-1/2 overflow-ellipsis overflow-hidden font-medium text-gray-900'>
+              {props.txid}
+            </div>
+            <div className='w-1/2 text-right text-xs text-gray-400 leading-5 mr-3'>
+              <span>{props.age}</span>
+            </div>
+          </div>
+          <div className='block flex flex-wrap items-center'>
+            <div className='text-gray-500 text-sm'>
+              Amount
+            </div>
+            <div className='text-right text-gray-900 text-sm ml-2'>
+              {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='block xl:hidden w-1/12 flex items-center justify-end'>
+        <IoChevronForwardSharp size={24} />
+      </div>
     </>
   )
 }
