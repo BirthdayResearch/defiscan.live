@@ -12,7 +12,8 @@ const securityHeaders = [
       `script-src 'self' app.netlify.com netlify-cdp-loader.netlify.app ${process.env.NODE_ENV === 'development' ? `'unsafe-eval'` : ''};` +
       `style-src 'self' fonts.googleapis.com 'unsafe-inline';` +
       `font-src fonts.gstatic.com;` +
-      `connect-src 'self' ocean.defichain.com;`
+      `connect-src 'self' ocean.defichain.com;` +
+      `prefetch-src 'self';`
   },
   {
     key: 'Referrer-Policy',
