@@ -11,6 +11,7 @@ interface MinNextBidProps {
   isStartingBid?: boolean
   valueClassName?: string
   valueSuffix?: boolean
+  testId?: string
 }
 
 export function BidAmountValue (props: MinNextBidProps): JSX.Element {
@@ -30,7 +31,7 @@ export function BidAmountValue (props: MinNextBidProps): JSX.Element {
   }
 
   return (
-    <div>
+    <div data-testid={props.testId}>
       <ReactNumberFormat
         value={minBidAmount.toFixed(8)}
         thousandSeparator

@@ -63,15 +63,21 @@ context('/auctions on mobile', () => {
 
         cy.findByTestId('MobileAuctionDetailCard.AuctionTimeLeft').should('be.visible')
 
-        cy.findByTestId('MobileAuctionDetailCard.MinNextBid').should('be.visible').should('have.text', 'Min. Next Bid')
-        cy.findByTestId('BidAmountValue.MinBidAmount').should('be.visible').contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/)
-        cy.findByTestId('BidAmountValue.MinBidValue').should('be.visible').contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/)
+        cy.findAllByTestId('MobileAuctionDetailCard.MinNextBid').within(() => {
+          cy.findByTestId('VaultDetailsListItem.Title').should('be.visible').should('have.text', 'Min. Next Bid')
+          cy.findByTestId('BidAmountValue.MinBidAmount').should('be.visible').contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/)
+          cy.findByTestId('BidAmountValue.MinBidValue').should('be.visible').contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/)
+        })
 
-        cy.findByTestId('MobileAuctionDetailCard.CollateralsForAuction').should('be.visible').should('have.text', 'Collateral For Auction')
-        cy.findByTestId('MobileAuctionDetailCard.CollateralSymbols').should('be.visible')
+        cy.findAllByTestId('MobileAuctionDetailCard.CollateralsForAuction').within(() => {
+          cy.findByTestId('VaultDetailsListItem.Title').should('be.visible').should('have.text', 'Collateral For Auction')
+          cy.findByTestId('MobileAuctionDetailCard.CollateralSymbols').should('be.visible')
+        })
 
-        cy.findByTestId('MobileAuctionDetailCard.CollateralValueLabel').should('be.visible').should('have.text', 'Collateral Value (USD)')
-        cy.findByTestId('MobileAuctionDetailCard.CollateralValue').should('be.visible').contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/)
+        cy.findAllByTestId('MobileAuctionDetailCard.CollateralValue').within(() => {
+          cy.findByTestId('VaultDetailsListItem.Title').should('be.visible').should('have.text', 'Collateral Value (USD)')
+          cy.findByTestId('MobileAuctionDetailCard.CollateralValue.Value').should('be.visible').contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/)
+        })
       })
     })
   })

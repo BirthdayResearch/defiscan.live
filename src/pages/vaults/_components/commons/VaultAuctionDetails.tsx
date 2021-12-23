@@ -53,6 +53,7 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
           displaySymbol={props.batch.loan.displaySymbol}
           loan={props.batch.loan}
           highestBid={props.batch.highestBid}
+          testId='AuctionsTableRow.MinNextBid'
         />
       </OverflowTable.Cell>
     </OverflowTable.Row>
@@ -115,7 +116,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
         <VaultDetailsListItem
           title='Collateral Value (USD)'
           titleClassNames='text-sm'
-          testId='MobileAuctionDetailCard.CollateralValueLabel'
+          testId='MobileAuctionDetailCard.CollateralValue'
         >
           <ReactNumberFormat
             value={calculateCollateralsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
@@ -123,7 +124,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
             decimalScale={2}
             prefix='$'
             displayType='text'
-            data-testid='MobileAuctionDetailCard.CollateralValue'
+            data-testid='MobileAuctionDetailCard.CollateralValue.Value'
           />
         </VaultDetailsListItem>
       </div>

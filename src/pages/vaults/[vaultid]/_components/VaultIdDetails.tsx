@@ -85,47 +85,50 @@ function DesktopVaultDetailsRow (props: { vault: LoanVaultActive | LoanVaultLiqu
       className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
     >
       <OverflowTable.Cell>
-        <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
+        <AddressLink address={props.vault.ownerAddress} testId='DesktopVaultDetailsRow.OwnerId'>
           <TextTruncate text={props.vault.ownerAddress} />
         </AddressLink>
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-              props.liquidatedVaultDerivedValues?.loanValue === undefined
-                ? ('N/A')
-                : (
-                  <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.loanValue}
-                    prefix='$'
-                  />
-                  )
+            <VaultNumberValues
+              value={props.liquidatedVaultDerivedValues?.loanValue}
+              prefix='$'
+              testId='DesktopVaultDetailsRow.TotalLoanValue'
+            />
             )
           : (
             <VaultNumberValues
               value={new BigNumber(props.vault.loanValue)}
               prefix='$'
+              testId='DesktopVaultDetailsRow.TotalLoanValue'
             />
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-              props.liquidatedVaultDerivedValues?.collateralValue === undefined
-                ? ('N/A')
-                : (
-                  <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.collateralValue}
-                    prefix='$'
-                  />
-                  )
+            <VaultNumberValues
+              value={props.liquidatedVaultDerivedValues?.collateralValue}
+              prefix='$'
+              testId='DesktopVaultDetailsRow.TotalCollateralValue'
+            />
             )
           : (
-            <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
+            <VaultNumberValues
+              value={new BigNumber(props.vault.collateralValue)}
+              prefix='$'
+              testId='DesktopVaultDetailsRow.TotalCollateralValue'
+            />
             )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-right'>
-        <VaultNumberValues value={new BigNumber(props.vault.loanScheme.interestRate)} suffix='%' />
+        <VaultNumberValues
+          value={new BigNumber(props.vault.loanScheme.interestRate)}
+          suffix='%'
+          testId='DesktopVaultDetailsRow.APR'
+        />
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
@@ -140,8 +143,8 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         title={'Owner\'s Address'}
         testId='VaultDetailList.OwnerAddress'
       >
-        <AddressLink address={props.vault.ownerAddress} testId='VaultTableRow.OwnerId'>
-          <TextTruncate text={props.vault.ownerAddress} />
+        <AddressLink address={props.vault.ownerAddress}>
+          <TextTruncate text={props.vault.ownerAddress} testId='VaultDetailList.OwnerAddress.Value' />
         </AddressLink>
       </VaultDetailsListItem>
       <VaultDetailsListItem
@@ -151,19 +154,17 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-              props.liquidatedVaultDerivedValues?.loanValue === undefined
-                ? ('N/A')
-                : (
-                  <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.loanValue}
-                    prefix='$'
-                  />
-                  )
+            <VaultNumberValues
+              value={props.liquidatedVaultDerivedValues?.loanValue}
+              prefix='$'
+              testId='VaultDetailList.TotalLoanValue.Value'
+            />
             )
           : (
             <VaultNumberValues
               value={new BigNumber(props.vault.loanValue)}
               prefix='$'
+              testId='VaultDetailList.TotalLoanValue.Value'
             />
             )}
       </VaultDetailsListItem>
@@ -174,17 +175,18 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
       >
         {props.vault.state === LoanVaultState.IN_LIQUIDATION
           ? (
-              props.liquidatedVaultDerivedValues?.collateralValue === undefined
-                ? ('N/A')
-                : (
-                  <VaultNumberValues
-                    value={props.liquidatedVaultDerivedValues.collateralValue}
-                    prefix='$'
-                  />
-                  )
+            <VaultNumberValues
+              value={props.liquidatedVaultDerivedValues?.collateralValue}
+              prefix='$'
+              testId='VaultDetailList.TotalCollateralValue.Value'
+            />
             )
           : (
-            <VaultNumberValues value={new BigNumber(props.vault.collateralValue)} prefix='$' />
+            <VaultNumberValues
+              value={new BigNumber(props.vault.collateralValue)}
+              prefix='$'
+              testId='VaultDetailList.TotalCollateralValue.Value'
+            />
             )}
       </VaultDetailsListItem>
       <VaultDetailsListItem
@@ -192,7 +194,11 @@ function MobileVaultDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
         infoDesc='Annual Vault Interest Rate based on the scheme selected by the vault owner.'
         testId='VaultDetailList.VaultInterestRate'
       >
-        <VaultNumberValues value={new BigNumber(props.vault.loanScheme.interestRate)} suffix='%' />
+        <VaultNumberValues
+          value={new BigNumber(props.vault.loanScheme.interestRate)}
+          suffix='%'
+          testId='VaultDetailList.VaultInterestRate.Value'
+        />
       </VaultDetailsListItem>
     </div>
   )
