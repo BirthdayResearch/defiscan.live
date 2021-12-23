@@ -8,11 +8,11 @@ import { VaultTable } from '../../vaults/_components/commons/VaultTable'
 import { calculateLiquidationValues } from '../../vaults/utils/LiquidatedVaultDerivedValues'
 import { ShowMoreButton } from './ShowMoreButton'
 
-interface AAddressVaultsProps {
+interface AddressVaultsProps {
   address: string
 }
 
-export function AddressVaults (props: AAddressVaultsProps): JSX.Element {
+export function AddressVaults (props: AddressVaultsProps): JSX.Element {
   const api = useWhaleApiClient()
   const [vaultsData, setVaultsData] = useState<Array<(LoanVaultActive | LoanVaultLiquidated)>>([])
   const [next, setNext] = useState<string | undefined>(undefined)
