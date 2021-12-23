@@ -15,11 +15,11 @@ export interface LiquidatedVaultDerivedValues {
 }
 
 export function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLiquidated): LiquidatedVaultDerivedValues | undefined {
-  const loanTokens: LoanVaultTokenAmount[] = []
-  const collateralTokens: LoanVaultTokenAmount[] = []
-  let totalLoanValue = new BigNumber(0)
-  let totalCollateralValue = new BigNumber(0)
-  let totalCollateralRatio = new BigNumber(0)
+  const loanAmounts: LoanVaultTokenAmount[] = []
+  const collateralAmounts: LoanVaultTokenAmount[] = []
+  let loanValue = new BigNumber(0)
+  let collateralValue = new BigNumber(0)
+  let collateralRatio = new BigNumber(0)
 
   let isMissingActivePrice = false
 
@@ -27,43 +27,43 @@ export function calculateLiquidationValues (vault: LoanVaultActive | LoanVaultLi
     vault.batches.forEach(batch => {
       if (batch.loan?.activePrice?.active == null) {
         if (batch.loan.symbol === 'DUSD') {
-          loanTokens.push(batch.loan)
-          totalLoanValue = totalLoanValue.plus(new BigNumber(batch.loan.amount))
+          loanAmounts.push(batch.loan)
+          loanValue = loanValue.plus(new BigNumber(batch.loan.amount))
         } else {
           isMissingActivePrice = true
         }
       } else {
-        loanTokens.push(batch.loan)
-        totalLoanValue = totalLoanValue.plus(new BigNumber(batch.loan.amount).multipliedBy(batch.loan.activePrice.active.amount))
+        loanAmounts.push(batch.loan)
+        loanValue = loanValue.plus(new BigNumber(batch.loan.amount).multipliedBy(batch.loan.activePrice.active.amount))
       }
 
       batch.collaterals.forEach(collateral => {
         if (collateral.activePrice?.active == null) {
           if (collateral.symbol === 'DUSD') {
-            collateralTokens.push(collateral)
-            totalCollateralValue = totalCollateralValue.plus(new BigNumber(collateral.amount))
+            collateralAmounts.push(collateral)
+            collateralValue = collateralValue.plus(new BigNumber(collateral.amount))
           } else {
             isMissingActivePrice = true
           }
         } else {
-          collateralTokens.push(collateral)
-          totalCollateralValue = totalCollateralValue.plus(new BigNumber(collateral.amount).multipliedBy(collateral.activePrice?.active.amount))
+          collateralAmounts.push(collateral)
+          collateralValue = collateralValue.plus(new BigNumber(collateral.amount).multipliedBy(collateral.activePrice?.active.amount))
         }
       })
     })
 
-    totalCollateralRatio = totalCollateralValue.div(totalLoanValue).multipliedBy(100)
+    collateralRatio = collateralValue.div(loanValue).multipliedBy(100)
   }
 
-  if (isMissingActivePrice || totalLoanValue.lte(0) || totalCollateralValue.lte(0) || totalCollateralRatio.lt(0)) {
+  if (isMissingActivePrice || loanValue.lte(0) || collateralValue.lte(0) || collateralRatio.lt(0)) {
     return undefined
   }
 
   return {
-    loanAmounts: loanTokens,
-    collateralAmounts: collateralTokens,
-    loanValue: totalLoanValue,
-    collateralValue: totalCollateralValue,
-    collateralRatio: totalCollateralRatio
+    loanAmounts: loanAmounts,
+    collateralAmounts: collateralAmounts,
+    loanValue: loanValue,
+    collateralValue: collateralValue,
+    collateralRatio: collateralRatio
   }
 }
