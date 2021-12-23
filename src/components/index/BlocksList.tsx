@@ -1,12 +1,11 @@
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { formatDistanceToNow } from 'date-fns'
 import { Link } from '@components/commons/link/Link'
-import { AddressLink } from '@components/commons/link/AddressLink'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdStairs } from 'react-icons/md'
+import { MdStairs } from 'react-icons/md'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
-import { Transition } from '@headlessui/react'
-import React, { useState } from 'react'
+import React from 'react'
 import { BlockLink } from '@components/commons/link/BlockLink'
+import { IoChevronForwardSharp } from 'react-icons/io5'
 
 export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
@@ -71,9 +70,9 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
 function BlockDetails (props: { height: string, mintedBy?: string, transactionCount: number, age: string }): JSX.Element {
   return (
     <div
-      className='flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer items-center my-1.5 hover:shadow-md'
+      className='flex flex-wrap justify-between p-4 rounded border border-gray-200 cursor-pointer items-center my-1.5 hover:shadow-md'
     >
-      <div className='w-2/3 lg:w-1/2 flex space-x-2'>
+      <div className='w-5/12 flex space-x-2'>
         <span className='text-lg leading-6'>
           <MdStairs className='text-gray-400 inline-block' size={22} />
         </span>
@@ -86,88 +85,26 @@ function BlockDetails (props: { height: string, mintedBy?: string, transactionCo
           </div>
         </div>
       </div>
-      <DesktopBlockDetails height={props.height} transactionCount={props.transactionCount} mintedBy={props.mintedBy} />
-      <MobileBlockDetails height={props.height} transactionCount={props.transactionCount} mintedBy={props.mintedBy} />
-    </div>
-  )
-}
-
-function DesktopBlockDetails (props: { height: string, mintedBy?: string, transactionCount: number }): JSX.Element {
-  return (
-    <div className='w-1/3 lg:w-1/2 hidden md:block'>
-      <div className='flex flex-wrap text-sm'>
-        <div className='w-1/2 text-gray-500'>
-          Minted by
-        </div>
-        {
-          props.mintedBy === undefined ? ('N/A') : (
-            <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
-              <div className='text-right text-gray-900 overflow-hidden overflow-ellipsis'>
-                {props.mintedBy}
-              </div>
-            </AddressLink>
-          )
-        }
-      </div>
-      <div className='w-full flex flex-wrap text-sm mt-1 justify-between'>
-        <div className='w-1/2 text-gray-500'>
-          Transactions
-        </div>
-        <span className='w-1/2 text-right text-gray-900'>
-          {props.transactionCount}
-        </span>
-      </div>
-    </div>
-  )
-}
-
-function MobileBlockDetails (props: { height: string, mintedBy?: string, transactionCount: number }): JSX.Element {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-
-  return (
-    <>
-      <div
-        className='w-1/3 text-primary-500 flex justify-end items-center self-start block md:hidden'
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {(!isOpen)
-          ? (<>VIEW<MdOutlineKeyboardArrowDown size={22} /></>)
-          : (<>HIDE<MdOutlineKeyboardArrowUp size={22} /></>)}
-      </div>
-      <Transition
-        enter='transition ease-out duration-200'
-        enterFrom='opacity-0 translate-y-0'
-        enterTo='opacity-100 translate-y-1'
-        leave='transition ease-in duration-150'
-        leaveFrom='opacity-100 translate-y-1'
-        leaveTo='opacity-100 translate-y-0'
-        className='w-full mt-5'
-        show={isOpen}
-      >
-        <div className='flex flex-wrap items-center'>
-          <div className='w-1/2 text-gray-500 text-sm'>
+      <div className='w-5/12 flex flex-wrap'>
+        <div className='w-full flex flex-wrap items-center text-sm overflow-hidden'>
+          <div className='w-1/2 text-gray-500'>
             Minted by
           </div>
-          {
-            props.mintedBy === undefined ? ('N/A') : (
-              <AddressLink address={`${props.mintedBy}`} className='w-1/2'>
-                <div className='text-right text-primary-500 overflow-hidden overflow-ellipsis underline'>
-                  {props.mintedBy}
-                </div>
-              </AddressLink>
-            )
-          }
+          <div className='w-1/2 overflow-hidden overflow-ellipsis'>
+            {props.mintedBy === undefined ? ('N/A') : (props.mintedBy)}
+          </div>
         </div>
-        <div className='flex flex-wrap mt-1 justify-between'>
-          <div className='w-1/2 text-gray-500 text-sm'>
+        <div className='w-full flex flex-wrap justify-between text-sm'>
+          <div className='w-1/2 text-gray-500'>
             Transactions
           </div>
-          <span className='w-1/2 text-right text-gray-900'>
-            {props.transactionCount}
-          </span>
+          <span className='w-1/2 text-right text-gray-900'>{props.transactionCount}</span>
         </div>
-      </Transition>
-    </>
+      </div>
+      <div className='flex items-center ml-8'>
+        <IoChevronForwardSharp size={24} />
+      </div>
+    </div>
   )
 }
 
