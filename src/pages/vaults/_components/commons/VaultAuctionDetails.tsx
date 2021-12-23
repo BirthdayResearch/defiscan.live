@@ -31,7 +31,10 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} testId='AuctionsTableRow.CollateralSymbols' />
+        <VaultTokenSymbols
+          className='justify-end' tokens={props.batch.collaterals}
+          testId='AuctionsTableRow.CollateralSymbols'
+        />
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className='text-right'>
@@ -65,13 +68,13 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
       data-testid='MobileAuctionDetailCard'
     >
       <div className='w-full flex justify-between'>
-        <div className='flex items-center font-medium text-gray-900' data-testid='MobileAuctionDetailCard.Token'>
-          <TokenSymbol className='w-6 h-6 mr-1.5' />
-          <span>{props.batch.loan.displaySymbol}</span>
+        <div className='flex items-center font-medium text-gray-900'>
+          <TokenSymbol className='w-6 h-6 mr-1.5' data-testid='MobileAuctionDetailCard.TokenSymbol' />
+          <span data-testid='MobileAuctionDetailCard.displaySymbol'>{props.batch.loan.displaySymbol}</span>
         </div>
         <div
           className='cursor-pointer text-primary-500'
-          data-testid='MobileAuctionDetailCard.View'
+          data-testid='MobileAuctionDetailCard.ViewButton'
         >
           <Link href={{ pathname: `/vaults/${props.vault.vaultId}/auctions/${props.batch.index}` }}>
             <a className='contents'>
@@ -80,7 +83,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
           </Link>
         </div>
       </div>
-      <div className='text-sm mt-1 mb-4' data-testid='MobileAuctionDetailCard.TimeLeft'>
+      <div className='text-sm mt-1 mb-4' data-testid='MobileAuctionDetailCard.AuctionTimeLeft'>
         <AuctionTimeLeft
           liquidationHeight={props.vault.liquidationHeight} className='text-sm text-gray-500'
           showApproximateSymbol
@@ -105,14 +108,14 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
         <VaultDetailsListItem
           title='Collateral For Auction'
           titleClassNames='text-sm'
-          testId='AuctionsMobileCard.CollateralsForAuction'
+          testId='MobileAuctionDetailCard.CollateralsForAuction'
         >
-          <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} />
+          <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} testId='MobileAuctionDetailCard.CollateralSymbols' />
         </VaultDetailsListItem>
         <VaultDetailsListItem
           title='Collateral Value (USD)'
           titleClassNames='text-sm'
-          testId='AuctionsMobileCard.CollateralValue'
+          testId='MobileAuctionDetailCard.CollateralValueLabel'
         >
           <ReactNumberFormat
             value={calculateCollateralsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
@@ -120,6 +123,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
             decimalScale={2}
             prefix='$'
             displayType='text'
+            data-testid='MobileAuctionDetailCard.CollateralValue'
           />
         </VaultDetailsListItem>
       </div>
