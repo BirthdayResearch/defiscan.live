@@ -166,7 +166,7 @@ context('/vaults/[vaultid] - In Liquidation on mobile', () => {
   describe('should have Auction Details', function () {
     it('should have Auction Details', function () {
       cy.findByTestId('MobileVaultAuctions').within(() => {
-        cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'In Auction')
+        cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'In Auction')
 
         cy.findByTestId('MobileAuctionDetailsCards').within(() => {
           cy.findAllByTestId('MobileAuctionDetailCard').within(() => {
