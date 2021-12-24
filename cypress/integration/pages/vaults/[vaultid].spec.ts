@@ -151,7 +151,7 @@ context('/vaults/[vaultid] on mobile', function () {
   describe('should Vault Details', function () {
     it('should Vault Details Heading', function () {
       cy.findByTestId('VaultCollapsibleSection.VaultIdDetails').within(() => {
-        cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Vault Details')
+        cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Vault Details')
       })
     })
 
@@ -179,7 +179,7 @@ context('/vaults/[vaultid] on mobile', function () {
   describe('should Collateral Details', function () {
     it('should Collateral Details Heading', function () {
       cy.findByTestId('VaultCollapsibleSection.CollateralDetails').within(() => {
-        cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Collateral Details')
+        cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Collateral Details')
       })
     })
 
@@ -198,7 +198,7 @@ context('/vaults/[vaultid] on mobile', function () {
   describe('should Loan Details', function () {
     it('should Loan Details Heading', function () {
       cy.findByTestId('VaultCollapsibleSection.LoanDetails').within(() => {
-        cy.findByTestId('VaultCollapsibleSection.Heading').should('have.text', 'Loan Details')
+        cy.findByTestId('CollapsibleSection.Heading').should('have.text', 'Loan Details')
       })
     })
 
