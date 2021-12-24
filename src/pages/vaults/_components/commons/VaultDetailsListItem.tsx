@@ -11,9 +11,9 @@ interface VaultDetailsListItemProps {
 
 export function VaultDetailsListItem (props: PropsWithChildren<VaultDetailsListItemProps>): JSX.Element {
   return (
-    <div className='flex justify-between text-gray-900' data-testid='VaultDetailList'>
-      <div className='flex items-stretch' data-testid={props.testId}>
-        <span className={classnames('text-gray-500', props.titleClassNames)}>{props.title}</span>
+    <div className='flex justify-between text-gray-900' data-testid={props.testId}>
+      <div className='flex items-stretch'>
+        <span className={classnames('text-gray-500', props.titleClassNames)} data-testid='VaultDetailsListItem.Title'>{props.title}</span>
         {props.infoDesc !== undefined && (
           <InfoHoverPopover className='ml-1 self-center' description={props.infoDesc} placement='top' />)}
       </div>
