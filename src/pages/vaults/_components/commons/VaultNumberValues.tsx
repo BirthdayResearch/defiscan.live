@@ -7,6 +7,7 @@ interface VaultNumberValuesProps {
   value?: BigNumber
   prefix?: string
   suffix?: string
+  testId?: string
 }
 
 export function VaultNumberValues (props: VaultNumberValuesProps): JSX.Element {
@@ -38,6 +39,7 @@ export function VaultNumberValues (props: VaultNumberValuesProps): JSX.Element {
         decimalScale={2}
         fixedDecimalScale
         thousandSeparator
+        data-testid={props.testId}
       />
     </HoverPopover>
   )

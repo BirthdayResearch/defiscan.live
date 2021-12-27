@@ -62,10 +62,10 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
       <IndexHeader />
       <Container className='pb-20'>
         <div className='flex flex-wrap -mx-2'>
-          <div className='w-full lg:w-1/2 xl:w-3/5 px-1'>
+          <div className='w-full lg:w-3/5 xl:w-2/3 px-1'>
             <TransactionsList transactions={data.transactions} />
           </div>
-          <div className='w-full lg:w-1/2 xl:w-2/5 px-1'>
+          <div className='w-full lg:w-2/5 xl:w-1/3 px-1'>
             <BlocksList blocks={data.blocks} />
           </div>
         </div>

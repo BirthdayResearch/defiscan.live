@@ -8,10 +8,10 @@ import { AuctionsTableRow, MobileAuctionDetailsCard } from '../../_components/co
 export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Element {
   return (
     <>
-      <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
-        <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>In Auction</h2>
+      <div className='hidden md:block mt-10' data-testid='VaultAuctionsDesktop'>
+        <h2 className='text-xl font-semibold' data-testid='VaultAuctionsDesktop.Heading'>In Auction</h2>
 
-        <div className='my-6'>
+        <div className='mt-4'>
           <OverflowTable>
             <OverflowTable.Header>
               <OverflowTable.Head
@@ -56,8 +56,8 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
         </div>
       </div>
 
-      <CollapsibleSection heading='In Auction' className='block md:hidden'>
-        <div className='flex flex-wrap space-y-2'>
+      <CollapsibleSection heading='In Auction' className='block md:hidden' testId='MobileVaultAuctions'>
+        <div className='flex flex-wrap space-y-2' data-testid='MobileAuctionDetailsCards'>
           {
             props.vault.batches.map(batch => (
               <MobileAuctionDetailsCard

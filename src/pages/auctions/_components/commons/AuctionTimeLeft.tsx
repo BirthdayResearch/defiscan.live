@@ -29,7 +29,7 @@ export function AuctionTimeLeft (props: MinNextBidProps): JSX.Element {
       popover={`${blocksRemaining} blocks remaining`}
       placement='top-start'
     >
-      <span className={classNames(props.className)}>
+      <span className={classNames(props.className)} data-testid={props.testId}>
         {props.showApproximateSymbol! && '~'}
         {`${timeRemaining} left`}
       </span>
