@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-
 import { Container } from '@components/commons/Container'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import React from 'react'
@@ -17,7 +16,7 @@ interface ActionsPageProps {
   vault: LoanVaultLiquidated
   batchIndex: string
   liquidationBatch: LoanVaultLiquidationBatch
-  auctionHistory: VaultAuctionBatchHistory[] | undefined
+  auctionHistory: VaultAuctionBatchHistory[]
 }
 
 export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -54,7 +53,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const vaultid = context.params?.vaultid?.toString().trim() as string
   const batchIndex = context.params?.index?.toString().trim() as string
-  let auctionHistory: VaultAuctionBatchHistory[] | undefined
+  let auctionHistory: VaultAuctionBatchHistory[] = []
 
   try {
     const vault = await api.loan.getVault(vaultid)

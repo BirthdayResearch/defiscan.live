@@ -9,6 +9,7 @@ interface TokenSymbolProps {
   className?: string
   testId?: string
   symbolLeft?: boolean
+  symbolOnly?: boolean
 }
 
 export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
@@ -51,6 +52,10 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
         {tokenData.displaySymbol}{!tokenData.isDAT && `#${tokenData.id}`}
       </div>
       {(() => {
+        if (props.symbolOnly) {
+          return
+        }
+
         if (tokenData.isDAT) {
           const AssetIcon = getAssetIcon(tokenData.symbol)
           return <AssetIcon className='h-6 w-6' />
