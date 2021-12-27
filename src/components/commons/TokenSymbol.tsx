@@ -52,7 +52,7 @@ export function TokenSymbol (props: TokenSymbolProps): JSX.Element {
         {tokenData.displaySymbol}{!tokenData.isDAT && `#${tokenData.id}`}
       </div>
       {(() => {
-        if (props.symbolOnly) {
+        if (props.symbolOnly !== undefined && props.symbolOnly) {
           return
         }
 
