@@ -11,7 +11,6 @@ interface AuctionBiddingHistoryProps {
   history: VaultAuctionBatchHistory[]
 }
 
-
 export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element {
   if (props.history.length <= 0) {
     return (
