@@ -1,19 +1,18 @@
 import {
   CTransaction,
   CTransactionSegWit,
+  DfTx, OP_DEFI_TX,
   Transaction,
   TransactionSegWit,
-  Vin,
   Vout
 } from '@defichain/jellyfish-transaction'
-import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
 import { useNetwork } from '@contexts/NetworkContext'
-import { fromScript } from '@defichain/jellyfish-address'
+import { DecodedAddress, fromScript } from '@defichain/jellyfish-address'
 import BigNumber from 'bignumber.js'
 import { SmartBuffer } from 'smart-buffer'
+import { TransactionDfTx } from './TransactionDfTx'
 
 export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
   const network = useNetwork().name
@@ -38,23 +37,42 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
     return value.toFixed(8)
   }
 
+  function getDfTx (vouts: Vout[]): DfTx<any> | undefined {
+    const stack = vouts[0].script.stack
+    if (stack.length !== 2 || stack[1].type !== 'OP_DEFI_TX') {
+      return undefined
+    }
+    return (stack[1] as OP_DEFI_TX).tx
+  }
+
   return (
     <div>
       <h1 className='font-medium text-2xl mt-6' data-testid='RawTransaction.Title'>Pending Transactions</h1>
-      <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-2 lg:space-x-2'>
+      <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2'>
         <div className='w-full lg:w-1/2'>
-          <h3 className='text-lg font-semibold mb-4'>Input</h3>
-          {transaction?.vin.map(vin => (
-            <TransactionInput vin={vin} key={vin.txid} />
-          ))}
+          <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
+            {transaction?.vin.map((vin) => {
+              return (
+                <TransactionRow
+                  label='INPUT'
+                  txId={vin.txid}
+                  key={vin.index}
+                />
+              )
+            })}
+          </div>
         </div>
-        <div className='w-full lg:w-1/2 '>
-          <h3 className='text-lg font-semibold mb-4'>Output</h3>
-          <div className='space-y-2'>
+        <div className='w-full lg:w-1/2'>
+          <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
             {transaction?.vout.map((vout, index) => {
               const decoded = fromScript(vout.script, network)
               return (
-                <TransactionOutput key={index} vout={vout} address={decoded?.address} />
+                <TransactionRow
+                  label='OUTPUT'
+                  address={decoded}
+                  value={` ${vout.value.toFixed(8)} DFI`}
+                  key={index}
+                />
               )
             })}
           </div>
@@ -66,39 +84,61 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
           <span>{getTotalVoutValue(transaction?.vout)} DFI</span>
         </div>
       </div>
+      <div>
+        {(() => {
+          if ((transaction?.vout) != null) {
+            return (
+              <TransactionDfTx dftx={getDfTx(transaction.vout)} />
+            )
+          }
+        })()}
+      </div>
     </div>
   )
 }
 
-function TransactionInput ({ vin }: { vin: Vin }): JSX.Element {
-  return (
-    <AdaptiveList className='space-y-2'>
-      <AdaptiveList.Row name='Index' testId='RawTransaction.VinIndex'>
-        {vin.index}
-      </AdaptiveList.Row>
-      <AdaptiveList.Row name='TxId'>
-        <TxIdLink txid={vin.txid} className='break-all' testId='RawTransaction.VinTxId' />
-      </AdaptiveList.Row>
-    </AdaptiveList>
-  )
+interface TransactionRowProps {
+  label: 'INPUT'| 'OUTPUT'
+  address?: DecodedAddress
+  txId?: string
+  value?: string
 }
 
-function TransactionOutput ({ vout, address }: { vout: Vout, address: string | undefined }): JSX.Element {
+function TransactionRow (props: TransactionRowProps): JSX.Element {
   return (
-    <AdaptiveList>
-      <AdaptiveList.Row name='Token' testId='RawTransaction.VoutToken'>
-        <TokenSymbol tokenId={vout.tokenId} />
-      </AdaptiveList.Row>
-      <AdaptiveList.Row name='Value' testId='RawTransaction.VoutValue'>{vout.value.toFixed(8)}</AdaptiveList.Row>
-      {(() => {
-        if (address !== undefined) {
-          return (
-            <AdaptiveList.Row name='Address' testId='RawTransaction.VoutAddress'>
-              <AddressLink address={address} className='break-all' />
-            </AdaptiveList.Row>
-          )
-        }
-      })()}
-    </AdaptiveList>
+    <div className='bg-gray-50 h-20 p-3 rounded flex justify-between'>
+      <div className='flex flex-col justify-between h-full w-full'>
+        <span className='bg-gray-200 rounded text-xs px-2 py-1 font-medium w-min mb-1.5'>
+          {props.label}
+        </span>
+        <div className='flex justify-between'>
+          {(() => {
+            if (props.txId !== undefined) {
+              return (
+                <TxIdLink txid={props.txId} />
+              )
+            }
+            if (props.address?.address !== undefined) {
+              return (
+                <AddressLink address={props.address.address} />
+              )
+            } else {
+              return (
+                'N/A'
+              )
+            }
+          })()}
+          {(() => {
+            if (props.value !== undefined) {
+              return (
+                <span className='min-w-max'>
+                  {props.value}
+                </span>
+              )
+            }
+          })()}
+        </div>
+      </div>
+    </div>
   )
 }
