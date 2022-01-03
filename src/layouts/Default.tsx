@@ -8,7 +8,6 @@ import { PropsWithChildren } from 'react'
 import { ScanAppProps } from '../pages/_app.page'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import { WarningBanner } from '@components/commons/banner/WarningBanner'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -45,8 +44,6 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
         <WhaleProvider>
           <StoreProvider state={props.initialReduxState}>
             <StatsProvider>
-              <WarningBanner message='We are currently fixing a syncing issue on the blockchain.' />
-
               <Header />
 
               <main className='flex-grow'>
