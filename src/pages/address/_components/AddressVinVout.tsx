@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
 import { SmartBuffer } from 'smart-buffer'
 import { TransactionVectorRow } from '@components/commons/transactions/TransactionVectorRow'
-import { TransactionDfTx } from '@components/transactions/[txid]/TransactionDfTx'
+import { TransactionDfTx } from '../../transactions/_components/TransactionDfTx'
 
 interface AddressVinVoutProps {
   address: string
