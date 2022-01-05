@@ -62,7 +62,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
           dftx={dftx}
         />
         {(() => {
-          if (router.query.rawtx !== undefined) {
+          if (router.query.rawtx !== undefined && props.transaction === undefined) {
             return (
               <RawTransaction
                 rawTx={router.query.rawtx as string}
