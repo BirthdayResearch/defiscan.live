@@ -14,6 +14,7 @@ import BigNumber from 'bignumber.js'
 import { SmartBuffer } from 'smart-buffer'
 import { TransactionDfTx } from './TransactionDfTx'
 import { Container } from '@components/commons/Container'
+import { IoArrowForwardOutline } from 'react-icons/io5'
 
 export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
   const network = useNetwork().name
@@ -63,7 +64,7 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
   return (
     <div>
       <h1 className='font-medium text-2xl mt-6' data-testid='RawTransaction.Title'>Pending Transactions</h1>
-      <div className='flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2'>
+      <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <div className='w-full lg:w-1/2'>
           <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
             {transaction?.vin.map((vin) => {
@@ -77,6 +78,10 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
             })}
           </div>
         </div>
+        <div className='flex items-center justify-center text-gray-600 w-full lg:w-auto lg:h-20'>
+          <IoArrowForwardOutline className='transform rotate-90 lg:rotate-0' size={24} />
+        </div>
+
         <div className='w-full lg:w-1/2'>
           <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
             {transaction?.vout.map((vout, index) => {
