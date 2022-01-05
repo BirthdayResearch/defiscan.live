@@ -13,6 +13,7 @@ import { DecodedAddress, fromScript } from '@defichain/jellyfish-address'
 import BigNumber from 'bignumber.js'
 import { SmartBuffer } from 'smart-buffer'
 import { TransactionDfTx } from './TransactionDfTx'
+import { Container } from '@components/commons/Container'
 
 export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
   const network = useNetwork().name
@@ -20,10 +21,14 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
 
   if (rawTx !== undefined) {
     const buffer = SmartBuffer.fromBuffer(Buffer.from(rawTx, 'hex'))
-    if (rawTx.startsWith('040000000001')) {
-      transaction = new CTransactionSegWit(buffer)
-    } else {
-      transaction = new CTransaction(buffer)
+    try {
+      if (rawTx.startsWith('040000000001')) {
+        transaction = new CTransactionSegWit(buffer)
+      } else {
+        transaction = new CTransaction(buffer)
+      }
+    } catch (e) {
+      transaction = undefined
     }
   }
 
@@ -43,6 +48,16 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
       return undefined
     }
     return (stack[1] as OP_DEFI_TX).tx
+  }
+
+  if (transaction === undefined) {
+    return (
+      <Container className='pt-12 pb-20'>
+        <div className='bg-red-100 rounded p-3 text-center' data-testid='transaction-not-found-banner'>
+          The requested raw transaction could not be found.
+        </div>
+      </Container>
+    )
   }
 
   return (

@@ -24,6 +24,8 @@ interface TransactionPageProps {
 export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const router = useRouter()
 
+  const transactionPending = props.transaction === undefined || props.vins === undefined || props.vouts === undefined
+
   if (props.transaction === undefined || props.vins === undefined || props.vouts === undefined) {
     return (
       <Container className='pt-12 pb-20'>
@@ -62,7 +64,7 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
           dftx={dftx}
         />
         {(() => {
-          if (router.query.rawtx !== undefined && props.transaction === undefined) {
+          if (router.query.rawtx !== undefined && transactionPending) {
             return (
               <RawTransaction
                 rawTx={router.query.rawtx as string}
