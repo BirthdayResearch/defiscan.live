@@ -4,18 +4,18 @@
 /.github/                                       @fuxingloh @joeldavidw
 /.husky/                                        @fuxingloh @joeldavidw
 
-/src/                                           @fuxingloh @joeldavidw @siradji
+/src/                                           @joeldavidw @siradji
 
-/src/styles/                                    @fuxingloh @joeldavidw
-postcss.config.js                               @fuxingloh @joeldavidw
-tailwind.config.js                              @fuxingloh @joeldavidw
+/src/styles/                                    @joeldavidw
+postcss.config.js                               @joeldavidw
+tailwind.config.js                              @joeldavidw
 
-/public/                                        @fuxingloh @joeldavidw
+/public/                                        @joeldavidw
 
-next.config.js                                  @fuxingloh @joeldavidw
-package.json                                    @fuxingloh @joeldavidw
-package-lock.json                               @fuxingloh @joeldavidw
-tsconfig.json                                   @fuxingloh @joeldavidw
+next.config.js                                  @joeldavidw
+package.json                                    @joeldavidw
+package-lock.json                               @joeldavidw
+tsconfig.json                                   @joeldavidw
 
 CONTRIBUTING.md                                 @fuxingloh @joeldavidw
 README.md                                       @fuxingloh @joeldavidw
