@@ -6,6 +6,9 @@ import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { BiddingHistoryCard } from './BiddingHistoryMobileCard'
 import { formatDistanceToNow } from 'date-fns'
+import { fromScriptHex } from '@defichain/jellyfish-address'
+import { useNetwork } from '@contexts/NetworkContext'
+import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface AuctionBiddingHistoryProps {
   history: VaultAuctionBatchHistory[]
@@ -31,24 +34,22 @@ export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element 
         <OverflowTable>
           <OverflowTable.Header>
             <OverflowTable.Head
-              title='Bid No.' infoDesc='Bid No.'
+              title='Bid No.'
               className='lg:w-1/4'
               testId='BiddingHistory.Header.BidNo'
             />
             <OverflowTable.Head
-              title='Time' infoDesc='Time'
+              title='Time'
               className='lg:w-1/4'
               testId='BiddingHistory.Header.Time'
             />
             <OverflowTable.Head
-              title='Bidder ID'
-              infoDesc='Bidder ID'
+              title='Bidder'
               testId='BiddingHistory.Header.BidId'
             />
             <OverflowTable.Head
               title='Bid Amount'
               alignRight
-              infoDesc='Bid Amount'
               testId='BiddingHistory.Header.BidAmount'
             />
           </OverflowTable.Header>
@@ -76,19 +77,24 @@ export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element 
   )
 }
 
-function BiddingHistoryRow ({ history }: {history: VaultAuctionBatchHistory}): JSX.Element {
+function BiddingHistoryRow ({ history }: { history: VaultAuctionBatchHistory }): JSX.Element {
+  const decoded = fromScriptHex(history.from, useNetwork().name)
+  const address = decoded?.address ?? 'N/A'
+
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        <span className='bg-gray-400 px-2 py-1 w-20 text-white text-center'>
-          Bid #{history.index}
+        <span className='bg-gray-400 px-2 py-1 w-20 text-sm text-white text-center'>
+          Bid #{history.index + 1}
         </span>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         {formatDistanceToNow(history.block.medianTime * 1000)}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='text-blue-500'>
-        <TextTruncate text={history.from} width='w-full' />
+        <AddressLink address={address}>
+          <TextTruncate text={address} width='w-full' />
+        </AddressLink>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         <div className='flex items-center space-x-1 justify-end'>
