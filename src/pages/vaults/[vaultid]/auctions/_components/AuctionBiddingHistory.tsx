@@ -21,7 +21,7 @@ export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element 
         <h2 className='text-xl font-semibold mt-8 mb-5' data-testid='BiddingHistory.Heading'>
           Bidding Details
         </h2>
-        <EmptySection message='No Bidding history' />
+        <EmptySection message='No Bidding History' />
       </>
     )
   }

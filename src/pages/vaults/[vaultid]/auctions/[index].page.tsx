@@ -68,10 +68,10 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
     return {
       props: {
-        auctionHistory,
         vault: vault,
         batchIndex: batchIndex,
-        liquidationBatch: vault.batches[batchIndex]
+        liquidationBatch: vault.batches[batchIndex],
+        auctionHistory: auctionHistory
       }
     }
   } catch (e) {
