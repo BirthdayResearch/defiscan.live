@@ -65,3 +65,13 @@ labels:
     sync: true
     matcher:
       files: "src/pages/vaults/**"
+
+  - label: area/auctions
+    sync: true
+    matcher:
+      files: "src/pages/auctions/**"
+
+  - label: area/ocg
+    sync: true
+    matcher:
+      files: "src/pages/ocg/**"
