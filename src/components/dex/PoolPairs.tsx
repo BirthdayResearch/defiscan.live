@@ -40,6 +40,10 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
 }
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
+  if (data.symbol === 'BURN-DFI') {
+    return <></>
+  }
+
   return (
     <AdaptiveTable.Row>
       <AdaptiveTable.Cell title='PAIR' className='align-middle'>
