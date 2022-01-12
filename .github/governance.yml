@@ -50,6 +50,8 @@ issue:
         - ui-ux
         - address
         - vaults
+        - auctions
+        - ocg
       multiple: true
       needs:
         comment: |

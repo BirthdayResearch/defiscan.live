@@ -86,6 +86,10 @@
   name: area/address
 - color: fbca04
   name: area/vaults
+- color: fbca04
+  name: area/auctions
+- color: fbca04
+  name: area/ocg
 
 # Priority
 - color: d93f0b
