@@ -13,7 +13,7 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
     return <span>N/A</span>
   }
 
-  const remainingTokens = props.tokens.length - 4
+  const remainingTokens = props.tokens.length - 3
   const tokens = props.tokens.filter((token, index) => {
     if (props.tokens === undefined) {
       return false
@@ -29,7 +29,7 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
       <div className='flex space-x-1 items-center' data-testid={props.testId}>
         {tokens.map((loan, index) => {
           const TokenIcon = getAssetIcon(loan.symbol)
-          if (index < 4) {
+          if (index < 3) {
             if (index >= 1) {
               return <TokenIcon className='h-6 w-6' key={loan.id} />
             }
@@ -38,9 +38,26 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
           return null
         })}
         {remainingTokens > 0 && (
-          <span className='text-xs text-gray-500 font-medium inline-block align-middle'>{`+${remainingTokens}`}</span>
+          <RemainingTokensIcon tokensCount={remainingTokens} />
         )}
       </div>
     </div>
+  )
+}
+
+function RemainingTokensIcon ({ tokensCount }: {tokensCount: number}): JSX.Element {
+  return (
+    <svg width='1em' height='1em' className='h-6 w-6' viewBox='0 0 32 32'>
+      <circle cx={16} cy={16} r={16} fill='#d3d4d4' />
+      <text
+        fontSize='15'
+        fontWeight='bold'
+        fill='#2b2b2b'
+      >
+        <tspan x='50%' y='50%' dominantBaseline='middle' textAnchor='middle'>
+          +{tokensCount}
+        </tspan>
+      </text>
+    </svg>
   )
 }
