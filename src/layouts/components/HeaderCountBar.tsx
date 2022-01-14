@@ -13,7 +13,7 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
 
   function HeaderCount (props: { text: string, count?: number, className?: string }): JSX.Element {
     return (
-      <li className={classNames(props.className, 'py-1')}>
+      <li className={classNames(props.className, 'py-1 mx-2 lg:mx-0')}>
         <span className='text-sm text-primary-100 font-medium'>{props.text} </span>
         <span className='text-sm text-white ml-0.5'>
           {props.count !== undefined ? (
@@ -82,12 +82,12 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
   }
 
   return (
-    <ul className={classNames(props.className, 'flex flex-wrap space-x-6 overflow-hidden')}>
+    <ul className={classNames(props.className, 'flex flex-wrap lg:space-x-6 overflow-hidden')}>
       <HeaderCount text='Blocks' count={count.blocks} />
       <HeaderCount text='Tokens' count={count.tokens} />
       <HeaderCount text='Masternodes' count={count.masternodes} />
       <HeaderCount text='Price Feeds' count={count.prices} />
-      <HoverPopover popover={<PopoverTVL />}>
+      <HoverPopover popover={<PopoverTVL />} className='mx-2 lg:mx-0'>
         <HeaderAmount className='cursor-help ' text='Total Value Locked' count={tvl.total} />
       </HoverPopover>
     </ul>
