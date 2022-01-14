@@ -1,6 +1,7 @@
 import { LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets/tokens'
 import classNames from 'classnames'
+import { RemainingTokensIcon } from './RemainingTokensIcon'
 
 interface VaultTokenSymbolsProps {
   tokens?: LoanVaultTokenAmount[]
@@ -42,22 +43,5 @@ export function VaultTokenSymbols (props: VaultTokenSymbolsProps): JSX.Element {
         )}
       </div>
     </div>
-  )
-}
-
-function RemainingTokensIcon ({ tokensCount }: {tokensCount: number}): JSX.Element {
-  return (
-    <svg width='1em' height='1em' className='h-6 w-6' viewBox='0 0 32 32'>
-      <circle cx={16} cy={16} r={16} fill='#d3d4d4' />
-      <text
-        fontSize='15'
-        fontWeight='bold'
-        fill='#2b2b2b'
-      >
-        <tspan x='50%' y='50%' dominantBaseline='middle' textAnchor='middle'>
-          +{tokensCount}
-        </tspan>
-      </text>
-    </svg>
   )
 }
