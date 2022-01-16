@@ -15,11 +15,11 @@ export function _TokenDefault (symbol: string): (props: SVGProps<SVGSVGElement>)
           className='pointer-events-none'
           dominantBaseline='central'
           fill={text}
-          fontSize={8}
-          fontWeight='bolder'
+          fontSize={10}
+          fontWeight={700}
           textAnchor='middle'
           lengthAdjust='spacingAndGlyphs'
-          textLength={30}
+          textLength={25}
           x='50%'
           y='50%'
         >
