@@ -1,5 +1,5 @@
 module.exports = {
-  purge: [
+  content: [
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/layouts/**/*.{js,ts,jsx,tsx}',
     './src/pages/**/*.{js,ts,jsx,tsx}'
@@ -77,11 +77,6 @@ module.exports = {
         200: '#D6EAF9',
         500: '#5AA9E6',
       }
-    }
-  },
-  variants: {
-    extend: {
-      borderWidth: ['last']
     }
   },
   plugins: [
