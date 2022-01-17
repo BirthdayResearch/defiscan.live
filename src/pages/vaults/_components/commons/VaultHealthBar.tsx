@@ -81,11 +81,11 @@ function ColorScale (props: { normalizedLiquidatedThreshold: BigNumber, normaliz
   return (
     <div className='w-full flex flex-row mt-1.5' data-testid='VaultHealthBar.ColorScale'>
       <div
-        className='h-1 mr-0.5 bg-red-300'
+        className='h-1 bg-red-300'
         style={{ width: `${props.normalizedLiquidatedThreshold.toFixed(2)}%` }}
       />
       <div
-        className='h-1 mr-0.5 bg-orange-300'
+        className='h-1 bg-orange-300'
         style={{ width: `${props.normalizedAtRiskThreshold.minus(props.normalizedLiquidatedThreshold).toFixed(2)}%` }}
       />
       <div
