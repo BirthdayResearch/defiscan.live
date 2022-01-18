@@ -6,7 +6,7 @@ import ReactNumberFormat from 'react-number-format'
 import React from 'react'
 import { StatItem } from '@components/commons/stats/StatItem'
 import { StatsBar } from '@components/commons/stats/StatsBar'
-import { SearchBar } from '@components/commons/SearchBar'
+import { SearchBar } from '@components/commons/searchbar/SearchBar'
 
 export function IndexHeader (): JSX.Element {
   return (
