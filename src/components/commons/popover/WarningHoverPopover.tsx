@@ -3,12 +3,12 @@ import { PropsWithChildren, ReactNode } from 'react'
 import { IoWarningOutline } from 'react-icons/io5'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
 import classNames from 'classnames'
-import * as PopperJS from '@popperjs/core'
+import { Placement } from '@floating-ui/react-dom'
 
 interface WarningHoverPopoverProps {
   description: string | ReactNode
   className?: string
-  placement?: PopperJS.Placement
+  placement?: Placement
 }
 
 export function WarningHoverPopover (props: PropsWithChildren<WarningHoverPopoverProps>): JSX.Element {
