@@ -26,14 +26,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
 
-  const {
-    x,
-    y,
-    reference,
-    floating,
-    strategy,
-    refs
-  } = useFloating({
+  const { x, y, reference, floating, strategy, refs } = useFloating({
     placement: 'bottom-end',
     middleware: [shift(),
       size({
@@ -43,7 +36,8 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
             width: `${reference.width}px`
           })
         }
-      })]
+      })
+    ]
   })
 
   function updateFloater (): void {
@@ -62,9 +56,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
       return
     }
 
-    const parents = [
-      ...getScrollParents(refs.reference.current)
-    ]
+    const parents = [...getScrollParents(refs.reference.current)]
 
     parents.forEach((parent) => {
       parent.addEventListener('resize', updateFloater)
@@ -122,12 +114,6 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
         </div>
 
         <Transition
-          enter='transition ease-in duration-150'
-          enterFrom='opacity-0 translate-y-1'
-          enterTo='opacity-100 translate-y-0'
-          leave='transition ease-in duration-150'
-          leaveFrom='opacity-100 translate-y-0'
-          leaveTo='opacity-0 translate-y-1'
           show={isActive}
           className='absolute'
         >
@@ -138,7 +124,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
               left: x ?? ''
             }}
           >
-            <div className='w-full mt-1.5 rounded-md shadow-lg drop-shadow bg-white z-10 overflow-hidden'>
+            <div className='w-full mt-1.5 rounded-md shadow-lg drop-shadow bg-white overflow-hidden'>
               <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
             </div>
           </div>
