@@ -5,6 +5,8 @@ export function _TokenDefault (symbol: string): (props: SVGProps<SVGSVGElement>)
     const bg = '#000000'
     const text = 'white'
 
+    const symbolParts = symbol.split('-')
+
     return (
       <svg width='1em' height='1em' viewBox='0 0 32 32' {...props}>
         <path
@@ -19,12 +21,27 @@ export function _TokenDefault (symbol: string): (props: SVGProps<SVGSVGElement>)
           fontWeight={700}
           textAnchor='middle'
           lengthAdjust='spacingAndGlyphs'
-          textLength={25}
+          textLength={symbolParts.length === 2 ? (symbolParts[0].length < symbolParts[1].length ? 15 : 20) : 25}
           x='50%'
-          y='50%'
+          y={symbolParts.length === 2 ? '32%' : '50%'}
         >
-          {symbol}
+          {symbolParts[0]}
         </text>
+        {symbolParts.length === 2 &&
+          <text
+            className='pointer-events-none'
+            dominantBaseline='central'
+            fill={text}
+            fontSize={10}
+            fontWeight={700}
+            textAnchor='middle'
+            lengthAdjust='spacingAndGlyphs'
+            textLength={symbolParts[0].length > symbolParts[1].length ? 15 : 20}
+            x='50%'
+            y='68%'
+          >
+            {symbolParts[1]}
+          </text>}
       </svg>
     )
   }
