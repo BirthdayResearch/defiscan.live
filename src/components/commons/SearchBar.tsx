@@ -1,9 +1,9 @@
 import { IoCloseCircleSharp, IoSearchSharp } from 'react-icons/io5'
 import { CgSpinner } from 'react-icons/cg'
-import { Fragment, PropsWithChildren, useMemo, useState } from 'react'
+import { Fragment, PropsWithChildren, useEffect, useMemo, useState } from 'react'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import debounce from 'lodash.debounce'
-import { usePopper } from 'react-popper'
+import { getScrollParents, shift, size, useFloating } from '@floating-ui/react-dom'
 import { Menu, Transition } from '@headlessui/react'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
@@ -33,15 +33,57 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   const [isActive, setIsActive] = useState<boolean>(false)
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
-  const [refEle, setRefEle] = useState<any>()
-  const [popperEle, setPopperEle] = useState<any>()
 
   const {
-    styles,
-    attributes
-  } = usePopper(refEle, popperEle, {
-    placement: 'bottom-start'
+    x,
+    y,
+    reference,
+    floating,
+    strategy,
+    refs
+  } = useFloating({
+    placement: 'bottom-end',
+    middleware: [shift(),
+      size({
+        apply ({ reference }) {
+          Object.assign(refs.floating.current?.style, {
+            minWidth: '325px',
+            width: `${reference.width}px`
+          })
+        }
+      })]
   })
+
+  function updateFloater (): void {
+    if ((refs.reference.current == null) || (refs.floating.current == null)) {
+      return
+    }
+
+    Object.assign(refs.floating.current?.style, {
+      width: `${refs.reference.current?.scrollWidth}px`,
+      left: `${refs.reference.current?.scrollLeft + (refs.reference.current?.scrollWidth - refs.floating.current?.scrollWidth)}px` ?? ''
+    })
+  }
+
+  useEffect(() => {
+    if ((refs.reference.current == null) || (refs.floating.current == null)) {
+      return
+    }
+
+    const parents = [
+      ...getScrollParents(refs.reference.current)
+    ]
+
+    parents.forEach((parent) => {
+      parent.addEventListener('resize', updateFloater)
+    })
+
+    return () => {
+      parents.forEach((parent) => {
+        parent.removeEventListener('resize', updateFloater)
+      })
+    }
+  }, [refs.reference, refs.floating, updateFloater])
 
   async function changeHandler (event): Promise<void> {
     const query = event.target.value.trim()
@@ -72,7 +114,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
         <div
           className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white border', { 'border-primary-200': isActive })}
           data-testid='SearchBar'
-          ref={setRefEle}
+          ref={reference}
         >
           <Menu.Button as={Fragment}>
             <div className='flex w-full'>
@@ -95,15 +137,16 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
           leaveFrom='opacity-100 translate-y-0'
           leaveTo='opacity-0 translate-y-1'
           show={isActive}
+          className='absolute'
         >
           <div
-            className='z-40' ref={setPopperEle} style={{
-              ...styles.popper,
-              minWidth: refEle?.scrollWidth,
-              maxWidth: refEle?.scrollWidth
-            }} {...attributes.popper}
+            className='z-40' ref={floating} style={{
+              position: strategy,
+              top: y ?? '',
+              left: x ?? ''
+            }}
           >
-            <div className='w-full mt-1.5 rounded-md shadow-lg filter drop-shadow bg-white z-10 overflow-hidden'>
+            <div className='w-full mt-1.5 rounded-md shadow-lg drop-shadow bg-white z-10 overflow-hidden'>
               <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
             </div>
           </div>

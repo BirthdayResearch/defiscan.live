@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { MdContentCopy } from 'react-icons/md'
 import classNames from 'classnames'
-import { usePopper } from 'react-popper'
+import { shift, useFloating } from '@floating-ui/react-dom'
 
 interface CopyButtonProps {
   content: string
@@ -10,12 +10,17 @@ interface CopyButtonProps {
 
 export function CopyButton (props: CopyButtonProps): JSX.Element {
   const [open, setOpen] = useState<boolean>(false)
-  const [refEle, setRefEle] = useState<any>()
-  const [popperEle, setPopperEle] = useState<any>()
+
   const {
-    styles,
-    attributes
-  } = usePopper(refEle, popperEle, { placement: 'bottom' })
+    x,
+    y,
+    reference,
+    floating,
+    strategy
+  } = useFloating({
+    placement: 'bottom',
+    middleware: [shift()]
+  })
 
   async function copy (): Promise<void> {
     await navigator.clipboard.writeText(props.content)
@@ -27,7 +32,7 @@ export function CopyButton (props: CopyButtonProps): JSX.Element {
   }
 
   return (
-    <div className={classNames('relative', props.className)} ref={setRefEle}>
+    <div className={classNames('relative', props.className)} ref={reference}>
       <button
         className='cursor-pointer outline-none p-2 bg-white border border-gray-200 rounded'
         onClick={copy}
@@ -35,7 +40,14 @@ export function CopyButton (props: CopyButtonProps): JSX.Element {
         <MdContentCopy className='h-5 w-5 text-gray-600' />
       </button>
       {open && (
-        <div ref={setPopperEle} style={styles.popper} {...attributes.popper}>
+        <div
+          ref={floating}
+          style={{
+            position: strategy,
+            top: y ?? '',
+            left: x ?? ''
+          }}
+        >
           <div className='mt-2 text-xs font-medium rounded shadow-md ring-1 ring-gray-100 bg-white p-2'>
             COPIED!
           </div>

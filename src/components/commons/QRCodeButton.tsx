@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { MdQrCode, MdOutlineClose } from 'react-icons/md'
+import { MdOutlineClose, MdQrCode } from 'react-icons/md'
 import classNames from 'classnames'
 import QRCode from 'qrcode.react'
-import { usePopper } from 'react-popper'
+import { shift, useFloating } from '@floating-ui/react-dom'
 
 interface QRCodeButtonProps {
   content: string
@@ -11,15 +11,17 @@ interface QRCodeButtonProps {
 
 export function QRCodeButton (props: QRCodeButtonProps): JSX.Element {
   const [open, setOpen] = useState<boolean>(false)
-  const [refEle, setRefEle] = useState<any>()
-  const [popperEle, setPopperEle] = useState<any>()
+
   const {
-    styles,
-    attributes
-  } = usePopper(refEle, popperEle, { placement: 'bottom' })
+    x,
+    y,
+    reference,
+    floating,
+    strategy
+  } = useFloating({ placement: 'bottom', middleware: [shift()] })
 
   return (
-    <div className={classNames('relative', props.className)} ref={setRefEle}>
+    <div className={classNames('relative', props.className)} ref={reference}>
       <button
         className='cursor-pointer outline-none p-2 bg-white border border-gray-200 rounded'
         onClick={() => setOpen(!open)}
@@ -30,7 +32,14 @@ export function QRCodeButton (props: QRCodeButtonProps): JSX.Element {
         }
       </button>
       {open && (
-        <div ref={setPopperEle} style={styles.popper} {...attributes.popper}>
+        <div
+          ref={floating}
+          style={{
+            position: strategy,
+            top: y ?? '',
+            left: x ?? ''
+          }}
+        >
           <div className='mt-2 text-xs rounded shadow-md ring-1 ring-gray-100 bg-white p-2 text-gray-900'>
             <div className='flex flex-wrap justify-center'>
               <QRCode value={props.content} size={128} />
