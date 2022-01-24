@@ -16,7 +16,7 @@ export function _TokenDefault (symbol: string): (props: SVGProps<SVGSVGElement>)
           className='pointer-events-none'
           dominantBaseline='central'
           fill='white'
-          fontSize={symbolParts[0].length < 5 ? '10' : '9'}
+          fontSize={symbolParts[0].length < 5 ? '11' : '9.5'}
           fontWeight='700'
           fontFamily='"IBM Plex Sans Condensed", sans-serif'
           textAnchor='middle'
