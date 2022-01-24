@@ -52,7 +52,7 @@ export function AddressSummaryTable (props: AddressSummaryTableProps): JSX.Eleme
     <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
       <div className='w-full lg:w-1/2'>
         <AdaptiveList>
-          <AdaptiveList.Row name='Balance' className='text-left' testId='AddressSummaryTable.balance'>
+          <AdaptiveList.Row name='UTXO Balance' className='text-left' testId='AddressSummaryTable.utxoBalance'>
             {new BigNumber(aggregationData.amount.unspent).toFixed(8)} DFI
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Total Sent' className='text-left' testId='AddressSummaryTable.totalSent'>

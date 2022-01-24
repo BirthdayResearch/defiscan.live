@@ -12,7 +12,7 @@ context('/address/[address] on desktop', () => {
   })
 
   it('should have address summary', () => {
-    cy.findByTestId('AddressSummaryTable.balance').contains(/\d+.\d+\sDFI/)
+    cy.findByTestId('AddressSummaryTable.utxoBalance').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.totalSent').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.totalReceived').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.txCount').contains(/\d+/)
