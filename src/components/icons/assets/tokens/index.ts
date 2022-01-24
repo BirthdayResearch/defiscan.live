@@ -11,28 +11,13 @@ import { DFI } from './DFI'
 import { dLTC } from './dLTC'
 import { dUSDC } from './dUSDC'
 import { dUSDT } from './dUSDT'
-import { dTSLA } from './dTSLA'
 import { DUSD } from './DUSD'
-import { dAAPL } from './dAAPL'
-import { dAMD } from './dAMD'
-import { dGME } from './dGME'
-import { dBABA } from './dBABA'
-import { dGOOG } from './dGOOG'
-import { dPLTR } from './dPLTR'
-import { dARKK } from './dARKK'
-import { dSPY } from './dSPY'
-import { dQQQ } from './dQQQ'
-import { dGLD } from './dGLD'
-import { dSLV } from './dSLV'
-import { dPDBC } from './dPDBC'
-import { dVNQ } from './dVNQ'
-import { dURTH } from './dURTH'
-import { dTLT } from './dTLT'
 import { SVGProps } from 'react'
 import { USDT } from '@components/icons/assets/tokens/USDT'
 import { USDC } from '@components/icons/assets/tokens/USDC'
 import { ETH } from '@components/icons/assets/tokens/ETH'
 import { DOGE } from '@components/icons/assets/tokens/DOGE'
+import { _TokenDefault } from './_TokenDefault'
 
 const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> = {
   _UTXO: DFI,
@@ -54,25 +39,8 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   dLTC: dLTC,
   dUSDT: dUSDT,
   dUSDC: dUSDC,
-  dAAPL: dAAPL,
-  dAMD: dAMD,
-  dGME: dGME,
-  dBABA: dBABA,
-  dGOOG: dGOOG,
-  dGOOGL: dGOOG,
   dDUSD: DUSD,
-  DUSD: DUSD,
-  dPLTR: dPLTR,
-  dARKK: dARKK,
-  dSPY: dSPY,
-  dQQQ: dQQQ,
-  dGLD: dGLD,
-  dSLV: dSLV,
-  dPDBC: dPDBC,
-  dVNQ: dVNQ,
-  dURTH: dURTH,
-  dTLT: dTLT,
-  dTSLA: dTSLA
+  DUSD: DUSD
 }
 
 // TODO(@defich): move assets into it's own repo where anyone can create pull request into.
@@ -85,7 +53,7 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
 export function getAssetIcon (symbol: string): (props: SVGProps<SVGSVGElement>) => JSX.Element {
   const Icon = mapping[`d${symbol}`]
   if (Icon === undefined) {
-    return _Default(symbol)
+    return _TokenDefault(symbol)
   }
   return Icon
 }

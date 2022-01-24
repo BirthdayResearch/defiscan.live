@@ -43,9 +43,8 @@ export function PoolPairSymbol (props: PoolPairSymbolProps): JSX.Element {
     return <div className={props.className}>{`(PoolPair ID: ${props.poolPairId})`}</div>
   }
 
-  const [symbolA, symbolB] = poolPairData.symbol.split('-')
-  const IconA = getAssetIcon(symbolA)
-  const IconB = getAssetIcon(symbolB)
+  const IconA = getAssetIcon(poolPairData.tokenA.symbol)
+  const IconB = getAssetIcon(poolPairData.tokenB.symbol)
 
   return (
     <div className='flex items-center' data-testid={props.testId}>
