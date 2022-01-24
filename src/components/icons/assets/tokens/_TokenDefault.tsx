@@ -6,25 +6,6 @@ export function _TokenDefault (symbol: string): (props: SVGProps<SVGSVGElement>)
   const symbolParts = symbol.split('-')
 
   function TokenDefaultSymbol (props: SVGProps<SVGSVGElement>): JSX.Element {
-    let fontSize
-
-    switch (symbolParts[0].length) {
-      case (1):
-      case (2):
-      case (3):
-        fontSize = 11
-        break
-      case (4):
-        fontSize = 10
-        break
-      case (5):
-        fontSize = 8.5
-        break
-      default:
-        fontSize = 8
-        break
-    }
-
     return (
       <svg width='1em' height='1em' viewBox='0 0 32 32' {...props}>
         <path
@@ -35,8 +16,9 @@ export function _TokenDefault (symbol: string): (props: SVGProps<SVGSVGElement>)
           className='pointer-events-none'
           dominantBaseline='central'
           fill='white'
-          fontSize={fontSize}
-          fontWeight='600'
+          fontSize={symbolParts[0].length < 5 ? '10' : '9'}
+          fontWeight='700'
+          fontFamily='"IBM Plex Sans Condensed", sans-serif'
           textAnchor='middle'
           x='50%'
           y='50%'
@@ -48,10 +30,6 @@ export function _TokenDefault (symbol: string): (props: SVGProps<SVGSVGElement>)
   }
 
   function PoolPairTokenSymbol (props: SVGProps<SVGSVGElement>): JSX.Element {
-    const textLength = symbolParts[0].length > symbolParts[1].length ? symbolParts[0].length : symbolParts[1].length
-    const baseFontSize = 9
-    const fontSize = baseFontSize - ((textLength - 3) * 0.5)
-
     return (
       <svg width='1em' height='1em' viewBox='0 0 32 32' {...props}>
         <path
@@ -61,14 +39,15 @@ export function _TokenDefault (symbol: string): (props: SVGProps<SVGSVGElement>)
         <text
           className='pointer-events-none'
           fill='white'
-          fontSize={fontSize}
-          fontWeight='600'
+          fontSize='9'
+          fontWeight='700'
+          fontFamily='"IBM Plex Sans Condensed", sans-serif'
           y='50%'
         >
           <tspan x='50%' y={symbolParts[0].length <= symbolParts[1].length ? '48%' : ''} textAnchor='middle'>
             {symbolParts[0]}
           </tspan>
-          <tspan x='50%' dy={fontSize} textAnchor='middle'>
+          <tspan x='50%' dy='9' textAnchor='middle'>
             {symbolParts[1]}
           </tspan>
         </text>
