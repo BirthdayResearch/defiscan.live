@@ -12,7 +12,7 @@ context('/address/[address] on desktop', () => {
   })
 
   it('should have address summary', () => {
-    cy.findByTestId('AddressSummaryTable.balance').contains(/\d+.\d+\sDFI/)
+    cy.findByTestId('AddressSummaryTable.utxoBalance').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.totalSent').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.totalReceived').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.txCount').contains(/\d+/)
@@ -110,7 +110,7 @@ context('/address/[address] on desktop - invalid address', () => {
   })
 
   beforeEach(() => {
-    cy.viewport('macbook-13')
+    cy.viewport('macbook-16')
   })
 
   it('should have warning banner', () => {
@@ -132,7 +132,7 @@ context('/address/[address] on mobile', () => {
   })
 
   it('should have address summary', () => {
-    cy.findByTestId('AddressSummaryTable.balance').contains(/\d+.\d+\sDFI/)
+    cy.findByTestId('AddressSummaryTable.utxoBalance').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.totalSent').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.totalReceived').contains(/\d+.\d+\sDFI/)
     cy.findByTestId('AddressSummaryTable.txCount').contains(/\d+/)
