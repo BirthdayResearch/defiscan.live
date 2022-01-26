@@ -19,7 +19,7 @@ export interface EventCopy {
 }
 
 export const EVENTS: Record<string, EventCopy> = {
-  'testEvent': {
+  testEvent: {
     height: '99999999',
     slug: 'testEvent',
     name: 'Test Event'
