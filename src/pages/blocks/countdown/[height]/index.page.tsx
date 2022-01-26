@@ -101,16 +101,16 @@ function CountdownTime (props: { value: number, text: string }): JSX.Element {
 
 function BlocksInfoSection (props: { remaining: number, current: number }): JSX.Element {
   return (
-    <div className='flex flex-wrap justify-center mt-10 -mx-1'>
+    <div className='flex flex-wrap justify-center mt-10 -mx-2'>
       <div className='w-full lg:w-4/6 flex flex-wrap'>
-        <div className='w-full md:w-1/2 py-1 md:py-0 md:px-1'>
+        <div className='w-full md:w-1/2 py-1 md:py-0 md:pr-1 md:pl-2'>
           <div className='rounded border p-2 flex items-center'>
             <MdStairs className='text-gray-400 inline-block' size={22} />
             <span className='text-gray-500 ml-1'>Current Block: </span>
             <span className='text-gray-900 font-medium ml-1'>{props.current}</span>
           </div>
         </div>
-        <div className='w-full md:w-1/2 md:py-0 md:px-1'>
+        <div className='w-full md:w-1/2 md:py-0 md:pr-2 md:pl-1'>
           <div className='rounded border p-2 flex items-center'>
             <MdStairs className='text-gray-400 inline-block' size={22} />
             <span className='text-gray-500 ml-1'>Remaining Blocks: </span>
