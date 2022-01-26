@@ -72,11 +72,12 @@ function CountdownSection (props: { timeLeftSecs: number | undefined, estimatedD
       <CountdownTime value={mins} text='Mins' />
       <CountdownTime value={secs} text='Secs' />
 
-      <div className='w-full md:w-4/6 px-2 mt-1 text-sm'>
+      <div className='w-full lg:w-4/6 mt-2 md:mt-0 px-0.5 md:px-2 text-sm'>
         <span className='text-gray-500'>Estimated Target Date:</span>
         <span
           className='ml-1 text-gray-900 font-medium'
-        >{props.estimatedDateTime.toString()}
+        >
+          {props.estimatedDateTime.toString()}
         </span>
       </div>
     </div>
@@ -85,9 +86,9 @@ function CountdownSection (props: { timeLeftSecs: number | undefined, estimatedD
 
 function CountdownTime (props: { value: number, text: string }): JSX.Element {
   return (
-    <div className='p-0.5 md:p-2 w-1/4 md:w-1/6'>
+    <div className='p-0.5 md:p-2 w-1/4 lg:w-1/6'>
       <div className='flex flex-wrap rounded border py-4 md:py-8 text-center'>
-        <div className='w-full text-2xl md:text-4xl font-medium'>
+        <div className='w-full text-2xl md:text-4xl lg:text-5xl font-medium'>
           {props.value}
         </div>
         <div className='w-full mt-1 text-sm md:text-normal'>
@@ -101,15 +102,15 @@ function CountdownTime (props: { value: number, text: string }): JSX.Element {
 function BlocksInfoSection (props: { remaining: number, current: number }): JSX.Element {
   return (
     <div className='flex flex-wrap justify-center mt-10 -mx-1'>
-      <div className='w-full md:w-4/6 flex flex-wrap'>
-        <div className='w-full md:w-1/2 p-1'>
+      <div className='w-full lg:w-4/6 flex flex-wrap'>
+        <div className='w-full md:w-1/2 py-1 md:py-0 md:px-1'>
           <div className='rounded border p-2 flex items-center'>
             <MdStairs className='text-gray-400 inline-block' size={22} />
             <span className='text-gray-500 ml-1'>Current Block: </span>
             <span className='text-gray-900 font-medium ml-1'>{props.current}</span>
           </div>
         </div>
-        <div className='w-full md:w-1/2 p-1'>
+        <div className='w-full md:w-1/2 md:py-0 md:px-1'>
           <div className='rounded border p-2 flex items-center'>
             <MdStairs className='text-gray-400 inline-block' size={22} />
             <span className='text-gray-500 ml-1'>Remaining Blocks: </span>
