@@ -135,6 +135,15 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return { notFound: true }
   }
 
+  if (blocks[0].height >= Number(height)) {
+    return {
+      redirect: {
+        statusCode: 302,
+        destination: `/blocks/${height}`
+      }
+    }
+  }
+
   return {
     props: {
       target: {
