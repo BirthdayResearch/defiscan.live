@@ -1,4 +1,4 @@
-context('/blocks/countdown/[height] on desktop - Event Name', () => {
+context('/blocks/countdown/[query] on desktop - Event Name', () => {
   before(() => {
     cy.visit('/blocks/countdown/testEvent')
   })
@@ -40,7 +40,7 @@ context('/blocks/countdown/[height] on desktop - Event Name', () => {
   })
 })
 
-context('/blocks/countdown/[height] on desktop - Block Number', () => {
+context('/blocks/countdown/[query] on desktop - Block Number', () => {
   before(() => {
     cy.visit('/blocks/countdown/99999998')
   })
@@ -83,7 +83,7 @@ context('/blocks/countdown/[height] on desktop - Block Number', () => {
   })
 })
 
-context('/blocks/countdown/[height] on desktop - Block Number = Event', () => {
+context('/blocks/countdown/[query] on desktop - Block Number = Event', () => {
   before(() => {
     cy.visit('/blocks/countdown/99999999')
   })
@@ -98,7 +98,7 @@ context('/blocks/countdown/[height] on desktop - Block Number = Event', () => {
   })
 })
 
-context('/blocks/countdown/[height] on mobile - Event Name', () => {
+context('/blocks/countdown/[query] on mobile - Event Name', () => {
   before(() => {
     cy.visit('/blocks/countdown/testEvent')
   })
@@ -140,7 +140,7 @@ context('/blocks/countdown/[height] on mobile - Event Name', () => {
   })
 })
 
-context('/blocks/countdown/[height] on mobile - Block Number', () => {
+context('/blocks/countdown/[query] on mobile - Block Number', () => {
   before(() => {
     cy.visit('/blocks/countdown/99999998')
   })
@@ -183,7 +183,7 @@ context('/blocks/countdown/[height] on mobile - Block Number', () => {
   })
 })
 
-context('/blocks/countdown/[height] on mobile - Event Name = Event', () => {
+context('/blocks/countdown/[query] on mobile - Event Name = Event', () => {
   before(() => {
     cy.visit('/blocks/countdown/99999999')
   })
@@ -198,7 +198,7 @@ context('/blocks/countdown/[height] on mobile - Event Name = Event', () => {
   })
 })
 
-context('/blocks/countdown/[height] - block number < current height - Redirect to Blocks Page', () => {
+context('/blocks/countdown/[query] - block number < current height - Redirect to Blocks Page', () => {
   before(() => {
     cy.visit('/blocks/countdown/1')
   })
