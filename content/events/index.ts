@@ -32,7 +32,7 @@ export const EVENTS: Record<string, EventCopy> = {
     height: '99999999',
     slug: 'testEvent',
     name: 'Test Event',
-    network: 'mainnet'
+    network: 'MainNet'
   }
 }
 
