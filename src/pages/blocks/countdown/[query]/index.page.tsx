@@ -62,7 +62,7 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
   const query = context.params?.query?.toString().trim() as string
-  const event: EventCopy | undefined = getEventCopy(query)
+  const event: EventCopy | undefined = getEventCopy(query, context)
 
   if (event === undefined && !isNumeric(query)) {
     return { notFound: true }
