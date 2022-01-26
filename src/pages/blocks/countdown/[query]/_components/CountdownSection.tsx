@@ -21,8 +21,8 @@ export function CountdownSection (props: { timeLeftSecs: number | undefined, est
     <div className='flex flex-wrap justify-center -m-2 mt-8'>
       <CountdownTime value={days} label='Days' testId='Days' />
       <CountdownTime value={hours} label='Hours' testId='Hours' />
-      <CountdownTime value={mins} label='Mins' testId='Mins' />
-      <CountdownTime value={secs} label='Secs' testId='Secs' />
+      <CountdownTime value={mins} label='Minutes' testId='Minutes' />
+      <CountdownTime value={secs} label='Seconds' testId='Seconds' />
 
       <div className='w-full lg:w-4/6 mt-2 md:mt-0 px-0.5 md:px-2 text-sm'>
         <span className='text-gray-500'>Estimated Target Date:</span>
@@ -44,12 +44,12 @@ function CountdownTime (props: { value: number, label: string, testId: string })
         data-testid={`CountdownSection.${props.testId}`}
       >
         <div
-          className='w-full text-2xl md:text-4xl xl:text-5xl font-medium'
+          className='w-full text-lg sm:text-2xl md:text-4xl xl:text-5xl font-medium overflow-hidden overflow-ellipsis'
           data-testid={`CountdownSection.${props.testId}.value`}
         >
           {props.value}
         </div>
-        <div className='w-full mt-1 text-sm md:text-normal' data-testid={`CountdownSection.${props.testId}.label`}>
+        <div className='w-full mt-1 text-sm md:text-base' data-testid={`CountdownSection.${props.testId}.label`}>
           {props.label}
         </div>
       </div>
@@ -64,7 +64,7 @@ function CountdownTimeLoading (props: { label: string }): JSX.Element {
         className='flex flex-wrap rounded border py-4 md:py-8 text-center justify-center'
       >
         <div className='animate-pulse h-6 w-16 bg-gray-100 rounded' />
-        <div className='w-full mt-1 text-sm md:text-normal'>
+        <div className='w-full mt-1 text-sm md:text-base'>
           {props.label}
         </div>
       </div>
