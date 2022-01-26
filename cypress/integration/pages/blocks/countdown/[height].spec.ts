@@ -21,13 +21,13 @@ context('/blocks/countdown/[query] on desktop - Event Name', () => {
       cy.findByTestId('CountdownSection.Hours.value').should('be.visible').contains(/\d+/)
       cy.findByTestId('CountdownSection.Hours.label').should('be.visible').should('have.text', 'Hours')
     })
-    cy.findByTestId('CountdownSection.Mins').within(() => {
-      cy.findByTestId('CountdownSection.Mins.value').should('be.visible').contains(/\d+/)
-      cy.findByTestId('CountdownSection.Mins.label').should('be.visible').should('have.text', 'Mins')
+    cy.findByTestId('CountdownSection.Minutes').within(() => {
+      cy.findByTestId('CountdownSection.Minutes.value').should('be.visible').contains(/\d+/)
+      cy.findByTestId('CountdownSection.Minutes.label').should('be.visible').should('have.text', 'Minutes')
     })
-    cy.findByTestId('CountdownSection.Secs').within(() => {
-      cy.findByTestId('CountdownSection.Secs.value').should('be.visible').contains(/\d+/)
-      cy.findByTestId('CountdownSection.Secs.label').should('be.visible').should('have.text', 'Secs')
+    cy.findByTestId('CountdownSection.Seconds').within(() => {
+      cy.findByTestId('CountdownSection.Seconds.value').should('be.visible').contains(/\d+/)
+      cy.findByTestId('CountdownSection.Seconds.label').should('be.visible').should('have.text', 'Seconds')
     })
   })
 
@@ -64,13 +64,13 @@ context('/blocks/countdown/[query] on desktop - Block Number', () => {
       cy.findByTestId('CountdownSection.Hours.value').should('be.visible').contains(/\d+/)
       cy.findByTestId('CountdownSection.Hours.label').should('be.visible').should('have.text', 'Hours')
     })
-    cy.findByTestId('CountdownSection.Mins').within(() => {
-      cy.findByTestId('CountdownSection.Mins.value').should('be.visible').contains(/\d+/)
-      cy.findByTestId('CountdownSection.Mins.label').should('be.visible').should('have.text', 'Mins')
+    cy.findByTestId('CountdownSection.Minutes').within(() => {
+      cy.findByTestId('CountdownSection.Minutes.value').should('be.visible').contains(/\d+/)
+      cy.findByTestId('CountdownSection.Minutes.label').should('be.visible').should('have.text', 'Minutes')
     })
-    cy.findByTestId('CountdownSection.Secs').within(() => {
-      cy.findByTestId('CountdownSection.Secs.value').should('be.visible').contains(/\d+/)
-      cy.findByTestId('CountdownSection.Secs.label').should('be.visible').should('have.text', 'Secs')
+    cy.findByTestId('CountdownSection.Seconds').within(() => {
+      cy.findByTestId('CountdownSection.Seconds.value').should('be.visible').contains(/\d+/)
+      cy.findByTestId('CountdownSection.Seconds.label').should('be.visible').should('have.text', 'Seconds')
     })
   })
 
@@ -121,13 +121,13 @@ context('/blocks/countdown/[query] on mobile - Event Name', () => {
       cy.findByTestId('CountdownSection.Hours.value').should('be.visible').contains(/\d+/)
       cy.findByTestId('CountdownSection.Hours.label').should('be.visible').should('have.text', 'Hours')
     })
-    cy.findByTestId('CountdownSection.Mins').within(() => {
-      cy.findByTestId('CountdownSection.Mins.value').should('be.visible').contains(/\d+/)
-      cy.findByTestId('CountdownSection.Mins.label').should('be.visible').should('have.text', 'Mins')
+    cy.findByTestId('CountdownSection.Minutes').within(() => {
+      cy.findByTestId('CountdownSection.Minutes.value').should('be.visible').contains(/\d+/)
+      cy.findByTestId('CountdownSection.Minutes.label').should('be.visible').should('have.text', 'Minutes')
     })
-    cy.findByTestId('CountdownSection.Secs').within(() => {
-      cy.findByTestId('CountdownSection.Secs.value').should('be.visible').contains(/\d+/)
-      cy.findByTestId('CountdownSection.Secs.label').should('be.visible').should('have.text', 'Secs')
+    cy.findByTestId('CountdownSection.Seconds').within(() => {
+      cy.findByTestId('CountdownSection.Seconds.value').should('be.visible').contains(/\d+/)
+      cy.findByTestId('CountdownSection.Seconds.label').should('be.visible').should('have.text', 'Seconds')
     })
   })
 
@@ -164,13 +164,13 @@ context('/blocks/countdown/[query] on mobile - Block Number', () => {
       cy.findByTestId('CountdownSection.Hours.value').should('be.visible').contains(/\d+/)
       cy.findByTestId('CountdownSection.Hours.label').should('be.visible').should('have.text', 'Hours')
     })
-    cy.findByTestId('CountdownSection.Mins').within(() => {
-      cy.findByTestId('CountdownSection.Mins.value').should('be.visible').contains(/\d+/)
-      cy.findByTestId('CountdownSection.Mins.label').should('be.visible').should('have.text', 'Mins')
+    cy.findByTestId('CountdownSection.Minutes').within(() => {
+      cy.findByTestId('CountdownSection.Minutes.value').should('be.visible').contains(/\d+/)
+      cy.findByTestId('CountdownSection.Minutes.label').should('be.visible').should('have.text', 'Minutes')
     })
-    cy.findByTestId('CountdownSection.Secs').within(() => {
-      cy.findByTestId('CountdownSection.Secs.value').should('be.visible').contains(/\d+/)
-      cy.findByTestId('CountdownSection.Secs.label').should('be.visible').should('have.text', 'Secs')
+    cy.findByTestId('CountdownSection.Seconds').within(() => {
+      cy.findByTestId('CountdownSection.Seconds.value').should('be.visible').contains(/\d+/)
+      cy.findByTestId('CountdownSection.Seconds.label').should('be.visible').should('have.text', 'Seconds')
     })
   })
 
