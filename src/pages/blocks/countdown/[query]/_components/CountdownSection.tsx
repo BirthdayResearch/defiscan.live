@@ -1,4 +1,5 @@
 import React from 'react'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 export function CountdownSection (props: { timeLeftSecs: number }): JSX.Element {
   const days = Math.floor(props.timeLeftSecs / (3600 * 24))
@@ -13,11 +14,12 @@ export function CountdownSection (props: { timeLeftSecs: number }): JSX.Element 
       <CountdownTime value={mins} label='Minutes' testId='Minutes' />
       <CountdownTime value={secs} label='Seconds' testId='Seconds' />
 
-      <div className='w-full lg:w-4/6 mt-2 md:mt-0 px-0.5 md:px-2 text-sm'>
+      <div className='w-full flex items-center lg:w-4/6 mt-2 md:mt-0 px-0.5 md:px-2 text-sm'>
         <span className='text-gray-500'>Estimated Target Date:</span>
         <span className='ml-1 text-gray-900 font-medium'>
           {new Date(new Date().getTime() + props.timeLeftSecs * 1000).toString()}
         </span>
+        <InfoHoverPopover className='ml-1 self-center' description='Estimated based on the number of blocks remaining.' placement='bottom' />
       </div>
     </div>
   )
