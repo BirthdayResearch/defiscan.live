@@ -29,7 +29,7 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (timeLeft <= 0 || currentHeight <= props.target.height) {
+      if (timeLeft <= 0 || currentHeight >= props.target.height) {
         location.reload()
         return () => clearTimeout(timer)
       }
