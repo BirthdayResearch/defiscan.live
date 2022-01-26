@@ -2,7 +2,14 @@ import React from 'react'
 
 export function CountdownSection (props: { timeLeftSecs: number | undefined, estimatedDateTime: Date }): JSX.Element {
   if (props.timeLeftSecs === undefined) {
-    return <></>
+    return (
+      <div className='flex flex-wrap justify-center -m-2 mt-8'>
+        <CountdownTimeLoading label='Days' />
+        <CountdownTimeLoading label='Hours' />
+        <CountdownTimeLoading label='Mins' />
+        <CountdownTimeLoading label='Secs' />
+      </div>
+    )
   }
 
   const days = Math.floor(props.timeLeftSecs / (3600 * 24))
@@ -43,6 +50,21 @@ function CountdownTime (props: { value: number, label: string, testId: string })
           {props.value}
         </div>
         <div className='w-full mt-1 text-sm md:text-normal' data-testid={`CountdownSection.${props.testId}.label`}>
+          {props.label}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CountdownTimeLoading (props: { label: string }): JSX.Element {
+  return (
+    <div className='p-0.5 md:p-2 w-1/4 lg:w-1/6'>
+      <div
+        className='flex flex-wrap rounded border py-4 md:py-8 text-center justify-center'
+      >
+        <div className='animate-pulse h-6 w-16 bg-gray-100 rounded' />
+        <div className='w-full mt-1 text-sm md:text-normal'>
           {props.label}
         </div>
       </div>
