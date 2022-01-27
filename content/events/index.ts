@@ -33,19 +33,28 @@ export const EVENTS: Record<string, EventCopy> = {
     slug: 'testEvent',
     name: 'Test Event',
     network: 'MainNet'
+  },
+  FortCanningHill: {
+    height: '1605000',
+    slug: 'FortCanningHill',
+    name: 'Fort Canning Hill',
+    network: 'MainNet'
   }
 }
 
 export function getEventCopy (id: string, context: GetServerSidePropsContext): EventCopy | undefined {
   const network = context.query.network?.toString() ?? getEnvironment().networks[0]
 
-  if (EVENTS[id] !== undefined && EVENTS[id].network === network) {
-    return EVENTS[id]
+  const eventBySlug = _.find(EVENTS, event => {
+    return event.slug.toLowerCase() === id.toLowerCase()
+  })
+  if (eventBySlug !== undefined && eventBySlug.network === network) {
+    return eventBySlug
   }
 
-  const event = _.find(EVENTS, ['height', id])
-  if (event !== undefined && event.network === network) {
-    return event
+  const eventByHeight = _.find(EVENTS, ['height', id])
+  if (eventByHeight !== undefined && eventByHeight.network === network) {
+    return eventByHeight
   }
 
   return undefined
