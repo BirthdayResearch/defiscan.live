@@ -39,7 +39,7 @@ export const EVENTS: Record<string, EventCopy> = {
     slug: 'FortCanningHill',
     name: 'Fort Canning Hill',
     network: 'MainNet'
-  },
+  }
 }
 
 export function getEventCopy (id: string, context: GetServerSidePropsContext): EventCopy | undefined {
