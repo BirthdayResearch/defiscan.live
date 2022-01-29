@@ -1,4 +1,5 @@
 import React from 'react'
+import NumberFormat from 'react-number-format'
 
 export function InfoSection (props: { target: { height: number, name: string | null } }): JSX.Element {
   return (
@@ -15,7 +16,12 @@ export function InfoSection (props: { target: { height: number, name: string | n
                   {props.target.name}
                 </div>
                 <div className='mt-1 text-sm text-gray-500 font-light' data-testid='InfoSection.EventHeight'>
-                  Target Height - {props.target.height}
+                  <NumberFormat
+                    value={props.target.height}
+                    displayType='text'
+                    thousandSeparator
+                    prefix='Target Height - '
+                  />
                 </div>
               </>
             )
@@ -23,7 +29,12 @@ export function InfoSection (props: { target: { height: number, name: string | n
 
           return (
             <div className='text-2xl md:text-3xl font-medium' data-testid='InfoSection.BlockHeight'>
-              Block #{props.target.height}
+              <NumberFormat
+                value={props.target.height}
+                displayType='text'
+                thousandSeparator
+                prefix='Block #'
+              />
             </div>
           )
         })()}

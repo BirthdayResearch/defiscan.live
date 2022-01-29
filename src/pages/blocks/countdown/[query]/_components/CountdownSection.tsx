@@ -33,7 +33,7 @@ function CountdownTime (props: { value: number, label: string, testId: string })
         data-testid={`CountdownSection.${props.testId}`}
       >
         <div
-          className='w-full text-lg sm:text-2xl md:text-4xl xl:text-5xl font-medium overflow-hidden overflow-ellipsis'
+          className='w-full text-xl sm:text-2xl md:text-4xl xl:text-5xl font-medium overflow-hidden overflow-ellipsis'
           data-testid={`CountdownSection.${props.testId}.value`}
         >
           {props.value}
