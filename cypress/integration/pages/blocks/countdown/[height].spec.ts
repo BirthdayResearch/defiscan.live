@@ -9,7 +9,7 @@ context('/blocks/countdown/[query] on desktop - Event Name', () => {
 
   it('should have InfoSection', () => {
     cy.findByTestId('InfoSection.EventTitle').should('have.text', 'Test Event')
-    cy.findByTestId('InfoSection.EventHeight').should('have.text', 'Target Height - 99999999')
+    cy.findByTestId('InfoSection.EventHeight').should('have.text', 'Target Height - 99,999,999')
   })
 
   it('should have CountdownSection', () => {
@@ -50,7 +50,7 @@ context('/blocks/countdown/[query] on desktop - Block Number', () => {
   })
 
   it('should have InfoSection', () => {
-    cy.findByTestId('InfoSection.BlockHeight').should('have.text', 'Block #99999998')
+    cy.findByTestId('InfoSection.BlockHeight').should('have.text', 'Block #99,999,998')
     cy.findByTestId('InfoSection.EventTitle').should('not.exist')
     cy.findByTestId('InfoSection.EventHeight').should('not.exist')
   })
@@ -94,7 +94,7 @@ context('/blocks/countdown/[query] on desktop - Block Number = Event', () => {
 
   it('should have InfoSection', () => {
     cy.findByTestId('InfoSection.EventTitle').should('have.text', 'Test Event')
-    cy.findByTestId('InfoSection.EventHeight').should('have.text', 'Target Height - 99999999')
+    cy.findByTestId('InfoSection.EventHeight').should('have.text', 'Target Height - 99,999,999')
   })
 })
 
@@ -109,7 +109,7 @@ context('/blocks/countdown/[query] on mobile - Event Name', () => {
 
   it('should have InfoSection', () => {
     cy.findByTestId('InfoSection.EventTitle').should('have.text', 'Test Event')
-    cy.findByTestId('InfoSection.EventHeight').should('have.text', 'Target Height - 99999999')
+    cy.findByTestId('InfoSection.EventHeight').should('have.text', 'Target Height - 99,999,999')
   })
 
   it('should have CountdownSection', () => {
@@ -150,7 +150,7 @@ context('/blocks/countdown/[query] on mobile - Block Number', () => {
   })
 
   it('should have InfoSection', () => {
-    cy.findByTestId('InfoSection.BlockHeight').should('have.text', 'Block #99999998')
+    cy.findByTestId('InfoSection.BlockHeight').should('have.text', 'Block #99,999,998')
     cy.findByTestId('InfoSection.EventTitle').should('not.exist')
     cy.findByTestId('InfoSection.EventHeight').should('not.exist')
   })
@@ -194,7 +194,7 @@ context('/blocks/countdown/[query] on mobile - Event Name = Event', () => {
 
   it('should have InfoSection', () => {
     cy.findByTestId('InfoSection.EventTitle').should('have.text', 'Test Event')
-    cy.findByTestId('InfoSection.EventHeight').should('have.text', 'Target Height - 99999999')
+    cy.findByTestId('InfoSection.EventHeight').should('have.text', 'Target Height - 99,999,999')
   })
 })
 

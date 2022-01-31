@@ -27,7 +27,7 @@ import {
   CResignMasternode,
   CSetCollateralToken,
   CSetDefaultLoanScheme,
-  CSetGovernance,
+  CSetGovernance, CSetGovernanceHeight,
   CSetLoanScheme,
   CSetLoanToken,
   CSetOracleData,
@@ -81,6 +81,7 @@ import { DfTxCompositeSwap } from './DfTx/DfTxCompositeSwap'
 import { DfTxPlaceAuctionBid } from './DfTx/DfTxPlaceAuctionBid'
 import { DfTxPayBackLoan } from './DfTx/DfTxPayBackLoan'
 import { DfTxWithdrawFromVault } from './DfTx/DfTxWithdrawFromVault'
+import { DfTxSetGovernanceHeight } from './DfTx/DfTxSetGovernanceHeight'
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>
@@ -172,6 +173,8 @@ export function TransactionDfTx (props: TransactionDfTxProps): JSX.Element | nul
       return <DfTxPlaceAuctionBid dftx={props.dftx} />
     case CWithdrawFromVault.OP_CODE:
       return <DfTxWithdrawFromVault dftx={props.dftx} />
+    case CSetGovernanceHeight.OP_CODE:
+      return <DfTxSetGovernanceHeight dftx={props.dftx} />
     default:
       return <DfTxUnmapped dftx={props.dftx} />
   }
