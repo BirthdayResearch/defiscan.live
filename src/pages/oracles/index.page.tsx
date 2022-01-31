@@ -24,7 +24,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
 
   const [typeSelection, setTypeCurrentSelection] = useState<string>('All')
   const [availabilitySelection, setAvailabilitySelection] = useState<boolean>(true)
-  const tickers: PriceFeedProps[] = []
+  let tickers: PriceFeedProps[] = []
   const collateralAndLoanTokensSet: Set<string> = new Set<string>()
 
   props.collateralAndLoanTokens.forEach(collateralAndLoanToken => {
@@ -40,6 +40,9 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
     }
     tickers.push(ticker)
   })
+
+  const dfiTicker = tickers.filter(ticker => ticker.price.id === 'DFI-USD')
+  tickers = dfiTicker.concat(tickers.filter(ticker => ticker.price.id !== 'DFI-USD').sort((a, b) => a.price.id.replace('-', '').localeCompare(b.price.id.replace('-', ''))))
 
   return (
     <Container className='pt-12 pb-20'>
