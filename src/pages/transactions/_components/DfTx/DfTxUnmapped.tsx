@@ -10,7 +10,7 @@ export function DfTxUnmapped (props: DfTxUnmappedProps): JSX.Element {
     <>
       <DfTxHeader name={props.dftx.name} />
       <div className='mt-5 bg-gray-100 p-6 border-gray-500 text-gray-600 rounded'>
-        <pre>{JSON.stringify(props.dftx, null, 2)}</pre>
+        <pre className='whitespace-pre-wrap break-all'>{JSON.stringify(props.dftx, null, 2)}</pre>
       </div>
     </>
   )
