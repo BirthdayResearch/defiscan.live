@@ -29,7 +29,7 @@
     "defichain": "^2.16.0",
     "lodash": "^4.17.21",
     "next": "12.0.9",
-    "next-sitemap": "^2.0.11",
+    "next-sitemap": "^2.1.6",
     "nextjs-progressbar": "^0.0.13",
     "qrcode.react": "^1.0.1",
     "randomcolor": "^0.6.2",
