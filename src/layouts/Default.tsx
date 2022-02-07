@@ -8,7 +8,6 @@ import { PropsWithChildren } from 'react'
 import { ScanAppProps } from '../pages/_app.page'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import { WarningBanner } from '@components/commons/banner/WarningBanner'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -45,13 +44,6 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
         <WhaleProvider>
           <StoreProvider state={props.initialReduxState}>
             <StatsProvider>
-              <WarningBanner>
-                <div>
-                  Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks
-                  (approx.
-                  60 minutes). DUSD should be open for loan payback and collateral at <a href='https://defiscan.live/blocks/countdown/1605120' className='text-primary-500 font-medium'>Block 1,605,120</a>.
-                </div>
-              </WarningBanner>
               <Header />
 
               <main className='flex-grow'>
