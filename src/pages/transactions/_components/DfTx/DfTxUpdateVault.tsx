@@ -25,7 +25,7 @@ export function DfTxUpdateVault (props: DfTxUpdateVaultProps): JSX.Element {
             <Link href={{ pathname: `/vaults/${props.dftx.data.vaultId}` }}>
               <a className='content'>
                 <TextTruncate
-                  text={props.dftx.data.vaultId} className='text-primary-500 hover:underline'
+                  text={props.dftx.data.vaultId} className='text-blue-500 hover:underline'
                   testId='DfTxUpdateVault.VaultID'
                 />
               </a>

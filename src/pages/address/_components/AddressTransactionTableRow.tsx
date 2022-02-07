@@ -43,7 +43,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
         </OverflowTable.Cell>
         <OverflowTable.Cell>
           <Link href={{ pathname: `/blocks/${props.addressActivity.block.height}` }}>
-            <a className='text-primary-400 hover:text-primary-500'>
+            <a className='text-blue-500 hover:underline'>
               {props.addressActivity.block.height}
             </a>
           </Link>

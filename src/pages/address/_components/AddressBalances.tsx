@@ -131,7 +131,7 @@ function TokenSymbolName (props: { token: AddressToken }): JSX.Element {
           return <TokenIcon className='h-6 w-6 mr-1' data-testid='AddressTokenCard.TokenSymbol' />
         })()}
 
-        <div className='text-gray-900 hover:text-primary-500' data-testid='AddressTokenCard.TokenName'>
+        <div className='text-gray-900 hover:text-blue-500' data-testid='AddressTokenCard.TokenName'>
           <Link href={{ pathname: `/tokens/${props.token.id}` }}>
             <a className='contents'>
               {props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}
