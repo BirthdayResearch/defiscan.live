@@ -16,7 +16,7 @@ export function BlockLink (props: PropsWithChildren<BlockLinkProps>): JSX.Elemen
   return (
     <div
       data-testid={props.testId}
-      className={classnames('hover:underline text-primary-500 cursor-pointer', props.className)}
+      className={classnames('hover:underline text-blue-500 cursor-pointer', props.className)}
     >
       <Link href={{ pathname: `/blocks/${props.block}` }}>
         {(() => {
