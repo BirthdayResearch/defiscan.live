@@ -8,7 +8,7 @@ context('/vaults', () => {
   })
 
   it('should have Vaults Stat Bar', () => {
-    cy.findByTestId('VaultStatsBar.CollateralizedVaults').should('exist')
+    cy.findByTestId('VaultStatsBar.Vaults').should('exist')
     cy.findByTestId('VaultStatsBar.TotalCollateralValue').should('exist')
     cy.findByTestId('VaultStatsBar.TotalLoanValue').should('exist')
     cy.findByTestId('VaultStatsBar.ActiveAuctions').should('exist')
@@ -59,7 +59,7 @@ context('/vaults on mobile', () => {
   })
 
   it('should have Vaults Stat Bar', () => {
-    cy.findByTestId('VaultStatsBar.CollateralizedVaults').should('exist')
+    cy.findByTestId('VaultStatsBar.Vaults').should('exist')
     cy.findByTestId('VaultStatsBar.TotalCollateralValue').should('exist')
     cy.findByTestId('VaultStatsBar.TotalLoanValue').should('exist')
     cy.findByTestId('VaultStatsBar.ActiveAuctions').should('exist')
