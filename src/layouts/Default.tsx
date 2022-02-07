@@ -49,7 +49,7 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
                 <div>
                   Vaults with DUSD are halted unexpectedly due to the price fluctuation protection for 120 blocks
                   (approx.
-                  60 minutes). DUSD should be open for loan payback and collateral at <a href='https://defiscan.live/blocks/countdown/1605120'>Block 1,605,120</a>.
+                  60 minutes). DUSD should be open for loan payback and collateral at <a href='https://defiscan.live/blocks/countdown/1605120' className='text-primary-500 font-medium'>Block 1,605,120</a>.
                 </div>
               </WarningBanner>
               <Header />
