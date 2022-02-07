@@ -52,7 +52,7 @@ function SummaryTableListLeft (props: {
       </AdaptiveList.Row>
       <AdaptiveList.Row name='Block Height'>
         <Link href={{ pathname: `/blocks/${props.transaction.block.height}` }}>
-          <a className='cursor-pointer hover:text-primary-500' data-testid='transaction-detail-block-height'>
+          <a className='cursor-pointer hover:text-blue-500' data-testid='transaction-detail-block-height'>
             {props.transaction.block.height}
           </a>
         </Link>

@@ -152,7 +152,7 @@ function FooterSectionAbout (): JSX.Element {
           accessible by everyone. For more info, visit
         </span>
         <a
-          className='ml-1 text-primary-500 cursor-pointer' href='https://defichain.com' target='_blank'
+          className='ml-1 text-blue-500 cursor-pointer' href='https://defichain.com' target='_blank'
           rel='noreferrer' data-testid='FooterSectionAbout.DFCLink'
         >
           DeFiChain.com

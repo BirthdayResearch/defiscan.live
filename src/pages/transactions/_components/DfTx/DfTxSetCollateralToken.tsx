@@ -15,7 +15,7 @@ export function DfTxSetCollateralToken (props: DfTxSetCollateralTokenProps): JSX
         <AdaptiveList className='w-full lg:w-1/2'>
           <AdaptiveList.Row name='Collateral Token' testId='DfTxSetCollateralToken.CollateralToken'>
             <Link href={{ pathname: `/tokens/${props.dftx.data.token}` }}>
-              <a className='text-primary-500 hover:underline '>{props.dftx.data.token}</a>
+              <a className='text-blue-500 hover:underline'>{props.dftx.data.token}</a>
             </Link>
           </AdaptiveList.Row>
           <AdaptiveList.Row name='Currency Pair' testId='DfTxSetCollateralToken.CurrencyPair'>
