@@ -6,6 +6,7 @@ import ReactNumberFormat from 'react-number-format'
 import { VaultLink } from '@components/commons/link/VaultLink'
 import { BidAmountValue } from '../../../../auctions/_components/commons/BidAmountValue'
 import { AuctionTimeLeft } from '../../../../auctions/_components/commons/AuctionTimeLeft'
+import { useTokenPrice } from '../../../hooks/TokenPrice'
 
 interface DesktopAuctionDetailsProps {
   vaultId: string
@@ -107,13 +108,9 @@ export function DesktopAuctionDetails (props: DesktopAuctionDetailsProps): JSX.E
 }
 
 function DesktopCollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.Element {
+  const { getTokenPrice } = useTokenPrice()
   const CollateralSymbol = getAssetIcon(props.collateral.symbol)
-  let collateralValue: BigNumber | undefined
-
-  if (props.collateral.activePrice?.active != null) {
-    const price = new BigNumber(props.collateral.activePrice.active.amount)
-    collateralValue = price.multipliedBy(props.collateral.amount)
-  }
+  const collateralValue = getTokenPrice(props.collateral.symbol, props.collateral.amount)
 
   return (
     <div className='w-1/2 lg:w-1/4 flex py-2 items-middle' data-testid='DesktopCollateralListItem'>
@@ -134,7 +131,7 @@ function DesktopCollateralListItem (props: { collateral: LoanVaultTokenAmount })
         </div>
         <div className='text-sm text-gray-500'>
           {
-            (collateralValue != null) && (
+            (!collateralValue.eq(0)) && (
               <ReactNumberFormat
                 value={collateralValue.toFixed(2, BigNumber.ROUND_HALF_UP)}
                 displayType='text'

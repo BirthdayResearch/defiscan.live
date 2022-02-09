@@ -7,6 +7,7 @@ import { VaultLink } from '@components/commons/link/VaultLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { BidAmountValue } from '../../../../auctions/_components/commons/BidAmountValue'
 import { AuctionTimeLeft } from '../../../../auctions/_components/commons/AuctionTimeLeft'
+import { useTokenPrice } from '../../../hooks/TokenPrice'
 
 interface MobileAuctionDetailsProps {
   vaultId: string
@@ -100,13 +101,9 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
 }
 
 function MobileCollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.Element {
+  const { getTokenPrice } = useTokenPrice()
   const CollateralSymbol = getAssetIcon(props.collateral.symbol)
-  let collateralValue: BigNumber | undefined
-
-  if (props.collateral.activePrice?.active != null) {
-    const price = new BigNumber(props.collateral.activePrice.active.amount)
-    collateralValue = price.multipliedBy(props.collateral.amount)
-  }
+  const collateralValue = getTokenPrice(props.collateral.symbol, props.collateral.amount)
 
   return (
     <div className='flex justify-between mt-4' data-testid='MobileCollateralListItem'>
@@ -129,7 +126,7 @@ function MobileCollateralListItem (props: { collateral: LoanVaultTokenAmount }):
         />
         <div className='text-sm text-gray-500'>
           {
-            (collateralValue != null) && (
+            (!collateralValue.eq(0)) && (
               <ReactNumberFormat
                 value={collateralValue.toFixed(2, BigNumber.ROUND_HALF_UP)}
                 displayType='text'
