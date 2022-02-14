@@ -11,6 +11,7 @@ interface BurnInfoData {
     tokens: string[]
     feeburn: string
     emissionburn: string
+    auctionburn: string
     paybackburn: string
     dfipaybackfee: string
     dfipaybacktokens: string[]
@@ -34,18 +35,15 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const rpc = getWhaleRpcClient(context)
   const burnInfo = await rpc.account.getBurnInfo()
 
-  const tokens = burnInfo.tokens.map(token => {
-    return String(token)
-  })
-
   return {
     props: {
       burnInfo: {
         address: burnInfo.address,
         amount: burnInfo.amount.toFixed(8),
-        tokens: tokens,
+        tokens: burnInfo.tokens,
         feeburn: burnInfo.feeburn.toFixed(8),
         emissionburn: burnInfo.emissionburn.toFixed(8),
+        auctionburn: burnInfo.auctionburn.toFixed(8),
         paybackburn: burnInfo.paybackburn.toFixed(8),
         dfipaybackfee: burnInfo.dfipaybackfee.toFixed(8),
         dfipaybacktokens: burnInfo.dfipaybacktokens
