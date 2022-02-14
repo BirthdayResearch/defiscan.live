@@ -22,6 +22,11 @@ export function getWhaleApiClient (context: GetServerSidePropsContext): WhaleApi
   return newWhaleClient(network)
 }
 
+export function getWhaleRpcClient (context: GetServerSidePropsContext): WhaleRpcClient {
+  const network = context.query.network?.toString() ?? getEnvironment().networks[0]
+  return newRpcClient(network)
+}
+
 export function useWhaleApiClient (): WhaleApiClient {
   return useContext(WhaleApiClientContext)
 }
@@ -31,7 +36,7 @@ export function WhaleProvider (props: PropsWithChildren<any>): JSX.Element | nul
 
   const memo = useMemo(() => {
     const api = newWhaleClient(connection)
-    const rpc = new WhaleRpcClient(api)
+    const rpc = newRpcClient(connection)
     return {
       api: api,
       rpc: rpc
@@ -74,5 +79,23 @@ function newWhaleClient (connection?: string | NetworkConnection): WhaleApiClien
         network: 'mainnet',
         version: 'v0.19'
       })
+  }
+}
+
+function newRpcClient (connection?: string | NetworkConnection): WhaleRpcClient {
+  switch (connection) {
+    case NetworkConnection.LocalPlayground:
+      return new WhaleRpcClient('http://localhost:19553/v0/regtest/rpc')
+    case NetworkConnection.RemotePlayground:
+      return new WhaleRpcClient('https://playground.defichain.com/v0/regtest/rpc')
+    case NetworkConnection.TestNet: {
+      const version = 'v0.23'
+      return new WhaleRpcClient(`https://ocean.defichain.com/${version}/testnet/rpc`)
+    }
+    case NetworkConnection.MainNet:
+    default: {
+      const version = 'v0.23'
+      return new WhaleRpcClient(`https://ocean.defichain.com/${version}/mainnet/rpc`)
+    }
   }
 }
