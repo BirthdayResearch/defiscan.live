@@ -3,6 +3,9 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import React from 'react'
 import { Container } from '@components/commons/Container'
 import { getWhaleRpcClient } from '@contexts/WhaleContext'
+import { AdaptiveList } from '@components/commons/AdaptiveList'
+import ReactNumberFormat from 'react-number-format'
+import BigNumber from 'bignumber.js'
 
 interface BurnInfoData {
   burnInfo: {
@@ -15,14 +18,76 @@ interface BurnInfoData {
     paybackburn: string
     dfipaybackfee: string
     dfipaybacktokens: string[]
+    dexfeetokens: string[]
   }
+  burnRates: Array<{
+    symbol: string
+    rate: string
+  }>
 }
 
-export default function BurnPage ({ burnInfo }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function BurnPage ({
+  burnInfo,
+  burnRates
+}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <>
-      <Head title='Burn Info' />
+      <Head title='Payback Burn Stats' />
       <Container>
+        <div className='text-2xl font-medium mt-10 mb-2'>
+          Payback Burn Stats
+        </div>
+        <div className='text-xl font-medium mt-6 mb-2'>
+          DFI
+        </div>
+        <AdaptiveList className='w-full lg:w-1/2'>
+          <AdaptiveList.Row name='DFI Burned'>
+            <ReactNumberFormat
+              displayType='text'
+              thousandSeparator
+              value={burnInfo.dfipaybackfee}
+              decimalScale={0}
+              data-testid='LiquidityCardStat.APR.Value'
+            />
+          </AdaptiveList.Row>
+        </AdaptiveList>
+        {
+          burnRates.map(tokenRates => {
+            return (
+              <div key={tokenRates.symbol}>
+                <div className='text-xl font-medium mt-6 mb-2'>
+                  {tokenRates.symbol}
+                </div>
+                <AdaptiveList className='w-full lg:w-1/2'>
+                  <AdaptiveList.Row name={`${tokenRates.symbol} Burned`}>
+                    <ReactNumberFormat
+                      displayType='text'
+                      thousandSeparator
+                      value={burnInfo.dexfeetokens.filter(token => token.endsWith('@DUSD'))[0]}
+                      decimalScale={0}
+                    />
+                  </AdaptiveList.Row>
+                  <AdaptiveList.Row
+                    name='Burn Rate' infoDesc={
+                      <div
+                        className='px-3 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md'
+                      >
+                        <pre>dfipaybacktokens / dexfeetokens = burn rate</pre>
+                      </div>
+                  }
+                  >
+                    <ReactNumberFormat
+                      displayType='text'
+                      thousandSeparator
+                      value={burnRates[0].rate}
+                      decimalScale={0}
+                    />
+                  </AdaptiveList.Row>
+                </AdaptiveList>
+              </div>
+            )
+          })
+        }
         <div className='mt-5 bg-gray-100 p-6 border-gray-500 text-gray-600 rounded'>
           <pre className='whitespace-pre-wrap break-all'>{JSON.stringify(burnInfo, null, 2)}</pre>
         </div>
@@ -35,6 +100,20 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const rpc = getWhaleRpcClient(context)
   const burnInfo = await rpc.account.getBurnInfo()
 
+  const burnRates = burnInfo.dfipaybacktokens.map(token => {
+    const amount = token.split('@')[0]
+    const symbol = token.split('@')[1]
+
+    const rate = new BigNumber(amount).div(burnInfo.dexfeetokens.filter(token => token.endsWith(`@${symbol}`))[0].replace(`@${symbol}`, ''))
+
+    return {
+      symbol: symbol,
+      rate: rate.toFixed(8)
+    }
+  })
+
+  console.log(burnRates)
+
   return {
     props: {
       burnInfo: {
@@ -42,12 +121,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         amount: burnInfo.amount.toFixed(8),
         tokens: burnInfo.tokens,
         feeburn: burnInfo.feeburn.toFixed(8),
-        emissionburn: burnInfo.emissionburn.toFixed(8),
         auctionburn: burnInfo.auctionburn.toFixed(8),
         paybackburn: burnInfo.paybackburn.toFixed(8),
-        dfipaybackfee: burnInfo.dfipaybackfee.toFixed(8),
-        dfipaybacktokens: burnInfo.dfipaybacktokens
-      }
+        dexfeetokens: burnInfo.dexfeetokens,
+        dfipaybackfee: burnInfo.dfipaybackfee.multipliedBy(100).toFixed(8),
+        dfipaybacktokens: burnInfo.dfipaybacktokens,
+        emissionburn: burnInfo.emissionburn.toFixed(8)
+      },
+      burnRates
     }
   }
 }
