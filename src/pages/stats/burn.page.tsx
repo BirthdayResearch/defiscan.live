@@ -72,7 +72,7 @@ export default function BurnPage ({
                       <div
                         className='px-3 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md'
                       >
-                        <pre> dexfeetokens / dfipaybacktokens = burn %</pre>
+                        <pre> dexfeetokens / dfipaybacktokens * 100 = burn %</pre>
                       </div>
                   }
                   >
