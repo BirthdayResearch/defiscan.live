@@ -68,11 +68,11 @@ export default function BurnPage ({
                     />
                   </AdaptiveList.Row>
                   <AdaptiveList.Row
-                    name='Burn Rate' infoDesc={
+                    name='Burn %' infoDesc={
                       <div
                         className='px-3 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md'
                       >
-                        <pre>dfipaybacktokens / dexfeetokens = burn rate</pre>
+                        <pre> dexfeetokens / dfipaybacktokens = burn %</pre>
                       </div>
                   }
                   >
@@ -80,7 +80,8 @@ export default function BurnPage ({
                       displayType='text'
                       thousandSeparator
                       value={burnRates[0].rate}
-                      decimalScale={0}
+                      decimalScale={3}
+                      suffix='%'
                     />
                   </AdaptiveList.Row>
                 </AdaptiveList>
@@ -104,15 +105,15 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     const amount = token.split('@')[0]
     const symbol = token.split('@')[1]
 
-    const rate = new BigNumber(amount).div(burnInfo.dexfeetokens.filter(token => token.endsWith(`@${symbol}`))[0].replace(`@${symbol}`, ''))
+    const rate = new BigNumber(burnInfo.dexfeetokens.filter(token => token.endsWith(`@${symbol}`))[0].replace(`@${symbol}`, ''))
+      .div(amount)
+      .multipliedBy(100)
 
     return {
       symbol: symbol,
       rate: rate.toFixed(8)
     }
   })
-
-  console.log(burnRates)
 
   return {
     props: {
