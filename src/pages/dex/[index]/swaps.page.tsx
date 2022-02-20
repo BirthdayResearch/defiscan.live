@@ -85,7 +85,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const next = CursorPagination.getNext(context)
   try {
-    const items = await getWhaleApiClient(context).poolpairs.listPoolSwaps(index, 100, next)
+    const items = await getWhaleApiClient(context).poolpairs.listPoolSwaps(index, 200, next)
     return {
       props: {
         index: index,
