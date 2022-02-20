@@ -149,15 +149,13 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       const vouts = await getVouts(item.txid)
       const dftx = getDfTx(vouts)
 
-      console.log(dftx?.name)
-
-      let from: string | null = null
-      let to: string | null = null
+      let from: string | undefined
+      let to: string | undefined
 
       if (dftx !== undefined) {
         if (dftx.name === 'OP_DEFI_TX_POOL_SWAP') {
-          from = dftx.data.fromScript !== undefined ? fromScript(dftx.data.fromScript, 'mainnet')?.address : null
-          to = dftx.data.toScript !== undefined ? fromScript(dftx.data.toScript, 'mainnet')?.address : null
+          from = dftx.data.fromScript !== undefined ? fromScript(dftx.data.fromScript, 'mainnet')?.address : undefined
+          to = dftx.data.toScript !== undefined ? fromScript(dftx.data.toScript, 'mainnet')?.address : undefined
         } else {
           from = fromScript(dftx.data.poolSwap.fromScript, 'mainnet')?.address
           to = fromScript(dftx.data.poolSwap.toScript, 'mainnet')?.address
@@ -165,10 +163,22 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       }
 
       return {
-        ...item,
+        id: item.id,
+        sort: item.sort,
+        txid: item.txid,
+        txno: item.txno,
+        poolPairId: item.poolPairId,
+        fromAmount: item.fromAmount,
+        fromTokenId: item.fromTokenId,
+        block: {
+          hash: item.block.hash,
+          height: item.block.height,
+          time: item.block.time,
+          medianTime: item.block.medianTime
+        },
         addresses: {
-          from: from,
-          to: to
+          from: (from !== undefined ? from : null),
+          to: (to !== undefined ? to : null)
         }
       }
     })
@@ -177,6 +187,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       props: {
         index: index,
         swaps: {
+          // @ts-expect-error
           items: await Promise.all(_swaps),
           pages: CursorPagination.getPages(context, items)
         }
