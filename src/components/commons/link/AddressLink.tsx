@@ -17,7 +17,7 @@ export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.El
   return (
     <div
       data-testid={props.testId}
-      className={classnames('hover:underline text-blue-500 cursor-pointer', props.className)}
+      className={classnames('hover:underline cursor-pointer', props.className ?? 'text-blue-500')}
     >
       <Link href={{ pathname: `/address/${props.address}` }}>
         {(() => {

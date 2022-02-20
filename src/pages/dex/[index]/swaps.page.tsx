@@ -3,18 +3,41 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import React from 'react'
 import { Container } from '@components/commons/Container'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
-import { PoolSwap } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { BlockLink } from '@components/commons/link/BlockLink'
+import { TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
+import { DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
+import { SmartBuffer } from 'smart-buffer'
+import { fromScript } from '@defichain/jellyfish-address'
+import { AddressLink } from '@components/commons/link/AddressLink'
+import classNames from 'classnames'
 
 interface SwapsData {
   index: string
   swaps: {
-    items: PoolSwap[]
+    items: Array<{
+      id: string
+      sort: string
+      txid: string
+      txno: number
+      poolPairId: string
+      fromAmount: string
+      fromTokenId: number
+      block: {
+        hash: string
+        height: number
+        time: number
+        medianTime: number
+      }
+      addresses: {
+        from: string | undefined
+        to: string | undefined
+      }
+    }>
     pages: CursorPage[]
   }
 }
@@ -46,6 +69,14 @@ export default function SwapsPage ({
                 testId='AuctionTable.LoanToken'
               />
               <OverflowTable.Head
+                title='From Address'
+                testId='AuctionTable.LoanToken'
+              />
+              <OverflowTable.Head
+                title='To Address'
+                testId='AuctionTable.LoanToken'
+              />
+              <OverflowTable.Head
                 title='Block Height'
                 testId='AuctionTable.CollateralForAuction'
                 className='lg:w-52'
@@ -67,6 +98,30 @@ export default function SwapsPage ({
                     </div>
                   </OverflowTable.Cell>
                   <OverflowTable.Cell>
+                    <div className='break-all w-24 md:w-64'>
+                      <AddressLink
+                        address={swap.addresses.from ?? ''}
+                        className={classNames(
+                          {
+                            'text-red-500': swap.addresses.from !== swap.addresses.to,
+                            'text-blue-500': swap.addresses.from === swap.addresses.to
+                          })}
+                      />
+                    </div>
+                  </OverflowTable.Cell>
+                  <OverflowTable.Cell>
+                    <div className='break-all w-24 md:w-64'>
+                      <AddressLink
+                        address={swap.addresses.to ?? ''}
+                        className={classNames(
+                          {
+                            'text-red-500': swap.addresses.from !== swap.addresses.to,
+                            'text-blue-500': swap.addresses.from === swap.addresses.to
+                          })}
+                      />
+                    </div>
+                  </OverflowTable.Cell>
+                  <OverflowTable.Cell>
                     <BlockLink block={swap.block.height.toString()} className='break-all' />
                   </OverflowTable.Cell>
                 </OverflowTable.Row>
@@ -84,15 +139,45 @@ export default function SwapsPage ({
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<SwapsData>> {
   const index = context.params?.index?.toString().trim() as string
+  const api = getWhaleApiClient(context)
 
   const next = CursorPagination.getNext(context)
   try {
-    const items = await getWhaleApiClient(context).poolpairs.listPoolSwaps(index, 200, next)
+    const items = await api.poolpairs.listPoolSwaps(index, 200, next)
+
+    const _swaps = items.map(async item => {
+      const vouts = await getVouts(item.txid)
+      const dftx = getDfTx(vouts)
+
+      console.log(dftx?.name)
+
+      let from: string | null = null
+      let to: string | null = null
+
+      if (dftx !== undefined) {
+        if (dftx.name === 'OP_DEFI_TX_POOL_SWAP') {
+          from = dftx.data.fromScript !== undefined ? fromScript(dftx.data.fromScript, 'mainnet')?.address : null
+          to = dftx.data.toScript !== undefined ? fromScript(dftx.data.toScript, 'mainnet')?.address : null
+        } else {
+          from = fromScript(dftx.data.poolSwap.fromScript, 'mainnet')?.address
+          to = fromScript(dftx.data.poolSwap.toScript, 'mainnet')?.address
+        }
+      }
+
+      return {
+        ...item,
+        addresses: {
+          from: from,
+          to: to
+        }
+      }
+    })
+
     return {
       props: {
         index: index,
         swaps: {
-          items,
+          items: await Promise.all(_swaps),
           pages: CursorPagination.getPages(context, items)
         }
       }
@@ -101,5 +186,26 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return {
       notFound: true
     }
+  }
+
+  async function getVouts (txid): Promise<TransactionVout[]> {
+    const vouts: TransactionVout[] = []
+    let voutsResponse = await api.transactions.getVouts(txid, 100)
+    vouts.push(...voutsResponse)
+    while (voutsResponse.hasNext) {
+      voutsResponse = await api.transactions.getVouts(txid, 100, voutsResponse.nextToken)
+      vouts.push(...voutsResponse)
+    }
+    return vouts
+  }
+
+  function getDfTx (vouts: TransactionVout[]): DfTx<any> | undefined {
+    const hex = vouts[0].script.hex
+    const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
+    const stack = toOPCodes(buffer)
+    if (stack.length !== 2 || stack[1].type !== 'OP_DEFI_TX') {
+      return undefined
+    }
+    return (stack[1] as OP_DEFI_TX).tx
   }
 }

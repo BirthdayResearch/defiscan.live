@@ -33,11 +33,7 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
       </AdaptiveTable.Header>
 
       {poolPairs.map((data) => (
-        <Link href={{ pathname: `/dex/${data.id}/swaps` }} key={data.id}>
-          <a className='content'>
-            <PoolPairRow data={data} />
-          </a>
-        </Link>
+        <PoolPairRow data={data} key={data.id} />
       ))}
     </AdaptiveTable>
 
@@ -52,12 +48,14 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   return (
     <AdaptiveTable.Row>
       <AdaptiveTable.Cell title='PAIR' className='align-middle'>
-
-        <PoolPairSymbol
-          poolPairId={data.id} symbolSizeClassName='h-8 w-8'
-          symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
-        />
-
+        <Link href={{ pathname: `/dex/${data.id}/swaps` }} key={data.id}>
+          <a className='content'>
+            <PoolPairSymbol
+              poolPairId={data.id} symbolSizeClassName='h-8 w-8'
+              symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
+            />
+          </a>
+        </Link>
       </AdaptiveTable.Cell>
       <AdaptiveTable.Cell title='TOTAL LIQUIDITY' className='align-middle lg:text-right'>
         {data.totalLiquidity.usd !== undefined ? (
