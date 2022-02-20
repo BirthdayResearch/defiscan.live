@@ -8,6 +8,8 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { TokenSymbol } from '@components/commons/TokenSymbol'
 import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
+import { TxIdLink } from '@components/commons/link/TxIdLink'
+import { BlockLink } from '@components/commons/link/BlockLink'
 
 interface SwapsData {
   index: string
@@ -53,7 +55,7 @@ export default function SwapsPage ({
               return (
                 <OverflowTable.Row key={swap.id}>
                   <OverflowTable.Cell>
-                    {swap.txid}
+                    <TxIdLink txid={swap.txid} className='break-all' />
                   </OverflowTable.Cell>
                   <OverflowTable.Cell>
                     <div className='flex flex-wrap'>
@@ -65,7 +67,7 @@ export default function SwapsPage ({
                     </div>
                   </OverflowTable.Cell>
                   <OverflowTable.Cell>
-                    {swap.block.height}
+                    <BlockLink block={swap.block.height.toString()} className='break-all' />
                   </OverflowTable.Cell>
                 </OverflowTable.Row>
               )
