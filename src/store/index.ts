@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { configureStore } from '@reduxjs/toolkit'
 import { stats } from '@store/stats'
+import { poolpairs } from '@store/poolpairs'
 
 /**
  * RootState for DeFi Scan
@@ -13,7 +14,8 @@ import { stats } from '@store/stats'
 export function initializeStore (preloadedState?: any) {
   return configureStore({
     reducer: {
-      stats: stats.reducer
+      stats: stats.reducer,
+      poolpairs: poolpairs.reducer
     },
     preloadedState: preloadedState
   })

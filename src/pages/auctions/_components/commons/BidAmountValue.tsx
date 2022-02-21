@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js'
 import React from 'react'
 import { HighestBid, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
 import classNames from 'classnames'
+import { useTokenPrice } from '../../../vaults/hooks/TokenPrice'
 
 interface MinNextBidProps {
   displaySymbol: string
@@ -15,19 +16,17 @@ interface MinNextBidProps {
 }
 
 export function BidAmountValue (props: MinNextBidProps): JSX.Element {
+  const { getTokenPrice } = useTokenPrice()
+
   let minBidAmount: BigNumber
-  let minBidValue: BigNumber | undefined
+  let minBidValue: BigNumber
 
   if (props.highestBid?.amount === undefined || props.isStartingBid!) {
     minBidAmount = new BigNumber(props.loan.amount).multipliedBy(1.05)
-    minBidValue = ((props.loan.activePrice?.active) != null) ? new BigNumber(props.loan.activePrice.active.amount).multipliedBy(minBidAmount) : undefined
+    minBidValue = getTokenPrice(props.loan.symbol, minBidAmount.toFixed(8))
   } else {
     minBidAmount = new BigNumber(props.highestBid.amount.amount).multipliedBy(1.01)
-    minBidValue = ((props.highestBid.amount.activePrice?.active) != null) ? new BigNumber(props.highestBid.amount.activePrice.active.amount).multipliedBy(minBidAmount) : undefined
-  }
-
-  if (props.loan.displaySymbol === 'DUSD') {
-    minBidValue = minBidAmount
+    minBidValue = getTokenPrice(props.loan.symbol, minBidAmount.toFixed(8))
   }
 
   return (
@@ -44,7 +43,7 @@ export function BidAmountValue (props: MinNextBidProps): JSX.Element {
         className={classNames('text-gray-500', props.valueClassName)} data-testid='BidAmountValue.MinBidValue'
       >
         {
-          minBidValue === undefined ? (
+          minBidValue.eq(0) ? (
             'N/A'
           ) : (
             <ReactNumberFormat
