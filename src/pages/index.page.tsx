@@ -9,7 +9,7 @@ import { LiquidityPoolList } from '@components/index/LiquidityPoolList'
 import { BlocksList } from '@components/index/BlocksList'
 import { TransactionsList } from '@components/index/TransactionsList'
 import { useEffect, useState } from 'react'
-import { IndexStats } from '@components/index/IndexStats'
+import { SupplyStats } from '@components/index/SupplyStats'
 
 interface HomePageProps {
   blocks: Block[]
@@ -62,7 +62,7 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
     <>
       <IndexHeader />
       <Container className='pb-20'>
-        <IndexStats />
+        <SupplyStats />
         <div className='flex flex-wrap -mx-2'>
           <div className='w-full lg:w-3/5 xl:w-2/3 px-1'>
             <TransactionsList transactions={data.transactions} />
