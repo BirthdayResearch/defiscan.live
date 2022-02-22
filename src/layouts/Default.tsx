@@ -9,6 +9,7 @@ import { ScanAppProps } from '../pages/_app.page'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { PoolPairsProvider } from '@store/poolpairs'
+import { SupplyProvider } from '@store/supply'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -45,15 +46,15 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
         <WhaleProvider>
           <StoreProvider state={props.initialReduxState}>
             <StatsProvider>
-              <PoolPairsProvider>
-                <Header />
-
-                <main className='flex-grow'>
-                  {props.children}
-                </main>
-
-                <Footer />
-              </PoolPairsProvider>
+              <SupplyProvider>
+                <PoolPairsProvider>
+                  <Header />
+                  <main className='flex-grow'>
+                    {props.children}
+                  </main>
+                  <Footer />
+                </PoolPairsProvider>
+              </SupplyProvider>
             </StatsProvider>
           </StoreProvider>
         </WhaleProvider>
