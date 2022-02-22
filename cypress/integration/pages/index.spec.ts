@@ -19,6 +19,24 @@ context('/ on macbook-16', () => {
     cy.findByTestId('StatItem.difficulty').should('exist')
   })
 
+  it('should have Supply Stats', function () {
+    cy.findByTestId('SupplyStats.Desktop').should('exist')
+    cy.findAllByTestId('StatPriceCard').should('exist')
+    cy.findByTestId('SupplyStats.Desktop').should('be.visible')
+    cy.findByTestId('SupplyStats.Mobile').should('not.be.visible')
+    cy.findAllByTestId('StatPriceCard').within(() => {
+      cy.findByTestId('StatPriceCard.Price').should('exist')
+      cy.findByTestId('StatPriceCard.UpdatedAt').should('exist')
+    })
+
+    cy.findByTestId('SupplyStats.Desktop').within(() => {
+      cy.findByTestId('StatCard.Tvl').should('be.visible')
+      cy.findByTestId('StatCard.TotalBurned').should('be.visible')
+      cy.findByTestId('StatCard.TotalMinted').should('be.visible')
+      cy.findByTestId('StatCard.Circulating').should('be.visible')
+    })
+  })
+
   it('should have Transactions', () => {
     cy.findByTestId('Mobile.TransactionList').should('not.be.visible')
     cy.findByTestId('Desktop.TransactionList').should('be.visible')
@@ -99,6 +117,24 @@ context('/ on iphone-x', () => {
     cy.findByTestId('StatItem.blockReward').should('exist')
     cy.findByTestId('StatItem.totalDFIBurned').should('exist')
     cy.findByTestId('StatItem.difficulty').should('exist')
+  })
+
+  it('should have Supply Stats', function () {
+    cy.findByTestId('SupplyStats.Desktop').should('exist')
+    cy.findByTestId('SupplyStats.Mobile').should('be.visible')
+    cy.findByTestId('SupplyStats.Desktop').should('not.be.visible')
+    cy.findAllByTestId('StatPriceCard').should('exist')
+    cy.findAllByTestId('StatPriceCard').within(() => {
+      cy.findByTestId('StatPriceCard.Price').should('exist')
+      cy.findByTestId('StatPriceCard.UpdatedAt').should('exist')
+    })
+
+    cy.findByTestId('SupplyStats.Mobile').within(() => {
+      cy.findByTestId('StatCard.Tvl').should('be.visible')
+      cy.findByTestId('StatCard.TotalBurned').should('be.visible')
+      cy.findByTestId('StatCard.TotalMinted').should('be.visible')
+      cy.findByTestId('StatCard.Circulating').should('be.visible')
+    })
   })
 
   it('should have Transactions', () => {
