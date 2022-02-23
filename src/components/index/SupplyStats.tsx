@@ -145,7 +145,7 @@ function StatCard (props: PropsWithChildren<{infodesc: string, heading: string, 
             className='text-lg lg:text-2xl font-semibold'
             decimalScale={0}
           />
-          <span>{props.suffix}</span>
+          <span className='ml-1'>{props.suffix}</span>
         </div>
         {props.children}
       </div>
