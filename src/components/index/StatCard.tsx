@@ -1,8 +1,17 @@
 import { StatsState } from '@store/stats'
 import { DFI as DfiIcon } from '@components/icons/assets/tokens/DFI'
 import ReactNumberFormat from 'react-number-format'
+import { DefaultLoader } from '@components/commons/sections/SkelatonContent'
 
 export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
+  if (props.stats.price.usdt === undefined) {
+    return (
+      <DefaultLoader
+        height={240}
+        width={300}
+      />
+    )
+  }
   return (
     <div
       className='rounded-xl border border-gray-200 lg:shrink-0 p-4 md:p-8 w-full md:w-[21rem] flex flex-col h-[8rem] md:h-[15.5rem]'
