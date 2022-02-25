@@ -6,7 +6,6 @@ import { RootState } from '@store/index'
 import { StatPriceCard } from '@components/index/StatCard'
 import { CalculatePercentage } from '../../utils/index/CalculatePercentage'
 import { useSelector } from 'react-redux'
-import { DefaultLoader } from '@components/commons/sections/SkelatonContent'
 
 export function SupplyStats (): JSX.Element {
   const stats = useSelector((state: RootState) => state.stats)
@@ -133,35 +132,23 @@ export function SupplyStats (): JSX.Element {
 function StatCard (props: PropsWithChildren<{infodesc: string, heading: string, stat: number, suffix?: string, testId: string}>): JSX.Element {
   return (
     <div className='md:pl-2 md:pb-2 w-full md:w-1/2' data-testid={props.testId}>
-      {(() => {
-        if (props.stat === 0) {
-          return (
-            <DefaultLoader
-              height={120}
-              width={300}
-            />
-          )
-        }
-        return (
-          <div className='flex flex-col border border-gray-200 py-4 px-6 h-[7.5rem] rounded-lg'>
-            <div className='flex items-center'>
-              <span className='font-normal text-sm md:text-base mr-2'>{props.heading}</span>
-              <InfoHoverPopover description={props.infodesc} />
-            </div>
-            <div className='flex flex-wrap items-center'>
-              <ReactNumberFormat
-                value={props.stat}
-                displayType='text'
-                thousandSeparator
-                className='text-lg lg:text-2xl font-semibold'
-                decimalScale={0}
-              />
-              <span className='ml-1'>{props.suffix}</span>
-            </div>
-            {props.children}
-          </div>
-        )
-      })()}
+      <div className='flex flex-col border border-gray-200 py-4 px-6 h-[7.5rem] rounded-lg'>
+        <div className='flex items-center'>
+          <span className='font-normal text-sm md:text-base mr-2'>{props.heading}</span>
+          <InfoHoverPopover description={props.infodesc} />
+        </div>
+        <div className='flex flex-wrap items-center'>
+          <ReactNumberFormat
+            value={props.stat}
+            displayType='text'
+            thousandSeparator
+            className='text-lg lg:text-2xl font-semibold'
+            decimalScale={0}
+          />
+          <span className='ml-1'>{props.suffix}</span>
+        </div>
+        {props.children}
+      </div>
     </div>
   )
 }
