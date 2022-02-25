@@ -141,14 +141,30 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         {(() => {
           if (data.apr !== undefined) {
             return (
-              <NumberFormat
-                value={data.apr.total * 100}
-                displayType='text'
-                thousandSeparator
-                decimalScale={2}
-                fixedDecimalScale
-                suffix=' %'
-              />
+              <div>
+                <div>
+                  <NumberFormat
+                    value={data.apr.reward * 100}
+                    displayType='text'
+                    thousandSeparator
+                    decimalScale={2}
+                    fixedDecimalScale
+                    suffix=' %'
+                    prefix='Reward: '
+                  />
+                </div>
+                <div>
+                  <NumberFormat
+                    value={data.apr.commission * 100}
+                    displayType='text'
+                    thousandSeparator
+                    decimalScale={2}
+                    fixedDecimalScale
+                    suffix=' %'
+                    prefix='Commission: '
+                  />
+                </div>
+              </div>
             )
           } else {
             return (
