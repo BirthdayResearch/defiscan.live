@@ -28,9 +28,9 @@ export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
       </div>
       <span
         data-testid='StatPriceCard.UpdatedAt'
-        className='mt-auto text-gray-500 text-xs md:text-lg'
+        className='mt-auto text-gray-500 text-xs md:text-base'
       >
-        updated at {props.stats.updatedAt}
+                {`Updated at ${props.stats.updatedAt}`}
       </span>
     </div>
   )
