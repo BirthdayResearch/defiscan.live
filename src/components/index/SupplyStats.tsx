@@ -47,7 +47,7 @@ export function SupplyStats (): JSX.Element {
           >
             <div className='mt-auto text-gray-500 flex divide-x text-sm md:text-xs lg:text-sm'>
               <div className='px-1'>
-                Dex: <span className='text-black'>{CalculatePercentage(stats.tvl.dex!, stats.tvl.total!)}</span>
+                DEX: <span className='text-black'>{CalculatePercentage(stats.tvl.dex!, stats.tvl.total!)}</span>
               </div>
               <div className='px-1'>
                 Masternode: <span className='text-black'>{CalculatePercentage(stats.tvl.masternodes!, stats.tvl.total!)}</span>
