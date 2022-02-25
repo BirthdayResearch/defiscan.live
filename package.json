@@ -19,7 +19,7 @@
     "@defichain/jellyfish-address": "^2.19.0",
     "@defichain/jellyfish-transaction": "^2.19.0",
     "@defichain/playground-api-client": "^0.16.0",
-    "@defichain/whale-api-client": "^0.26.1",
+    "@defichain/whale-api-client": "^0.26.2",
     "@headlessui/react": "^1.5.0",
     "@reduxjs/toolkit": "^1.7.2",
     "@tailwindcss/line-clamp": "^0.3.1",
