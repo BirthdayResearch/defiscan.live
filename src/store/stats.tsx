@@ -5,8 +5,9 @@ import { StatsData } from '@defichain/whale-api-client/dist/api/stats'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PropsWithChildren, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { formatISO } from 'date-fns'
 
-interface StatsState {
+export interface StatsState {
   count: {
     blocks?: number
     tokens?: number
@@ -64,6 +65,7 @@ interface StatsState {
       loan: number
     }
   }
+  updatedAt: string
 }
 
 const initialState: StatsState = {
@@ -75,7 +77,8 @@ const initialState: StatsState = {
   emission: {},
   blockchain: {},
   net: {},
-  loan: {}
+  loan: {},
+  updatedAt: formatISO(Date.now(), { representation: 'time' })
 }
 
 export const stats = createSlice({
@@ -92,6 +95,7 @@ export const stats = createSlice({
       state.blockchain = action.payload.blockchain
       state.net = action.payload.net
       state.loan = action.payload.loan
+      state.updatedAt = formatISO(Date.now(), { representation: 'time' })
     }
   }
 })
