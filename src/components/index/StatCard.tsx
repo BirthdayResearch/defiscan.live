@@ -30,7 +30,7 @@ export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
         data-testid='StatPriceCard.UpdatedAt'
         className='mt-auto text-gray-500 text-xs md:text-base'
       >
-                {`Updated at ${props.stats.updatedAt}`}
+        {`Updated at ${props.stats.updatedAt}`}
       </span>
     </div>
   )
