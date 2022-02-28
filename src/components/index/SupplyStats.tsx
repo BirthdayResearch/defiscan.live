@@ -24,7 +24,7 @@ export function SupplyStats (): JSX.Element {
             testId='StatCard.TotalMinted'
           >
             <div className='mt-auto text-gray-500 text-sm'>
-              <span className='text-black'>{CalculatePercentage(supply.total, supply.max)}</span>  from max supply
+              <span className='text-black'>{CalculatePercentage(supply.total, supply.max)}</span> from max supply
             </div>
           </StatCard>
           <StatCard
@@ -35,22 +35,24 @@ export function SupplyStats (): JSX.Element {
             testId='StatCard.Circulating'
           >
             <div className='mt-auto text-gray-500 text-sm'>
-              <span className='text-black'>{CalculatePercentage(supply.circulating, supply.total)}</span> from total minted
+              <span className='text-black'>{CalculatePercentage(supply.circulating, supply.total)}</span> from total
+              minted
             </div>
           </StatCard>
           <StatCard
             infodesc='Total Value Locked is the overall value of assets deposited in DeFiChain. This includes assets locked in DEXs, Masternodes, and collaterals in vaults'
             heading='Total Value Locked'
             stat={stats.tvl.total ?? 0}
-            suffix=' DFI'
+            prefix='$'
             testId='StatCard.Tvl'
           >
-            <div className='mt-auto text-gray-500 flex divide-x text-sm md:text-xs lg:text-sm'>
+            <div className='mt-auto text-gray-500 flex divide-x text-sm md:text-xs lg:text-sm -mx-1'>
               <div className='px-1'>
                 DEX: <span className='text-black'>{CalculatePercentage(stats.tvl.dex!, stats.tvl.total!)}</span>
               </div>
               <div className='px-1'>
-                Masternode: <span className='text-black'>{CalculatePercentage(stats.tvl.masternodes!, stats.tvl.total!)}</span>
+                Masternode:
+                <span className='text-black'>{CalculatePercentage(stats.tvl.masternodes!, stats.tvl.total!)}</span>
               </div>
               <div className='px-1'>
                 Vaults: <span className='text-black'>{CalculatePercentage(stats.tvl.loan!, stats.tvl.total!)}</span>
@@ -80,7 +82,7 @@ export function SupplyStats (): JSX.Element {
             testId='StatCard.TotalMinted'
           >
             <div className='mt-auto text-gray-500 text-sm'>
-              <span className='font-semibold'>{CalculatePercentage(supply.total, supply.max)}</span>  from max supply
+              <span className='font-semibold'>{CalculatePercentage(supply.total, supply.max)}</span> from max supply
             </div>
           </StatCard>
           <StatCard
@@ -91,19 +93,20 @@ export function SupplyStats (): JSX.Element {
             testId='StatCard.Circulating'
           >
             <div className='mt-auto text-gray-500 text-sm'>
-              <span className='font-semibold'>{CalculatePercentage(supply.circulating, supply.total)}</span> from total minted
+              <span className='font-semibold'>{CalculatePercentage(supply.circulating, supply.total)}</span> from total
+              minted
             </div>
           </StatCard>
           <StatCard
             infodesc='Total Value Locked is the overall value of assets deposited in DeFiChain. This includes assets locked in DEXs, Masternodes, and collaterals in vaults'
             heading='Total Value Locked'
             stat={stats.tvl.total ?? 0}
-            suffix=' DFI'
+            prefix='$'
             testId='StatCard.Tvl'
           >
-            <div className='mt-auto text-gray-500 flex divide-x text-sm'>
+            <div className='mt-auto text-gray-500 flex divide-x text-sm -mx-1'>
               <div className='px-1'>
-                Dex: <span className='text-black'>{CalculatePercentage(stats.tvl.dex!, stats.tvl.total!)}</span>
+                DEX: <span className='text-black'>{CalculatePercentage(stats.tvl.dex!, stats.tvl.total!)}</span>
               </div>
               <div className='px-1'>
                 MN: <span className='text-black'>{CalculatePercentage(stats.tvl.masternodes!, stats.tvl.total!)}</span>
@@ -120,7 +123,8 @@ export function SupplyStats (): JSX.Element {
             testId='StatCard.TotalBurned'
           >
             <div className='mt-auto text-gray-500 text-sm'>
-              <span className='font-semibold'>{CalculatePercentage(supply.burned, supply.total)}</span> from total minted
+              <span className='font-semibold'>{CalculatePercentage(supply.burned, supply.total)}</span> from total
+              minted
             </div>
           </StatCard>
         </div>
@@ -129,7 +133,7 @@ export function SupplyStats (): JSX.Element {
   )
 }
 
-function StatCard (props: PropsWithChildren<{infodesc: string, heading: string, stat: number, suffix?: string, testId: string}>): JSX.Element {
+function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string, stat: number, prefix?: string, suffix?: string, testId: string }>): JSX.Element {
   return (
     <div className='md:pl-2 md:pb-2 w-full md:w-1/2' data-testid={props.testId}>
       <div className='flex flex-col border border-gray-200 py-4 px-6 h-[7.5rem] rounded-lg'>
@@ -144,8 +148,9 @@ function StatCard (props: PropsWithChildren<{infodesc: string, heading: string, 
             thousandSeparator
             className='text-lg lg:text-2xl font-semibold'
             decimalScale={0}
+            prefix={props.prefix !== undefined ? props.prefix : ''}
           />
-          <span className='ml-1'>{props.suffix}</span>
+          {props.suffix !== undefined && <span className='ml-1'>{props.suffix}</span>}
         </div>
         {props.children}
       </div>
