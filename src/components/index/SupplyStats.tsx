@@ -141,18 +141,22 @@ function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string,
           <span className='font-normal text-sm md:text-base mr-2'>{props.heading}</span>
           <InfoHoverPopover description={props.infodesc} />
         </div>
-        <div className='flex flex-wrap items-center'>
-          <ReactNumberFormat
-            value={props.stat}
-            displayType='text'
-            thousandSeparator
-            className='text-lg lg:text-2xl font-semibold'
-            decimalScale={0}
-            prefix={props.prefix !== undefined ? props.prefix : ''}
-          />
-          {props.suffix !== undefined && <span className='ml-1'>{props.suffix}</span>}
-        </div>
-        {props.children}
+        {props.stat === undefined ? <div className='animate-pulse py-3 bg-gray-200 inline my-2 w-1/2' />
+          : (
+            <div className='flex flex-wrap items-center'>
+              <ReactNumberFormat
+                value={props.stat}
+                displayType='text'
+                thousandSeparator
+                className='text-lg lg:text-2xl font-semibold'
+                decimalScale={0}
+                prefix={props.prefix !== undefined ? props.prefix : ''}
+              />
+              {props.suffix !== undefined && <span className='ml-1'>{props.suffix}</span>}
+            </div>
+            )}
+        {props.stat === undefined ? <div className='animate-pulse py-3 bg-gray-200 w-full inline' />
+          : props.children}
       </div>
     </div>
   )

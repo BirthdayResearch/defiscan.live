@@ -17,13 +17,15 @@ export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
           data-testid='StatPriceCard.Price'
           className='font-semibold text-xl md:text-3xl lg:text-5xl'
         >
-          <ReactNumberFormat
-            displayType='text'
-            thousandSeparator
-            value={props.stats.price.usdt}
-            decimalScale={2}
-            prefix='$'
-          />
+          {props.stats === undefined ? <div className='animate-pulse py-4 bg-gray-200 w-1/2' /> : (
+            <ReactNumberFormat
+              displayType='text'
+              thousandSeparator
+              value={props.stats.price.usdt}
+              decimalScale={2}
+              prefix='$'
+            />
+          )}
         </div>
       </div>
       <span
