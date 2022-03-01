@@ -51,8 +51,8 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
   const [isClicked, setIsClicked] = useState(false)
 
   return (
-    <div className='w-full flex justify-between space-x-1.5'>
-      <div className='w-full flex items-center'>
+    <div className='w-full flex justify-between space-x-1.5' data-testid='CardList.Header'>
+      <div className='w-full flex items-center' data-testid='CardList.Header.Children'>
         {props.children}
       </div>
       {
@@ -73,7 +73,7 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
       <div
         className='text-primary-500 cursor-pointer border border-primary-300 rounded'
         onClick={() => setIsOpen(!isOpen)}
-        data-testid='CardList.Toggle'
+        data-testid='CardList.Header.Toggle'
       >
         {(!isOpen)
           ? (<MdOutlineKeyboardArrowDown size={28} />)

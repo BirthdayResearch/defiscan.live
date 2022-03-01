@@ -57,9 +57,14 @@ context('/auctions on mobile', () => {
   it('should have MobileAuctionDetailsCards', function () {
     cy.findByTestId('MobileAuctionDetailsCards').within(() => {
       cy.findAllByTestId('MobileAuctionDetailCard').within(() => {
-        cy.findByTestId('MobileAuctionDetailCard.TokenSymbol').should('be.visible')
-        cy.findByTestId('MobileAuctionDetailCard.displaySymbol').should('be.visible')
-        cy.findByTestId('CardList.Header.ViewButton').should('be.visible').should('have.text', 'VIEW')
+        cy.findByTestId('CardList.Header').within(() => {
+          cy.findByTestId('MobileAuctionDetailCard.TokenSymbol').should('be.visible')
+          cy.findByTestId('MobileAuctionDetailCard.displaySymbol').should('be.visible')
+
+          cy.findByTestId('CardList.Header.Children').should('be.visible')
+          cy.findByTestId('CardList.Header.ViewButton').should('be.visible')
+          cy.findByTestId('CardList.Header.Toggle').should('be.visible')
+        })
 
         cy.findByTestId('MobileAuctionDetailCard.AuctionTimeLeft').should('be.visible')
 

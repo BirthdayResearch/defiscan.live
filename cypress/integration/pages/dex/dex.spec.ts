@@ -77,26 +77,33 @@ context('/dex on iphone-x', () => {
     cy.get('h1').should('have.text', 'DEX Pool Pairs')
   })
 
-  it('should have CardList header information', function () {
-    cy.findAllByTestId('BlocksCard.CardList.TotalLiquidity').within(() => {
-      cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Total Liquidity')
-      cy.findByTestId('CardList.Row.Child').should('be.visible')
-    })
-    cy.findAllByTestId('BlocksCard.CardList.24hVolume').within(() => {
-      cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Volume (24H)')
-      cy.findByTestId('CardList.Row.Child').should('be.visible')
-    })
-    cy.findAllByTestId('BlocksCard.CardList.Liquidity').within(() => {
-      cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Liquidity')
-      cy.findByTestId('CardList.Row.Child').should('be.visible')
-    })
-    cy.findAllByTestId('BlocksCard.CardList.PriceRatio').within(() => {
-      cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Price Ratio')
-      cy.findByTestId('CardList.Row.Child').should('be.visible')
-    })
-    cy.findAllByTestId('BlocksCard.CardList.APR').within(() => {
-      cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'APR')
-      cy.findByTestId('CardList.Row.Child').should('be.visible')
+  it('should have CardList list items', function () {
+    cy.findAllByTestId('PoolPairsCard').within(() => {
+      cy.findByTestId('CardList.Header').within(() => {
+        cy.findByTestId('CardList.Header.Children').should('be.visible')
+        cy.findByTestId('CardList.Header.Toggle').should('be.visible')
+      })
+
+      cy.findByTestId('BlocksCard.CardList.TotalLiquidity').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Total Liquidity')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findByTestId('BlocksCard.CardList.24hVolume').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Volume (24H)')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findByTestId('BlocksCard.CardList.Liquidity').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Liquidity')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findByTestId('BlocksCard.CardList.PriceRatio').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Price Ratio')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findByTestId('BlocksCard.CardList.APR').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'APR')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
     })
   })
 

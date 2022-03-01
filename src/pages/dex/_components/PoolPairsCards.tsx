@@ -24,7 +24,7 @@ export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): J
 
 export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.Element {
   return (
-    <CardList.Card>
+    <CardList.Card testId='PoolPairsCard'>
       <CardList.Header>
         <div className='font-medium text-gray-900'>
           <PoolPairSymbol

@@ -33,7 +33,7 @@ export function BlocksCard ({ block }: { block: Block }): JSX.Element {
   }, [block.medianTime])
 
   return (
-    <CardList.Card>
+    <CardList.Card testId='BlocksCard'>
       <CardList.Header isView path={`/blocks/${block.height}`}>
         <div className='font-medium text-gray-900'>
           <NumberFormat
