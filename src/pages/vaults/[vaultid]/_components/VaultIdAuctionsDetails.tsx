@@ -4,6 +4,7 @@ import { CollapsibleSection } from '@components/commons/sections/CollapsibleSect
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
 import { AuctionsTableRow, MobileAuctionDetailsCard } from '../../_components/commons/VaultAuctionDetails'
+import { CardList } from '@components/commons/CardList'
 
 export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Element {
   return (
@@ -57,7 +58,7 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
       </div>
 
       <CollapsibleSection heading='In Auction' className='block md:hidden' testId='MobileVaultAuctions'>
-        <div className='flex flex-wrap space-y-2' data-testid='MobileAuctionDetailsCards'>
+        <CardList testId='MobileAuctionDetailsCards'>
           {
             props.vault.batches.map(batch => (
               <MobileAuctionDetailsCard
@@ -67,7 +68,7 @@ export function VaultAuctions (props: { vault: LoanVaultLiquidated }): JSX.Eleme
               />
             ))
           }
-        </div>
+        </CardList>
       </CollapsibleSection>
     </>
   )

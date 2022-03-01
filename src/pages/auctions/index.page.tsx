@@ -80,7 +80,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
             </div>
 
             <div className='my-6 block md:hidden'>
-              <CardList data-testid='MobileAuctionDetailsCards'>
+              <CardList testId='MobileAuctionDetailsCards'>
                 {vaults.items.map(vault => {
                   return vault.batches.map(batch => (
                     <MobileAuctionDetailsCard

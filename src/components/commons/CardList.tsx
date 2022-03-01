@@ -16,10 +16,10 @@ const CardListContext = createContext<CardListContextI>({
   }
 })
 
-export function CardList (props: PropsWithChildren<{ className?: string }>): JSX.Element {
+export function CardList (props: PropsWithChildren<{ className?: string, testId?: string }>): JSX.Element {
   return (
     <div
-      data-testid='CardList'
+      data-testid={props.testId}
       className={classNames('flex flex-wrap space-y-2', props.className)}
     >
       {props.children}
@@ -27,11 +27,11 @@ export function CardList (props: PropsWithChildren<{ className?: string }>): JSX
   )
 }
 
-function Card (props: PropsWithChildren<{ className?: string }>): JSX.Element {
+function Card (props: PropsWithChildren<{ className?: string, testId?: string }>): JSX.Element {
   const [isOpen, setIsOpen] = useState(true)
 
   return (
-    <div className='w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500'>
+    <div className='w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500' data-testid={props.testId}>
       <CardListContext.Provider value={{
         isOpen,
         setIsOpen
@@ -70,7 +70,7 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
             <a className='contents'>
               <div
                 className='border border-primary-300 rounded text-primary-400 px-1.5 py-1 text-sm'
-                data-testid='CardList.ViewButton'
+                data-testid='CardList.Header.ViewButton'
               >
                 VIEW
               </div>

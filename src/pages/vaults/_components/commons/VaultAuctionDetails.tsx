@@ -63,7 +63,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
   const TokenSymbol = getAssetIcon(props.batch.loan.symbol)
 
   return (
-    <CardList.Card data-testid='MobileAuctionDetailCard'>
+    <CardList.Card testId='MobileAuctionDetailCard'>
       <CardList.Header isView path={`/vaults/${props.vault.vaultId}/auctions/${props.batch.index}`}>
         <div className='flex items-center font-medium text-gray-900'>
           <TokenSymbol className='w-6 h-6 mr-1.5' data-testid='MobileAuctionDetailCard.TokenSymbol' />
