@@ -107,14 +107,15 @@ function ListItem (props: PropsWithChildren<{
 }>): JSX.Element {
   return (
     <div className='flex justify-between text-gray-900' data-testid={props.testId}>
-      <div className='flex items-stretch'>
-        <span
-          className={classNames('text-gray-500', props.titleClassNames)}
+      <div className='mt-0.5'>
+        <div
+          className={classNames('flex items-center text-gray-500', props.titleClassNames)}
           data-testid='CardList.Row.Title'
-        >{props.title}
-        </span>
-        {props.infoDesc !== undefined && (
-          <InfoHoverPopover className='ml-1 self-center' description={props.infoDesc} placement='top' />)}
+        >
+          {props.title}
+          {props.infoDesc !== undefined && (
+            <InfoHoverPopover className='ml-1 self-center' description={props.infoDesc} placement='top' />)}
+        </div>
       </div>
       <div data-testid='CardList.Row.Child'>
         {props.children}
