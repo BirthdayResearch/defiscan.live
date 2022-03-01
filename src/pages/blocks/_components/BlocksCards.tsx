@@ -35,13 +35,16 @@ export function BlocksCard ({ block }: { block: Block }): JSX.Element {
   return (
     <CardList.Card testId='BlocksCard'>
       <CardList.Header isView path={`/blocks/${block.height}`}>
-        <div className='font-medium text-gray-900'>
-          <NumberFormat
-            value={block.height}
-            fixedDecimalScale
-            thousandSeparator=','
-            displayType='text'
-          />
+        <div>
+          <span className='text-sm'>Height</span>
+          <div className='font-medium text-gray-900'>
+            <NumberFormat
+              value={block.height}
+              fixedDecimalScale
+              thousandSeparator=','
+              displayType='text'
+            />
+          </div>
         </div>
       </CardList.Header>
 

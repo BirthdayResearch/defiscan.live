@@ -42,7 +42,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
   }, [block.medianTime])
 
   return (
-    <OverflowTable.Row key={block.id} className='hover:text-primary-500'>
+    <OverflowTable.Row className='hover:text-primary-500'>
       <OverflowTable.Cell sticky>
         <NumberFormat
           value={block.height}

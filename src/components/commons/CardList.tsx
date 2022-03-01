@@ -62,7 +62,7 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
               <div
                 data-testid='CardList.Header.ViewButton'
                 onClick={() => setIsClicked(!isClicked)}
-                className={classNames('border border-primary-300 rounded text-primary-400 px-1.5 py-1 text-sm', { 'bg-primary-100': isClicked })}
+                className={classNames('border border-primary-300 rounded text-primary-400 px-1.5 py-1 text-sm h-min', { 'bg-primary-100': isClicked })}
               >
                 VIEW
               </div>
@@ -71,7 +71,7 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
         )
       }
       <div
-        className='text-primary-500 cursor-pointer border border-primary-300 rounded'
+        className='text-primary-500 cursor-pointer border border-primary-300 rounded h-min'
         onClick={() => setIsOpen(!isOpen)}
         data-testid='CardList.Header.Toggle'
       >
