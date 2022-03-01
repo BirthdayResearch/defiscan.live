@@ -53,9 +53,7 @@ export function BlocksCard ({ block }: { block: Block }): JSX.Element {
         >
           {age}
         </CardList.ListItem>
-      </CardList.List>
 
-      <CardList.List>
         <CardList.ListItem
           title='Transactions'
           titleClassNames='text-sm'
@@ -63,9 +61,7 @@ export function BlocksCard ({ block }: { block: Block }): JSX.Element {
         >
           {block.transactionCount}
         </CardList.ListItem>
-      </CardList.List>
 
-      <CardList.List>
         <CardList.ListItem
           title='Minter'
           titleClassNames='text-sm'
@@ -73,9 +69,7 @@ export function BlocksCard ({ block }: { block: Block }): JSX.Element {
         >
           <TextTruncate text={block.minter} />
         </CardList.ListItem>
-      </CardList.List>
 
-      <CardList.List>
         <CardList.ListItem
           title='Size (B)'
           titleClassNames='text-sm'
@@ -88,9 +82,7 @@ export function BlocksCard ({ block }: { block: Block }): JSX.Element {
             displayType='text'
           />
         </CardList.ListItem>
-      </CardList.List>
 
-      <CardList.List>
         <CardList.ListItem
           title='Difficulty'
           titleClassNames='text-sm'
