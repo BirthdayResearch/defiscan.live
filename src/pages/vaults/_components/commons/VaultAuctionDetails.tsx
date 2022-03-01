@@ -1,15 +1,14 @@
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { Link } from '@components/commons/link/Link'
 import ReactNumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { VaultTokenSymbols } from './VaultTokenSymbols'
 import { LoanVaultLiquidated, LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import { getAssetIcon } from '@components/icons/assets/tokens'
-import { VaultDetailsListItem } from './VaultDetailsListItem'
 import React from 'react'
 import { AuctionTimeLeft } from '../../../auctions/_components/commons/AuctionTimeLeft'
 import { BidAmountValue } from '../../../auctions/_components/commons/BidAmountValue'
 import { useCalculateAuctionsValue } from '../../hooks/CalculateAuctionsValue'
+import { CardList } from '@components/commons/CardList'
 
 interface VaultAuctionDetailsProps {
   batch: LoanVaultLiquidationBatch
@@ -64,70 +63,63 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
   const TokenSymbol = getAssetIcon(props.batch.loan.symbol)
 
   return (
-    <div
-      className='w-full flex flex-col rounded border border-gray-200 p-4 text-gray-500'
-      data-testid='MobileAuctionDetailCard'
-    >
-      <div className='w-full flex justify-between'>
+    <CardList.Card testId='MobileAuctionDetailCard'>
+      <CardList.Header isView path={`/vaults/${props.vault.vaultId}/auctions/${props.batch.index}`}>
         <div className='flex items-center font-medium text-gray-900'>
           <TokenSymbol className='w-6 h-6 mr-1.5' data-testid='MobileAuctionDetailCard.TokenSymbol' />
           <span data-testid='MobileAuctionDetailCard.displaySymbol'>{props.batch.loan.displaySymbol}</span>
         </div>
-        <div
-          className='cursor-pointer text-primary-500'
-          data-testid='MobileAuctionDetailCard.ViewButton'
-        >
-          <Link href={{ pathname: `/vaults/${props.vault.vaultId}/auctions/${props.batch.index}` }}>
-            <a className='contents'>
-              VIEW
-            </a>
-          </Link>
-        </div>
-      </div>
-      <div className='text-sm mt-1 mb-4' data-testid='MobileAuctionDetailCard.AuctionTimeLeft'>
+      </CardList.Header>
+
+      <div className='text-sm mt-1' data-testid='MobileAuctionDetailCard.AuctionTimeLeft'>
         <AuctionTimeLeft
           liquidationHeight={props.vault.liquidationHeight} className='text-sm text-gray-500'
           showApproximateSymbol
         />
       </div>
 
-      <VaultDetailsListItem
-        title='Min. Next Bid'
-        titleClassNames='text-sm'
-        testId='MobileAuctionDetailCard.MinNextBid'
-      >
-        <BidAmountValue
-          displaySymbol={props.batch.loan.displaySymbol}
-          loan={props.batch.loan}
-          highestBid={props.batch.highestBid}
-          valueClassName='text-right text-sm'
-          valueSuffix
-        />
-      </VaultDetailsListItem>
-
-      <div className='w-full mt-2 space-y-2'>
-        <VaultDetailsListItem
-          title='Collateral For Auction'
+      <CardList.List className='mt-4'>
+        <CardList.ListItem
+          title='Min. Next Bid'
           titleClassNames='text-sm'
-          testId='MobileAuctionDetailCard.CollateralsForAuction'
+          testId='MobileAuctionDetailCard.MinNextBid'
         >
-          <VaultTokenSymbols className='justify-end' tokens={props.batch.collaterals} testId='MobileAuctionDetailCard.CollateralSymbols' />
-        </VaultDetailsListItem>
-        <VaultDetailsListItem
-          title='Collateral Value (USD)'
-          titleClassNames='text-sm'
-          testId='MobileAuctionDetailCard.CollateralValue'
-        >
-          <ReactNumberFormat
-            value={useCalculateAuctionsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
-            thousandSeparator
-            decimalScale={2}
-            prefix='$'
-            displayType='text'
-            data-testid='MobileAuctionDetailCard.CollateralValue.Value'
+          <BidAmountValue
+            displaySymbol={props.batch.loan.displaySymbol}
+            loan={props.batch.loan}
+            highestBid={props.batch.highestBid}
+            valueClassName='text-right text-sm'
+            valueSuffix
           />
-        </VaultDetailsListItem>
-      </div>
-    </div>
+        </CardList.ListItem>
+
+        <div className='w-full mt-2 space-y-2'>
+          <CardList.ListItem
+            title='Collateral For Auction'
+            titleClassNames='text-sm'
+            testId='MobileAuctionDetailCard.CollateralsForAuction'
+          >
+            <VaultTokenSymbols
+              className='justify-end' tokens={props.batch.collaterals}
+              testId='MobileAuctionDetailCard.CollateralSymbols'
+            />
+          </CardList.ListItem>
+          <CardList.ListItem
+            title='Collateral Value (USD)'
+            titleClassNames='text-sm'
+            testId='MobileAuctionDetailCard.CollateralValue'
+          >
+            <ReactNumberFormat
+              value={useCalculateAuctionsValue(props.batch.collaterals).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
+              thousandSeparator
+              decimalScale={2}
+              prefix='$'
+              displayType='text'
+              data-testid='MobileAuctionDetailCard.CollateralValue.Value'
+            />
+          </CardList.ListItem>
+        </div>
+      </CardList.List>
+    </CardList.Card>
   )
 }

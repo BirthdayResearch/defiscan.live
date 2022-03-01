@@ -5,13 +5,13 @@ import { poolpairs } from '@defichain/whale-api-client'
 import { RootState } from '@store/index'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { useSelector } from 'react-redux'
-import { PoolPairsTable } from '@components/dex/PoolPairs'
 import { Container } from '@components/commons/Container'
 import { StatItem } from '@components/commons/stats/StatItem'
 import ReactNumberFormat from 'react-number-format'
 import { StatsBar } from '@components/commons/stats/StatsBar'
 import React from 'react'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { PoolPairsTable } from './_components/PoolPairsTable'
 
 interface DexPageProps {
   poolPairs: {

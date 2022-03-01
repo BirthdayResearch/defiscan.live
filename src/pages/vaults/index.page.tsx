@@ -10,6 +10,7 @@ import { VaultStatsBar } from './_components/VaultStatsBar'
 import { VaultTable } from './_components/commons/VaultTable'
 import { EmptySection } from '@components/commons/sections/EmptySection'
 import React from 'react'
+import { CardList } from '@components/commons/CardList'
 
 interface VaultsPageData {
   vaults: {
@@ -39,7 +40,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
           {vaults.items.length === 0
             ? (<EmptySection message='There are no vaults at this time' />)
             : (
-              <div className='flex flex-wrap space-y-2'>
+              <CardList>
                 {vaults.items.map(vault => {
                   return (
                     <VaultMobileCard
@@ -48,7 +49,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
                     />
                   )
                 })}
-              </div>
+              </CardList>
               )}
         </div>
 

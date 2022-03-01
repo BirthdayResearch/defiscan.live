@@ -172,23 +172,23 @@ context('/vaults/[vaultid] - In Liquidation on mobile', () => {
           cy.findAllByTestId('MobileAuctionDetailCard').within(() => {
             cy.findByTestId('MobileAuctionDetailCard.TokenSymbol').should('be.visible')
             cy.findByTestId('MobileAuctionDetailCard.displaySymbol').should('be.visible')
-            cy.findByTestId('MobileAuctionDetailCard.ViewButton').should('be.visible').should('have.text', 'VIEW')
+            cy.findByTestId('CardList.Header.ViewButton').should('be.visible').should('have.text', 'VIEW')
 
             cy.findByTestId('MobileAuctionDetailCard.AuctionTimeLeft').should('be.visible')
 
             cy.findAllByTestId('MobileAuctionDetailCard.MinNextBid').within(() => {
-              cy.findByTestId('VaultDetailsListItem.Title').should('be.visible').should('have.text', 'Min. Next Bid')
+              cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Min. Next Bid')
               cy.findByTestId('BidAmountValue.MinBidAmount').should('be.visible').contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/)
               cy.findByTestId('BidAmountValue.MinBidValue').should('be.visible').contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/)
             })
 
             cy.findAllByTestId('MobileAuctionDetailCard.CollateralsForAuction').within(() => {
-              cy.findByTestId('VaultDetailsListItem.Title').should('be.visible').should('have.text', 'Collateral For Auction')
+              cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Collateral For Auction')
               cy.findByTestId('MobileAuctionDetailCard.CollateralSymbols').should('be.visible')
             })
 
             cy.findAllByTestId('MobileAuctionDetailCard.CollateralValue').within(() => {
-              cy.findByTestId('VaultDetailsListItem.Title').should('be.visible').should('have.text', 'Collateral Value (USD)')
+              cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Collateral Value (USD)')
               cy.findByTestId('MobileAuctionDetailCard.CollateralValue.Value').should('be.visible').contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/)
             })
           })

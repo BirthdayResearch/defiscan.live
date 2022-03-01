@@ -9,6 +9,7 @@ import { Link } from '@components/commons/link/Link'
 import React from 'react'
 import { EmptySection } from '@components/commons/sections/EmptySection'
 import { AuctionsTableRow, MobileAuctionDetailsCard } from '../vaults/_components/commons/VaultAuctionDetails'
+import { CardList } from '@components/commons/CardList'
 
 interface ActionsPageProps {
   vaults: {
@@ -79,7 +80,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
             </div>
 
             <div className='my-6 block md:hidden'>
-              <div className='flex flex-wrap space-y-2' data-testid='MobileAuctionDetailsCards'>
+              <CardList testId='MobileAuctionDetailsCards'>
                 {vaults.items.map(vault => {
                   return vault.batches.map(batch => (
                     <MobileAuctionDetailsCard
@@ -89,7 +90,8 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
                     />
                   ))
                 })}
-              </div>
+              </CardList>
+
               <div className='flex justify-end mt-4'>
                 <CursorPagination pages={vaults.pages} path='/auctions' />
               </div>
