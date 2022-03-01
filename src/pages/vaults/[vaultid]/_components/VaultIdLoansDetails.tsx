@@ -9,7 +9,7 @@ import { LoanTotalInterestRate } from './LoanTotalInterestRate'
 import ReactNumberFormat from 'react-number-format'
 import { EmptySection } from '@components/commons/sections/EmptySection'
 import { VaultNumberValues } from '../../_components/commons/VaultNumberValues'
-import { VaultDetailsListItem } from '../../_components/commons/VaultDetailsListItem'
+import { CardList } from '@components/commons/CardList'
 
 interface VaultIdLoansDetailsProps {
   vault: {
@@ -64,14 +64,16 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
             ) : (
               <div className='flex flex-col items-center'>
                 <div className='w-full' data-testid='LoanDetailsMobile.Cards'>
-                  {props.loans.map((loan) => (
-                    <VaultLoanDetailsCard
-                      loan={loan}
-                      interest={props.interests.filter(interest => interest.id === loan.id)[0]}
-                      vault={props.vault}
-                      key={loan.id}
-                    />
-                  ))}
+                  <CardList>
+                    {props.loans.map((loan) => (
+                      <VaultLoanDetailsCard
+                        loan={loan}
+                        interest={props.interests.filter(interest => interest.id === loan.id)[0]}
+                        vault={props.vault}
+                        key={loan.id}
+                      />
+                    ))}
+                  </CardList>
                 </div>
               </div>
             )}
@@ -151,57 +153,54 @@ function VaultLoanDetailsCard (props: {
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(props.loan, props.interest)
 
   return (
-    <div
-      className='mb-2 p-4 border border-gray-200 rounded w-full justify-self-center md:justify-self-stretch'
-      data-testid='LoanDetailsCard'
-    >
-      <div className='flex items-center justify-between'>
-        <div className='flex items-center'>
+    <>
+      <CardList.Card>
+        <CardList.Header>
           <LoanSymbol className='h-6 w-6' data-testid='LoanDetailsCard.AssetIcon' />
-          <span
+          <div
             className='ml-1.5 font-medium text-gray-900'
             data-testid='LoanDetailsCard.displaySymbol'
           >{props.loan.displaySymbol}
-          </span>
-        </div>
-      </div>
+          </div>
+        </CardList.Header>
 
-      <div className='w-full flex flex-col space-y-1.5 mt-4'>
-        <VaultDetailsListItem
-          title='Loan Value (USD)'
-          testId='LoanDetailsCard.LoanValue'
-          titleClassNames='text-sm'
-        >
-          {loanUsdAmount === undefined || interestUsdAmount === undefined
-            ? ('N/A')
-            : (
-              <VaultNumberValues value={loanUsdAmount} prefix='$' />
-              )}
-        </VaultDetailsListItem>
+        <CardList.List>
+          <CardList.ListItem
+            title='Loan Value (USD)'
+            testId='LoanDetailsCard.LoanValue'
+            titleClassNames='text-sm'
+          >
+            {loanUsdAmount === undefined || interestUsdAmount === undefined
+              ? ('N/A')
+              : (
+                <VaultNumberValues value={loanUsdAmount} prefix='$' />
+                )}
+          </CardList.ListItem>
 
-        <VaultDetailsListItem
-          title='Loan Amount'
-          testId='LoanDetailsCard.LoanAmount'
-          titleClassNames='text-sm'
-        >
-          <ReactNumberFormat
-            value={new BigNumber(props.loan.amount).toFixed(8)}
-            displayType='text'
-            decimalScale={8}
-            fixedDecimalScale
-            thousandSeparator
-          />
-        </VaultDetailsListItem>
+          <CardList.ListItem
+            title='Loan Amount'
+            testId='LoanDetailsCard.LoanAmount'
+            titleClassNames='text-sm'
+          >
+            <ReactNumberFormat
+              value={new BigNumber(props.loan.amount).toFixed(8)}
+              displayType='text'
+              decimalScale={8}
+              fixedDecimalScale
+              thousandSeparator
+            />
+          </CardList.ListItem>
 
-        <VaultDetailsListItem
-          title='Total Interest Rate (APR)'
-          infoDesc='Total annual interest rate = Vault Interest Rate + Token Interest Rate.'
-          testId='LoanDetailsCard.TotalInterestRate'
-          titleClassNames='text-sm'
-        >
-          <LoanTotalInterestRate vaultInterest={props.vault.interest} loanId={props.interest.id} />
-        </VaultDetailsListItem>
-      </div>
-    </div>
+          <CardList.ListItem
+            title='Total Interest Rate (APR)'
+            infoDesc='Total annual interest rate = Vault Interest Rate + Token Interest Rate.'
+            testId='LoanDetailsCard.TotalInterestRate'
+            titleClassNames='text-sm'
+          >
+            <LoanTotalInterestRate vaultInterest={props.vault.interest} loanId={props.interest.id} />
+          </CardList.ListItem>
+        </CardList.List>
+      </CardList.Card>
+    </>
   )
 }

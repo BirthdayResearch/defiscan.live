@@ -5,30 +5,21 @@ import { poolpairs } from '@defichain/whale-api-client'
 import { RootState } from '@store/index'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { useSelector } from 'react-redux'
-import { PoolPairsTable } from './_components/PoolPairsTable'
+import { PoolPairsTable } from '../_components/PoolPairs'
 import { Container } from '@components/commons/Container'
 import { StatItem } from '@components/commons/stats/StatItem'
 import ReactNumberFormat from 'react-number-format'
 import { StatsBar } from '@components/commons/stats/StatsBar'
 import React from 'react'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
-interface DexPageProps {
+interface PoolPairPageProps {
   poolPairs: {
     items: poolpairs.PoolPairData[]
     pages: CursorPage[]
   }
-  aggregate: {
-    volume: {
-      total24h: number
-    }
-  }
 }
 
-export default function DexPage ({
-  poolPairs,
-  aggregate
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function PoolPairPage ({ poolPairs }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const tvl = useSelector((state: RootState) => state.stats.tvl.dex)
 
   return (
@@ -43,16 +34,6 @@ export default function DexPage ({
             displayType='text'
             thousandSeparator
             value={tvl}
-            decimalScale={0}
-            prefix='$'
-            suffix=' USD'
-          />
-        </StatItem>
-        <StatItem label='Total 24H Volume' testId='Dex.Stats.24hVolume'>
-          <ReactNumberFormat
-            displayType='text'
-            thousandSeparator
-            value={aggregate.volume.total24h.toString()}
             decimalScale={0}
             prefix='$'
             suffix=' USD'
@@ -76,11 +57,9 @@ export default function DexPage ({
   )
 }
 
-export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<DexPageProps>> {
-  const api = getWhaleApiClient(context)
-
+export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
   const next = CursorPagination.getNext(context)
-  const items = await api.poolpairs.list(30, next)
+  const items = await getWhaleApiClient(context).poolpairs.list(30, next)
   const sorted = items.map(value => ({
     sort: Number.parseFloat(value.totalLiquidity.usd ?? '0'),
     value
@@ -94,25 +73,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       poolPairs: {
         items: sorted,
         pages: CursorPagination.getPages(context, items)
-      },
-      aggregate: {
-        volume: {
-          total24h: await get24hSum()
-        }
       }
     }
-  }
-
-  async function get24hSum (): Promise<number> {
-    const poolpairs: PoolPairData[] = []
-
-    let poolpairsResponse = await api.poolpairs.list(200)
-    poolpairs.push(...poolpairsResponse)
-    while (poolpairsResponse.hasNext) {
-      poolpairsResponse = await api.poolpairs.list(200, poolpairsResponse.nextToken)
-      poolpairs.push(...poolpairsResponse)
-    }
-
-    return poolpairs.reduce((a, b) => a + (b.volume?.h24 ?? 0), 0)
   }
 }

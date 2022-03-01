@@ -1,33 +1,27 @@
-import { AdaptiveTable } from '@components/commons/AdaptiveTable'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
-import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { OverflowTable } from '@components/commons/OverflowTable'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
-    <AdaptiveTable>
-      <AdaptiveTable.Header>
-        <AdaptiveTable.Head>Pair</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>Total Liquidity</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>Volume (24H)</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>Liquidity</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>Price Ratio</AdaptiveTable.Head>
-        <AdaptiveTable.Head>
-          <div className='flex items-center justify-end'>
-            <div>APR</div>
-            <InfoHoverPopover description='APR includes commission.' className='ml-1' />
-          </div>
-        </AdaptiveTable.Head>
-      </AdaptiveTable.Header>
+    <OverflowTable>
+      <OverflowTable.Header>
+        <OverflowTable.Head title='Pair' />
+        <OverflowTable.Head title='Total Liquidity' alignRight />
+        <OverflowTable.Head title='Volume (24H)' alignRight />
+        <OverflowTable.Head title='Liquidity' alignRight />
+        <OverflowTable.Head title='Price Ratio' alignRight />
+        <OverflowTable.Head title='APR' alignRight infoDesc='APR includes commission.' />
+      </OverflowTable.Header>
 
       {poolPairs.map((data) => (
         <PoolPairRow key={data.id} data={data} />
       ))}
-    </AdaptiveTable>
+    </OverflowTable>
 
   )
 }
@@ -38,14 +32,14 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   }
 
   return (
-    <AdaptiveTable.Row>
-      <AdaptiveTable.Cell title='Pair' className='align-middle'>
+    <OverflowTable.Row>
+      <OverflowTable.Cell className='align-middle'>
         <PoolPairSymbol
           poolPairId={data.id} symbolSizeClassName='h-8 w-8'
           symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
         />
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='Total Liquidity' className='align-middle lg:text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle lg:text-right'>
         {data.totalLiquidity.usd !== undefined ? (
           <NumberFormat
             value={data.totalLiquidity.usd}
@@ -59,8 +53,8 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             Error
           </div>
         )}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='Volume (24H)' className='align-middle lg:text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle lg:text-right'>
         {data.volume?.h24 !== undefined ? (
           <NumberFormat
             value={data.volume?.h24}
@@ -74,8 +68,8 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             Error
           </div>
         )}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='Liquidity' className='align-middle lg:text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle lg:text-right'>
         <div>
           <NumberFormat
             value={data.tokenA.reserve}
@@ -94,8 +88,8 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             suffix={` ${data.tokenB.displaySymbol}`}
           />
         </div>
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='Price Ratio' className='align-middle lg:text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle lg:text-right'>
         <div>
           <NumberFormat
             value={Number(new BigNumber(data.priceRatio.ab).toPrecision(4))}
@@ -112,8 +106,8 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             suffix={` ${data.tokenB.displaySymbol}/${data.tokenA.displaySymbol}`}
           />
         </div>
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='APR' className='align-middle lg:text-right'>
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle lg:text-right'>
         {(() => {
           if (data.apr !== undefined) {
             return (
@@ -138,8 +132,8 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
             )
           }
         })()}
-      </AdaptiveTable.Cell>
-    </AdaptiveTable.Row>
+      </OverflowTable.Cell>
+    </OverflowTable.Row>
   )
 }
 
