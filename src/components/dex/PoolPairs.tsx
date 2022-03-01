@@ -1,12 +1,11 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
-import { HoverPopover } from '@components/commons/popover/HoverPopover'
-import { IoAlertCircleOutline } from 'react-icons/io5'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
@@ -20,15 +19,7 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
         <AdaptiveTable.Head>
           <div className='flex items-center justify-end'>
             <div>APR</div>
-            <HoverPopover
-              popover='APR includes commission.'
-            >
-              <div className='p-1 cursor-help'>
-                <IoAlertCircleOutline
-                  className='h-4 w-4'
-                />
-              </div>
-            </HoverPopover>
+            <InfoHoverPopover description='APR includes commission.' className='ml-1' />
           </div>
         </AdaptiveTable.Head>
       </AdaptiveTable.Header>
