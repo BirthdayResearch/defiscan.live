@@ -11,11 +11,11 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
   return (
     <AdaptiveTable>
       <AdaptiveTable.Header>
-        <AdaptiveTable.Head>PAIR</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>TOTAL LIQUIDITY</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>VOLUME (24H)</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>LIQUIDITY</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>PRICE RATIO</AdaptiveTable.Head>
+        <AdaptiveTable.Head>Pair</AdaptiveTable.Head>
+        <AdaptiveTable.Head className='text-right'>Total Liquidity</AdaptiveTable.Head>
+        <AdaptiveTable.Head className='text-right'>Volume (24H)</AdaptiveTable.Head>
+        <AdaptiveTable.Head className='text-right'>Liquidity</AdaptiveTable.Head>
+        <AdaptiveTable.Head className='text-right'>Price Ratio</AdaptiveTable.Head>
         <AdaptiveTable.Head>
           <div className='flex items-center justify-end'>
             <div>APR</div>
@@ -45,7 +45,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
         />
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='TOTAL LIQUIDITY' className='align-middle lg:text-right'>
+      <AdaptiveTable.Cell title='Total Liquidity' className='align-middle lg:text-right'>
         {data.totalLiquidity.usd !== undefined ? (
           <NumberFormat
             value={data.totalLiquidity.usd}
@@ -60,7 +60,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           </div>
         )}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='VOLUME (24H)' className='align-middle lg:text-right'>
+      <AdaptiveTable.Cell title='Volume (24H)' className='align-middle lg:text-right'>
         {data.volume?.h24 !== undefined ? (
           <NumberFormat
             value={data.volume?.h24}
@@ -75,7 +75,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           </div>
         )}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='LIQUIDITY' className='align-middle lg:text-right'>
+      <AdaptiveTable.Cell title='Liquidity' className='align-middle lg:text-right'>
         <div>
           <NumberFormat
             value={data.tokenA.reserve}
@@ -95,7 +95,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           />
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='PRICE RATIO' className='align-middle lg:text-right'>
+      <AdaptiveTable.Cell title='Price Ratio' className='align-middle lg:text-right'>
         <div>
           <NumberFormat
             value={Number(new BigNumber(data.priceRatio.ab).toPrecision(4))}
