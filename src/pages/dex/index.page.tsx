@@ -5,13 +5,13 @@ import { poolpairs } from '@defichain/whale-api-client'
 import { RootState } from '@store/index'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { useSelector } from 'react-redux'
-import { PoolPairsTable } from './_components/PoolPairsTable'
 import { Container } from '@components/commons/Container'
 import { StatItem } from '@components/commons/stats/StatItem'
 import ReactNumberFormat from 'react-number-format'
 import { StatsBar } from '@components/commons/stats/StatsBar'
 import React from 'react'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { PoolPairsTable } from './_components/PoolPairsTable'
 
 interface DexPageProps {
   poolPairs: {
@@ -61,12 +61,7 @@ export default function DexPage ({
       </StatsBar>
       <Container className='pt-12 pb-20'>
         <h1 className='text-2xl font-medium mb-6'>DEX Pool Pairs</h1>
-
-        <div className='my-6 hidden md:block'>
-          <PoolPairsTable poolPairs={poolPairs.items} />
-        </div>
-
-        <div className='my-6 md:hidden' />
+        <PoolPairsTable poolPairs={poolPairs.items} />
 
         <div className='flex justify-end mt-8'>
           <CursorPagination pages={poolPairs.pages} path='/dex' />
