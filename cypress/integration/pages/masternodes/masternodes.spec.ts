@@ -83,28 +83,28 @@ context('/masternodes on iphone-x', () => {
   })
 
   it('should have CardList header information', function () {
-    cy.findAllByTestId('MasternodeCards').within(() => {
-      cy.findAllByTestId('BlocksCard.CardList.Operator').within(() => {
+    cy.findAllByTestId('MasternodeCard').within(() => {
+      cy.findByTestId('BlocksCard.CardList.Operator').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Operator')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findAllByTestId('BlocksCard.CardList.CreationHeight').within(() => {
+      cy.findByTestId('BlocksCard.CardList.CreationHeight').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Creation Height')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findAllByTestId('BlocksCard.CardList.ResignHeight').within(() => {
+      cy.findByTestId('BlocksCard.CardList.ResignHeight').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Resign Height')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findAllByTestId('BlocksCard.CardList.MintedBlocks').within(() => {
+      cy.findByTestId('BlocksCard.CardList.MintedBlocks').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Minted Blocks')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findAllByTestId('BlocksCard.CardList.State').within(() => {
+      cy.findByTestId('BlocksCard.CardList.State').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'State')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findAllByTestId('BlocksCard.CardList.TimeLock').within(() => {
+      cy.findByTestId('BlocksCard.CardList.TimeLock').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Time Lock')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
