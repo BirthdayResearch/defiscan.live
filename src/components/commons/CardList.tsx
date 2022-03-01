@@ -116,7 +116,7 @@ function ListItem (props: PropsWithChildren<{
         {props.infoDesc !== undefined && (
           <InfoHoverPopover className='ml-1 self-center' description={props.infoDesc} placement='top' />)}
       </div>
-      <div>
+      <div data-testid='CardList.Row.Child'>
         {props.children}
       </div>
     </div>
