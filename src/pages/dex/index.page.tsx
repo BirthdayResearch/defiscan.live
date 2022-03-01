@@ -12,6 +12,7 @@ import { StatsBar } from '@components/commons/stats/StatsBar'
 import React from 'react'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairsTable } from './_components/PoolPairsTable'
+import { PoolPairsCards } from './_components/PoolPairsCards'
 
 interface DexPageProps {
   poolPairs: {
@@ -59,9 +60,17 @@ export default function DexPage ({
           />
         </StatItem>
       </StatsBar>
+
       <Container className='pt-12 pb-20'>
         <h1 className='text-2xl font-medium mb-6'>DEX Pool Pairs</h1>
-        <PoolPairsTable poolPairs={poolPairs.items} />
+
+        <div className='my-6 hidden md:block'>
+          <PoolPairsTable poolPairs={poolPairs.items} />
+        </div>
+
+        <div className='my-6 md:hidden'>
+          <PoolPairsCards poolPairs={poolPairs.items} />
+        </div>
 
         <div className='flex justify-end mt-8'>
           <CursorPagination pages={poolPairs.pages} path='/dex' />

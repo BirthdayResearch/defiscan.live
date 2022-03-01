@@ -16,8 +16,8 @@ context('/dex on macbook-16', () => {
     cy.get('h1').should('have.text', 'DEX Pool Pairs')
   })
 
-  it('should have AdaptiveTable header information', function () {
-    cy.findByTestId('AdaptiveTable.Header').then(ele => {
+  it('should have OverflowTable header information', function () {
+    cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Pair').should('be.visible')
       cy.wrap(ele).findByText('Total Liquidity').should('be.visible')
       cy.wrap(ele).findByText('Volume (24H)').should('be.visible')
@@ -27,14 +27,14 @@ context('/dex on macbook-16', () => {
     })
   })
 
-  it('should have dex info in AdaptiveTable', function () {
-    cy.findAllByTestId('AdaptiveTable.Row').eq(1).then(ele => {
+  it('should have dex info in OverflowTable', function () {
+    cy.findAllByTestId('OverflowTable.Row').eq(1).then(ele => {
       cy.wrap(ele).children().should('have.length', 6)
     })
   })
 
   it('should have at least 9 pairs listed', function () {
-    cy.findAllByTestId('AdaptiveTable.Row').should('have.length.at.least', 9)
+    cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 9)
   })
 
   // it('should CursorPagination.Next and CursorPagination.Prev', function () {
@@ -77,19 +77,34 @@ context('/dex on iphone-x', () => {
     cy.get('h1').should('have.text', 'DEX Pool Pairs')
   })
 
-  it('should have AdaptiveTable header information', function () {
-    cy.findAllByTestId('AdaptiveTable.Row').eq(6).then(ele => {
-      cy.wrap(ele).findByText('Pair').should('be.visible')
-      cy.wrap(ele).findByText('Total Liquidity').should('be.visible')
-      cy.wrap(ele).findByText('Volume (24H)').should('be.visible')
-      cy.wrap(ele).findByText('Liquidity').should('be.visible')
-      cy.wrap(ele).findByText('Price Ratio').should('be.visible')
-      cy.wrap(ele).findByText('APR').should('be.visible')
-    })
-  })
+  it('should have CardList list items', function () {
+    cy.findAllByTestId('PoolPairsCard').within(() => {
+      cy.findByTestId('CardList.Header').within(() => {
+        cy.findByTestId('CardList.Header.Children').should('be.visible')
+        cy.findByTestId('CardList.Header.Toggle').should('be.visible')
+      })
 
-  it('should have at least 9 pairs listed', function () {
-    cy.findAllByTestId('AdaptiveTable.Row').should('have.length.at.least', 9)
+      cy.findByTestId('BlocksCard.CardList.TotalLiquidity').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Total Liquidity')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findByTestId('BlocksCard.CardList.24hVolume').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Volume (24H)')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findByTestId('BlocksCard.CardList.Liquidity').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Liquidity')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findByTestId('BlocksCard.CardList.PriceRatio').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Price Ratio')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findByTestId('BlocksCard.CardList.APR').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'APR')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+    })
   })
 
   // it('should CursorPagination.Next and CursorPagination.Prev', function () {

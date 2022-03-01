@@ -22,7 +22,7 @@ export function AddressLink (props: PropsWithChildren<AddressLinkProps>): JSX.El
       <Link href={{ pathname: `/address/${props.address}` }}>
         {(() => {
           if (props.children !== undefined) {
-            return (<a>{props.children}</a>)
+            return (<a className='contents'>{props.children}</a>)
           }
           return props.address
         })()}

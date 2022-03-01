@@ -51,8 +51,8 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
   const [isClicked, setIsClicked] = useState(false)
 
   return (
-    <div className='w-full flex justify-between space-x-1.5'>
-      <div className='w-full flex items-center'>
+    <div className='w-full flex justify-between space-x-1.5' data-testid='CardList.Header'>
+      <div className='w-full flex items-center' data-testid='CardList.Header.Children'>
         {props.children}
       </div>
       {
@@ -62,7 +62,7 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
               <div
                 data-testid='CardList.Header.ViewButton'
                 onClick={() => setIsClicked(!isClicked)}
-                className={classNames('border border-primary-300 rounded text-primary-400 px-1.5 py-1 text-sm', { 'bg-primary-100': isClicked })}
+                className={classNames('border border-primary-300 rounded text-primary-400 px-1.5 py-1 text-sm h-min', { 'bg-primary-100': isClicked })}
               >
                 VIEW
               </div>
@@ -71,9 +71,9 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
         )
       }
       <div
-        className='text-primary-500 cursor-pointer border border-primary-300 rounded'
+        className='text-primary-500 cursor-pointer border border-primary-300 rounded h-min'
         onClick={() => setIsOpen(!isOpen)}
-        data-testid='CardList.Toggle'
+        data-testid='CardList.Header.Toggle'
       >
         {(!isOpen)
           ? (<MdOutlineKeyboardArrowDown size={28} />)
@@ -91,7 +91,7 @@ function List (props: PropsWithChildren<{ className?: string }>): JSX.Element {
       className='w-full'
       show={isOpen}
     >
-      <div className={classNames('w-full mt-2 space-y-2', props.className)}>
+      <div className={classNames('w-full mt-4 space-y-2.5', props.className)}>
         {props.children}
       </div>
     </Transition>
@@ -107,16 +107,17 @@ function ListItem (props: PropsWithChildren<{
 }>): JSX.Element {
   return (
     <div className='flex justify-between text-gray-900' data-testid={props.testId}>
-      <div className='flex items-stretch'>
-        <span
-          className={classNames('text-gray-500', props.titleClassNames)}
+      <div className='mt-0.5'>
+        <div
+          className={classNames('flex items-center text-gray-500', props.titleClassNames)}
           data-testid='CardList.Row.Title'
-        >{props.title}
-        </span>
-        {props.infoDesc !== undefined && (
-          <InfoHoverPopover className='ml-1 self-center' description={props.infoDesc} placement='top' />)}
+        >
+          {props.title}
+          {props.infoDesc !== undefined && (
+            <InfoHoverPopover className='ml-1 self-center' description={props.infoDesc} placement='top' />)}
+        </div>
       </div>
-      <div>
+      <div data-testid='CardList.Row.Child'>
         {props.children}
       </div>
     </div>
