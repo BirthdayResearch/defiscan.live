@@ -14,7 +14,6 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
         <AdaptiveTable.Head>PAIR</AdaptiveTable.Head>
         <AdaptiveTable.Head className='text-right'>TOTAL LIQUIDITY</AdaptiveTable.Head>
         <AdaptiveTable.Head className='text-right'>VOLUME (24H)</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>VOLUME (30D)</AdaptiveTable.Head>
         <AdaptiveTable.Head className='text-right'>LIQUIDITY</AdaptiveTable.Head>
         <AdaptiveTable.Head className='text-right'>PRICE RATIO</AdaptiveTable.Head>
         <AdaptiveTable.Head>
@@ -73,21 +72,6 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         {data.volume?.h24 !== undefined ? (
           <NumberFormat
             value={data.volume?.h24}
-            displayType='text'
-            thousandSeparator
-            decimalScale={0}
-            prefix='$'
-          />
-        ) : (
-          <div className='text-yellow-500'>
-            Error
-          </div>
-        )}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='VOLUME (30D)' className='align-middle lg:text-right'>
-        {data.volume?.d30 !== undefined ? (
-          <NumberFormat
-            value={data.volume?.d30}
             displayType='text'
             thousandSeparator
             decimalScale={0}

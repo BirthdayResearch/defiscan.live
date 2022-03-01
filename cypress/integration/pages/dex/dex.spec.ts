@@ -20,7 +20,6 @@ context('/dex on macbook-16', () => {
       cy.wrap(ele).findByText('PAIR').should('be.visible')
       cy.wrap(ele).findByText('TOTAL LIQUIDITY').should('be.visible')
       cy.wrap(ele).findByText('VOLUME (24H)').should('be.visible')
-      cy.wrap(ele).findByText('VOLUME (30D)').should('be.visible')
       cy.wrap(ele).findByText('LIQUIDITY').should('be.visible')
       cy.wrap(ele).findByText('PRICE RATIO').should('be.visible')
       cy.wrap(ele).findByText('APR').should('be.visible')
@@ -29,7 +28,7 @@ context('/dex on macbook-16', () => {
 
   it('should have dex info in AdaptiveTable', function () {
     cy.findAllByTestId('AdaptiveTable.Row').eq(1).then(ele => {
-      cy.wrap(ele).children().should('have.length', 7)
+      cy.wrap(ele).children().should('have.length', 6)
     })
   })
 
@@ -77,11 +76,10 @@ context('/dex on iphone-x', () => {
   })
 
   it('should have Tether in AdaptiveTable', function () {
-    cy.findAllByTestId('AdaptiveTable.Row').eq(7).then(ele => {
+    cy.findAllByTestId('AdaptiveTable.Row').eq(6).then(ele => {
       cy.wrap(ele).findByText('PAIR').should('be.visible')
       cy.wrap(ele).findByText('TOTAL LIQUIDITY').should('be.visible')
       cy.wrap(ele).findByText('VOLUME (24H)').should('be.visible')
-      cy.wrap(ele).findByText('VOLUME (30D)').should('be.visible')
       cy.wrap(ele).findByText('LIQUIDITY').should('be.visible')
       cy.wrap(ele).findByText('PRICE RATIO').should('be.visible')
       cy.wrap(ele).findByText('APR').should('be.visible')
