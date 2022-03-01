@@ -56,7 +56,10 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
                 {`Next ~${nextColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`}
                 {
                   nextColRatio.lt(minColRatio.multipliedBy(1.1)) && (
-                    <WarningHoverPopover className='ml-1' description={<LiquidationWarningMessage />} />
+                    <>
+                      <span className='hidden'>Vault may go into liquidation.</span>
+                      <WarningHoverPopover className='ml-1' description={<LiquidationWarningMessage />} />
+                    </>
                   )
                 }
               </>
