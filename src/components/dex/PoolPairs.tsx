@@ -150,14 +150,15 @@ function APRInfo (props: {
 }): JSX.Element {
   return (
     <div
-      className='font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md w-48'
+      className='font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md w-44'
     >
-      <div className='border-b-2 border-gray-200'>
-        <div className='p-3'>
-          <div className='font-medium text-gray-400'>Total APR</div>
-          <div className='font-medium text-lg'>
+      <div className='p-3'>
+        <div className='font-medium'>Total APR</div>
+        <div className='flex mt-1'>
+          <div className='w-1/2'>Reward</div>
+          <div className='w-1/2 font-medium text-right'>
             <NumberFormat
-              value={props.total * 100}
+              value={props.reward * 100}
               displayType='text'
               thousandSeparator
               decimalScale={2}
@@ -166,32 +167,19 @@ function APRInfo (props: {
             />
           </div>
         </div>
-      </div>
-      <div className='px-3 pt-3'>
-        <div className='font-medium text-base inline-block'>
-          <NumberFormat
-            value={props.reward * 100}
-            displayType='text'
-            thousandSeparator
-            decimalScale={2}
-            fixedDecimalScale
-            suffix='%'
-          />
+        <div className='flex mt-0.5'>
+          <div className='w-1/2'>Commission</div>
+          <div className='w-1/2 font-medium text-right'>
+            <NumberFormat
+              value={props.commission * 100}
+              displayType='text'
+              thousandSeparator
+              decimalScale={2}
+              fixedDecimalScale
+              suffix='%'
+            />
+          </div>
         </div>
-        <span className='ml-1 font-medium text-gray-400'>Reward</span>
-      </div>
-      <div className='px-3 pt-1 pb-3'>
-        <div className='font-medium text-base inline-block'>
-          <NumberFormat
-            value={props.commission * 100}
-            displayType='text'
-            thousandSeparator
-            decimalScale={2}
-            fixedDecimalScale
-            suffix='%'
-          />
-        </div>
-        <span className='ml-1 font-medium text-gray-400'>Commission</span>
       </div>
     </div>
   )
