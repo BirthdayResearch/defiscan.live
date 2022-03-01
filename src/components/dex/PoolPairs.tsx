@@ -6,6 +6,7 @@ import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import React from 'react'
+import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
@@ -125,29 +126,17 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         {(() => {
           if (data.apr !== undefined) {
             return (
-              <div>
-                <div>
+              <div className='flex lg:justify-end'>
+                <MoreHoverPopover className='ml-1' description={<APRInfo {...data.apr} />} placement='bottom'>
                   <NumberFormat
-                    value={data.apr.reward * 100}
+                    value={data.apr.total * 100}
                     displayType='text'
                     thousandSeparator
                     decimalScale={2}
                     fixedDecimalScale
-                    suffix=' %'
-                    prefix='Reward: '
+                    suffix='%'
                   />
-                </div>
-                <div>
-                  <NumberFormat
-                    value={data.apr.commission * 100}
-                    displayType='text'
-                    thousandSeparator
-                    decimalScale={2}
-                    fixedDecimalScale
-                    suffix=' %'
-                    prefix='Commission: '
-                  />
-                </div>
+                </MoreHoverPopover>
               </div>
             )
           } else {
@@ -160,5 +149,59 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         })()}
       </AdaptiveTable.Cell>
     </AdaptiveTable.Row>
+  )
+}
+
+function APRInfo (props: {
+  total: number
+  reward: number
+  commission: number
+}): JSX.Element {
+  return (
+    <div
+      className='font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md w-48'
+    >
+      <div className='border-b-2 border-gray-200'>
+        <div className='p-3'>
+          <div className='font-medium text-gray-400'>Total APR</div>
+          <div className='font-medium text-lg'>
+            <NumberFormat
+              value={props.total * 100}
+              displayType='text'
+              thousandSeparator
+              decimalScale={2}
+              fixedDecimalScale
+              suffix='%'
+            />
+          </div>
+        </div>
+      </div>
+      <div className='px-3 pt-3'>
+        <div className='font-medium text-base inline-block'>
+          <NumberFormat
+            value={props.reward * 100}
+            displayType='text'
+            thousandSeparator
+            decimalScale={2}
+            fixedDecimalScale
+            suffix='%'
+          />
+        </div>
+        <span className='ml-1 font-medium text-gray-400'>Reward</span>
+      </div>
+      <div className='px-3 pt-1 pb-3'>
+        <div className='font-medium text-base inline-block'>
+          <NumberFormat
+            value={props.commission * 100}
+            displayType='text'
+            thousandSeparator
+            decimalScale={2}
+            fixedDecimalScale
+            suffix='%'
+          />
+        </div>
+        <span className='ml-1 font-medium text-gray-400'>Commission</span>
+      </div>
+    </div>
   )
 }
