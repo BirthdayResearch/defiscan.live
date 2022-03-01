@@ -86,16 +86,10 @@ function List (props: PropsWithChildren<{ className?: string }>): JSX.Element {
 
   return (
     <Transition
-      enter='transition ease-out duration-200'
-      enterFrom='opacity-0 translate-y-0'
-      enterTo='opacity-100 translate-y-1'
-      leave='transition ease-in duration-150'
-      leaveFrom='opacity-100 translate-y-1'
-      leaveTo='opacity-100 translate-y-0'
       className='w-full'
       show={isOpen}
     >
-      <div className='w-full mt-2 space-y-2'>
+      <div className={classNames('w-full mt-2 space-y-2', props.className)}>
         {props.children}
       </div>
     </Transition>

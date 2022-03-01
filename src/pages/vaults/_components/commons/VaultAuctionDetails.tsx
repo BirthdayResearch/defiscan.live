@@ -64,19 +64,22 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
 
   return (
     <CardList.Card testId='MobileAuctionDetailCard'>
+
       <CardList.Header isView path={`/vaults/${props.vault.vaultId}/auctions/${props.batch.index}`}>
         <div className='flex items-center font-medium text-gray-900'>
           <TokenSymbol className='w-6 h-6 mr-1.5' data-testid='MobileAuctionDetailCard.TokenSymbol' />
           <span data-testid='MobileAuctionDetailCard.displaySymbol'>{props.batch.loan.displaySymbol}</span>
         </div>
       </CardList.Header>
-      <div className='text-sm mt-1 mb-4' data-testid='MobileAuctionDetailCard.AuctionTimeLeft'>
+
+      <div className='text-sm mt-1' data-testid='MobileAuctionDetailCard.AuctionTimeLeft'>
         <AuctionTimeLeft
           liquidationHeight={props.vault.liquidationHeight} className='text-sm text-gray-500'
           showApproximateSymbol
         />
       </div>
-      <CardList.List>
+
+      <CardList.List className='mt-4'>
         <CardList.ListItem
           title='Min. Next Bid'
           titleClassNames='text-sm'
