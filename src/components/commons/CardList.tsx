@@ -50,22 +50,12 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
   } = useContext(CardListContext)
 
   return (
-    <div className='w-full flex justify-between'>
+    <div className='w-full flex justify-between space-x-1.5'>
       <div className='w-full flex items-center'>
         {props.children}
       </div>
       {
-        props.isView === undefined || !props.isView ? (
-          <div
-            className='text-gray-600 cursor-pointer'
-            onClick={() => setIsOpen(!isOpen)}
-            data-testid='CardList.Toggle'
-          >
-            {(!isOpen)
-              ? (<MdOutlineKeyboardArrowDown size={28} />)
-              : (<MdOutlineKeyboardArrowUp size={28} />)}
-          </div>
-        ) : (
+        (props.isView !== undefined && props.isView) && (
           <Link href={{ pathname: props.path }}>
             <a className='contents'>
               <div
@@ -78,6 +68,15 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
           </Link>
         )
       }
+      <div
+        className='text-primary-500 cursor-pointer border border-primary-300 rounded'
+        onClick={() => setIsOpen(!isOpen)}
+        data-testid='CardList.Toggle'
+      >
+        {(!isOpen)
+          ? (<MdOutlineKeyboardArrowDown size={28} />)
+          : (<MdOutlineKeyboardArrowUp size={28} />)}
+      </div>
     </div>
   )
 }
