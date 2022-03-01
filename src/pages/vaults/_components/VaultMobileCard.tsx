@@ -27,7 +27,7 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
       </CardList.Header>
 
       <TextTruncate
-        text={props.vault.vaultId} className='mt-0.5 font-medium'
+        text={props.vault.vaultId} className='mt-0.5 font-medium text-gray-900'
         testId='VaultMobileCard.VaultID'
         width='w-36'
       />

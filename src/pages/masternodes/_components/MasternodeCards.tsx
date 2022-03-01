@@ -28,7 +28,7 @@ function MasternodeCard ({ masternode }: { masternode: MasternodeData }): JSX.El
           <span className='text-sm'>Owner</span>
           <div className='text-gray-900'>
             <AddressLink address={masternode.owner.address}>
-              <TextTruncate text={masternode.owner.address} className='w-44' />
+              <TextTruncate text={masternode.owner.address} className='w-44 font-medium' />
             </AddressLink>
           </div>
         </div>
