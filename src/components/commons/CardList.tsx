@@ -12,7 +12,8 @@ interface CardListContextI {
 
 const CardListContext = createContext<CardListContextI>({
   isOpen: true,
-  setIsOpen: () => {}
+  setIsOpen: () => {
+  }
 })
 
 export function CardList (props: PropsWithChildren<{ className?: string, testId?: string }>): JSX.Element {
@@ -47,6 +48,7 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
     isOpen,
     setIsOpen
   } = useContext(CardListContext)
+  const [isClicked, setIsClicked] = useState(false)
 
   return (
     <div className='w-full flex justify-between space-x-1.5'>
@@ -58,8 +60,9 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
           <Link href={{ pathname: props.path }}>
             <a className='contents'>
               <div
-                className='border border-primary-300 rounded text-primary-400 px-1.5 py-1 text-sm'
                 data-testid='CardList.Header.ViewButton'
+                onClick={() => setIsClicked(!isClicked)}
+                className={classNames('border border-primary-300 rounded text-primary-400 px-1.5 py-1 text-sm', { 'bg-primary-100': isClicked })}
               >
                 VIEW
               </div>
