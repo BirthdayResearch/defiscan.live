@@ -77,10 +77,10 @@ context('/dex on iphone-x', () => {
     cy.get('h1').should('have.text', 'DEX Pool Pairs')
   })
 
-  it('should have Tether in AdaptiveTable', function () {
+  it('should have AdaptiveTable header information', function () {
     cy.findAllByTestId('AdaptiveTable.Row').eq(6).then(ele => {
       cy.wrap(ele).findByText('Pair').should('be.visible')
-      cy.wrap(ele).findByText('TOTAL Liquidity').should('be.visible')
+      cy.wrap(ele).findByText('Total Liquidity').should('be.visible')
       cy.wrap(ele).findByText('Volume (24H)').should('be.visible')
       cy.wrap(ele).findByText('Liquidity').should('be.visible')
       cy.wrap(ele).findByText('Price Ratio').should('be.visible')
