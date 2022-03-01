@@ -108,11 +108,11 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           />
         </div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle lg:text-right'>
+      <OverflowTable.Cell className='align-middle'>
         {(() => {
           if (data.apr !== undefined) {
             return (
-              <div className='flex lg:justify-end'>
+              <div className='flex justify-end'>
                 <MoreHoverPopover className='ml-1' description={<APRInfo {...data.apr} />} placement='bottom'>
                   <NumberFormat
                     value={data.apr.total * 100}

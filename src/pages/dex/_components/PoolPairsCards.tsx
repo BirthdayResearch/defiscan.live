@@ -29,7 +29,7 @@ export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.El
         <div className='font-medium text-gray-900'>
           <PoolPairSymbol
             poolPairId={poolPair.id} symbolSizeClassName='h-6 w-6'
-            symbolMarginClassName='ml-4' textClassName='ml-16 font-medium'
+            symbolMarginClassName='ml-4' textClassName='ml-12 font-medium'
           />
         </div>
       </CardList.Header>
@@ -132,18 +132,16 @@ export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.El
           {(() => {
             if (poolPair.apr !== undefined) {
               return (
-                <div className='flex lg:justify-end'>
-                  <MoreHoverPopover className='ml-1' description={<APRInfo {...poolPair.apr} />} placement='left'>
-                    <NumberFormat
-                      value={poolPair.apr.total * 100}
-                      displayType='text'
-                      thousandSeparator
-                      decimalScale={2}
-                      fixedDecimalScale
-                      suffix='%'
-                    />
-                  </MoreHoverPopover>
-                </div>
+                <MoreHoverPopover className='ml-1' description={<APRInfo {...poolPair.apr} />} placement='left'>
+                  <NumberFormat
+                    value={poolPair.apr.total * 100}
+                    displayType='text'
+                    thousandSeparator
+                    decimalScale={2}
+                    fixedDecimalScale
+                    suffix='%'
+                  />
+                </MoreHoverPopover>
               )
             } else {
               return (

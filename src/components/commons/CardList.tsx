@@ -91,7 +91,7 @@ function List (props: PropsWithChildren<{ className?: string }>): JSX.Element {
       className='w-full'
       show={isOpen}
     >
-      <div className={classNames('w-full mt-3 space-y-2.5', props.className)}>
+      <div className={classNames('w-full mt-4 space-y-2.5', props.className)}>
         {props.children}
       </div>
     </Transition>
