@@ -8,7 +8,8 @@ context('/dex on macbook-16', () => {
   })
 
   it('should have Stats Bar', () => {
-    cy.findByTestId('Dex.Stats.TVL').should('exist')
+    cy.findByTestId('Dex.Stats.TVL').should('exist').should('be.visible')
+    cy.findByTestId('Dex.Stats.24hVolume').should('exist').should('be.visible')
   })
 
   it('should have heading', () => {
@@ -68,7 +69,8 @@ context('/dex on iphone-x', () => {
   })
 
   it('should have Stats Bar', () => {
-    cy.findByTestId('Dex.Stats.TVL').should('exist')
+    cy.findByTestId('Dex.Stats.TVL').should('exist').should('be.visible')
+    cy.findByTestId('Dex.Stats.24hVolume').should('exist').should('be.visible')
   })
 
   it('should have heading', () => {
