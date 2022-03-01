@@ -12,8 +12,7 @@ interface CardListContextI {
 
 const CardListContext = createContext<CardListContextI>({
   isOpen: true,
-  setIsOpen: () => {
-  }
+  setIsOpen: () => {}
 })
 
 export function CardList (props: PropsWithChildren<{ className?: string, testId?: string }>): JSX.Element {

@@ -64,7 +64,6 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
 
   return (
     <CardList.Card testId='MobileAuctionDetailCard'>
-
       <CardList.Header isView path={`/vaults/${props.vault.vaultId}/auctions/${props.batch.index}`}>
         <div className='flex items-center font-medium text-gray-900'>
           <TokenSymbol className='w-6 h-6 mr-1.5' data-testid='MobileAuctionDetailCard.TokenSymbol' />
@@ -122,6 +121,5 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
         </div>
       </CardList.List>
     </CardList.Card>
-
   )
 }
