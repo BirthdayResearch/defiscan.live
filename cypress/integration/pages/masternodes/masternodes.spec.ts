@@ -20,12 +20,13 @@ context('/masternodes on macbook-16', () => {
 
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('OWNER').should('be.visible')
-      cy.wrap(ele).findByText('OPERATOR').should('be.visible')
-      cy.wrap(ele).findByText('CREATION HEIGHT').should('be.visible')
-      cy.wrap(ele).findByText('RESIGN HEIGHT').should('be.visible')
-      cy.wrap(ele).findByText('MINTED BLOCKS').should('be.visible')
-      cy.wrap(ele).findByText('STATE').should('be.visible')
+      cy.wrap(ele).findByText('Owner').should('be.visible')
+      cy.wrap(ele).findByText('Operator').should('be.visible')
+      cy.wrap(ele).findByText('Creation Height').should('be.visible')
+      cy.wrap(ele).findByText('Resign Height').should('be.visible')
+      cy.wrap(ele).findByText('Minted Blocks').should('be.visible')
+      cy.wrap(ele).findByText('State').should('be.visible')
+      cy.wrap(ele).findByText('Time Lock').should('be.visible')
     })
   })
 
@@ -81,19 +82,37 @@ context('/masternodes on iphone-x', () => {
     cy.get('h1').should('have.text', 'Masternodes')
   })
 
-  it('should have OverflowTable header information', function () {
-    cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('OWNER').should('be.visible')
-      cy.wrap(ele).findByText('OPERATOR').should('be.visible')
-      cy.wrap(ele).findByText('CREATION HEIGHT').should('not.be.visible')
-      cy.wrap(ele).findByText('RESIGN HEIGHT').should('not.be.visible')
-      cy.wrap(ele).findByText('MINTED BLOCKS').should('not.be.visible')
-      cy.wrap(ele).findByText('STATE').should('not.be.visible')
+  it('should have CardList header information', function () {
+    cy.findAllByTestId('MasternodeCards').within(() => {
+      cy.findAllByTestId('BlocksCard.CardList.Operator').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Operator')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findAllByTestId('BlocksCard.CardList.CreationHeight').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Creation Height')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findAllByTestId('BlocksCard.CardList.ResignHeight').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Resign Height')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findAllByTestId('BlocksCard.CardList.MintedBlocks').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Minted Blocks')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findAllByTestId('BlocksCard.CardList.State').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'State')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findAllByTestId('BlocksCard.CardList.TimeLock').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Time Lock')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
     })
   })
 
   it('should have 30 masternodes listed', function () {
-    cy.findAllByTestId('OverflowTable.Row').should('have.length.at.least', 30)
+    cy.findAllByTestId('MasternodeCard').should('have.length.at.least', 30)
   })
 
   it('should CursorPagination.Next and CursorPagination.Prev', function () {
