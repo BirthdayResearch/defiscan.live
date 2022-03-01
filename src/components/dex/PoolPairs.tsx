@@ -1,34 +1,25 @@
 import { AdaptiveTable } from '@components/commons/AdaptiveTable'
-import { HoverPopover } from '@components/commons/popover/HoverPopover'
-import { IoAlertCircleOutline } from 'react-icons/io5'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import React from 'react'
+import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
+import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
     <AdaptiveTable>
       <AdaptiveTable.Header>
-        <AdaptiveTable.Head>PAIR</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>TOTAL LIQUIDITY</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>VOLUME (24H)</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>VOLUME (30D)</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>LIQUIDITY</AdaptiveTable.Head>
-        <AdaptiveTable.Head className='text-right'>PRICE RATIO</AdaptiveTable.Head>
+        <AdaptiveTable.Head>Pair</AdaptiveTable.Head>
+        <AdaptiveTable.Head className='text-right'>Total Liquidity</AdaptiveTable.Head>
+        <AdaptiveTable.Head className='text-right'>Volume (24H)</AdaptiveTable.Head>
+        <AdaptiveTable.Head className='text-right'>Liquidity</AdaptiveTable.Head>
+        <AdaptiveTable.Head className='text-right'>Price Ratio</AdaptiveTable.Head>
         <AdaptiveTable.Head>
           <div className='flex items-center justify-end'>
             <div>APR</div>
-            <HoverPopover
-              popover='APR includes commission.'
-            >
-              <div className='p-1 cursor-help'>
-                <IoAlertCircleOutline
-                  className='h-4 w-4'
-                />
-              </div>
-            </HoverPopover>
+            <InfoHoverPopover description='APR includes commission.' className='ml-1' />
           </div>
         </AdaptiveTable.Head>
       </AdaptiveTable.Header>
@@ -48,13 +39,13 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
 
   return (
     <AdaptiveTable.Row>
-      <AdaptiveTable.Cell title='PAIR' className='align-middle'>
+      <AdaptiveTable.Cell title='Pair' className='align-middle'>
         <PoolPairSymbol
           poolPairId={data.id} symbolSizeClassName='h-8 w-8'
           symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
         />
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='TOTAL LIQUIDITY' className='align-middle lg:text-right'>
+      <AdaptiveTable.Cell title='Total Liquidity' className='align-middle lg:text-right'>
         {data.totalLiquidity.usd !== undefined ? (
           <NumberFormat
             value={data.totalLiquidity.usd}
@@ -69,7 +60,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           </div>
         )}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='VOLUME (24H)' className='align-middle lg:text-right'>
+      <AdaptiveTable.Cell title='Volume (24H)' className='align-middle lg:text-right'>
         {data.volume?.h24 !== undefined ? (
           <NumberFormat
             value={data.volume?.h24}
@@ -84,22 +75,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           </div>
         )}
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='VOLUME (30D)' className='align-middle lg:text-right'>
-        {data.volume?.d30 !== undefined ? (
-          <NumberFormat
-            value={data.volume?.d30}
-            displayType='text'
-            thousandSeparator
-            decimalScale={0}
-            prefix='$'
-          />
-        ) : (
-          <div className='text-yellow-500'>
-            Error
-          </div>
-        )}
-      </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='LIQUIDITY' className='align-middle lg:text-right'>
+      <AdaptiveTable.Cell title='Liquidity' className='align-middle lg:text-right'>
         <div>
           <NumberFormat
             value={data.tokenA.reserve}
@@ -119,7 +95,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           />
         </div>
       </AdaptiveTable.Cell>
-      <AdaptiveTable.Cell title='PRICE RATIO' className='align-middle lg:text-right'>
+      <AdaptiveTable.Cell title='Price Ratio' className='align-middle lg:text-right'>
         <div>
           <NumberFormat
             value={Number(new BigNumber(data.priceRatio.ab).toPrecision(4))}
@@ -141,29 +117,17 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         {(() => {
           if (data.apr !== undefined) {
             return (
-              <div>
-                <div>
+              <div className='flex lg:justify-end'>
+                <MoreHoverPopover className='ml-1' description={<APRInfo {...data.apr} />} placement='bottom'>
                   <NumberFormat
-                    value={data.apr.reward * 100}
+                    value={data.apr.total * 100}
                     displayType='text'
                     thousandSeparator
                     decimalScale={2}
                     fixedDecimalScale
-                    suffix=' %'
-                    prefix='Reward: '
+                    suffix='%'
                   />
-                </div>
-                <div>
-                  <NumberFormat
-                    value={data.apr.commission * 100}
-                    displayType='text'
-                    thousandSeparator
-                    decimalScale={2}
-                    fixedDecimalScale
-                    suffix=' %'
-                    prefix='Commission: '
-                  />
-                </div>
+                </MoreHoverPopover>
               </div>
             )
           } else {
@@ -176,5 +140,47 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         })()}
       </AdaptiveTable.Cell>
     </AdaptiveTable.Row>
+  )
+}
+
+function APRInfo (props: {
+  total: number
+  reward: number
+  commission: number
+}): JSX.Element {
+  return (
+    <div
+      className='font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md w-44'
+    >
+      <div className='p-3'>
+        <div className='font-medium'>Total APR</div>
+        <div className='flex mt-1'>
+          <div className='w-1/2'>Reward</div>
+          <div className='w-1/2 font-medium text-right'>
+            <NumberFormat
+              value={props.reward * 100}
+              displayType='text'
+              thousandSeparator
+              decimalScale={2}
+              fixedDecimalScale
+              suffix='%'
+            />
+          </div>
+        </div>
+        <div className='flex mt-0.5'>
+          <div className='w-1/2'>Commission</div>
+          <div className='w-1/2 font-medium text-right'>
+            <NumberFormat
+              value={props.commission * 100}
+              displayType='text'
+              thousandSeparator
+              decimalScale={2}
+              fixedDecimalScale
+              suffix='%'
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

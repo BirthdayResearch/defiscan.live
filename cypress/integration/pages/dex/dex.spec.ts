@@ -8,7 +8,8 @@ context('/dex on macbook-16', () => {
   })
 
   it('should have Stats Bar', () => {
-    cy.findByTestId('Dex.Stats.TVL').should('exist')
+    cy.findByTestId('Dex.Stats.TVL').should('exist').should('be.visible')
+    cy.findByTestId('Dex.Stats.24hVolume').should('exist').should('be.visible')
   })
 
   it('should have heading', () => {
@@ -17,19 +18,18 @@ context('/dex on macbook-16', () => {
 
   it('should have AdaptiveTable header information', function () {
     cy.findByTestId('AdaptiveTable.Header').then(ele => {
-      cy.wrap(ele).findByText('PAIR').should('be.visible')
-      cy.wrap(ele).findByText('TOTAL LIQUIDITY').should('be.visible')
-      cy.wrap(ele).findByText('VOLUME (24H)').should('be.visible')
-      cy.wrap(ele).findByText('VOLUME (30D)').should('be.visible')
-      cy.wrap(ele).findByText('LIQUIDITY').should('be.visible')
-      cy.wrap(ele).findByText('PRICE RATIO').should('be.visible')
+      cy.wrap(ele).findByText('Pair').should('be.visible')
+      cy.wrap(ele).findByText('Total Liquidity').should('be.visible')
+      cy.wrap(ele).findByText('Volume (24H)').should('be.visible')
+      cy.wrap(ele).findByText('Liquidity').should('be.visible')
+      cy.wrap(ele).findByText('Price Ratio').should('be.visible')
       cy.wrap(ele).findByText('APR').should('be.visible')
     })
   })
 
   it('should have dex info in AdaptiveTable', function () {
     cy.findAllByTestId('AdaptiveTable.Row').eq(1).then(ele => {
-      cy.wrap(ele).children().should('have.length', 7)
+      cy.wrap(ele).children().should('have.length', 6)
     })
   })
 
@@ -69,21 +69,21 @@ context('/dex on iphone-x', () => {
   })
 
   it('should have Stats Bar', () => {
-    cy.findByTestId('Dex.Stats.TVL').should('exist')
+    cy.findByTestId('Dex.Stats.TVL').should('exist').should('be.visible')
+    cy.findByTestId('Dex.Stats.24hVolume').should('exist').should('be.visible')
   })
 
   it('should have heading', () => {
     cy.get('h1').should('have.text', 'DEX Pool Pairs')
   })
 
-  it('should have Tether in AdaptiveTable', function () {
-    cy.findAllByTestId('AdaptiveTable.Row').eq(7).then(ele => {
-      cy.wrap(ele).findByText('PAIR').should('be.visible')
-      cy.wrap(ele).findByText('TOTAL LIQUIDITY').should('be.visible')
-      cy.wrap(ele).findByText('VOLUME (24H)').should('be.visible')
-      cy.wrap(ele).findByText('VOLUME (30D)').should('be.visible')
-      cy.wrap(ele).findByText('LIQUIDITY').should('be.visible')
-      cy.wrap(ele).findByText('PRICE RATIO').should('be.visible')
+  it('should have AdaptiveTable header information', function () {
+    cy.findAllByTestId('AdaptiveTable.Row').eq(6).then(ele => {
+      cy.wrap(ele).findByText('Pair').should('be.visible')
+      cy.wrap(ele).findByText('Total Liquidity').should('be.visible')
+      cy.wrap(ele).findByText('Volume (24H)').should('be.visible')
+      cy.wrap(ele).findByText('Liquidity').should('be.visible')
+      cy.wrap(ele).findByText('Price Ratio').should('be.visible')
       cy.wrap(ele).findByText('APR').should('be.visible')
     })
   })

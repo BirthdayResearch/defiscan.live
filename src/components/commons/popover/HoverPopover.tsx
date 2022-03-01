@@ -1,7 +1,7 @@
 import { JSX } from '@babel/types'
 import { PropsWithChildren, ReactNode, useState } from 'react'
 import classNames from 'classnames'
-import { Placement, useFloating } from '@floating-ui/react-dom'
+import { Placement, useFloating, shift } from '@floating-ui/react-dom'
 
 interface IconPopoverProps {
   popover: string | ReactNode
@@ -20,6 +20,7 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
     strategy
   } = useFloating({
     placement: props.placement ?? 'bottom',
+    middleware: [shift()],
     strategy: 'fixed'
   })
 
