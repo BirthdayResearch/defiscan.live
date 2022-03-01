@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js'
 import { VaultCollateralizationRatio } from './VaultCollateralizationRatio'
 import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
 import { getNextCollateralizationRatio } from '../../utils/NextCollateralizationRatio'
+import { WarningHoverPopover } from '@components/commons/popover/WarningHoverPopover'
 
 interface VaultHealthBarProps {
   vault: LoanVaultActive
@@ -41,10 +42,29 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
           data-testid='VaultHealthBar.MinCollateralizationRatio'
         >{`Min: ${minColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`}
         </div>
-        <div className='w-1/2 text-right' data-testid='VaultHealthBar.NextCollateralizationRatio'>
-          {
-            nextColRatio === undefined ? ('N/A') : (`Next ~${nextColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`)
-          }
+        <div
+          className='w-1/2 text-right flex items-center justify-end'
+          data-testid='VaultHealthBar.NextCollateralizationRatio'
+        >
+          {(() => {
+            if (nextColRatio === undefined) {
+              return 'N/A'
+            }
+
+            return (
+              <>
+                {`Next ~${nextColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`}
+                {
+                  nextColRatio.lt(minColRatio.multipliedBy(1.1)) && (
+                    <>
+                      <span className='hidden'>Vault may go into liquidation.</span>
+                      <WarningHoverPopover className='ml-1' description={<LiquidationWarningMessage />} />
+                    </>
+                  )
+                }
+              </>
+            )
+          })()}
         </div>
       </div>
       <div className='relative flex mt-2.5 items-center'>
@@ -98,4 +118,19 @@ function ColorScale (props: { normalizedLiquidatedThreshold: BigNumber, normaliz
 function getMaxRatio (atRiskThreshold: BigNumber): number {
   const healthyScaleRatio = 0.75
   return atRiskThreshold.dividedBy(new BigNumber(1).minus(healthyScaleRatio)).toNumber()
+}
+
+function LiquidationWarningMessage (): JSX.Element {
+  return (
+    <div
+      className='p-3 space-y-2 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
+    >
+      Vault may go into liquidation.
+      <br />
+      <p className='italic'>
+        This warning is shown when the vault's Next Collateralization Ratio is lesser than 1.1x of it's Min.
+        Collateralization Ratio.
+      </p>
+    </div>
+  )
 }
