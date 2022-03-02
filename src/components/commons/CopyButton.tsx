@@ -22,9 +22,16 @@ export function CopyButton (props: CopyButtonProps): JSX.Element {
     middleware: [shift()]
   })
 
-  async function copy (): Promise<void> {
-    await navigator.clipboard.writeText(props.content)
-    setOpen(true)
+  function copy (): void {
+    navigator.clipboard.writeText(props.content).then(
+      () => {
+        setOpen(true)
+      }
+    ).catch(
+      () => {
+        setOpen(false)
+      }
+    )
 
     setTimeout(() => {
       setOpen(false)
