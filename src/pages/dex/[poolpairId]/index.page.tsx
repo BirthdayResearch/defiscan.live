@@ -11,6 +11,8 @@ import { DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
 import { fromScript } from '@defichain/jellyfish-address'
 import { SmartBuffer } from 'smart-buffer'
 import { SwapCards } from './_components/SwapCards'
+import { PoolPairDetails } from './_components/PoolPairDetails'
+import { PoolPairGraph } from './_components/PoolPairGraph'
 
 export interface PoolSwapWithAddresses extends PoolSwap {
   addresses: {
@@ -43,7 +45,13 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         </h1>
 
         <div className='flex flex-wrap -mx-6'>
-          <div className='w-full lg:w-1/3 px-6' />
+          <div className='w-full lg:w-1/4 px-6'>
+            <PoolPairDetails poolpair={props.poolpair} />
+          </div>
+
+          <div className='w-full lg:w-3/4'>
+            <PoolPairGraph poolpair={props.poolpair} />
+          </div>
         </div>
 
         <div className='border-b my-6 border-gray-100' />
