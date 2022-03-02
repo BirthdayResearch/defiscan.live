@@ -5,7 +5,7 @@ import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import { VaultLink } from '@components/commons/link/VaultLink'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 
 interface DfTxTakeLoanProps {
   dftx: DfTx<TakeLoan>

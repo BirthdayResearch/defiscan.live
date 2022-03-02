@@ -1,7 +1,7 @@
 import { EmptySection } from '@components/commons/sections/EmptySection'
 import { VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { CollapsibleSection } from '@components/commons/sections/CollapsibleSection'
 import { BiddingHistoryCard } from './BiddingHistoryMobileCard'

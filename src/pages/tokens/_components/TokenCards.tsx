@@ -3,6 +3,7 @@ import { CardList } from '@components/commons/CardList'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets/tokens'
 import NumberFormat from 'react-number-format'
+import { getTokenName } from '../../../utils/commons/token/getTokenName'
 
 export function TokenCards ({ tokens }: { tokens: TokenData[] }): JSX.Element {
   return (
@@ -45,13 +46,7 @@ function TokenCard ({ token }: { token: TokenData }): JSX.Element {
           titleClassNames='text-sm'
           testId='TokenCard.CardList.Name'
         >
-          {(() => {
-            if (token.isDAT) {
-              return token.name.replace('Default Defi token', 'DeFiChain')
-            }
-
-            return token.name
-          })()}
+          {getTokenName(token)}
         </CardList.ListItem>
 
         <CardList.ListItem

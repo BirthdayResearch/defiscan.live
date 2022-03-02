@@ -4,7 +4,7 @@ import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { fromScript } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 import BigNumber from 'bignumber.js'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 import { AddressLink } from '@components/commons/link/AddressLink'
 
 interface DfTxICXCreateOrderProps {

@@ -5,7 +5,7 @@ import { fromScript } from '@defichain/jellyfish-address'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { VaultLink } from '@components/commons/link/VaultLink'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 
 interface DepositToVaultProps {
   dftx: DfTx<DepositToVault>

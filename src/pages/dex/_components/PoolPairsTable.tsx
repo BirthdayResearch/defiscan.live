@@ -6,6 +6,7 @@ import React from 'react'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { APRInfo } from './APRInfo'
+import { Link } from '@components/commons/link/Link'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
@@ -20,7 +21,11 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
       </OverflowTable.Header>
 
       {poolPairs.map((data) => (
-        <PoolPairRow key={data.id} data={data} />
+        <Link href={{ pathname: `/dex/${data.id}` }} key={data.id}>
+          <a className='contents'>
+            <PoolPairRow data={data} />
+          </a>
+        </Link>
       ))}
     </OverflowTable>
 
