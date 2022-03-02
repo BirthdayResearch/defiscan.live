@@ -3,6 +3,8 @@ import React from 'react'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { TokenData } from '@defichain/whale-api-client/dist/api/tokens'
 import { getAssetIcon, getTokenIcon } from '@components/icons/assets/tokens'
+import { getTokenName } from '../../../utils/commons/token/getTokenName'
+import { Link } from '@components/commons/link/Link'
 
 export function TokenTable ({ tokens }: { tokens: TokenData[] }): JSX.Element {
   return (
@@ -13,8 +15,12 @@ export function TokenTable ({ tokens }: { tokens: TokenData[] }): JSX.Element {
         <OverflowTable.Head title='Category' />
         <OverflowTable.Head title='Minted' />
       </OverflowTable.Header>
-      {tokens.map((mn) => (
-        <TokenRow data={mn} key={mn.id} />
+      {tokens.map((token) => (
+        <Link href={{ pathname: `/tokens/${token.id}` }} key={token.id}>
+          <a className='contents'>
+            <TokenRow data={token} />
+          </a>
+        </Link>
       ))}
     </OverflowTable>
   )
@@ -40,13 +46,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle group-hover:text-primary-500'>
-        {(() => {
-          if (data.isDAT) {
-            return data.name.replace('Default Defi token', 'DeFiChain')
-          }
-
-          return data.name
-        })()}
+        {getTokenName(data)}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle group-hover:text-primary-500'>
         {(() => {
