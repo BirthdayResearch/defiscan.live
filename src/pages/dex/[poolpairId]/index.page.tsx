@@ -45,11 +45,11 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         </h1>
 
         <div className='flex flex-wrap -mx-6'>
-          <div className='w-full lg:w-1/4 px-6'>
+          <div className='w-full lg:w-2/5 xl:w-1/4 px-6'>
             <PoolPairDetails poolpair={props.poolpair} />
           </div>
 
-          <div className='w-full lg:w-3/4'>
+          <div className='w-full mt-8 lg:mt-0 lg:w-3/5 xl:w-3/4 px-6'>
             <PoolPairGraph poolpair={props.poolpair} />
           </div>
         </div>

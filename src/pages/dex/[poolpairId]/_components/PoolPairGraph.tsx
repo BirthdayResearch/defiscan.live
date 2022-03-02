@@ -22,7 +22,7 @@ export function PoolPairGraph (props: { poolpair: PoolPairData }): JSX.Element {
 
   useEffect(() => {
     void fetchDailySwaps(api, props.poolpair.id).then(setFeed)
-  }, [props.poolpair])
+  }, [])
 
   if (feed === undefined) {
     return (
@@ -31,9 +31,11 @@ export function PoolPairGraph (props: { poolpair: PoolPairData }): JSX.Element {
   }
 
   return (
-    <div className='bg-gray-50 rounded-md h-96 p-4 lg:p-6'>
-      <div className='font-medium text-lg'>Volume</div>
-      <PriceAreaChart feed={feed} />
+    <div className='bg-gray-50 rounded-lg py-6 px-8 flex flex-col'>
+      <div className='w-full font-medium text-lg'>Volume</div>
+      <div className='w-full h-96'>
+        <PriceAreaChart feed={feed} />
+      </div>
     </div>
   )
 }
@@ -66,12 +68,6 @@ function PriceAreaChart ({ feed }: { feed: PoolSwapAggregatedWithTotal[] }): JSX
     <ResponsiveContainer width='100%' height='100%'>
       <BarChart
         data={data}
-        margin={{
-          top: 16,
-          right: 52,
-          bottom: 48,
-          left: 0
-        }}
       >
         <YAxis
           allowDataOverflow
@@ -141,7 +137,7 @@ async function fetchDailySwaps (api: WhaleApiClient, poolpairId: string): Promis
     aggregates.push(...response)
   }
 
-  return response.map(aggregate => {
+  return aggregates.map(aggregate => {
     let total = new BigNumber(0)
     for (const value of Object.values(aggregate.aggregated.amounts
     )) {
