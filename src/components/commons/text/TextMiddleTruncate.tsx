@@ -7,15 +7,15 @@ export function TextMiddleTruncate (props: { text: string, textLength: number, c
   return (
     <span
       className={classNames('select-all', props.className)} data-testid={props.testId}
-      onCopy={async (event) => await handlerCopy(event, props.text)}
+      onCopy={() => handlerCopy(event, props.text)}
     >{`${leftText}...${rightText}`}
     </span>
   )
 }
 
-async function handlerCopy (event, text: string): Promise<void> {
+function handlerCopy (event, text: string): void {
   event.preventDefault()
   event.nativeEvent.stopImmediatePropagation()
 
-  await navigator.clipboard.writeText(text)
+  void navigator.clipboard.writeText(text)
 }
