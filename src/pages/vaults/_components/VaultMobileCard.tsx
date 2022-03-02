@@ -18,7 +18,7 @@ interface VaultMobileCardProps {
 export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
   return (
     <CardList.Card>
-      <CardList.Header isView path={`/vaults/${props.vault.vaultId}`}>
+      <CardList.Header path={`/vaults/${props.vault.vaultId}`}>
         Vault ID
         <VaultStatus
           vault={props.vault} className='ml-2 px-2 py-1 inline-block text-xs'

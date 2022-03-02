@@ -2,10 +2,10 @@ import React from 'react'
 import { CardList } from '@components/commons/CardList'
 import NumberFormat from 'react-number-format'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import BigNumber from 'bignumber.js'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { APRInfo } from './APRInfo'
-import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
 
 export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
@@ -25,10 +25,10 @@ export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): J
 export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.Element {
   return (
     <CardList.Card testId='PoolPairsCard'>
-      <CardList.Header>
+      <CardList.Header path={`/dex/${poolPair.id}`}>
         <div className='font-medium text-gray-900'>
-          <PoolPairSymbolLocal
-            tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} symbolSizeClassName='h-6 w-6'
+          <PoolPairSymbol
+            poolPairId={poolPair.id} symbolSizeClassName='h-6 w-6'
             symbolMarginClassName='ml-4' textClassName='ml-12 font-medium'
           />
         </div>
