@@ -5,7 +5,7 @@ import { DfTxHeader } from './DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { VaultLink } from '@components/commons/link/VaultLink'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 
 interface DfTxPayBackLoanProps {
   dftx: DfTx<PaybackLoan>

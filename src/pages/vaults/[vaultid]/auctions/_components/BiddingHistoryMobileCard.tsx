@@ -1,5 +1,5 @@
 import { VaultAuctionBatchHistory } from '@defichain/whale-api-client/dist/api/loan'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { formatDistanceToNow } from 'date-fns'
 import { AddressLink } from '@components/commons/link/AddressLink'

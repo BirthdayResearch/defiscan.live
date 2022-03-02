@@ -1,7 +1,7 @@
 import { DfTx, TokenBalance, TokenMint } from '@defichain/jellyfish-transaction'
 import { DfTxHeader } from './DfTxHeader'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 import NumberFormat from 'react-number-format'
 
 interface DfTxTokenMintProps {

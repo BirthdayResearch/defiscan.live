@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import ReactNumberFormat from 'react-number-format'
 import { Head } from '@components/commons/Head'
+import { getTokenName } from '../../utils/commons/token/getTokenName'
 
 interface TokenAssetPageProps {
   token: TokenData
@@ -54,16 +55,8 @@ export default function TokenIdPage (props: InferGetServerSidePropsType<typeof g
   )
 }
 
-function getName (token: TokenData): string {
-  if (token.isDAT) {
-    return token.name.replace('Default Defi token', 'DeFiChain')
-  }
-
-  return `${token.name}#${token.id}`
-}
-
 function TokenPageHeading ({ token }: { token: TokenData }): JSX.Element {
-  const name = getName(token)
+  const name = getTokenName(token)
 
   return (
     <div>

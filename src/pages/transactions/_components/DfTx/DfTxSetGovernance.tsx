@@ -8,7 +8,7 @@ import {
   GovernanceUnmapped,
   LiqPoolSplit
 } from '@defichain/jellyfish-transaction/dist/script/dftx/dftx_governance'
-import { TokenSymbol } from '@components/commons/TokenSymbol'
+import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 
 interface DfTxSetGovernanceProps {
   dftx: DfTx<SetGovernance>
