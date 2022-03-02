@@ -33,7 +33,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   }
 
   return (
-    <OverflowTable.Row>
+    <OverflowTable.Row className='hover:text-primary-500'>
       <OverflowTable.Cell className='align-middle'>
         <PoolPairSymbolLocal
           tokenA={data.tokenA} tokenB={data.tokenB} symbolSizeClassName='h-8 w-8'
