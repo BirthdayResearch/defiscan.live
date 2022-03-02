@@ -31,8 +31,8 @@ export function PoolPairGraph (props: { poolpair: PoolPairData }): JSX.Element {
   }
 
   return (
-    <div className='bg-gray-50 rounded-lg py-6 px-8 flex flex-col'>
-      <div className='w-full font-medium text-lg'>Volume</div>
+    <div className='bg-gray-50 rounded-lg py-6 px-8 flex flex-col' data-testid='PoolPairGraph'>
+      <span className='block w-full font-medium text-lg' data-testid='Title'>Volume</span>
       <div className='w-full h-96'>
         <PriceAreaChart feed={feed} />
       </div>

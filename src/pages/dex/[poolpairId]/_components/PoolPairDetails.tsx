@@ -11,17 +11,18 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
     <>
       <APRDetails apr={props.poolpair.apr} />
 
-      <div className='space-y-1.5 pb-1 mt-5'>
-        <div className='text-sm font-semibold text-black opacity-60'>Tokens Locked</div>
-        <TokenLiquidityItem tokenId={props.poolpair.tokenA.id} value={props.poolpair.tokenA.reserve} />
-        <TokenLiquidityItem tokenId={props.poolpair.tokenB.id} value={props.poolpair.tokenB.reserve} />
+      <div className='space-y-1.5 pb-1 mt-5' data-testid='TokensLocked'>
+        <div className='text-sm font-semibold text-black opacity-60' data-testid='TokensLocked.Title'>Tokens Locked
+        </div>
+        <TokenLiquidityItem tokenId={props.poolpair.tokenA.id} value={props.poolpair.tokenA.reserve} testId='TokenA' />
+        <TokenLiquidityItem tokenId={props.poolpair.tokenB.id} value={props.poolpair.tokenB.reserve} testId='TokenB' />
       </div>
 
       <div className='border-b my-6 border-gray-100' />
 
-      <PoolPairDetailsItem title='TVL' value={props.poolpair.totalLiquidity.usd} />
-      <PoolPairDetailsItem title='Volume (24H)' value={props.poolpair.volume?.h24} />
-      <PoolPairDetailsItem title='Volume (30D)' value={props.poolpair.volume?.d30} />
+      <PoolPairDetailsItem title='TVL' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
+      <PoolPairDetailsItem title='Volume (24H)' value={props.poolpair.volume?.h24} testId='24hVol' />
+      <PoolPairDetailsItem title='Volume (30D)' value={props.poolpair.volume?.d30} testId='30dVol' />
     </>
   )
 }
@@ -38,8 +39,8 @@ function APRDetails (props: {
   }
 
   return (
-    <>
-      <div className='text-sm font-semibold text-black opacity-60'>APR</div>
+    <div data-testid='APRDetails'>
+      <div className='text-sm font-semibold text-black opacity-60' data-testid='APRDetails.Title'>APR</div>
       <div className='text-2xl font-medium text-gray-900 flex items-center'>
         <NumberFormat
           value={props.apr.total * 100}
@@ -48,21 +49,22 @@ function APRDetails (props: {
           decimalScale={2}
           fixedDecimalScale
           suffix='%'
+          data-testid='APRDetails.Value'
         />
         <MoreHoverPopover className='ml-1' description={<APRInfo {...props.apr} />} />
       </div>
-    </>
+    </div>
   )
 }
 
-function PoolPairDetailsItem (props: { title: string, value: string | number | undefined }): JSX.Element {
+function PoolPairDetailsItem (props: { title: string, value: string | number | undefined, testId: string }): JSX.Element {
   return (
-    <>
-      <div className='text-sm font-semibold text-black opacity-60 mt-5'>{props.title}</div>
+    <div data-testid={props.testId}>
+      <div className='text-sm font-semibold text-black opacity-60 mt-5' data-testid='Title'>{props.title}</div>
       {
         props.value === undefined ? ('...')
           : (
-            <div className='text-2xl font-medium text-gray-900'>$
+            <div className='text-2xl font-medium text-gray-900' data-testid='Value'>$
               <UnitSuffix
                 value={Number(props.value)}
                 units={{
@@ -75,18 +77,18 @@ function PoolPairDetailsItem (props: { title: string, value: string | number | u
             </div>
             )
       }
-    </>
+    </div>
   )
 }
 
-function TokenLiquidityItem (props: { tokenId: string, value: string | number | undefined }): JSX.Element {
+function TokenLiquidityItem (props: { tokenId: string, value: string | number | undefined, testId: string }): JSX.Element {
   return (
     <>
-      <div className='w-full flex items-center'>
+      <div className='w-full flex items-center' data-testid={props.testId}>
         <div className='w-1/2'>
-          <TokenSymbol tokenId={Number(props.tokenId)} symbolLeft />
+          <TokenSymbol tokenId={Number(props.tokenId)} symbolLeft testId='Token.Symbol' />
         </div>
-        <div className='w-1/2 font-medium'>
+        <div className='w-1/2 font-medium' data-testid='Token.Value'>
           <UnitSuffix
             value={Number(props.value)}
             units={{
