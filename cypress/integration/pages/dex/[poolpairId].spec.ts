@@ -130,6 +130,7 @@ context('/dex/[poolpairId] on iphone-x', () => {
     cy.findAllByTestId('SwapCard').within(() => {
       cy.findByTestId('CardList.Header').within(() => {
         cy.findByTestId('CardList.Header.Children').should('be.visible')
+        cy.findByTestId('CardList.Header.ViewButton').should('be.visible')
         cy.findByTestId('CardList.Header.Toggle').should('be.visible')
       })
 
