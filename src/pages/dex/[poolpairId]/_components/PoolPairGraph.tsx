@@ -104,7 +104,7 @@ function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null
   if (feed === undefined) {
     return null
   }
-  const blockTime = format(fromUnixTime(feed.block.medianTime), 'PPpp')
+  const blockTime = format(fromUnixTime(feed.block.medianTime), 'PP')
 
   return (
     <div className='table p-5 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5'>
@@ -119,8 +119,8 @@ function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null
           noSuffixSpacing
         />
       </div>
-      <div>
-        {blockTime}
+      <div className='text-sm text-gray-600'>
+        {`${blockTime} (UTC)`}
       </div>
     </div>
   )
