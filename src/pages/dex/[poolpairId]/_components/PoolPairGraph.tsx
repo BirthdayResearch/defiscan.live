@@ -31,16 +31,16 @@ export function PoolPairGraph (props: { poolpair: PoolPairData }): JSX.Element {
   }
 
   return (
-    <div className='bg-gray-50 rounded-lg py-6 px-8 flex flex-col' data-testid='PoolPairGraph'>
+    <div className='bg-gray-50 rounded-lg py-4 md:py-6 px-4 md:px-8 flex flex-col' data-testid='PoolPairGraph'>
       <span className='block w-full font-medium text-lg' data-testid='Title'>Volume</span>
       <div className='w-full h-96'>
-        <PriceAreaChart feed={feed} />
+        <VolumeBarChart feed={feed} />
       </div>
     </div>
   )
 }
 
-function PriceAreaChart ({ feed }: { feed: PoolSwapAggregatedWithTotal[] }): JSX.Element {
+function VolumeBarChart ({ feed }: { feed: PoolSwapAggregatedWithTotal[] }): JSX.Element {
   const data = feed.map(value => ({
     feed: value,
     time: value.block.medianTime * 1000
@@ -68,6 +68,7 @@ function PriceAreaChart ({ feed }: { feed: PoolSwapAggregatedWithTotal[] }): JSX
     <ResponsiveContainer width='100%' height='100%'>
       <BarChart
         data={data}
+        barGap={10}
       >
         <YAxis
           allowDataOverflow
@@ -92,7 +93,6 @@ function PriceAreaChart ({ feed }: { feed: PoolSwapAggregatedWithTotal[] }): JSX
         <Bar
           dataKey='feed.total'
           fill='#ff00af'
-          barSize={1.5}
         />
       </BarChart>
     </ResponsiveContainer>
