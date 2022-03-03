@@ -5,7 +5,7 @@ import { useNetwork } from '@contexts/NetworkContext'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { TokenSymbol } from '@components/commons/token/TokenSymbol'
-import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
+import { PoolPairSymbol } from '@components/commons/token/PoolPairSymbol'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 
 interface DftxCompositeSwapProps {

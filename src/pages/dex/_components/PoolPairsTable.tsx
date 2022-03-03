@@ -1,11 +1,11 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
 import NumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import React from 'react'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { APRInfo } from './APRInfo'
+import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
@@ -35,8 +35,8 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell className='align-middle'>
-        <PoolPairSymbol
-          poolPairId={data.id} symbolSizeClassName='h-8 w-8'
+        <PoolPairSymbolLocal
+          tokenA={data.tokenA} tokenB={data.tokenB} symbolSizeClassName='h-8 w-8'
           symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
         />
       </OverflowTable.Cell>

@@ -84,7 +84,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
 
   const next = CursorPagination.getNext(context)
-  const items = await api.poolpairs.list(30, next)
+  const items = await api.poolpairs.list(100, next)
   const sorted = items.map(value => ({
     sort: Number.parseFloat(value.totalLiquidity.usd ?? '0'),
     value
