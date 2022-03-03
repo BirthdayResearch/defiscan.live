@@ -3,7 +3,7 @@ import { getAssetIcon, getTokenIcon } from '@components/icons/assets/tokens'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import React, { useEffect, useState } from 'react'
 import { CgSpinner } from 'react-icons/cg'
-import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
+import { PoolPairSymbol } from '@components/commons/token/PoolPairSymbol'
 import { Link } from '@components/commons/link/Link'
 import { EmptySection } from '@components/commons/sections/EmptySection'
 
