@@ -22,7 +22,6 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
 
       <PoolPairDetailsItem title='TVL' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
       <PoolPairDetailsItem title='Volume (24H)' value={props.poolpair.volume?.h24} testId='24hVol' />
-      <PoolPairDetailsItem title='Volume (30D)' value={props.poolpair.volume?.d30} testId='30dVol' />
     </>
   )
 }

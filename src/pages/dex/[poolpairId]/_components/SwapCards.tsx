@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { CardList } from '@components/commons/CardList'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { formatDistanceToNow } from 'date-fns'
-import { PoolSwapWithAddresses } from '../index.page'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import NumberFormat from 'react-number-format'
 import { TokenSymbol } from '@components/commons/token/TokenSymbol'
+import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
-export function SwapCards ({ swaps }: { swaps: PoolSwapWithAddresses[] }): JSX.Element {
+export function SwapCards ({ swaps }: { swaps: PoolSwapData[] }): JSX.Element {
   return (
     <CardList>
       {swaps.map(swap => {
@@ -23,7 +23,7 @@ export function SwapCards ({ swaps }: { swaps: PoolSwapWithAddresses[] }): JSX.E
   )
 }
 
-export function SwapCard ({ swap }: { swap: PoolSwapWithAddresses }): JSX.Element {
+export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
   const [age, setAge] = useState(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
   useEffect(() => {
     setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
@@ -62,11 +62,11 @@ export function SwapCard ({ swap }: { swap: PoolSwapWithAddresses }): JSX.Elemen
           testId='SwapCard.CardList.From'
         >
           {
-            swap.addresses.from === undefined
+            swap.from === undefined
               ? ('N/A')
               : (
-                <AddressLink address={swap.addresses.from}>
-                  <TextTruncate text={swap.addresses.from} className='w-44' />
+                <AddressLink address={swap.from.address}>
+                  <TextTruncate text={swap.from.address} className='w-44' />
                 </AddressLink>
                 )
           }
@@ -78,11 +78,11 @@ export function SwapCard ({ swap }: { swap: PoolSwapWithAddresses }): JSX.Elemen
           testId='SwapCard.CardList.To'
         >
           {
-            swap.addresses.to === undefined
+            swap.to === undefined
               ? ('N/A')
               : (
-                <AddressLink address={swap.addresses.to}>
-                  <TextTruncate text={swap.addresses.to} className='w-44' />
+                <AddressLink address={swap.to.address}>
+                  <TextTruncate text={swap.to.address} className='w-44' />
                 </AddressLink>
                 )
           }

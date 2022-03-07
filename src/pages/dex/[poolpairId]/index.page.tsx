@@ -3,28 +3,18 @@ import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
 import React from 'react'
-import { PoolPairData, PoolSwap } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { PoolPairSymbol } from '@components/commons/PoolPairSymbol'
-import { SwapTable } from './_components/SwapTable'
+import { PoolPairData, PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
-import { DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
-import { fromScript } from '@defichain/jellyfish-address'
-import { SmartBuffer } from 'smart-buffer'
 import { SwapCards } from './_components/SwapCards'
 import { PoolPairDetails } from './_components/PoolPairDetails'
 import { PoolPairGraph } from './_components/PoolPairGraph'
-
-export interface PoolSwapWithAddresses extends PoolSwap {
-  addresses: {
-    from?: string
-    to?: string
-  }
-}
+import { SwapTable } from './_components/SwapTable'
+import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
   swaps: {
-    items: PoolSwapWithAddresses[]
+    items: PoolSwapData[]
     pages: CursorPage[]
   }
 }
@@ -38,8 +28,8 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
       />
       <Container className='pt-12 pb-20'>
         <h1 className='text-2xl font-medium mb-6'>
-          <PoolPairSymbol
-            poolPairId={props.poolpair.id} symbolSizeClassName='h-8 w-8'
+          <PoolPairSymbolLocal
+            tokenA={props.poolpair.tokenA} tokenB={props.poolpair.tokenB} symbolSizeClassName='h-8 w-8'
             symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
           />
         </h1>
@@ -82,53 +72,15 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
 
   const next = CursorPagination.getNext(context)
-  const swaps = await api.poolpairs.listPoolSwaps(poolpairId, 30, next)
+  const swaps = await api.poolpairs.listPoolSwapsVerbose(poolpairId, 30, next)
 
   return {
     props: {
       poolpair: await api.poolpairs.get(poolpairId),
       swaps: {
-        items: await Promise.all(await getSwapsWithAddresses()),
+        items: swaps,
         pages: CursorPagination.getPages(context, swaps)
       }
     }
-  }
-
-  async function getSwapsWithAddresses (): Promise<Array<Promise<PoolSwapWithAddresses>>> {
-    return swaps.map(async item => {
-      const dftx = await getDfTx(item.txid)
-
-      let from: string | undefined
-      let to: string | undefined
-
-      if (dftx !== undefined) {
-        if (dftx.name === 'OP_DEFI_TX_POOL_SWAP') {
-          from = dftx.data.fromScript !== undefined ? fromScript(dftx.data.fromScript, 'mainnet')?.address : undefined
-          to = dftx.data.toScript !== undefined ? fromScript(dftx.data.toScript, 'mainnet')?.address : undefined
-        } else {
-          from = fromScript(dftx.data.poolSwap.fromScript, 'mainnet')?.address
-          to = fromScript(dftx.data.poolSwap.toScript, 'mainnet')?.address
-        }
-      }
-
-      return {
-        ...item,
-        addresses: {
-          from: (from !== undefined ? from : undefined),
-          to: (to !== undefined ? to : undefined)
-        }
-      }
-    })
-  }
-
-  async function getDfTx (txid): Promise<DfTx<any> | undefined> {
-    const vout = await api.transactions.getVouts(txid, 1)
-    const hex = vout[0].script.hex
-    const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
-    const stack = toOPCodes(buffer)
-    if (stack.length !== 2 || stack[1].type !== 'OP_DEFI_TX') {
-      return undefined
-    }
-    return (stack[1] as OP_DEFI_TX).tx
   }
 }
