@@ -62,7 +62,7 @@ context('/blocks on iphone-x', () => {
       })
       cy.findAllByTestId('BlocksCard.CardList.Transactions').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Transactions')
-        cy.findByTestId('CardList.Row.Child').should('be.visible').contains(/^\d$/)
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
       cy.findAllByTestId('BlocksCard.CardList.Minter').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Minter')
