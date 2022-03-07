@@ -34,15 +34,11 @@ context('/dex/[poolpairid] on macbook-16', () => {
       cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
       cy.findByTestId('Value').should('be.visible')
     })
-    cy.findByTestId('30dVol').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (30D)')
-      cy.findByTestId('Value').should('be.visible')
-    })
   })
 
   it('should have PoolPair Graph', function () {
     cy.findByTestId('PoolPairGraph').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume')
+      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
       cy.get('.recharts-responsive-container').should('exist')
     })
   })
@@ -113,15 +109,11 @@ context('/dex/[poolpairId] on iphone-x', () => {
       cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
       cy.findByTestId('Value').should('be.visible')
     })
-    cy.findByTestId('30dVol').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (30D)')
-      cy.findByTestId('Value').should('be.visible')
-    })
   })
 
   it('should have PoolPair Graph', function () {
     cy.findByTestId('PoolPairGraph').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume')
+      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
       cy.get('.recharts-responsive-container').should('exist')
     })
   })
