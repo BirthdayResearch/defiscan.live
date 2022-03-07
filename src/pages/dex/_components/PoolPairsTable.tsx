@@ -6,6 +6,7 @@ import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { APRInfo } from './APRInfo'
 import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
+import { Link } from '@components/commons/link/Link'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
   return (
@@ -20,7 +21,11 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
       </OverflowTable.Header>
 
       {poolPairs.map((data) => (
-        <PoolPairRow data={data} key={data.id} />
+        <Link href={{ pathname: `/dex/${data.id}` }} key={data.id}>
+          <a className='contents'>
+            <PoolPairRow data={data} />
+          </a>
+        </Link>
       ))}
     </OverflowTable>
 
@@ -33,7 +38,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
   }
 
   return (
-    <OverflowTable.Row>
+    <OverflowTable.Row className='hover:text-primary-500'>
       <OverflowTable.Cell className='align-middle'>
         <PoolPairSymbolLocal
           tokenA={data.tokenA} tokenB={data.tokenB} symbolSizeClassName='h-8 w-8'

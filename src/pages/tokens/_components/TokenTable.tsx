@@ -28,7 +28,7 @@ export function TokenTable ({ tokens }: { tokens: TokenData[] }): JSX.Element {
 
 function TokenRow ({ data }: { data: TokenData }): JSX.Element {
   return (
-    <OverflowTable.Row className='group cursor-pointer my-4'>
+    <OverflowTable.Row className='hover:text-primary-500'>
       <OverflowTable.Cell className='align-middle'>
         <div className='flex items-center'>
           {(() => {
@@ -40,15 +40,15 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
             const TokenIcon = getTokenIcon(data.displaySymbol)
             return <TokenIcon className='h-8 w-8' />
           })()}
-          <div className='font-medium ml-3 group-hover:text-primary-500'>
+          <div className='font-medium ml-3'>
             {data.displaySymbol}{!data.isDAT && `#${data.id}`}
           </div>
         </div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle group-hover:text-primary-500'>
+      <OverflowTable.Cell className='align-middle'>
         {getTokenName(data)}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle group-hover:text-primary-500'>
+      <OverflowTable.Cell className='align-middle'>
         {(() => {
           if (data.isLPS) {
             return 'LPS'
@@ -61,7 +61,7 @@ function TokenRow ({ data }: { data: TokenData }): JSX.Element {
           return 'DCT'
         })()}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle group-hover:text-primary-500'>
+      <OverflowTable.Cell className='align-middle'>
         {(() => {
           if (data.isLPS) {
             return <div>-</div>

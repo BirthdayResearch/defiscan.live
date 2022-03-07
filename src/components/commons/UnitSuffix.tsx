@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js'
 interface UnitSuffixProps {
   value?: number
   units: Record<number, string>
+  noSuffixSpacing?: boolean
 }
 
 export function UnitSuffix (props: UnitSuffixProps): JSX.Element {
@@ -12,7 +13,8 @@ export function UnitSuffix (props: UnitSuffixProps): JSX.Element {
 
   const value = new BigNumber(props.value)
   const places = Math.floor(value.e! / 3)
-  const suffix = ` ${props.units[places * 3] ?? ''}`
+  let suffix = `${props.units[places * 3] ?? ''}`
+  suffix = (props.noSuffixSpacing !== undefined && props.noSuffixSpacing) ? `${suffix}` : ` ${suffix}`
 
   return (
     <>

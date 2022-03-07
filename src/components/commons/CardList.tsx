@@ -43,7 +43,7 @@ function Card (props: PropsWithChildren<{ className?: string, testId?: string }>
   )
 }
 
-function Header (props: PropsWithChildren<{ className?: string, isView?: boolean, path?: string }>): JSX.Element {
+function Header (props: PropsWithChildren<{ className?: string, path?: string }>): JSX.Element {
   const {
     isOpen,
     setIsOpen
@@ -56,7 +56,7 @@ function Header (props: PropsWithChildren<{ className?: string, isView?: boolean
         {props.children}
       </div>
       {
-        (props.isView !== undefined && props.isView) && (
+        (props.path !== undefined) && (
           <Link href={{ pathname: props.path }}>
             <a className='contents'>
               <div

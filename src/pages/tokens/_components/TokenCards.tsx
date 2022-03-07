@@ -23,7 +23,7 @@ export function TokenCards ({ tokens }: { tokens: TokenData[] }): JSX.Element {
 function TokenCard ({ token }: { token: TokenData }): JSX.Element {
   return (
     <CardList.Card testId='TokenCard'>
-      <CardList.Header isView path={`tokens/${token.id}`}>
+      <CardList.Header path={`tokens/${token.id}`}>
         <div className='flex items-center'>
           {(() => {
             if (token.isDAT) {

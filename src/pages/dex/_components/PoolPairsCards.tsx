@@ -25,7 +25,7 @@ export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): J
 export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.Element {
   return (
     <CardList.Card testId='PoolPairsCard'>
-      <CardList.Header>
+      <CardList.Header path={`/dex/${poolPair.id}`}>
         <div className='font-medium text-gray-900'>
           <PoolPairSymbolLocal
             tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} symbolSizeClassName='h-6 w-6'

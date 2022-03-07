@@ -34,7 +34,7 @@ export function BlocksCard ({ block }: { block: Block }): JSX.Element {
 
   return (
     <CardList.Card testId='BlocksCard'>
-      <CardList.Header isView path={`/blocks/${block.height}`}>
+      <CardList.Header path={`/blocks/${block.height}`}>
         <div>
           <span className='text-sm'>Height</span>
           <div className='font-medium text-gray-900'>
