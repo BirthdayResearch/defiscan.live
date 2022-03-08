@@ -7,7 +7,6 @@ import { PoolPairData, PoolSwapData } from '@defichain/whale-api-client/dist/api
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { SwapCards } from './_components/SwapCards'
 import { PoolPairDetails } from './_components/PoolPairDetails'
-import { PoolPairGraph } from './_components/PoolPairGraph'
 import { SwapTable } from './_components/SwapTable'
 import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
 
@@ -39,9 +38,9 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
             <PoolPairDetails poolpair={props.poolpair} />
           </div>
 
-          <div className='w-full mt-8 lg:mt-0 lg:w-3/5 xl:w-3/4 px-6'>
-            <PoolPairGraph poolpair={props.poolpair} />
-          </div>
+          {/* <div className='w-full mt-8 lg:mt-0 lg:w-3/5 xl:w-3/4 px-6'> */}
+          {/*  <PoolPairGraph poolpair={props.poolpair} /> */}
+          {/* </div> */}
         </div>
 
         <div className='border-b my-6 border-gray-100' />
