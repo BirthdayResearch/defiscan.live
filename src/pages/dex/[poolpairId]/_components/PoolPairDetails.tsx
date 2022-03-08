@@ -8,21 +8,21 @@ import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 
 export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element {
   return (
-    <>
-      <APRDetails apr={props.poolpair.apr} />
-
-      <div className='space-y-1.5 pb-1 mt-5' data-testid='TokensLocked'>
-        <div className='text-sm font-semibold text-black opacity-60' data-testid='TokensLocked.Title'>Tokens Locked
-        </div>
-        <TokenLiquidityItem tokenId={props.poolpair.tokenA.id} value={props.poolpair.tokenA.reserve} testId='TokenA' />
-        <TokenLiquidityItem tokenId={props.poolpair.tokenB.id} value={props.poolpair.tokenB.reserve} testId='TokenB' />
+    <div className='flex flex-wrap'>
+      <div className='w-2/5 space-y-5'>
+        <APRDetails apr={props.poolpair.apr} />
+        <PoolPairDetailsItem title='TVL' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
+        <PoolPairDetailsItem title='Volume (24H)' value={props.poolpair.volume?.h24} testId='24hVol' />
       </div>
-
-      <div className='border-b my-6 border-gray-100' />
-
-      <PoolPairDetailsItem title='TVL' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
-      <PoolPairDetailsItem title='Volume (24H)' value={props.poolpair.volume?.h24} testId='24hVol' />
-    </>
+      <div className='w-2/5'>
+        <div className='space-y-1.5 pb-1' data-testid='TokensLocked'>
+          <div className='text-sm font-semibold text-black opacity-60' data-testid='TokensLocked.Title'>Tokens Locked
+          </div>
+          <TokenLiquidityItem tokenId={props.poolpair.tokenA.id} value={props.poolpair.tokenA.reserve} testId='TokenA' />
+          <TokenLiquidityItem tokenId={props.poolpair.tokenB.id} value={props.poolpair.tokenB.reserve} testId='TokenB' />
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -59,7 +59,7 @@ function APRDetails (props: {
 function PoolPairDetailsItem (props: { title: string, value: string | number | undefined, testId: string }): JSX.Element {
   return (
     <div data-testid={props.testId}>
-      <div className='text-sm font-semibold text-black opacity-60 mt-5' data-testid='Title'>{props.title}</div>
+      <div className='text-sm font-semibold text-black opacity-60' data-testid='Title'>{props.title}</div>
       {
         props.value === undefined ? ('...')
           : (
@@ -83,11 +83,11 @@ function PoolPairDetailsItem (props: { title: string, value: string | number | u
 function TokenLiquidityItem (props: { tokenId: string, value: string | number | undefined, testId: string }): JSX.Element {
   return (
     <>
-      <div className='w-full flex items-center' data-testid={props.testId}>
-        <div className='w-1/2'>
+      <div className='flex items-center' data-testid={props.testId}>
+        <div className='w-3/5'>
           <TokenSymbol tokenId={Number(props.tokenId)} symbolLeft testId='Token.Symbol' />
         </div>
-        <div className='w-1/2 font-medium' data-testid='Token.Value'>
+        <div className='w-2/5 font-medium' data-testid='Token.Value'>
           <UnitSuffix
             value={Number(props.value)}
             units={{

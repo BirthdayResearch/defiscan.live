@@ -34,7 +34,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         </h1>
 
         <div className='flex flex-wrap -mx-6'>
-          <div className='w-full lg:w-2/5 xl:w-1/4 px-6'>
+          <div className='w-full lg:w-1/2 px-6'>
             <PoolPairDetails poolpair={props.poolpair} />
           </div>
 
@@ -43,7 +43,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
           {/* </div> */}
         </div>
 
-        <div className='border-b my-6 border-gray-100' />
+        <div className='border-b my-6 border-gray-200' />
 
         <h3 className='text-xl font-semibold'>
           Swap History
