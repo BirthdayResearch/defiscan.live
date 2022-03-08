@@ -13,6 +13,7 @@ export enum SortKeys {
   TOTAL_LIQUIDITY = 'totalLiquidity',
   APR = 'apr'
 }
+
 export type SortOrder = 'asc' | 'desc'
 
 export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
@@ -100,8 +101,8 @@ export function sortData ({
       sortKey === SortKeys.VOLUME
         ? value.volume?.h24 ?? 0
         : (sortKey === SortKeys.APR
-            ? value.apr?.total ?? 0
-            : Number.parseFloat(value.totalLiquidity.usd ?? '0'))
+          ? value.apr?.total ?? 0
+          : Number.parseFloat(value.totalLiquidity.usd ?? '0'))
     ),
     value
   }))

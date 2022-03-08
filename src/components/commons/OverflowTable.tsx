@@ -48,7 +48,7 @@ function Row (props: PropsWithChildren<{ className?: string, onClick?: MouseEven
   )
 }
 
-function Head (props: PropsWithChildren <{ title: string, className?: string, sticky?: boolean, alignRight?: boolean, infoDesc?: string | ReactNode, testId?: string }>): JSX.Element {
+function Head (props: PropsWithChildren<{ title: string, className?: string, sticky?: boolean, alignRight?: boolean, infoDesc?: string | ReactNode, testId?: string }>): JSX.Element {
   return (
     <div
       data-testid='OverflowTable.Head'
@@ -110,6 +110,7 @@ function SortButton ({
   return (
     <button
       onClick={onClick}
+      data-testid='OverflowTable.SortButton'
     >
       {arrow}
     </button>

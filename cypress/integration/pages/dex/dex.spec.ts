@@ -57,6 +57,74 @@ context('/dex on macbook-16', () => {
   //     expect(ele.text()).not.equals(pages[1])
   //   })
   // })
+  it('should have sort button for table view', function () {
+    cy.findByTestId('OverflowTable.Header').then(ele => {
+      cy.wrap(ele).findByText('Total Liquidity').findByTestId('OverflowTable.SortButton').should('exist')
+      cy.wrap(ele).findByText('Volume (24H)').findByTestId('OverflowTable.SortButton').should('exist')
+      cy.wrap(ele).findByText('APR').findByTestId('OverflowTable.SortButton').should('exist')
+    })
+  })
+
+  it('should sort by chosen order', function () {
+    cy.findByTestId('OverflowTable.Header').within(() => {
+      cy.findByText('Total Liquidity').findByTestId('OverflowTable.SortButton').click()
+    })
+    let totalLiquid: Number[] = []
+    cy.findAllByTestId('OverflowTable.Row').each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId('OverflowTable.Cell').eq(1).then(($ele) => {
+          totalLiquid.push(Number.parseInt($ele.text().substring(1).replaceAll(',', '')))
+        })
+      })
+    })
+
+    cy.then(() => {
+      for (let s = 0; s < totalLiquid.length; s++) {
+        if (s + 1 < totalLiquid.length) {
+          cy.wrap(totalLiquid[s]).should('be.lessThan', totalLiquid[s + 1])
+        }
+      }
+    })
+
+    cy.findByTestId('OverflowTable.Header').within(() => {
+      cy.findByText('Volume (24H)').findByTestId('OverflowTable.SortButton').click()
+    })
+    let volume: Number[] = []
+    cy.findAllByTestId('OverflowTable.Row').each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId('OverflowTable.Cell').eq(2).then(($ele) => {
+          volume.push(Number.parseInt($ele.text().substring(1).replaceAll(',', '')))
+        })
+      })
+    })
+    cy.then(() => {
+      for (let s = 0; s < volume.length; s++) {
+        if (s + 1 < volume.length) {
+          cy.wrap(volume[s]).should('be.greaterThan', volume[s + 1])
+        }
+      }
+    })
+
+    cy.findByTestId('OverflowTable.Header').within(() => {
+      cy.findByText('APR').findByTestId('OverflowTable.SortButton').click()
+    })
+    let apr: Number[] = []
+    cy.findAllByTestId('OverflowTable.Row').each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId('OverflowTable.Cell').eq(5).then(($ele) => {
+          let text = $ele.text()
+          apr.push(Number.parseFloat(text.substring(0,text.length-1)))
+        })
+      })
+    })
+    cy.then(() => {
+      for (let s = 0; s < apr.length; s++) {
+        if (s + 1 < apr.length) {
+          cy.wrap(apr[s]).should('be.lessThan', apr[s + 1])
+        }
+      }
+    })
+  })
 })
 
 context('/dex on iphone-x', () => {
@@ -127,4 +195,5 @@ context('/dex on iphone-x', () => {
   //     expect(ele.text()).not.equals(pages[1])
   //   })
   // })
+
 })
