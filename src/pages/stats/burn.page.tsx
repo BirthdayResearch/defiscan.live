@@ -2,7 +2,7 @@ import { Head } from '@components/commons/Head'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import React from 'react'
 import { Container } from '@components/commons/Container'
-import { getWhaleRpcClient } from '@contexts/WhaleContext'
+import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { AdaptiveList } from '@components/commons/AdaptiveList'
 import ReactNumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
@@ -98,8 +98,8 @@ export default function BurnPage ({
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BurnInfoData>> {
-  const rpc = getWhaleRpcClient(context)
-  const burnInfo = await rpc.account.getBurnInfo()
+  const api = getWhaleApiClient(context)
+  const burnInfo = await api.stats.getBurn()
 
   const burnRates = burnInfo.dfipaybacktokens.map(token => {
     const amount = token.split('@')[0]
@@ -125,7 +125,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         auctionburn: burnInfo.auctionburn.toFixed(8),
         paybackburn: burnInfo.paybackburn.toFixed(8),
         dexfeetokens: burnInfo.dexfeetokens,
-        dfipaybackfee: burnInfo.dfipaybackfee.multipliedBy(100).toFixed(8),
+        dfipaybackfee: new BigNumber(burnInfo.dfipaybackfee).multipliedBy(100).toFixed(8),
         dfipaybacktokens: burnInfo.dfipaybacktokens,
         emissionburn: burnInfo.emissionburn.toFixed(8)
       },
