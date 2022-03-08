@@ -101,8 +101,8 @@ export function sortData ({
       sortKey === SortKeys.VOLUME
         ? value.volume?.h24 ?? 0
         : (sortKey === SortKeys.APR
-          ? value.apr?.total ?? 0
-          : Number.parseFloat(value.totalLiquidity.usd ?? '0'))
+            ? value.apr?.total ?? 0
+            : Number.parseFloat(value.totalLiquidity.usd ?? '0'))
     ),
     value
   }))

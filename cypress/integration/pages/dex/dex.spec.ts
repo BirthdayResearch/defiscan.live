@@ -69,7 +69,7 @@ context('/dex on macbook-16', () => {
     cy.findByTestId('OverflowTable.Header').within(() => {
       cy.findByText('Total Liquidity').findByTestId('OverflowTable.SortButton').click()
     })
-    let totalLiquid: Number[] = []
+    const totalLiquid: Number[] = []
     cy.findAllByTestId('OverflowTable.Row').each(($el) => {
       cy.wrap($el).within(() => {
         cy.findAllByTestId('OverflowTable.Cell').eq(1).then(($ele) => {
@@ -89,7 +89,7 @@ context('/dex on macbook-16', () => {
     cy.findByTestId('OverflowTable.Header').within(() => {
       cy.findByText('Volume (24H)').findByTestId('OverflowTable.SortButton').click()
     })
-    let volume: Number[] = []
+    const volume: Number[] = []
     cy.findAllByTestId('OverflowTable.Row').each(($el) => {
       cy.wrap($el).within(() => {
         cy.findAllByTestId('OverflowTable.Cell').eq(2).then(($ele) => {
@@ -108,12 +108,12 @@ context('/dex on macbook-16', () => {
     cy.findByTestId('OverflowTable.Header').within(() => {
       cy.findByText('APR').findByTestId('OverflowTable.SortButton').click()
     })
-    let apr: Number[] = []
+    const apr: Number[] = []
     cy.findAllByTestId('OverflowTable.Row').each(($el) => {
       cy.wrap($el).within(() => {
         cy.findAllByTestId('OverflowTable.Cell').eq(5).then(($ele) => {
-          let text = $ele.text()
-          apr.push(Number.parseFloat(text.substring(0,text.length-1)))
+          const text = $ele.text()
+          apr.push(Number.parseFloat(text.substring(0, text.length - 1)))
         })
       })
     })
@@ -195,5 +195,4 @@ context('/dex on iphone-x', () => {
   //     expect(ele.text()).not.equals(pages[1])
   //   })
   // })
-
 })
