@@ -9,12 +9,12 @@ import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element {
   return (
     <div className='flex flex-wrap'>
-      <div className='w-2/5 space-y-5'>
+      <div className='w-1/4 space-y-5'>
         <APRDetails apr={props.poolpair.apr} />
         <PoolPairDetailsItem title='TVL' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
         <PoolPairDetailsItem title='Volume (24H)' value={props.poolpair.volume?.h24} testId='24hVol' />
       </div>
-      <div className='w-2/5'>
+      <div className='border-l pl-10 w-2/5'>
         <div className='space-y-1.5 pb-1' data-testid='TokensLocked'>
           <div className='text-sm font-semibold text-black opacity-60' data-testid='TokensLocked.Title'>Tokens Locked
           </div>
