@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { CardList } from '@components/commons/CardList'
 import NumberFormat from 'react-number-format'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -6,11 +6,77 @@ import BigNumber from 'bignumber.js'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { APRInfo } from './APRInfo'
 import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
+import { sortData } from './PoolPairsTable'
+
+enum SortKeys {
+  VOLUME = 'volume',
+  TOTAL_LIQUIDITY = 'totalLiquidity',
+  APR = 'apr'
+}
+
+const sortTypes = [{
+  sortKey: SortKeys.TOTAL_LIQUIDITY,
+  sortOrder: 'desc',
+  value: 'Total Liquidity (High to Low)'
+}, {
+  sortKey: SortKeys.TOTAL_LIQUIDITY,
+  sortOrder: 'asc',
+  value: 'Total Liquidity (Low to High)'
+}, {
+  sortKey: SortKeys.VOLUME,
+  sortOrder: 'desc',
+  value: 'Volume (High to Low)'
+}, {
+  sortKey: SortKeys.VOLUME,
+  sortOrder: 'asc',
+  value: 'Volume (Low to High)'
+}, {
+  sortKey: SortKeys.APR,
+  sortOrder: 'desc',
+  value: 'APR (High to Low)'
+}, {
+  sortKey: SortKeys.APR,
+  sortOrder: 'asc',
+  value: 'APR (Low to High)'
+}]
 
 export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
+  type SortOrder = 'asc' | 'desc'
+  const [sortKey, setSortKey] = useState<SortKeys>(SortKeys.TOTAL_LIQUIDITY)
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc')
+
+  const sortedData = useCallback(
+    () => sortData({
+      poolPairs,
+      sortKey,
+      reverse: sortOrder === 'desc'
+    }),
+    [poolPairs, sortKey, sortOrder]
+  )
+
+  function changeSort (sortType: { sortKey: SortKeys, sortOrder: string, value: string }): void {
+    setSortOrder(sortType.sortOrder === 'asc' ? 'asc' : 'desc')
+    setSortKey(sortType.sortKey)
+  }
+
   return (
     <CardList>
-      {poolPairs.map(poolPair => {
+      <div className='w-full flex justify-end items-center'>
+        <CardList.DropDownSortButton>
+          {sortTypes.map(sortType => {
+            return (
+              <CardList.DropDownSortOption
+                key={sortType.sortKey + sortType.sortOrder}
+                sortType={sortType}
+                isSelected={sortType.sortKey === sortKey && sortType.sortOrder === sortOrder}
+                onClick={() => changeSort(sortType)}
+              />
+            )
+          })}
+        </CardList.DropDownSortButton>
+      </div>
+
+      {sortedData().map(poolPair => {
         return (
           <PoolPairsCard
             poolPair={poolPair}

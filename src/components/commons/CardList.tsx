@@ -1,8 +1,15 @@
 import classNames from 'classnames'
-import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
-import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
+import React, {
+  createContext,
+  Fragment,
+  MouseEventHandler,
+  PropsWithChildren,
+  useContext,
+  useState
+} from 'react'
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineSort } from 'react-icons/md'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
-import { Transition } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react'
 import { Link } from '@components/commons/link/Link'
 
 interface CardListContextI {
@@ -124,7 +131,68 @@ function ListItem (props: PropsWithChildren<{
   )
 }
 
+function DropDownSortButton (props: PropsWithChildren<{ selected?: { sortKey: string, sortOrder: string, value: string } }>): JSX.Element {
+  return (
+    <Menu as='div' className='relative inline-block text-left'>
+      <Menu.Button
+        className='inline-flex justify-center w-full rounded-md border border-primary-500 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
+      >
+        Filter By
+        <MdOutlineSort
+          className='w-5 h-5 ml-2 -mr-1 text-white-200 hover:text-white-100'
+          aria-hidden='true'
+        />
+      </Menu.Button>
+
+      <Transition
+        as={Fragment}
+        enter='transition ease-out duration-100'
+        enterFrom='transform opacity-0 scale-95'
+        enterTo='transform opacity-100 scale-100'
+        leave='transition ease-in duration-75'
+        leaveFrom='transform opacity-100 scale-100'
+        leaveTo='transform opacity-0 scale-95'
+      >
+        <Menu.Items
+          className='absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+        >
+          {props.children}
+        </Menu.Items>
+      </Transition>
+    </Menu>
+  )
+}
+
+function DropDownSortOption ({
+  sortType,
+  isSelected,
+  onClick
+}: {
+  sortType: { sortKey: string, sortOrder: string, value: string }
+  isSelected: boolean
+  onClick: MouseEventHandler<HTMLButtonElement>
+}): JSX.Element {
+  return (
+    <div className='px-1 py-1'>
+      <Menu.Item>
+        {({ active }) => (
+          <button
+            className={`${isSelected ? 'bg-primary-100 text-gray'
+              : active ? 'bg-primary-500 text-white' : 'text-gray-900'
+            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+            onClick={onClick}
+          >
+            {sortType.value}
+          </button>
+        )}
+      </Menu.Item>
+    </div>
+  )
+}
+
 CardList.Card = Card
 CardList.Header = Header
 CardList.List = List
 CardList.ListItem = ListItem
+CardList.DropDownSortButton = DropDownSortButton
+CardList.DropDownSortOption = DropDownSortOption
