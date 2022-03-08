@@ -36,12 +36,12 @@ context('/dex/[poolpairid] on macbook-16', () => {
     })
   })
 
-  it('should have PoolPair Graph', function () {
-    cy.findByTestId('PoolPairGraph').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
-      cy.get('.recharts-responsive-container').should('exist')
-    })
-  })
+  // it('should have PoolPair Graph', function () {
+  //   cy.findByTestId('PoolPairGraph').within(() => {
+  //     cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
+  //     cy.get('.recharts-responsive-container').should('exist')
+  //   })
+  // })
 
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
@@ -111,12 +111,12 @@ context('/dex/[poolpairId] on iphone-x', () => {
     })
   })
 
-  it('should have PoolPair Graph', function () {
-    cy.findByTestId('PoolPairGraph').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
-      cy.get('.recharts-responsive-container').should('exist')
-    })
-  })
+  // it('should have PoolPair Graph', function () {
+  //   cy.findByTestId('PoolPairGraph').within(() => {
+  //     cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
+  //     cy.get('.recharts-responsive-container').should('exist')
+  //   })
+  // })
 
   it('should have CardList', function () {
     cy.findAllByTestId('SwapCard').within(() => {
