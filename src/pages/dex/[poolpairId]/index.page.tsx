@@ -8,6 +8,8 @@ import { SwapCards } from './_components/SwapCards'
 import { PoolPairDetails } from './_components/PoolPairDetails'
 import { SwapTable } from './_components/SwapTable'
 import { PoolPairDetailsBar } from './_components/PoolPairDetailsBar'
+import { isAlphanumeric } from '../../../utils/commons/StringValidator'
+
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
@@ -54,15 +56,47 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
-  const poolpairId = context.params?.poolpairId?.toString().trim() as string
+  let poolpairId = context.params?.poolpairId?.toString().trim() as string
+  if (!isAlphanumeric(poolpairId, '-')) {
+    return { notFound: true }
+  }
+
   const api = getWhaleApiClient(context)
+
+  let poolPair: PoolPairData
+
+  if (poolpairId.includes('-')) {
+    const [tokenA, tokenB] = poolpairId.split('-')
+    const poolpairs: PoolPairData[] = []
+
+    let poolpairsResponse = await api.poolpairs.list(200)
+    poolpairs.push(...poolpairsResponse)
+    while (poolpairsResponse.hasNext) {
+      poolpairsResponse = await api.poolpairs.list(200, poolpairsResponse.nextToken)
+      poolpairs.push(...poolpairsResponse)
+    }
+    poolPair = poolpairs.filter(pair => {
+      return pair.tokenA.displaySymbol === tokenA && pair.tokenB.displaySymbol === tokenB
+    }).pop()!
+
+    if (poolPair === undefined) {
+      return { notFound: true }
+    }
+    poolpairId = poolPair?.id
+  } else {
+    try {
+      poolPair = await api.poolpairs.get(poolpairId)
+    } catch (e) {
+      return { notFound: true }
+    }
+  }
 
   const next = CursorPagination.getNext(context)
   const swaps = await api.poolpairs.listPoolSwapsVerbose(poolpairId, 10, next)
 
   return {
     props: {
-      poolpair: await api.poolpairs.get(poolpairId),
+      poolpair: poolPair,
       swaps: {
         items: swaps,
         pages: CursorPagination.getPages(context, swaps)

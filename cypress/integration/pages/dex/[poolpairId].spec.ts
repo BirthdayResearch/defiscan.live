@@ -64,6 +64,11 @@ context('/dex/[poolpairid] on macbook-16', () => {
       })
     })
   })
+
+  it('should redirect to individual poolpair page', () => {
+    cy.visit('/dex/dBTC-DFI')
+    cy.findByText('dBTC-DFI').should('exist')
+  })
 })
 
 context('/dex/[poolpairId] on iphone-x', () => {
@@ -144,5 +149,10 @@ context('/dex/[poolpairId] on iphone-x', () => {
         expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell)
       })
     })
+  })
+
+  it('should redirect to individual poolpair page', () => {
+    cy.visit('/dex/dBTC-DFI')
+    cy.findByText('dBTC-DFI').should('exist')
   })
 })
