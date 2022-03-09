@@ -1,6 +1,7 @@
 import { StatsState } from '@store/stats'
 import { DFI as DfiIcon } from '@components/icons/assets/tokens/DFI'
 import ReactNumberFormat from 'react-number-format'
+import { TextLoader } from '@components/commons/loaders/TextLoader'
 
 export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
   return (
@@ -17,7 +18,7 @@ export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
           data-testid='StatPriceCard.Price'
           className='font-semibold text-xl md:text-3xl lg:text-5xl'
         >
-          {props.stats === undefined ? <div className='animate-pulse py-4 bg-gray-200 w-1/2' /> : (
+          {props.stats === undefined ? <TextLoader text='$3.65' /> : (
             <ReactNumberFormat
               displayType='text'
               thousandSeparator
@@ -28,12 +29,14 @@ export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
           )}
         </div>
       </div>
-      <span
-        data-testid='StatPriceCard.UpdatedAt'
-        className='mt-auto text-gray-500 text-xs md:text-base'
-      >
-        {`Updated at ${props.stats.updatedAt}`}
-      </span>
+      {props.stats === undefined ? <TextLoader text='Updated at 13:22:00+01:00' /> : (
+        <span
+          data-testid='StatPriceCard.UpdatedAt'
+          className='mt-auto text-gray-500 text-xs md:text-base'
+        >
+          {`Updated at ${props.stats.updatedAt}`}
+        </span>
+      )}
     </div>
   )
 }

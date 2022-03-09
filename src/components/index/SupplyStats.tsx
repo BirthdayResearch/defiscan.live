@@ -6,6 +6,7 @@ import { RootState } from '@store/index'
 import { StatPriceCard } from '@components/index/StatCard'
 import { CalculatePercentage } from '../../utils/index/CalculatePercentage'
 import { useSelector } from 'react-redux'
+import { TextLoader } from '@components/commons/loaders/TextLoader'
 
 export function SupplyStats (): JSX.Element {
   const stats = useSelector((state: RootState) => state.stats)
@@ -141,7 +142,7 @@ function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string,
           <span className='font-normal text-sm md:text-base mr-2'>{props.heading}</span>
           <InfoHoverPopover description={props.infodesc} />
         </div>
-        {props.stat === undefined ? <div className='animate-pulse py-3 bg-gray-200 inline my-2 w-1/2' />
+        {props.stat === undefined ? <TextLoader text='498,319,323DFI' />
           : (
             <div className='flex flex-wrap items-center'>
               <ReactNumberFormat
@@ -155,7 +156,7 @@ function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string,
               {props.suffix !== undefined && <span className='ml-1'>{props.suffix}</span>}
             </div>
             )}
-        {props.stat === undefined ? <div className='animate-pulse py-3 bg-gray-200 w-full inline' />
+        {props.stat === undefined ? <TextLoader text='64.07% from max supply' />
           : props.children}
       </div>
     </div>
