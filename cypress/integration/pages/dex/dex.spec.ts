@@ -57,6 +57,7 @@ context('/dex on macbook-16', () => {
   //     expect(ele.text()).not.equals(pages[1])
   //   })
   // })
+
   it('should have sort button for table view', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Total Liquidity').findByTestId('OverflowTable.SortButton').should('exist')
@@ -65,7 +66,7 @@ context('/dex on macbook-16', () => {
     })
   })
 
-  it('should sort by chosen order', function () {
+  it('should sort row by chosen order', function () {
     cy.findByTestId('OverflowTable.Header').within(() => {
       cy.findByText('Total Liquidity').findByTestId('OverflowTable.SortButton').click()
     })
@@ -195,4 +196,89 @@ context('/dex on iphone-x', () => {
   //     expect(ele.text()).not.equals(pages[1])
   //   })
   // })
+
+  it('should have sort button for card view', function () {
+    cy.findByTestId('CardList.DropDownSortButton').findByText('Filter By').should('exist').click()
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(0).findByText('Total Liquidity (High to Low)').should('exist')
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(1).findByText('Total Liquidity (Low to High)').should('exist')
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(2).findByText('Volume (High to Low)').should('exist')
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(3).findByText('Volume (Low to High)').should('exist')
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(4).findByText('APR (High to Low)').should('exist')
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(5).findByText('APR (Low to High)').should('exist')
+  })
+
+  it('should sort cards by chosen order', function () {
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(1).findByText('Total Liquidity (Low to High)').click()
+
+    const totalLiquid: Number[] = []
+    cy.findAllByTestId('PoolPairsCard').each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId('BlocksCard.CardList.TotalLiquidity').then(($ele) => {
+          const text = $ele.text().split('$').at(1)
+          if (text !== undefined) {
+            totalLiquid.push(Number.parseInt(text.replaceAll(',', '')))
+          }
+        })
+      })
+    })
+
+    cy.then(() => {
+      cy.log(totalLiquid.toString())
+      for (let s = 0; s < totalLiquid.length; s++) {
+        if (s + 1 < totalLiquid.length) {
+          cy.wrap(totalLiquid[s]).should('be.lessThan', totalLiquid[s + 1])
+        }
+      }
+    })
+
+    cy.findByTestId('CardList.DropDownSortButton').findByText('Filter By').should('exist').click()
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(2).findByText('Volume (High to Low)').click()
+
+    const volume: Number[] = []
+    cy.findAllByTestId('PoolPairsCard').each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId('BlocksCard.CardList.24hVolume').then(($ele) => {
+          const text = $ele.text().split('$').at(1)
+          if (text !== undefined) {
+            volume.push(Number.parseInt(text.replaceAll(',', '')))
+          }
+        })
+      })
+    })
+
+    cy.then(() => {
+      cy.log(volume.toString())
+      for (let s = 0; s < volume.length; s++) {
+        if (s + 1 < volume.length) {
+          cy.wrap(volume[s]).should('be.greaterThan', volume[s + 1])
+        }
+      }
+    })
+
+    cy.findByTestId('CardList.DropDownSortButton').findByText('Filter By').should('exist').click()
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(4).findByText('APR (High to Low)').click()
+
+    const apr: Number[] = []
+    cy.findAllByTestId('PoolPairsCard').each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId('BlocksCard.CardList.APR').then(($ele) => {
+          let text = $ele.text().split('%').at(0)
+          if (text !== undefined) {
+            text = text.split('APR').at(1)
+            if (text !== undefined) {
+              apr.push(Number.parseFloat(text))
+            }
+          }
+        })
+      })
+    })
+
+    cy.then(() => {
+      for (let s = 0; s < apr.length; s++) {
+        if (s + 1 < apr.length) {
+          cy.wrap(apr[s]).should('be.greaterThan', apr[s + 1])
+        }
+      }
+    })
+  })
 })
