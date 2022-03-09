@@ -51,7 +51,7 @@ export function SupplyStats (): JSX.Element {
               <div className='px-1'>
                 DEX: <span className='text-black'>{CalculatePercentage(stats.tvl.dex!, stats.tvl.total!)}</span>
               </div>
-              <div className='px-1'>
+              <div className='px-1 md:break-all'>
                 Masternode:
                 <span className='text-black'>{CalculatePercentage(stats.tvl.masternodes!, stats.tvl.total!)}</span>
               </div>
