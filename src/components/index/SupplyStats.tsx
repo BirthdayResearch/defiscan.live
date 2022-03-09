@@ -18,7 +18,7 @@ export function SupplyStats (): JSX.Element {
         <StatPriceCard stats={stats} />
         <div className='flex flex-wrap w-full' data-testid='IndexStats.Desktop'>
           <StatCard
-            infodesc='Total DFI Minted  is the total number of DFI emitted to date.'
+            infodesc='Total DFI Minted is the total number of DFI emitted to date.'
             heading='Total DFI Minted'
             stat={supply.total}
             suffix='/ 1.2B'
@@ -76,7 +76,7 @@ export function SupplyStats (): JSX.Element {
         <StatPriceCard stats={stats} />
         <div className='flex flex-wrap w-full space-y-2 mt-4'>
           <StatCard
-            infodesc='Total DFI Minted  is the total number of DFI emitted to date.'
+            infodesc='Total DFI Minted is the total number of DFI emitted to date.'
             heading='Total DFI Minted'
             stat={supply.total}
             suffix='/ 1.2B'
