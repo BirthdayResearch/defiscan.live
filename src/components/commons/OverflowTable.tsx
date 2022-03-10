@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import React, { createContext, MouseEventHandler, PropsWithChildren, ReactNode, useState } from 'react'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { TiArrowSortedDown, TiArrowSortedUp, TiArrowUnsorted } from 'react-icons/ti'
 
 const OverflowTableContext = createContext<number>(0)
 
@@ -47,7 +48,7 @@ function Row (props: PropsWithChildren<{ className?: string, onClick?: MouseEven
   )
 }
 
-function Head (props: { title: string, className?: string, sticky?: boolean, alignRight?: boolean, infoDesc?: string | ReactNode, testId?: string }): JSX.Element {
+function Head (props: PropsWithChildren<{ title: string, className?: string, sticky?: boolean, alignRight?: boolean, infoDesc?: string | ReactNode, testId?: string }>): JSX.Element {
   return (
     <div
       data-testid='OverflowTable.Head'
@@ -59,6 +60,7 @@ function Head (props: { title: string, className?: string, sticky?: boolean, ali
       <div className={classNames('flex items-center', { 'justify-end': props.alignRight! })} data-testid={props.testId}>
         {props.title}
         {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
+        {props.children}
       </div>
     </div>
   )
@@ -86,7 +88,37 @@ function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean, 
   )
 }
 
+function SortButton ({
+  sortOrder,
+  columnKey,
+  sortKey,
+  onClick
+}: {
+  sortOrder: string
+  columnKey: string
+  sortKey: string
+  onClick: MouseEventHandler<HTMLButtonElement>
+}): JSX.Element {
+  let arrow = <TiArrowUnsorted className='h-4 w-4 text-gray-300' />
+
+  if (sortKey === columnKey && sortOrder === 'asc') {
+    arrow = <TiArrowSortedUp className='h-4 w-4 text-gray-300' />
+  } else if (sortKey === columnKey && sortOrder === 'desc') {
+    arrow = <TiArrowSortedDown className='h-4 w-4 text-gray-300' />
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      data-testid='OverflowTable.SortButton'
+    >
+      {arrow}
+    </button>
+  )
+}
+
 OverflowTable.Header = Header
 OverflowTable.Head = Head
 OverflowTable.Row = Row
 OverflowTable.Cell = Cell
+OverflowTable.SortButton = SortButton
