@@ -152,7 +152,7 @@ function DropDownSortButton (props: PropsWithChildren<{ selected?: { sortKey: st
           leaveTo='transform opacity-0 scale-95'
         >
           <Menu.Items
-            className='absolute right-0 w-56 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+            className='absolute right-0 w-56 mt-2 origin-top-right bg-white rounded shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
           >
             {props.children}
           </Menu.Items>
@@ -172,13 +172,13 @@ function DropDownSortOption ({
   onClick: MouseEventHandler<HTMLButtonElement>
 }): JSX.Element {
   return (
-    <div className='px-1 py-1' data-testid='CardList.DropDownSortOption'>
+    <div className='px-1 py-0.5' data-testid='CardList.DropDownSortOption'>
       <Menu.Item>
         {({ active }) => (
           <button
             className={`${isSelected ? 'bg-primary-100 text-gray'
               : active ? 'bg-primary-500 text-white' : 'text-gray-900'
-            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+            } group flex rounded items-center w-full px-2 py-2 text-sm`}
             onClick={onClick}
           >
             {sortType.value}
