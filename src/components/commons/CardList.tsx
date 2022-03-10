@@ -136,13 +136,10 @@ function DropDownSortButton (props: PropsWithChildren<{ selected?: { sortKey: st
     <div data-testid='CardList.DropDownSortButton'>
       <Menu as='div' className='relative inline-block text-left'>
         <Menu.Button
-          className='inline-flex justify-center w-full rounded-md border border-primary-500 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
+          className='inline-flex items-center rounded border border-primary-300 shadow-sm text-sm px-2.5 py-1.5 bg-white text-primary-500 hover:bg-primary-50'
         >
-          Filter By
-          <MdOutlineSort
-            className='w-5 h-5 ml-2 -mr-1 text-white-200 hover:text-white-100'
-            aria-hidden='true'
-          />
+          Sort By
+          <MdOutlineSort size={18} className='ml-1' />
         </Menu.Button>
 
         <Transition

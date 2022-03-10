@@ -82,7 +82,7 @@ context('/dex on macbook-16', () => {
     cy.then(() => {
       for (let s = 0; s < totalLiquid.length; s++) {
         if (s + 1 < totalLiquid.length) {
-          cy.wrap(totalLiquid[s]).should('be.lessThan', totalLiquid[s + 1])
+          cy.wrap(totalLiquid[s]).should('be.lte', totalLiquid[s + 1])
         }
       }
     })
@@ -101,7 +101,7 @@ context('/dex on macbook-16', () => {
     cy.then(() => {
       for (let s = 0; s < volume.length; s++) {
         if (s + 1 < volume.length) {
-          cy.wrap(volume[s]).should('be.greaterThan', volume[s + 1])
+          cy.wrap(volume[s]).should('be.gte', volume[s + 1])
         }
       }
     })
@@ -121,7 +121,7 @@ context('/dex on macbook-16', () => {
     cy.then(() => {
       for (let s = 0; s < apr.length; s++) {
         if (s + 1 < apr.length) {
-          cy.wrap(apr[s]).should('be.lessThan', apr[s + 1])
+          cy.wrap(apr[s]).should('be.lte', apr[s + 1])
         }
       }
     })
@@ -198,7 +198,7 @@ context('/dex on iphone-x', () => {
   // })
 
   it('should have sort button for card view', function () {
-    cy.findByTestId('CardList.DropDownSortButton').findByText('Filter By').should('exist').click()
+    cy.findByTestId('CardList.DropDownSortButton').findByText('Sort By').should('exist').click()
     cy.findAllByTestId('CardList.DropDownSortOption').eq(0).findByText('Total Liquidity (High to Low)').should('exist')
     cy.findAllByTestId('CardList.DropDownSortOption').eq(1).findByText('Total Liquidity (Low to High)').should('exist')
     cy.findAllByTestId('CardList.DropDownSortOption').eq(2).findByText('Volume (High to Low)').should('exist')
@@ -226,12 +226,12 @@ context('/dex on iphone-x', () => {
       cy.log(totalLiquid.toString())
       for (let s = 0; s < totalLiquid.length; s++) {
         if (s + 1 < totalLiquid.length) {
-          cy.wrap(totalLiquid[s]).should('be.lessThan', totalLiquid[s + 1])
+          cy.wrap(totalLiquid[s]).should('be.lte', totalLiquid[s + 1])
         }
       }
     })
 
-    cy.findByTestId('CardList.DropDownSortButton').findByText('Filter By').should('exist').click()
+    cy.findByTestId('CardList.DropDownSortButton').findByText('Sort By').should('exist').click()
     cy.findAllByTestId('CardList.DropDownSortOption').eq(2).findByText('Volume (High to Low)').click()
 
     const volume: Number[] = []
@@ -250,12 +250,12 @@ context('/dex on iphone-x', () => {
       cy.log(volume.toString())
       for (let s = 0; s < volume.length; s++) {
         if (s + 1 < volume.length) {
-          cy.wrap(volume[s]).should('be.greaterThan', volume[s + 1])
+          cy.wrap(volume[s]).should('be.gte', volume[s + 1])
         }
       }
     })
 
-    cy.findByTestId('CardList.DropDownSortButton').findByText('Filter By').should('exist').click()
+    cy.findByTestId('CardList.DropDownSortButton').findByText('Sort By').should('exist').click()
     cy.findAllByTestId('CardList.DropDownSortOption').eq(4).findByText('APR (High to Low)').click()
 
     const apr: Number[] = []
@@ -276,7 +276,7 @@ context('/dex on iphone-x', () => {
     cy.then(() => {
       for (let s = 0; s < apr.length; s++) {
         if (s + 1 < apr.length) {
-          cy.wrap(apr[s]).should('be.greaterThan', apr[s + 1])
+          cy.wrap(apr[s]).should('be.gte', apr[s + 1])
         }
       }
     })
