@@ -63,7 +63,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const api = getWhaleApiClient(context)
 
-  let poolPair: PoolPairData
+  let poolPair: PoolPairData | undefined
 
   if (poolpairId.includes('-')) {
     const [tokenA, tokenB] = poolpairId.split('-')
@@ -77,12 +77,12 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     }
     poolPair = poolpairs.filter(pair => {
       return pair.tokenA.displaySymbol === tokenA && pair.tokenB.displaySymbol === tokenB
-    }).pop()!
+    }).pop()
 
     if (poolPair === undefined) {
       return { notFound: true }
     }
-    poolpairId = poolPair?.id
+    poolpairId = poolPair.id
   } else {
     try {
       poolPair = await api.poolpairs.get(poolpairId)
