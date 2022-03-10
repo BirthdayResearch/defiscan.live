@@ -42,20 +42,16 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
           <OverflowTable.SortButton
             columnKey={SortKeys.TOTAL_LIQUIDITY}
             onClick={() => changeSort(SortKeys.TOTAL_LIQUIDITY)}
-            {...{
-              sortOrder,
-              sortKey
-            }}
+            sortOrder={sortOrder}
+            sortKey={sortKey}
           />
         </OverflowTable.Head>
         <OverflowTable.Head title='Volume (24H)' alignRight>
           <OverflowTable.SortButton
             columnKey={SortKeys.VOLUME}
             onClick={() => changeSort(SortKeys.VOLUME)}
-            {...{
-              sortOrder,
-              sortKey
-            }}
+            sortOrder={sortOrder}
+            sortKey={sortKey}
           />
         </OverflowTable.Head>
         <OverflowTable.Head title='Liquidity' alignRight />
@@ -64,10 +60,8 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
           <OverflowTable.SortButton
             columnKey={SortKeys.APR}
             onClick={() => changeSort(SortKeys.APR)}
-            {...{
-              sortOrder,
-              sortKey
-            }}
+            sortOrder={sortOrder}
+            sortKey={sortKey}
           />
         </OverflowTable.Head>
       </OverflowTable.Header>
