@@ -142,7 +142,7 @@ function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string,
           <span className='font-normal text-sm md:text-base mr-2'>{props.heading}</span>
           <InfoHoverPopover description={props.infodesc} />
         </div>
-        {props.stat === undefined ? <TextLoader text='498,319,323DFI' />
+        {props.stat === 0 ? <TextLoader text='498,319,323DFI' />
           : (
             <div className='flex flex-wrap items-center'>
               <ReactNumberFormat
@@ -156,7 +156,7 @@ function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string,
               {props.suffix !== undefined && <span className='ml-1'>{props.suffix}</span>}
             </div>
             )}
-        {props.stat === undefined ? <TextLoader text='64.07% from max supply' />
+        {props.stat === 0 ? <TextLoader text='64% from max supply' className='mt-auto' />
           : props.children}
       </div>
     </div>

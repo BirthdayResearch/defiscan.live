@@ -18,7 +18,7 @@ export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
           data-testid='StatPriceCard.Price'
           className='font-semibold text-xl md:text-3xl lg:text-5xl'
         >
-          {props.stats === undefined ? <TextLoader text='$3.65' /> : (
+          {props.stats.price.usdt === undefined ? <TextLoader text='$3.65' /> : (
             <ReactNumberFormat
               displayType='text'
               thousandSeparator
@@ -29,7 +29,7 @@ export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
           )}
         </div>
       </div>
-      {props.stats === undefined ? <TextLoader text='Updated at 13:22:00+01:00' /> : (
+      {props.stats.price.usdt === undefined ? <TextLoader text='Updated at 13:22:00+01:00' className='mt-auto' /> : (
         <span
           data-testid='StatPriceCard.UpdatedAt'
           className='mt-auto text-gray-500 text-xs md:text-base'
