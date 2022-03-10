@@ -96,18 +96,18 @@ export function sortData ({
     return poolPairs
   }
 
-  const sortedData = poolPairs.map(value => ({
-    sort: (
-      sortKey === SortKeys.VOLUME
-        ? value.volume?.h24 ?? 0
-        : (sortKey === SortKeys.APR
-            ? value.apr?.total ?? 0
-            : Number.parseFloat(value.totalLiquidity.usd ?? '0'))
-    ),
-    value
-  }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(value => value.value)
+  const sortedData = poolPairs.sort((a, b) => {
+    switch (sortKey) {
+      case SortKeys.VOLUME:
+        return (a.volume?.h24 ?? 0) - (b.volume?.h24 ?? 0)
+      case SortKeys.APR:
+        return (a.apr?.total ?? 0) - (b.apr?.total ?? 0)
+      case SortKeys.TOTAL_LIQUIDITY:
+        return Number(a.totalLiquidity?.usd ?? 0) - Number(b.totalLiquidity?.usd ?? 0)
+      default:
+        return b[sortKey] - a[sortKey]
+    }
+  })
 
   if (reverse) {
     return sortedData.reverse()
