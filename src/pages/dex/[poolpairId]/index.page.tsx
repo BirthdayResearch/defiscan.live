@@ -9,6 +9,7 @@ import { PoolPairDetails } from './_components/PoolPairDetails'
 import { SwapTable } from './_components/SwapTable'
 import { PoolPairDetailsBar } from './_components/PoolPairDetailsBar'
 import { isAlphanumeric } from '../../../utils/commons/StringValidator'
+import { WhaleApiClient } from '@defichain/whale-api-client'
 
 
 interface PoolPairPageProps {
@@ -55,6 +56,21 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
   )
 }
 
+async function getPoolPairsByTokenPair (poolpairId: string, api: WhaleApiClient): Promise<PoolPairData|undefined> {
+  const [tokenA, tokenB] = poolpairId.split('-')
+  const poolpairs: PoolPairData[] = []
+
+  let poolpairsResponse = await api.poolpairs.list(200)
+  poolpairs.push(...poolpairsResponse)
+  while (poolpairsResponse.hasNext) {
+    poolpairsResponse = await api.poolpairs.list(200, poolpairsResponse.nextToken)
+    poolpairs.push(...poolpairsResponse)
+  }
+  return poolpairs.filter(pair => {
+    return pair.tokenA.displaySymbol === tokenA && pair.tokenB.displaySymbol === tokenB
+  }).pop()
+}
+
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
   let poolpairId = context.params?.poolpairId?.toString().trim() as string
   if (!isAlphanumeric(poolpairId, '-')) {
@@ -66,18 +82,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   let poolPair: PoolPairData | undefined
 
   if (poolpairId.includes('-')) {
-    const [tokenA, tokenB] = poolpairId.split('-')
-    const poolpairs: PoolPairData[] = []
-
-    let poolpairsResponse = await api.poolpairs.list(200)
-    poolpairs.push(...poolpairsResponse)
-    while (poolpairsResponse.hasNext) {
-      poolpairsResponse = await api.poolpairs.list(200, poolpairsResponse.nextToken)
-      poolpairs.push(...poolpairsResponse)
-    }
-    poolPair = poolpairs.filter(pair => {
-      return pair.tokenA.displaySymbol === tokenA && pair.tokenB.displaySymbol === tokenB
-    }).pop()
+    poolPair = await getPoolPairsByTokenPair(poolpairId, api)
 
     if (poolPair === undefined) {
       return { notFound: true }
