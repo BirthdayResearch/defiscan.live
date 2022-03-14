@@ -7,7 +7,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
   return (
     <div className='rounded-lg flex h-full mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200'>
       <h1 className='text-sm font-medium'>Tokens</h1>
-      <div className='mt-5 space-y-7'>
+      <div className='mt-5'>
         <div className='space-y-2.5'>
           <h3 className='mb-1.5 text-sm text-gray-600'>Price</h3>
           <TokenDetailsItem
@@ -24,14 +24,14 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
             suffix={props.poolpair.tokenA.displaySymbol}
             prefix='≈'
           />
-          <Divider />
         </div>
-        <div className='space-y-2.5'>
+        <Divider />
+        <div className='space-y-2.5 mt-7'>
           <TokenLiquidityItem title='Volume 24H' value={props.poolpair.volume?.h24} testId='24hVolume' />
           <TokenLiquidityItem title='Total Liquidity' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
-          <Divider />
         </div>
-        <div className='space-y-2.5'>
+        <Divider />
+        <div className='space-y-2.5 mt-7'>
           <div className='mb-1.5 text-sm text-gray-600 flex justify-between'>
             <h3>Pooled Tokens</h3>
             <h3>Amount</h3>
@@ -46,8 +46,8 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
             value={props.poolpair.tokenB.reserve}
             displaySymbol={props.poolpair.tokenB.displaySymbol}
           />
-          <Divider />
         </div>
+        <Divider />
         <AprDetails apr={props.poolpair.apr} />
       </div>
     </div>
@@ -106,7 +106,7 @@ function AprDetails (props: {
     return <></>
   }
   return (
-    <div className='space-y-2.5'>
+    <div className='space-y-2.5 my-5'>
       <div className='mb-1.5 flex items-center'>
         <h3 className='text-sm text-gray-600'>APR</h3>
         <NumberFormat
@@ -149,6 +149,6 @@ function AprDetails (props: {
 
 function Divider (): JSX.Element {
   return (
-    <div className='border-b  border-gray-200 mt-8' />
+    <div className='border-b border-gray-200 mt-8' />
   )
 }
