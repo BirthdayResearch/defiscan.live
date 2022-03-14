@@ -5,7 +5,7 @@ import { getAssetIcon } from '@components/icons/assets/tokens'
 
 export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element {
   return (
-    <div className='rounded-lg flex h-full mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200'>
+    <div className='rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200'>
       <h1 className='text-sm font-medium'>Tokens</h1>
       <div className='mt-5'>
         <div className='space-y-2.5'>
