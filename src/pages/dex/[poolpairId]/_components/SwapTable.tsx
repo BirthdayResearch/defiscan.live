@@ -16,7 +16,7 @@ interface SwapTableProps {
 export function SwapTable ({ swaps }: SwapTableProps): JSX.Element {
   return (
     <div data-testid='SwapTable'>
-      <OverflowTable className='mt-6'>
+      <OverflowTable className='mt-4'>
         <OverflowTable.Header>
           <OverflowTable.Head title='Tx ID' />
           <OverflowTable.Head title='Age' />
