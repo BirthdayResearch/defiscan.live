@@ -8,7 +8,7 @@ import { CursorPage, CursorPagination } from '@components/commons/CursorPaginati
 import { SwapCards } from './_components/SwapCards'
 import { PoolPairDetails } from './_components/PoolPairDetails'
 import { SwapTable } from './_components/SwapTable'
-import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
+import { PoolPairDetailsBar } from './_components/PoolPairDetailsBar'
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
@@ -26,13 +26,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         description='Supply liquidity to BTC, ETH, USDT, USDC and many other pool pairs to power the Decentralized Exchange. Earn fees and block rewards in return for providing liquidity to the pool, you can withdraw your liquidity at any time.'
       />
       <Container className='pt-12 pb-20'>
-        <h1 className='text-2xl font-medium mb-6'>
-          <PoolPairSymbolLocal
-            tokenA={props.poolpair.tokenA} tokenB={props.poolpair.tokenB} symbolSizeClassName='h-8 w-8'
-            symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
-          />
-        </h1>
-
+        <PoolPairDetailsBar poolpair={props.poolpair} />
         <div className='flex flex-wrap -mx-6'>
           <div className='w-full lg:w-1/2 px-6'>
             <PoolPairDetails poolpair={props.poolpair} />
