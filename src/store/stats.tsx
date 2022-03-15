@@ -27,7 +27,7 @@ export interface StatsState {
     address?: number
   }
   price: {
-    usdt?: number
+    usd?: number
   }
   masternodes: {
     locked?: Array<{
