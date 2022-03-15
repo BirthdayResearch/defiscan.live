@@ -7,11 +7,10 @@ context('/dex/[poolpairid] on macbook-16', () => {
     cy.viewport('macbook-16')
   })
 
-  it('should have PoolPair Details', function () {
-    cy.findByTestId('APRDetails').within(() => {
-      cy.findByTestId('APRDetails.Title').should('be.visible').should('have.text', 'APR')
-      cy.findByTestId('APRDetails.Value').should('be.visible')
-      cy.findByTestId('MoreHoverPopover').should('be.visible')
+  it('should have PoolPair Details Bar information', function () {
+    cy.findByTestId('PoolPairDetailsBar').within(() => {
+      cy.findByTestId('PoolPairSymbol').should('be.visible').should('contain.text', 'dBTC-DFI')
+      cy.findByTestId('PriceRatio').should('be.visible')
     })
 
     cy.findByTestId('TokensLocked').within(() => {
