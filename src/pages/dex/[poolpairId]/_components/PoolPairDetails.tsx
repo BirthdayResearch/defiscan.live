@@ -1,21 +1,21 @@
-import React from 'react'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import NumberFormat from 'react-number-format'
 import { getAssetIcon } from '@components/icons/assets/tokens'
 
 export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element {
   return (
-    <div className='rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200'>
-      <h1 className='text-sm font-medium'>Tokens</h1>
+    <div className='rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200' data-testid='PoolPairDetails'>
+      <h1 className='text-sm font-medium' data-testid='title'>Tokens</h1>
       <div className='mt-5'>
         <div className='space-y-2.5'>
-          <h3 className='mb-1.5 text-sm text-gray-600'>Price</h3>
+          <h3 className='mb-1.5 text-sm text-gray-600' data-testid='subTitle'>Price</h3>
           <TokenDetailsItem
             tokenSymbol={props.poolpair.tokenA.symbol}
             value={props.poolpair.priceRatio.ba}
             displaySymbol={`1 ${props.poolpair.tokenA.displaySymbol}`}
             suffix={props.poolpair.tokenB.displaySymbol}
             prefix='≈'
+            testId='Price.TokenA'
           />
           <TokenDetailsItem
             tokenSymbol={props.poolpair.tokenB.symbol}
@@ -23,6 +23,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
             displaySymbol={`1 ${props.poolpair.tokenB.displaySymbol}`}
             suffix={props.poolpair.tokenA.displaySymbol}
             prefix='≈'
+            testId='Price.TokenB'
           />
         </div>
         <Divider />
@@ -40,11 +41,14 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
             tokenSymbol={props.poolpair.tokenA.symbol}
             value={props.poolpair.tokenA.reserve}
             displaySymbol={props.poolpair.tokenA.displaySymbol}
+            testId='Pool.TokenA'
+
           />
           <TokenDetailsItem
             tokenSymbol={props.poolpair.tokenB.symbol}
             value={props.poolpair.tokenB.reserve}
             displaySymbol={props.poolpair.tokenB.displaySymbol}
+            testId='Pool.TokenA'
           />
         </div>
         <Divider />
@@ -60,10 +64,11 @@ function TokenDetailsItem (props: {
   displaySymbol: string
   prefix?: string
   suffix?: string
+  testId: string
 }): JSX.Element {
   const TokenIcon = getAssetIcon(props.tokenSymbol)
   return (
-    <div className='flex items-center justify-between text-gray-900'>
+    <div className='flex items-center justify-between text-gray-900' data-testid={props.testId}>
       <span className='flex items-center'><TokenIcon className='mr-2 w-4 h-4' /> {props.displaySymbol}</span>
       <NumberFormat
         value={props.value}
@@ -107,8 +112,8 @@ function AprDetails (props: {
   }
   return (
     <div className='space-y-2.5 my-5'>
-      <div className='mb-1.5 flex items-center'>
-        <h3 className='text-sm text-gray-600'>APR</h3>
+      <div className='mb-1.5 flex items-center' data-testid='APR'>
+        <h3 className='text-sm text-gray-600' data-testid='Apr.title'>APR</h3>
         <NumberFormat
           value={props.apr.total * 100}
           displayType='text'
@@ -131,7 +136,7 @@ function AprDetails (props: {
           suffix='%'
         />
       </div>
-      <div className='flex items-center justify-between text-sm text-gray-500' data-testid='Rewards'>
+      <div className='flex items-center justify-between text-sm text-gray-500' data-testid='Commissions'>
         <span>Commissions</span>
         <NumberFormat
           value={props.apr.commission}
