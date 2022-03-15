@@ -10,8 +10,17 @@ import { BlocksList } from '@components/index/BlocksList'
 import { TransactionsList } from '@components/index/TransactionsList'
 import { useEffect, useState } from 'react'
 import { SupplyStats } from '@components/index/SupplyStats'
+import { StatsData, SupplyData } from '@defichain/whale-api-client/dist/api/stats'
 
 interface HomePageProps {
+  blocks: Block[]
+  stats: StatsData
+  supply: SupplyData
+  transactions: Transaction[]
+  liquidityPools: PoolPairData[]
+}
+
+interface HomePageStateI {
   blocks: Block[]
   transactions: Transaction[]
   liquidityPools: PoolPairData[]
@@ -19,7 +28,7 @@ interface HomePageProps {
 
 export default function HomePage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const api = useWhaleApiClient()
-  const [data, setData] = useState<HomePageProps>({
+  const [data, setData] = useState<HomePageStateI>({
     blocks: props.blocks,
     transactions: props.transactions,
     liquidityPools: props.liquidityPools
@@ -62,7 +71,7 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
     <>
       <IndexHeader />
       <Container className='pb-20'>
-        <SupplyStats />
+        <SupplyStats stats={props.stats} supply={props.supply} />
         <div className='flex flex-wrap -mx-2'>
           <div className='w-full lg:w-3/5 xl:w-2/3 px-1'>
             <TransactionsList transactions={data.transactions} />
@@ -79,7 +88,8 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<HomePageProps>> {
   const api = getWhaleApiClient(context)
-  const blocks = await api.blocks.list(8)
+
+  const [blocks, supply, stats] = await Promise.all([api.blocks.list(8), api.stats.getSupply(), api.stats.get()])
 
   let transactions: Transaction[] = []
   await Promise.all(
@@ -101,6 +111,8 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   return {
     props: {
       blocks,
+      stats,
+      supply,
       transactions,
       liquidityPools
     }

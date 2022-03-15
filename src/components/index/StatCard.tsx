@@ -1,37 +1,36 @@
-import { StatsState } from '@store/stats'
 import { DFI as DfiIcon } from '@components/icons/assets/tokens/DFI'
 import ReactNumberFormat from 'react-number-format'
 
-export function StatPriceCard (props: {stats: StatsState}): JSX.Element {
+export function StatPriceCard (props: { usd: number| undefined, updatedAt: string | undefined }): JSX.Element {
   return (
     <div
-      className='rounded-xl border border-gray-200 lg:shrink-0 p-4 md:p-8 w-full md:w-[21rem] flex flex-col h-[8rem] md:h-[15.5rem]'
+      className='rounded-lg border border-gray-200 p-5 lg:p-8 flex flex-col flex-1 mb-2 lg:mb-0'
       data-testid='StatPriceCard'
     >
       <div className='space-y-1.5 md:space-y-2.5'>
         <div className='flex items-center'>
-          <DfiIcon fontSize={32} />
+          <DfiIcon className='text-2xl md:text-3xl' />
           <div className='ml-2'>$DFI Price</div>
         </div>
         <div
           data-testid='StatPriceCard.Price'
-          className='font-semibold text-xl md:text-3xl lg:text-5xl'
+          className='font-semibold text-2xl md:text-4xl lg:text-5xl'
         >
           <ReactNumberFormat
             displayType='text'
             thousandSeparator
-            value={props.stats.price.usdt}
+            value={props.usd}
             decimalScale={2}
             prefix='$'
           />
         </div>
       </div>
-      <span
+      <div
         data-testid='StatPriceCard.UpdatedAt'
-        className='mt-auto text-gray-500 text-xs md:text-base'
+        className='text-gray-500 text-sm md:text-base mt-4 md:mt-8 lg:mt-auto'
       >
-        {`Updated at ${props.stats.updatedAt}`}
-      </span>
+        {props.updatedAt !== undefined && `Updated at ${props.updatedAt}`}
+      </div>
     </div>
   )
 }
