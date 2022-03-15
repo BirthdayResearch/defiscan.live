@@ -79,7 +79,7 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
               prefix='$'
               testId='StatCard.Tvl'
             >
-              <div className='mt-auto text-gray-500 flex divide-x text-sm md:text-xs lg:text-sm -mx-1'>
+              <div className='mt-auto text-gray-500 flex divide-x text-sm -mx-1'>
                 <div className='px-1'>
                   DEX:
                   <span
@@ -88,7 +88,7 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
                   </span>
                 </div>
                 <div className='px-1'>
-                  <span className='hidden xl:inline-block'>Masternode:</span>
+                  <span className='hidden xl:inline-block'>Masternodes:</span>
                   <span className='xl:hidden'>MN:</span>
                   <span
                     className='text-black font-medium ml-1'
