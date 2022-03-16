@@ -3,7 +3,7 @@ import React, {
   createContext,
   Fragment,
   MouseEventHandler,
-  PropsWithChildren,
+  PropsWithChildren, ReactNode,
   useContext,
   useState
 } from 'react'
@@ -50,19 +50,19 @@ function Card (props: PropsWithChildren<{ className?: string, testId?: string }>
   )
 }
 
-function Header (props: PropsWithChildren<{ className?: string, path?: string }>): JSX.Element {
+function Header (props: PropsWithChildren<{ className?: string, path?: string, component?: ReactNode }>): JSX.Element {
   const {
     isOpen,
     setIsOpen
   } = useContext(CardListContext)
   const [isClicked, setIsClicked] = useState(false)
-
   return (
-    <div className='w-full flex justify-between space-x-1.5' data-testid='CardList.Header'>
-      <div className='w-full flex items-center' data-testid='CardList.Header.Children'>
-        {props.children}
-      </div>
-      {
+    <>
+      <div className='w-full flex justify-between space-x-1.5' data-testid='CardList.Header'>
+        <div className='w-full flex items-center' data-testid='CardList.Header.Children'>
+          {props.children}
+        </div>
+        {
         (props.path !== undefined) && (
           <Link href={{ pathname: props.path }}>
             <a className='contents'>
@@ -77,16 +77,18 @@ function Header (props: PropsWithChildren<{ className?: string, path?: string }>
           </Link>
         )
       }
-      <div
-        className='text-primary-500 cursor-pointer border border-primary-300 rounded h-min'
-        onClick={() => setIsOpen(!isOpen)}
-        data-testid='CardList.Header.Toggle'
-      >
-        {(!isOpen)
-          ? (<MdOutlineKeyboardArrowDown size={28} />)
-          : (<MdOutlineKeyboardArrowUp size={28} />)}
+        <div
+          className='text-primary-500 cursor-pointer border border-primary-300 rounded h-min'
+          onClick={() => setIsOpen(!isOpen)}
+          data-testid='CardList.Header.Toggle'
+        >
+          {(!isOpen)
+            ? (<MdOutlineKeyboardArrowDown size={28} />)
+            : (<MdOutlineKeyboardArrowUp size={28} />)}
+        </div>
       </div>
-    </div>
+      {props.component}
+    </>
   )
 }
 

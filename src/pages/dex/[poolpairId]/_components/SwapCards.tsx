@@ -5,8 +5,9 @@ import { formatDistanceToNow } from 'date-fns'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import NumberFormat from 'react-number-format'
-import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { getAssetIcon } from '@components/icons/assets/tokens'
+import { MdOutlineArrowRightAlt } from 'react-icons/md'
 
 export function SwapCards ({ swaps }: { swaps: PoolSwapData[] }): JSX.Element {
   return (
@@ -38,13 +39,21 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
 
   return (
     <CardList.Card testId='SwapCard'>
-      <CardList.Header path={`/transactions/${swap.txid}`}>
-        <div>
-          <span className='text-sm'>Tx ID</span>
-          <TxIdLink txid={swap.txid}>
-            <TextTruncate text={swap.txid} className='w-44' />
-          </TxIdLink>
-        </div>
+      <CardList.Header
+        component={
+          <div className='flex items-center w-full justify-between mt-4'>
+            <span>Amount</span>
+            <NumberFormat
+              value={swap.fromAmount}
+              fixedDecimalScale
+              thousandSeparator=','
+              displayType='text'
+              suffix={swap.from?.symbol}
+            />
+          </div>
+      }
+      >
+        <SwapTokens from={swap.from?.symbol} to={swap.to?.symbol} />
       </CardList.Header>
 
       <CardList.List>
@@ -89,21 +98,33 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
         </CardList.ListItem>
 
         <CardList.ListItem
-          title='Amount'
+          title='Transaction ID'
           titleClassNames='text-sm'
-          testId='SwapCard.CardList.Amount'
+          testId='SwapCard.CardList.TxId'
         >
-          <div className='flex items-center justify-end'>
-            <NumberFormat
-              value={swap.fromAmount}
-              fixedDecimalScale
-              thousandSeparator=','
-              displayType='text'
-            />
-            <TokenSymbol tokenId={swap.fromTokenId} className='ml-1' />
-          </div>
+          <TxIdLink txid={swap.txid}>
+            <TextTruncate text={swap.txid} className='w-44' />
+          </TxIdLink>
         </CardList.ListItem>
       </CardList.List>
     </CardList.Card>
+  )
+}
+
+function SwapTokens ({ from, to }: {from: string | undefined, to: string | undefined}): JSX.Element {
+  if (from === undefined || to === undefined) {
+    return (
+      <></>
+    )
+  }
+  const ToTokenIcon = getAssetIcon(to)
+  const FromTokenIcon = getAssetIcon(from)
+
+  return (
+    <div className='flex items-center'>
+      <FromTokenIcon className='w-6 h-6' />
+      <MdOutlineArrowRightAlt className='text-gray-400 mx-1' />
+      <ToTokenIcon className='w-6 h-6' />
+    </div>
   )
 }

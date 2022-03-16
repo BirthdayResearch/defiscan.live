@@ -126,10 +126,10 @@ context('/dex/[poolpairId] on iphone-x', () => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'To')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findAllByTestId('SwapCard.CardList.Amount').within(() => {
-        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Amount')
-        cy.findByTestId('CardList.Row.Child').should('be.visible')
-      })
+      // cy.findAllByTestId('SwapCard.CardList.Amount').within(() => {
+      //   cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Amount')
+      //   cy.findByTestId('CardList.Row.Child').should('be.visible')
+      // })
     })
   })
 
