@@ -39,23 +39,19 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
 
   return (
     <CardList.Card testId='SwapCard'>
-      <CardList.Header
-        component={
-          <div className='flex items-center w-full justify-between mt-4' data-testid='CardList.Header.Amount'>
-            <span className='title'>Amount</span>
-            <NumberFormat
-              value={swap.fromAmount}
-              fixedDecimalScale
-              thousandSeparator=','
-              displayType='text'
-              suffix={swap.from?.symbol}
-            />
-          </div>
-      }
-      >
+      <CardList.Header>
         <SwapTokens from={swap.from?.symbol} to={swap.to?.symbol} />
       </CardList.Header>
-
+      <div className='flex items-center w-full justify-between mt-4' data-testid='CardList.Header.Amount'>
+        <span className='title'>Amount</span>
+        <NumberFormat
+          value={swap.fromAmount}
+          fixedDecimalScale
+          thousandSeparator=','
+          displayType='text'
+          suffix={` ${swap.from!.symbol}`}
+        />
+      </div>
       <CardList.List>
         <CardList.ListItem
           title='Age'
