@@ -75,7 +75,6 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
                 )
           }
         </CardList.ListItem>
-
         <CardList.ListItem
           title='To'
           titleClassNames='text-sm'
@@ -91,7 +90,6 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
                 )
           }
         </CardList.ListItem>
-
         <CardList.ListItem
           title='Transaction ID'
           titleClassNames='text-sm'
