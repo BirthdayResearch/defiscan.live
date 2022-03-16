@@ -50,7 +50,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
     <OverflowTable.Row>
       <OverflowTable.Cell className='align-middle'>
         <TxIdLink txid={swap.txid}>
-          <TextTruncate text={swap.txid} className='w-44' />
+          <TextTruncate text={swap.txid} className='2xl:w-44' />
         </TxIdLink>
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle'>
@@ -62,7 +62,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
             ? ('N/A')
             : (
               <AddressLink address={swap.from.address}>
-                <TextTruncate text={swap.from.address} className='w-44' />
+                <TextTruncate text={swap.from.address} className='2xl:w-44' />
               </AddressLink>
               )
         }
@@ -73,7 +73,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
             ? ('N/A')
             : (
               <AddressLink address={swap.to.address}>
-                <TextTruncate text={swap.to.address} className='w-44' />
+                <TextTruncate text={swap.to.address} className='2xl:w-44' />
               </AddressLink>
               )
         }

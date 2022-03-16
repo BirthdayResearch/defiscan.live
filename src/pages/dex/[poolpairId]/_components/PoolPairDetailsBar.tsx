@@ -8,15 +8,15 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
   return (
     <div className='flex flex-col md:flex-row md:items-center border border-gray-200 rounded-lg p-6' data-testid='PoolPairDetailsBar'>
       <PoolPairSymbolLocal
-        tokenA={props.poolpair.tokenA} tokenB={props.poolpair.tokenB} symbolSizeClassName='h-8 w-8'
-        symbolMarginClassName='ml-5 mt-3' textClassName='ml-16 font-normal text-xl'
+        tokenA={props.poolpair.tokenA} tokenB={props.poolpair.tokenB} symbolSizeClassName='h-4 w-4 md:h-8 md:w-8'
+        symbolMarginClassName='ml-2 -mb-3 md:ml-5 md:-mb-0' textClassName='ml-7 md:ml-16 font-normal text-lg md:text-xl'
         testId='PoolPairSymbol'
       />
-      <div className='md:ml-auto'>
+      <div className='md:ml-auto mt-6 md:mt-0'>
         <div className='flex flex-col'>
           <div className='flex items-center text-primary-900' data-testid='PriceRatio'>
             <span className='text-sm font-normal mr-2'>
-              {`1${props.poolpair.tokenA.displaySymbol} =`}
+              {`1${props.poolpair.tokenA.displaySymbol}  =`}
             </span>
             <ReactNumberFormat
               value={props.poolpair.priceRatio.ba}
@@ -29,7 +29,7 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
             />
           </div>
         </div>
-        <div className='flex justify-end' data-testid='TokenUsdPrice'>
+        <div className='flex md:justify-end' data-testid='TokenUsdPrice'>
           <ReactNumberFormat
             className='text-gray-400 text-sm'
             displayType='text'

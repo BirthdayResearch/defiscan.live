@@ -2,7 +2,6 @@ import { Head } from '@components/commons/Head'
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
-import React from 'react'
 import { PoolPairData, PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { CursorPage, CursorPagination } from '@components/commons/CursorPagination'
 import { SwapCards } from './_components/SwapCards'
@@ -27,14 +26,14 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
       />
       <Container className='pt-12 pb-20'>
         <PoolPairDetailsBar poolpair={props.poolpair} />
-        <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap items-start mt-8'>
+        <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
           <div className='lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
             <h3 className='text-lg font-semibold'>
               Pool Details
             </h3>
             <PoolPairDetails poolpair={props.poolpair} />
           </div>
-          <div className='w-full lg:w-3/4'>
+          <div className='w-full lg:w-3/4 overflow-hidden'>
             <h3 className='text-lg font-semibold'>
               Swap History
             </h3>

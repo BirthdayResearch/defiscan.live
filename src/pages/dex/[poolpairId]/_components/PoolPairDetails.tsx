@@ -7,8 +7,8 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
     <div className='rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200' data-testid='PoolPairDetails'>
       <h1 className='text-sm font-medium' data-testid='title'>Tokens</h1>
       <div className='mt-5'>
-        <div className='space-y-2.5'>
-          <h3 className='mb-1.5 text-sm text-gray-600' data-testid='subTitle'>Price</h3>
+        <div className='space-y-2.5' data-testid='PoolPairDetails.Price'>
+          <h3 className='mb-1.5 text-sm text-gray-600'>Price</h3>
           <TokenDetailsItem
             tokenSymbol={props.poolpair.tokenA.symbol}
             value={props.poolpair.priceRatio.ba}
@@ -27,12 +27,12 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
           />
         </div>
         <Divider />
-        <div className='space-y-2.5 mt-7'>
+        <div className='space-y-2.5 mt-7' data-testid='PoolPairDetails.Liquidity'>
           <TokenLiquidityItem title='Volume 24H' value={props.poolpair.volume?.h24} testId='24hVolume' />
           <TokenLiquidityItem title='Total Liquidity' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
         </div>
         <Divider />
-        <div className='space-y-2.5 mt-7'>
+        <div className='space-y-2.5 mt-7' data-testid='PoolPairDetails.Pool'>
           <div className='mb-1.5 text-sm text-gray-600 flex justify-between'>
             <h3>Pooled Tokens</h3>
             <h3>Amount</h3>
@@ -48,7 +48,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
             tokenSymbol={props.poolpair.tokenB.symbol}
             value={props.poolpair.tokenB.reserve}
             displaySymbol={props.poolpair.tokenB.displaySymbol}
-            testId='Pool.TokenA'
+            testId='Pool.TokenB'
           />
         </div>
         <Divider />
@@ -86,7 +86,7 @@ function TokenDetailsItem (props: {
 
 function TokenLiquidityItem (props: { title: string, value: string | number | undefined, testId: string }): JSX.Element {
   return (
-    <div className='flex items-center justify-between' data-testid={props.testId}>
+    <div className='grow  flex items-center justify-between' data-testid={props.testId}>
       <span className='text-sm text-gray-500'>{props.title}</span>
       <NumberFormat
         value={props.value}
@@ -111,9 +111,9 @@ function AprDetails (props: {
     return <></>
   }
   return (
-    <div className='space-y-2.5 my-5'>
+    <div className='space-y-2.5 my-5' data-testid='PoolPairDetails.Apr'>
       <div className='mb-1.5 flex items-center' data-testid='APR'>
-        <h3 className='text-sm text-gray-600' data-testid='Apr.title'>APR</h3>
+        <h3 className='text-sm text-gray-600'>APR</h3>
         <NumberFormat
           value={props.apr.total * 100}
           displayType='text'
