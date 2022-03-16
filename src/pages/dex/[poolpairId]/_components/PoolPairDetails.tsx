@@ -8,7 +8,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
       <h1 className='text-sm font-medium' data-testid='title'>Tokens</h1>
       <div className='mt-5'>
         <div className='space-y-2.5' data-testid='PoolPairDetails.Price'>
-          <h3 className='mb-1.5 text-sm text-gray-600'>Price</h3>
+          <span className='mb-1.5 text-sm text-gray-600'>Price</span>
           <TokenDetailsItem
             tokenSymbol={props.poolpair.tokenA.symbol}
             value={props.poolpair.priceRatio.ba}
@@ -34,15 +34,14 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
         <Divider />
         <div className='space-y-2.5 mt-7' data-testid='PoolPairDetails.Pool'>
           <div className='mb-1.5 text-sm text-gray-600 flex justify-between'>
-            <h3>Pooled Tokens</h3>
-            <h3>Amount</h3>
+            <span>Pooled Tokens</span>
+            <span>Amount</span>
           </div>
           <TokenDetailsItem
             tokenSymbol={props.poolpair.tokenA.symbol}
             value={props.poolpair.tokenA.reserve}
             displaySymbol={props.poolpair.tokenA.displaySymbol}
             testId='Pool.TokenA'
-
           />
           <TokenDetailsItem
             tokenSymbol={props.poolpair.tokenB.symbol}
@@ -75,7 +74,7 @@ function TokenDetailsItem (props: {
         displayType='text'
         thousandSeparator
         suffix={props.suffix !== undefined ? ` ${props.suffix}` : undefined}
-        prefix={props.prefix ?? undefined}
+        prefix={props.prefix}
         className='font-medium'
         decimalScale={Number(props.value) > 1 ? 2 : 8}
         fixedDecimalScale
@@ -86,7 +85,7 @@ function TokenDetailsItem (props: {
 
 function TokenLiquidityItem (props: { title: string, value: string | number | undefined, testId: string }): JSX.Element {
   return (
-    <div className='grow  flex items-center justify-between' data-testid={props.testId}>
+    <div className='flex items-center justify-between' data-testid={props.testId}>
       <span className='text-sm text-gray-500'>{props.title}</span>
       <NumberFormat
         value={props.value}
@@ -113,7 +112,7 @@ function AprDetails (props: {
   return (
     <div className='space-y-2.5 my-5' data-testid='PoolPairDetails.Apr'>
       <div className='mb-1.5 flex items-center' data-testid='APR'>
-        <h3 className='text-sm text-gray-600'>APR</h3>
+        <span className='text-sm text-gray-600'>APR</span>
         <NumberFormat
           value={props.apr.total * 100}
           displayType='text'
