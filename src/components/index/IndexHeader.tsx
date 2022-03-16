@@ -38,7 +38,7 @@ function Stats (): JSX.Element {
         <ReactNumberFormat
           displayType='text'
           thousandSeparator
-          value={stats.price.usdt}
+          value={stats.price.usd}
           decimalScale={2}
           prefix='$'
           suffix=' USD'
