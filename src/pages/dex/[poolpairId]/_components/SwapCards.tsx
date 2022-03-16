@@ -41,8 +41,8 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
     <CardList.Card testId='SwapCard'>
       <CardList.Header
         component={
-          <div className='flex items-center w-full justify-between mt-4'>
-            <span>Amount</span>
+          <div className='flex items-center w-full justify-between mt-4' data-testid='CardList.Header.Amount'>
+            <span className='title'>Amount</span>
             <NumberFormat
               value={swap.fromAmount}
               fixedDecimalScale
@@ -64,7 +64,6 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
         >
           {age}
         </CardList.ListItem>
-
         <CardList.ListItem
           title='From'
           titleClassNames='text-sm'
@@ -121,7 +120,7 @@ function SwapTokens ({ from, to }: {from: string | undefined, to: string | undef
   const FromTokenIcon = getAssetIcon(from)
 
   return (
-    <div className='flex items-center'>
+    <div className='flex items-center' data-testid='CardList.Header.SwapTokens'>
       <FromTokenIcon className='w-6 h-6' />
       <MdOutlineArrowRightAlt className='text-gray-400 mx-1' />
       <ToTokenIcon className='w-6 h-6' />

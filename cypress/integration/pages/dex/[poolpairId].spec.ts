@@ -110,9 +110,11 @@ context('/dex/[poolpairId] on iphone-x', () => {
     cy.findAllByTestId('SwapCard').within(() => {
       cy.findByTestId('CardList.Header').within(() => {
         cy.findByTestId('CardList.Header.Children').should('be.visible')
-        cy.findByTestId('CardList.Header.ViewButton').should('be.visible')
         cy.findByTestId('CardList.Header.Toggle').should('be.visible')
       })
+
+      cy.findByTestId('CardList.Header.SwapTokens').should('be.visible')
+      cy.findByTestId('CardList.Header.Amount').should('be.visible')
 
       cy.findAllByTestId('SwapCard.CardList.Age').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Age')
@@ -126,10 +128,10 @@ context('/dex/[poolpairId] on iphone-x', () => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'To')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      // cy.findAllByTestId('SwapCard.CardList.Amount').within(() => {
-      //   cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Amount')
-      //   cy.findByTestId('CardList.Row.Child').should('be.visible')
-      // })
+      cy.findAllByTestId('SwapCard.CardList.TxId').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Transaction ID')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
     })
   })
 
