@@ -37,6 +37,10 @@ context('/dex/[poolpairid] on macbook-16', () => {
     })
   })
 
+  it('should 3 filter checkboxes', function () {
+    cy.findAllByTestId('SwapFilter.Types').should('have.length.at.least', 3)
+  })
+
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
       cy.wrap(ele).findByText('Tx ID').should('be.visible')
@@ -104,6 +108,10 @@ context('/dex/[poolpairId] on iphone-x', () => {
         cy.findByTestId('Commissions').should('be.visible')
       })
     })
+  })
+
+  it('should 3 filter checkboxes', function () {
+    cy.findAllByTestId('SwapFilter.Types').should('have.length.at.least', 3)
   })
 
   it('should have CardList', function () {

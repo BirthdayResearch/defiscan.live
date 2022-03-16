@@ -11,9 +11,10 @@ import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
 interface SwapTableProps {
   swaps: PoolSwapData[]
+  selectedType: string
 }
 
-export function SwapTable ({ swaps }: SwapTableProps): JSX.Element {
+export function SwapTable ({ swaps, selectedType }: SwapTableProps): JSX.Element {
   return (
     <div data-testid='SwapTable'>
       <OverflowTable className='mt-4'>
@@ -24,10 +25,13 @@ export function SwapTable ({ swaps }: SwapTableProps): JSX.Element {
           <OverflowTable.Head title='To' />
           <OverflowTable.Head title='Amount' alignRight />
         </OverflowTable.Header>
-
-        {swaps.map(swap => (
-          <SwapRow swap={swap} key={swap.txid} />
-        ))}
+        {(() => {
+          const filtered = swaps.filter(swap => selectedType === 'All' || (selectedType.split('to')[0].includes(swap.from!.symbol)))
+          return filtered.length === 0 ? <div className='flex w-full my-10 justify-center text-gray-400'>No Swaps matched {`${selectedType}`} found </div>
+            : (
+                filtered.map(swap => <SwapRow swap={swap} key={swap.txid} />)
+              )
+        })()}
       </OverflowTable>
     </div>
   )
