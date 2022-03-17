@@ -6,7 +6,10 @@ import { AddressLink } from '@components/commons/link/AddressLink'
 import { fromScriptHex } from '@defichain/jellyfish-address'
 import { useNetwork } from '@contexts/NetworkContext'
 
-export function BiddingHistoryCard ({ history }: { history: VaultAuctionBatchHistory }): JSX.Element {
+export function BiddingHistoryCard ({
+  history,
+  bidIndex
+}: { history: VaultAuctionBatchHistory, bidIndex: number }): JSX.Element {
   const decoded = fromScriptHex(history.from, useNetwork().name)
   const address = decoded?.address ?? 'N/A'
 
@@ -17,7 +20,7 @@ export function BiddingHistoryCard ({ history }: { history: VaultAuctionBatchHis
       <div className='flex flex-col'>
         <div className='justify-start space-x-2'>
           <span className='bg-gray-400 px-2 py-1 w-20 text-sm text-white text-center'>
-            Bid #{history.index + 1}
+            {`Bid #${bidIndex}`}
           </span>
           <span className='text-gray-400'>
             {formatDistanceToNow(history.block.medianTime * 1000)}

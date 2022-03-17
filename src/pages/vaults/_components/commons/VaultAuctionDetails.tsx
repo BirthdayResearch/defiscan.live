@@ -49,9 +49,7 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <BidAmountValue
-          displaySymbol={props.batch.loan.displaySymbol}
-          loan={props.batch.loan}
-          highestBid={props.batch.highestBid}
+          batch={props.batch}
           testId='AuctionsTableRow.MinNextBid'
         />
       </OverflowTable.Cell>
@@ -85,9 +83,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
           testId='MobileAuctionDetailCard.MinNextBid'
         >
           <BidAmountValue
-            displaySymbol={props.batch.loan.displaySymbol}
-            loan={props.batch.loan}
-            highestBid={props.batch.highestBid}
+            batch={props.batch}
             valueClassName='text-right text-sm'
             valueSuffix
           />
