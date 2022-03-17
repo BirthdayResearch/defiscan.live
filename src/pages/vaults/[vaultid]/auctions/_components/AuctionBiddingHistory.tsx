@@ -53,9 +53,10 @@ export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element 
               testId='BiddingHistory.Header.BidAmount'
             />
           </OverflowTable.Header>
-          {props.history.map(history => (
+          {props.history.map((history, index) => (
             <BiddingHistoryRow
               history={history}
+              bidIndex={props.history.length - index}
               key={history.key}
             />
           ))}
@@ -67,8 +68,12 @@ export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element 
           testId='BiddingHistorySection'
         >
           <div className='space-y-4'>
-            {props.history.map(history => (
-              <BiddingHistoryCard history={history} key={history.key} />
+            {props.history.map((history, index) => (
+              <BiddingHistoryCard
+                history={history}
+                key={history.key}
+                bidIndex={props.history.length - index}
+              />
             ))}
           </div>
         </CollapsibleSection>
@@ -77,7 +82,10 @@ export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element 
   )
 }
 
-function BiddingHistoryRow ({ history }: { history: VaultAuctionBatchHistory }): JSX.Element {
+function BiddingHistoryRow ({
+  history,
+  bidIndex
+}: { history: VaultAuctionBatchHistory, bidIndex: number }): JSX.Element {
   const decoded = fromScriptHex(history.from, useNetwork().name)
   const address = decoded?.address ?? 'N/A'
 
@@ -85,7 +93,7 @@ function BiddingHistoryRow ({ history }: { history: VaultAuctionBatchHistory }):
     <OverflowTable.Row>
       <OverflowTable.Cell>
         <span className='bg-gray-400 px-2 py-1 w-20 text-sm text-white text-center'>
-          Bid #{history.index + 1}
+          {`Bid #${bidIndex}`}
         </span>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
