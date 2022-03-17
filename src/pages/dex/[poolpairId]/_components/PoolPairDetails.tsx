@@ -138,7 +138,6 @@ function AprDetails (props: {
         <span>Commissions</span>
         <NumberFormat
           value={props.apr.commission * 100}
-          prefix='$'
           thousandSeparator
           displayType='text'
           decimalScale={2}
