@@ -16,28 +16,28 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
         testId='PoolPairSymbol'
       />
       <div className='mt-6 md:ml-auto md:mt-0'>
-        <div className='flex items-center text-primary-900' data-testid='PriceRatio'>
+        <div className='flex text-primary-900 lg:items-baseline' data-testid='PriceRatio'>
           <span className='mr-2 text-sm font-normal'>
             {`1${props.poolpair.tokenA.displaySymbol}  =`}
           </span>
-          <ReactNumberFormat
-            value={props.poolpair.priceRatio.ba}
-            suffix={` ${props.poolpair.tokenB.displaySymbol}`}
-            displayType='text'
-            thousandSeparator
-            className='text-sm font-medium md:text-2xl'
-            decimalScale={Number(props.poolpair.priceRatio.ba) > 1 ? 2 : 8}
-            fixedDecimalScale
-          />
-        </div>
-        <div className='flex md:justify-end' data-testid='TokenUsdPrice'>
-          <ReactNumberFormat
-            className='text-sm text-gray-400'
-            displayType='text'
-            thousandSeparator
-            prefix='≈$'
-            value={getTokenPrice(props.poolpair.tokenB.displaySymbol, props.poolpair.priceRatio.ba).toFixed(3)}
-          />
+          <div className='flex flex-col'>
+            <ReactNumberFormat
+              value={props.poolpair.priceRatio.ba}
+              suffix={` ${props.poolpair.tokenB.displaySymbol}`}
+              displayType='text'
+              thousandSeparator
+              className='text-sm font-medium md:text-2xl'
+              decimalScale={Number(props.poolpair.priceRatio.ba) > 1 ? 2 : 8}
+              fixedDecimalScale
+            />
+            <ReactNumberFormat
+              className='text-sm flex justify-end text-gray-400'
+              displayType='text'
+              thousandSeparator
+              prefix='≈$'
+              value={getTokenPrice(props.poolpair.tokenB.displaySymbol, props.poolpair.priceRatio.ba).toFixed(3)}
+            />
+          </div>
         </div>
       </div>
     </div>
