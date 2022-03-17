@@ -1,32 +1,30 @@
 import ReactNumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import React from 'react'
-import { HighestBid, LoanVaultTokenAmount } from '@defichain/whale-api-client/dist/api/loan'
+import { LoanVaultLiquidationBatch } from '@defichain/whale-api-client/dist/api/loan'
 import classNames from 'classnames'
 import { useTokenPrice } from '../../../vaults/hooks/TokenPrice'
 
-interface MinNextBidProps {
-  displaySymbol: string
-  loan: LoanVaultTokenAmount
-  highestBid?: HighestBid | undefined
+interface BidAmountValueProps {
+  batch: LoanVaultLiquidationBatch
   isStartingBid?: boolean
   valueClassName?: string
   valueSuffix?: boolean
   testId?: string
 }
 
-export function BidAmountValue (props: MinNextBidProps): JSX.Element {
+export function BidAmountValue (props: BidAmountValueProps): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
 
   let minBidAmount: BigNumber
   let minBidValue: BigNumber
 
-  if (props.highestBid?.amount === undefined || props.isStartingBid!) {
-    minBidAmount = new BigNumber(props.loan.amount).multipliedBy(1.05)
-    minBidValue = getTokenPrice(props.loan.symbol, minBidAmount.toFixed(8))
+  if (props.batch.highestBid?.amount === undefined || props.isStartingBid!) {
+    minBidAmount = new BigNumber(props.batch.loan.amount).multipliedBy(1.05)
+    minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount.toFixed(8))
   } else {
-    minBidAmount = new BigNumber(props.highestBid.amount.amount).multipliedBy(1.01)
-    minBidValue = getTokenPrice(props.loan.symbol, minBidAmount.toFixed(8))
+    minBidAmount = new BigNumber(props.batch.highestBid.amount.amount).multipliedBy(1.01)
+    minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount.toFixed(8))
   }
 
   return (
@@ -35,7 +33,7 @@ export function BidAmountValue (props: MinNextBidProps): JSX.Element {
         value={minBidAmount.toFixed(8)}
         thousandSeparator
         decimalScale={8}
-        suffix={` ${props.displaySymbol}`}
+        suffix={` ${props.batch.loan.displaySymbol}`}
         displayType='text'
         data-testid='BidAmountValue.MinBidAmount'
       />
@@ -55,6 +53,12 @@ export function BidAmountValue (props: MinNextBidProps): JSX.Element {
               displayType='text'
             />
           )
+        }
+        {
+          (props.batch.froms !== undefined && props.batch.froms.length !== 0) &&
+            <div className='inline-block ml-1 text-gray-400'>
+              {`(${props.batch.froms?.length} ${props.batch.froms.length > 1 ? 'Bids' : 'Bid'})`}
+            </div>
         }
       </div>
     </div>

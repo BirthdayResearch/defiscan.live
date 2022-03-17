@@ -56,9 +56,7 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
           >Min. Next Bid
           </span>
           <BidAmountValue
-            displaySymbol={props.liquidationBatch.loan.displaySymbol}
-            loan={props.liquidationBatch.loan}
-            highestBid={props.liquidationBatch.highestBid}
+            batch={props.liquidationBatch}
             valueClassName='text-right text-sm'
             valueSuffix
           />
@@ -68,8 +66,7 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
           <span className='text-gray-500 text-sm' data-testid='MobileAuctionDetails.MinStartingBid.Label'>Min. Starting Bid</span>
           <BidAmountValue
             isStartingBid
-            displaySymbol={props.liquidationBatch.loan.displaySymbol}
-            loan={props.liquidationBatch.loan}
+            batch={props.liquidationBatch}
             valueClassName='text-right text-sm'
             valueSuffix
           />
