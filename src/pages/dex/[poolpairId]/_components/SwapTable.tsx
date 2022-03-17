@@ -15,11 +15,16 @@ export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
         <OverflowTable.Header>
           <OverflowTable.Head title='Tx ID' />
           <OverflowTable.Head title='Age' />
-          <OverflowTable.Head title='Amount' alignRight />
-          <OverflowTable.Head title='From' alignRight />
+          <OverflowTable.Head title='Amount' />
+          <OverflowTable.Head title='From' />
           <OverflowTable.Head title='To' alignRight />
         </OverflowTable.Header>
-        {swaps.map(swap => <SwapRow swap={swap} key={swap.txid} />)}
+        {swaps.map(swap => (
+          <SwapRow
+            swap={swap}
+            key={swap.txid}
+          />
+        ))}
       </OverflowTable>
     </div>
   )
@@ -48,7 +53,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
       <OverflowTable.Cell className='align-middle'>
         {age}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         <NumberFormat
           value={swap.fromAmount}
           fixedDecimalScale
