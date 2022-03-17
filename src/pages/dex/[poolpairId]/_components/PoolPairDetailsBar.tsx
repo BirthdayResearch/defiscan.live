@@ -25,7 +25,7 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
             suffix={` ${props.poolpair.tokenB.displaySymbol}`}
             displayType='text'
             thousandSeparator
-            className='text-sm font-medium md:text-2xl'
+            className='text-sm font-medium md:text-xl'
             decimalScale={Number(props.poolpair.priceRatio.ba) > 1 ? 2 : 8}
             fixedDecimalScale
           />
