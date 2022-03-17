@@ -126,7 +126,7 @@ function AprDetails (props: {
       <div className='flex items-center justify-between text-sm text-gray-500' data-testid='Rewards'>
         <span>Rewards</span>
         <NumberFormat
-          value={props.apr.reward}
+          value={props.apr.reward * 100}
           prefix='$'
           thousandSeparator
           displayType='text'
@@ -138,7 +138,7 @@ function AprDetails (props: {
       <div className='flex items-center justify-between text-sm text-gray-500' data-testid='Commissions'>
         <span>Commissions</span>
         <NumberFormat
-          value={props.apr.commission}
+          value={props.apr.commission * 100}
           prefix='$'
           thousandSeparator
           displayType='text'

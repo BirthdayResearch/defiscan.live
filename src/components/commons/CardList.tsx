@@ -56,6 +56,7 @@ function Header (props: PropsWithChildren<{ className?: string, path?: string }>
     setIsOpen
   } = useContext(CardListContext)
   const [isClicked, setIsClicked] = useState(false)
+
   return (
     <div className='w-full flex justify-between space-x-1.5' data-testid='CardList.Header'>
       <div className='w-full flex items-center' data-testid='CardList.Header.Children'>
