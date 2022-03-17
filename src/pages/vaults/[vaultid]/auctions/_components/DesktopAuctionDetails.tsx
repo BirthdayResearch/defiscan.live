@@ -50,9 +50,7 @@ export function DesktopAuctionDetails (props: DesktopAuctionDetailsProps): JSX.E
               >Min. Next Bid
               </div>
               <BidAmountValue
-                displaySymbol={props.liquidationBatch.loan.displaySymbol}
-                loan={props.liquidationBatch.loan}
-                highestBid={props.liquidationBatch.highestBid}
+                batch={props.liquidationBatch}
                 valueSuffix
                 valueClassName='text-left text-sm'
               />
@@ -65,9 +63,8 @@ export function DesktopAuctionDetails (props: DesktopAuctionDetailsProps): JSX.E
               </div>
               <BidAmountValue
                 isStartingBid
-                displaySymbol={props.liquidationBatch.loan.displaySymbol}
-                loan={props.liquidationBatch.loan}
                 valueSuffix
+                batch={props.liquidationBatch}
                 valueClassName='text-left text-sm'
               />
             </div>
