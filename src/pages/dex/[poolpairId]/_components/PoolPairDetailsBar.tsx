@@ -17,7 +17,7 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
       />
       <div className='flex text-primary-900 md:items-baseline mt-6 md:ml-auto md:mt-0' data-testid='PriceRatio'>
         <span className='mr-2 text-sm font-normal'>
-          {`1${props.poolpair.tokenA.displaySymbol}  =`}
+          {`1 ${props.poolpair.tokenA.displaySymbol} =`}
         </span>
         <div className='flex flex-col'>
           <ReactNumberFormat
