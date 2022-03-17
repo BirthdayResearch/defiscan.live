@@ -33,7 +33,7 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
             className='text-sm flex justify-end text-gray-400'
             displayType='text'
             thousandSeparator
-            prefix='≈$'
+            prefix='≈ $'
             value={getTokenPrice(props.poolpair.tokenB.displaySymbol, props.poolpair.priceRatio.ba).toFixed(3)}
           />
         </div>
