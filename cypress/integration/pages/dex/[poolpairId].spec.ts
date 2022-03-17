@@ -11,7 +11,6 @@ context('/dex/[poolpairid] on macbook-16', () => {
     cy.findByTestId('PoolPairDetailsBar').within(() => {
       cy.findByTestId('PoolPairSymbol').should('be.visible').should('contain.text', 'dBTC-DFI')
       cy.findByTestId('PriceRatio').should('be.visible')
-      cy.findByTestId('TokenUsdPrice').should('be.visible')
     })
   })
 
@@ -84,7 +83,6 @@ context('/dex/[poolpairId] on iphone-x', () => {
     cy.findByTestId('PoolPairDetailsBar').within(() => {
       cy.findByTestId('PoolPairSymbol').should('be.visible').should('contain.text', 'dBTC-DFI')
       cy.findByTestId('PriceRatio').should('be.visible')
-      cy.findByTestId('TokenUsdPrice').should('be.visible')
     })
   })
 
