@@ -127,7 +127,6 @@ function AprDetails (props: {
         <span>Rewards</span>
         <NumberFormat
           value={props.apr.reward * 100}
-          prefix='$'
           thousandSeparator
           displayType='text'
           decimalScale={2}
