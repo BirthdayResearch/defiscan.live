@@ -8,9 +8,6 @@ import { SwapCards } from './_components/SwapCards'
 import { PoolPairDetails } from './_components/PoolPairDetails'
 import { SwapTable } from './_components/SwapTable'
 import { PoolPairDetailsBar } from './_components/PoolPairDetailsBar'
-import { useEffect, useState } from 'react'
-import classNames from 'classnames'
-import { IoMdCheckmark } from 'react-icons/io'
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
@@ -21,15 +18,6 @@ interface PoolPairPageProps {
 }
 
 export default function PoolPairPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const [typeSelection, setTypeCurrentSelection] = useState<string>('All')
-  const types = [
-    'All',
-    `${props.poolpair.tokenA.displaySymbol} to ${props.poolpair.tokenB.displaySymbol}`,
-    `${props.poolpair.tokenB.displaySymbol} to ${props.poolpair.tokenA.displaySymbol}`
-  ]
-
-  useEffect(() => setTypeCurrentSelection('All'), [props.swaps])
-
   return (
     <>
       <Head
@@ -46,31 +34,14 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
             <PoolPairDetails poolpair={props.poolpair} />
           </div>
           <div className='w-full lg:w-3/4 overflow-hidden'>
-            <div className='flex flex-wrap items-center justify-between'>
-              <h3 className='text-lg font-semibold'>
-                Swap History
-              </h3>
-              <div className='flex w-full lg:max-w-max flex-wrap -mx-3 mt-6 md:mt-0 ' data-testid='FeedFilter.Types'>
-                {types.map(type => (
-                  <div
-                    className='flex items-center mx-3  cursor-pointer'
-                    onClick={() => setTypeCurrentSelection(type)}
-                    key={type}
-                    data-testid='SwapFilter.Types'
-                  >
-                    <span className={classNames('rounded border-2 mr-2', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300 ')}>
-                      <IoMdCheckmark className='text-white p-0 m-0 w-4 h-4' />
-                    </span>
-                    <span>{type}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <h3 className='text-lg font-semibold'>
+              Swap History
+            </h3>
             <div className='hidden md:block'>
-              <SwapTable selectedType={typeSelection} swaps={props.swaps.items} />
+              <SwapTable swaps={props.swaps.items} />
             </div>
             <div className='my-6 md:hidden'>
-              <SwapCards selectedType={typeSelection} swaps={props.swaps.items} />
+              <SwapCards swaps={props.swaps.items} />
             </div>
             <div className='flex justify-end mt-8'>
               <CursorPagination pages={props.swaps.pages} path={`/dex/${props.poolpair.id}`} />

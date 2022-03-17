@@ -14,7 +14,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
             value={props.poolpair.priceRatio.ba}
             displaySymbol={`1 ${props.poolpair.tokenA.displaySymbol}`}
             suffix={props.poolpair.tokenB.displaySymbol}
-            prefix='≈'
+            prefix='≈ '
             testId='Price.TokenA'
           />
           <TokenDetailsItem
@@ -22,7 +22,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
             value={props.poolpair.priceRatio.ab}
             displaySymbol={`1 ${props.poolpair.tokenB.displaySymbol}`}
             suffix={props.poolpair.tokenA.displaySymbol}
-            prefix='≈'
+            prefix='≈ '
             testId='Price.TokenB'
           />
         </div>

@@ -9,16 +9,15 @@ import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { getAssetIcon } from '@components/icons/assets/tokens'
 import { MdOutlineArrowRightAlt } from 'react-icons/md'
 
-export function SwapCards ({ swaps, selectedType }: { swaps: PoolSwapData[], selectedType: string }): JSX.Element {
+export function SwapCards ({ swaps }: { swaps: PoolSwapData[]}): JSX.Element {
   return (
     <CardList>
-      {(() => {
-        const filtered = swaps.filter(swap => selectedType === 'All' || (selectedType.split('to')[0].includes(swap.from!.symbol)))
-        return filtered.length === 0 ? <div className='w-full flex justify-center my-10 text-gray-400'>No Swaps matched {`${selectedType}`} found </div>
-          : (
-              filtered.map(swap => <SwapCard swap={swap} key={swap.txid} />)
-            )
-      })()}
+      {swaps.map(swap => (
+        <SwapCard
+          swap={swap}
+          key={swap.txid}
+        />
+      ))}
     </CardList>
   )
 }

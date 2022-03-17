@@ -8,12 +8,7 @@ import NumberFormat from 'react-number-format'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
-interface SwapTableProps {
-  swaps: PoolSwapData[]
-  selectedType: string
-}
-
-export function SwapTable ({ swaps, selectedType }: SwapTableProps): JSX.Element {
+export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
   return (
     <div data-testid='SwapTable'>
       <OverflowTable className='mt-4'>
@@ -24,13 +19,7 @@ export function SwapTable ({ swaps, selectedType }: SwapTableProps): JSX.Element
           <OverflowTable.Head title='From' alignRight />
           <OverflowTable.Head title='To' alignRight />
         </OverflowTable.Header>
-        {(() => {
-          const filtered = swaps.filter(swap => selectedType === 'All' || (selectedType.split('to')[0].includes(swap.from!.symbol)))
-          return filtered.length === 0 ? <div className='flex w-full my-10 justify-center text-gray-400'>No Swaps matched {`${selectedType}`} found </div>
-            : (
-                filtered.map(swap => <SwapRow swap={swap} key={swap.txid} />)
-              )
-        })()}
+        {swaps.map(swap => <SwapRow swap={swap} key={swap.txid} />)}
       </OverflowTable>
     </div>
   )
