@@ -131,7 +131,19 @@ function ListLeft ({
 }: { token: TokenData, burnedAmount?: BigNumber, netSupply?: BigNumber }): JSX.Element {
   return (
     <AdaptiveList>
-      <AdaptiveList.Row name='Category'>{token.isDAT ? 'DAT' : 'LPS'}</AdaptiveList.Row>
+      <AdaptiveList.Row name='Category'>
+        {(() => {
+          if (token.isLPS) {
+            return 'LPS'
+          }
+
+          if (token.isDAT) {
+            return 'DAT'
+          }
+
+          return 'DCT'
+        })()}
+      </AdaptiveList.Row>
       <AdaptiveList.Row name='Symbol'>{token.displaySymbol}</AdaptiveList.Row>
       <AdaptiveList.Row name='Mintable'>
         {(() => {
