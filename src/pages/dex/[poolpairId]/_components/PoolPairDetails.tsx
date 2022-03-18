@@ -8,7 +8,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
       <h1 className='text-sm font-medium' data-testid='title'>Tokens</h1>
       <div className='mt-5'>
         <div className='space-y-2.5' data-testid='PoolPairDetails.Price'>
-          <span className='mb-1.5 text-sm text-gray-600'>Price</span>
+          <span className='mb-1.5 text-sm text-gray-500'>Price</span>
           <TokenDetailsItem
             tokenSymbol={props.poolpair.tokenA.symbol}
             value={props.poolpair.priceRatio.ba}
@@ -33,7 +33,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
         </div>
         <Divider />
         <div className='space-y-2.5 mt-7' data-testid='PoolPairDetails.Pool'>
-          <div className='mb-1.5 text-sm text-gray-600 flex justify-between'>
+          <div className='mb-1.5 text-sm text-gray-500 flex justify-between'>
             <span>Pooled Tokens</span>
             <span>Amount</span>
           </div>
@@ -112,7 +112,7 @@ function AprDetails (props: {
   return (
     <div className='space-y-2.5 my-5' data-testid='PoolPairDetails.Apr'>
       <div className='mb-1.5 flex items-center' data-testid='APR'>
-        <span className='text-sm text-gray-600'>APR</span>
+        <span className='text-sm font-medium text-gray-500'>APR</span>
         <NumberFormat
           value={props.apr.total * 100}
           displayType='text'
