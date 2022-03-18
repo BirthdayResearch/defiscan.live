@@ -1,7 +1,7 @@
 import { JSX } from '@babel/types'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-import { PriceFeed, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
+import { PriceFeedInterval, PriceTicker } from '@defichain/whale-api-client/dist/api/prices'
 import { format } from 'date-fns'
 import React, { MouseEventHandler, useEffect, useState } from 'react'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, TooltipProps, XAxis, YAxis } from 'recharts'
@@ -28,7 +28,7 @@ export function OracleGraph ({
   }
 }: PriceGraphProps): JSX.Element {
   const api = useWhaleApiClient()
-  const [feed, setFeed] = useState<PriceFeed[] | undefined>(undefined)
+  const [feed, setFeed] = useState<PriceFeedInterval[] | undefined>(undefined)
   const [graphPeriod, setGraphPeriod] = useState<GraphPeriod>(GraphPeriod.ONE_DAY)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const oneHour = 60 * 60
@@ -37,14 +37,14 @@ export function OracleGraph ({
     setIsLoading(true)
     switch (graphPeriod) {
       case GraphPeriod.ONE_MONTH:
-        void fetchTimeFramePriceFeed(api, token, currency, 30 * 24 * oneHour, oneHour).then(setFeed).finally(() => setIsLoading(false))
+        void fetchTimeFramePriceFeedInterval(api, token, currency, 30 * 24 * oneHour, oneHour).then(setFeed).finally(() => setIsLoading(false))
         break
       case GraphPeriod.ONE_WEEK:
-        void fetchTimeFramePriceFeed(api, token, currency, 7 * 24 * oneHour, oneHour).then(setFeed).finally(() => setIsLoading(false))
+        void fetchTimeFramePriceFeedInterval(api, token, currency, 7 * 24 * oneHour, oneHour).then(setFeed).finally(() => setIsLoading(false))
         break
       case GraphPeriod.ONE_DAY:
       default:
-        void fetchTimeFramePriceFeed(api, token, currency, 24 * oneHour).then(setFeed).finally(() => setIsLoading(false))
+        void fetchTimeFramePriceFeedInterval(api, token, currency, 24 * oneHour).then(setFeed).finally(() => setIsLoading(false))
         break
     }
   }, [graphPeriod])
@@ -110,10 +110,10 @@ function GraphPeriodButton ({
 function PriceAreaChart ({
   feed,
   current
-}: { feed: PriceFeed[], current: GraphPeriod }): JSX.Element {
+}: { feed: PriceFeedInterval[], current: GraphPeriod }): JSX.Element {
   const data = feed.map(value => ({
     feed: value,
-    time: value.block.medianTime * 1000
+    time: value.aggregated.time.start * 1000
   }))
 
   function formatXAxis (tickItem): string {
@@ -203,7 +203,7 @@ function PriceAreaChart ({
 }
 
 function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null {
-  const feed = payload?.[0]?.payload.feed as PriceFeed
+  const feed = payload?.[0]?.payload.feed as PriceFeedInterval
   if (feed === undefined) {
     return null
   }
@@ -220,9 +220,9 @@ function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null
   return (
     <div className='table p-5 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5'>
       <Row title='Block' content={feed.block.height} />
-      <Row title='Date' content={format(feed.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')} />
+      <Row title='Date' content={format(feed.aggregated.time.start * 1000, 'MMM dd, hh:mm:ss aa')} />
       <Row title='Price' content={feed.aggregated.amount} />
-      <Row title='Oracles' content={`${feed.aggregated.oracles.active}/${feed.aggregated.oracles.total} responded`} />
+      <Row title='Oracles' content={`${Math.round(feed.aggregated.oracles.active * 100) / 100}/${feed.aggregated.oracles.total} responded`} />
     </div>
   )
 }
@@ -235,8 +235,8 @@ function Spinner (): JSX.Element {
   )
 }
 
-async function fetchTimeFramePriceFeed (api: WhaleApiClient, token: string, currency: string, timeRange: number, interval?: number): Promise<PriceFeed[]> {
-  const prices: PriceFeed[] = []
+async function fetchTimeFramePriceFeedInterval (api: WhaleApiClient, token: string, currency: string, timeRange: number, interval?: number): Promise<PriceFeedInterval[]> {
+  const prices: PriceFeedInterval[] = []
   const after = (Date.now() / 1000) - timeRange
   interval ??= 15 * 60 // default to 15 mins if undefined
   const dataPoints = timeRange / interval
