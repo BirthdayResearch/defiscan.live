@@ -17,7 +17,7 @@ export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
           <OverflowTable.Head title='Age' />
           <OverflowTable.Head title='Amount' />
           <OverflowTable.Head title='From' />
-          <OverflowTable.Head title='To' alignRight />
+          <OverflowTable.Head title='To' />
         </OverflowTable.Header>
         {swaps.map(swap => (
           <SwapRow
