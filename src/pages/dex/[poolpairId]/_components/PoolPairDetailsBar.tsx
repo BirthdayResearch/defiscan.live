@@ -15,7 +15,7 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
         textClassName='ml-7 md:ml-16 font-normal text-lg md:text-xl'
         testId='PoolPairSymbol'
       />
-      <div className='flex text-primary-900 md:items-baseline mt-6 md:ml-auto md:mt-0' data-testid='PriceRatio'>
+      <div className='flex text-gray-900 md:items-baseline mt-6 md:ml-auto md:mt-0' data-testid='PriceRatio'>
         <span className='mr-2 text-sm font-normal'>
           {`1 ${props.poolpair.tokenA.displaySymbol} =`}
         </span>
