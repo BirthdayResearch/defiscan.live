@@ -7,41 +7,34 @@ context('/dex/[poolpairid] on macbook-16', () => {
     cy.viewport('macbook-16')
   })
 
-  it('should have PoolPair Details', function () {
-    cy.findByTestId('APRDetails').within(() => {
-      cy.findByTestId('APRDetails.Title').should('be.visible').should('have.text', 'APR')
-      cy.findByTestId('APRDetails.Value').should('be.visible')
-      cy.findByTestId('MoreHoverPopover').should('be.visible')
-    })
-
-    cy.findByTestId('TokensLocked').within(() => {
-      cy.findByTestId('TokensLocked.Title').should('be.visible').should('have.text', 'Tokens Locked')
-      cy.findByTestId('TokenA').within(() => {
-        cy.findByTestId('Token.Symbol').should('be.visible')
-        cy.findByTestId('Token.Value').should('be.visible')
-      })
-      cy.findByTestId('TokenB').within(() => {
-        cy.findByTestId('Token.Symbol').should('be.visible')
-        cy.findByTestId('Token.Value').should('be.visible')
-      })
-    })
-
-    cy.findByTestId('TVL').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'TVL')
-      cy.findByTestId('Value').should('be.visible')
-    })
-    cy.findByTestId('24hVol').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
-      cy.findByTestId('Value').should('be.visible')
+  it('should have PoolPair Details Bar information', function () {
+    cy.findByTestId('PoolPairDetailsBar').within(() => {
+      cy.findByTestId('PoolPairSymbol').should('be.visible').should('contain.text', 'dBTC-DFI')
+      cy.findByTestId('PriceRatio').should('be.visible')
     })
   })
 
-  // it('should have PoolPair Graph', function () {
-  //   cy.findByTestId('PoolPairGraph').within(() => {
-  //     cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
-  //     cy.get('.recharts-responsive-container').should('exist')
-  //   })
-  // })
+  it('should poolpair details card information', function () {
+    cy.findByTestId('PoolPairDetails').should('be.visible').within(() => {
+      cy.findByTestId('PoolPairDetails.Price').should('be.visible').within(() => {
+        cy.findByTestId('Price.TokenA').should('be.visible')
+        cy.findByTestId('Price.TokenB').should('be.visible')
+      })
+      cy.findByTestId('PoolPairDetails.Liquidity').should('be.visible').within(() => {
+        cy.findByTestId('24hVolume').should('be.visible')
+        cy.findByTestId('TVL').should('be.visible')
+      })
+      cy.findByTestId('PoolPairDetails.Pool').should('be.visible').within(() => {
+        cy.findByTestId('Pool.TokenA').should('be.visible')
+        cy.findByTestId('Pool.TokenB').should('be.visible')
+      })
+      cy.findByTestId('PoolPairDetails.Apr').should('be.visible').within(() => {
+        cy.findByTestId('APR').should('be.visible')
+        cy.findByTestId('Rewards').should('be.visible')
+        cy.findByTestId('Commissions').should('be.visible')
+      })
+    })
+  })
 
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
@@ -82,49 +75,44 @@ context('/dex/[poolpairId] on iphone-x', () => {
     cy.viewport('iphone-x')
   })
 
-  it('should have PoolPair Details', function () {
-    cy.findByTestId('APRDetails').within(() => {
-      cy.findByTestId('APRDetails.Title').should('be.visible').should('have.text', 'APR')
-      cy.findByTestId('APRDetails.Value').should('be.visible')
-      cy.findByTestId('MoreHoverPopover').should('be.visible')
-    })
-
-    cy.findByTestId('TokensLocked').within(() => {
-      cy.findByTestId('TokensLocked.Title').should('be.visible').should('have.text', 'Tokens Locked')
-      cy.findByTestId('TokenA').within(() => {
-        cy.findByTestId('Token.Symbol').should('be.visible')
-        cy.findByTestId('Token.Value').should('be.visible')
-      })
-      cy.findByTestId('TokenB').within(() => {
-        cy.findByTestId('Token.Symbol').should('be.visible')
-        cy.findByTestId('Token.Value').should('be.visible')
-      })
-    })
-
-    cy.findByTestId('TVL').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'TVL')
-      cy.findByTestId('Value').should('be.visible')
-    })
-    cy.findByTestId('24hVol').within(() => {
-      cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
-      cy.findByTestId('Value').should('be.visible')
+  it('should have PoolPair Details Bar information', function () {
+    cy.findByTestId('PoolPairDetailsBar').within(() => {
+      cy.findByTestId('PoolPairSymbol').should('be.visible').should('contain.text', 'dBTC-DFI')
+      cy.findByTestId('PriceRatio').should('be.visible')
     })
   })
 
-  // it('should have PoolPair Graph', function () {
-  //   cy.findByTestId('PoolPairGraph').within(() => {
-  //     cy.findByTestId('Title').should('be.visible').should('have.text', 'Volume (24H)')
-  //     cy.get('.recharts-responsive-container').should('exist')
-  //   })
-  // })
+  it('should poolpair details card information', function () {
+    cy.findByTestId('PoolPairDetails').should('be.visible').within(() => {
+      cy.findByTestId('PoolPairDetails.Price').should('be.visible').within(() => {
+        cy.findByTestId('Price.TokenA').should('be.visible')
+        cy.findByTestId('Price.TokenB').should('be.visible')
+      })
+      cy.findByTestId('PoolPairDetails.Liquidity').should('be.visible').within(() => {
+        cy.findByTestId('24hVolume').should('be.visible')
+        cy.findByTestId('TVL').should('be.visible')
+      })
+      cy.findByTestId('PoolPairDetails.Pool').should('be.visible').within(() => {
+        cy.findByTestId('Pool.TokenA').should('be.visible')
+        cy.findByTestId('Pool.TokenB').should('be.visible')
+      })
+      cy.findByTestId('PoolPairDetails.Apr').should('be.visible').within(() => {
+        cy.findByTestId('APR').should('be.visible')
+        cy.findByTestId('Rewards').should('be.visible')
+        cy.findByTestId('Commissions').should('be.visible')
+      })
+    })
+  })
 
   it('should have CardList', function () {
     cy.findAllByTestId('SwapCard').within(() => {
       cy.findByTestId('CardList.Header').within(() => {
         cy.findByTestId('CardList.Header.Children').should('be.visible')
-        cy.findByTestId('CardList.Header.ViewButton').should('be.visible')
         cy.findByTestId('CardList.Header.Toggle').should('be.visible')
       })
+
+      cy.findByTestId('CardList.Header.SwapTokens').should('be.visible')
+      cy.findByTestId('CardList.Header.Amount').should('be.visible')
 
       cy.findAllByTestId('SwapCard.CardList.Age').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Age')
@@ -138,8 +126,8 @@ context('/dex/[poolpairId] on iphone-x', () => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'To')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findAllByTestId('SwapCard.CardList.Amount').within(() => {
-        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Amount')
+      cy.findAllByTestId('SwapCard.CardList.TxId').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Transaction ID')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
     })

@@ -1,46 +1,118 @@
-import React from 'react'
-import { TokenSymbol } from '@components/commons/token/TokenSymbol'
-import { UnitSuffix } from '@components/commons/UnitSuffix'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import NumberFormat from 'react-number-format'
-import { APRInfo } from '../../_components/APRInfo'
-import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
+import { getAssetIcon } from '@components/icons/assets/tokens'
 
 export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element {
   return (
-    <div className='flex flex-wrap'>
-      <div className='w-1/2 md:w-1/3 space-y-5'>
-        <APRDetails apr={props.poolpair.apr} />
-        <PoolPairDetailsItem title='TVL' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
-        <PoolPairDetailsItem title='Volume (24H)' value={props.poolpair.volume?.h24} testId='24hVol' />
-      </div>
-      <div className='w-1/2 md:w-1/3'>
-        <div className='space-y-1.5 pb-1' data-testid='TokensLocked'>
-          <div className='text-sm font-semibold text-black opacity-60' data-testid='TokensLocked.Title'>Tokens Locked
-          </div>
-          <TokenLiquidityItem tokenId={props.poolpair.tokenA.id} value={props.poolpair.tokenA.reserve} testId='TokenA' />
-          <TokenLiquidityItem tokenId={props.poolpair.tokenB.id} value={props.poolpair.tokenB.reserve} testId='TokenB' />
+    <div className='rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200' data-testid='PoolPairDetails'>
+      <h1 className='text-sm font-medium' data-testid='title'>Tokens</h1>
+      <div className='mt-5'>
+        <div className='space-y-2.5' data-testid='PoolPairDetails.Price'>
+          <span className='mb-1.5 text-sm text-gray-500'>Price</span>
+          <TokenDetailsItem
+            tokenSymbol={props.poolpair.tokenA.symbol}
+            value={props.poolpair.priceRatio.ba}
+            displaySymbol={`1 ${props.poolpair.tokenA.displaySymbol}`}
+            suffix={props.poolpair.tokenB.displaySymbol}
+            prefix='≈ '
+            testId='Price.TokenA'
+          />
+          <TokenDetailsItem
+            tokenSymbol={props.poolpair.tokenB.symbol}
+            value={props.poolpair.priceRatio.ab}
+            displaySymbol={`1 ${props.poolpair.tokenB.displaySymbol}`}
+            suffix={props.poolpair.tokenA.displaySymbol}
+            prefix='≈ '
+            testId='Price.TokenB'
+          />
         </div>
+        <Divider />
+        <div className='space-y-2.5 mt-7' data-testid='PoolPairDetails.Liquidity'>
+          <TokenLiquidityItem title='Volume 24H' value={props.poolpair.volume?.h24} testId='24hVolume' />
+          <TokenLiquidityItem title='Total Liquidity' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
+        </div>
+        <Divider />
+        <div className='space-y-2.5 mt-7' data-testid='PoolPairDetails.Pool'>
+          <div className='mb-1.5 text-sm text-gray-500 flex justify-between'>
+            <span>Pooled Tokens</span>
+            <span>Amount</span>
+          </div>
+          <TokenDetailsItem
+            tokenSymbol={props.poolpair.tokenA.symbol}
+            value={props.poolpair.tokenA.reserve}
+            displaySymbol={props.poolpair.tokenA.displaySymbol}
+            testId='Pool.TokenA'
+          />
+          <TokenDetailsItem
+            tokenSymbol={props.poolpair.tokenB.symbol}
+            value={props.poolpair.tokenB.reserve}
+            displaySymbol={props.poolpair.tokenB.displaySymbol}
+            testId='Pool.TokenB'
+          />
+        </div>
+        <Divider />
+        <AprDetails apr={props.poolpair.apr} />
       </div>
     </div>
   )
 }
 
-function APRDetails (props: {
+function TokenDetailsItem (props: {
+  tokenSymbol: string
+  value: string
+  displaySymbol: string
+  prefix?: string
+  suffix?: string
+  testId: string
+}): JSX.Element {
+  const TokenIcon = getAssetIcon(props.tokenSymbol)
+  return (
+    <div className='flex items-center justify-between text-gray-900' data-testid={props.testId}>
+      <span className='flex items-center'><TokenIcon className='mr-2 w-4 h-4' /> {props.displaySymbol}</span>
+      <NumberFormat
+        value={props.value}
+        displayType='text'
+        thousandSeparator
+        suffix={props.suffix !== undefined ? ` ${props.suffix}` : undefined}
+        prefix={props.prefix}
+        className='font-medium'
+        decimalScale={Number(props.value) > 1 ? 2 : 8}
+        fixedDecimalScale
+      />
+    </div>
+  )
+}
+
+function TokenLiquidityItem (props: { title: string, value: string | number | undefined, testId: string }): JSX.Element {
+  return (
+    <div className='flex items-center justify-between' data-testid={props.testId}>
+      <span className='text-sm text-gray-500'>{props.title}</span>
+      <NumberFormat
+        value={props.value}
+        prefix='$'
+        thousandSeparator
+        displayType='text'
+        decimalScale={2}
+        fixedDecimalScale
+        className='font-medium text-gray-900'
+      />
+    </div>
+  )
+}
+
+function AprDetails (props: {
   apr?: {
     total: number
     reward: number
     commission: number
-  }
-}): JSX.Element {
+  }}): JSX.Element {
   if (props.apr === undefined) {
     return <></>
   }
-
   return (
-    <div data-testid='APRDetails'>
-      <div className='text-sm font-semibold text-black opacity-60' data-testid='APRDetails.Title'>APR</div>
-      <div className='text-2xl font-medium text-gray-900 flex items-center'>
+    <div className='space-y-2.5 my-5' data-testid='PoolPairDetails.Apr'>
+      <div className='mb-1.5 flex items-center' data-testid='APR'>
+        <span className='text-sm font-medium text-gray-500'>APR</span>
         <NumberFormat
           value={props.apr.total * 100}
           displayType='text'
@@ -48,57 +120,37 @@ function APRDetails (props: {
           decimalScale={2}
           fixedDecimalScale
           suffix='%'
-          data-testid='APRDetails.Value'
+          className='text-gray-900 font-medium ml-auto'
         />
-        <MoreHoverPopover className='ml-1' description={<APRInfo {...props.apr} />} />
+      </div>
+      <div className='flex items-center justify-between text-sm text-gray-500' data-testid='Rewards'>
+        <span>Rewards</span>
+        <NumberFormat
+          value={props.apr.reward * 100}
+          thousandSeparator
+          displayType='text'
+          decimalScale={2}
+          fixedDecimalScale
+          suffix='%'
+        />
+      </div>
+      <div className='flex items-center justify-between text-sm text-gray-500' data-testid='Commissions'>
+        <span>Commissions</span>
+        <NumberFormat
+          value={props.apr.commission * 100}
+          thousandSeparator
+          displayType='text'
+          decimalScale={2}
+          fixedDecimalScale
+          suffix='%'
+        />
       </div>
     </div>
   )
 }
 
-function PoolPairDetailsItem (props: { title: string, value: string | number | undefined, testId: string }): JSX.Element {
+function Divider (): JSX.Element {
   return (
-    <div data-testid={props.testId}>
-      <div className='text-sm font-semibold text-black opacity-60' data-testid='Title'>{props.title}</div>
-      {
-        props.value === undefined ? ('...')
-          : (
-            <div className='text-2xl font-medium text-gray-900' data-testid='Value'>$
-              <UnitSuffix
-                value={Number(props.value)}
-                units={{
-                  3: 'k',
-                  6: 'm',
-                  9: 'b'
-                }}
-                noSuffixSpacing
-              />
-            </div>
-            )
-      }
-    </div>
-  )
-}
-
-function TokenLiquidityItem (props: { tokenId: string, value: string | number | undefined, testId: string }): JSX.Element {
-  return (
-    <>
-      <div className='flex items-center' data-testid={props.testId}>
-        <div className='w-3/5'>
-          <TokenSymbol tokenId={Number(props.tokenId)} symbolLeft testId='Token.Symbol' />
-        </div>
-        <div className='w-2/5 font-medium' data-testid='Token.Value'>
-          <UnitSuffix
-            value={Number(props.value)}
-            units={{
-              3: 'k',
-              6: 'm',
-              9: 'b'
-            }}
-            noSuffixSpacing
-          />
-        </div>
-      </div>
-    </>
+    <div className='border-b border-gray-200 mt-8' />
   )
 }

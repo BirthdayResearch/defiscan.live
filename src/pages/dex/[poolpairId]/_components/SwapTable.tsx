@@ -1,32 +1,29 @@
 import { JSX } from '@babel/types'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { formatDistanceToNow } from 'date-fns'
 import NumberFormat from 'react-number-format'
-import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
 
-interface SwapTableProps {
-  swaps: PoolSwapData[]
-}
-
-export function SwapTable ({ swaps }: SwapTableProps): JSX.Element {
+export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
   return (
     <div data-testid='SwapTable'>
-      <OverflowTable className='mt-6'>
+      <OverflowTable className='mt-4'>
         <OverflowTable.Header>
           <OverflowTable.Head title='Tx ID' />
           <OverflowTable.Head title='Age' />
+          <OverflowTable.Head title='Amount' />
           <OverflowTable.Head title='From' />
           <OverflowTable.Head title='To' />
-          <OverflowTable.Head title='Amount' alignRight />
         </OverflowTable.Header>
-
         {swaps.map(swap => (
-          <SwapRow swap={swap} key={swap.txid} />
+          <SwapRow
+            swap={swap}
+            key={swap.txid}
+          />
         ))}
       </OverflowTable>
     </div>
@@ -56,13 +53,22 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
       <OverflowTable.Cell className='align-middle'>
         {age}
       </OverflowTable.Cell>
+      <OverflowTable.Cell>
+        <NumberFormat
+          value={swap.fromAmount}
+          fixedDecimalScale
+          thousandSeparator=','
+          displayType='text'
+          suffix={` ${swap.from!.symbol}`}
+        />
+      </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle'>
         {
           swap.from === undefined
             ? ('N/A')
             : (
               <AddressLink address={swap.from.address}>
-                <TextTruncate text={swap.from.address} className='w-44' />
+                <TextTruncate text={swap.from.address} />
               </AddressLink>
               )
         }
@@ -73,21 +79,10 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
             ? ('N/A')
             : (
               <AddressLink address={swap.to.address}>
-                <TextTruncate text={swap.to.address} className='w-44' />
+                <TextTruncate text={swap.to.address} />
               </AddressLink>
               )
         }
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
-        <div className='flex items-center justify-end'>
-          <NumberFormat
-            value={swap.fromAmount}
-            fixedDecimalScale
-            thousandSeparator=','
-            displayType='text'
-          />
-          <TokenSymbol tokenId={swap.fromTokenId} className='ml-1' />
-        </div>
       </OverflowTable.Cell>
     </OverflowTable.Row>
   )
