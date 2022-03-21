@@ -64,19 +64,25 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
 function CollateralCard (props: { collateralValue: string, vaultState: LoanVaultState, col: LoanVaultTokenAmount }): JSX.Element {
   const TokenSymbol = getAssetIcon(props.col.symbol)
 
-  const usdAmount = ((props.col?.activePrice?.active) != null) ? new BigNumber(props.col.activePrice.active.amount).multipliedBy(new BigNumber(props.col.amount)) : undefined
-  const compositionPercentage = (usdAmount != null) ? usdAmount.div(new BigNumber(props.collateralValue)) : undefined
+  let usdAmount = ((props.col?.activePrice?.active) != null) ? new BigNumber(props.col.activePrice.active.amount).multipliedBy(new BigNumber(props.col.amount)) : undefined
+  usdAmount = props.col.symbol === 'DUSD' ? new BigNumber(props.col.amount) : usdAmount
+
+  let compositionPercentage = (usdAmount != null) ? usdAmount.div(new BigNumber(props.collateralValue)) : undefined
+  compositionPercentage = props.col.symbol === 'DUSD' ? compositionPercentage?.multipliedBy(0.99) : compositionPercentage
 
   return (
     <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
       <div className='flex justify-between items-start w-full'>
         <div className='flex items-center' data-testid='CollateralCard.AssetIcon'>
           <TokenSymbol className='h-6 w-6 z-10' />
-          <span
-            className='ml-1.5 font-medium'
+          <div
+            className='flex flex-wrap items-center ml-1.5 font-medium'
             data-testid='CollateralCard.displaySymbol'
-          >{props.col.displaySymbol}
-          </span>
+          >
+            <div>{props.col.displaySymbol}</div>
+            {props.col.symbol === 'DUSD'
+              ? <InfoHoverPopover className='ml-1' description='99.00% collateral factor' placement='top' /> : <></>}
+          </div>
         </div>
         {(compositionPercentage != null) &&
           (
