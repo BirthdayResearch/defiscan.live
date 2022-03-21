@@ -29,6 +29,19 @@ context('/oracles/TSLA-USD macbook-13', () => {
     cy.get('main .recharts-responsive-container').should('exist')
   })
 
+  it('should have oracles graph period buttons', () => {
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(0).findByText('24H').should('exist')
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(1).findByText('7D').should('exist')
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).findByText('30D').should('exist')
+  })
+
+  it('should select button and reload graph when clicked', () => {
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).click()
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
+    cy.findAllByTestId('Oracles.Spinner').should('exist')
+  })
+
   context('should have <OracleTable>', () => {
     it('should have heading', () => {
       cy.findByTestId('OracleTable')
@@ -90,6 +103,18 @@ context('/oracles/TSLA-USD iphone-x', () => {
     it('should have heading', () => {
       cy.findByTestId('OracleTable')
         .should('contain.text', 'Oracles')
+    })
+    it('should have oracles graph period buttons', () => {
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(0).findByText('24H').should('exist')
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(1).findByText('7D').should('exist')
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).findByText('30D').should('exist')
+    })
+
+    it('should select button and reload graph when clicked', () => {
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).click()
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
+      cy.findAllByTestId('Oracles.Spinner').should('exist')
     })
 
     it('should have table header', () => {

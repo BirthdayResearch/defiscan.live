@@ -98,6 +98,7 @@ function GraphPeriodButton ({
 }): JSX.Element {
   return (
     <div
+      data-testid='Oracles.GraphPeriodButton'
       className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', graphPeriod === current ? 'text-primary-500 bg-primary-100 border-primary-100' : 'text-gray-900 bg-gray-200 border-gray-200  hover:bg-primary-50 hover:border-primary-50')}
       onClick={onClick}
       key={graphPeriod}
@@ -229,7 +230,7 @@ function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null
 
 function Spinner (): JSX.Element {
   return (
-    <div className='flex w-full justify-center grid h-full content-center'>
+    <div className='flex w-full justify-center grid h-full content-center' data-testId='Oracles.Spinner'>
       <CgSpinner size={54} className='animate-spin text-primary-500' />
     </div>
   )
