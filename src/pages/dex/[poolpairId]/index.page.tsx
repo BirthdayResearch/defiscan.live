@@ -8,9 +8,9 @@ import { SwapCards } from './_components/SwapCards'
 import { PoolPairDetails } from './_components/PoolPairDetails'
 import { SwapTable } from './_components/SwapTable'
 import { PoolPairDetailsBar } from './_components/PoolPairDetailsBar'
-import { isAlphanumeric } from '../../../utils/commons/StringValidator'
+import { isAlphanumeric, isNumeric } from '../../../utils/commons/StringValidator'
 import { WhaleApiClient } from '@defichain/whale-api-client'
-
+import { Breadcrumb } from '@components/commons/Breadcrumb'
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
@@ -28,6 +28,19 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         description='Supply liquidity to BTC, ETH, USDT, USDC and many other pool pairs to power the Decentralized Exchange. Earn fees and block rewards in return for providing liquidity to the pool, you can withdraw your liquidity at any time.'
       />
       <Container className='pt-12 pb-20'>
+        <Breadcrumb items={[
+          {
+            path: '/dex',
+            name: 'DEX'
+          },
+          {
+            path: `/dex/${props.poolpair.tokenA.displaySymbol}`,
+            name: `${props.poolpair.name}`,
+            hide: true,
+            canonical: true
+          }
+        ]}
+        />
         <PoolPairDetailsBar poolpair={props.poolpair} />
         <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
           <div className='lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
@@ -56,8 +69,8 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
   )
 }
 
-async function getPoolPairsByTokenPair (poolpairId: string, api: WhaleApiClient): Promise<PoolPairData|undefined> {
-  const [tokenA, tokenB] = poolpairId.split('-')
+async function getPoolPairsByParam (param: string, api: WhaleApiClient): Promise<PoolPairData | undefined> {
+  const [tokenA, tokenB] = param.split('-')
   const poolpairs: PoolPairData[] = []
 
   let poolpairsResponse = await api.poolpairs.list(200)
@@ -67,13 +80,17 @@ async function getPoolPairsByTokenPair (poolpairId: string, api: WhaleApiClient)
     poolpairs.push(...poolpairsResponse)
   }
   return poolpairs.filter(pair => {
-    return pair.tokenA.displaySymbol === tokenA && pair.tokenB.displaySymbol === tokenB
+    if (tokenB !== undefined) {
+      return pair.tokenA.displaySymbol.toLowerCase() === tokenA.toLowerCase() && pair.tokenB.displaySymbol.toLowerCase() === tokenB.toLowerCase()
+    } else {
+      return pair.tokenA.displaySymbol.toLowerCase() === param.toLowerCase() || pair.tokenA.symbol.toLowerCase() === param.toLowerCase()
+    }
   }).pop()
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
-  let poolpairId = context.params?.poolpairId?.toString().trim() as string
-  if (!isAlphanumeric(poolpairId, '-')) {
+  const param = context.params?.poolpairId?.toString().trim() as string
+  if (!isAlphanumeric(param, '-')) {
     return { notFound: true }
   }
 
@@ -81,23 +98,24 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   let poolPair: PoolPairData | undefined
 
-  if (poolpairId.includes('-')) {
-    poolPair = await getPoolPairsByTokenPair(poolpairId, api)
-
-    if (poolPair === undefined) {
-      return { notFound: true }
-    }
-    poolpairId = poolPair.id
-  } else {
+  if (param.includes('-')) {
+    poolPair = await getPoolPairsByParam(param, api)
+  } else if (isNumeric(param)) {
     try {
-      poolPair = await api.poolpairs.get(poolpairId)
+      poolPair = await api.poolpairs.get(param)
     } catch (e) {
       return { notFound: true }
     }
+  } else {
+    poolPair = await getPoolPairsByParam(param, api)
+  }
+
+  if (poolPair === undefined) {
+    return { notFound: true }
   }
 
   const next = CursorPagination.getNext(context)
-  const swaps = await api.poolpairs.listPoolSwapsVerbose(poolpairId, 10, next)
+  const swaps = await api.poolpairs.listPoolSwapsVerbose(poolPair.id, 10, next)
 
   return {
     props: {
