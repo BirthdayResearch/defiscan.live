@@ -196,7 +196,7 @@ function PriceAreaChart ({
           allowDataOverflow
           tickMargin={12}
           scale='linear'
-          domain={[0, 'dataMax']}
+          domain={[dataMin => (dataMin * 0.99).toPrecision(3), dataMax => (dataMax * 1.01).toPrecision(3)]}
           tickFormatter={formatYAxis}
         />
 
