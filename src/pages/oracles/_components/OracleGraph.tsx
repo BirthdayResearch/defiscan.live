@@ -33,6 +33,7 @@ export function OracleGraph ({
   const [feed, setFeed] = useState<PriceFeedInterval[] | undefined>(undefined)
   const [graphPeriod, setGraphPeriod] = useState<GraphPeriod>(GraphPeriod.THREE_MONTHS)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const fifteenMins = 60 * 15
   const oneHour = 60 * 60
   const oneDay = 24 * 60 * 60
 
@@ -50,7 +51,7 @@ export function OracleGraph ({
         break
       case GraphPeriod.ONE_DAY:
       default:
-        void fetchTimeFramePriceFeedInterval(api, token, currency, 24 * oneHour).then(setFeed).finally(() => setIsLoading(false))
+        void fetchTimeFramePriceFeedInterval(api, token, currency, 24 * oneHour, fifteenMins).then(setFeed).finally(() => setIsLoading(false))
         break
     }
   }, [graphPeriod])
@@ -247,7 +248,7 @@ function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null
             suffix=' USD'
             data-testid='LiquidityCardStat.Liquidity.Value'
           />
-}
+      }
       />
       <Row
         title='Oracles'
@@ -265,10 +266,9 @@ function Spinner (): JSX.Element {
   )
 }
 
-async function fetchTimeFramePriceFeedInterval (api: WhaleApiClient, token: string, currency: string, timeRange: number, interval?: number): Promise<PriceFeedInterval[]> {
+async function fetchTimeFramePriceFeedInterval (api: WhaleApiClient, token: string, currency: string, timeRange: number, interval: number): Promise<PriceFeedInterval[]> {
   const prices: PriceFeedInterval[] = []
   const after = (Date.now() / 1000) - timeRange
-  interval ??= 15 * 60 // default to 15 mins if undefined
   const dataPoints = timeRange / interval
 
   let response = await api.prices.getFeedWithInterval(token, currency, interval, dataPoints < 200 ? dataPoints : 200)
