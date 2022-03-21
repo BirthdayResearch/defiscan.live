@@ -5,50 +5,47 @@ import { getAssetIcon } from '@components/icons/assets/tokens'
 export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element {
   return (
     <div className='rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200' data-testid='PoolPairDetails'>
-      <h1 className='text-sm font-medium' data-testid='title'>Tokens</h1>
       <div className='mt-5'>
-        <div className='space-y-2.5' data-testid='PoolPairDetails.Price'>
-          <span className='mb-1.5 text-sm text-gray-500'>Price</span>
-          <TokenDetailsItem
-            tokenSymbol={props.poolpair.tokenA.symbol}
-            value={props.poolpair.priceRatio.ba}
-            displaySymbol={`1 ${props.poolpair.tokenA.displaySymbol}`}
-            suffix={props.poolpair.tokenB.displaySymbol}
-            prefix='≈ '
-            testId='Price.TokenA'
-          />
-          <TokenDetailsItem
-            tokenSymbol={props.poolpair.tokenB.symbol}
-            value={props.poolpair.priceRatio.ab}
-            displaySymbol={`1 ${props.poolpair.tokenB.displaySymbol}`}
-            suffix={props.poolpair.tokenA.displaySymbol}
-            prefix='≈ '
-            testId='Price.TokenB'
-          />
-        </div>
-        <Divider />
-        <div className='space-y-2.5 mt-7' data-testid='PoolPairDetails.Liquidity'>
+        <div className='space-y-2.5' data-testid='PoolPairDetails.Liquidity'>
           <TokenLiquidityItem title='Volume 24H' value={props.poolpair.volume?.h24} testId='24hVolume' />
           <TokenLiquidityItem title='Total Liquidity' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
         </div>
         <Divider />
-        <div className='space-y-2.5 mt-7' data-testid='PoolPairDetails.Pool'>
-          <div className='mb-1.5 text-sm text-gray-500 flex justify-between'>
-            <span>Pooled Tokens</span>
-            <span>Amount</span>
+        <div className='mt-7 space-y-5' data-testid='PoolPairDetails.Price'>
+          <div className='space-y-2.5'>
+            <span className='mb-1.5 text-sm text-gray-500'>Pooled Tokens</span>
+            <TokenDetailsItem
+              tokenSymbol={props.poolpair.tokenA.symbol}
+              value={props.poolpair.tokenA.reserve}
+              displaySymbol={props.poolpair.tokenA.displaySymbol}
+              testId='Pool.TokenA'
+            />
+            <TokenDetailsItem
+              tokenSymbol={props.poolpair.tokenB.symbol}
+              value={props.poolpair.tokenB.reserve}
+              displaySymbol={props.poolpair.tokenB.displaySymbol}
+              testId='Pool.TokenB'
+            />
           </div>
-          <TokenDetailsItem
-            tokenSymbol={props.poolpair.tokenA.symbol}
-            value={props.poolpair.tokenA.reserve}
-            displaySymbol={props.poolpair.tokenA.displaySymbol}
-            testId='Pool.TokenA'
-          />
-          <TokenDetailsItem
-            tokenSymbol={props.poolpair.tokenB.symbol}
-            value={props.poolpair.tokenB.reserve}
-            displaySymbol={props.poolpair.tokenB.displaySymbol}
-            testId='Pool.TokenB'
-          />
+          <div className='space-y-2.5'>
+            <span className='mb-1.5 text-sm text-gray-500'>Price</span>
+            <TokenDetailsItem
+              tokenSymbol={props.poolpair.tokenA.symbol}
+              value={props.poolpair.priceRatio.ba}
+              displaySymbol={`1 ${props.poolpair.tokenA.displaySymbol}`}
+              suffix={props.poolpair.tokenB.displaySymbol}
+              prefix='≈ '
+              testId='Price.TokenA'
+            />
+            <TokenDetailsItem
+              tokenSymbol={props.poolpair.tokenB.symbol}
+              value={props.poolpair.priceRatio.ab}
+              displaySymbol={`1 ${props.poolpair.tokenB.displaySymbol}`}
+              suffix={props.poolpair.tokenA.displaySymbol}
+              prefix='≈ '
+              testId='Price.TokenB'
+            />
+          </div>
         </div>
         <Divider />
         <AprDetails apr={props.poolpair.apr} />
