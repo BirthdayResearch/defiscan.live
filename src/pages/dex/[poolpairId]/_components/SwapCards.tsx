@@ -37,11 +37,11 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
   return (
     <CardList.Card testId='SwapCard'>
       <CardList.Header>
-        <TxIdLink txid={swap.txid}>
+        <TxIdLink txid={swap.txid} testId='CardList.Header.TxId'>
           <TextTruncate text={swap.txid} className='w-44' />
         </TxIdLink>
       </CardList.Header>
-      <div className='mt-4' data-testid='CardList.Header.Amount'>
+      <div className='mt-4' data-testid='CardList.Header.Type'>
         {swap.type === undefined
           ? ('N/A')
           : (
@@ -61,7 +61,7 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
         <CardList.ListItem
           title='Input Amount'
           titleClassNames='text-sm'
-          testId='SwapCard.CardList.Input'
+          testId='SwapCard.CardList.InputAmount'
         >
           {
             swap.from === undefined
@@ -81,7 +81,7 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
         <CardList.ListItem
           title='Output Amount'
           titleClassNames='text-sm'
-          testId='SwapCard.CardList.Output'
+          testId='SwapCard.CardList.OutputAmount'
         >
           {
             swap.to === undefined

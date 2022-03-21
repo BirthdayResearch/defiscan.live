@@ -11,8 +11,8 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
           <TokenLiquidityItem title='Total Liquidity' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
         </div>
         <Divider />
-        <div className='mt-7 space-y-5' data-testid='PoolPairDetails.Price'>
-          <div className='space-y-2.5'>
+        <div className='mt-7 space-y-5' data-testid='PoolPairDetails.Token'>
+          <div className='space-y-2.5' data-testid='PoolPairDetails.Token.Pool'>
             <span className='mb-1.5 text-sm text-gray-500'>Pooled Tokens</span>
             <TokenDetailsItem
               tokenSymbol={props.poolpair.tokenA.symbol}
@@ -27,7 +27,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
               testId='Pool.TokenB'
             />
           </div>
-          <div className='space-y-2.5'>
+          <div className='space-y-2.5' data-testid='PoolPairDetails.Token.Price'>
             <span className='mb-1.5 text-sm text-gray-500'>Price</span>
             <TokenDetailsItem
               tokenSymbol={props.poolpair.tokenA.symbol}

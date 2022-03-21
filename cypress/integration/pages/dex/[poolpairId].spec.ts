@@ -23,7 +23,7 @@ context('/dex/[poolpairid] on macbook-16', () => {
 
   it('should poolpair details card information', function () {
     cy.findByTestId('PoolPairDetails').should('be.visible').within(() => {
-      cy.findByTestId('PoolPairDetails.Price').should('be.visible').within(() => {
+      cy.findByTestId('PoolPairDetails.Token.Price').should('be.visible').within(() => {
         cy.findByTestId('Price.TokenA').should('be.visible')
         cy.findByTestId('Price.TokenB').should('be.visible')
       })
@@ -31,7 +31,7 @@ context('/dex/[poolpairid] on macbook-16', () => {
         cy.findByTestId('24hVolume').should('be.visible')
         cy.findByTestId('TVL').should('be.visible')
       })
-      cy.findByTestId('PoolPairDetails.Pool').should('be.visible').within(() => {
+      cy.findByTestId('PoolPairDetails.Token.Pool').should('be.visible').within(() => {
         cy.findByTestId('Pool.TokenA').should('be.visible')
         cy.findByTestId('Pool.TokenB').should('be.visible')
       })
@@ -45,11 +45,12 @@ context('/dex/[poolpairid] on macbook-16', () => {
 
   it('should have OverflowTable header information', function () {
     cy.findByTestId('OverflowTable.Header').then(ele => {
-      cy.wrap(ele).findByText('Tx ID').should('be.visible')
+      cy.wrap(ele).findByText('Transaction ID').should('be.visible')
       cy.wrap(ele).findByText('Age').should('be.visible')
       cy.wrap(ele).findByText('From').should('be.visible')
       cy.wrap(ele).findByText('To').should('be.visible')
-      cy.wrap(ele).findByText('Amount').should('be.visible')
+      cy.wrap(ele).findByText('Input Amount').should('be.visible')
+      cy.wrap(ele).findByText('Output Amount').should('be.visible')
     })
   })
 
@@ -105,7 +106,7 @@ context('/dex/[poolpairId] on iphone-x', () => {
 
   it('should poolpair details card information', function () {
     cy.findByTestId('PoolPairDetails').should('be.visible').within(() => {
-      cy.findByTestId('PoolPairDetails.Price').should('be.visible').within(() => {
+      cy.findByTestId('PoolPairDetails.Token.Price').should('be.visible').within(() => {
         cy.findByTestId('Price.TokenA').should('be.visible')
         cy.findByTestId('Price.TokenB').should('be.visible')
       })
@@ -113,7 +114,7 @@ context('/dex/[poolpairId] on iphone-x', () => {
         cy.findByTestId('24hVolume').should('be.visible')
         cy.findByTestId('TVL').should('be.visible')
       })
-      cy.findByTestId('PoolPairDetails.Pool').should('be.visible').within(() => {
+      cy.findByTestId('PoolPairDetails.Token.Pool').should('be.visible').within(() => {
         cy.findByTestId('Pool.TokenA').should('be.visible')
         cy.findByTestId('Pool.TokenB').should('be.visible')
       })
@@ -132,8 +133,8 @@ context('/dex/[poolpairId] on iphone-x', () => {
         cy.findByTestId('CardList.Header.Toggle').should('be.visible')
       })
 
-      cy.findByTestId('CardList.Header.SwapTokens').should('be.visible')
-      cy.findByTestId('CardList.Header.Amount').should('be.visible')
+      cy.findByTestId('CardList.Header.Type').should('be.visible')
+      cy.findByTestId('CardList.Header.TxId').should('be.visible')
 
       cy.findAllByTestId('SwapCard.CardList.Age').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Age')
@@ -147,8 +148,12 @@ context('/dex/[poolpairId] on iphone-x', () => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'To')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findAllByTestId('SwapCard.CardList.TxId').within(() => {
-        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Transaction ID')
+      cy.findAllByTestId('SwapCard.CardList.InputAmount').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Input Amount')
+        cy.findByTestId('CardList.Row.Child').should('be.visible')
+      })
+      cy.findAllByTestId('SwapCard.CardList.OutputAmount').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Output Amount')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
     })
