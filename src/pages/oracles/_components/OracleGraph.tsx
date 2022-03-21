@@ -123,6 +123,7 @@ function PriceAreaChart ({
 }: { feed: PriceFeedInterval[], current: GraphPeriod }): JSX.Element {
   const data = feed.map(value => ({
     feed: value,
+    data: Number(value.aggregated.amount),
     time: value.aggregated.time.start * 1000
   }))
 
@@ -190,12 +191,12 @@ function PriceAreaChart ({
           tickFormatter={formatXAxis}
         />
         <YAxis
-          dataKey='feed.aggregated.amount'
+          dataKey='data'
           type='number'
           allowDataOverflow
           tickMargin={12}
           scale='linear'
-          domain={[m => (m * 0.75).toPrecision(3), m => (m * 1.25).toPrecision(3)]}
+          domain={[0, 'dataMax']}
           tickFormatter={formatYAxis}
         />
 
@@ -203,7 +204,7 @@ function PriceAreaChart ({
 
         <Area
           type='monotone'
-          dataKey='feed.aggregated.amount'
+          dataKey='data'
           stroke='#ff00af'
           strokeWidth={2}
           fill='url(#gradient)'
