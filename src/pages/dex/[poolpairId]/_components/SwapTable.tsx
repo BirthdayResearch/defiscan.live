@@ -6,7 +6,8 @@ import { TextTruncate } from '@components/commons/text/TextTruncate'
 import { formatDistanceToNow } from 'date-fns'
 import NumberFormat from 'react-number-format'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { PoolSwapData, SwapType } from '@defichain/whale-api-client/dist/api/poolpairs'
+import classNames from 'classnames'
 
 export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
   return (
@@ -15,7 +16,9 @@ export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
         <OverflowTable.Header>
           <OverflowTable.Head title='Tx ID' />
           <OverflowTable.Head title='Age' />
-          <OverflowTable.Head title='Amount' />
+          <OverflowTable.Head title='Type' />
+          <OverflowTable.Head title='Input Amount' />
+          <OverflowTable.Head title='Output Amount' />
           <OverflowTable.Head title='From' />
           <OverflowTable.Head title='To' />
         </OverflowTable.Header>
@@ -54,13 +57,45 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
         {age}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <NumberFormat
-          value={swap.fromAmount}
-          fixedDecimalScale
-          thousandSeparator=','
-          displayType='text'
-          suffix={` ${swap.from!.symbol}`}
-        />
+        {swap.type === undefined
+          ? ('N/A')
+          : (
+            <span className={classNames(swap.type === SwapType.SELL ? 'text-red-500' : 'text-green-500')}>
+              {swap.type}
+            </span>
+            )}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
+        {
+          swap.from === undefined
+            ? ('N/A')
+            : (
+              <NumberFormat
+                value={swap.fromAmount}
+                fixedDecimalScale
+                decimalScale={Number(swap.fromAmount) > 1 ? 3 : 6}
+                thousandSeparator=','
+                displayType='text'
+                suffix={` ${swap.from.symbol}`}
+              />
+              )
+        }
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
+        {
+          swap.to === undefined
+            ? ('N/A')
+            : (
+              <NumberFormat
+                value={swap.to.amount}
+                decimalScale={Number(swap.to.amount) > 1 ? 3 : 6}
+                fixedDecimalScale
+                thousandSeparator=','
+                displayType='text'
+                suffix={` ${swap.to.symbol}`}
+              />
+              )
+        }
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle'>
         {
