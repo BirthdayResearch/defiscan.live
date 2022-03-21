@@ -8,6 +8,7 @@ import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, TooltipPr
 import classNames from 'classnames'
 import BigNumber from 'bignumber.js'
 import { CgSpinner } from 'react-icons/cg'
+import ReactNumberFormat from 'react-number-format'
 
 interface PriceGraphProps {
   price: PriceTicker
@@ -223,19 +224,35 @@ function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null
 
   function Row (props: { title: string, content: any }): JSX.Element {
     return (
-      <div className='table-row'>
-        <div className='table-cell opacity-60 pr-3 py-0.5'>{props.title}:</div>
-        <div className='table-cell'>{props.content}</div>
+      <div className='flex flex-wrap mt-1.5 text-gray-900'>
+        <div className='w-full text-gray-500 text-sm'>{props.title}</div>
+        <div className='font-medium'>{props.content}</div>
       </div>
     )
   }
 
   return (
-    <div className='table p-5 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5'>
-      <Row title='Block' content={feed.block.height} />
-      <Row title='Date' content={format(feed.aggregated.time.start * 1000, 'MMM dd, hh:mm:ss aa')} />
-      <Row title='Price' content={feed.aggregated.amount} />
-      <Row title='Oracles' content={`${Math.round(feed.aggregated.oracles.active * 100) / 100}/${feed.aggregated.oracles.total} responded`} />
+    <div className='table px-4 py-3 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5'>
+      <div className='font-medium text-gray-900'>
+        {format(feed.aggregated.time.start * 1000, 'MMM dd, hh:mm:ss aa')}
+      </div>
+      <Row
+        title='Price' content={
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={feed.aggregated.amount}
+            decimalScale={2}
+            prefix='$'
+            suffix=' USD'
+            data-testid='LiquidityCardStat.Liquidity.Value'
+          />
+}
+      />
+      <Row
+        title='Oracles'
+        content={`${Math.round(feed.aggregated.oracles.active * 100) / 100}/${feed.aggregated.oracles.total} responded`}
+      />
     </div>
   )
 }
