@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
 import { CardList } from '@components/commons/CardList'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
-import { formatDistanceToNow } from 'date-fns'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import NumberFormat from 'react-number-format'
 import { PoolSwapData, SwapType } from '@defichain/whale-api-client/dist/api/poolpairs'
 import classNames from 'classnames'
+import { useAge } from '../../../../hooks/useAge'
 
 export function SwapCards ({ swaps }: { swaps: PoolSwapData[]}): JSX.Element {
   return (
@@ -22,18 +21,7 @@ export function SwapCards ({ swaps }: { swaps: PoolSwapData[]}): JSX.Element {
 }
 
 export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
-  const [age, setAge] = useState(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-  useEffect(() => {
-    setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-
-    const interval = setInterval(() => {
-      setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-    }, 3000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [swap.block.medianTime])
-
+  const age = useAge(swap.block.medianTime)
   return (
     <CardList.Card testId='SwapCard'>
       <CardList.Header>

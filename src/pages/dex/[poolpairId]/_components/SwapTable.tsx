@@ -1,13 +1,12 @@
 import { JSX } from '@babel/types'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { useEffect, useState } from 'react'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
-import { formatDistanceToNow } from 'date-fns'
 import NumberFormat from 'react-number-format'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import { PoolSwapData, SwapType } from '@defichain/whale-api-client/dist/api/poolpairs'
 import classNames from 'classnames'
+import { useAge } from '../../../../hooks/useAge'
 
 export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
   return (
@@ -17,8 +16,8 @@ export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
           <OverflowTable.Head title='Transaction ID' />
           <OverflowTable.Head title='Age' />
           <OverflowTable.Head title='Type' />
-          <OverflowTable.Head title='Input Amount' />
-          <OverflowTable.Head title='Output Amount' />
+          <OverflowTable.Head title='Input Amount' alignRight />
+          <OverflowTable.Head title='Output Amount' alignRight />
           <OverflowTable.Head title='From' />
           <OverflowTable.Head title='To' />
         </OverflowTable.Header>
@@ -34,18 +33,7 @@ export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
 }
 
 function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
-  const [age, setAge] = useState(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-  useEffect(() => {
-    setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-
-    const interval = setInterval(() => {
-      setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-    }, 3000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [swap.block.medianTime])
-
+  const age = useAge(swap.block.medianTime)
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell className='align-middle'>
@@ -65,7 +53,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
             </span>
             )}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell className='align-middle text-right'>
         {
           swap.from === undefined
             ? ('N/A')
@@ -81,7 +69,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
               )
         }
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell className='align-middle text-right'>
         {
           swap.to === undefined
             ? ('N/A')
