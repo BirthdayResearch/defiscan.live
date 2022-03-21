@@ -17,6 +17,7 @@ export enum GraphPeriod {
   ONE_DAY = '24H',
   ONE_WEEK = '7D',
   ONE_MONTH = '30D',
+  THREE_MONTHS = '90D',
 }
 
 export function OracleGraph ({
@@ -29,13 +30,17 @@ export function OracleGraph ({
 }: PriceGraphProps): JSX.Element {
   const api = useWhaleApiClient()
   const [feed, setFeed] = useState<PriceFeedInterval[] | undefined>(undefined)
-  const [graphPeriod, setGraphPeriod] = useState<GraphPeriod>(GraphPeriod.ONE_DAY)
+  const [graphPeriod, setGraphPeriod] = useState<GraphPeriod>(GraphPeriod.THREE_MONTHS)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const oneHour = 60 * 60
+  const oneDay = 24 * 60 * 60
 
   useEffect(() => {
     setIsLoading(true)
     switch (graphPeriod) {
+      case GraphPeriod.THREE_MONTHS:
+        void fetchTimeFramePriceFeedInterval(api, token, currency, 90 * 24 * oneHour, oneDay).then(setFeed).finally(() => setIsLoading(false))
+        break
       case GraphPeriod.ONE_MONTH:
         void fetchTimeFramePriceFeedInterval(api, token, currency, 30 * 24 * oneHour, oneHour).then(setFeed).finally(() => setIsLoading(false))
         break
@@ -78,6 +83,10 @@ export function OracleGraph ({
             current={graphPeriod} graphPeriod={GraphPeriod.ONE_MONTH}
             onClick={() => setGraphPeriod(GraphPeriod.ONE_MONTH)}
           />
+          <GraphPeriodButton
+            current={graphPeriod} graphPeriod={GraphPeriod.THREE_MONTHS}
+            onClick={() => setGraphPeriod(GraphPeriod.THREE_MONTHS)}
+          />
         </div>
       </div>
       {isLoading
@@ -119,10 +128,12 @@ function PriceAreaChart ({
 
   function formatXAxis (tickItem): string {
     switch (current) {
+      case GraphPeriod.THREE_MONTHS:
+        return format(tickItem, 'dd MMM')
       case GraphPeriod.ONE_MONTH:
-        return format(tickItem, 'dd/MM')
+        return format(tickItem, 'dd MMM')
       case GraphPeriod.ONE_WEEK:
-        return format(tickItem, 'dd/MM')
+        return format(tickItem, 'dd MMM')
       case GraphPeriod.ONE_DAY:
       default:
         return format(tickItem, 'hh aa')
@@ -197,6 +208,7 @@ function PriceAreaChart ({
           stroke='#ff00af'
           strokeWidth={2}
           fill='url(#gradient)'
+          id='oraclesGraphArea'
         />
       </AreaChart>
     </ResponsiveContainer>

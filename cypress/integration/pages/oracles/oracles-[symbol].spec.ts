@@ -39,7 +39,9 @@ context('/oracles/TSLA-USD macbook-13', () => {
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).click()
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
+    cy.get('#oraclesGraphArea').should('not.exist')
     cy.findAllByTestId('Oracles.Spinner').should('exist')
+    cy.get('#oraclesGraphArea').should('exist')
   })
 
   context('should have <OracleTable>', () => {
@@ -114,7 +116,9 @@ context('/oracles/TSLA-USD iphone-x', () => {
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).click()
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
+      cy.get('#oraclesGraphArea').should('not.exist')
       cy.findAllByTestId('Oracles.Spinner').should('exist')
+      cy.get('#oraclesGraphArea').should('exist')
     })
 
     it('should have table header', () => {
