@@ -56,7 +56,7 @@ context('/dex/[poolpairid] on macbook-16', () => {
 
   it('should have dex info in OverflowTable', function () {
     cy.findAllByTestId('OverflowTable.Row').eq(1).then(ele => {
-      cy.wrap(ele).children().should('have.length', 5)
+      cy.wrap(ele).children().should('have.length', 7)
     })
   })
 
