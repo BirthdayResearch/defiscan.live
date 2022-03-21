@@ -33,11 +33,12 @@ context('/oracles/TSLA-USD macbook-13', () => {
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(0).findByText('24H').should('exist')
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(1).findByText('7D').should('exist')
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).findByText('30D').should('exist')
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(3).findByText('90D').should('exist')
   })
 
   it('should select button and reload graph when clicked', () => {
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).click()
-    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(3).should('have.class', 'text-gray-900 bg-gray-200 border-gray-200')
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
     cy.get('#oraclesGraphArea').should('not.exist')
     cy.findAllByTestId('Oracles.Spinner').should('exist')
@@ -110,12 +111,13 @@ context('/oracles/TSLA-USD iphone-x', () => {
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(0).findByText('24H').should('exist')
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(1).findByText('7D').should('exist')
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).findByText('30D').should('exist')
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(3).findByText('90D').should('exist')
     })
 
     it('should select button and reload graph when clicked', () => {
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).click()
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
-      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(3).should('have.class', 'text-gray-900 bg-gray-200 border-gray-200')
       cy.get('#oraclesGraphArea').should('not.exist')
       cy.findAllByTestId('Oracles.Spinner').should('exist')
       cy.get('#oraclesGraphArea').should('exist')

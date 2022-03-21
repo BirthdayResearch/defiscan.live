@@ -146,16 +146,15 @@ function PriceAreaChart ({
       6: 'm',
       9: 'b'
     }
-    const value = new BigNumber(tickItem)
+    let value = new BigNumber(tickItem)
     const places = Math.floor(value.e! / 3)
-
-    return `$${
-      value.dividedBy(Math.pow(1000, places))
-        .toFormat(2, {
-          decimalSeparator: '.',
-          suffix: units[places * 3]
-        })
-    }`
+    if (value.isGreaterThanOrEqualTo(new BigNumber(1))) {
+      value = value.dividedBy(Math.pow(1000, places))
+    }
+    return `$${value.toFormat(2, {
+      decimalSeparator: '.',
+      suffix: units[places * 3]
+    })}`
   }
 
   return (
@@ -196,7 +195,7 @@ function PriceAreaChart ({
           allowDataOverflow
           tickMargin={12}
           scale='linear'
-          domain={[m => (m * 0.99).toPrecision(3), m => (m * 1.01).toPrecision(3)]}
+          domain={[m => (m * 0.75).toPrecision(3), m => (m * 1.25).toPrecision(3)]}
           tickFormatter={formatYAxis}
         />
 
@@ -242,7 +241,7 @@ function TooltipDialog ({ payload }: TooltipProps<any, any>): JSX.Element | null
 
 function Spinner (): JSX.Element {
   return (
-    <div className='flex w-full justify-center grid h-full content-center' data-testId='Oracles.Spinner'>
+    <div className='flex w-full justify-center grid h-full content-center' data-testid='Oracles.Spinner'>
       <CgSpinner size={54} className='animate-spin text-primary-500' />
     </div>
   )
