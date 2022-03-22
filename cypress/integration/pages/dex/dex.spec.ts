@@ -74,7 +74,6 @@ context('/dex on macbook-16', () => {
       cy.wrap($el).within(() => {
         cy.findAllByTestId('OverflowTable.Cell').eq(3).then(($ele) => {
           totalLiquid.push(Number.parseInt($ele.text().substring(1).replaceAll(',', '')))
-          cy.log(JSON.stringify(totalLiquid))
         })
       })
     })
