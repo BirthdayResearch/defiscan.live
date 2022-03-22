@@ -162,7 +162,6 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
       <OverflowTable.Cell className='align-middle lg:text-right'>
         {data.totalLiquidity.usd !== undefined ? (
           <div className='flex justify-end'>
-
             <MoreHoverPopover className='ml-1' description={<TotalLiquidityInfo tokenA={data.tokenA} tokenB={data.tokenB} />} placement='bottom'>
               <NumberFormat
                 value={data.totalLiquidity.usd}

@@ -2,11 +2,12 @@ import React, { useCallback, useState } from 'react'
 import { CardList } from '@components/commons/CardList'
 import NumberFormat from 'react-number-format'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import BigNumber from 'bignumber.js'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { APRInfo } from './APRInfo'
 import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
 import { sortData } from './PoolPairsTable'
+import { useTokenPrice } from '../../vaults/hooks/TokenPrice'
+import { TotalLiquidityInfo } from './TotalLiquidityInfo'
 
 enum SortKeys {
   VOLUME = 'volume',
@@ -89,42 +90,47 @@ export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): J
 }
 
 export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.Element {
+  const { getTokenPrice } = useTokenPrice()
   return (
     <CardList.Card testId='PoolPairsCard'>
       <CardList.Header path={`/dex/${poolPair.tokenA.displaySymbol}`}>
         <div className='font-medium text-gray-900'>
           <PoolPairSymbolLocal
-            tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} symbolSizeClassName='h-6 w-6'
-            symbolMarginClassName='ml-4' textClassName='ml-12 font-medium'
+            tokenA={poolPair.tokenA}
+            tokenB={poolPair.tokenB}
+            symbolSizeClassName='h-6 w-6'
+            symbolMarginClassName='ml-4'
+            textClassName='ml-12'
+            primaryTextClassName='font-bold'
+            secondaryTextClassName='text-gray-400'
           />
         </div>
       </CardList.Header>
 
       <CardList.List>
         <CardList.ListItem
-          title='Total Liquidity'
+          title='Token Price (USD)'
           titleClassNames='text-sm'
-          testId='BlocksCard.CardList.TotalLiquidity'
+          testId='PoolPairsCard.CardList.TokenPrice'
         >
-          {poolPair.totalLiquidity.usd !== undefined ? (
-            <NumberFormat
-              value={poolPair.totalLiquidity.usd}
-              displayType='text'
-              thousandSeparator
-              decimalScale={0}
-              prefix='$'
-            />
-          ) : (
-            <div className='text-yellow-500'>
-              Error
-            </div>
-          )}
+          {(() => {
+            const tokenPrice = getTokenPrice(poolPair.tokenA.symbol, '1').toString()
+            return (
+              <NumberFormat
+                value={tokenPrice}
+                displayType='text'
+                thousandSeparator
+                fixedDecimalScale
+                decimalScale={Number(tokenPrice) >= 1 ? 0 : 3}
+                prefix='$'
+              />
+            )
+          })()}
         </CardList.ListItem>
-
         <CardList.ListItem
           title='Volume (24H)'
           titleClassNames='text-sm'
-          testId='BlocksCard.CardList.24hVolume'
+          testId='PoolPairsCard.CardList.24hVolume'
         >
           {poolPair.volume?.h24 !== undefined ? (
             <NumberFormat
@@ -140,59 +146,31 @@ export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.El
             </div>
           )}
         </CardList.ListItem>
-
         <CardList.ListItem
-          title='Liquidity'
+          title='Total Liquidity'
           titleClassNames='text-sm'
-          testId='BlocksCard.CardList.Liquidity'
+          testId='PoolPairsCard.CardList.TotalLiquidity'
         >
-          <div className='text-right'>
-            <NumberFormat
-              value={poolPair.tokenA.reserve}
-              displayType='text'
-              thousandSeparator
-              decimalScale={0}
-              suffix={` ${poolPair.tokenA.displaySymbol}`}
-            />
-          </div>
-          <div className='text-right'>
-            <NumberFormat
-              value={poolPair.tokenB.reserve}
-              displayType='text'
-              thousandSeparator
-              decimalScale={0}
-              suffix={` ${poolPair.tokenB.displaySymbol}`}
-            />
-          </div>
+          {poolPair.totalLiquidity.usd !== undefined ? (
+            <MoreHoverPopover className='ml-1' description={<TotalLiquidityInfo tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} />} placement='left'>
+              <NumberFormat
+                value={poolPair.totalLiquidity.usd}
+                displayType='text'
+                thousandSeparator
+                decimalScale={0}
+                prefix='$'
+              />
+            </MoreHoverPopover>
+          ) : (
+            <div className='text-yellow-500'>
+              Error
+            </div>
+          )}
         </CardList.ListItem>
-
-        <CardList.ListItem
-          title='Price Ratio'
-          titleClassNames='text-sm'
-          testId='BlocksCard.CardList.PriceRatio'
-        >
-          <div className='text-right'>
-            <NumberFormat
-              value={Number(new BigNumber(poolPair.priceRatio.ab).toPrecision(4))}
-              displayType='text'
-              thousandSeparator
-              suffix={` ${poolPair.tokenA.displaySymbol}/${poolPair.tokenB.displaySymbol}`}
-            />
-          </div>
-          <div className='text-right'>
-            <NumberFormat
-              value={Number(new BigNumber(poolPair.priceRatio.ba).toPrecision(4))}
-              displayType='text'
-              thousandSeparator
-              suffix={` ${poolPair.tokenB.displaySymbol}/${poolPair.tokenA.displaySymbol}`}
-            />
-          </div>
-        </CardList.ListItem>
-
         <CardList.ListItem
           title='APR'
           titleClassNames='text-sm'
-          testId='BlocksCard.CardList.APR'
+          testId='PoolPairsCard.CardList.APR'
           infoDesc='APR includes commission.'
         >
           {(() => {
