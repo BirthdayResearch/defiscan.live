@@ -121,7 +121,7 @@ export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.El
                 displayType='text'
                 thousandSeparator
                 fixedDecimalScale
-                decimalScale={Number(tokenPrice) >= 1 ? 0 : 3}
+                decimalScale={Number(tokenPrice) > 100 ? 0 : 2}
                 prefix='$'
               />
             )

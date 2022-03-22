@@ -79,8 +79,6 @@ context('/dex on macbook-16', () => {
       })
     })
 
-
-
     cy.then(() => {
       for (let s = 0; s < totalLiquid.length; s++) {
         if (s + 1 < totalLiquid.length) {

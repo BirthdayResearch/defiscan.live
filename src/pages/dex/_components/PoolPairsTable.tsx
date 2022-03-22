@@ -138,7 +138,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
               displayType='text'
               thousandSeparator
               fixedDecimalScale
-              decimalScale={Number(tokenPrice) >= 1 ? 0 : 3}
+              decimalScale={Number(tokenPrice) > 100 ? 0 : 2}
               prefix='$'
             />
           )
