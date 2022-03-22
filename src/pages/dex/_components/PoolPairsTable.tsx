@@ -119,8 +119,13 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
     <OverflowTable.Row className='hover:text-primary-500'>
       <OverflowTable.Cell className='align-middle'>
         <PoolPairSymbolLocal
-          tokenA={data.tokenA} tokenB={data.tokenB} symbolSizeClassName='h-8 w-8'
-          symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
+          tokenA={data.tokenA}
+          tokenB={data.tokenB}
+          symbolSizeClassName='h-8 w-8'
+          symbolMarginClassName='ml-5'
+          textClassName='ml-16 font-medium'
+          primaryTextClassName='font-semibold'
+          secondaryTextClassName='text-gray-400'
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle lg:text-right'>

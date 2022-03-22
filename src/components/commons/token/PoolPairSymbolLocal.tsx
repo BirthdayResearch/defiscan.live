@@ -15,6 +15,8 @@ interface PoolPairSymbolProps {
   symbolMarginClassName: string
   textClassName: string
   testId?: string
+  primaryTextClassName?: string
+  secondaryTextClassName?: string
 }
 
 export function PoolPairSymbolLocal (props: PoolPairSymbolProps): JSX.Element {
@@ -26,7 +28,7 @@ export function PoolPairSymbolLocal (props: PoolPairSymbolProps): JSX.Element {
       <IconA className={classnames('absolute z-10', props.symbolSizeClassName)} />
       <IconB className={classnames('absolute', props.symbolSizeClassName, props.symbolMarginClassName)} />
       <div className={classnames(props.textClassName)}>
-        {`${props.tokenA.displaySymbol}-${props.tokenB.displaySymbol}`}
+        <span className={classnames(props.primaryTextClassName)}>{props.tokenA.displaySymbol}</span>-<span className={classnames(props.secondaryTextClassName)}>{props.tokenB.displaySymbol}</span>
       </div>
     </div>
   )
