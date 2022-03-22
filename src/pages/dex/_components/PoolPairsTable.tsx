@@ -66,7 +66,7 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
         </OverflowTable.Head>
       </OverflowTable.Header>
       {sortedData().map((data) => (
-        <Link href={{ pathname: `/dex/${data.id}` }} key={data.id}>
+        <Link href={{ pathname: `/dex/${data.tokenA.displaySymbol}` }} key={data.id}>
           <a className='contents'>
             <PoolPairRow data={data} />
           </a>

@@ -102,9 +102,9 @@ function SortButton ({
   let arrow = <TiArrowUnsorted className='h-4 w-4 text-gray-300' />
 
   if (sortKey === columnKey && sortOrder === 'asc') {
-    arrow = <TiArrowSortedUp className='h-4 w-4 text-gray-300' />
+    arrow = <TiArrowSortedUp className='h-4 w-4 text-primary-300' />
   } else if (sortKey === columnKey && sortOrder === 'desc') {
-    arrow = <TiArrowSortedDown className='h-4 w-4 text-gray-300' />
+    arrow = <TiArrowSortedDown className='h-4 w-4 text-primary-300' />
   }
 
   return (
