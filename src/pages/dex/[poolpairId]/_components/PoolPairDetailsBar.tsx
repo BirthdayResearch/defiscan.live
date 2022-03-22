@@ -6,7 +6,7 @@ import { useTokenPrice } from '../../../vaults/hooks/TokenPrice'
 export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   return (
-    <div className='flex flex-col p-6 rounded-lg border border-gray-200 md:flex-row md:items-center' data-testid='PoolPairDetailsBar'>
+    <div className='mt-8 flex flex-col p-6 rounded-lg border border-gray-200 md:flex-row md:items-center' data-testid='PoolPairDetailsBar'>
       <PoolPairSymbolLocal
         tokenA={props.poolpair.tokenA}
         tokenB={props.poolpair.tokenB}

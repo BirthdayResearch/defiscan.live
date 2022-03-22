@@ -27,7 +27,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         title='DEX'
         description='Supply liquidity to BTC, ETH, USDT, USDC and many other pool pairs to power the Decentralized Exchange. Earn fees and block rewards in return for providing liquidity to the pool, you can withdraw your liquidity at any time.'
       />
-      <Container className='pt-12 pb-20'>
+      <Container className='pt-4 pb-20'>
         <Breadcrumb items={[
           {
             path: '/dex',
@@ -35,9 +35,9 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
           },
           {
             path: `/dex/${props.poolpair.tokenA.displaySymbol}`,
-            name: `${props.poolpair.name}`,
-            hide: true,
-            canonical: true
+            name: `${props.poolpair.tokenA.displaySymbol}`,
+            canonical: true,
+            isCurrentPath: true
           }
         ]}
         />
