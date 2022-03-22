@@ -131,10 +131,7 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle text-right'>
         {(() => {
-          let tokenPrice = getTokenPrice(data.tokenA.symbol, '1').toString()
-          if (data.tokenA.symbol === 'DUSD' || data.tokenA.symbol === 'USDC') {
-            tokenPrice = '1'
-          }
+          const tokenPrice = getTokenPrice(data.tokenA.symbol, '1').toString()
           return (
             <NumberFormat
               value={tokenPrice}
