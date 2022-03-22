@@ -16,7 +16,7 @@ export function TokenTable ({ tokens }: { tokens: TokenData[] }): JSX.Element {
         <OverflowTable.Head title='Minted' />
       </OverflowTable.Header>
       {tokens.map((token) => (
-        <Link href={{ pathname: `/tokens/${token.id}` }} key={token.id}>
+        <Link href={{ pathname: `/tokens/${(token.isDAT || token.isLPS) ? token.displaySymbol : token.displaySymbol.concat('-', token.id)}` }} key={token.id}>
           <a className='contents'>
             <TokenRow data={token} />
           </a>
