@@ -10,9 +10,9 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
       <PoolPairSymbolLocal
         tokenA={props.poolpair.tokenA}
         tokenB={props.poolpair.tokenB}
-        symbolSizeClassName='h-4 w-4 md:h-8 md:w-8'
-        symbolMarginClassName='ml-2 -mb-3 md:ml-5 md:-mb-0'
-        textClassName='ml-7 md:ml-16 font-normal text-lg md:text-xl'
+        primarySymbolClassName='h-6 w-6 md:h-8 md:w-8'
+        secondarySymbolClassName='ml-4 -mb-5 md:ml-7 md:-mb-0 h-4 w-4'
+        textClassName='ml-10 md:ml-16 font-normal text-lg md:text-xl'
         testId='PoolPairSymbol'
       />
       <div className='flex text-gray-900 md:items-baseline mt-6 md:ml-auto md:mt-0' data-testid='PriceRatio'>
