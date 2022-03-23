@@ -21,7 +21,7 @@ context('/dex on macbook-16', () => {
       cy.wrap(ele).findByText('Pair').should('be.visible')
       cy.wrap(ele).findByText('Total Liquidity').should('be.visible')
       cy.wrap(ele).findByText('Volume (24H)').should('be.visible')
-      cy.wrap(ele).findByText('Token Price (USD)').should('be.visible')
+      cy.wrap(ele).findByText('Primary Token Price (USD)').should('be.visible')
       cy.wrap(ele).findByText('APR').should('be.visible')
     })
   })
@@ -161,7 +161,7 @@ context('/dex on iphone-x', () => {
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
       cy.findByTestId('PoolPairsCard.CardList.TokenPrice').within(() => {
-        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Token Price (USD)')
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Primary Token Price (USD)')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
       cy.findByTestId('PoolPairsCard.CardList.APR').within(() => {
