@@ -8,12 +8,13 @@ import { IoAlertCircleOutline, IoCheckmarkCircle } from 'react-icons/io5'
 import { Container } from '@components/commons/Container'
 import { AddressLinkExternal } from '@components/commons/link/AddressLink'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
-import { isNumeric } from '../../utils/commons/StringValidator'
+import { isAlphanumeric, isNumeric } from '../../utils/commons/StringValidator'
 import React, { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import ReactNumberFormat from 'react-number-format'
 import { Head } from '@components/commons/Head'
 import { getTokenName } from '../../utils/commons/token/getTokenName'
+import { WhaleApiClient } from '@defichain/whale-api-client'
 
 interface TokenAssetPageProps {
   token: TokenData
@@ -43,7 +44,7 @@ export default function TokenIdPage (props: InferGetServerSidePropsType<typeof g
     <>
       <Head title={`${props.token.displaySymbol}`} />
 
-      <Container className='pt-12 pb-24'>
+      <Container className='pt-4 pb-20'>
         <TokenPageHeading token={props.token} />
 
         <div className='flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
@@ -66,10 +67,10 @@ function TokenPageHeading ({ token }: { token: TokenData }): JSX.Element {
           name: 'Tokens'
         },
         {
-          path: `/tokens/${token.id}`,
+          path: `/tokens/${(token.isDAT || token.isLPS) ? token.displaySymbol : token.displaySymbol.concat('-', token.id)}`,
           name: `${name}`,
-          hide: false,
-          canonical: true
+          canonical: true,
+          isCurrentPath: true
         }
       ]}
       />
@@ -78,7 +79,7 @@ function TokenPageHeading ({ token }: { token: TokenData }): JSX.Element {
         const Icon = token.isDAT ? getAssetIcon(token.symbol) : getTokenIcon(token.symbol)
 
         return (
-          <div className='flex flex-row flex-wrap items-center mt-4'>
+          <div className='flex flex-row flex-wrap items-center mt-8'>
             <Icon className='h-10 w-10 mr-4' />
             <h1 data-testid='PageHeading' className='text-2xl font-semibold'>
               {name}
@@ -268,15 +269,45 @@ function BackingAddress ({ tokenSymbol }: { tokenSymbol: string }): JSX.Element 
   )
 }
 
+async function getTokenByParam (param: string, api: WhaleApiClient): Promise<TokenData | undefined> {
+  const tokenList: TokenData[] = []
+
+  let tokenResponse = await api.tokens.list(200)
+  tokenList.push(...tokenResponse)
+  while (tokenResponse.hasNext) {
+    tokenResponse = await api.tokens.list(200, tokenResponse.nextToken)
+    tokenList.push(...tokenResponse)
+  }
+  return tokenList.find(t => {
+    if (t.isDAT || t.isLPS) {
+      return t.displaySymbol.toLowerCase() === param.toLowerCase()
+    }
+    const i = param.lastIndexOf('-')
+    const displaySymbol = param.substring(0, i)
+    const id = param.substring(i + 1)
+    return t.displaySymbol.toLowerCase() === displaySymbol.toLowerCase() && id === t.id
+  })
+}
+
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TokenAssetPageProps>> {
   const api = getWhaleApiClient(context)
-  const id = context.params?.id?.toString().trim() as string
+  const param = context.params?.id?.toString().trim() as string
 
-  if (!isNumeric(id)) {
+  if (!isAlphanumeric(param, '-')) {
     return { notFound: true }
   }
 
-  const token = await api.tokens.get(id)
+  let token: TokenData | undefined
+  if (isNumeric(param)) {
+    try {
+      token = await api.tokens.get(param)
+    } catch (e) {
+      return { notFound: true }
+    }
+  } else {
+    token = await getTokenByParam(param, api)
+  }
+
   if (token === undefined) {
     return { notFound: true }
   }

@@ -43,6 +43,21 @@ context('/tokens/1 (Ether) Desktop', () => {
       cy.wrap(ele).should('contain.text', 'Backing Address')
     })
   })
+
+  it('should redirect to individual token page', () => {
+    cy.visit('/tokens/DFI')
+    cy.findByText('DFI').should('exist')
+
+    cy.visit('/tokens/dBCH-DFI')
+    cy.findByText('dBCH-DFI').should('exist')
+
+    cy.visit('/tokens/eth-dfi-191')
+    cy.findByText('ETH-DFI').should('exist')
+    cy.findByText('DCT').should('exist')
+
+    cy.visit('/tokens/dbtc')
+    cy.findByText('dBTC').should('exist')
+  })
 })
 
 context('/tokens/1 (Ether) Mobile', () => {
@@ -158,5 +173,20 @@ context('/tokens/* Backing Addresses', () => {
     })
     cy.findByTestId('BackingAddress.BCH').should('have.text', '38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf')
     cy.findByTestId('BackingAddress.BCH').find('a').should('have.attr', 'href', 'https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf')
+  })
+
+  it('should redirect to individual token page', () => {
+    cy.visit('/tokens/DFI')
+    cy.findByText('DFI').should('exist')
+
+    cy.visit('/tokens/dBCH-DFI')
+    cy.findByText('dBCH-DFI').should('exist')
+
+    cy.visit('/tokens/eth-dfi-191')
+    cy.findByText('ETH-DFI').should('exist')
+    cy.findByText('DCT').should('exist')
+
+    cy.visit('/tokens/dbtc')
+    cy.findByText('dBTC').should('exist')
   })
 })
