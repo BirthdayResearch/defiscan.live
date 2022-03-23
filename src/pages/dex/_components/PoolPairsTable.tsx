@@ -39,7 +39,7 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
     <OverflowTable>
       <OverflowTable.Header>
         <OverflowTable.Head title='Pair' />
-        <OverflowTable.Head title='Token Price (USD)' alignRight />
+        <OverflowTable.Head title='Primary Token Price (USD)' alignRight />
         <OverflowTable.Head title='Volume (24H)' alignRight>
           <OverflowTable.SortButton
             columnKey={SortKeys.VOLUME}
@@ -122,8 +122,8 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         <PoolPairSymbolLocal
           tokenA={data.tokenA}
           tokenB={data.tokenB}
-          symbolSizeClassName='h-8 w-8'
-          symbolMarginClassName='ml-5'
+          primarySymbolClassName='h-8 w-8'
+          secondarySymbolClassName='ml-6 h-6 w-6'
           textClassName='ml-16 font-medium'
           primaryTextClassName='font-semibold'
           secondaryTextClassName='text-gray-400'

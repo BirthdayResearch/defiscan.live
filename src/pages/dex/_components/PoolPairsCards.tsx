@@ -98,8 +98,8 @@ export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.El
           <PoolPairSymbolLocal
             tokenA={poolPair.tokenA}
             tokenB={poolPair.tokenB}
-            symbolSizeClassName='h-6 w-6'
-            symbolMarginClassName='ml-4'
+            primarySymbolClassName='h-6 w-6'
+            secondarySymbolClassName='ml-5 h-4 w-4'
             textClassName='ml-12'
             primaryTextClassName='font-bold'
             secondaryTextClassName='text-gray-400'
@@ -109,7 +109,7 @@ export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.El
 
       <CardList.List>
         <CardList.ListItem
-          title='Token Price (USD)'
+          title='Primary Token Price (USD)'
           titleClassNames='text-sm'
           testId='PoolPairsCard.CardList.TokenPrice'
         >
