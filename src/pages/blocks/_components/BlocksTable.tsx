@@ -1,11 +1,10 @@
 import NumberFormat from 'react-number-format'
-import React, { useEffect, useState } from 'react'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { Link } from '@components/commons/link/Link'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
-import { formatDistanceToNow } from 'date-fns'
 import { UnitSuffix } from '@components/commons/UnitSuffix'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
+import { useAge } from '../../../hooks/useAge'
 
 export function BlocksTable ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
@@ -31,16 +30,7 @@ export function BlocksTable ({ blocks }: { blocks: Block[] }): JSX.Element {
 }
 
 function BlockRow ({ block }: { block: Block }): JSX.Element {
-  const [age, setAge] = useState(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAge(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
-    }, 3000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [block.medianTime])
-
+  const age = useAge(block.medianTime)
   return (
     <OverflowTable.Row className='hover:text-primary-500'>
       <OverflowTable.Cell sticky>
