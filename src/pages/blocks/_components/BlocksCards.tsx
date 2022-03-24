@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { CardList } from '@components/commons/CardList'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
-import { formatDistanceToNow } from 'date-fns'
 import { UnitSuffix } from '@components/commons/UnitSuffix'
 import NumberFormat from 'react-number-format'
+import { useAge } from '../../../hooks/useAge'
 
 export function BlocksCards ({ blocks }: { blocks: Block[] }): JSX.Element {
   return (
@@ -22,16 +21,7 @@ export function BlocksCards ({ blocks }: { blocks: Block[] }): JSX.Element {
 }
 
 export function BlocksCard ({ block }: { block: Block }): JSX.Element {
-  const [age, setAge] = useState(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAge(`${formatDistanceToNow(block.medianTime * 1000)} ago`)
-    }, 3000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [block.medianTime])
-
+  const age = useAge(block.medianTime)
   return (
     <CardList.Card testId='BlocksCard'>
       <CardList.Header path={`/blocks/${block.height}`}>
