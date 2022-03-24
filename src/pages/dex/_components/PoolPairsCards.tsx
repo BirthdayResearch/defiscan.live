@@ -1,19 +1,13 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { CardList } from '@components/commons/CardList'
 import NumberFormat from 'react-number-format'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { APRInfo } from './APRInfo'
 import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
-import { sortData } from './PoolPairsTable'
+import { SortData, SortKeys } from './PoolPairsTable'
 import { useTokenPrice } from '../../vaults/hooks/TokenPrice'
 import { TotalLiquidityInfo } from './TotalLiquidityInfo'
-
-enum SortKeys {
-  VOLUME = 'volume',
-  TOTAL_LIQUIDITY = 'totalLiquidity',
-  APR = 'apr'
-}
 
 const sortTypes = [{
   sortKey: SortKeys.TOTAL_LIQUIDITY,
@@ -39,20 +33,31 @@ const sortTypes = [{
   sortKey: SortKeys.APR,
   sortOrder: 'asc',
   value: 'APR (Low to High)'
+}, {
+  sortKey: SortKeys.PRIMARY_TOKEN_PRICE,
+  sortOrder: 'desc',
+  value: 'Primary Token Price (High to Low)'
+}, {
+  sortKey: SortKeys.PRIMARY_TOKEN_PRICE,
+  sortOrder: 'asc',
+  value: 'Primary Token Price (Low to High)'
 }]
 
-export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): JSX.Element {
-  type SortOrder = 'asc' | 'desc'
-  const [sortKey, setSortKey] = useState<SortKeys>(SortKeys.TOTAL_LIQUIDITY)
-  const [sortOrder, setSortOrder] = useState<SortOrder>('desc')
+export function PoolPairsCards ({ poolPairs, sortKey, setSortKey, sortOrder, setSortOrder }): JSX.Element {
+  const { getTokenPrice } = useTokenPrice()
+
+  const poolPairsPrices = poolPairs.map(pair => {
+    const tokenPrice = Number(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
+    return { poolPair: pair, tokenPrice: tokenPrice }
+  })
 
   const sortedData = useCallback(
-    () => sortData({
-      poolPairs,
+    () => SortData({
+      poolPairsPrices: poolPairsPrices,
       sortKey,
       reverse: sortOrder === 'desc'
     }),
-    [poolPairs, sortKey, sortOrder]
+    [poolPairsPrices, sortKey, sortOrder]
   )
 
   function changeSort (sortType: { sortKey: SortKeys, sortOrder: string, value: string }): void {
@@ -77,11 +82,12 @@ export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): J
         </CardList.DropDownSortButton>
       </div>
 
-      {sortedData().map(poolPair => {
+      {sortedData().map(data => {
         return (
           <PoolPairsCard
-            poolPair={poolPair}
-            key={poolPair.id}
+            poolPair={data.poolPair}
+            tokenPrice={data.tokenPrice}
+            key={data.poolPair.id}
           />
         )
       })}
@@ -89,8 +95,7 @@ export function PoolPairsCards ({ poolPairs }: { poolPairs: PoolPairData[] }): J
   )
 }
 
-export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.Element {
-  const { getTokenPrice } = useTokenPrice()
+export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenPrice: number }): JSX.Element {
   return (
     <CardList.Card testId='PoolPairsCard'>
       <CardList.Header path={`/dex/${poolPair.tokenA.displaySymbol}`}>
@@ -113,19 +118,14 @@ export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.El
           titleClassNames='text-sm'
           testId='PoolPairsCard.CardList.TokenPrice'
         >
-          {(() => {
-            const tokenPrice = getTokenPrice(poolPair.tokenA.symbol, '1').toString()
-            return (
-              <NumberFormat
-                value={tokenPrice}
-                displayType='text'
-                thousandSeparator
-                fixedDecimalScale
-                decimalScale={Number(tokenPrice) > 100 ? 0 : 2}
-                prefix='$'
-              />
-            )
-          })()}
+          <NumberFormat
+            value={tokenPrice}
+            displayType='text'
+            thousandSeparator
+            fixedDecimalScale
+            decimalScale={tokenPrice > 100 ? 0 : 2}
+            prefix='$'
+          />
         </CardList.ListItem>
         <CardList.ListItem
           title='Volume (24H)'

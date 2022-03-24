@@ -9,9 +9,9 @@ import { Container } from '@components/commons/Container'
 import { StatItem } from '@components/commons/stats/StatItem'
 import ReactNumberFormat from 'react-number-format'
 import { StatsBar } from '@components/commons/stats/StatsBar'
-import React from 'react'
+import React, { useState } from 'react'
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { PoolPairsTable } from './_components/PoolPairsTable'
+import { PoolPairsTable, SortKeys, SortOrder } from './_components/PoolPairsTable'
 import { PoolPairsCards } from './_components/PoolPairsCards'
 
 interface DexPageProps {
@@ -31,6 +31,8 @@ export default function DexPage ({
   aggregate
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const tvl = useSelector((state: RootState) => state.stats.tvl.dex)
+  const [sortKey, setSortKey] = useState<SortKeys>(SortKeys.TOTAL_LIQUIDITY)
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc')
 
   return (
     <>
@@ -65,11 +67,11 @@ export default function DexPage ({
         <h1 className='text-2xl font-medium mb-6'>DEX Pool Pairs</h1>
 
         <div className='my-6 hidden md:block'>
-          <PoolPairsTable poolPairs={poolPairs.items} />
+          <PoolPairsTable poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
         </div>
 
         <div className='my-6 md:hidden'>
-          <PoolPairsCards poolPairs={poolPairs.items} />
+          <PoolPairsCards poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
         </div>
 
         <div className='flex justify-end mt-8'>
