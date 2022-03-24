@@ -61,7 +61,6 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
               <NumberFormat
                 value={swap.fromAmount}
                 fixedDecimalScale
-                decimalScale={Number(swap.fromAmount) > 1 ? 3 : 6}
                 thousandSeparator=','
                 displayType='text'
                 suffix={` ${swap.from.symbol}`}
@@ -76,7 +75,6 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
             : (
               <NumberFormat
                 value={swap.to.amount}
-                decimalScale={Number(swap.to.amount) > 1 ? 3 : 6}
                 fixedDecimalScale
                 thousandSeparator=','
                 displayType='text'
