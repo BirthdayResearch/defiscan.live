@@ -124,8 +124,8 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
           tokenB={data.tokenB}
           primarySymbolClassName='h-8 w-8'
           secondarySymbolClassName='ml-6 h-6 w-6'
-          textClassName='ml-16 font-medium'
-          primaryTextClassName='font-semibold'
+          textClassName='ml-16'
+          primaryTextClassName='font-medium'
           secondaryTextClassName='text-gray-400'
         />
       </OverflowTable.Cell>

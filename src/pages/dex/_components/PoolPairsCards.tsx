@@ -98,10 +98,10 @@ export function PoolPairsCard ({ poolPair }: { poolPair: PoolPairData }): JSX.El
           <PoolPairSymbolLocal
             tokenA={poolPair.tokenA}
             tokenB={poolPair.tokenB}
-            primarySymbolClassName='h-6 w-6'
-            secondarySymbolClassName='ml-5 h-4 w-4'
+            primarySymbolClassName='h-7 w-7'
+            secondarySymbolClassName='ml-5 h-6 w-6'
             textClassName='ml-12'
-            primaryTextClassName='font-bold'
+            primaryTextClassName='font-medium'
             secondaryTextClassName='text-gray-400'
           />
         </div>
