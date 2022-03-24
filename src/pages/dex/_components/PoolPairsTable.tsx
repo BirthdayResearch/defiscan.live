@@ -8,6 +8,7 @@ import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLoc
 import { Link } from '@components/commons/link/Link'
 import { useTokenPrice } from '../../vaults/hooks/TokenPrice'
 import { TotalLiquidityInfo } from './TotalLiquidityInfo'
+import BigNumber from 'bignumber.js'
 
 export enum SortKeys {
   VOLUME = 'volume',
@@ -22,7 +23,7 @@ export function PoolPairsTable ({ poolPairs, sortKey, setSortKey, sortOrder, set
   const { getTokenPrice } = useTokenPrice()
 
   const poolPairsPrices = poolPairs.map(pair => {
-    const tokenPrice = Number(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
+    const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
     return { poolPair: pair, tokenPrice: tokenPrice }
   })
 
@@ -93,10 +94,10 @@ export function SortData ({
   sortKey,
   reverse
 }: {
-  poolPairsPrices: Array<{ poolPair: PoolPairData, tokenPrice: number }>
+  poolPairsPrices: Array<{ poolPair: PoolPairData, tokenPrice: BigNumber }>
   sortKey: string
   reverse: boolean
-}): Array<{ poolPair: PoolPairData, tokenPrice: number }> {
+}): Array<{ poolPair: PoolPairData, tokenPrice: BigNumber }> {
   if (sortKey === undefined) {
     return poolPairsPrices
   }
@@ -110,7 +111,7 @@ export function SortData ({
       case SortKeys.TOTAL_LIQUIDITY:
         return Number(a.poolPair.totalLiquidity?.usd ?? 0) - Number(b.poolPair.totalLiquidity?.usd ?? 0)
       case SortKeys.PRIMARY_TOKEN_PRICE:
-        return a.tokenPrice - b.tokenPrice
+        return a.tokenPrice.minus(b.tokenPrice).toNumber()
       default:
         return b[sortKey] - a[sortKey]
     }
@@ -119,7 +120,7 @@ export function SortData ({
   return reverse ? sortedData.reverse() : sortedData
 }
 
-function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenPrice: number }): JSX.Element {
+function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenPrice: BigNumber }): JSX.Element {
   if (poolPair.symbol === 'BURN-DFI') {
     return <></>
   }
@@ -139,11 +140,11 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle text-right'>
         <NumberFormat
-          value={tokenPrice}
+          value={tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
           displayType='text'
           thousandSeparator
           fixedDecimalScale
-          decimalScale={tokenPrice > 100 ? 0 : 2}
+          decimalScale={tokenPrice.isGreaterThan(100) ? 0 : 2}
           prefix='$'
         />
       </OverflowTable.Cell>

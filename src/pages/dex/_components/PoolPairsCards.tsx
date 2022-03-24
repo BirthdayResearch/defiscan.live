@@ -8,6 +8,7 @@ import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLoc
 import { SortData, SortKeys } from './PoolPairsTable'
 import { useTokenPrice } from '../../vaults/hooks/TokenPrice'
 import { TotalLiquidityInfo } from './TotalLiquidityInfo'
+import BigNumber from 'bignumber.js'
 
 const sortTypes = [{
   sortKey: SortKeys.TOTAL_LIQUIDITY,
@@ -47,7 +48,7 @@ export function PoolPairsCards ({ poolPairs, sortKey, setSortKey, sortOrder, set
   const { getTokenPrice } = useTokenPrice()
 
   const poolPairsPrices = poolPairs.map(pair => {
-    const tokenPrice = Number(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
+    const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
     return { poolPair: pair, tokenPrice: tokenPrice }
   })
 
@@ -95,7 +96,7 @@ export function PoolPairsCards ({ poolPairs, sortKey, setSortKey, sortOrder, set
   )
 }
 
-export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenPrice: number }): JSX.Element {
+export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenPrice: BigNumber }): JSX.Element {
   return (
     <CardList.Card testId='PoolPairsCard'>
       <CardList.Header path={`/dex/${poolPair.tokenA.displaySymbol}`}>
@@ -119,11 +120,11 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
           testId='PoolPairsCard.CardList.TokenPrice'
         >
           <NumberFormat
-            value={tokenPrice}
+            value={tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
             displayType='text'
             thousandSeparator
             fixedDecimalScale
-            decimalScale={tokenPrice > 100 ? 0 : 2}
+            decimalScale={tokenPrice > new BigNumber(100) ? 0 : 2}
             prefix='$'
           />
         </CardList.ListItem>
