@@ -1,5 +1,6 @@
 import { NetworkName } from '@contexts/NetworkContext'
 import { AddressLink } from '@components/commons/link/AddressLink'
+import { TextTruncate } from '@components/commons/text/TextTruncate'
 
 interface TransactionVectorRowProps {
   label: 'INPUT' | 'OUTPUT'
@@ -18,7 +19,11 @@ export function TransactionVectorRow (props: TransactionVectorRowProps): JSX.Ele
         </span>
         <div className='flex justify-between'>
           {props.isAddressClickable ? (
-            <AddressLink testId='TransactionVectorRow.Address' address={props.address} className='overflow-ellipsis overflow-hidden text-primary-400' />
+            <AddressLink
+              testId='TransactionVectorRow.Address' address={props.address}
+            >
+              <TextTruncate text={props.address} className='w-44' />
+            </AddressLink>
           ) : (
             <span className='overflow-ellipsis overflow-hidden opacity-80'>
               {props.address}
