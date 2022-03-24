@@ -11,7 +11,6 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
         tokenA={props.poolpair.tokenA}
         tokenB={props.poolpair.tokenB}
         primarySymbolClassName='h-6 w-6 md:h-8 md:w-8'
-        secondarySymbolClassName='ml-4 -mb-5 md:ml-7 md:-mb-0 h-4 w-4'
         secondarySymbolClassName='ml-4 -mb-5 h-4 w-4 md:ml-6 md:-mb-0 md:h-6 md:w-6'
         textClassName='ml-10 md:ml-16 font-normal text-lg md:text-xl'
         primaryTextClassName='font-medium'
