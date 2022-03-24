@@ -17,23 +17,26 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
         secondaryTextClassName='text-gray-400'
         testId='PoolPairSymbol'
       />
-      <div className='text-gray-900 md:items-baseline mt-6 md:ml-auto md:mt-0' data-testid='PriceRatio'>
+      <div className='flex text-gray-900 md:items-baseline mt-6 md:ml-auto md:mt-0' data-testid='PriceRatio'>
+        <span className='mr-2 text-sm font-normal'>
+          {`1 ${props.poolpair.tokenA.displaySymbol} =`}
+        </span>
         <div className='flex flex-col'>
           <ReactNumberFormat
+            value={props.poolpair.priceRatio.ba}
+            suffix={` ${props.poolpair.tokenB.displaySymbol}`}
             displayType='text'
             thousandSeparator
             className='text-sm font-medium md:text-xl'
-            prefix='$'
-            value={getTokenPrice(props.poolpair.tokenB.displaySymbol, props.poolpair.priceRatio.ba).toFixed(3)}
-          />
-          <ReactNumberFormat
-            value={props.poolpair.priceRatio.ba}
-            displayType='text'
-            thousandSeparator
             decimalScale={Number(props.poolpair.priceRatio.ba) > 1 ? 2 : 8}
             fixedDecimalScale
+          />
+          <ReactNumberFormat
             className='text-sm flex justify-end text-gray-400'
-            prefix={`≈ ${props.poolpair.tokenB.displaySymbol} `}
+            displayType='text'
+            thousandSeparator
+            prefix='≈ $'
+            value={getTokenPrice(props.poolpair.tokenB.displaySymbol, props.poolpair.priceRatio.ba).toFixed(3)}
           />
         </div>
       </div>

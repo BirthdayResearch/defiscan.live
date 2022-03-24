@@ -7,7 +7,7 @@ import { PoolSwapData, SwapType } from '@defichain/whale-api-client/dist/api/poo
 import classNames from 'classnames'
 import { useAge } from '../../../../hooks/useAge'
 
-export function SwapCards ({ swaps }: { swaps: PoolSwapData[]}): JSX.Element {
+export function SwapCards ({ swaps }: { swaps: PoolSwapData[] }): JSX.Element {
   return (
     <CardList>
       {swaps.map(swap => (
@@ -33,8 +33,8 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
         {swap.type === undefined
           ? ('N/A')
           : (
-            <span className={classNames(swap.type === SwapType.SELL ? 'text-red-500' : 'text-green-500')}>
-              {swap.type}
+            <span className={classNames('capitalize', swap.type === SwapType.SELL ? 'text-red-500' : 'text-green-500')}>
+              {swap.type.toLowerCase()}
             </span>
             )}
       </div>
