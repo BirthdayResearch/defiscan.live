@@ -140,11 +140,9 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle text-right'>
         <NumberFormat
-          value={tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
+          value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
           displayType='text'
           thousandSeparator
-          fixedDecimalScale
-          decimalScale={tokenPrice.isGreaterThan(100) ? 0 : 2}
           prefix='$'
         />
       </OverflowTable.Cell>

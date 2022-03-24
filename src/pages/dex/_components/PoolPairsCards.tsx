@@ -120,11 +120,9 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
           testId='PoolPairsCard.CardList.TokenPrice'
         >
           <NumberFormat
-            value={tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
+            value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
             displayType='text'
             thousandSeparator
-            fixedDecimalScale
-            decimalScale={tokenPrice > new BigNumber(100) ? 0 : 2}
             prefix='$'
           />
         </CardList.ListItem>
