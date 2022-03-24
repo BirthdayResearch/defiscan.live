@@ -1,12 +1,13 @@
 import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import NumberFormat from 'react-number-format'
-import BigNumber from 'bignumber.js'
 import React, { useCallback, useState } from 'react'
 import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { OverflowTable } from '@components/commons/OverflowTable'
 import { APRInfo } from './APRInfo'
 import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
 import { Link } from '@components/commons/link/Link'
+import { useTokenPrice } from '../../vaults/hooks/TokenPrice'
+import { TotalLiquidityInfo } from './TotalLiquidityInfo'
 
 export enum SortKeys {
   VOLUME = 'volume',
@@ -38,14 +39,7 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
     <OverflowTable>
       <OverflowTable.Header>
         <OverflowTable.Head title='Pair' />
-        <OverflowTable.Head title='Total Liquidity' alignRight>
-          <OverflowTable.SortButton
-            columnKey={SortKeys.TOTAL_LIQUIDITY}
-            onClick={() => changeSort(SortKeys.TOTAL_LIQUIDITY)}
-            sortOrder={sortOrder}
-            sortKey={sortKey}
-          />
-        </OverflowTable.Head>
+        <OverflowTable.Head title='Primary Token Price (USD)' alignRight />
         <OverflowTable.Head title='Volume (24H)' alignRight>
           <OverflowTable.SortButton
             columnKey={SortKeys.VOLUME}
@@ -54,8 +48,14 @@ export function PoolPairsTable ({ poolPairs }: { poolPairs: PoolPairData[] }): J
             sortKey={sortKey}
           />
         </OverflowTable.Head>
-        <OverflowTable.Head title='Liquidity' alignRight />
-        <OverflowTable.Head title='Price Ratio' alignRight />
+        <OverflowTable.Head title='Total Liquidity' alignRight>
+          <OverflowTable.SortButton
+            columnKey={SortKeys.TOTAL_LIQUIDITY}
+            onClick={() => changeSort(SortKeys.TOTAL_LIQUIDITY)}
+            sortOrder={sortOrder}
+            sortKey={sortKey}
+          />
+        </OverflowTable.Head>
         <OverflowTable.Head title='APR' infoDesc='APR includes commission.' alignRight>
           <OverflowTable.SortButton
             columnKey={SortKeys.APR}
@@ -111,6 +111,7 @@ export function sortData ({
 }
 
 function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
+  const { getTokenPrice } = useTokenPrice()
   if (data.symbol === 'BURN-DFI') {
     return <></>
   }
@@ -119,24 +120,29 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
     <OverflowTable.Row className='hover:text-primary-500'>
       <OverflowTable.Cell className='align-middle'>
         <PoolPairSymbolLocal
-          tokenA={data.tokenA} tokenB={data.tokenB} symbolSizeClassName='h-8 w-8'
-          symbolMarginClassName='ml-5' textClassName='ml-16 font-medium'
+          tokenA={data.tokenA}
+          tokenB={data.tokenB}
+          primarySymbolClassName='h-8 w-8'
+          secondarySymbolClassName='ml-6 h-6 w-6'
+          textClassName='ml-16'
+          primaryTextClassName='font-medium'
+          secondaryTextClassName='text-gray-400'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle lg:text-right'>
-        {data.totalLiquidity.usd !== undefined ? (
-          <NumberFormat
-            value={data.totalLiquidity.usd}
-            displayType='text'
-            thousandSeparator
-            decimalScale={0}
-            prefix='$'
-          />
-        ) : (
-          <div className='text-yellow-500'>
-            Error
-          </div>
-        )}
+      <OverflowTable.Cell className='align-middle text-right'>
+        {(() => {
+          const tokenPrice = getTokenPrice(data.tokenA.symbol, '1').toString()
+          return (
+            <NumberFormat
+              value={tokenPrice}
+              displayType='text'
+              thousandSeparator
+              fixedDecimalScale
+              decimalScale={Number(tokenPrice) > 100 ? 0 : 2}
+              prefix='$'
+            />
+          )
+        })()}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle lg:text-right'>
         {data.volume?.h24 !== undefined ? (
@@ -154,42 +160,23 @@ function PoolPairRow ({ data }: { data: PoolPairData }): JSX.Element {
         )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle lg:text-right'>
-        <div>
-          <NumberFormat
-            value={data.tokenA.reserve}
-            displayType='text'
-            thousandSeparator
-            decimalScale={0}
-            suffix={` ${data.tokenA.displaySymbol}`}
-          />
-        </div>
-        <div>
-          <NumberFormat
-            value={data.tokenB.reserve}
-            displayType='text'
-            thousandSeparator
-            decimalScale={0}
-            suffix={` ${data.tokenB.displaySymbol}`}
-          />
-        </div>
-      </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle lg:text-right'>
-        <div>
-          <NumberFormat
-            value={Number(new BigNumber(data.priceRatio.ab).toPrecision(4))}
-            displayType='text'
-            thousandSeparator
-            suffix={` ${data.tokenA.displaySymbol}/${data.tokenB.displaySymbol}`}
-          />
-        </div>
-        <div>
-          <NumberFormat
-            value={Number(new BigNumber(data.priceRatio.ba).toPrecision(4))}
-            displayType='text'
-            thousandSeparator
-            suffix={` ${data.tokenB.displaySymbol}/${data.tokenA.displaySymbol}`}
-          />
-        </div>
+        {data.totalLiquidity.usd !== undefined ? (
+          <div className='flex justify-end'>
+            <MoreHoverPopover className='ml-1' description={<TotalLiquidityInfo tokenA={data.tokenA} tokenB={data.tokenB} />} placement='bottom'>
+              <NumberFormat
+                value={data.totalLiquidity.usd}
+                displayType='text'
+                thousandSeparator
+                decimalScale={0}
+                prefix='$'
+              />
+            </MoreHoverPopover>
+          </div>
+        ) : (
+          <div className='text-yellow-500'>
+            Error
+          </div>
+        )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle'>
         {(() => {

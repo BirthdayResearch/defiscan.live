@@ -74,16 +74,16 @@ context('/dex/[poolpairid] on macbook-16', () => {
 
   it('should redirect to individual poolpair page', () => {
     cy.visit('/dex/dBTC-DFI')
-    cy.findByText('dBTC-DFI').should('exist')
+    cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
 
     cy.visit('/dex/dBtc')
-    cy.findByText('dBTC-DFI').should('exist')
+    cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
 
     cy.visit('/dex/dbtc-dfi')
-    cy.findByText('dBTC-DFI').should('exist')
+    cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
 
     cy.visit('/dex/BTC')
-    cy.findByText('dBTC-DFI').should('exist')
+    cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
   })
 })
 
@@ -169,15 +169,15 @@ context('/dex/[poolpairId] on iphone-x', () => {
 
   it('should redirect to individual poolpair page', () => {
     cy.visit('/dex/dBTC-DFI')
-    cy.findByText('dBTC-DFI').should('exist')
-
-    cy.visit('/dex/dbtc-dfi')
-    cy.findByText('dBTC-DFI').should('exist')
+    cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
 
     cy.visit('/dex/dBtc')
-    cy.findByText('dBTC-DFI').should('exist')
+    cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
+
+    cy.visit('/dex/dbtc-dfi')
+    cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
 
     cy.visit('/dex/BTC')
-    cy.findByText('dBTC-DFI').should('exist')
+    cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
   })
 })

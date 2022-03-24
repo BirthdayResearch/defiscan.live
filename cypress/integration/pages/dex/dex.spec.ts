@@ -21,15 +21,14 @@ context('/dex on macbook-16', () => {
       cy.wrap(ele).findByText('Pair').should('be.visible')
       cy.wrap(ele).findByText('Total Liquidity').should('be.visible')
       cy.wrap(ele).findByText('Volume (24H)').should('be.visible')
-      cy.wrap(ele).findByText('Liquidity').should('be.visible')
-      cy.wrap(ele).findByText('Price Ratio').should('be.visible')
+      cy.wrap(ele).findByText('Primary Token Price (USD)').should('be.visible')
       cy.wrap(ele).findByText('APR').should('be.visible')
     })
   })
 
   it('should have dex info in OverflowTable', function () {
     cy.findAllByTestId('OverflowTable.Row').eq(1).then(ele => {
-      cy.wrap(ele).children().should('have.length', 6)
+      cy.wrap(ele).children().should('have.length', 5)
     })
   })
 
@@ -73,7 +72,7 @@ context('/dex on macbook-16', () => {
     const totalLiquid: Number[] = []
     cy.findAllByTestId('OverflowTable.Row').each(($el) => {
       cy.wrap($el).within(() => {
-        cy.findAllByTestId('OverflowTable.Cell').eq(1).then(($ele) => {
+        cy.findAllByTestId('OverflowTable.Cell').eq(3).then(($ele) => {
           totalLiquid.push(Number.parseInt($ele.text().substring(1).replaceAll(',', '')))
         })
       })
@@ -112,7 +111,7 @@ context('/dex on macbook-16', () => {
     const apr: Number[] = []
     cy.findAllByTestId('OverflowTable.Row').each(($el) => {
       cy.wrap($el).within(() => {
-        cy.findAllByTestId('OverflowTable.Cell').eq(5).then(($ele) => {
+        cy.findAllByTestId('OverflowTable.Cell').eq(4).then(($ele) => {
           const text = $ele.text()
           apr.push(Number.parseFloat(text.substring(0, text.length - 1)))
         })
@@ -153,23 +152,19 @@ context('/dex on iphone-x', () => {
         cy.findByTestId('CardList.Header.Toggle').should('be.visible')
       })
 
-      cy.findByTestId('BlocksCard.CardList.TotalLiquidity').within(() => {
+      cy.findByTestId('PoolPairsCard.CardList.TotalLiquidity').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Total Liquidity')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findByTestId('BlocksCard.CardList.24hVolume').within(() => {
+      cy.findByTestId('PoolPairsCard.CardList.24hVolume').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Volume (24H)')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findByTestId('BlocksCard.CardList.Liquidity').within(() => {
-        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Liquidity')
+      cy.findByTestId('PoolPairsCard.CardList.TokenPrice').within(() => {
+        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Primary Token Price (USD)')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
-      cy.findByTestId('BlocksCard.CardList.PriceRatio').within(() => {
-        cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'Price Ratio')
-        cy.findByTestId('CardList.Row.Child').should('be.visible')
-      })
-      cy.findByTestId('BlocksCard.CardList.APR').within(() => {
+      cy.findByTestId('PoolPairsCard.CardList.APR').within(() => {
         cy.findByTestId('CardList.Row.Title').should('be.visible').should('have.text', 'APR')
         cy.findByTestId('CardList.Row.Child').should('be.visible')
       })
@@ -213,7 +208,7 @@ context('/dex on iphone-x', () => {
     const totalLiquid: Number[] = []
     cy.findAllByTestId('PoolPairsCard').each(($el) => {
       cy.wrap($el).within(() => {
-        cy.findAllByTestId('BlocksCard.CardList.TotalLiquidity').then(($ele) => {
+        cy.findAllByTestId('PoolPairsCard.CardList.TotalLiquidity').then(($ele) => {
           const text = $ele.text().split('$').at(1)
           if (text !== undefined) {
             totalLiquid.push(Number.parseInt(text.replaceAll(',', '')))
@@ -237,7 +232,7 @@ context('/dex on iphone-x', () => {
     const volume: Number[] = []
     cy.findAllByTestId('PoolPairsCard').each(($el) => {
       cy.wrap($el).within(() => {
-        cy.findAllByTestId('BlocksCard.CardList.24hVolume').then(($ele) => {
+        cy.findAllByTestId('PoolPairsCard.CardList.24hVolume').then(($ele) => {
           const text = $ele.text().split('$').at(1)
           if (text !== undefined) {
             volume.push(Number.parseInt(text.replaceAll(',', '')))
@@ -261,7 +256,7 @@ context('/dex on iphone-x', () => {
     const apr: Number[] = []
     cy.findAllByTestId('PoolPairsCard').each(($el) => {
       cy.wrap($el).within(() => {
-        cy.findAllByTestId('BlocksCard.CardList.APR').then(($ele) => {
+        cy.findAllByTestId('PoolPairsCard.CardList.APR').then(($ele) => {
           let text = $ele.text().split('%').at(0)
           if (text !== undefined) {
             text = text.split('APR').at(1)
