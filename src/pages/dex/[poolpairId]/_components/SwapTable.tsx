@@ -36,15 +36,15 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
   const age = useAge(swap.block.medianTime)
   return (
     <OverflowTable.Row>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         <TxIdLink txid={swap.txid}>
           <TextTruncate text={swap.txid} />
         </TxIdLink>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         {age}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         {swap.type === undefined
           ? ('N/A')
           : (
@@ -53,7 +53,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
             </span>
             )}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle text-right'>
+      <OverflowTable.Cell alignRight>
         {
           swap.from === undefined
             ? ('N/A')
@@ -69,7 +69,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
               )
         }
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle text-right'>
+      <OverflowTable.Cell alignRight>
         {
           swap.to === undefined
             ? ('N/A')
@@ -85,7 +85,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
               )
         }
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         {
           swap.from === undefined
             ? ('N/A')
@@ -96,7 +96,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
               )
         }
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         {
           swap.to === undefined
             ? ('N/A')
