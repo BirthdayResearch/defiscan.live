@@ -53,10 +53,10 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
             <h3 className='text-lg font-semibold'>
               Swap History
             </h3>
-            <div className='hidden md:block'>
+            <div className='hidden lg:block'>
               <SwapTable swaps={props.swaps.items} />
             </div>
-            <div className='my-6 md:hidden'>
+            <div className='my-6 lg:hidden'>
               <SwapCards swaps={props.swaps.items} />
             </div>
             <div className='flex justify-end mt-8'>

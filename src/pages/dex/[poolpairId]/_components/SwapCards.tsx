@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
 import { CardList } from '@components/commons/CardList'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
-import { formatDistanceToNow } from 'date-fns'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { AddressLink } from '@components/commons/link/AddressLink'
 import NumberFormat from 'react-number-format'
-import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import { getAssetIcon } from '@components/icons/assets/tokens'
-import { MdOutlineArrowRightAlt } from 'react-icons/md'
+import { PoolSwapData, SwapType } from '@defichain/whale-api-client/dist/api/poolpairs'
+import classNames from 'classnames'
+import { useAge } from '../../../../hooks/useAge'
 
-export function SwapCards ({ swaps }: { swaps: PoolSwapData[]}): JSX.Element {
+export function SwapCards ({ swaps }: { swaps: PoolSwapData[] }): JSX.Element {
   return (
     <CardList>
       {swaps.map(swap => (
@@ -23,32 +21,22 @@ export function SwapCards ({ swaps }: { swaps: PoolSwapData[]}): JSX.Element {
 }
 
 export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
-  const [age, setAge] = useState(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-  useEffect(() => {
-    setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-
-    const interval = setInterval(() => {
-      setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-    }, 3000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [swap.block.medianTime])
-
+  const age = useAge(swap.block.medianTime)
   return (
     <CardList.Card testId='SwapCard'>
       <CardList.Header>
-        <SwapTokens from={swap.from?.symbol} to={swap.to?.symbol} />
+        <TxIdLink txid={swap.txid} testId='CardList.Header.TxId'>
+          <TextTruncate text={swap.txid} className='w-44' />
+        </TxIdLink>
       </CardList.Header>
-      <div className='flex items-center w-full justify-between mt-4' data-testid='CardList.Header.Amount'>
-        <span className='title'>Amount</span>
-        <NumberFormat
-          value={swap.fromAmount}
-          fixedDecimalScale
-          thousandSeparator=','
-          displayType='text'
-          suffix={` ${swap.from!.symbol}`}
-        />
+      <div className='mt-4' data-testid='CardList.Header.Type'>
+        {swap.type === undefined
+          ? ('N/A')
+          : (
+            <span className={classNames('capitalize', swap.type === SwapType.SELL ? 'text-red-500' : 'text-green-500')}>
+              {swap.type.toLowerCase()}
+            </span>
+            )}
       </div>
       <CardList.List>
         <CardList.ListItem
@@ -57,6 +45,44 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
           testId='SwapCard.CardList.Age'
         >
           {age}
+        </CardList.ListItem>
+        <CardList.ListItem
+          title='Input Amount'
+          titleClassNames='text-sm'
+          testId='SwapCard.CardList.InputAmount'
+        >
+          {
+            swap.from === undefined
+              ? ('N/A')
+              : (
+                <NumberFormat
+                  value={swap.from.amount}
+                  fixedDecimalScale
+                  thousandSeparator=','
+                  displayType='text'
+                  suffix={` ${swap.from.symbol}`}
+                />
+                )
+          }
+        </CardList.ListItem>
+        <CardList.ListItem
+          title='Output Amount'
+          titleClassNames='text-sm'
+          testId='SwapCard.CardList.OutputAmount'
+        >
+          {
+            swap.to === undefined
+              ? ('N/A')
+              : (
+                <NumberFormat
+                  value={swap.to.amount}
+                  fixedDecimalScale
+                  thousandSeparator=','
+                  displayType='text'
+                  suffix={` ${swap.to.symbol}`}
+                />
+                )
+          }
         </CardList.ListItem>
         <CardList.ListItem
           title='From'
@@ -88,34 +114,7 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
                 )
           }
         </CardList.ListItem>
-        <CardList.ListItem
-          title='Transaction ID'
-          titleClassNames='text-sm'
-          testId='SwapCard.CardList.TxId'
-        >
-          <TxIdLink txid={swap.txid}>
-            <TextTruncate text={swap.txid} className='w-44' />
-          </TxIdLink>
-        </CardList.ListItem>
       </CardList.List>
     </CardList.Card>
-  )
-}
-
-function SwapTokens ({ from, to }: {from: string | undefined, to: string | undefined}): JSX.Element {
-  if (from === undefined || to === undefined) {
-    return (
-      <></>
-    )
-  }
-  const ToTokenIcon = getAssetIcon(to)
-  const FromTokenIcon = getAssetIcon(from)
-
-  return (
-    <div className='flex items-center' data-testid='CardList.Header.SwapTokens'>
-      <FromTokenIcon className='w-6 h-6' />
-      <MdOutlineArrowRightAlt className='text-gray-400 mx-1' />
-      <ToTokenIcon className='w-6 h-6' />
-    </div>
   )
 }

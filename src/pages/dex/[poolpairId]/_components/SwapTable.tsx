@@ -1,21 +1,23 @@
 import { JSX } from '@babel/types'
 import { OverflowTable } from '@components/commons/OverflowTable'
-import { useEffect, useState } from 'react'
 import { TxIdLink } from '@components/commons/link/TxIdLink'
 import { TextTruncate } from '@components/commons/text/TextTruncate'
-import { formatDistanceToNow } from 'date-fns'
 import NumberFormat from 'react-number-format'
 import { AddressLink } from '@components/commons/link/AddressLink'
-import { PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { PoolSwapData, SwapType } from '@defichain/whale-api-client/dist/api/poolpairs'
+import classNames from 'classnames'
+import { useAge } from '../../../../hooks/useAge'
 
-export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
+export function SwapTable ({ swaps }: { swaps: PoolSwapData[] }): JSX.Element {
   return (
     <div data-testid='SwapTable'>
       <OverflowTable className='mt-4'>
         <OverflowTable.Header>
-          <OverflowTable.Head title='Tx ID' />
+          <OverflowTable.Head title='Transaction ID' />
           <OverflowTable.Head title='Age' />
-          <OverflowTable.Head title='Amount' />
+          <OverflowTable.Head title='Type' />
+          <OverflowTable.Head title='Input Amount' alignRight />
+          <OverflowTable.Head title='Output Amount' alignRight />
           <OverflowTable.Head title='From' />
           <OverflowTable.Head title='To' />
         </OverflowTable.Header>
@@ -31,38 +33,57 @@ export function SwapTable ({ swaps }: {swaps: PoolSwapData[]}): JSX.Element {
 }
 
 function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
-  const [age, setAge] = useState(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-  useEffect(() => {
-    setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-
-    const interval = setInterval(() => {
-      setAge(`${formatDistanceToNow(swap.block.medianTime * 1000)} ago`)
-    }, 3000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [swap.block.medianTime])
-
+  const age = useAge(swap.block.medianTime)
   return (
     <OverflowTable.Row>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         <TxIdLink txid={swap.txid}>
-          <TextTruncate text={swap.txid} className='w-44' />
+          <TextTruncate text={swap.txid} />
         </TxIdLink>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         {age}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <NumberFormat
-          value={swap.fromAmount}
-          fixedDecimalScale
-          thousandSeparator=','
-          displayType='text'
-          suffix={` ${swap.from!.symbol}`}
-        />
+        {swap.type === undefined
+          ? ('N/A')
+          : (
+            <span className={classNames('capitalize', swap.type === SwapType.SELL ? 'text-red-500' : 'text-green-500')}>
+              {swap.type.toLowerCase()}
+            </span>
+            )}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell alignRight>
+        {
+          swap.from === undefined
+            ? ('N/A')
+            : (
+              <NumberFormat
+                value={swap.fromAmount}
+                fixedDecimalScale
+                thousandSeparator=','
+                displayType='text'
+                suffix={` ${swap.from.symbol}`}
+              />
+              )
+        }
+      </OverflowTable.Cell>
+      <OverflowTable.Cell alignRight>
+        {
+          swap.to === undefined
+            ? ('N/A')
+            : (
+              <NumberFormat
+                value={swap.to.amount}
+                fixedDecimalScale
+                thousandSeparator=','
+                displayType='text'
+                suffix={` ${swap.to.symbol}`}
+              />
+              )
+        }
+      </OverflowTable.Cell>
+      <OverflowTable.Cell>
         {
           swap.from === undefined
             ? ('N/A')
@@ -73,7 +94,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
               )
         }
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell>
         {
           swap.to === undefined
             ? ('N/A')
