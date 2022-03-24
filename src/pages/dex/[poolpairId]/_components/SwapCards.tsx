@@ -56,9 +56,8 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
               ? ('N/A')
               : (
                 <NumberFormat
-                  value={swap.fromAmount}
+                  value={swap.from.amount}
                   fixedDecimalScale
-                  decimalScale={Number(swap.fromAmount) > 1 ? 3 : 6}
                   thousandSeparator=','
                   displayType='text'
                   suffix={` ${swap.from.symbol}`}
@@ -76,9 +75,8 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
               ? ('N/A')
               : (
                 <NumberFormat
-                  value={swap.fromAmount}
+                  value={swap.to.amount}
                   fixedDecimalScale
-                  decimalScale={Number(swap.to.amount) > 1 ? 3 : 6}
                   thousandSeparator=','
                   displayType='text'
                   suffix={` ${swap.to.symbol}`}
