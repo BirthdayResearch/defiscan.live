@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js'
 export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   return (
-    <div className='mt-8 flex flex-col p-6 rounded-lg border border-gray-200 md:flex-row md:items-center' data-testid='PoolPairDetailsBar'>
+    <div className='mt-8 flex flex-wrap p-6 rounded-lg border border-gray-200 justify-between' data-testid='PoolPairDetailsBar'>
       <PoolPairSymbolLocal
         tokenA={props.poolpair.tokenA}
         tokenB={props.poolpair.tokenB}
@@ -18,12 +18,12 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
         secondaryTextClassName='text-gray-400'
         testId='PoolPairSymbol'
       />
-      <div className='text-gray-900 md:items-baseline mt-6 md:ml-auto md:mt-0' data-testid='PriceRatio'>
+      <div className='text-gray-900' data-testid='PriceRatio'>
         <div className='flex flex-col'>
           <ReactNumberFormat
             displayType='text'
             thousandSeparator
-            className='text-sm font-medium md:text-xl'
+            className='font-medium md:text-xl'
             prefix='$'
             value={getTokenPrice(props.poolpair.tokenB.displaySymbol, props.poolpair.priceRatio.ba).toFixed(2, BigNumber.ROUND_HALF_UP)}
           />
@@ -33,7 +33,7 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
             thousandSeparator
             decimalScale={Number(props.poolpair.priceRatio.ba) > 1 ? 2 : 8}
             fixedDecimalScale
-            className='text-sm flex justify-end text-gray-400'
+            className='text-sm flex lg:justify-end text-gray-400'
             prefix='≈ '
             suffix={` ${props.poolpair.tokenB.displaySymbol} `}
           />
