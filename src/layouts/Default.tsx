@@ -10,7 +10,6 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { PoolPairsProvider } from '@store/poolpairs'
 import { SupplyProvider } from '@store/supply'
-import { WarningBanner } from '@components/commons/banner/WarningBanner'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -49,11 +48,6 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
             <StatsProvider>
               <SupplyProvider>
                 <PoolPairsProvider>
-                  <WarningBanner testnet>
-                    <div className='text-center'>
-                      Ocean's TestNet nodes are currently out of sync due to a rollback to block <pre className='inline-block'>835530</pre>. Find out more on <a className='text-primary-500 font-medium' href='https://t.me/DeFiMasternodes/12902' target='_blank' rel='noreferrer'>Telegram</a>.
-                    </div>
-                  </WarningBanner>
                   <Header />
                   <main className='flex-grow'>
                     {props.children}
