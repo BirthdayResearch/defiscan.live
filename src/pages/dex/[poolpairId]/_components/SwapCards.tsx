@@ -6,6 +6,7 @@ import NumberFormat from 'react-number-format'
 import { PoolSwapData, SwapType } from '@defichain/whale-api-client/dist/api/poolpairs'
 import classNames from 'classnames'
 import { useAge } from '../../../../hooks/useAge'
+import { getAssetIcon } from '@components/icons/assets/tokens'
 
 export function SwapCards ({ swaps }: { swaps: PoolSwapData[] }): JSX.Element {
   return (
@@ -22,6 +23,9 @@ export function SwapCards ({ swaps }: { swaps: PoolSwapData[] }): JSX.Element {
 
 export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
   const age = useAge(swap.block.medianTime)
+  const FromIcon = swap.from === undefined ? getAssetIcon('') : getAssetIcon(swap.from.symbol)
+  const ToIcon = swap.to === undefined ? getAssetIcon('') : getAssetIcon(swap.to.symbol)
+
   return (
     <CardList.Card testId='SwapCard'>
       <CardList.Header>
@@ -55,13 +59,15 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
             swap.from === undefined
               ? ('N/A')
               : (
-                <NumberFormat
-                  value={swap.from.amount}
-                  fixedDecimalScale
-                  thousandSeparator=','
-                  displayType='text'
-                  suffix={` ${swap.from.symbol}`}
-                />
+                <div className='flex items-center justify-end'>
+                  <NumberFormat
+                    value={swap.from.amount}
+                    fixedDecimalScale
+                    thousandSeparator=','
+                    displayType='text'
+                  />
+                  <FromIcon className='w-4 h-4 ml-0.5' />
+                </div>
                 )
           }
         </CardList.ListItem>
@@ -74,13 +80,15 @@ export function SwapCard ({ swap }: { swap: PoolSwapData }): JSX.Element {
             swap.to === undefined
               ? ('N/A')
               : (
-                <NumberFormat
-                  value={swap.to.amount}
-                  fixedDecimalScale
-                  thousandSeparator=','
-                  displayType='text'
-                  suffix={` ${swap.to.symbol}`}
-                />
+                <div className='flex items-center justify-end'>
+                  <NumberFormat
+                    value={swap.to.amount}
+                    fixedDecimalScale
+                    thousandSeparator=','
+                    displayType='text'
+                  />
+                  <ToIcon className='w-4 h-4 ml-0.5' />
+                </div>
                 )
           }
         </CardList.ListItem>
