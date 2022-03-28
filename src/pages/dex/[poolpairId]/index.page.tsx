@@ -43,7 +43,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         />
         <PoolPairDetailsBar poolpair={props.poolpair} />
         <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
-          <div className='lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
+          <div className='lg:flex lg:flex-col lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
             <h3 className='text-lg font-semibold'>
               Pool Details
             </h3>
@@ -59,10 +59,10 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
             <div className='my-6 lg:hidden'>
               <SwapCards swaps={props.swaps.items} />
             </div>
-            <div className='flex justify-end mt-8'>
-              <CursorPagination pages={props.swaps.pages} path={`/dex/${props.poolpair.id}`} />
-            </div>
           </div>
+        </div>
+        <div className='flex justify-end mt-8'>
+          <CursorPagination pages={props.swaps.pages} path={`/dex/${props.poolpair.id}`} />
         </div>
       </Container>
     </>
