@@ -62,6 +62,7 @@ context('/dex on macbook-16', () => {
       cy.wrap(ele).findByText('Total Liquidity').findByTestId('OverflowTable.SortButton').should('exist')
       cy.wrap(ele).findByText('Volume (24H)').findByTestId('OverflowTable.SortButton').should('exist')
       cy.wrap(ele).findByText('APR').findByTestId('OverflowTable.SortButton').should('exist')
+      cy.wrap(ele).findByText('Primary Token Price (USD)').findByTestId('OverflowTable.SortButton').should('exist')
     })
   })
 
@@ -121,6 +122,25 @@ context('/dex on macbook-16', () => {
       for (let s = 0; s < apr.length; s++) {
         if (s + 1 < apr.length) {
           cy.wrap(apr[s]).should('be.lte', apr[s + 1])
+        }
+      }
+    })
+
+    cy.findByTestId('OverflowTable.Header').within(() => {
+      cy.findByText('Primary Token Price (USD)').findByTestId('OverflowTable.SortButton').click()
+    })
+    const price: Number[] = []
+    cy.findAllByTestId('OverflowTable.Row').each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId('OverflowTable.Cell').eq(1).then(($ele) => {
+          price.push(Number.parseInt($ele.text().substring(1).replaceAll(',', '')))
+        })
+      })
+    })
+    cy.then(() => {
+      for (let s = 0; s < price.length; s++) {
+        if (s + 1 < price.length) {
+          cy.wrap(price[s]).should('be.gte', price[s + 1])
         }
       }
     })
@@ -200,6 +220,8 @@ context('/dex on iphone-x', () => {
     cy.findAllByTestId('CardList.DropDownSortOption').eq(3).findByText('Volume (Low to High)').should('exist')
     cy.findAllByTestId('CardList.DropDownSortOption').eq(4).findByText('APR (High to Low)').should('exist')
     cy.findAllByTestId('CardList.DropDownSortOption').eq(5).findByText('APR (Low to High)').should('exist')
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(6).findByText('Primary Token Price (High to Low)').should('exist')
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(7).findByText('Primary Token Price (Low to High)').should('exist')
   })
 
   it('should sort cards by chosen order', function () {
@@ -272,6 +294,32 @@ context('/dex on iphone-x', () => {
       for (let s = 0; s < apr.length; s++) {
         if (s + 1 < apr.length) {
           cy.wrap(apr[s]).should('be.gte', apr[s + 1])
+        }
+      }
+    })
+
+    cy.findByTestId('CardList.DropDownSortButton').findByText('Sort By').should('exist').click()
+    cy.findAllByTestId('CardList.DropDownSortOption').eq(7).findByText('Primary Token Price (Low to High)').click()
+
+    const price: Number[] = []
+    cy.findAllByTestId('PoolPairsCard').each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId('PoolPairsCard.CardList.TokenPrice').then(($ele) => {
+          let text = $ele.text().split('%').at(0)
+          if (text !== undefined) {
+            text = text.split('$').at(1)
+            if (text !== undefined) {
+              price.push(Number.parseInt(text.replaceAll(',', '')))
+            }
+          }
+        })
+      })
+    })
+
+    cy.then(() => {
+      for (let s = 0; s < price.length; s++) {
+        if (s + 1 < price.length) {
+          cy.wrap(price[s]).should('be.lte', price[s + 1])
         }
       }
     })
