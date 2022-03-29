@@ -4,7 +4,7 @@ import { getAssetIcon } from '@components/icons/assets/tokens'
 
 export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element {
   return (
-    <div className='rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200' data-testid='PoolPairDetails'>
+    <div className='rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200 flex-1' data-testid='PoolPairDetails'>
       <div className='mt-5'>
         <div className='space-y-2.5' data-testid='PoolPairDetails.Liquidity'>
           <TokenLiquidityItem title='Volume 24H' value={props.poolpair.volume?.h24} testId='24hVolume' />
@@ -107,7 +107,7 @@ function AprDetails (props: {
     return <></>
   }
   return (
-    <div className='space-y-2.5 my-5' data-testid='PoolPairDetails.Apr'>
+    <div className='flex-col flex-1 space-y-2.5 my-5' data-testid='PoolPairDetails.Apr'>
       <div className='mb-1.5 flex items-center' data-testid='APR'>
         <span className='text-sm font-medium text-gray-500'>APR</span>
         <NumberFormat

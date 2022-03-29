@@ -28,7 +28,7 @@ export function PoolPairSymbolLocal (props: PoolPairSymbolProps): JSX.Element {
       <IconA className={classnames('absolute z-10', props.primarySymbolClassName)} />
       <IconB className={classnames('absolute', props.secondarySymbolClassName)} />
       <div className={classnames(props.textClassName)}>
-        <span className={classnames(props.primaryTextClassName)}>{props.tokenA.displaySymbol}</span>-<span className={classnames(props.secondaryTextClassName)}>{props.tokenB.displaySymbol}</span>
+        <span className={classnames(props.primaryTextClassName)}>{props.tokenA.displaySymbol}</span><span className={classnames(props.secondaryTextClassName)}>-{props.tokenB.displaySymbol}</span>
       </div>
     </div>
   )

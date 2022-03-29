@@ -160,6 +160,16 @@ function PriceAreaChart ({
     })}`
   }
 
+  if (feed.length === 0) {
+    return (
+      <div
+        className='flex w-full justify-center grid h-full content-center'
+      >
+        No data found in past {current}
+      </div>
+    )
+  }
+
   return (
     <ResponsiveContainer width='100%' height='100%' className='rounded-md'>
       <AreaChart
