@@ -57,7 +57,7 @@ export const EVENTS: Record<string, EventCopy> = {
     slug: 'dTokenAprReward',
     name: 'April dTokens Reward Distribution',
     network: 'MainNet'
-  },
+  }
 }
 
 export function getEventCopy (id: string, context: GetServerSidePropsContext): EventCopy | undefined {
