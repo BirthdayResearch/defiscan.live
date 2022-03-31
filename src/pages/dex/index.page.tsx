@@ -14,15 +14,18 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairsTable, SortKeys, SortOrder } from './_components/PoolPairsTable'
 import { PoolPairsCards } from './_components/PoolPairsCards'
 
+interface TotalVolume {
+  total24h: number
+  total30dAvg: number
+}
+
 interface DexPageProps {
   poolPairs: {
     items: poolpairs.PoolPairData[]
     pages: CursorPage[]
   }
   aggregate: {
-    volume: {
-      total24h: number
-    }
+    volume: TotalVolume
   }
 }
 
@@ -56,6 +59,16 @@ export default function DexPage ({
             displayType='text'
             thousandSeparator
             value={aggregate.volume.total24h.toString()}
+            decimalScale={0}
+            prefix='$'
+            suffix=' USD'
+          />
+        </StatItem>
+        <StatItem label='Total 24H Volume (30-Day Average)' testId='Dex.Stats.24hVolume.30DayAverage'>
+          <ReactNumberFormat
+            displayType='text'
+            thousandSeparator
+            value={aggregate.volume.total30dAvg.toString()}
             decimalScale={0}
             prefix='$'
             suffix=' USD'
@@ -102,14 +115,12 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         pages: CursorPagination.getPages(context, items)
       },
       aggregate: {
-        volume: {
-          total24h: await get24hSum()
-        }
+        volume: await getAggregateVolume()
       }
     }
   }
 
-  async function get24hSum (): Promise<number> {
+  async function getAggregateVolume (): Promise<TotalVolume> {
     const poolpairs: PoolPairData[] = []
 
     let poolpairsResponse = await api.poolpairs.list(200)
@@ -119,6 +130,10 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       poolpairs.push(...poolpairsResponse)
     }
 
-    return poolpairs.reduce((a, b) => a + (b.volume?.h24 ?? 0), 0)
+    const totalVolume: TotalVolume = {
+      total24h: poolpairs.reduce((a, b) => a + (b.volume?.h24 ?? 0), 0),
+      total30dAvg: poolpairs.reduce((a, b) => a + (b.volume?.d30 ?? 0), 0)/30
+    }
+    return totalVolume
   }
 }

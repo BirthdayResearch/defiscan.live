@@ -21,11 +21,19 @@ const sortTypes = [{
 }, {
   sortKey: SortKeys.VOLUME,
   sortOrder: 'desc',
-  value: 'Volume (High to Low)'
+  value: 'Volume 24H (High to Low)'
 }, {
   sortKey: SortKeys.VOLUME,
   sortOrder: 'asc',
-  value: 'Volume (Low to High)'
+  value: 'Volume 24H (Low to High)'
+}, {
+  sortKey: SortKeys.VOLUME30D,
+  sortOrder: 'desc',
+  value: 'Volume 30-Day Average (High to Low)'
+}, {
+  sortKey: SortKeys.VOLUME30D,
+  sortOrder: 'asc',
+  value: 'Volume 30-Day Average (Low to High)'
 }, {
   sortKey: SortKeys.APR,
   sortOrder: 'desc',
@@ -134,6 +142,25 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
           {poolPair.volume?.h24 !== undefined ? (
             <NumberFormat
               value={poolPair.volume?.h24}
+              displayType='text'
+              thousandSeparator
+              decimalScale={0}
+              prefix='$'
+            />
+          ) : (
+            <div className='text-yellow-500'>
+              Error
+            </div>
+          )}
+        </CardList.ListItem>
+        <CardList.ListItem
+          title='Volume (30-Day Average)'
+          titleClassNames='text-sm'
+          testId='PoolPairsCard.CardList.30DayAverageVolume'
+        >
+          {poolPair.volume?.d30 !== undefined ? (
+            <NumberFormat
+              value={poolPair.volume?.d30/30}
               displayType='text'
               thousandSeparator
               decimalScale={0}

@@ -12,6 +12,7 @@ import BigNumber from 'bignumber.js'
 
 export enum SortKeys {
   VOLUME = 'volume',
+  VOLUME30D = 'volume30d',
   TOTAL_LIQUIDITY = 'totalLiquidity',
   APR = 'apr',
   PRIMARY_TOKEN_PRICE = 'primaryTokenPrice'
@@ -57,6 +58,14 @@ export function PoolPairsTable ({ poolPairs, sortKey, setSortKey, sortOrder, set
           <OverflowTable.SortButton
             columnKey={SortKeys.VOLUME}
             onClick={() => changeSort(SortKeys.VOLUME)}
+            sortOrder={sortOrder}
+            sortKey={sortKey}
+          />
+        </OverflowTable.Head>
+        <OverflowTable.Head title='Volume (30-Day Average)' alignRight>
+          <OverflowTable.SortButton
+            columnKey={SortKeys.VOLUME30D}
+            onClick={() => changeSort(SortKeys.VOLUME30D)}
             sortOrder={sortOrder}
             sortKey={sortKey}
           />
@@ -112,6 +121,8 @@ export function SortData ({
         return Number(a.poolPair.totalLiquidity?.usd ?? 0) - Number(b.poolPair.totalLiquidity?.usd ?? 0)
       case SortKeys.PRIMARY_TOKEN_PRICE:
         return a.tokenPrice.minus(b.tokenPrice).toNumber()
+      case SortKeys.VOLUME30D:
+        return (a.poolPair.volume?.d30 ?? 0) - (b.poolPair.volume?.d30 ?? 0)
       default:
         return b[sortKey] - a[sortKey]
     }
@@ -150,6 +161,21 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
         {poolPair.volume?.h24 !== undefined ? (
           <NumberFormat
             value={poolPair.volume?.h24}
+            displayType='text'
+            thousandSeparator
+            decimalScale={0}
+            prefix='$'
+          />
+        ) : (
+          <div className='text-yellow-500'>
+            Error
+          </div>
+        )}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle lg:text-right'>
+        {poolPair.volume?.d30 !== undefined ? (
+          <NumberFormat
+            value={poolPair.volume?.d30/30}
             displayType='text'
             thousandSeparator
             decimalScale={0}
