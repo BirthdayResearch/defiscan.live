@@ -16,9 +16,9 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
-    "@defichain/jellyfish-address": "^2.31.1",
-    "@defichain/jellyfish-transaction": "^2.31.1",
-    "@defichain/playground-api-client": "^2.31.1",
+    "@defichain/jellyfish-address": "^2.34.0",
+    "@defichain/jellyfish-transaction": "^2.34.0",
+    "@defichain/playground-api-client": "^2.34.0",
     "@defichain/whale-api-client": "^0.32.1",
     "@headlessui/react": "^1.5.0",
     "@reduxjs/toolkit": "^1.8.0",
@@ -26,7 +26,7 @@
     "bignumber.js": "^9.0.2",
     "classnames": "^2.3.1",
     "date-fns": "^2.28.0",
-    "defichain": "^2.31.1",
+    "defichain": "^2.34.0",
     "lodash": "^4.17.21",
     "next": "12.1.1",
     "next-sitemap": "^2.5.14",
