@@ -57,6 +57,11 @@ function SummaryTableListLeft (props: {
           </a>
         </Link>
       </AdaptiveList.Row>
+      {props.isSkippedTransaction &&
+        <AdaptiveList.Row name='Skipped Transaction' testId='transaction-skipped'>
+          Yes
+        </AdaptiveList.Row>
+      }
     </AdaptiveList>
   )
 }
