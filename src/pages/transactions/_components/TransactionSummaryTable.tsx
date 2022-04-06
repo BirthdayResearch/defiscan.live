@@ -60,9 +60,9 @@ function SummaryTableListLeft (props: {
         </Link>
       </AdaptiveList.Row>
       {isSkippedTxId(props.transaction.txid, useNetwork().name) &&
-      <AdaptiveList.Row name='Skipped Transaction' testId='transaction-skipped'>
-        Yes
-      </AdaptiveList.Row>}
+        <AdaptiveList.Row name='Skipped Transaction' testId='transaction-skipped'>
+          Yes
+        </AdaptiveList.Row>}
     </AdaptiveList>
   )
 }
