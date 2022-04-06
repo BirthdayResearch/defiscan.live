@@ -67,7 +67,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const api = getWhaleApiClient(context)
   const symbol = context.params?.symbol?.toString().trim() as string
 
-  if (!isAlphanumeric(symbol, '-')) {
+  if (!isAlphanumeric(symbol, '-.')) {
     return { notFound: true }
   }
 
