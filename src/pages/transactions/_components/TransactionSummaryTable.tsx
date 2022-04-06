@@ -7,6 +7,8 @@ import { format, fromUnixTime } from 'date-fns'
 import BigNumber from 'bignumber.js'
 import { JSX } from '@babel/types'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
+import { isSkippedTxId } from '@defichain/jellyfish-network'
+import { useNetwork } from '@contexts/NetworkContext'
 
 interface TransactionSummaryTableProps {
   transaction: Transaction
@@ -57,7 +59,7 @@ function SummaryTableListLeft (props: {
           </a>
         </Link>
       </AdaptiveList.Row>
-      {props.isSkippedTransaction &&
+      {isSkippedTxId(props.transaction.txid, useNetwork().name) &&
         <AdaptiveList.Row name='Skipped Transaction' testId='transaction-skipped'>
           Yes
         </AdaptiveList.Row>
