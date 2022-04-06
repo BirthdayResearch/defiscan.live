@@ -8,7 +8,7 @@ export function PoolPairDetails (props: { poolpair: PoolPairData }): JSX.Element
       <div className='mt-5'>
         <div className='space-y-2.5' data-testid='PoolPairDetails.Liquidity'>
           <TokenLiquidityItem title='Volume 24H' value={props.poolpair.volume?.h24} testId='24hVolume' />
-          <TokenLiquidityItem title='Volume 30-Day Average' value={props.poolpair.volume?.d30/30} testId='30DayAverageVolume' />
+          <TokenLiquidityItem title='Volume 30-Day Average' value={props.poolpair.volume ? props.poolpair.volume.d30/30 : 0} testId='30DayAverageVolume' />
           <TokenLiquidityItem title='Total Liquidity' value={props.poolpair.totalLiquidity.usd} testId='TVL' />
         </div>
         <Divider />

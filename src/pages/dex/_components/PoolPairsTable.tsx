@@ -175,7 +175,7 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
       <OverflowTable.Cell className='align-middle lg:text-right'>
         {poolPair.volume?.d30 !== undefined ? (
           <NumberFormat
-            value={poolPair.volume?.d30/30}
+            value={poolPair.volume.d30/30}
             displayType='text'
             thousandSeparator
             decimalScale={0}
