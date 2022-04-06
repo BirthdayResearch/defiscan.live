@@ -160,7 +160,7 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
         >
           {poolPair.volume?.d30 !== undefined ? (
             <NumberFormat
-              value={poolPair.volume.d30/30}
+              value={poolPair.volume.d30 / 30}
               displayType='text'
               thousandSeparator
               decimalScale={0}

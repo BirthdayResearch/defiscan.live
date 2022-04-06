@@ -132,7 +132,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
     const totalVolume: TotalVolume = {
       total24h: poolpairs.reduce((a, b) => a + (b.volume?.h24 ?? 0), 0),
-      total30dAvg: poolpairs.reduce((a, b) => a + (b.volume?.d30 ?? 0), 0)/30
+      total30dAvg: poolpairs.reduce((a, b) => a + (b.volume?.d30 ?? 0), 0) / 30
     }
     return totalVolume
   }
