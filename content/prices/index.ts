@@ -328,6 +328,86 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'GLD-USD',
     type: 'ETF'
   },
+  'IBM-USD': {
+    id: 'IBM-USD',
+    type: 'STOCKS'
+  },
+  'CCJ-USD': {
+    id: 'CCJ-USD',
+    type: 'STOCKS'
+  },
+  'EBAY-USD': {
+    id: 'EBAY-USD',
+    type: 'STOCKS'
+  },
+  'PG-USD': {
+    id: 'PG-USD',
+    type: 'STOCKS'
+  },
+  'ANGPY-USD': {
+    id: 'ANGPY-USD',
+    type: 'STOCKS'
+  },
+  'SAP-USD': {
+    id: 'SAP-USD',
+    type: 'STOCKS'
+  },
+  'ADDYY-USD': {
+    id: 'ADDYY-USD',
+    type: 'STOCKS'
+  },
+  'PAAS-USD': {
+    id: 'PAAS-USD',
+    type: 'STOCKS'
+  },
+  'GOLD-USD': {
+    id: 'GOLD-USD',
+    type: 'STOCKS'
+  },
+  'NVS-USD': {
+    id: 'NVS-USD',
+    type: 'STOCKS'
+  },
+  'CS-USD': {
+    id: 'CS-USD',
+    type: 'STOCKS'
+  },
+  'UUUU-USD': {
+    id: 'UUUU-USD',
+    type: 'STOCKS'
+  },
+  'BRK.B-USD': {
+    id: 'BRK.B-USD',
+    type: 'STOCKS'
+  },
+  'UL-USD': {
+    id: 'UL-USD',
+    type: 'STOCKS'
+  },
+  'KO-USD': {
+    id: 'KO-USD',
+    type: 'STOCKS'
+  },
+  'IQQQ-USD': {
+    id: 'IQQQ-USD',
+    type: 'ETF'
+  },
+  'EUNK-USD': {
+    id: 'EUNK-USD',
+    type: 'ETF'
+  },
+  'EZA-USD': {
+    id: 'EZA-USD',
+    type: 'ETF'
+  },
+  'GSG-USD': {
+    id: 'GSG-USD',
+    type: 'ETF'
+  },
+  'URA-USD': {
+    id: 'URA-USD',
+    type: 'ETF'
+  },
 
   // Playground
   'CS25-USD': {
