@@ -3,7 +3,10 @@ import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-a
 import { getWhaleApiClient } from '@contexts/WhaleContext'
 import { Container } from '@components/commons/Container'
 import BigNumber from 'bignumber.js'
-import { TransactionHeading, TransactionNotFoundHeading } from './_components/TransactionHeadings'
+import {
+  TransactionHeading,
+  TransactionNotFoundHeading
+} from './_components/TransactionHeadings'
 import { TransactionVinVout } from './_components/TransactionVinVout'
 import { TransactionSummaryTable } from './_components/TransactionSummaryTable'
 import { TransactionDfTx } from './_components/TransactionDfTx'
@@ -11,6 +14,8 @@ import { SmartBuffer } from 'smart-buffer'
 import { AccountToUtxos, CAccountToUtxos, DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
 import { isAlphanumeric } from '../../utils/commons/StringValidator'
 import { Head } from '@components/commons/Head'
+import { useRouter } from 'next/router'
+import { RawTransaction } from './_components/RawTransaction'
 
 interface TransactionPageProps {
   txid: string
@@ -20,6 +25,21 @@ interface TransactionPageProps {
 }
 
 export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const router = useRouter()
+
+  // TODO (nichellekoh) : update txn pending logic once tested
+  // const transactionPending = props.transaction === undefined || props.vins === undefined || props.vouts === undefined
+
+  if (router.query.rawtx !== undefined) { // && transactionPending) {
+    return (
+      <Container className='pt-12 pb-20'>
+        <RawTransaction
+          rawTx={router.query.rawtx as string}
+        />
+      </Container>
+    )
+  }
+
   if (props.transaction === undefined || props.vins === undefined || props.vouts === undefined) {
     return (
       <Container className='pt-12 pb-20'>
