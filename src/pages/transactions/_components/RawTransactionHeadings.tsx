@@ -22,7 +22,6 @@ export function RawTransactionHeading (props: RawTransactionHeadingProps): JSX.E
 }
 
 function RawTransactionPendingHeading (props: { txid: string }): JSX.Element {
-
   return (
     <div className='bg-red-100 rounded p-3 text-center mb-5' data-testid='RawTransaction.pending-banner'>
       The requested transaction <code className='break-all'>{props.txid}</code> is still pending, not all transaction information are currently available.
