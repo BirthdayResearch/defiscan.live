@@ -55,7 +55,7 @@ export function RawTransactionVinVout (props: RawTransactionVinVoutProps): JSX.E
                   label='OUTPUT'
                   address={address}
                   value={`${vout.value.toFixed(8)} DFI`}
-                  key={vout.tokenId}
+                  key={index}
                   network={network}
                   isAddressClickable={decoded?.address !== undefined}
                 />
