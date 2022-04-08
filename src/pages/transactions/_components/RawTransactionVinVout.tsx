@@ -21,13 +21,12 @@ export function RawTransactionVinVout (props: RawTransactionVinVoutProps): JSX.E
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <div className='w-full lg:w-1/2'>
           <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
-            {props.vins.map((vin, index) => {
+            {props.vins.map((vin) => {
               const decoded = vin.script !== undefined ? fromScript(vin.script, network) : undefined
-              console.log(decoded)
               return (
                 <TransactionVectorRow
                   label='INPUT'
-                  address={decoded?.address ?? ''}
+                  address={decoded?.address ?? 'N/A'}
                   value=''
                   key={vin.txid}
                   network={network}
