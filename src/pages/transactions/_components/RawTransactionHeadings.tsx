@@ -30,7 +30,8 @@ function RawTransactionPendingHeading (props: RawTransactionPendingHeadingProps)
 
   return (
     <div className='bg-red-100 rounded p-3 text-center mb-5' data-testid='transaction-pending-banner'>
-      The requested transaction <code className='break-all'>{txid}</code> is still pending, please wait for a few minutes for it to be confirmed.
+      The requested transaction <code className='break-all'>{txid}</code> is still pending, not all transaction information are currently available.
+      Please wait for a few minutes for it to be confirmed.
     </div>
   )
 }
