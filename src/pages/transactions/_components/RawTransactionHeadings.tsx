@@ -14,11 +14,11 @@ export function RawTransactionHeading (props: RawTransactionHeadingProps): JSX.E
   return (
     <>
       <RawTransactionPendingHeading txid={txid} />
-      <span className='leading-6 opacity-60' data-testid='title'>
+      <span className='leading-6 opacity-60' data-testid='RawTransaction.title'>
         Transaction ID
       </span>
       <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium break-all' data-testid='transaction-txid'>{txid}</h1>
+        <h1 className='text-2xl font-medium break-all' data-testid='RawTransaction.txid'>{txid}</h1>
         <CopyButton className='ml-2' content={txid} />
       </div>
     </>
@@ -29,7 +29,7 @@ function RawTransactionPendingHeading (props: RawTransactionPendingHeadingProps)
   const txid = props.txid
 
   return (
-    <div className='bg-red-100 rounded p-3 text-center mb-5' data-testid='transaction-pending-banner'>
+    <div className='bg-red-100 rounded p-3 text-center mb-5' data-testid='RawTransaction.pending-banner'>
       The requested transaction <code className='break-all'>{txid}</code> is still pending, not all transaction information are currently available.
       Please wait for a few minutes for it to be confirmed.
     </div>

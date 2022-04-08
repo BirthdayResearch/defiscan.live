@@ -17,10 +17,10 @@ export function RawTransactionVinVout (props: RawTransactionVinVoutProps): JSX.E
 
   return (
     <>
-      <h1 className='font-medium text-2xl mt-6' data-testid='details-subtitle'>Details</h1>
+      <h1 className='font-medium text-2xl mt-6' data-testid='RawTransaction.details-subtitle'>Details</h1>
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <div className='w-full lg:w-1/2'>
-          <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
+          <div className='flex flex-col space-y-1' data-testid='RawTransaction.DetailsLeft.List'>
             {props.vins.map((vin) => {
               const decoded = vin.script !== undefined ? fromScript(vin.script, network) : undefined
               return (
@@ -42,7 +42,7 @@ export function RawTransactionVinVout (props: RawTransactionVinVoutProps): JSX.E
         </div>
 
         <div className='w-full lg:w-1/2'>
-          <div className='flex flex-col space-y-1' data-testid='TransactionDetailsRight.List'>
+          <div className='flex flex-col space-y-1' data-testid='RawTransaction.DetailsRight.List'>
             {props.vouts.map((vout, index) => {
               const decoded = vout.script !== undefined ? fromScript(vout.script, network) : undefined
 
@@ -66,7 +66,7 @@ export function RawTransactionVinVout (props: RawTransactionVinVoutProps): JSX.E
       </div>
 
       <div className='flex flex-col items-end justify-between mt-8'>
-        <div className='flex justify-between space-x-3 mt-2' data-testid='TransactionDetailsSummary.total'>
+        <div className='flex justify-between space-x-3 mt-2' data-testid='RawTransaction.DetailsSummary.total'>
           <span>Total:</span>
           <span>{getTotalVoutValue(props.vouts)} DFI</span>
         </div>

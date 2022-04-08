@@ -27,10 +27,8 @@ interface TransactionPageProps {
 export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const router = useRouter()
 
-  // TODO (nichellekoh) : update txn pending logic once tested
-  // const transactionPending = props.transaction === undefined || props.vins === undefined || props.vouts === undefined
-
-  if (router.query.rawtx !== undefined) { // && transactionPending) {
+  const transactionPending = props.transaction === undefined || props.vins === undefined || props.vouts === undefined
+  if (router.query.rawtx !== undefined && transactionPending) {
     return (
       <Container className='pt-12 pb-20'>
         <RawTransaction
