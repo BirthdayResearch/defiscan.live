@@ -31,7 +31,7 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
   if (transaction === undefined) {
     return (
       <Container className='pt-12 pb-20'>
-        <div className='bg-red-100 rounded p-3 text-center' data-testid='transaction-not-found-banner'>
+        <div className='bg-red-100 rounded p-3 text-center' data-testid='RawTransaction.not-found-banner'>
           The requested raw transaction could not be found.
         </div>
       </Container>
@@ -41,8 +41,6 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
   const vouts = transaction.vout
   const vins = transaction.vin
   const dftx: DfTx<any> | undefined = getDfTx(vouts)
-  console.log(vins[0].script.stack)
-
   return (
     <>
       <RawTransactionHeading transaction={transaction} />
