@@ -14,6 +14,13 @@ import { TransactionDfTx } from './TransactionDfTx'
 
 export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
   let transaction: TransactionSegWit | Transaction | undefined
+  
+    useEffect(() => {
+    const interval = setInterval(() => {
+      location.reload()
+    }, 15000)
+    return () => clearInterval(interval)
+  }, [])
 
   if (rawTx !== undefined) {
     const buffer = SmartBuffer.fromBuffer(Buffer.from(rawTx, 'hex'))
@@ -32,7 +39,7 @@ export function RawTransaction ({ rawTx }: { rawTx: string }): JSX.Element {
     return (
       <Container className='pt-12 pb-20'>
         <div className='bg-red-100 rounded p-3 text-center' data-testid='RawTransaction.not-found-banner'>
-          The requested raw transaction could not be found.
+          The requested transaction is either invalid or has yet to be confirmed. Please try again in a few minutes.
         </div>
       </Container>
     )

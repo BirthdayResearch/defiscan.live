@@ -128,6 +128,6 @@ context('/transactions/[txid]?rawTx=[] on mobile', () => {
 
   it('should invalid raw transaction', function () {
     cy.visit('/transactions/invalidtxnid?rawtx=invalidrawtx')
-    cy.findAllByTestId('RawTransaction.not-found-banner').should('contain.text', 'The requested raw transaction could not be found.')
+    cy.findAllByTestId('RawTransaction.not-found-banner').should('contain.text', 'The requested transaction is either invalid or has yet to be confirmed. Please try again in a few minutes.')
   })
 })

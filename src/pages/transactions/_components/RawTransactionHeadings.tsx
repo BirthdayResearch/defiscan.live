@@ -5,10 +5,6 @@ interface RawTransactionHeadingProps {
   transaction: TransactionSegWit | Transaction | undefined
 }
 
-interface RawTransactionPendingHeadingProps {
-  txid: string
-}
-
 export function RawTransactionHeading (props: RawTransactionHeadingProps): JSX.Element {
   const txid = props.transaction?.vin[0].txid ?? ''
   return (
@@ -25,12 +21,11 @@ export function RawTransactionHeading (props: RawTransactionHeadingProps): JSX.E
   )
 }
 
-function RawTransactionPendingHeading (props: RawTransactionPendingHeadingProps): JSX.Element {
-  const txid = props.txid
+function RawTransactionPendingHeading (props: { txid: string }): JSX.Element {
 
   return (
     <div className='bg-red-100 rounded p-3 text-center mb-5' data-testid='RawTransaction.pending-banner'>
-      The requested transaction <code className='break-all'>{txid}</code> is still pending, not all transaction information are currently available.
+      The requested transaction <code className='break-all'>{props.txid}</code> is still pending, not all transaction information are currently available.
       Please wait for a few minutes for it to be confirmed.
     </div>
   )
