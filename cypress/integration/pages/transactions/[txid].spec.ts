@@ -82,6 +82,10 @@ context('/transactions/[txid] on desktop', () => {
     cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:0.00000205 DFI')
     cy.findByTestId('TransactionDetailsSummary.total').should('have.text', 'Total:3.59205320 DFI')
   })
+
+  it('should not have skipped transaction', () => {
+    cy.findByTestId('transaction-skipped').should('not.exist')
+  })
 })
 
 context('/transactions/[txid] on desktop - invalid txn id', () => {
@@ -182,6 +186,10 @@ context('/transactions/[txid] on mobile', () => {
     cy.findByTestId('TransactionDetailsSummary.fee').should('have.text', 'Fees:0.00000205 DFI')
     cy.findByTestId('TransactionDetailsSummary.total').should('have.text', 'Total:3.59205320 DFI')
   })
+
+  it('should not have skipped transaction', () => {
+    cy.findByTestId('transaction-skipped').should('not.exist')
+  })
 })
 
 context('/transactions/[txid] on mobile - invalid txn id', () => {
@@ -195,5 +203,33 @@ context('/transactions/[txid] on mobile - invalid txn id', () => {
 
   it('should have warning banner', () => {
     cy.findByTestId('transaction-not-found-banner').should('have.text', 'The requested transaction 9693a839caeeb5c161bf5768d9b64cf7d7c1704f1e8e5caf3d9c08b18599ddba could not be found, it is most likely still being confirmed, please try again in a few minutes.')
+  })
+})
+
+context('/transactions/[txid] skipped transaction on desktop', () => {
+  before(() => {
+    cy.visit('/transactions/949c7243483d52b85e6ef058fe8814b5fd6b307a529fd34c07daa8eae5759770?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('macbook-13')
+  })
+
+  it('should have skipped transaction', () => {
+    cy.findByTestId('transaction-skipped').should('be.visible')
+  })
+})
+
+context('/transactions/[txid] skipped transaction on mobile', () => {
+  before(() => {
+    cy.visit('/transactions/949c7243483d52b85e6ef058fe8814b5fd6b307a529fd34c07daa8eae5759770?network=MainNet')
+  })
+
+  beforeEach(() => {
+    cy.viewport('iphone-x')
+  })
+
+  it('should have skipped transaction', () => {
+    cy.findByTestId('transaction-skipped').should('be.visible')
   })
 })
