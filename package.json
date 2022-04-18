@@ -28,7 +28,7 @@
     "date-fns": "^2.28.0",
     "defichain": "^2.39.0",
     "lodash": "^4.17.21",
-    "next": "12.1.4",
+    "next": "12.1.5",
     "next-sitemap": "^2.5.20",
     "nextjs-progressbar": "^0.0.14",
     "qrcode.react": "^3.0.1",
