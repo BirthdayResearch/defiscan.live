@@ -31,7 +31,7 @@
     "next": "12.1.4",
     "next-sitemap": "^2.5.17",
     "nextjs-progressbar": "^0.0.14",
-    "qrcode.react": "^3.0.0",
+    "qrcode.react": "^3.0.1",
     "randomcolor": "^0.6.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
