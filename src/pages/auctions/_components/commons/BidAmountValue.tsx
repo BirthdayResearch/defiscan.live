@@ -9,6 +9,7 @@ interface BidAmountValueProps {
   batch: LoanVaultLiquidationBatch
   isStartingBid?: boolean
   valueClassName?: string
+  subValueClassName?: string
   valueSuffix?: boolean
   testId?: string
 }
@@ -29,14 +30,6 @@ export function BidAmountValue (props: BidAmountValueProps): JSX.Element {
 
   return (
     <div data-testid={props.testId}>
-      <ReactNumberFormat
-        value={minBidAmount.toFixed(8)}
-        thousandSeparator
-        decimalScale={8}
-        suffix={` ${props.batch.loan.displaySymbol}`}
-        displayType='text'
-        data-testid='BidAmountValue.MinBidAmount'
-      />
       <div
         className={classNames('text-gray-500', props.valueClassName)} data-testid='BidAmountValue.MinBidValue'
       >
@@ -54,12 +47,22 @@ export function BidAmountValue (props: BidAmountValueProps): JSX.Element {
             />
           )
         }
+      </div>
+      <div className={classNames('text-gray-400', props.subValueClassName)}>
         {
           (props.batch.froms !== undefined && props.batch.froms.length !== 0) &&
-            <div className='inline-block ml-1 text-gray-400'>
+            <div className='inline-block mr-1'>
               {`(${props.batch.froms?.length} ${props.batch.froms.length > 1 ? 'Bids' : 'Bid'})`}
             </div>
         }
+        <ReactNumberFormat
+          value={minBidAmount.toFixed(8)}
+          thousandSeparator
+          decimalScale={8}
+          prefix={`${props.batch.loan.displaySymbol} `}
+          displayType='text'
+          data-testid='BidAmountValue.MinBidAmount'
+        />
       </div>
     </div>
   )

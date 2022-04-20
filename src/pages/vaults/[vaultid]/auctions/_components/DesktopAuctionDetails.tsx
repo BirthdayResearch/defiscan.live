@@ -7,6 +7,9 @@ import { VaultLink } from '@components/commons/link/VaultLink'
 import { BidAmountValue } from '../../../../auctions/_components/commons/BidAmountValue'
 import { AuctionTimeLeft } from '../../../../auctions/_components/commons/AuctionTimeLeft'
 import { useTokenPrice } from '../../../hooks/TokenPrice'
+import { AuctionTokenSymbols } from './AuctionTokenSymbols'
+import { RewardsCollateralInfo } from './RewardsCollateralInfo'
+import { HoverPopover } from '@components/commons/popover/HoverPopover'
 
 interface DesktopAuctionDetailsProps {
   vaultId: string
@@ -20,82 +23,117 @@ export function DesktopAuctionDetails (props: DesktopAuctionDetailsProps): JSX.E
 
   return (
     <div className='mt-8 hidden md:block'>
-      <div className='flex border border-gray-200 rounded-lg p-6'>
-        <div className='flex items-center self-start mr-10'>
-          <LoanSymbol className='h-8 w-8' data-testid='DesktopAuctionDetails.LoanSymbol' />
-          <span
-            className='ml-1.5 font-medium text-gray-900'
-            data-testid='DesktopAuctionDetails.displaySymbol'
-          >{props.liquidationBatch.loan.displaySymbol}
-          </span>
-        </div>
-        <div className='flex flex-wrap'>
-          <div className='w-full flex flex-wrap -m-4 items-start'>
-            <div className='flex flex-wrap w-1/2 lg:w-1/4 p-4'>
-              <div
-                className='w-full text-sm text-gray-500 mb-0.5'
+      <div className='flex md:flex-col lg:flex-row border border-gray-200 rounded-lg md:px-6 md:py-6'>
+        <div className='flex md:w-full lg:flex-col lg:w-1/4 md:justify-between'>
+          <div className='flex items-start h-1/3 order-1'>
+            <LoanSymbol className='h-8 w-8' data-testid='DesktopAuctionDetails.LoanSymbol' />
+            <span
+              className='ml-1.5 font-medium text-gray-900 text-xl'
+              data-testid='DesktopAuctionDetails.displaySymbol'
+            >{props.liquidationBatch.loan.displaySymbol}
+            </span>
+          </div>
+
+          <div className='flex justify-between md:w-2/5 lg:w-full lg:h-1/3 items-start md:order-3 lg:order-2'>
+            <div>
+              <span
+                className='text-sm text-gray-700'
                 data-testid='DesktopAuctionDetails.BatchNumber'
-              >{`BATCH #${Number(props.batchIndex) + 1}`}
-              </div>
-              <AuctionTimeLeft
-                liquidationHeight={props.liquidationHeight} className='text-sm text-gray-500'
-                showApproximateSymbol
-                testId='DesktopAuctionDetails.AuctionTimeLeft'
-              />
+              >{`Batch #${Number(props.batchIndex) + 1}`}
+              </span>
             </div>
-            <div className='w-1/2 lg:w-1/4 flex flex-wrap p-4' data-testid='DesktopAuctionDetails.MinNextBid'>
-              <div
-                className='w-full text-gray-500 text-sm mb-0.5'
-                data-testid='DesktopAuctionDetails.MinNextBid.Label'
-              >Min. Next Bid
-              </div>
-              <BidAmountValue
-                batch={props.liquidationBatch}
-                valueSuffix
-                valueClassName='text-left text-sm'
-              />
-            </div>
-            <div className='w-1/2 lg:w-1/4 p-4 flex flex-wrap' data-testid='DesktopAuctionDetails.MinStartingBid'>
-              <div
-                className='w-full text-gray-500 text-sm mb-0.5'
-                data-testid='DesktopAuctionDetails.MinStartingBid.Label'
-              >Min. Starting Bid
-              </div>
-              <BidAmountValue
-                isStartingBid
-                valueSuffix
-                batch={props.liquidationBatch}
-                valueClassName='text-left text-sm'
-              />
-            </div>
-            <div className='w-1/2 lg:w-1/4 p-4 flex flex-wrap' data-testid='DesktopAuctionDetails.VaultID'>
-              <div className='w-full text-sm text-gray-500 mb-0.5' data-testid='DesktopAuctionDetails.VaultID.Label'>
+            <AuctionTimeLeft
+              liquidationHeight={props.liquidationHeight} className='text-sm text-gray-700'
+              testId='DesktopAuctionDetails.AuctionTimeLeft'
+            />
+          </div>
+
+          <div className='md:w-2/5 lg:w-full lg:h-1/3 items-start md:order-2 lg:order-3'>
+            <div className='md:w-2/3 lg:w-full bg-primary-50 rounded p-1.5 inline-flex' data-testid='DesktopAuctionDetails.VaultID'>
+              <div className='text-sm text-gray-700' data-testid='DesktopAuctionDetails.VaultID.Label'>
                 Vault ID
               </div>
               <VaultLink
-                vault={props.vaultId} className='overflow-hidden overflow-ellipsis'
+                vault={props.vaultId} className='text-sm overflow-hidden overflow-ellipsis'
                 testId='DesktopAuctionDetails.VaultID.Value'
-              >
-                {props.vaultId}
-              </VaultLink>
+              />
             </div>
           </div>
-          <div
-            className='w-full flex flex-wrap border-t mt-4'
-            data-testid='DesktopAuctionDetails.CollateralsForAuctions'
-          >
-            <div
-              className='text-sm text-gray-500 mt-4'
-              data-testid='DesktopAuctionDetails.CollateralsForAuctions.Label'
-            >
-              Collaterals For Auction
+        </div>
+        <VerticalDivider />
+        <div className='md:flex md:flex-row md:border-t md:border-gray-200 md:my-4 md:pt-4 lg:border-0 lg:my-0 lg:pt-0'>
+          <div className='flex flex-wrap md:w-1/3 lg:w-1/4'>
+            <div className='w-full flex flex-wrap items-center'>
+              <div className='flex flex-wrap p-2'>
+                <div
+                  className='text-sm text-gray-700'
+                  data-testid='DesktopAuctionDetails.CollateralsForAuctions.Label'
+                >
+                  Pay in
+                </div>
+                <div className='w-full flex flex-wrap mt-1 ml-0.5'>
+                  <LoanSymbol className='h-6 w-6' data-testid='DesktopAuctionDetails.LoanSymbol' />
+                  <span className='font-sm text-gray-700 ml-1'>{props.liquidationBatch.loan.displaySymbol}</span>
+                </div>
+              </div>
             </div>
-            <div className='w-full flex flex-wrap mt-1 -my-2'>
-              {
-                props.liquidationBatch.collaterals.map(collateral => (
-                  <DesktopCollateralListItem collateral={collateral} key={collateral.id} />
-                ))
-              }
+            <div className='w-full flex flex-wrap items-center'>
+              <div className='flex flex-wrap p-2'>
+                <div
+                  className='text-sm text-gray-700'
+                  data-testid='DesktopAuctionDetails.CollateralsForAuctions.Label'
+                >
+                  Rewards / Collateral
+                </div>
+                <div className='w-full flex flex-wrap mt-1 ml-0.5'>
+                  <AuctionTokenSymbols
+                    className='justify-end space-x-1' tokens={props.liquidationBatch.collaterals}
+                    testId='AuctionsTableRow.CollateralSymbols'
+                  />
+                  <HoverPopover className='ml-1' popover={<RewardsCollateralInfo collaterals={props.liquidationBatch.collaterals} />} placement='bottom'>
+                    <span className='font-sm text-gray-700 ml-1'>{props.liquidationBatch.collaterals.map(collateral => collateral.displaySymbol).join(', ')}</span>
+                  </HoverPopover>
+                </div>
+              </div>
+            </div>
+          </div>
+          <VerticalDivider />
+          <div className='flex flex-wrap md:w-2/3 lg:w-2/4'>
+            <div className='w-full p-2 flex justify-between' data-testid='DesktopAuctionDetails.MinStartingBid'>
+              <div
+                className='w-1/2 text-gray-700 text-sm ml-0.5'
+                data-testid='DesktopAuctionDetails.MinStartingBid.Label'
+              >Min Bid
+              </div>
+              <BidAmountValue
+                isStartingBid
+                batch={props.liquidationBatch}
+                valueClassName='text-gray-700 text-right font-medium'
+                subValueClassName='text-xs text-right'
+              />
+            </div>
+            <div className='w-full p-2 flex justify-between' data-testid='DesktopAuctionDetails.MinNextBid'>
+              <div
+                className='w-1/2 text-gray-700 text-sm ml-0.5'
+                data-testid='DesktopAuctionDetails.MinNextBid.Label'
+              >Min Next Bid
+              </div>
+              <BidAmountValue
+                batch={props.liquidationBatch}
+                valueClassName='text-gray-700 text-right font-medium'
+                subValueClassName='text-xs text-right'
+              />
+            </div>
+
+            <div className='w-full p-2 flex justify-between' data-testid='DesktopAuctionDetails.CollateralValue'>
+              <div
+                className='w-1/2 text-gray-700 text-sm ml-0.5'
+                data-testid='DesktopAuctionDetails.MinNextBid.Label'
+              >Collateral Value
+              </div>
+              <HoverPopover className='ml-1' popover={<RewardsCollateralInfo collaterals={props.liquidationBatch.collaterals} />} placement='bottom'>
+                <TotalCollateralValue collaterals={props.liquidationBatch.collaterals} />
+              </HoverPopover>
             </div>
           </div>
         </div>
@@ -104,45 +142,30 @@ export function DesktopAuctionDetails (props: DesktopAuctionDetailsProps): JSX.E
   )
 }
 
-function DesktopCollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.Element {
+function TotalCollateralValue (props: { collaterals: LoanVaultTokenAmount[] }): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
-  const CollateralSymbol = getAssetIcon(props.collateral.symbol)
-  const collateralValue = getTokenPrice(props.collateral.symbol, props.collateral.amount)
 
+  let totalCollateralValue: BigNumber = new BigNumber(0)
+  props.collaterals.forEach(collateral => {
+    totalCollateralValue = totalCollateralValue.plus(getTokenPrice(collateral.symbol, collateral.amount))
+  })
   return (
-    <div className='w-1/2 lg:w-1/4 flex py-2 items-middle' data-testid='DesktopCollateralListItem'>
-      <div className='flex'>
-        <CollateralSymbol className='h-6 w-6' data-testid='DesktopCollateralListItem.CollateralSymbol' />
-      </div>
-      <div className='ml-1.5'>
-        <div>
-          <ReactNumberFormat
-            value={props.collateral.amount}
-            displayType='text'
-            suffix={` ${props.collateral.displaySymbol}`}
-            decimalScale={8}
-            fixedDecimalScale
-            thousandSeparator
-            data-testid='DesktopCollateralListItem.Amount'
-          />
-        </div>
-        <div className='text-sm text-gray-500'>
-          {
-            (!collateralValue.eq(0)) && (
-              <ReactNumberFormat
-                value={collateralValue.toFixed(2, BigNumber.ROUND_HALF_UP)}
-                displayType='text'
-                decimalScale={2}
-                prefix='$'
-                suffix=' USD'
-                fixedDecimalScale
-                thousandSeparator
-                data-testid='DesktopCollateralListItem.Value'
-              />
-            )
-          }
-        </div>
-      </div>
+    <div className='text-gray-700 text-right font-medium'>
+      <ReactNumberFormat
+        value={totalCollateralValue.toFixed(2, BigNumber.ROUND_HALF_UP)}
+        displayType='text'
+        decimalScale={2}
+        prefix='$'
+        fixedDecimalScale
+        thousandSeparator
+        data-testid='TotalCollateralValue.Value'
+      />
     </div>
+  )
+}
+
+function VerticalDivider (): JSX.Element {
+  return (
+    <div className='border-r border-gray-200 md:mx-5 lg:mx-12' />
   )
 }
