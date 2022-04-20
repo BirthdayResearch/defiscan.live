@@ -9,14 +9,17 @@ import { Container } from '@components/commons/Container'
 import { StatItem } from '@components/commons/stats/StatItem'
 import ReactNumberFormat from 'react-number-format'
 import { StatsBar } from '@components/commons/stats/StatsBar'
-import React, { useState } from 'react'
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import React, { useEffect, useState } from 'react'
+import { DexPricesResult, PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairsTable, SortKeys, SortOrder } from './_components/PoolPairsTable'
 import { PoolPairsCards } from './_components/PoolPairsCards'
+import BigNumber from 'bignumber.js'
+import { useTokenPrice } from '../vaults/hooks/TokenPrice'
 
 interface DexPageProps {
   poolPairs: {
     items: poolpairs.PoolPairData[]
+    prices: DexPricesResult
     pages: CursorPage[]
   }
   aggregate: {
@@ -33,6 +36,16 @@ export default function DexPage ({
   const tvl = useSelector((state: RootState) => state.stats.tvl.dex)
   const [sortKey, setSortKey] = useState<SortKeys>(SortKeys.TOTAL_LIQUIDITY)
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc')
+
+  const { getTokenPrice } = useTokenPrice()
+  const [poolPairsPrices, setPoolPairsPrices] = useState<Array<{ poolPair: PoolPairData, tokenPrice: BigNumber }> >([])
+
+  useEffect(() => {
+    setPoolPairsPrices(poolPairs.items.map(pair => {
+      const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1', poolPairs.prices) ?? 0)
+      return { poolPair: pair, tokenPrice: tokenPrice }
+    }))
+  }, [setPoolPairsPrices])
 
   return (
     <>
@@ -67,11 +80,11 @@ export default function DexPage ({
         <h1 className='text-2xl font-medium mb-6'>DEX Pool Pairs</h1>
 
         <div className='my-6 hidden md:block'>
-          <PoolPairsTable poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
+          <PoolPairsTable poolPairsPrices={poolPairsPrices} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
         </div>
 
         <div className='my-6 md:hidden'>
-          <PoolPairsCards poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
+          <PoolPairsCards poolPairsPrices={poolPairsPrices} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
         </div>
 
         <div className='flex justify-end mt-8'>
@@ -99,6 +112,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     props: {
       poolPairs: {
         items: sorted,
+        prices: await api.poolpairs.listDexPrices('USDT'),
         pages: CursorPagination.getPages(context, items)
       },
       aggregate: {

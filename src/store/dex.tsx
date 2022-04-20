@@ -19,7 +19,6 @@ export const dex = createSlice({
   initialState,
   reducers: {
     update: (state, action: PayloadAction<DexPricesResult>) => {
-      console.log(action.payload.dexPrices)
       state.dexPrices = action.payload.dexPrices
     }
   }

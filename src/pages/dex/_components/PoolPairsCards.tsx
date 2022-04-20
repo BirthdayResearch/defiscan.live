@@ -6,7 +6,6 @@ import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
 import { APRInfo } from './APRInfo'
 import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
 import { SortData, SortKeys } from './PoolPairsTable'
-import { useTokenPrice } from '../../vaults/hooks/TokenPrice'
 import { TotalLiquidityInfo } from './TotalLiquidityInfo'
 import BigNumber from 'bignumber.js'
 
@@ -44,14 +43,7 @@ const sortTypes = [{
   value: 'Primary Token Price (Low to High)'
 }]
 
-export function PoolPairsCards ({ poolPairs, sortKey, setSortKey, sortOrder, setSortOrder }): JSX.Element {
-  const { getTokenPrice } = useTokenPrice()
-
-  const poolPairsPrices = poolPairs.map(pair => {
-    const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
-    return { poolPair: pair, tokenPrice: tokenPrice }
-  })
-
+export function PoolPairsCards ({ poolPairsPrices, sortKey, setSortKey, sortOrder, setSortOrder }): JSX.Element {
   const sortedData = useCallback(
     () => SortData({
       poolPairsPrices: poolPairsPrices,

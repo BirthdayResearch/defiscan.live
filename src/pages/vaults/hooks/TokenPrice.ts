@@ -6,13 +6,14 @@ import BigNumber from 'bignumber.js'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { useCallback } from 'react'
+import { DexPricesResult } from '@defichain/whale-api-client/dist/api/poolpairs'
 
 interface DexTokenPrice {
-  getTokenPrice: (symbol: string, amount: string, isLPS?: boolean) => BigNumber
+  getTokenPrice: (symbol: string, amount: string, poolPairPrices?: DexPricesResult, isLPS?: boolean) => BigNumber
 }
 
 export function useTokenPrice (denominationTokenSymbol = 'USDT'): DexTokenPrice {
-  const prices = useSelector((state: RootState) => state.dex.dexPrices)
+  let prices = useSelector((state: RootState) => state.dex.dexPrices)
   const { poolpairs } = useSelector((state: RootState) => state.poolpairs)
 
   /**
@@ -21,10 +22,14 @@ export function useTokenPrice (denominationTokenSymbol = 'USDT'): DexTokenPrice 
    * @param isLPS {boolean} is liquidity pool token
    * @return BigNumber
    */
-  const getTokenPrice = useCallback((symbol: string, amount: string, isLPS: boolean = false): BigNumber => {
+  const getTokenPrice = useCallback((symbol: string, amount: string, poolPairPrices: DexPricesResult, isLPS: boolean = false): BigNumber => {
     if (symbol === denominationTokenSymbol || new BigNumber(amount).isZero()) {
       return new BigNumber(amount)
     }
+    if (poolPairPrices?.dexPrices !== undefined) {
+      prices = poolPairPrices?.dexPrices
+    }
+
     if (isLPS) {
       const pair = poolpairs.find(pair => pair.symbol === symbol)
       if (pair === undefined) {
@@ -33,8 +38,8 @@ export function useTokenPrice (denominationTokenSymbol = 'USDT'): DexTokenPrice 
       const ratioToTotal = new BigNumber(amount).div(pair.totalLiquidity.token)
       const tokenAAmount = ratioToTotal.times(pair.tokenA.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
       const tokenBAmount = ratioToTotal.times(pair.tokenB.reserve).decimalPlaces(8, BigNumber.ROUND_DOWN)
-      const usdTokenA = getTokenPrice(pair.tokenA.symbol, tokenAAmount.toFixed(8))
-      const usdTokenB = getTokenPrice(pair.tokenB.symbol, tokenBAmount.toFixed(8))
+      const usdTokenA = getTokenPrice(pair.tokenA.symbol, tokenAAmount.toFixed(8), poolPairPrices)
+      const usdTokenB = getTokenPrice(pair.tokenB.symbol, tokenBAmount.toFixed(8), poolPairPrices)
       return usdTokenA.plus(usdTokenB)
     }
     return new BigNumber(prices[symbol]?.denominationPrice ?? 0).multipliedBy(amount)
