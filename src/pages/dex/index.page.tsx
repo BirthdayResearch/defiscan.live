@@ -10,7 +10,7 @@ import { StatItem } from '@components/commons/stats/StatItem'
 import ReactNumberFormat from 'react-number-format'
 import { StatsBar } from '@components/commons/stats/StatsBar'
 import React, { useEffect, useState } from 'react'
-import { DexPricesResult, PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { DexPrice, PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { PoolPairsTable, SortKeys, SortOrder } from './_components/PoolPairsTable'
 import { PoolPairsCards } from './_components/PoolPairsCards'
 import BigNumber from 'bignumber.js'
@@ -19,7 +19,7 @@ import { useTokenPrice } from '../vaults/hooks/TokenPrice'
 interface DexPageProps {
   poolPairs: {
     items: poolpairs.PoolPairData[]
-    prices: DexPricesResult
+    prices: {[symbol: string]: DexPrice}
     pages: CursorPage[]
   }
   aggregate: {
@@ -39,13 +39,31 @@ export default function DexPage ({
 
   const { getTokenPrice } = useTokenPrice()
   const [poolPairsPrices, setPoolPairsPrices] = useState<Array<{ poolPair: PoolPairData, tokenPrice: BigNumber }> >([])
+  const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true)
+  const pricesState = useSelector((state: RootState) => state.dex.dexPrices)
 
   useEffect(() => {
-    setPoolPairsPrices(poolPairs.items.map(pair => {
-      const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1', poolPairs.prices) ?? 0)
-      return { poolPair: pair, tokenPrice: tokenPrice }
-    }))
-  }, [setPoolPairsPrices])
+    if (isInitialLoad) {
+      setPoolPairsPrices(poolPairs.items.map(pair => {
+        const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1', poolPairs.prices) ?? 0)
+        return {
+          poolPair: pair,
+          tokenPrice: tokenPrice
+        }
+      }))
+    }
+  }, [setPoolPairsPrices, isInitialLoad])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPoolPairsPrices(poolPairs.items.map(pair => {
+        const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1', undefined) ?? 0)
+        return { poolPair: pair, tokenPrice: tokenPrice }
+      }))
+    }, 5000)
+    setIsInitialLoad(false)
+    return () => clearInterval(interval)
+  }, [setPoolPairsPrices, pricesState])
 
   return (
     <>
@@ -108,11 +126,12 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     .reverse()
     .map(value => value.value)
 
+  const result = await api.poolpairs.listDexPrices('USDT')
   return {
     props: {
       poolPairs: {
         items: sorted,
-        prices: await api.poolpairs.listDexPrices('USDT'),
+        prices: result.dexPrices,
         pages: CursorPagination.getPages(context, items)
       },
       aggregate: {

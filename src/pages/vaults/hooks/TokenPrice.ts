@@ -6,10 +6,10 @@ import BigNumber from 'bignumber.js'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { useCallback } from 'react'
-import { DexPricesResult } from '@defichain/whale-api-client/dist/api/poolpairs'
+import { DexPrice } from '@defichain/whale-api-client/dist/api/poolpairs'
 
 interface DexTokenPrice {
-  getTokenPrice: (symbol: string, amount: string, poolPairPrices?: DexPricesResult, isLPS?: boolean) => BigNumber
+  getTokenPrice: (symbol: string, amount: string, poolPairPrices?: { [symbol: string]: DexPrice }, isLPS?: boolean) => BigNumber
 }
 
 export function useTokenPrice (denominationTokenSymbol = 'USDT'): DexTokenPrice {
@@ -22,12 +22,12 @@ export function useTokenPrice (denominationTokenSymbol = 'USDT'): DexTokenPrice 
    * @param isLPS {boolean} is liquidity pool token
    * @return BigNumber
    */
-  const getTokenPrice = useCallback((symbol: string, amount: string, poolPairPrices: DexPricesResult, isLPS: boolean = false): BigNumber => {
+  const getTokenPrice = useCallback((symbol: string, amount: string, poolPairPrices: { [symbol: string]: DexPrice }, isLPS: boolean = false): BigNumber => {
     if (symbol === denominationTokenSymbol || new BigNumber(amount).isZero()) {
       return new BigNumber(amount)
     }
-    if (poolPairPrices?.dexPrices !== undefined) {
-      prices = poolPairPrices?.dexPrices
+    if (poolPairPrices !== undefined) {
+      prices = poolPairPrices
     }
 
     if (isLPS) {
@@ -43,7 +43,7 @@ export function useTokenPrice (denominationTokenSymbol = 'USDT'): DexTokenPrice 
       return usdTokenA.plus(usdTokenB)
     }
     return new BigNumber(prices[symbol]?.denominationPrice ?? 0).multipliedBy(amount)
-  }, [])
+  }, [prices, poolpairs])
 
   return {
     getTokenPrice
