@@ -65,7 +65,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const query = context.params?.query?.toString().trim() as string
   const event: EventCopy | undefined = getEventCopy(query, context)
 
-  if (event === undefined && !isNumeric(query)) {
+  if (event === undefined && !isNumeric(query) && query.toLowerCase() !== 'nextfutureswap') {
     return { notFound: true }
   }
 
@@ -76,7 +76,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return { notFound: true }
   }
 
-  const targetHeight = event?.height ?? query
+  let targetHeight = event?.height ?? query
+
+  if(query.toLowerCase() === 'nextfutureswap' ) {
+    targetHeight  = await api.rpc.call('getfutureswapblock', [], 'number')
+  }
 
   if (blocks[0].height >= Number(targetHeight)) {
     return {
