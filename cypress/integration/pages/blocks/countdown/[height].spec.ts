@@ -107,7 +107,6 @@ context('/blocks/countdown/[query] on desktop - NextFutureSwap', () => {
     cy.viewport('macbook-16')
   })
 
-
   it('should have InfoSection', () => {
     cy.findByTestId('InfoSection.EventTitle').should('not.exist')
     cy.findByTestId('InfoSection.EventHeight').should('not.exist')
@@ -139,8 +138,8 @@ context('/blocks/countdown/[query] on desktop - NextFutureSwap', () => {
     cy.findByTestId('BlocksInfoSection.Remaining.Label').should('be.visible').should('have.text', 'Remaining Blocks:')
     cy.findByTestId('BlocksInfoSection.Remaining.Value').should('be.visible').contains(/\d+/)
   })
-
 })
+
 context('/blocks/countdown/[query] on mobile - Event Name', () => {
   before(() => {
     cy.visit('/blocks/countdown/testEvent')
