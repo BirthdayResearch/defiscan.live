@@ -5,11 +5,11 @@ export function InfoSection (props: { target: { height: number, name: string | n
   return (
     <div className='flex flex-wrap text-center mt-6'>
       <div className='w-full text-gray-500'>
-        {props.target.name === 'NextFutureSwap' ? 'Next Future Settlement Block' : 'Countdown for'}
+        Countdown for
       </div>
       <div className='mt-1.5 w-full text-gray-900'>
         {(() => {
-          if (props.target.name !== null && props.target.name !== 'NextFutureSwap') {
+          if (props.target.name !== null) {
             return (
               <>
                 <div className='text-2xl md:text-3xl font-medium' data-testid='InfoSection.EventTitle'>
