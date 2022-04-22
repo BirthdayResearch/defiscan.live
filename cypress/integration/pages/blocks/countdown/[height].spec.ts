@@ -108,9 +108,8 @@ context('/blocks/countdown/[query] on desktop - NextFutureSwap', () => {
   })
 
   it('should have InfoSection', () => {
-    cy.findByTestId('InfoSection.BlockHeight').should('have.text', 'Next Future Settlement Block')
-    cy.findByTestId('InfoSection.EventTitle').should('not.exist')
-    cy.findByTestId('InfoSection.EventHeight').should('not.exist')
+    cy.findByTestId('InfoSection.EventTitle').should('have.text', 'Next Future Settlement Block')
+    cy.findByTestId('InfoSection.EventHeight').should('exist')
   })
 
   it('should have CountdownSection', () => {
@@ -293,9 +292,8 @@ context('/blocks/countdown/[query] on mobile - NextFutureSwap', () => {
   })
 
   it('should have InfoSection', () => {
-    cy.findByTestId('InfoSection.BlockHeight').should('have.text', 'Next Future Settlement Block')
-    cy.findByTestId('InfoSection.EventTitle').should('not.exist')
-    cy.findByTestId('InfoSection.EventHeight').should('not.exist')
+    cy.findByTestId('InfoSection.EventTitle').should('have.text', 'Next Future Settlement Block')
+    cy.findByTestId('InfoSection.EventHeight').should('exist')
   })
 
   it('should have CountdownSection', () => {
