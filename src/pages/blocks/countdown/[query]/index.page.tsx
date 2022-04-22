@@ -77,9 +77,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   }
 
   let targetHeight = event?.height ?? query
+  let eventName = event?.name ?? null
 
   if (query.toLowerCase() === 'nextfutureswap') {
     targetHeight = await api.rpc.call('getfutureswapblock', [], 'number')
+    eventName = 'NextFutureSwap'
   }
 
   if (blocks[0].height >= Number(targetHeight)) {
@@ -95,7 +97,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     props: {
       target: {
         height: Number(targetHeight),
-        name: event?.name ?? null
+        name: eventName
       },
       current: {
         height: blocks[0].height
