@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
 import React, { useEffect, useState } from 'react'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { getWhaleApiClient, getWhaleRpcClient } from '@contexts/WhaleContext'
 import { EventCopy, getEventCopy } from '@content/events'
 import { isNumeric } from '../../../../utils/commons/StringValidator'
 import { Head } from '@components/commons/Head'
@@ -65,18 +65,26 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const query = context.params?.query?.toString().trim() as string
   const event: EventCopy | undefined = getEventCopy(query, context)
 
-  if (event === undefined && !isNumeric(query)) {
+  if (event === undefined && !isNumeric(query) && query.toLowerCase() !== 'nextfutureswap') {
     return { notFound: true }
   }
 
   const api = getWhaleApiClient(context)
+  const rpc = getWhaleRpcClient(context)
+
   const blocks = await api.blocks.list(1)
 
   if (blocks === undefined || blocks.length !== 1) {
     return { notFound: true }
   }
 
-  const targetHeight = event?.height ?? query
+  let targetHeight = event?.height ?? query
+  let eventName = event?.name ?? null
+
+  if (query.toLowerCase() === 'nextfutureswap') {
+    targetHeight = (await rpc.oracle.getFutureSwapBlock()).toString()
+    eventName = 'Next Future Settlement Block'
+  }
 
   if (blocks[0].height >= Number(targetHeight)) {
     return {
@@ -91,7 +99,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     props: {
       target: {
         height: Number(targetHeight),
-        name: event?.name ?? null
+        name: eventName
       },
       current: {
         height: blocks[0].height
