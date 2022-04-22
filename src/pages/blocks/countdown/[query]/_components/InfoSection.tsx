@@ -5,7 +5,7 @@ export function InfoSection (props: { target: { height: number, name: string | n
   return (
     <div className='flex flex-wrap text-center mt-6'>
       <div className='w-full text-gray-500'>
-        Countdown for
+        Next Future Settlement Block
       </div>
       <div className='mt-1.5 w-full text-gray-900'>
         {(() => {
