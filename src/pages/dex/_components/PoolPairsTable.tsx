@@ -6,7 +6,6 @@ import { OverflowTable } from '@components/commons/OverflowTable'
 import { APRInfo } from './APRInfo'
 import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
 import { Link } from '@components/commons/link/Link'
-import { useTokenPrice } from '../../vaults/hooks/TokenPrice'
 import { TotalLiquidityInfo } from './TotalLiquidityInfo'
 import BigNumber from 'bignumber.js'
 
@@ -19,14 +18,7 @@ export enum SortKeys {
 
 export type SortOrder = 'asc' | 'desc'
 
-export function PoolPairsTable ({ poolPairs, sortKey, setSortKey, sortOrder, setSortOrder }): JSX.Element {
-  const { getTokenPrice } = useTokenPrice()
-
-  const poolPairsPrices = poolPairs.map(pair => {
-    const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
-    return { poolPair: pair, tokenPrice: tokenPrice }
-  })
-
+export function PoolPairsTable ({ poolPairsPrices, sortKey, setSortKey, sortOrder, setSortOrder }): JSX.Element {
   const sortedData = useCallback(
     () => SortData({
       poolPairsPrices: poolPairsPrices,
