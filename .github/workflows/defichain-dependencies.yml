@@ -23,11 +23,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@bd72e1b7922d417764d27d30768117ad7da78a0e
         with:
-          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump @defichain/jellyfish dependencies
+          title: "bump(deps): @defichain/jellyfish dependencies"
           commit-message: Bump @defichain/jellyfish dependencies
           body: |
             #### What kind of PR is this?:
@@ -53,11 +52,10 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@bd72e1b7922d417764d27d30768117ad7da78a0e
         with:
-          token: ${{ secrets.DEFICHAIN_BOT_GITHUB_TOKEN }}
           labels: kind/dependencies
           committer: DeFiChain Bot <github-bot@defichain.com>
           author: DeFiChain Bot <github-bot@defichain.com>
-          title: Bump @defichain/whale dependencies
+          title: "bump(deps): @defichain/whale dependencies"
           commit-message: Bump @defichain/whale dependencies
           body: |
             #### What kind of PR is this?:
