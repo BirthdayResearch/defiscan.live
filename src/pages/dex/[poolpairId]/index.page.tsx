@@ -90,7 +90,7 @@ async function getPoolPairsByParam (param: string, api: WhaleApiClient): Promise
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
   const param = context.params?.poolpairId?.toString().trim() as string
-  if (!isAlphanumeric(param, '-')) {
+  if (!isAlphanumeric(param, '-.')) {
     return { notFound: true }
   }
 
