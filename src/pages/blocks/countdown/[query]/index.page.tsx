@@ -18,23 +18,26 @@ interface BlockDetailsPageProps {
   }
   current: {
     height: number
+    medianTime: number
   }
 }
 
 export default function BlockCountdown (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const currentHeight = useSelector((state: RootState) => state.stats.count.blocks) ?? props.current.height
 
-  const secsToTargetHeight = (props.target.height - currentHeight) * 30
-  const [timeLeft, setTimeLeft] = useState<number>(secsToTargetHeight)
+  const estimatedTargetTime = (props.current.medianTime * 1000) + ((props.target.height - currentHeight) * 30 * 1000)
+  const secsToTargetHeight = (estimatedTargetTime - new Date().getTime())
+  const [timeLeft, setTimeLeft] = useState<number>(Math.ceil(secsToTargetHeight / 1000))
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (timeLeft <= 0 || currentHeight >= props.target.height) {
-        location.reload()
-        return () => clearTimeout(timer)
-      }
       setTimeLeft(timeLeft - 1)
+
+      if (currentHeight >= props.target.height || timeLeft % 10 === 0) {
+        location.reload()
+      }
     }, 1000)
+
     return () => clearTimeout(timer)
   })
 
@@ -54,7 +57,7 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
 
       <Container className='pt-8 pb-56'>
         <InfoSection target={props.target} />
-        <CountdownSection timeLeftSecs={timeLeft} />
+        <CountdownSection timeLeftSecs={timeLeft} estimatedTargetTime={estimatedTargetTime} />
         <BlocksInfoSection current={currentHeight} remaining={props.target.height - currentHeight} />
       </Container>
     </>
@@ -102,7 +105,8 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         name: eventName
       },
       current: {
-        height: blocks[0].height
+        height: blocks[0].height,
+        medianTime: blocks[0].medianTime
       }
     }
   }
