@@ -34,6 +34,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
 
     const next = router.query.cursors as string
 
+    // Only auto refreshes when at page 1
     if (next === undefined) {
       const interval = setInterval(() => {
         void api.poolpairs.get(props.poolpair.id).then((data) => {
