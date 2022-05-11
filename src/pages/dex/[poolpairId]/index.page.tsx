@@ -32,12 +32,11 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
     setPoolpairs(props.poolpair)
     setSwapItems(props.swaps.items)
 
-    const poolpairId = router.query.poolpairId as string
     const next = router.query.cursors as string
 
     if (next === undefined) {
       const interval = setInterval(() => {
-        void api.poolpairs.get(poolpairId).then((data) => {
+        void api.poolpairs.get(props.poolpair.id).then((data) => {
           setPoolpairs(data)
         })
         void api.poolpairs.listPoolSwapsVerbose(props.poolpair.id, 10).then((data) => {
