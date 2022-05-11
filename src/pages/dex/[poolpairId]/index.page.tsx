@@ -1,5 +1,5 @@
 import { Head } from '@components/commons/Head'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
+import { getWhaleApiClient, useWhaleApiClient } from '@contexts/WhaleContext'
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
 import { Container } from '@components/commons/Container'
 import { PoolPairData, PoolSwapData } from '@defichain/whale-api-client/dist/api/poolpairs'
@@ -11,6 +11,8 @@ import { PoolPairDetailsBar } from './_components/PoolPairDetailsBar'
 import { isAlphanumeric, isNumeric } from '../../../utils/commons/StringValidator'
 import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
@@ -21,6 +23,31 @@ interface PoolPairPageProps {
 }
 
 export default function PoolPairPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const api = useWhaleApiClient()
+  const [swapItems, setSwapItems] = useState<PoolSwapData[]>(props.swaps.items)
+  const [poolpairs, setPoolpairs] = useState<PoolPairData>(props.poolpair)
+  const router = useRouter()
+
+  useEffect(() => {
+    setPoolpairs(props.poolpair)
+    setSwapItems(props.swaps.items)
+
+    const poolpairId = router.query.poolpairId as string
+    const next = router.query.cursors as string
+
+    if (next === undefined) {
+      const interval = setInterval(() => {
+        void api.poolpairs.get(poolpairId).then((data) => {
+          setPoolpairs(data)
+        })
+        void api.poolpairs.listPoolSwapsVerbose(props.poolpair.id, 10).then((data) => {
+          setSwapItems(data)
+        })
+      }, 30000)
+      return () => clearInterval(interval)
+    }
+  }, [props, router.query])
+
   return (
     <>
       <Head
@@ -41,23 +68,23 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
           }
         ]}
         />
-        <PoolPairDetailsBar poolpair={props.poolpair} />
+        <PoolPairDetailsBar poolpair={poolpairs} />
         <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
           <div className='lg:flex lg:flex-col lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
             <h3 className='text-lg font-semibold'>
               Pool Details
             </h3>
-            <PoolPairDetails poolpair={props.poolpair} />
+            <PoolPairDetails poolpair={poolpairs} />
           </div>
           <div className='w-full lg:w-3/4 overflow-hidden'>
             <h3 className='text-lg font-semibold'>
               Swap History
             </h3>
             <div className='hidden lg:block'>
-              <SwapTable swaps={props.swaps.items} />
+              <SwapTable swaps={swapItems} />
             </div>
             <div className='my-6 lg:hidden'>
-              <SwapCards swaps={props.swaps.items} />
+              <SwapCards swaps={swapItems} />
             </div>
           </div>
         </div>
@@ -89,8 +116,8 @@ async function getPoolPairsByParam (param: string, api: WhaleApiClient): Promise
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
-  const param = context.params?.poolpairId?.toString().trim() as string
-  if (!isAlphanumeric(param, '-.')) {
+  const poolpairId = context.params?.poolpairId?.toString().trim() as string
+  if (!isAlphanumeric(poolpairId, '-.')) {
     return { notFound: true }
   }
 
@@ -98,16 +125,16 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   let poolPair: PoolPairData | undefined
 
-  if (param.includes('-')) {
-    poolPair = await getPoolPairsByParam(param, api)
-  } else if (isNumeric(param)) {
+  if (poolpairId.includes('-')) {
+    poolPair = await getPoolPairsByParam(poolpairId, api)
+  } else if (isNumeric(poolpairId)) {
     try {
-      poolPair = await api.poolpairs.get(param)
+      poolPair = await api.poolpairs.get(poolpairId)
     } catch (e) {
       return { notFound: true }
     }
   } else {
-    poolPair = await getPoolPairsByParam(param, api)
+    poolPair = await getPoolPairsByParam(poolpairId, api)
   }
 
   if (poolPair === undefined) {
