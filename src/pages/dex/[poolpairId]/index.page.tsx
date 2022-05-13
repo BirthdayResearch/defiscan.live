@@ -43,7 +43,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         void api.poolpairs.listPoolSwapsVerbose(props.poolpair.id, 10).then((data) => {
           setSwapItems(data)
         })
-      }, 30000)
+      }, 10000)
       return () => clearInterval(interval)
     }
   }, [props, router.query])

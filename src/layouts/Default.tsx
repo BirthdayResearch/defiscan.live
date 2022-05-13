@@ -10,7 +10,6 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { PoolPairsProvider } from '@store/poolpairs'
 import { SupplyProvider } from '@store/supply'
-import { DexProvider } from '@store/dex'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -49,13 +48,11 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
             <StatsProvider>
               <SupplyProvider>
                 <PoolPairsProvider>
-                  <DexProvider>
-                    <Header />
-                    <main className='flex-grow'>
-                      {props.children}
-                    </main>
-                    <Footer />
-                  </DexProvider>
+                  <Header />
+                  <main className='flex-grow'>
+                    {props.children}
+                  </main>
+                  <Footer />
                 </PoolPairsProvider>
               </SupplyProvider>
             </StatsProvider>
