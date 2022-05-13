@@ -9,6 +9,7 @@ import React from 'react'
 export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const tokenPrice = getTokenPrice(props.poolpair.tokenB.displaySymbol, props.poolpair.priceRatio.ba)
+
   return (
     <div className='mt-8 flex flex-wrap p-4 lg:p-6 rounded-lg border border-gray-200 justify-between' data-testid='PoolPairDetailsBar'>
       <PoolPairSymbolLocal
