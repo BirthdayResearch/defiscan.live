@@ -96,7 +96,7 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
 
 function SearchStatusMessage (props: PropsWithChildren<{ message: string }>): JSX.Element {
   return (
-    <div className='w-full rounded mt-1 bg-white px-4 py-8'>
+    <div className='w-full rounded mt-1 bg-white dark:bg-dark-500 px-4 py-8'>
       <div className='w-full flex flex-col bg-white items-center'>
         {props.children}
         <span className='text-center text-gray-400'>{props.message}</span>

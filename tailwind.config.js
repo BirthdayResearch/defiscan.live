@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'class',
   content: [
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/layouts/**/*.{js,ts,jsx,tsx}',
@@ -76,6 +77,13 @@ module.exports = {
         100: '#EFF6FD',
         200: '#D6EAF9',
         500: '#5AA9E6',
+      },
+      dark: {
+        50: '#3498db',
+        100: '#18365b',
+        200: '#132a47',
+        400: '#a8bcdb',
+        500: '#112641'
       }
     }
   },

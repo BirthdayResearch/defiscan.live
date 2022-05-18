@@ -9,17 +9,19 @@ import { StatsBar } from '@components/commons/stats/StatsBar'
 import { SearchBar } from '@components/commons/searchbar/SearchBar'
 
 export function IndexHeader (): JSX.Element {
+  let colorTheme: string
+   colorTheme = 'dark'
   return (
     <>
       <Stats />
       <div
         className='flex flex-col items-center pb-24 -mb-24'
-        style={{ backgroundImage: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 25.4%, #FFFFFF 94.76%), url(\'/assets/hero/fortcanning.svg\')', backgroundSize: 'cover', backgroundPosition: 'right center' }}
+        style={{ backgroundImage: colorTheme === 'white' ? 'linear-gradient(180deg, rgba(255, 255, 255, 0) 25.4%, #FFFFFF 94.76%), url(\'/assets/hero/fortcanning.svg\')' : 'url(\'/assets/hero/fortcanningDark.svg\')', backgroundSize: 'cover', backgroundPosition: 'right center' }}
       >
         <Container className='h-full'>
           <div className='h-full flex flex-wrap items-center justify-center mt-14 mb-16'>
-            <h1 className='text-4xl lg:text-5xl w-full mb-6 font-medium text-center' data-testid='Header.title'>
-              DeFiChain <span className='font-normal'>Explorer</span>
+            <h1 className='text-4xl lg:text-5xl w-full mb-6 font-medium dark:text-white text-center' data-testid='Header.title'>
+              DeFiChain <span className='font-normal dark:text-dark-400'>Explorer</span>
             </h1>
             <SearchBar atHeader={false} />
           </div>

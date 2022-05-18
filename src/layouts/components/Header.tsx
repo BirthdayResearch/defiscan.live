@@ -36,7 +36,7 @@ export function Header (): JSX.Element {
 
   return (
     <header className={classNames('bg-white z-50 sticky top-0 md:shadow-none md:static', { 'shadow-lg': !atTop })}>
-      <div className='hidden md:block border-b border-gray-100 bg-primary-700'>
+      <div className='hidden md:block border-b border-gray-100 bg-primary-700 dark:bg-dark-500 dark:border-0'>
         <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
             <HeaderCountBar className='h-full flex' />
@@ -45,14 +45,14 @@ export function Header (): JSX.Element {
         </Container>
       </div>
 
-      <div className='border-b border-gray-100'>
+      <div className='border-b border-gray-100 dark:bg-dark-200 dark:border-0'>
         <Container className='py-4 md:py-8'>
           <div className='flex items-center justify-between'>
             <div className='flex w-full'>
               <Link href={{ pathname: '/' }} passHref>
                 <a className='flex items-center cursor-pointer hover:text-primary-500'>
                   <DeFiChainLogo className='w-12 md:hidden lg:block lg:w-16 h-full' />
-                  <h6 className='ml-3 md:ml-0 lg:ml-3 text-xl font-medium'>Scan</h6>
+                  <h6 className='ml-3 md:ml-0 lg:ml-3 text-xl font-medium dark:text-white'>Scan</h6>
                 </a>
               </Link>
               <DesktopNavbar />
@@ -83,7 +83,7 @@ export function Header (): JSX.Element {
 
 function DesktopNavbar (): JSX.Element {
   return (
-    <div className='hidden md:flex ml-2 lg:ml-8 md:w-full md:justify-between items-center text-gray-600'>
+    <div className='hidden md:flex ml-2 lg:ml-8 md:w-full md:justify-between items-center text-gray-600 dark:text-white'>
       <div className='hidden md:flex'>
         <HeaderLink
           className='ml-1 lg:ml-4' text='DEX' pathname='/dex'
@@ -124,7 +124,7 @@ function DesktopNavbar (): JSX.Element {
 function MobileMenu (): JSX.Element {
   return (
     <div className='md:hidden'>
-      <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm text-gray-600'>
+      <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm text-gray-600 dark:text-white'>
         <div className='flex flex-col'>
           <HeaderLink
             className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex'
@@ -178,11 +178,11 @@ function HeaderLink (props: { text: string, pathname: string, className: string,
     <Link href={{ pathname: props.pathname }}>
       <a
         className={classNames(props.className, {
-          'text-primary-500': router.pathname === props.pathname
+          'text-primary-500 dark:text-dark-50': router.pathname === props.pathname
         })} data-testid={props.testId}
       >
-        <div className={classNames('inline m-2 text-lg pb-0.5 hover:text-primary-500 cursor-pointer', {
-          'border-b-2 border-primary-500': router.pathname === props.pathname
+        <div className={classNames('inline m-2 text-lg pb-0.5 hover:text-primary-500 dark:hover:text-dark-50  cursor-pointer', {
+          'border-b-2 border-primary-500 dark:border-dark-50': router.pathname === props.pathname
         })}
         >
           {props.text}

@@ -4,7 +4,7 @@ import { StoreProvider } from '@contexts/StoreProvider'
 import { WhaleProvider } from '@contexts/WhaleContext'
 import { StatsProvider } from '@store/stats'
 import Head from 'next/head'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
 import { ScanAppProps } from '../pages/_app.page'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
@@ -22,11 +22,15 @@ const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoi
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
 export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | null {
+  useEffect(() => {
+    document.querySelector('html')
+      ?.classList.add('dark')
+  }, [])
+
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen dark:bg-dark-200' >
       <Head>
         <meta charSet='UTF-8' />
-
         <title key='title'>{title}</title>
         <meta key='description' name='description' content={description} />
         <meta key='robots' name='robots' content='follow,index' />
