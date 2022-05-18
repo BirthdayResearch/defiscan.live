@@ -1,9 +1,7 @@
-
-
-export function DarkModeToggle (props: {onToggle: () => void}): JSX.Element {
+export function DarkModeToggle (_props: {onToggle: () => void}): JSX.Element {
   return (
     <div>
-
+      toggle
     </div>
   )
 }

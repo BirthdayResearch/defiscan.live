@@ -9,14 +9,13 @@ import { StatsBar } from '@components/commons/stats/StatsBar'
 import { SearchBar } from '@components/commons/searchbar/SearchBar'
 
 export function IndexHeader (): JSX.Element {
-  let colorTheme: string
-   colorTheme = 'dark'
+  const colorTheme = 'dark'
   return (
     <>
       <Stats />
       <div
         className='flex flex-col items-center pb-24 -mb-24'
-        style={{ backgroundImage: colorTheme === 'white' ? 'linear-gradient(180deg, rgba(255, 255, 255, 0) 25.4%, #FFFFFF 94.76%), url(\'/assets/hero/fortcanning.svg\')' : 'url(\'/assets/hero/fortcanningDark.svg\')', backgroundSize: 'cover', backgroundPosition: 'right center' }}
+        style={{ backgroundImage: colorTheme !== 'dark' ? 'linear-gradient(180deg, rgba(255, 255, 255, 0) 25.4%, #FFFFFF 94.76%), url(\'/assets/hero/fortcanning.svg\')' : 'url(\'/assets/hero/fortcanningDark.svg\')', backgroundSize: 'cover', backgroundPosition: 'right center' }}
       >
         <Container className='h-full'>
           <div className='h-full flex flex-wrap items-center justify-center mt-14 mb-16'>
