@@ -62,7 +62,7 @@ function newWhaleClient (connection?: string | NetworkConnection): WhaleApiClien
       })
     case NetworkConnection.RemotePlayground:
       return new WhaleApiClient({
-        url: 'https://playground.defichain.com',
+        url: 'https://playground.jellyfishsdk.com',
         network: 'regtest',
         version: 'v0'
       })
@@ -70,7 +70,7 @@ function newWhaleClient (connection?: string | NetworkConnection): WhaleApiClien
       return new WhaleApiClient({
         url: 'https://ocean.defichain.com',
         network: 'testnet',
-        version: 'v0.33'
+        version: 'v0.34'
       })
     case NetworkConnection.MainNet:
     default:
