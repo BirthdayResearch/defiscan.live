@@ -1,0 +1,60 @@
+import { createContext, useState, useEffect, useContext, PropsWithChildren } from 'react'
+
+export interface ThemeContextProps {
+  theme: theme
+  setTheme: (theme: theme) => void
+}
+
+type theme = 'dark' | 'light'
+
+function getInitialTheme (): theme {
+  if (typeof window !== 'undefined') {
+    const systemPref = window.matchMedia('(prefers-color-scheme: dark)')
+
+    if (systemPref.matches) {
+      return 'dark'
+    }
+
+    const storedPref = window.localStorage.getItem('color-theme')
+    if (storedPref !== null) {
+      return storedPref as theme
+    }
+  }
+  return 'light'
+}
+
+const ThemeContext = createContext<ThemeContextProps>(undefined as any)
+
+export function ThemeProvider (props: PropsWithChildren<{initialTheme?: theme}>): JSX.Element {
+  const [theme, setTheme] = useState(getInitialTheme)
+
+  function rawSetTheme (rawTheme): void {
+    if (typeof window !== 'undefined') {
+      const root = window.document.documentElement
+      const isDark = rawTheme === 'dark'
+
+      root.classList.remove(isDark ? 'light' : 'dark')
+      root.classList.add(rawTheme)
+
+      localStorage.setItem('color-theme', rawTheme)
+    }
+  }
+
+  if (props.initialTheme !== undefined) {
+    rawSetTheme(props.initialTheme)
+  }
+
+  useEffect(() => {
+    rawSetTheme(theme)
+  }, [theme])
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {props.children}
+    </ThemeContext.Provider>
+  )
+}
+
+export function useTheme (): ThemeContextProps {
+  return useContext(ThemeContext)
+}

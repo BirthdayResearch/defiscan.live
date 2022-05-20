@@ -4,12 +4,13 @@ import { StoreProvider } from '@contexts/StoreProvider'
 import { WhaleProvider } from '@contexts/WhaleContext'
 import { StatsProvider } from '@store/stats'
 import Head from 'next/head'
-import { PropsWithChildren, useEffect } from 'react'
+import { PropsWithChildren } from 'react'
 import { ScanAppProps } from '../pages/_app.page'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { PoolPairsProvider } from '@store/poolpairs'
 import { SupplyProvider } from '@store/supply'
+import { ThemeProvider } from '@contexts/ThemeContext'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -22,13 +23,8 @@ const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoi
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
 export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | null {
-  useEffect(() => {
-    document.querySelector('html')
-      ?.classList.add('dark')
-  }, [])
-
   return (
-    <div className='flex flex-col min-h-screen dark:bg-dark-200' >
+    <div className='flex flex-col min-h-screen dark:bg-dark-200'>
       <Head>
         <meta charSet='UTF-8' />
         <title key='title'>{title}</title>
@@ -46,23 +42,25 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
         <link rel='icon' type='image/png' sizes='48x48' href='/favicon.png' />
       </Head>
 
-      <NetworkProvider>
-        <WhaleProvider>
-          <StoreProvider state={props.initialReduxState}>
-            <StatsProvider>
-              <SupplyProvider>
-                <PoolPairsProvider>
-                  <Header />
-                  <main className='flex-grow'>
-                    {props.children}
-                  </main>
-                  <Footer />
-                </PoolPairsProvider>
-              </SupplyProvider>
-            </StatsProvider>
-          </StoreProvider>
-        </WhaleProvider>
-      </NetworkProvider>
+      <ThemeProvider initialTheme='dark'>
+        <NetworkProvider>
+          <WhaleProvider>
+            <StoreProvider state={props.initialReduxState}>
+              <StatsProvider>
+                <SupplyProvider>
+                  <PoolPairsProvider>
+                    <Header />
+                    <main className='flex-grow'>
+                      {props.children}
+                    </main>
+                    <Footer />
+                  </PoolPairsProvider>
+                </SupplyProvider>
+              </StatsProvider>
+            </StoreProvider>
+          </WhaleProvider>
+        </NetworkProvider>
+      </ThemeProvider>
     </div>
   )
 }
