@@ -68,7 +68,7 @@ function newWhaleClient (connection?: string | NetworkConnection): WhaleApiClien
       })
     case NetworkConnection.TestNet:
       return new WhaleApiClient({
-        url: 'https://ocean.defichain.com',
+        url: 'https://testnet.ocean.jellyfishsdk.com',
         network: 'testnet',
         version: 'v0.34'
       })
