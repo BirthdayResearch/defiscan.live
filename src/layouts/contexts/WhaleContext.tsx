@@ -87,10 +87,10 @@ function newRpcClient (connection?: string | NetworkConnection): WhaleRpcClient 
     case NetworkConnection.LocalPlayground:
       return new WhaleRpcClient('http://localhost:19553/v0/regtest/rpc')
     case NetworkConnection.RemotePlayground:
-      return new WhaleRpcClient('https://playground.defichain.com/v0/regtest/rpc')
+      return new WhaleRpcClient('https://playground.jellyfishsdk.com/v0/regtest/rpc')
     case NetworkConnection.TestNet: {
-      const version = 'v0.33'
-      return new WhaleRpcClient(`https://ocean.defichain.com/${version}/testnet/rpc`)
+      const version = 'v0.34'
+      return new WhaleRpcClient(`https://testnet.ocean.jellyfishsdk.com/${version}/testnet/rpc`)
     }
     case NetworkConnection.MainNet:
     default: {
