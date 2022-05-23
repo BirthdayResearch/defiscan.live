@@ -107,7 +107,7 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
             primarySymbolClassName='h-7 w-7'
             secondarySymbolClassName='ml-5 h-6 w-6'
             textClassName='ml-12'
-            primaryTextClassName='font-medium'
+            primaryTextClassName='font-medium dark:text-gray-100'
             secondaryTextClassName='text-gray-400'
           />
         </div>
@@ -124,6 +124,7 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
             displayType='text'
             thousandSeparator
             prefix='$'
+            className='dark:text-gray-100'
           />
         </CardList.ListItem>
         <CardList.ListItem
@@ -138,6 +139,8 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
               thousandSeparator
               decimalScale={0}
               prefix='$'
+              className='dark:text-gray-100'
+
             />
           ) : (
             <div className='text-yellow-500'>
@@ -158,6 +161,7 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
                 thousandSeparator
                 decimalScale={0}
                 prefix='$'
+                className='dark:text-gray-100'
               />
             </MoreHoverPopover>
           ) : (
@@ -183,6 +187,7 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
                     decimalScale={2}
                     fixedDecimalScale
                     suffix='%'
+                    className='dark:text-gray-100'
                   />
                 </MoreHoverPopover>
               )

@@ -77,7 +77,7 @@ function BlockCardDetails (props: { height: string, minter?: string, transaction
           <MdStairs className='text-gray-400 inline-block' size={22} />
         </span>
         <div>
-          <div className='font-medium text-gray-900 dark:text-gray-100' data-testid='BlockCardDetails.height'>
+          <div className='font-medium text-gray-900 dark:text-darkprimary-500' data-testid='BlockCardDetails.height'>
             {props.height}
           </div>
           <div className='text-xs text-gray-400 leading-5' data-testid='BlockCardDetails.age'>
@@ -114,12 +114,12 @@ function ViewMoreButton (): JSX.Element {
   return (
     <Link href={{ pathname: '/blocks' }}>
       <a
-        className='font-medium cursor-pointer text-primary-500 dark:text-dark-50 '
+        className='font-medium cursor-pointer text-primary-500 dark:text-darkprimary-500 '
         data-testid='BlocksList.viewAllBlocksButton'
       >
         <button
           type='button'
-          className='mt-2 py-2 px-14 border border-gray-200 dark:bg-dark-500 dark:border-dark-100 rounded-sm hover:shadow-md'
+          className='mt-2 py-2 px-14 border border-gray-200 dark:border-gray-400 rounded-sm hover:shadow-md'
         >
           VIEW ALL BLOCKS
         </button>

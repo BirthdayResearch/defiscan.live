@@ -64,7 +64,7 @@ export default function DexPage ({
       </StatsBar>
 
       <Container className='pt-12 pb-20'>
-        <h1 className='text-2xl font-medium mb-6'>DEX Pool Pairs</h1>
+        <h1 className='text-2xl font-medium mb-6 dark:text-white'>DEX Pool Pairs</h1>
 
         <div className='my-6 hidden md:block'>
           <PoolPairsTable poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
