@@ -65,7 +65,7 @@ function NumberButton (props: CursorPage & { path: string }): JSX.Element {
 
   return (
     <Link href={{ pathname: props.path, query: getQueryFromCursors(props.cursors) }}>
-      <a className='bg-gray-50  rounded border border-gray-200 hover:border-primary-500 hover:text-primary-500 cursor-pointer'>
+      <a className='bg-gray-50  rounded border border-gray-200 hover:border-primary-500 hover:text-primary-500 cursor-pointer dark:bg-gray-800 dark:border-0 dark:text-white'>
         <div className='h-11 w-11 flex items-center justify-center'>
           <span className='font-medium'>{props.n}</span>
         </div>
@@ -97,7 +97,7 @@ function NavigateButton (props: PropsWithChildren<{ path: string, cursors: strin
     <Link href={{ pathname: props.path, query: getQueryFromCursors(props.cursors) }}>
       <a
         data-testid={`CursorPagination.${props.type}`}
-        className='bg-gray-50   rounded border border-gray-200 text-gray-600 hover:border-primary-500 hover:text-primary-500 cursor-pointer'
+        className='bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-white hover:border-primary-500 hover:text-primary-500 cursor-pointer'
       >
         <div className='h-11 w-11 flex items-center justify-center'>
           {props.children}
