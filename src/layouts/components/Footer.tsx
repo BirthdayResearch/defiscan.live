@@ -16,10 +16,11 @@ import { NetlifyLightLogo } from '@components/icons/NetlifyLightLogo'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { HoverPopover } from '@components/commons/popover/HoverPopover'
+import { DarkModeToggle } from '@components/commons/DarkModeToggle'
 
 export function Footer (): JSX.Element {
   return (
-    <footer className='mt-12 bg-gray-50 dark:bg-dark-200'>
+    <footer className='mt-12 bg-gray-50 dark:bg-gray-900'>
       <Container className='py-12'>
         <Link href={{ pathname: '/' }}>
           <a className='cursor-pointer inline-block'>
@@ -131,11 +132,11 @@ function FooterSectionAbout (): JSX.Element {
   function NetworkStatus (): JSX.Element {
     return (
       <div className='p-3 bg-white shadow-md rounded-lg text-sm'>
-        <div className='text-gray-900  grid grid-cols-2 grid'>
+        <div className='text-gray-900 dark:text-gray-400  grid grid-cols-2 grid'>
           <span>Protocol</span>
           <span className='font-medium ml-2'>{net.protocolversion}</span>
         </div>
-        <div className='text-gray-900 grid grid-cols-2'>
+        <div className='text-gray-900 dark:text-gray-400 grid grid-cols-2'>
           <span>Version</span>
           <span className='font-medium ml-2'>{net.version}</span>
         </div>
@@ -145,7 +146,7 @@ function FooterSectionAbout (): JSX.Element {
 
   return (
     <section className='max-w-md' data-testid='FooterSectionAbout'>
-      <div className='text-sm text-gray-500 dark:text-dark-400'>
+      <div className='text-sm text-gray-500 dark:text-gray-400'>
         <span data-testid='FooterSectionAbout.Desc'>
           DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength
           and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services,
@@ -167,18 +168,19 @@ function FooterSectionAbout (): JSX.Element {
         </div>
       </div>
 
-      <div className='mt-6'>
+      <div className='mt-6 flex justify-between'>
         <a href='https://www.netlify.com' target='_blank' rel='nofollow noopener noreferrer' className='inline-block'>
           <NetlifyLightLogo />
         </a>
 
         {net !== undefined && (
           <HoverPopover popover={<NetworkStatus />} placement='top' className='inline-block float-right'>
-            <div className='text-sm text-gray-900 p-2 dark:text-dark-50 dark:bg-dark-500 rounded cursor-help'>
+            <div className='text-sm text-gray-900 p-2 dark:bg-white rounded cursor-help'>
               <span className='font-medium'>{net.subversion?.replaceAll('/', '').replace(':', ' Node v')}</span>
             </div>
           </HoverPopover>
         )}
+        <DarkModeToggle />
       </div>
     </section>
   )

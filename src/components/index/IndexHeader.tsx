@@ -3,30 +3,39 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import { UnitSuffix } from '@components/commons/UnitSuffix'
 import ReactNumberFormat from 'react-number-format'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { StatItem } from '@components/commons/stats/StatItem'
 import { StatsBar } from '@components/commons/stats/StatsBar'
 import { SearchBar } from '@components/commons/searchbar/SearchBar'
+import { useTheme } from '@contexts/ThemeContext'
 
 export function IndexHeader (): JSX.Element {
-  const colorTheme = 'dark'
+  const { theme } = useTheme()
   return (
     <>
       <Stats />
-      <div
-        className='flex flex-col items-center pb-24 -mb-24'
-        style={{ backgroundImage: colorTheme !== 'dark' ? 'linear-gradient(180deg, rgba(255, 255, 255, 0) 25.4%, #FFFFFF 94.76%), url(\'/assets/hero/fortcanning.svg\')' : 'url(\'/assets/hero/fortcanningDark.svg\')', backgroundSize: 'cover', backgroundPosition: 'right center' }}
-      >
+      <HeaderWrapper bgImage={theme === 'dark' ? 'url(\'/assets/hero/fortcanningDark.svg\')' : 'linear-gradient(180deg, rgba(255, 255, 255, 0) 25.4%, #FFFFFF 94.76%), url(\'/assets/hero/fortcanning.svg\')'}>
         <Container className='h-full'>
           <div className='h-full flex flex-wrap items-center justify-center mt-14 mb-16'>
             <h1 className='text-4xl lg:text-5xl w-full mb-6 font-medium dark:text-white text-center' data-testid='Header.title'>
-              DeFiChain <span className='font-normal dark:text-dark-400'>Explorer</span>
+              DeFiChain <span className='font-normal dark:text-gray-100'>Explorer</span>
             </h1>
             <SearchBar atHeader={false} />
           </div>
         </Container>
-      </div>
+      </HeaderWrapper>
     </>
+  )
+}
+
+function HeaderWrapper (props: PropsWithChildren<{bgImage: string}>): JSX.Element {
+  return (
+    <div
+      className='flex flex-col items-center pb-24 -mb-24'
+      style={{ backgroundImage: props.bgImage, backgroundSize: 'cover', backgroundPosition: 'right center' }}
+    >
+      {props.children}
+    </div>
   )
 }
 

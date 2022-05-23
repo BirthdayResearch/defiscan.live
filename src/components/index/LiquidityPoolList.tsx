@@ -59,7 +59,7 @@ function LiquidityPoolCard (
   }): JSX.Element {
   return (
     <div className='w-full sm:w-1/2 xl:w-1/4 2xl:w-1/4 p-1'>
-      <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3 dark:bg-dark-500 dark:border-dark-100' data-testid='LiquidityPoolCard'>
+      <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3 dark:bg-gray-800 dark:border-gray-700' data-testid='LiquidityPoolCard'>
         <PoolPairSymbol
           poolPairId={props.poolId} symbolSizeClassName='h-6 w-6' symbolMarginClassName='ml-3.5'
           textClassName='ml-11 font-medium dark:text-white'
@@ -130,10 +130,10 @@ function LiquidityCardStat ({
 }: PropsWithChildren<{ label: string, testid?: string, children: ReactNode }>): JSX.Element {
   return (
     <div className='table-row border-collapse text-sm'>
-      <div className='table-cell opacity-40 dark:opacity-100 dark:text-dark-400' data-testid={testid}>
+      <div className='table-cell opacity-40 dark:opacity-100 dark:text-gray-400' data-testid={testid}>
         {label}
       </div>
-      <div className='table-cell pl-2 md:pl-4 dark:text-white'>{children}</div>
+      <div className='table-cell pl-2 md:pl-4 dark:text-gray-100'>{children}</div>
     </div>
   )
 }

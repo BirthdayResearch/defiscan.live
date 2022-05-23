@@ -10,7 +10,6 @@ type theme = 'dark' | 'light'
 function getInitialTheme (): theme {
   if (typeof window !== 'undefined') {
     const systemPref = window.matchMedia('(prefers-color-scheme: dark)')
-
     if (systemPref.matches) {
       return 'dark'
     }
@@ -25,10 +24,10 @@ function getInitialTheme (): theme {
 
 const ThemeContext = createContext<ThemeContextProps>(undefined as any)
 
-export function ThemeProvider (props: PropsWithChildren<{initialTheme?: theme}>): JSX.Element {
-  const [theme, setTheme] = useState(getInitialTheme)
+export function ThemeProvider (props: PropsWithChildren<{theme: theme}>): JSX.Element {
+  const [theme, setTheme] = useState<theme>(props.theme)
 
-  function rawSetTheme (rawTheme): void {
+  function rawSetTheme (rawTheme: theme): void {
     if (typeof window !== 'undefined') {
       const root = window.document.documentElement
       const isDark = rawTheme === 'dark'
@@ -40,9 +39,9 @@ export function ThemeProvider (props: PropsWithChildren<{initialTheme?: theme}>)
     }
   }
 
-  if (props.initialTheme !== undefined) {
-    rawSetTheme(props.initialTheme)
-  }
+  useEffect(() => {
+    setTheme(getInitialTheme)
+  }, [])
 
   useEffect(() => {
     rawSetTheme(theme)

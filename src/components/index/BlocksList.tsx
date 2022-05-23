@@ -69,18 +69,18 @@ function BlockCard (props: { id: string, height: string, minter?: string, transa
 function BlockCardDetails (props: { height: string, minter?: string, transactionCount: number, age: string }): JSX.Element {
   return (
     <div
-      className='flex flex-wrap justify-between dark:bg-dark-500 dark:border-dark-100 p-4 rounded border border-gray-200 cursor-pointer items-center my-1.5 hover:shadow-md'
+      className='flex flex-wrap justify-between dark:bg-gray-800 dark:border-gray-700 p-4 rounded border border-gray-200 cursor-pointer items-center my-1.5 hover:shadow-md'
       data-testid='BlockCardDetails'
     >
       <div className='w-1/2 flex space-x-2'>
         <span className='text-lg leading-6'>
-          <MdStairs className='text-gray-400 dark:text-white inline-block' size={22} />
+          <MdStairs className='text-gray-400 inline-block' size={22} />
         </span>
         <div>
-          <div className='font-medium text-gray-900 dark:text-dark-50' data-testid='BlockCardDetails.height'>
+          <div className='font-medium text-gray-900 dark:text-gray-100' data-testid='BlockCardDetails.height'>
             {props.height}
           </div>
-          <div className='text-xs text-gray-400 leading-5 dark:text-dark-400' data-testid='BlockCardDetails.age'>
+          <div className='text-xs text-gray-400 leading-5' data-testid='BlockCardDetails.age'>
             <span>{props.age}</span>
           </div>
         </div>
@@ -88,18 +88,18 @@ function BlockCardDetails (props: { height: string, minter?: string, transaction
       <div className='w-1/2 flex flex-wrap justify-between'>
         <div className='w-10/12 flex flex-wrap'>
           <div className='w-full flex flex-wrap items-center text-sm overflow-hidden'>
-            <div className='w-1/2 text-gray-500 dark:text-white' data-testid='BlockCardDetails.MintedByLabel'>
+            <div className='w-1/2 text-gray-500 dark:text-gray-400' data-testid='BlockCardDetails.MintedByLabel'>
               Minted by
             </div>
-            <div className='w-1/2 overflow-hidden overflow-ellipsis dark:text-dark-50' data-testid='BlockCardDetails.MintedByValue'>
+            <div className='w-1/2 overflow-hidden overflow-ellipsis dark:text-gray-100' data-testid='BlockCardDetails.MintedByValue'>
               {props.minter === undefined ? ('N/A') : (props.minter)}
             </div>
           </div>
           <div className='w-full flex flex-wrap justify-between text-sm'>
-            <div className='w-1/2 text-gray-500 dark:text-white' data-testid='BlockCardDetails.TransactionsLabel'>
+            <div className='w-1/2 text-gray-500 dark:text-gray-400' data-testid='BlockCardDetails.TransactionsLabel'>
               Transactions
             </div>
-            <span className='w-1/2 text-right text-gray-900 dark:text-dark-400' data-testid='BlockCardDetails.TransactionsValue'>{props.transactionCount}</span>
+            <span className='w-1/2 text-right text-gray-900 dark:text-gray-100' data-testid='BlockCardDetails.TransactionsValue'>{props.transactionCount}</span>
           </div>
         </div>
         <div className='flex items-center'>

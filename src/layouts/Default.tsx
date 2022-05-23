@@ -24,7 +24,7 @@ const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoi
  */
 export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | null {
   return (
-    <div className='flex flex-col min-h-screen dark:bg-dark-200'>
+    <div className='flex flex-col min-h-screen dark:bg-gray-900'>
       <Head>
         <meta charSet='UTF-8' />
         <title key='title'>{title}</title>
@@ -42,7 +42,7 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
         <link rel='icon' type='image/png' sizes='48x48' href='/favicon.png' />
       </Head>
 
-      <ThemeProvider initialTheme='dark'>
+      <ThemeProvider theme='light'>
         <NetworkProvider>
           <WhaleProvider>
             <StoreProvider state={props.initialReduxState}>

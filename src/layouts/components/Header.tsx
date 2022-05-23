@@ -36,7 +36,7 @@ export function Header (): JSX.Element {
 
   return (
     <header className={classNames('bg-white z-50 sticky top-0 md:shadow-none md:static', { 'shadow-lg': !atTop })}>
-      <div className='hidden md:block border-b border-gray-100 bg-primary-700 dark:bg-dark-500 dark:border-0'>
+      <div className='hidden md:block border-b border-gray-100 bg-primary-700 dark:bg-gray-800 dark:border-0'>
         <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
             <HeaderCountBar className='h-full flex' />
@@ -45,7 +45,7 @@ export function Header (): JSX.Element {
         </Container>
       </div>
 
-      <div className='border-b border-gray-100 dark:bg-dark-200 dark:border-0'>
+      <div className='border-b border-gray-100 dark:bg-gray-900 dark:border-0'>
         <Container className='py-4 md:py-8'>
           <div className='flex items-center justify-between'>
             <div className='flex w-full'>
@@ -123,35 +123,35 @@ function DesktopNavbar (): JSX.Element {
 
 function MobileMenu (): JSX.Element {
   return (
-    <div className='md:hidden'>
+    <div className='md:hidden dark:bg-gray-900'>
       <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm text-gray-600 dark:text-white'>
         <div className='flex flex-col'>
           <HeaderLink
-            className='flex justify-center border-b border-gray-100' text='DEX' pathname='/dex'
+            className='flex justify-center border-b border-gray-100 dark:border-gray-700' text='DEX' pathname='/dex'
             testId='Mobile.HeaderLink.DEX'
           />
           <HeaderLink
-            className='flex justify-center border-b border-gray-100' text='Blocks' pathname='/blocks'
+            className='flex justify-center border-b border-gray-100 dark:border-gray-700' text='Blocks' pathname='/blocks'
             testId='Mobile.HeaderLink.Blocks'
           />
           <HeaderLink
-            className='flex justify-center border-b border-gray-100' text='Vaults' pathname='/vaults'
+            className='flex justify-center border-b border-gray-100 dark:border-gray-700' text='Vaults' pathname='/vaults'
             testId='Mobile.HeaderLink.Vaults'
           />
           <HeaderLink
-            className='flex justify-center border-b border-gray-100' text='Auctions' pathname='/auctions'
+            className='flex justify-center border-b border-gray-100 dark:border-gray-700' text='Auctions' pathname='/auctions'
             testId='Mobile.HeaderLink.Auctions'
           />
           <HeaderLink
-            className='flex justify-center border-b border-gray-100' text='Oracles' pathname='/oracles'
+            className='flex justify-center border-b border-gray-100 dark:border-gray-700' text='Oracles' pathname='/oracles'
             testId='Mobile.HeaderLink.Oracles'
           />
           <HeaderLink
-            className='flex justify-center border-b border-gray-100' text='Tokens' pathname='/tokens'
+            className='flex justify-center border-b border-gray-100 dark:border-gray-700' text='Tokens' pathname='/tokens'
             testId='Mobile.HeaderLink.Tokens'
           />
           <HeaderLink
-            className='flex justify-center border-b border-gray-100' text='Masternodes'
+            className='flex justify-center border-b border-gray-100 dark:border-gray-700' text='Masternodes'
             pathname='/masternodes'
             testId='Mobile.HeaderLink.Masternodes'
           />
@@ -162,7 +162,7 @@ function MobileMenu (): JSX.Element {
         </div>
       </Container>
 
-      <div className='p-2 bg-primary-700 flex flex-wrap p-4 md:p-0'>
+      <div className='p-2 bg-primary-700 dark:bg-gray-900 flex flex-wrap p-4 md:p-0'>
         <HeaderCountBar className='w-full flex flex-wrap' />
         <div className='w-full mt-4'>
           <HeaderNetworkMenu />
