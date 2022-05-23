@@ -34,7 +34,7 @@ function TokenCard ({ token }: { token: TokenData }): JSX.Element {
             const TokenIcon = getTokenIcon(token.displaySymbol)
             return <TokenIcon className='h-6 w-6' />
           })()}
-          <div className='font-medium ml-2 text-gray-900'>
+          <div className='font-medium ml-2 text-gray-900 dark:text-gray-100'>
             {token.displaySymbol}{!token.isDAT && `#${token.id}`}
           </div>
         </div>

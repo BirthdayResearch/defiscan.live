@@ -77,7 +77,7 @@ function DesktopTransactionCardDetails (props: {
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
         </span>
         <div className='overflow-hidden'>
-          <div className='overflow-ellipsis overflow-hidden font-medium dark:text-darkprimary-500 text-gray-900' data-testid='Desktop.TransactionCard.txid'>
+          <div className='overflow-ellipsis overflow-hidden font-medium dark:text-gray-100 text-gray-900' data-testid='Desktop.TransactionCard.txid'>
             {props.txid}
           </div>
           <div className='text-xs text-gray-400 dark:text-gray-400 leading-5' data-testid='Desktop.TransactionCard.age'>
@@ -115,7 +115,7 @@ function MobileTransactionCardDetails (props: {
         </span>
         <div className='overflow-hidden'>
           <div className='flex'>
-            <div className='w-1/2 overflow-ellipsis overflow-hidden font-medium text-gray-900 dark:text-darkprimary-500' data-testid='Mobile.TransactionCard.txid'>
+            <div className='w-1/2 overflow-ellipsis overflow-hidden font-medium text-gray-900 dark:text-gray-100' data-testid='Mobile.TransactionCard.txid'>
               {props.txid}
             </div>
             <div className='w-1/2 text-right text-xs text-gray-400 leading-5 mr-3' data-testid='Mobile.TransactionCard.age'>

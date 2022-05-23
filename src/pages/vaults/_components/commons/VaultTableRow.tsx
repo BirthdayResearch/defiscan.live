@@ -19,7 +19,7 @@ interface VaultTableRowProps {
 export function VaultTableRow (props: VaultTableRowProps): JSX.Element {
   return (
     <OverflowTable.Row
-      className={classNames('cursor-pointer', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+      className={classNames('cursor-pointer', props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900 dark:text-gray-100')}
     >
       <OverflowTable.Cell sticky>
         <TextTruncate

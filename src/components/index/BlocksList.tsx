@@ -77,7 +77,7 @@ function BlockCardDetails (props: { height: string, minter?: string, transaction
           <MdStairs className='text-gray-400 inline-block' size={22} />
         </span>
         <div>
-          <div className='font-medium text-gray-900 dark:text-darkprimary-500' data-testid='BlockCardDetails.height'>
+          <div className='font-medium text-gray-900 dark:text-gray-100' data-testid='BlockCardDetails.height'>
             {props.height}
           </div>
           <div className='text-xs text-gray-400 leading-5' data-testid='BlockCardDetails.age'>

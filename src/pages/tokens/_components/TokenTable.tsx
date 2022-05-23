@@ -28,7 +28,7 @@ export function TokenTable ({ tokens }: { tokens: TokenData[] }): JSX.Element {
 
 function TokenRow ({ data }: { data: TokenData }): JSX.Element {
   return (
-    <OverflowTable.Row className='hover:text-primary-500'>
+    <OverflowTable.Row className='hover:text-primary-500 dark:hover:text-gray-100 dark:text-gray-100'>
       <OverflowTable.Cell className='align-middle'>
         <div className='flex items-center'>
           {(() => {

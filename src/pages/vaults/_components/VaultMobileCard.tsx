@@ -18,7 +18,7 @@ interface VaultMobileCardProps {
 export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
   return (
     <CardList.Card>
-      <CardList.Header path={`/vaults/${props.vault.vaultId}`}>
+      <CardList.Header path={`/vaults/${props.vault.vaultId}`} className='text-white'>
         Vault ID
         <VaultStatus
           vault={props.vault} className='ml-2 px-2 py-1 inline-block text-xs'
@@ -27,7 +27,7 @@ export function VaultMobileCard (props: VaultMobileCardProps): JSX.Element {
       </CardList.Header>
 
       <TextTruncate
-        text={props.vault.vaultId} className='mt-0.5 font-medium text-gray-900'
+        text={props.vault.vaultId} className='mt-0.5 font-medium text-gray-900 dark:text-gray-400'
         testId='VaultMobileCard.VaultID'
         width='w-36'
       />

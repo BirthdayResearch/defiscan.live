@@ -59,7 +59,7 @@ function Header (props: PropsWithChildren<{ className?: string, path?: string }>
 
   return (
     <div className='w-full flex justify-between space-x-1.5' data-testid='CardList.Header'>
-      <div className='w-full flex items-center' data-testid='CardList.Header.Children'>
+      <div className={classNames('w-full flex items-center', props.className)} data-testid='CardList.Header.Children'>
         {props.children}
       </div>
       {
@@ -124,7 +124,7 @@ function ListItem (props: PropsWithChildren<{
             <InfoHoverPopover className='ml-1 self-center' description={props.infoDesc} placement='top' />)}
         </div>
       </div>
-      <div data-testid='CardList.Row.Child'>
+      <div data-testid='CardList.Row.Child' className={classNames(props.className, 'dark:text-gray-100')}>
         {props.children}
       </div>
     </div>
