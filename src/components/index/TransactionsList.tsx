@@ -132,7 +132,7 @@ function MobileTransactionCardDetails (props: {
           </div>
         </div>
       </div>
-      <div className='w-1/12 flex items-center justify-end'>
+      <div className='w-1/12 flex items-center justify-end dark:text-gray-100'>
         <IoChevronForwardSharp size={24} />
       </div>
     </>

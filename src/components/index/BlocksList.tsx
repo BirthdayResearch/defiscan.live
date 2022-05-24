@@ -102,7 +102,7 @@ function BlockCardDetails (props: { height: string, minter?: string, transaction
             <span className='w-1/2 text-right text-gray-900 dark:text-gray-100' data-testid='BlockCardDetails.TransactionsValue'>{props.transactionCount}</span>
           </div>
         </div>
-        <div className='flex items-center'>
+        <div className='flex items-center dark:text-gray-100'>
           <IoChevronForwardSharp size={24} />
         </div>
       </div>
