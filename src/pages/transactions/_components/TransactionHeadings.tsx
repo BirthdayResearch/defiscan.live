@@ -12,12 +12,12 @@ interface TransactionNotFoundHeadingProps {
 export function TransactionHeading (props: TransactionHeadingProps): JSX.Element {
   return (
     <>
-      <span className='leading-6 opacity-60' data-testid='title'>
+      <span className='leading-6 opacity-60 dark:opacity-100 dark:text-gray-100' data-testid='title'>
         Transaction ID
       </span>
 
       <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium break-all' data-testid='transaction-txid'>{props.transaction.txid}</h1>
+        <h1 className='text-2xl font-medium break-all dark:text-gray-100' data-testid='transaction-txid'>{props.transaction.txid}</h1>
         <CopyButton className='ml-2' content={props.transaction.txid} />
       </div>
     </>
