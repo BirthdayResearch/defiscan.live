@@ -18,7 +18,6 @@ context('Dark mode toggle on desktop', () => {
   })
 })
 
-
 context('Dark mode toggle on desktop', () => {
   before(() => {
     cy.visit('/?network=MainNet')
