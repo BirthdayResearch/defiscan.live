@@ -110,7 +110,7 @@ function GraphPeriodButton ({
   return (
     <div
       data-testid='Oracles.GraphPeriodButton'
-      className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', graphPeriod === current ? 'text-primary-500 bg-primary-100 border-primary-100 dark:bg-darkprimary-500 dark:border-darkprimary-500 dark:text-white' : 'text-gray-900 dark:text-darkprimary-500 dark:border-gray-400 dark:hover:bg-darkprimary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200  hover:bg-primary-50 hover:border-primary-50')}
+      className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', graphPeriod === current ? 'text-primary-500 bg-primary-100 border-primary-100 dark:bg-darkprimary-500 dark:border-darkprimary-500 dark:text-white' : 'text-gray-900 dark:text-darkprimary-500 dark:border-gray-400 dark:hover:bg-darkprimary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50')}
       onClick={onClick}
       key={graphPeriod}
     >
