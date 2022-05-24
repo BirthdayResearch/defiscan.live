@@ -55,7 +55,7 @@ export function CopyButton (props: CopyButtonProps): JSX.Element {
             left: x ?? ''
           }}
         >
-          <div className='mt-2 text-xs font-medium rounded shadow-md ring-1 ring-gray-100 bg-white dark:ring-gray-700 dark:bg-gray-800 p-2'>
+          <div className='mt-2 text-xs font-medium rounded shadow-md ring-1 ring-gray-100 bg-white dark:ring-gray-700 dark:bg-gray-800 dark:text-white p-2'>
             COPIED!
           </div>
         </div>

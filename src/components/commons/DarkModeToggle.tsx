@@ -12,9 +12,9 @@ export function DarkModeToggle (props: {className?: string}): JSX.Element {
     <div className={classNames('h-8 w-8 border-[1px] border-gray-600 border-opacity-40 flex items-center justify-center cursor-pointer shadow-xl rounded-lg hover:bg-white bg-darkprimary-800 dark:bg-gray-900 dark:hover:bg-white ', props.className)} onClick={handleToggle}>
       <button className='text-[#FACC15] hover:text-black p-2'>
         {theme === 'dark' ? (
-          <BsMoonFill fontSize={18} />
+          <BsMoonFill fontSize={16} />
         ) : (
-          <BsFillSunFill fontSize={18} />
+          <BsFillSunFill fontSize={16} />
         )}
       </button>
     </div>
