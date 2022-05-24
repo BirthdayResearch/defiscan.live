@@ -34,7 +34,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
             <div
               className='mr-4 my-auto cursor-pointer hidden md:inline-block'
             >
-              <MdExpand size={22} />
+              <MdExpand size={22} className='dark:text-gray-100' />
             </div>
             <div className='w-24 md:w-40 lg:w-60 my-auto'>
               <TxIdLink txid={props.addressActivity.txid} className='overflow-ellipsis overflow-hidden' />
@@ -50,7 +50,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
         </OverflowTable.Cell>
         <OverflowTable.Cell>
           <HoverPopover popover={format(fromUnixTime(props.addressActivity.block.medianTime), 'PPpp')}>
-            <div className='cursor-help'>
+            <div className='cursor-help dark:text-gray-100'>
               {formatDistanceToNow(props.addressActivity.block.medianTime * 1000)} ago
             </div>
           </HoverPopover>
@@ -62,7 +62,7 @@ export function AddressTransactionTableRow (props: TransactionTableRowProps): JS
             ) : (
               <span className='bg-red-100 rounded text-xs py-1 font-medium text-center h-6 w-10'>OUT</span>
             )}
-            <div className='flex flex-row text-right'>
+            <div className='flex flex-row text-right dark:text-gray-100'>
               {props.addressActivity.value} DFI
             </div>
           </div>
