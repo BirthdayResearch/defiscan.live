@@ -80,7 +80,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                     className={`${availabilitySelection ? 'translate-x-6' : 'translate-x-1'} inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
                   />
                 </Switch>
-                <Switch.Label className='ml-1 flex items-center text-gray-900'>
+                <Switch.Label className='ml-1 flex items-center text-gray-900 dark:text-gray-100'>
                   Loan/Collateral Tokens
                   <InfoHoverPopover
                     className='ml-0.5'
