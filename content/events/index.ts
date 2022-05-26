@@ -75,6 +75,12 @@ export const EVENTS: Record<string, EventCopy> = {
     slug: 'FortCanningCrunch',
     name: 'Fort Canning Crunch',
     network: 'MainNet'
+  },
+  dTokenJuneReward: {
+    height: '1927200',
+    slug: 'dTokenJunReward',
+    name: 'June dTokens Reward Distribution',
+    network: 'MainNet'
   }
 }
 
