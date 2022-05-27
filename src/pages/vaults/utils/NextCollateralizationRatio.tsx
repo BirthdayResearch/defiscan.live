@@ -34,5 +34,5 @@ export function getActivePrice (symbol: string, amount?: string): string {
     return amount ?? '-1'
   }
 
-  return '1'
+  return '0.99'
 }
