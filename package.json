@@ -38,7 +38,7 @@
     "react-icons": "^4.3.1",
     "react-number-format": "^4.9.3",
     "@floating-ui/react-dom": "^0.4.3",
-    "react-redux": "^8.0.0",
+    "react-redux": "^8.0.2",
     "react-schemaorg": "^2.0.0",
     "recharts": "^2.1.10",
     "schema-dts": "^1.1.0"
