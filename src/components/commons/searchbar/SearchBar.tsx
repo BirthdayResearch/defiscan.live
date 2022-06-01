@@ -26,15 +26,24 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
 
-  const { x, y, reference, floating, strategy, refs } = useFloating({
+  const {
+    x,
+    y,
+    reference,
+    floating,
+    strategy,
+    refs
+  } = useFloating({
     placement: 'bottom-end',
     middleware: [shift(),
       size({
         apply ({ reference }) {
-          Object.assign(refs.floating.current?.style, {
-            minWidth: '325px',
-            width: `${reference.width}px`
-          })
+          if (refs.floating.current !== null && refs.floating.current !== undefined) {
+            Object.assign(refs.floating.current.style, {
+              minWidth: '325px',
+              width: `${reference.width}px`
+            })
+          }
         }
       })
     ]
