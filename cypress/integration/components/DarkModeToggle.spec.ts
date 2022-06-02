@@ -44,9 +44,13 @@ context('Dark mode toggle on mobile', () => {
 
   it('should have dark mode toggle', function () {
     cy.get('html').should('have.class', 'light')
+
     cy.findByTestId('Header.OpenMenu').click()
-    cy.findByTestId('DarkModeToggle').should('be.visible')
-    cy.findByTestId('DarkModeToggle').click()
+    cy.findByTestId('MobileMenu').within(() => {
+      cy.findByTestId('DarkModeToggle').should('be.visible')
+      cy.findByTestId('DarkModeToggle').click()
+    })
+
     cy.get('html').should('have.class', 'dark')
   })
 })

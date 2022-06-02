@@ -2,7 +2,7 @@ import { BsMoonFill, BsFillSunFill } from 'react-icons/bs'
 import { useTheme } from '@contexts/ThemeContext'
 import classNames from 'classnames'
 
-export function DarkModeToggle (props: { className?: string }): JSX.Element {
+export function DarkModeToggle (props: { className?: string}): JSX.Element {
   const {
     theme,
     setTheme

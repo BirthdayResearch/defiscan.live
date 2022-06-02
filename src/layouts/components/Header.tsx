@@ -74,9 +74,9 @@ export function Header (): JSX.Element {
         </Container>
       </div>
 
-      <div>
+      <>
         {menu && (<MobileMenu />)}
-      </div>
+      </>
     </header>
   )
 }
@@ -123,7 +123,7 @@ function DesktopNavbar (): JSX.Element {
 
 function MobileMenu (): JSX.Element {
   return (
-    <div className='md:hidden dark:bg-gray-900'>
+    <div className='md:hidden dark:bg-gray-900' data-testid='MobileMenu'>
       <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm text-gray-600 dark:text-grayDark-900'>
         <div className='flex flex-col'>
           <HeaderLink
