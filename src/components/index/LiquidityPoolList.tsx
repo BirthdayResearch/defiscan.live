@@ -8,7 +8,7 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
   return (
     <div className='mt-12' data-testid='LiquidityPoolList'>
       <div className='flex justify-between'>
-        <h1 className='text-xl font-semibold dark:text-white' data-testid='LiquidityPoolList.title'>Liquidity Pools</h1>
+        <h1 className='text-xl font-semibold dark:text-grayDark-900' data-testid='LiquidityPoolList.title'>Liquidity Pools</h1>
       </div>
       <div
         className='mt-6 flex flex-wrap -m-1'
@@ -37,7 +37,7 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
           >
             <button
               type='button'
-              className='mt-2 py-2 px-14 border border-gray-200 dark:border-gray-400 rounded-sm hover:shadow-md'
+              className='mt-2 py-2 px-14 border border-gray-200 dark:border-gray-700 rounded-sm hover:shadow-md'
             >
               VIEW ALL POOLS
             </button>
@@ -62,7 +62,7 @@ function LiquidityPoolCard (
       <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3 dark:bg-gray-800 dark:border-gray-700' data-testid='LiquidityPoolCard'>
         <PoolPairSymbol
           poolPairId={props.poolId} symbolSizeClassName='h-6 w-6' symbolMarginClassName='ml-3.5'
-          textClassName='ml-11 font-medium dark:text-white'
+          textClassName='ml-11 font-medium dark:text-grayDark-900'
           testId='LiquidityPoolCard.PoolPairSymbol'
         />
         <div className='my-auto'>

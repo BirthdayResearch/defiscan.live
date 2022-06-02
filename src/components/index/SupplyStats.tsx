@@ -135,7 +135,7 @@ function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string,
             value={props.stat}
             displayType='text'
             thousandSeparator
-            className='text-lg lg:text-2xl font-semibold dark:text-white'
+            className='text-lg lg:text-2xl font-semibold dark:text-grayDark-900'
             decimalScale={0}
             prefix={props.prefix !== undefined ? props.prefix : ''}
           />

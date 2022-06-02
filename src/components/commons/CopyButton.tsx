@@ -41,7 +41,7 @@ export function CopyButton (props: CopyButtonProps): JSX.Element {
   return (
     <div className={classNames('relative', props.className)} ref={reference}>
       <button
-        className='cursor-pointer outline-none p-2 bg-white dark:bg-gray-900 dark:border-gray-400  border border-gray-200 rounded'
+        className='cursor-pointer outline-none p-2 bg-white dark:bg-gray-900 dark:border-gray-700  border border-gray-200 rounded'
         onClick={copy}
       >
         <MdContentCopy className='h-5 w-5 text-gray-600 dark:text-primaryDark-500' />
@@ -55,7 +55,7 @@ export function CopyButton (props: CopyButtonProps): JSX.Element {
             left: x ?? ''
           }}
         >
-          <div className='mt-2 text-xs font-medium rounded shadow-md ring-1 ring-gray-100 bg-white dark:ring-gray-700 dark:bg-gray-800 dark:text-white p-2'>
+          <div className='mt-2 text-xs font-medium rounded shadow-md ring-1 ring-gray-100 bg-white dark:ring-gray-700 dark:bg-gray-800 dark:text-grayDark-900 p-2'>
             COPIED!
           </div>
         </div>

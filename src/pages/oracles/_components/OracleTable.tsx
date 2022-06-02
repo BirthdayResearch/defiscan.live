@@ -19,7 +19,7 @@ export function OracleTable ({
 }: PriceOracleTableProps): JSX.Element {
   return (
     <div data-testid='OracleTable'>
-      <h2 className='text-2xl font-semibold dark:text-white'>
+      <h2 className='text-2xl font-semibold dark:text-grayDark-900'>
         Oracles
       </h2>
 

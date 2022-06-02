@@ -28,7 +28,7 @@ export function OracleTickerDetail ({
           }
         })()}
         <div className='flex items-center'>
-          <h1 className='text-3xl font-bold dark:text-white'>
+          <h1 className='text-3xl font-bold dark:text-grayDark-900'>
             {price.price.token} / {price.price.currency}
           </h1>
 

@@ -13,14 +13,14 @@ export function HeaderNetworkMenu (): JSX.Element {
     <div className='flex item-center flex-row-reverse'>
       <DarkModeToggle className='ml-4' />
       <Menu as='div' className='relative flex'>
-        <Menu.Button className='bg-gray-50 px-2 py-1 rounded flex items-center w-full justify-between'>
+        <Menu.Button className='bg-gray-50 dark:bg-grayDark-200 dark:text-grayDark-900 px-2 py-1 rounded flex items-center w-full justify-between'>
           <div className='flex items-center'>
             <div className='bg-green-500 h-2 w-2 rounded-full' />
-            <div className='text-xs ml-2 font-medium leading-none'>
+            <div className='text-xs ml-2 font-medium leading-none dark:text-grayDark-900'>
               {connection}
             </div>
           </div>
-          <MdArrowDropDown className='h-6 w-6 ml-1 text-gray-600' />
+          <MdArrowDropDown className='h-6 w-6 ml-1 text-gray-600 dark:text-grayDark-900' />
         </Menu.Button>
 
         <Transition

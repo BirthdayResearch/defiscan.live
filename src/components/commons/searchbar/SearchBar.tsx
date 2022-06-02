@@ -105,7 +105,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
         }}
       >
         <div
-          className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white dark:bg-gray-800 dark:border-gray-400 border', { 'border-primary-200': isActive })}
+          className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white dark:bg-gray-800 dark:border-gray-700 border', { 'border-primary-200': isActive })}
           data-testid='SearchBar'
           ref={reference}
         >
@@ -114,7 +114,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
               <IoSearchSharp size={22} className='dark:text-gray-100 text-gray-600 ml-0.5 self-center' />
               <input
                 placeholder='Search Block / Txn / Vault ID and more'
-                className='ml-1.5 h-full w-full focus:outline-none dark:bg-gray-800 dark:placeholder-gray-400 dark:text-white'
+                className='ml-1.5 h-full w-full focus:outline-none dark:bg-gray-800 dark:placeholder-gray-400 dark:text-grayDark-900'
                 data-testid='SearchBar.Input'
                 onChange={onChangeDebounceHandler}
               />

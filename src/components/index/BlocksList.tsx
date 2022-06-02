@@ -11,7 +11,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
     <>
       <div className='hidden md:block md:mt-8 lg:mt-0' data-testid='Desktop.BlocksList'>
         <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold dark:text-white' data-testid='Desktop.BlocksList.Title'>Latest Blocks</h1>
+          <h1 className='text-xl font-semibold dark:text-grayDark-900' data-testid='Desktop.BlocksList.Title'>Latest Blocks</h1>
         </div>
         <div className='mt-6'>
           {blocks.map((block) => {
@@ -119,7 +119,7 @@ function ViewMoreButton (): JSX.Element {
       >
         <button
           type='button'
-          className='mt-2 py-2 px-14 border border-gray-200 dark:border-gray-400 rounded-sm hover:shadow-md'
+          className='mt-2 py-2 px-14 border border-gray-200 dark:border-gray-700 rounded-sm hover:shadow-md'
         >
           VIEW ALL BLOCKS
         </button>

@@ -18,7 +18,7 @@ export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element 
   if (props.history.length <= 0) {
     return (
       <>
-        <h2 className='text-xl font-semibold mt-8 mb-5 dark:text-white' data-testid='BiddingHistory.Heading'>
+        <h2 className='text-xl font-semibold mt-8 mb-5 dark:text-grayDark-900' data-testid='BiddingHistory.Heading'>
           Bidding Details
         </h2>
         <EmptySection message='No Bidding History' />
@@ -28,7 +28,7 @@ export function BiddingHistory (props: AuctionBiddingHistoryProps): JSX.Element 
   return (
     <>
       <div className='mt-6 hidden lg:block'>
-        <h2 className='text-xl font-semibold mt-8 mb-5 dark:text-white' data-testid='BiddingHistory.Heading'>
+        <h2 className='text-xl font-semibold mt-8 mb-5 dark:text-grayDark-900' data-testid='BiddingHistory.Heading'>
           Bidding Details
         </h2>
         <OverflowTable>

@@ -80,7 +80,7 @@ function TransactionDetails (props: { address: string, vins: TransactionVin[], v
 
   return (
     <td colSpan={4} className='px-4 md:px-6 pt-2 pb-4 lg:p-6 bg-gray-200 bg-opacity-50 dark:bg-opacity-80 dark:bg-gray-800'>
-      <div className='w-full font-medium text-lg dark:text-white'>Details</div>
+      <div className='w-full font-medium text-lg dark:text-grayDark-900'>Details</div>
       <div className='mt-2 w-full flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <TransactionDetailsLeft address={props.address} vins={props.vins} network={network} />
         <div className='flex items-center justify-center text-gray-600 dark:text-primaryDark-500 w-full lg:w-auto lg:h-20'>
