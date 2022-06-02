@@ -5,7 +5,7 @@ context('Dark mode toggle on desktop', () => {
         cy.stub(win, 'matchMedia')
           .withArgs('(prefers-color-scheme: dark)')
           .returns({
-            matches: false,
+            matches: false
           })
       }
     })
@@ -31,7 +31,7 @@ context('Dark mode toggle on mobile', () => {
         cy.stub(win, 'matchMedia')
           .withArgs('(prefers-color-scheme: dark)')
           .returns({
-            matches: false,
+            matches: false
           })
       }
     })
