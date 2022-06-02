@@ -44,7 +44,7 @@ export function CopyButton (props: CopyButtonProps): JSX.Element {
         className='cursor-pointer outline-none p-2 bg-white dark:bg-gray-900 dark:border-gray-400  border border-gray-200 rounded'
         onClick={copy}
       >
-        <MdContentCopy className='h-5 w-5 text-gray-600 dark:text-darkprimary-500' />
+        <MdContentCopy className='h-5 w-5 text-gray-600 dark:text-primaryDark-500' />
       </button>
       {open && (
         <div

@@ -11,7 +11,7 @@ export function StatItem ({
     <div className='flex items-center'>
       <div className='whitespace-nowrap' data-testid={testId}>
         <span className='text-gray-500 dark:text-gray-400'>{label}</span>
-        <span className='ml-2 text-gray-900 dark:text-darkprimary-500'>{children}</span>
+        <span className='ml-2 text-gray-900 dark:text-primaryDark-500'>{children}</span>
       </div>
       {infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={infoDesc} />)}
     </div>

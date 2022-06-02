@@ -114,7 +114,7 @@ function ViewMoreButton (): JSX.Element {
   return (
     <Link href={{ pathname: '/blocks' }}>
       <a
-        className='font-medium cursor-pointer text-primary-500 dark:text-darkprimary-500 '
+        className='font-medium cursor-pointer text-primary-500 dark:text-primaryDark-500 '
         data-testid='BlocksList.viewAllBlocksButton'
       >
         <button

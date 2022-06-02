@@ -19,7 +19,7 @@ export function BiddingHistoryCard ({
     >
       <div className='flex flex-col'>
         <div className='justify-start space-x-2'>
-          <span className='bg-gray-400 dark:bg-gray-900 dark:text-darkprimary-500 px-2 py-1 w-20 text-sm text-white text-center'>
+          <span className='bg-gray-400 dark:bg-gray-900 dark:text-primaryDark-500 px-2 py-1 w-20 text-sm text-white text-center'>
             {`Bid #${bidIndex}`}
           </span>
           <span className='text-gray-400'>

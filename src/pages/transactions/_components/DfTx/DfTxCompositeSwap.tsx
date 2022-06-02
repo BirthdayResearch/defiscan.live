@@ -120,7 +120,7 @@ function Path (props: { pools: PoolId[], FromTokenSymbol: JSX.Element, ToTokenSy
         data-testid='DfTxCompositeSwap.SwapPathDiv'
       >
         <div className='my-1.5 dark:text-gray-100'>{props.FromTokenSymbol}</div>
-        <IoArrowForwardOutline size={18} className='dark:text-darkprimary-500' />
+        <IoArrowForwardOutline size={18} className='dark:text-primaryDark-500' />
         {props.pools.map(pool =>
           (
             <div className='inline-block flex items-center space-x-4' key={pool.id}>

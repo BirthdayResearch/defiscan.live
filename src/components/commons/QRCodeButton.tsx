@@ -27,8 +27,8 @@ export function QRCodeButton (props: QRCodeButtonProps): JSX.Element {
         onClick={() => setOpen(!open)}
       >
         {
-          !open ? <MdQrCode className='h-5 w-5 text-gray-600 dark:text-darkprimary-500' />
-            : <MdOutlineClose className='h-5 w-5 text-gray-600 dark:text-darkprimary-500' />
+          !open ? <MdQrCode className='h-5 w-5 text-gray-600 dark:text-primaryDark-500' />
+            : <MdOutlineClose className='h-5 w-5 text-gray-600 dark:text-primaryDark-500' />
         }
       </button>
       {open && (

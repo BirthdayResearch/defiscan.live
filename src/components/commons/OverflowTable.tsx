@@ -29,7 +29,7 @@ function Header (props: PropsWithChildren<{ className?: string }>): JSX.Element 
   return (
     <div
       data-testid='OverflowTable.Header'
-      className={classNames('table-row border-gray-100 bg-gray-50 dark:bg-gray-800', props.className)}
+      className={classNames('table-row border-gray-100 bg-gray-50 dark:bg-gray-700', props.className)}
     >
       {props.children}
     </div>

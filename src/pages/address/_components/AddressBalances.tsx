@@ -84,7 +84,7 @@ function AddressTokenCard (props: { token: AddressToken }): JSX.Element {
           <TokenSymbolName token={props.token} />
 
           <div className='bg-gray-200 p-1 rounded dark:bg-gray-900'>
-            <div className='text-xs font-medium text-gray-600 dark:text-darkprimary-500' data-testid='AddressTokenCard.Type'>
+            <div className='text-xs font-medium text-gray-600 dark:text-primaryDark-500' data-testid='AddressTokenCard.Type'>
               {(() => {
                 if (props.token.isLPS) {
                   return 'LPS'

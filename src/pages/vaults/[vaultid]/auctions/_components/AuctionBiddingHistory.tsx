@@ -92,7 +92,7 @@ function BiddingHistoryRow ({
   return (
     <OverflowTable.Row className='dark:text-gray-100'>
       <OverflowTable.Cell>
-        <span className='bg-gray-400 px-2 py-1 w-20 text-sm text-white dark:bg-gray-800 dark:text-darkprimary-500 text-center'>
+        <span className='bg-gray-400 px-2 py-1 w-20 text-sm text-white dark:bg-gray-800 dark:text-primaryDark-500 text-center'>
           {`Bid #${bidIndex}`}
         </span>
       </OverflowTable.Cell>

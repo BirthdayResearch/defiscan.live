@@ -83,7 +83,7 @@ function TransactionDetails (props: { address: string, vins: TransactionVin[], v
       <div className='w-full font-medium text-lg dark:text-white'>Details</div>
       <div className='mt-2 w-full flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <TransactionDetailsLeft address={props.address} vins={props.vins} network={network} />
-        <div className='flex items-center justify-center text-gray-600 dark:text-darkprimary-500 w-full lg:w-auto lg:h-20'>
+        <div className='flex items-center justify-center text-gray-600 dark:text-primaryDark-500 w-full lg:w-auto lg:h-20'>
           <IoArrowForwardOutline className='transform rotate-90 lg:rotate-0' size={24} />
         </div>
         <TransactionDetailsRight address={props.address} vouts={props.vouts} network={network} dftx={dftx} />

@@ -34,7 +34,7 @@ export function OracleTickerDetail ({
 
           {copy !== undefined && (
             <div className='ml-2 bg-gray-200 dark:bg-gray-700 p-1 rounded self-auto'>
-              <div className='text-xs font-medium dark:text-darkprimary-500'>{copy.type}</div>
+              <div className='text-xs font-medium dark:text-primaryDark-500'>{copy.type}</div>
             </div>
           )}
         </div>

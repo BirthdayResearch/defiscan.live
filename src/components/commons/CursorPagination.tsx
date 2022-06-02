@@ -55,7 +55,7 @@ export function CursorPagination (props: CursorPaginationProps): JSX.Element {
 function NumberButton (props: CursorPage & { path: string }): JSX.Element {
   if (props.active) {
     return (
-      <div className='bg-gray-50 dark:bg-gray-900 dark:border-gray-400 dark:text-darkprimary-500 rounded border border-primary-500 text-primary-500 cursor-not-allowed'>
+      <div className='bg-gray-50 dark:bg-gray-900 dark:border-gray-400 dark:text-primaryDark-500 rounded border border-primary-500 text-primary-500 cursor-not-allowed'>
         <div className='h-11 w-11 flex items-center justify-center'>
           <span className='font-medium'>{props.n}</span>
         </div>

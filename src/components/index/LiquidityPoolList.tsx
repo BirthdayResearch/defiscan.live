@@ -32,7 +32,7 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
       <div className='flex justify-center mt-1.5'>
         <Link href={{ pathname: '/dex' }}>
           <a
-            className='font-medium cursor-pointer text-primary-500 dark:text-darkprimary-500'
+            className='font-medium cursor-pointer text-primary-500 dark:text-primaryDark-500'
             data-testid='LiquidityPoolList.viewAllPoolsButton'
           >
             <button
