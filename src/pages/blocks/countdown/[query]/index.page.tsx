@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
 import * as prismic from '@prismicio/client'
 import _ from 'lodash'
+import { getEnvironment } from '@contexts/Environment'
 
 interface BlockDetailsPageProps {
   target: {
@@ -66,14 +67,21 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
+  const network = context.query.network?.toString() ?? getEnvironment().networks[0]
   const endpoint = prismic.createClient('scan')
   const events = await endpoint.getByType('events')
 
   const query = context.params?.query?.toString().trim() as string
 
-  const event = _.find(events.results, event => {
-    return event.data.slug[0].text.toLowerCase() === query.toLowerCase()
+  let event = _.find(events.results, event => {
+    return event.data.slug.toLowerCase() === query.toLowerCase() && event.data.network.toLowerCase() === network.toLowerCase()
   })
+
+  if (event === undefined) {
+    event = _.find(events.results, event => {
+      return event.data.height === Number(query) && event.data.network.toLowerCase() === network.toLowerCase()
+    })
+  }
 
   if (event === undefined && !isNumeric(query) && query.toLowerCase() !== 'nextfutureswap') {
     return { notFound: true }
@@ -88,8 +96,8 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return { notFound: true }
   }
 
-  let targetHeight = event?.data.height[0].text ?? query
-  let eventName = event?.data.name[0].text ?? null
+  let targetHeight = event?.data.height ?? query
+  let eventName = event?.data.name ?? null
 
   if (query.toLowerCase() === 'nextfutureswap') {
     targetHeight = (await rpc.oracle.getFutureSwapBlock()).toString()
