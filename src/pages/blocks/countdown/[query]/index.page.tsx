@@ -2,7 +2,6 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import { Container } from '@components/commons/Container'
 import React, { useEffect, useState } from 'react'
 import { getWhaleApiClient, getWhaleRpcClient } from '@contexts/WhaleContext'
-import { EventCopy, getEventCopy } from '@content/events'
 import { isNumeric } from '../../../../utils/commons/StringValidator'
 import { Head } from '@components/commons/Head'
 import { BlocksInfoSection } from './_components/BlocksInfoSection'
@@ -10,6 +9,8 @@ import { CountdownSection } from './_components/CountdownSection'
 import { InfoSection } from './_components/InfoSection'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
+import * as prismic from '@prismicio/client'
+import _ from 'lodash'
 
 interface BlockDetailsPageProps {
   target: {
@@ -33,10 +34,10 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
     const timer = setTimeout(() => {
       setTimeLeft(timeLeft - 1)
 
-      if (currentHeight >= props.target.height || timeLeft % 10 === 0) {
+      if (currentHeight >= props.target.height || timeLeft % 30 === 0) {
         location.reload()
       }
-    }, 1000)
+    }, 10000)
 
     return () => clearTimeout(timer)
   })
@@ -65,8 +66,14 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
+  const endpoint = prismic.createClient('scan')
+  const events = await endpoint.getByType('events')
+
   const query = context.params?.query?.toString().trim() as string
-  const event: EventCopy | undefined = getEventCopy(query, context)
+
+  const event = _.find(events.results, event => {
+    return event.data.slug[0].text.toLowerCase() === query.toLowerCase()
+  })
 
   if (event === undefined && !isNumeric(query) && query.toLowerCase() !== 'nextfutureswap') {
     return { notFound: true }
@@ -81,8 +88,8 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return { notFound: true }
   }
 
-  let targetHeight = event?.height ?? query
-  let eventName = event?.name ?? null
+  let targetHeight = event?.data.height[0].text ?? query
+  let eventName = event?.data.name[0].text ?? null
 
   if (query.toLowerCase() === 'nextfutureswap') {
     targetHeight = (await rpc.oracle.getFutureSwapBlock()).toString()
@@ -93,7 +100,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
     return {
       redirect: {
         statusCode: 302,
-        destination: `/blocks/${targetHeight}`
+        destination: `/blocks/${String(targetHeight)}`
       }
     }
   }
