@@ -187,12 +187,12 @@ function FooterSectionAbout (): JSX.Element {
 
       <div className='mt-6 flex justify-between'>
         <a href='https://www.netlify.com' target='_blank' rel='nofollow noopener noreferrer' className='inline-block'>
-          <NetlifyLightLogo />
+          <NetlifyLightLogo className='bg-white fill-[#313D3E] dark:bg-gray-700 dark:fill-white rounded' />
         </a>
 
         {net !== undefined && (
           <HoverPopover popover={<NetworkStatus />} placement='top' className='inline-block float-right'>
-            <div className='text-sm text-gray-900 p-2 dark:bg-white rounded cursor-help'>
+            <div className='text-sm bg-white text-gray-900 p-2 dark:bg-grayDark-200 dark:text-grayDark-900 rounded cursor-help'>
               <span className='font-medium'>{net.subversion?.replaceAll('/', '').replace(':', ' Node v')}</span>
             </div>
           </HoverPopover>
