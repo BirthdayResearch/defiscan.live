@@ -1,26 +1,40 @@
 context('Dark mode toggle on desktop', () => {
   before(() => {
-    cy.visit('/?network=MainNet')
+    cy.visit('/?network=MainNet', {
+      onBeforeLoad (win) {
+        cy.stub(win, 'matchMedia')
+          .withArgs('(prefers-color-scheme: dark)')
+          .returns({
+            matches: false,
+          })
+      }
+    })
   })
 
   beforeEach(() => {
-    cy.viewport('macbook-13')
+    cy.viewport('macbook-16')
     cy.clearLocalStorage('color-theme')
   })
 
   it('should have dark mode toggle', function () {
-    cy.findAllByTestId('DarkModeToggle').eq(0).should('be.visible')
-  })
-
-  it('should toggle dark mode', function () {
-    cy.findAllByTestId('DarkModeToggle').eq(0).click()
+    cy.get('html').should('have.class', 'light')
+    cy.findByTestId('DarkModeToggle').should('be.visible')
+    cy.findByTestId('DarkModeToggle').click()
     cy.get('html').should('have.class', 'dark')
   })
 })
 
-context('Dark mode toggle on desktop', () => {
+context('Dark mode toggle on mobile', () => {
   before(() => {
-    cy.visit('/?network=MainNet')
+    cy.visit('/?network=MainNet', {
+      onBeforeLoad (win) {
+        cy.stub(win, 'matchMedia')
+          .withArgs('(prefers-color-scheme: dark)')
+          .returns({
+            matches: false,
+          })
+      }
+    })
   })
 
   beforeEach(() => {
@@ -29,11 +43,10 @@ context('Dark mode toggle on desktop', () => {
   })
 
   it('should have dark mode toggle', function () {
-    cy.findAllByTestId('DarkModeToggle').eq(1).should('be.visible')
-  })
-
-  it('should toggle dark mode', function () {
-    cy.findAllByTestId('DarkModeToggle').eq(1).click()
+    cy.get('html').should('have.class', 'light')
+    cy.findByTestId('Header.OpenMenu').click()
+    cy.findByTestId('DarkModeToggle').should('be.visible')
+    cy.findByTestId('DarkModeToggle').click()
     cy.get('html').should('have.class', 'dark')
   })
 })
