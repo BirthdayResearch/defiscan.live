@@ -12,6 +12,7 @@ import { RootState } from '@store/index'
 import * as prismic from '@prismicio/client'
 import _ from 'lodash'
 import { getEnvironment } from '@contexts/Environment'
+import { PrismicDocument } from '@prismicio/types'
 
 interface BlockDetailsPageProps {
   target: {
@@ -68,31 +69,11 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
   const network = context.query.network?.toString() ?? getEnvironment().networks[0]
-  const endpoint = prismic.createClient('scan')
-  const events = await endpoint.getByType('events')
-
   const query = context.params?.query?.toString().trim() as string
 
-  let event = _.find(events.results, event => {
-    return event.data.slug.toLowerCase() === query.toLowerCase() && event.data.network.toLowerCase() === network.toLowerCase()
-  })
-
-  if (event === undefined) {
-    event = _.find(events.results, event => {
-      return event.data.height === Number(query) && event.data.network.toLowerCase() === network.toLowerCase()
-    })
-  }
+  const event = await getEventFromPrismic()
 
   if (event === undefined && !isNumeric(query) && query.toLowerCase() !== 'nextfutureswap') {
-    return { notFound: true }
-  }
-
-  const api = getWhaleApiClient(context)
-  const rpc = getWhaleRpcClient(context)
-
-  const blocks = await api.blocks.list(1)
-
-  if (blocks === undefined || blocks.length !== 1) {
     return { notFound: true }
   }
 
@@ -100,8 +81,13 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   let eventName = event?.data.name ?? null
 
   if (query.toLowerCase() === 'nextfutureswap') {
-    targetHeight = (await rpc.oracle.getFutureSwapBlock()).toString()
+    targetHeight = (await getWhaleRpcClient(context).oracle.getFutureSwapBlock()).toString()
     eventName = 'Next Future Settlement Block'
+  }
+
+  const blocks = await getWhaleApiClient(context).blocks.list(1)
+  if (blocks === undefined || blocks.length !== 1) {
+    return { notFound: true }
   }
 
   if (blocks[0].height >= Number(targetHeight)) {
@@ -124,5 +110,15 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         medianTime: blocks[0].medianTime
       }
     }
+  }
+
+  async function getEventFromPrismic (): Promise<PrismicDocument | undefined> {
+    const endpoint = prismic.createClient('scan')
+    const events = await endpoint.getByType('events')
+
+    return _.find(events.results, event => {
+      return (event.data.slug.toLowerCase() === query.toLowerCase() && event.data.network.toLowerCase() === network.toLowerCase()) ||
+        (event.data.height === Number(query) && event.data.network.toLowerCase() === network.toLowerCase())
+    })
   }
 }
