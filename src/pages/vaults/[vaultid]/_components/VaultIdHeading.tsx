@@ -39,7 +39,7 @@ export function VaultIdHeading (props: { vault: LoanVaultActive | LoanVaultLiqui
       <div className='flex items-center pt-10'>
         <h2 data-testid='PageHeading' className='font-medium text-2xl block dark:text-grayDark-900'>Vault ID</h2>
         <VaultStatus
-          vault={props.vault} className='ml-4 px-2 py-1 inline-block text-xs'
+          vault={props.vault} className='ml-4 inline-block text-xs'
           testId='VaultIdHeading.VaultStatus'
         />
       </div>

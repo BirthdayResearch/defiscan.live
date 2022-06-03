@@ -30,7 +30,7 @@ export function VaultTableRow (props: VaultTableRowProps): JSX.Element {
       <OverflowTable.Cell>
         <VaultStatus
           vault={props.vault}
-          className='px-2 py-1 inline-block text-xs'
+          className='inline-block text-xs'
           testId='VaultRow.VaultStatus'
         />
       </OverflowTable.Cell>
