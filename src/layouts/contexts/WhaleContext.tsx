@@ -70,7 +70,7 @@ function newWhaleClient (connection?: string | NetworkConnection): WhaleApiClien
       return new WhaleApiClient({
         url: 'https://testnet.ocean.jellyfishsdk.com',
         network: 'testnet',
-        version: 'v0.34'
+        version: 'v2.45'
       })
     case NetworkConnection.MainNet:
     default:
@@ -89,7 +89,7 @@ function newRpcClient (connection?: string | NetworkConnection): WhaleRpcClient 
     case NetworkConnection.RemotePlayground:
       return new WhaleRpcClient('https://playground.jellyfishsdk.com/v0/regtest/rpc')
     case NetworkConnection.TestNet: {
-      const version = 'v0.34'
+      const version = 'v2.45'
       return new WhaleRpcClient(`https://testnet.ocean.jellyfishsdk.com/${version}/testnet/rpc`)
     }
     case NetworkConnection.MainNet:
