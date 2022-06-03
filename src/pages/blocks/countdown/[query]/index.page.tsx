@@ -2,7 +2,6 @@ import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSide
 import { Container } from '@components/commons/Container'
 import React, { useEffect, useState } from 'react'
 import { getWhaleApiClient, getWhaleRpcClient } from '@contexts/WhaleContext'
-import { EventCopy, getEventCopy } from '@content/events'
 import { isNumeric } from '../../../../utils/commons/StringValidator'
 import { Head } from '@components/commons/Head'
 import { BlocksInfoSection } from './_components/BlocksInfoSection'
@@ -10,6 +9,10 @@ import { CountdownSection } from './_components/CountdownSection'
 import { InfoSection } from './_components/InfoSection'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
+import * as prismic from '@prismicio/client'
+import _ from 'lodash'
+import { getEnvironment } from '@contexts/Environment'
+import { PrismicDocument } from '@prismicio/types'
 
 interface BlockDetailsPageProps {
   target: {
@@ -33,10 +36,10 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
     const timer = setTimeout(() => {
       setTimeLeft(timeLeft - 1)
 
-      if (currentHeight >= props.target.height || timeLeft % 10 === 0) {
+      if (currentHeight >= props.target.height || timeLeft % 30 === 0) {
         location.reload()
       }
-    }, 1000)
+    }, 10000)
 
     return () => clearTimeout(timer)
   })
@@ -65,35 +68,33 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
 }
 
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
+  const network = context.query.network?.toString() ?? getEnvironment().networks[0]
   const query = context.params?.query?.toString().trim() as string
-  const event: EventCopy | undefined = getEventCopy(query, context)
+
+  const event = await getEventFromPrismic()
 
   if (event === undefined && !isNumeric(query) && query.toLowerCase() !== 'nextfutureswap') {
     return { notFound: true }
   }
 
-  const api = getWhaleApiClient(context)
-  const rpc = getWhaleRpcClient(context)
-
-  const blocks = await api.blocks.list(1)
-
-  if (blocks === undefined || blocks.length !== 1) {
-    return { notFound: true }
-  }
-
-  let targetHeight = event?.height ?? query
-  let eventName = event?.name ?? null
+  let targetHeight = event?.data.height ?? query
+  let eventName = event?.data.name ?? null
 
   if (query.toLowerCase() === 'nextfutureswap') {
-    targetHeight = (await rpc.oracle.getFutureSwapBlock()).toString()
+    targetHeight = (await getWhaleRpcClient(context).oracle.getFutureSwapBlock()).toString()
     eventName = 'Next Future Settlement Block'
+  }
+
+  const blocks = await getWhaleApiClient(context).blocks.list(1)
+  if (blocks === undefined || blocks.length !== 1) {
+    return { notFound: true }
   }
 
   if (blocks[0].height >= Number(targetHeight)) {
     return {
       redirect: {
         statusCode: 302,
-        destination: `/blocks/${targetHeight}`
+        destination: `/blocks/${String(targetHeight)}`
       }
     }
   }
@@ -109,5 +110,15 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         medianTime: blocks[0].medianTime
       }
     }
+  }
+
+  async function getEventFromPrismic (): Promise<PrismicDocument | undefined> {
+    const endpoint = prismic.createClient('scan')
+    const events = await endpoint.getByType('events')
+
+    return _.find(events.results, event => {
+      return (event.data.slug.toLowerCase() === query.toLowerCase() && event.data.network.toLowerCase() === network.toLowerCase()) ||
+        (event.data.height === Number(query) && event.data.network.toLowerCase() === network.toLowerCase())
+    })
   }
 }

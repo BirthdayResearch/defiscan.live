@@ -70,14 +70,14 @@ function newWhaleClient (connection?: string | NetworkConnection): WhaleApiClien
       return new WhaleApiClient({
         url: 'https://testnet.ocean.jellyfishsdk.com',
         network: 'testnet',
-        version: 'v0.34'
+        version: 'v2.45'
       })
     case NetworkConnection.MainNet:
     default:
       return new WhaleApiClient({
         url: 'https://ocean.defichain.com',
         network: 'mainnet',
-        version: 'v0.36'
+        version: 'v2.45'
       })
   }
 }
@@ -89,12 +89,12 @@ function newRpcClient (connection?: string | NetworkConnection): WhaleRpcClient 
     case NetworkConnection.RemotePlayground:
       return new WhaleRpcClient('https://playground.jellyfishsdk.com/v0/regtest/rpc')
     case NetworkConnection.TestNet: {
-      const version = 'v0.34'
+      const version = 'v2.45'
       return new WhaleRpcClient(`https://testnet.ocean.jellyfishsdk.com/${version}/testnet/rpc`)
     }
     case NetworkConnection.MainNet:
     default: {
-      const version = 'v0.36'
+      const version = 'v2.45'
       return new WhaleRpcClient(`https://ocean.defichain.com/${version}/mainnet/rpc`)
     }
   }
