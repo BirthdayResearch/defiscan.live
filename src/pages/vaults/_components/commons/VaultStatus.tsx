@@ -39,17 +39,17 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
       const currentPercentage = collateralRatio.div(minColRatio)
 
       if (currentPercentage.gt(1.5)) {
-        textClassName = 'text-green-500'
+        textClassName = 'text-green-500 dark:text-greenDark-500'
         bgClassName = 'bg-green-100 dark:bg-greenDark-50'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular3 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       } else if (currentPercentage.gte(1.25) && currentPercentage.lte(1.5)) {
-        textClassName = 'text-orange-500'
+        textClassName = 'text-orange-500 dark:text-orangeDark-500'
         bgClassName = 'bg-orange-100 dark:bg-orangeDark-50'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular2 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       } else {
-        textClassName = 'text-red-500'
+        textClassName = 'text-red-500 dark:text-redDark-500'
         bgClassName = 'bg-red-100 dark:bg-redDark-50'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular1 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
@@ -94,7 +94,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
       data-testid={props.testId}
     >
       <div className={classNames('flex px-2 py-1 ', bgClassName)}>
-        <div>{text}</div>
+        <div className='font-medium'>{text}</div>
         {signalSymbol}
       </div>
     </div>
