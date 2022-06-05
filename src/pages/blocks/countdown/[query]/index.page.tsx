@@ -39,7 +39,7 @@ export default function BlockCountdown (props: InferGetServerSidePropsType<typeo
       if (currentHeight >= props.target.height || timeLeft % 30 === 0) {
         location.reload()
       }
-    }, 10000)
+    }, 1000)
 
     return () => clearTimeout(timer)
   })
