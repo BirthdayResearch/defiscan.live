@@ -32,7 +32,7 @@ jobs:
 
       - run: npm ci
 
-      - uses: cypress-io/github-action@c662a784116e1a26360c4e1fc0a90feedb4b5ed3
+      - uses: cypress-io/github-action@f9e9419e05e5b83168d397d9c1d8d40ea179901e
         with:
           install: false
           record: true
