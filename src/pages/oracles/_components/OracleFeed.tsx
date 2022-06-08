@@ -67,8 +67,8 @@ export function OracleFeed (props: PriceFeedProps): JSX.Element {
 
             <div className='flex justify-between items-center mt-5'>
               {copy !== undefined && (
-                <div className='bg-gray-200 dark:bg-gray-900 p-1 rounded'>
-                  <div className='text-xs font-medium text-gray-600 dark:text-primaryDark-500'>{copy.type}</div>
+                <div className='bg-gray-200 dark:bg-gray-800 p-1 rounded'>
+                  <div className='text-xs font-medium text-gray-600 dark:text-grayDark-600'>{copy.type}</div>
                 </div>
               )}
               <div className='flex-grow' />
