@@ -67,11 +67,17 @@ export default function DexPage ({
         <h1 className='text-2xl font-medium mb-6'>DEX Pool Pairs</h1>
 
         <div className='my-6 hidden md:block'>
-          <PoolPairsTable poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
+          <PoolPairsTable
+            poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+          />
         </div>
 
         <div className='my-6 md:hidden'>
-          <PoolPairsCards poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder} setSortOrder={setSortOrder} />
+          <PoolPairsCards
+            poolPairs={poolPairs.items} sortKey={sortKey} setSortKey={setSortKey} sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+          />
         </div>
 
         <div className='flex justify-end mt-8'>
@@ -87,13 +93,8 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const next = CursorPagination.getNext(context)
   const items = await api.poolpairs.list(100, next)
-  const sorted = items.map(value => ({
-    sort: Number.parseFloat(value.totalLiquidity.usd ?? '0'),
-    value
-  }))
-    .sort((a, b) => a.sort - b.sort)
-    .reverse()
-    .map(value => value.value)
+
+  const sorted = items.filter(poolpair => poolpair.status)
 
   return {
     props: {
