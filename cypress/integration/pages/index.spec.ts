@@ -25,7 +25,6 @@ context('/ on macbook-16', () => {
     cy.findByTestId('SupplyStats.Desktop').should('be.visible')
 
     cy.findByTestId('SupplyStats.Desktop').within(() => {
-      cy.findByTestId('StatCard.Tvl').should('be.visible')
       cy.findByTestId('StatCard.TotalBurned').should('be.visible')
       cy.findByTestId('StatCard.TotalMinted').should('be.visible')
       cy.findByTestId('StatCard.Circulating').should('be.visible')

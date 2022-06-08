@@ -54,16 +54,6 @@ function Stats (): JSX.Element {
           suffix=' USD'
         />
       </StatItem>
-      <StatItem label='Total Value Locked (TVL)' testId='StatItem.tvlTotal'>
-        <ReactNumberFormat
-          displayType='text'
-          thousandSeparator
-          value={stats.tvl.total}
-          decimalScale={0}
-          prefix='$'
-          suffix=' USD'
-        />
-      </StatItem>
       <StatItem label='Total DFI Burned' testId='StatItem.totalDFIBurned'>
         <UnitSuffix
           value={stats.burned.total}
