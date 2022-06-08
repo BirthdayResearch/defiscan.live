@@ -55,7 +55,7 @@ export function HeaderNetworkMenu (): JSX.Element {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className='flex justify-center'>
+      <div className='flex justify-center items-center'>
         <DarkModeToggle className='ml-4' />
       </div>
     </div>
