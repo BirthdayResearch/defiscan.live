@@ -10,6 +10,7 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { PoolPairsProvider } from '@store/poolpairs'
 import { SupplyProvider } from '@store/supply'
+import { WarningBanner } from '@components/commons/banner/WarningBanner'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -48,6 +49,21 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
             <StatsProvider>
               <SupplyProvider>
                 <PoolPairsProvider>
+                  <WarningBanner mainnet>
+                    <div>
+                      <span>There is a display issue where dAMZN-related values are incorrectly displayed. Funds are safe on
+                        the blockchain. Read the
+                      </span>
+                      <a
+                        href='https://github.com/JellyfishSDK/jellyfish/issues/1532'
+                        className='text-primary-500 hover:text-primary-600 font-medium'
+                        target='_blank' rel='noreferrer'
+                      >
+                        <span> GitHub issue </span>
+                      </a>
+                      <span>for more information.</span>
+                    </div>
+                  </WarningBanner>
                   <Header />
                   <main className='flex-grow'>
                     {props.children}
