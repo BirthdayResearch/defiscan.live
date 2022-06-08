@@ -94,17 +94,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   const next = CursorPagination.getNext(context)
   const items = await api.poolpairs.list(100, next)
 
-  const sorted = items
-    .filter(poolpair => poolpair.status)
-    .map(value => (
-      {
-        sort: Number.parseFloat(value.totalLiquidity.usd ?? '0'),
-        value
-      }
-    ))
-    .sort((a, b) => a.sort - b.sort)
-    .reverse()
-    .map(value => value.value)
+  const sorted = items.filter(poolpair => poolpair.status)
 
   return {
     props: {
