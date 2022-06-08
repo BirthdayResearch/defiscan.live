@@ -51,9 +51,8 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
                 <PoolPairsProvider>
                   <WarningBanner mainnet>
                     <div>
-                      <span>There is a display issue where dAMZN-related values are incorrectly displayed. Funds are safe on
-                        the blockchain. Read the
-                      </span>
+                      There is a display issue where dAMZN-related values are incorrectly displayed. Funds are safe on
+                      the blockchain. Read the
                       <a
                         href='https://github.com/JellyfishSDK/jellyfish/issues/1532'
                         className='text-primary-500 hover:text-primary-600 font-medium'
@@ -61,7 +60,7 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
                       >
                         <span> GitHub issue </span>
                       </a>
-                      <span>for more information.</span>
+                      for more information.
                     </div>
                   </WarningBanner>
                   <Header />
