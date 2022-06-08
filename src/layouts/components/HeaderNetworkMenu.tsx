@@ -42,7 +42,7 @@ export function HeaderNetworkMenu (): JSX.Element {
                 <Menu.Item key={item}>
                   {({ active }) =>
                     <a
-                      className='block px-4 py-2 text-sm font-medium cursor-pointer'
+                      className='block px-4 py-2 dark:text-grayDark-900 text-sm font-medium cursor-pointer'
                       href={`/?network=${item}`}
                     >
                       <div className={active || connection === item ? 'text-primary-500' : ''}>
