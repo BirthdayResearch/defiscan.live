@@ -44,7 +44,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
         text = 'ACTIVE'
         signalSymbol = <SignalCellular3 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       } else if (currentPercentage.gte(1.25) && currentPercentage.lte(1.5)) {
-        textClassName = 'text-orange-500 dark:text-orange-500'
+        textClassName = 'text-orange-500'
         bgClassName = 'bg-orange-100 dark:bg-dark-orange-100'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular2 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
