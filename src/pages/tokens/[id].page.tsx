@@ -80,7 +80,7 @@ function TokenPageHeading ({ token }: { token: TokenData }): JSX.Element {
         return (
           <div className='flex flex-row flex-wrap items-center mt-8'>
             <Icon className='h-10 w-10 mr-4' />
-            <h1 data-testid='PageHeading' className='text-2xl font-semibold dark:text-grayDark-900'>
+            <h1 data-testid='PageHeading' className='text-2xl font-semibold dark:text-gray-dark-900'>
               {name}
             </h1>
           </div>

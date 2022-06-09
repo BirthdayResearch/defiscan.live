@@ -12,7 +12,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
     <>
       <div className='hidden md:block' data-testid='Desktop.TransactionList'>
         <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold dark:text-grayDark-900' data-testid='Desktop.TransactionList.Title'>Latest Transactions</h1>
+          <h1 className='text-xl font-semibold dark:text-gray-dark-900' data-testid='Desktop.TransactionList.Title'>Latest Transactions</h1>
         </div>
 
         <div className='mt-6'>

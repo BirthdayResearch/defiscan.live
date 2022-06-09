@@ -20,12 +20,12 @@ export function DarkModeToggle (props: { className?: string }): JSX.Element {
       checked={enabled}
       onChange={setEnabled}
       onClick={handleToggle}
-      className={classNames('relative inline-flex h-8 w-16 items-center rounded-full relative bg-white dark:bg-grayDark-200 ', props.className)}
+      className={classNames('relative inline-flex h-8 w-16 items-center rounded-full relative bg-white dark:bg-gray-dark-200 ', props.className)}
       data-testid='DarkModeToggle'
     >
       <BsMoonFill
         size={22}
-        className={classNames('text-blueDark-300 absolute hidden dark:left-1 dark:block')}
+        className={classNames('text-blue-dark-300 absolute hidden dark:left-1 dark:block')}
       />
       <BsFillSunFill
         size={22}

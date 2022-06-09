@@ -24,7 +24,7 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
-        <h2 className='text-xl font-semibold dark:text-grayDark-900' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
+        <h2 className='text-xl font-semibold dark:text-gray-dark-900' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
 
         {props.loans.length === 0
           ? (

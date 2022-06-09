@@ -17,7 +17,7 @@ export function VaultIdDetails (props: { vault: LoanVaultActive | LoanVaultLiqui
   return (
     <>
       <div className='mt-8 hidden md:block' data-testid='VaultDetailsDesktop'>
-        <h2 className='text-xl font-semibold dark:text-grayDark-900' data-testid='VaultDetailsDesktop.Heading'>
+        <h2 className='text-xl font-semibold dark:text-gray-dark-900' data-testid='VaultDetailsDesktop.Heading'>
           Vault Details
         </h2>
         <div className='flex flex-wrap mt-3 items-center'>

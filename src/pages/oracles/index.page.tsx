@@ -50,7 +50,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
 
       <div>
         <div className='flex flex-wrap justify-between'>
-          <h1 className='text-2xl font-medium dark:text-grayDark-900'>
+          <h1 className='text-2xl font-medium dark:text-gray-dark-900'>
             Prices provided by Oracles
           </h1>
 
@@ -58,7 +58,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
             <div className='flex w-full lg:max-w-max flex-wrap -mx-0.5' data-testid='FeedFilter.Types'>
               {types.map(type => (
                 <div
-                  className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', typeSelection === type ? 'text-white bg-primary-500 border-primary-500 dark:bg-primaryDark-500 dark:border-primaryDark-500' : 'border-gray-300  text-gray-900 hover:bg-primary-50 dark:text-primaryDark-500 dark:border-gray-700 dark:hover:bg-primaryDark-500 dark:hover:text-white')}
+                  className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', typeSelection === type ? 'text-white bg-primary-500 border-primary-500 dark:bg-primary-dark-500 dark:border-primary-dark-500' : 'border-gray-300  text-gray-900 hover:bg-primary-50 dark:text-primary-dark-500 dark:border-gray-700 dark:hover:bg-primary-dark-500 dark:hover:text-white')}
                   onClick={() => setTypeCurrentSelection(type)}
                   key={type}
                   data-testid='FeedFilter.Types'

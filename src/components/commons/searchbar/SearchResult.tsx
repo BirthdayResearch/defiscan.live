@@ -82,7 +82,7 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
                   })()}
                 </div>
                 <div className='overflow-hidden'>
-                  <div className='overflow-hidden font-medium overflow-ellipsis dark:text-grayDark-900'>{props.searchResults.title}</div>
+                  <div className='overflow-hidden font-medium overflow-ellipsis dark:text-gray-dark-900'>{props.searchResults.title}</div>
                   <div className='overflow-hidden text-sm text-gray-500 dark:text-gray-100'>{props.searchResults.type}</div>
                 </div>
               </div>

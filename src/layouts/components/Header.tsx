@@ -36,7 +36,7 @@ export function Header (): JSX.Element {
 
   return (
     <header className={classNames('bg-white z-50 sticky top-0 md:shadow-none md:static', { 'shadow-lg': !atTop })}>
-      <div className='hidden md:block border-b border-gray-100 bg-primary-700 dark:bg-primaryDark-50 dark:border-0'>
+      <div className='hidden md:block border-b border-gray-100 bg-primary-700 dark:bg-primary-dark-50 dark:border-0'>
         <Container className='py-1'>
           <div className='flex items-center justify-between h-8'>
             <HeaderCountBar className='h-full flex' />
@@ -52,7 +52,7 @@ export function Header (): JSX.Element {
               <Link href={{ pathname: '/' }} passHref>
                 <a className='flex items-center cursor-pointer hover:text-primary-500'>
                   <DeFiChainLogo className='w-12 md:hidden lg:block lg:w-16 h-full' />
-                  <h6 className='ml-3 md:ml-0 lg:ml-3 text-xl font-medium dark:text-grayDark-900'>Scan</h6>
+                  <h6 className='ml-3 md:ml-0 lg:ml-3 text-xl font-medium dark:text-gray-dark-900'>Scan</h6>
                 </a>
               </Link>
               <DesktopNavbar />
@@ -83,7 +83,7 @@ export function Header (): JSX.Element {
 
 function DesktopNavbar (): JSX.Element {
   return (
-    <div className='hidden md:flex ml-2 lg:ml-8 md:w-full md:justify-between items-center text-gray-600 dark:text-grayDark-900'>
+    <div className='hidden md:flex ml-2 lg:ml-8 md:w-full md:justify-between items-center text-gray-600 dark:text-gray-dark-900'>
       <div className='hidden md:flex'>
         <HeaderLink
           className='ml-1 lg:ml-4' text='DEX' pathname='/dex'
@@ -124,7 +124,7 @@ function DesktopNavbar (): JSX.Element {
 function MobileMenu (): JSX.Element {
   return (
     <div className='md:hidden dark:bg-gray-900' data-testid='MobileMenu'>
-      <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm text-gray-600 dark:text-grayDark-900'>
+      <Container className='pt-2 pb-4 border-b border-gray-100 shadow-sm text-gray-600 dark:text-gray-dark-900'>
         <div className='flex flex-col'>
           <HeaderLink
             className='flex justify-center border-b border-gray-100 dark:border-gray-700' text='DEX' pathname='/dex'

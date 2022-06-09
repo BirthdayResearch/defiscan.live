@@ -4,7 +4,7 @@ import NumberFormat from 'react-number-format'
 export function InfoSection (props: { target: { height: number, name: string | null } }): JSX.Element {
   return (
     <div className='flex flex-wrap text-center mt-6'>
-      <div className='w-full text-gray-500 dark:text-grayDark-900'>
+      <div className='w-full text-gray-500 dark:text-gray-dark-900'>
         Countdown for
       </div>
       <div className='mt-1.5 w-full text-gray-900'>

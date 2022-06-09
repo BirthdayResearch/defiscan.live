@@ -55,7 +55,7 @@ export function CursorPagination (props: CursorPaginationProps): JSX.Element {
 function NumberButton (props: CursorPage & { path: string }): JSX.Element {
   if (props.active) {
     return (
-      <div className='bg-gray-50 dark:bg-gray-900 dark:border-gray-700 dark:text-primaryDark-500 rounded border border-primary-500 text-primary-500 cursor-not-allowed'>
+      <div className='bg-gray-50 dark:bg-gray-900 dark:border-gray-700 dark:text-primary-dark-500 rounded border border-primary-500 text-primary-500 cursor-not-allowed'>
         <div className='h-11 w-11 flex items-center justify-center'>
           <span className='font-medium'>{props.n}</span>
         </div>
@@ -65,7 +65,7 @@ function NumberButton (props: CursorPage & { path: string }): JSX.Element {
 
   return (
     <Link href={{ pathname: props.path, query: getQueryFromCursors(props.cursors) }}>
-      <a className='bg-gray-50  rounded border border-gray-200 hover:border-primary-500 hover:text-primary-500 cursor-pointer dark:bg-gray-800 dark:border-0 dark:text-grayDark-900'>
+      <a className='bg-gray-50  rounded border border-gray-200 hover:border-primary-500 hover:text-primary-500 cursor-pointer dark:bg-gray-800 dark:border-0 dark:text-gray-dark-900'>
         <div className='h-11 w-11 flex items-center justify-center'>
           <span className='font-medium'>{props.n}</span>
         </div>
@@ -97,7 +97,7 @@ function NavigateButton (props: PropsWithChildren<{ path: string, cursors: strin
     <Link href={{ pathname: props.path, query: getQueryFromCursors(props.cursors) }}>
       <a
         data-testid={`CursorPagination.${props.type}`}
-        className='bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-grayDark-900 hover:border-primary-500 hover:text-primary-500 cursor-pointer'
+        className='bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-dark-900 hover:border-primary-500 hover:text-primary-500 cursor-pointer'
       >
         <div className='h-11 w-11 flex items-center justify-center'>
           {props.children}

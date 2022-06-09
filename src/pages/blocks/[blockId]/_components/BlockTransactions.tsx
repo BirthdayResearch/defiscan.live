@@ -47,7 +47,7 @@ export function BlockTransactions (props: InferGetServerSidePropsType<typeof get
 
   return (
     <div>
-      <h1 className='font-medium text-2xl mt-6 dark:text-grayDark-900'>Transactions</h1>
+      <h1 className='font-medium text-2xl mt-6 dark:text-gray-dark-900'>Transactions</h1>
 
       <OverflowTable className='mt-3'>
         <OverflowTable.Header>
