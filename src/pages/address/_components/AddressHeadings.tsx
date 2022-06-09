@@ -8,7 +8,7 @@ interface AddressHeadingProps {
 export function AddressHeading (props: AddressHeadingProps): JSX.Element {
   return (
     <>
-      <span className='leading-6 opacity-60 dark:text-gray-dark-900 dark:opacity-100' data-testid='title'>
+      <span className='leading-6 opacity-60 dark:text-dark-gray-900 dark:opacity-100' data-testid='title'>
         Address
       </span>
 

@@ -17,7 +17,7 @@ export function IndexHeader (): JSX.Element {
       <HeaderWrapper bgImage={theme === 'dark' ? 'url(\'/assets/hero/fortcanningDark.svg\')' : 'linear-gradient(180deg, rgba(255, 255, 255, 0) 25.4%, #FFFFFF 94.76%), url(\'/assets/hero/fortcanning.svg\')'}>
         <Container className='h-full'>
           <div className='h-full flex flex-wrap items-center justify-center mt-14 mb-16'>
-            <h1 className='text-4xl lg:text-5xl w-full mb-6 font-medium dark:text-gray-dark-900 text-center' data-testid='Header.title'>
+            <h1 className='text-4xl lg:text-5xl w-full mb-6 font-medium dark:text-dark-gray-900 text-center' data-testid='Header.title'>
               DeFiChain <span className='font-normal dark:text-gray-100'>Explorer</span>
             </h1>
             <SearchBar atHeader={false} />

@@ -69,7 +69,7 @@ function Header (props: PropsWithChildren<{ className?: string, path?: string }>
               <div
                 data-testid='CardList.Header.ViewButton'
                 onClick={() => setIsClicked(!isClicked)}
-                className={classNames('border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-primary-dark-500 px-1.5 py-1 text-sm h-min', { 'bg-primary-100': isClicked })}
+                className={classNames('border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min', { 'bg-primary-100': isClicked })}
               >
                 VIEW
               </div>
@@ -78,7 +78,7 @@ function Header (props: PropsWithChildren<{ className?: string, path?: string }>
         )
       }
       <div
-        className='text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-primary-dark-500 border border-primary-300 rounded h-min'
+        className='text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 border border-primary-300 rounded h-min'
         onClick={() => setIsOpen(!isOpen)}
         data-testid='CardList.Header.Toggle'
       >
@@ -136,7 +136,7 @@ function DropDownSortButton (props: PropsWithChildren<{ selected?: { sortKey: st
     <div data-testid='CardList.DropDownSortButton'>
       <Menu as='div' className='relative inline-block text-left'>
         <Menu.Button
-          className='inline-flex items-center rounded border border-primary-300  shadow-sm text-sm px-2.5 py-1.5 bg-white text-primary-500 hover:bg-primary-50 dark:bg-gray-900 dark:border-gray-700 dark:text-primary-dark-500'
+          className='inline-flex items-center rounded border border-primary-300  shadow-sm text-sm px-2.5 py-1.5 bg-white text-primary-500 hover:bg-primary-50 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500'
         >
           Sort By
           <MdOutlineSort size={18} className='ml-1' />
@@ -176,7 +176,7 @@ function DropDownSortOption ({
       <Menu.Item>
         {({ active }) => (
           <button
-            className={`${isSelected ? 'bg-primary-100 text-gray dark:bg-primary-dark-500 dark:text-gray-100'
+            className={`${isSelected ? 'bg-primary-100 text-gray dark:bg-dark-primary-500 dark:text-gray-100'
               : active ? 'bg-primary-500 text-white' : 'text-gray-900 '
             } group flex rounded text-left items-center w-full px-2 py-2 text-sm dark:text-gray-100`}
             onClick={onClick}

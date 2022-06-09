@@ -28,13 +28,13 @@ export function OracleTickerDetail ({
           }
         })()}
         <div className='flex items-center'>
-          <h1 className='text-3xl font-bold dark:text-gray-dark-900'>
+          <h1 className='text-3xl font-bold dark:text-dark-gray-900'>
             {price.price.token} / {price.price.currency}
           </h1>
 
           {copy !== undefined && (
             <div className='ml-2 bg-gray-200 dark:bg-gray-700 p-1 rounded self-auto'>
-              <div className='text-xs font-medium dark:text-primary-dark-500'>{copy.type}</div>
+              <div className='text-xs font-medium dark:text-dark-primary-500'>{copy.type}</div>
             </div>
           )}
         </div>

@@ -23,7 +23,7 @@ export function CountdownSection (props: { timeLeftSecs: number, estimatedTarget
 
       <div className='w-full flex items-center lg:w-4/6 mt-2 md:mt-0 px-0.5 md:px-2 text-sm'>
         <span className='text-gray-500 dark:text-gray-400'>Estimated Target Date:</span>
-        <span className='ml-1 text-gray-900 font-medium dark:text-gray-dark-900'>
+        <span className='ml-1 text-gray-900 font-medium dark:text-dark-gray-900'>
           {new Date(props.estimatedTargetTime).toString()}
         </span>
         <InfoHoverPopover
