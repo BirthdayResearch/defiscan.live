@@ -4,13 +4,13 @@ import { StoreProvider } from '@contexts/StoreProvider'
 import { WhaleProvider } from '@contexts/WhaleContext'
 import { StatsProvider } from '@store/stats'
 import Head from 'next/head'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import { ScanAppProps } from '../pages/_app.page'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { PoolPairsProvider } from '@store/poolpairs'
 import { SupplyProvider } from '@store/supply'
-import { ThemeProvider } from '@contexts/ThemeContext'
+import { getInitialTheme, ThemeProvider } from '@contexts/ThemeContext'
 import { WarningBanner } from '@components/commons/banner/WarningBanner'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
@@ -24,6 +24,18 @@ const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoi
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
 export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | null {
+  const initialTheme = getInitialTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    // to prevent flashes due to different color theme on user device when react hydration happens in client side
+    return <></>
+  }
+
   return (
     <div className='flex flex-col min-h-screen dark:bg-gray-900'>
       <Head>
@@ -43,13 +55,13 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
         <link rel='icon' type='image/png' sizes='48x48' href='/favicon.png' />
       </Head>
 
-      <ThemeProvider theme='light'>
-        <NetworkProvider>
-          <WhaleProvider>
-            <StoreProvider state={props.initialReduxState}>
-              <StatsProvider>
-                <SupplyProvider>
-                  <PoolPairsProvider>
+      <NetworkProvider>
+        <WhaleProvider>
+          <StoreProvider state={props.initialReduxState}>
+            <StatsProvider>
+              <SupplyProvider>
+                <PoolPairsProvider>
+                  <ThemeProvider theme={initialTheme}>
                     <WarningBanner mainnet>
                       <div>
                         There is a display issue where dAMZN-related values are incorrectly displayed. Funds are safe on
@@ -69,13 +81,13 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
                       {props.children}
                     </main>
                     <Footer />
-                  </PoolPairsProvider>
-                </SupplyProvider>
-              </StatsProvider>
-            </StoreProvider>
-          </WhaleProvider>
-        </NetworkProvider>
-      </ThemeProvider>
+                  </ThemeProvider>
+                </PoolPairsProvider>
+              </SupplyProvider>
+            </StatsProvider>
+          </StoreProvider>
+        </WhaleProvider>
+      </NetworkProvider>
     </div>
   )
 }

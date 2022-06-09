@@ -7,7 +7,7 @@ export interface ThemeContextProps {
 
 type theme = 'dark' | 'light'
 
-function getInitialTheme (): theme {
+export function getInitialTheme (): theme {
   if (typeof window !== 'undefined') {
     const storedPref = window.localStorage.getItem('color-theme')
     if (storedPref !== null) {

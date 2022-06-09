@@ -36,7 +36,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
           />
         </div>
       </div>
-      <div className='mt-0.5 w-full flex flex-wrap text-sm text-gray-500 text-gray-100'>
+      <div className='mt-0.5 w-full flex flex-wrap text-sm text-gray-500 dark:text-gray-100'>
         <div
           className='w-1/2'
           data-testid='VaultHealthBar.MinCollateralizationRatio'
