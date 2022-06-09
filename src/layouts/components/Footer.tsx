@@ -205,7 +205,7 @@ function FooterSectionAbout (): JSX.Element {
 function FooterTinyLink (props: { text: string, url: string, testId: string }): JSX.Element {
   return (
     <a
-      className='text-xs text-gray-700 font-semibold hover:text-primary-500 dark:text-dark-gray-900 dark:hover:text-dark-50 cursor-pointer'
+      className='text-xs text-gray-700 font-semibold hover:text-primary-500 dark:text-dark-gray-900 dark:hover:text-primary-500 cursor-pointer'
       href={props.url}
       target='_blank' rel='noreferrer'
       data-testid={props.testId}
