@@ -13,15 +13,15 @@ export function HeaderNetworkMenu (): JSX.Element {
     <div className='flex'>
       <Menu as='div' className='w-full flex relative'>
         <Menu.Button
-          className='bg-gray-50 dark:bg-gray-dark-200 dark:text-gray-dark-900 px-2 py-1 rounded flex items-center w-full justify-between'
+          className='bg-gray-50 dark:bg-dark-gray-200 dark:text-dark-gray-900 px-2 py-1 rounded flex items-center w-full justify-between'
         >
           <div className='flex items-center'>
             <div className='bg-green-500 h-2 w-2 rounded-full' />
-            <div className='text-xs ml-2 font-medium leading-none dark:text-gray-dark-900'>
+            <div className='text-xs ml-2 font-medium leading-none dark:text-dark-gray-900'>
               {connection}
             </div>
           </div>
-          <MdArrowDropDown className='h-6 w-6 ml-1 text-gray-600 dark:text-gray-dark-900' />
+          <MdArrowDropDown className='h-6 w-6 ml-1 text-gray-600 dark:text-dark-gray-900' />
         </Menu.Button>
 
         <Transition
@@ -42,7 +42,7 @@ export function HeaderNetworkMenu (): JSX.Element {
                 <Menu.Item key={item}>
                   {({ active }) =>
                     <a
-                      className='block px-4 py-2 dark:text-gray-dark-900 text-sm font-medium cursor-pointer'
+                      className='block px-4 py-2 dark:text-dark-gray-900 text-sm font-medium cursor-pointer'
                       href={`/?network=${item}`}
                     >
                       <div className={active || connection === item ? 'text-primary-500' : ''}>

@@ -14,7 +14,7 @@ export function StatPriceCard (props: { usd: number| undefined, updatedAt: strin
         </div>
         <div
           data-testid='StatPriceCard.Price'
-          className='font-semibold text-2xl md:text-4xl lg:text-5xl dark:text-gray-dark-900'
+          className='font-semibold text-2xl md:text-4xl lg:text-5xl dark:text-dark-gray-900'
         >
           <ReactNumberFormat
             displayType='text'

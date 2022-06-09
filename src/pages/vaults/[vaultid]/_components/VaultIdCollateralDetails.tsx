@@ -14,7 +14,7 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
     <>
       <div className='mt-10 hidden md:block' data-testid='CollateralDetailsDesktop'>
         <div className='flex items-center'>
-          <h2 data-testid='CollateralDetailsDesktop.Heading' className='text-xl font-semibold dark:text-gray-dark-900'>Collateral Details</h2>
+          <h2 data-testid='CollateralDetailsDesktop.Heading' className='text-xl font-semibold dark:text-dark-gray-900'>Collateral Details</h2>
           <InfoHoverPopover className='ml-1' description='Proportion of collaterals deposited in the vault.' />
         </div>
 

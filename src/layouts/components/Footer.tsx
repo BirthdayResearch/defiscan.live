@@ -49,7 +49,7 @@ export function Footer (): JSX.Element {
 function FooterSectionSocial (): JSX.Element {
   function FooterSocialRow (props: PropsWithChildren<{ url: string, text: string, testId: string }>): JSX.Element {
     return (
-      <div className='flex flex-row space-x-2 py-2 items-center w-1/2 dark:text-gray-dark-900'>
+      <div className='flex flex-row space-x-2 py-2 items-center w-1/2 dark:text-dark-gray-900'>
         {props.children}
         <FooterExternalLink url={props.url} text={props.text} testId={props.testId} />
       </div>
@@ -104,7 +104,7 @@ function FooterSectionSocial (): JSX.Element {
 function FooterSectionSitemap (): JSX.Element {
   return (
     <section data-testid='FooterSectionSitemap'>
-      <h3 className='text-2xl font-semibold dark:text-gray-dark-900' data-testid='FooterSectionSitemap.Header'>Scan</h3>
+      <h3 className='text-2xl font-semibold dark:text-dark-gray-900' data-testid='FooterSectionSitemap.Header'>Scan</h3>
       <div className='flex flex-wrap mt-3' data-testid='FooterSectionSitemap.div'>
         <div className='space-x-2 py-2 w-1/2'>
           <FooterInternalLink pathname='/dex' text='DEX' testId='FooterSectionSitemap.Dex' />
@@ -192,7 +192,7 @@ function FooterSectionAbout (): JSX.Element {
 
         {net !== undefined && (
           <HoverPopover popover={<NetworkStatus />} placement='top' className='inline-block float-right'>
-            <div className='text-sm bg-white text-gray-900 p-2 dark:bg-gray-dark-200 dark:text-gray-dark-900 rounded cursor-help'>
+            <div className='text-sm bg-white text-gray-900 p-2 dark:bg-dark-gray-200 dark:text-dark-gray-900 rounded cursor-help'>
               <span className='font-medium'>{net.subversion?.replaceAll('/', '').replace(':', ' Node v')}</span>
             </div>
           </HoverPopover>
@@ -205,7 +205,7 @@ function FooterSectionAbout (): JSX.Element {
 function FooterTinyLink (props: { text: string, url: string, testId: string }): JSX.Element {
   return (
     <a
-      className='text-xs text-gray-700 font-semibold hover:text-primary-500 dark:text-gray-dark-900 dark:hover:text-dark-50 cursor-pointer'
+      className='text-xs text-gray-700 font-semibold hover:text-primary-500 dark:text-dark-gray-900 dark:hover:text-dark-50 cursor-pointer'
       href={props.url}
       target='_blank' rel='noreferrer'
       data-testid={props.testId}
@@ -217,7 +217,7 @@ function FooterTinyLink (props: { text: string, url: string, testId: string }): 
 
 function FooterInternalLink (props: { text: string, pathname: string, testId: string }): JSX.Element {
   return (
-    <div className='text-lg hover:text-primary-500 cursor-pointer dark:text-gray-dark-900 dark:hover:text-dark-50'>
+    <div className='text-lg hover:text-primary-500 cursor-pointer dark:text-dark-gray-900 dark:hover:text-dark-50'>
       <Link href={{ pathname: props.pathname }}>
         <a data-testid={props.testId}>{props.text}</a>
       </Link>

@@ -11,7 +11,7 @@ export function BlocksList ({ blocks }: { blocks: Block[] }): JSX.Element {
     <>
       <div className='hidden md:block md:mt-8 lg:mt-0' data-testid='Desktop.BlocksList'>
         <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold dark:text-gray-dark-900' data-testid='Desktop.BlocksList.Title'>Latest Blocks</h1>
+          <h1 className='text-xl font-semibold dark:text-dark-gray-900' data-testid='Desktop.BlocksList.Title'>Latest Blocks</h1>
         </div>
         <div className='mt-6'>
           {blocks.map((block) => {
@@ -114,7 +114,7 @@ function ViewMoreButton (): JSX.Element {
   return (
     <Link href={{ pathname: '/blocks' }}>
       <a
-        className='font-medium cursor-pointer text-primary-500 dark:text-primary-dark-500 '
+        className='font-medium cursor-pointer text-primary-500 dark:text-dark-primary-500 '
         data-testid='BlocksList.viewAllBlocksButton'
       >
         <button

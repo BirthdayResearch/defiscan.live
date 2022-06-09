@@ -30,7 +30,7 @@ export function Breadcrumb (props: { items: BreadcrumbItem[] }): JSX.Element {
   const canonical = props.items.filter(value => value.canonical === true)
 
   return (
-    <div className='flex items-center text-black dark:text-gray-dark-900' data-testid='Breadcrumb'>
+    <div className='flex items-center text-black dark:text-dark-gray-900' data-testid='Breadcrumb'>
       <Head>
         <SchemaOrgBreadcrumbList items={props.items} />
 
@@ -60,7 +60,7 @@ function BreadcrumbNext (props: BreadcrumbItem): JSX.Element {
         <MdChevronRight className='h-6 w-6 opacity-60 dark:opacity-90' />
       </div>
       <Link href={{ pathname: props.path }}>
-        <a className={classNames('cursor-pointer hover:text-blue-500 text-gray-500 dark:text-gray-dark-900 hover:opacity-100',
+        <a className={classNames('cursor-pointer hover:text-blue-500 text-gray-500 dark:text-dark-gray-900 hover:opacity-100',
           { 'text-gray-900 dark:text-gray-400': props.isCurrentPath })}
         >
           {props.name}
