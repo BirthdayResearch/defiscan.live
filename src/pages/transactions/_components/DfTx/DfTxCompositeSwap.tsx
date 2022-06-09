@@ -123,7 +123,7 @@ function Path (props: { pools: PoolId[], FromTokenSymbol: JSX.Element, ToTokenSy
         <IoArrowForwardOutline size={18} className='dark:text-dark-primary-500' />
         {props.pools.map(pool =>
           (
-            <div className='inline-block flex items-center space-x-4' key={pool.id}>
+            <div className='inline-block flex items-center space-x-4 dark:text-gray-100' key={pool.id}>
               <PoolPairSymbol
                 poolPairId={pool.id} symbolSizeClassName='h-6 w-6' symbolMarginClassName='ml-3.5'
                 textClassName='ml-11'
