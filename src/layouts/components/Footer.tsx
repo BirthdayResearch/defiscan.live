@@ -49,7 +49,7 @@ export function Footer (): JSX.Element {
 function FooterSectionSocial (): JSX.Element {
   function FooterSocialRow (props: PropsWithChildren<{ url: string, text: string, testId: string }>): JSX.Element {
     return (
-      <div className='flex flex-row space-x-2 py-2 items-center w-1/2 dark:text-dark-gray-900'>
+      <div className='flex flex-row space-x-2 py-2 items-center w-1/2 dark:text-dark-gray-900 hover:text-primary'>
         {props.children}
         <FooterExternalLink url={props.url} text={props.text} testId={props.testId} />
       </div>
@@ -217,7 +217,7 @@ function FooterTinyLink (props: { text: string, url: string, testId: string }): 
 
 function FooterInternalLink (props: { text: string, pathname: string, testId: string }): JSX.Element {
   return (
-    <div className='text-lg hover:text-primary-500 cursor-pointer dark:text-dark-gray-900 dark:hover:text-dark-50'>
+    <div className='text-lg hover:text-primary-500 cursor-pointer dark:text-dark-gray-900 dark:hover:text-primary-500'>
       <Link href={{ pathname: props.pathname }}>
         <a data-testid={props.testId}>{props.text}</a>
       </Link>
@@ -227,7 +227,7 @@ function FooterInternalLink (props: { text: string, pathname: string, testId: st
 
 function FooterExternalLink (props: { text: string, url: string, testId: string }): JSX.Element {
   return (
-    <div className='text-lg hover:text-primary-500 cursor-pointer ark:text-white dark:hover:text-dark-50'>
+    <div className='text-lg hover:text-primary-500 cursor-pointer'>
       <a href={props.url} target='_blank' rel='noreferrer' data-testid={props.testId}>
         {props.text}
       </a>
