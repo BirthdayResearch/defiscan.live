@@ -35,7 +35,7 @@ export function HeaderNetworkMenu (): JSX.Element {
         >
           <Menu.Items
             static
-            className='origin-top-right z-10 absolute left-0 top-8 w-32 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5 focus:outline-none'
+            className='origin-top-right z-10 absolute left-0 top-8 w-32 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5 focus:outline-none dark:bg-dark-gray-200'
           >
             <div className='py-1'>
               {networks.map(item =>
