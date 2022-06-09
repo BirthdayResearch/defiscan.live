@@ -21,15 +21,15 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
   switch (props.vault.state) {
     case LoanVaultState.ACTIVE: {
       if (Number(props.vault.loanAmounts.length) === 0 && Number(props.vault.collateralAmounts.length) === 0) {
-        textClassName = 'text-gray-500 dark:text-grayDark-500 dark:bg-grayDark-200'
-        bgClassName = 'bg-gray-100 dark:bg-grayDark-200'
+        textClassName = 'text-gray-500 dark:text-gray-400'
+        bgClassName = 'bg-gray-100 dark:bg-gray-900'
         text = 'EMPTY'
         break
       }
 
       if (Number(props.vault.loanAmounts.length) === 0 && Number(props.vault.collateralAmounts.length) !== 0) {
-        textClassName = 'text-gray-500 bg-gray-100 dark:text-grayDark-500 dark:bg-grayDark-200'
-        bgClassName = 'bg-gray-100 dark:bg-grayDark-200'
+        textClassName = 'text-gray-500 bg-gray-100 dark:text-gray-400'
+        bgClassName = 'bg-gray-100 dark:bg-gray-900'
         text = 'READY'
         break
       }
@@ -40,17 +40,17 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
 
       if (currentPercentage.gt(1.5)) {
         textClassName = 'text-green-500 dark:text-greenDark-500'
-        bgClassName = 'bg-green-100 dark:bg-greenDark-50'
+        bgClassName = 'bg-green-100 dark:bg-greenDark-100'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular3 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       } else if (currentPercentage.gte(1.25) && currentPercentage.lte(1.5)) {
-        textClassName = 'text-orange-500 dark:text-orangeDark-500'
-        bgClassName = 'bg-orange-100 dark:bg-orangeDark-50'
+        textClassName = 'text-orange-500 dark:text-orange-500'
+        bgClassName = 'bg-orange-100 dark:bg-orangeDark-100'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular2 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       } else {
-        textClassName = 'text-red-500 dark:text-redDark-500'
-        bgClassName = 'bg-red-100 dark:bg-redDark-50'
+        textClassName = 'text-red-500 dark:text-redDark-600'
+        bgClassName = 'bg-red-100 dark:bg-redDark-100'
         text = 'ACTIVE'
         signalSymbol = <SignalCellular1 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       }
@@ -58,31 +58,31 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
     }
 
     case LoanVaultState.FROZEN: {
-      textClassName = 'text-gray-400 dark:text-grayDark-200'
-      bgClassName = 'bg-gray-100 dark:bg-grayDark-200'
+      textClassName = 'text-gray-400 dark:text-gray-500'
+      bgClassName = 'bg-gray-100 dark:bg-gray-900'
       text = 'HALTED'
       signalSymbol = <SignalCellular0 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       break
     }
 
     case LoanVaultState.MAY_LIQUIDATE: {
-      textClassName = 'text-red-500'
-      bgClassName = 'bg-red-100'
+      textClassName = 'text-red-500 dark:bg-redDark-600'
+      bgClassName = 'bg-red-100 dark:bg-redDark-100'
       text = 'ACTIVE'
       signalSymbol = <SignalCellular1 className={classNames('h-3.5 w-3.5 ml-1', textClassName)} />
       break
     }
 
     case LoanVaultState.IN_LIQUIDATION: {
-      textClassName = 'text-gray-500 dark:text-grayDark-500'
-      bgClassName = 'bg-gray-100 dark:bg-grayDark-200'
+      textClassName = 'text-gray-500 dark:text-gray-400'
+      bgClassName = 'bg-gray-100 dark:bg-gray-900'
       text = 'IN LIQUIDATION'
       break
     }
 
     case LoanVaultState.UNKNOWN: {
-      textClassName = 'text-white dark:text-grayDark-200'
-      bgClassName = 'bg-gray-400 dark:bg-grayDark-200'
+      textClassName = 'text-white dark:text-gray-400'
+      bgClassName = 'bg-gray-400 dark:bg-gray-900'
       text = 'UNKNOWN'
       break
     }
