@@ -22,8 +22,8 @@ export function DarkModeToggle (props: { className?: string }): JSX.Element {
       onClick={handleToggle}
       className={classNames('relative inline-flex h-8 w-16 items-center rounded-full relative', props.className,
         {
-          'bg-gray-50': enabled,
-          'bg-gray-900': !enabled
+          'bg-grayDark-200': enabled,
+          'bg-white': !enabled
         })}
     >
       <BsMoonFill
@@ -39,9 +39,9 @@ export function DarkModeToggle (props: { className?: string }): JSX.Element {
         })}
       />
       <span
-        className={classNames('inline-block h-6 w-6 transform rounded-full', {
-          'translate-x-1.5 bg-gray-50': !enabled,
-          'translate-x-9 bg-gray-900': enabled
+        className={classNames('inline-block h-6 w-6 transform rounded-full transition ease-in-out duration-200', {
+          'translate-x-1 bg-primary-700': !enabled,
+          'translate-x-9 bg-black': enabled
         })}
       />
     </Switch>
