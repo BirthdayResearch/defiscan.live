@@ -11,7 +11,7 @@ export function HeaderNetworkMenu (): JSX.Element {
 
   return (
     <div className='flex'>
-      <Menu as='div' className='w-full flex'>
+      <Menu as='div' className='w-full flex relative'>
         <Menu.Button
           className='bg-gray-50 dark:bg-grayDark-200 dark:text-grayDark-900 px-2 py-1 rounded flex items-center w-full justify-between'
         >
@@ -35,7 +35,7 @@ export function HeaderNetworkMenu (): JSX.Element {
         >
           <Menu.Items
             static
-            className='origin-top-right absolute right-0 mt-2 w-32 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5 focus:outline-none'
+            className='origin-top-right z-10 absolute left-0 top-8 w-32 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5 focus:outline-none'
           >
             <div className='py-1'>
               {networks.map(item =>
@@ -55,7 +55,7 @@ export function HeaderNetworkMenu (): JSX.Element {
           </Menu.Items>
         </Transition>
       </Menu>
-      <div className='flex justify-center'>
+      <div className='flex justify-center items-center'>
         <DarkModeToggle className='ml-4' />
       </div>
     </div>
