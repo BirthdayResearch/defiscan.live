@@ -21,6 +21,7 @@ export function DarkModeToggle (props: { className?: string }): JSX.Element {
       onChange={setEnabled}
       onClick={handleToggle}
       className={classNames('relative inline-flex h-8 w-16 items-center rounded-full relative bg-white dark:bg-grayDark-200 ', props.className)}
+      data-testid='DarkModeToggle'
     >
       <BsMoonFill
         size={22}
