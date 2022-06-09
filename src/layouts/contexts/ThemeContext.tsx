@@ -9,14 +9,14 @@ type theme = 'dark' | 'light'
 
 function getInitialTheme (): theme {
   if (typeof window !== 'undefined') {
-    const systemPref = window.matchMedia('(prefers-color-scheme: dark)')
-    if (systemPref.matches) {
-      return 'dark'
-    }
-
     const storedPref = window.localStorage.getItem('color-theme')
     if (storedPref !== null) {
       return storedPref as theme
+    }
+
+    const systemPref = window.matchMedia('(prefers-color-scheme: dark)')
+    if (systemPref.matches) {
+      return 'dark'
     }
   }
   return 'light'
