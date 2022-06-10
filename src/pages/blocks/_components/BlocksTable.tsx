@@ -12,10 +12,10 @@ export function BlocksTable ({ blocks }: { blocks: Block[] }): JSX.Element {
       <OverflowTable.Header>
         <OverflowTable.Head title='Height' sticky />
         <OverflowTable.Head title='Age' />
-        <OverflowTable.Head title='Transactions' />
+        <OverflowTable.Head title='Transactions' alignRight />
         <OverflowTable.Head title='Minter' />
-        <OverflowTable.Head title='Size (B)' />
-        <OverflowTable.Head title='Difficulty' />
+        <OverflowTable.Head title='Size (B)' alignRight />
+        <OverflowTable.Head title='Difficulty' alignRight />
       </OverflowTable.Header>
 
       {blocks.map(block => (
@@ -33,7 +33,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
   const age = useAge(block.medianTime)
   return (
     <OverflowTable.Row className='hover:text-primary-500'>
-      <OverflowTable.Cell sticky>
+      <OverflowTable.Cell sticky className='align-middle'>
         <NumberFormat
           value={block.height}
           fixedDecimalScale
@@ -41,14 +41,16 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
           displayType='text'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle'>
         {age}
       </OverflowTable.Cell>
-      <OverflowTable.Cell>{block.transactionCount}</OverflowTable.Cell>
-      <OverflowTable.Cell>
-        <TextTruncate text={block.minter} />
+      <OverflowTable.Cell className='align-middle text-right'>
+        {block.transactionCount}
       </OverflowTable.Cell>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle'>
+        <TextTruncate text={block.minter} width='w-24 md:w-36 lg:w-60 xl:w-auto' />
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle text-right'>
         <NumberFormat
           value={block.size}
           fixedDecimalScale
@@ -56,7 +58,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
           displayType='text'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell className='align-middle text-right'>
         <UnitSuffix
           value={block.difficulty}
           units={{
