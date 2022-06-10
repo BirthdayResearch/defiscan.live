@@ -59,7 +59,7 @@ function Cell (props: PropsWithChildren<{ className?: string, title?: string, te
       data-testid={`${props.testId === undefined ? 'AdaptiveTable.Cell' : props.testId}`}
       className={classNames('table-cell w-full sm:w-auto flex-grow', props.className)}
     >
-      <div className='lg:hidden py-2 px-6 bg-gray-50 text-black text-opacity-60 text-xs font-semibold dark:bg-gray-800 dark:group-hover:bg-gray-600'>
+      <div className='lg:hidden py-2 px-6 bg-gray-50 text-black text-opacity-60 text-xs font-semibold dark:bg-gray-800 dark:text-gray-100 dark:group-hover:bg-gray-600'>
         {props.title}
       </div>
       <div className='py-5 px-6'>
