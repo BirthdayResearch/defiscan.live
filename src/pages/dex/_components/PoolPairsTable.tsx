@@ -146,7 +146,7 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
           prefix='$'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle lg:text-right'>
+      <OverflowTable.Cell className='align-middle text-right'>
         {poolPair.volume?.h24 !== undefined ? (
           <NumberFormat
             value={poolPair.volume?.h24}
@@ -161,10 +161,16 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
           </div>
         )}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle lg:text-right'>
+      <OverflowTable.Cell className='align-middle text-right'>
         {poolPair.totalLiquidity.usd !== undefined ? (
           <div className='flex justify-end'>
-            <MoreHoverPopover className='ml-1' description={<TotalLiquidityInfo tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} />} placement='bottom'>
+            <MoreHoverPopover
+              className='ml-1'
+              description={
+                <TotalLiquidityInfo tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} />
+              }
+              placement='bottom'
+            >
               <NumberFormat
                 value={poolPair.totalLiquidity.usd}
                 displayType='text'
@@ -185,7 +191,12 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
           if (poolPair.apr !== undefined) {
             return (
               <div className='flex justify-end'>
-                <MoreHoverPopover className='ml-1' description={<APRInfo {...poolPair.apr} />} placement='bottom'>
+                <MoreHoverPopover
+                  className='ml-1'
+                  description={
+                    <APRInfo {...poolPair.apr} />
+                  } placement='bottom'
+                >
                   <NumberFormat
                     value={poolPair.apr.total * 100}
                     displayType='text'
