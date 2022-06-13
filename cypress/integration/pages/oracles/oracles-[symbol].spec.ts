@@ -38,7 +38,7 @@ context('/oracles/TSLA-USD macbook-13', () => {
 
   it('should select button and reload graph when clicked', () => {
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).click()
-    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(3).should('have.class', 'text-gray-900 bg-gray-200 border-gray-200')
+    cy.findAllByTestId('Oracles.GraphPeriodButton').eq(3).should('have.class', 'text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50')
     cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
     cy.get('#oraclesGraphArea').should('not.exist')
     cy.findAllByTestId('Oracles.Spinner').should('exist')
@@ -116,8 +116,8 @@ context('/oracles/TSLA-USD iphone-x', () => {
 
     it('should select button and reload graph when clicked', () => {
       cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).click()
-      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100')
-      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(3).should('have.class', 'text-gray-900 bg-gray-200 border-gray-200')
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(2).should('have.class', 'text-primary-500 bg-primary-100 border-primary-100 dark:bg-dark-primary-500 dark:border-dark-primary-500 dark:text-dark-gray-900')
+      cy.findAllByTestId('Oracles.GraphPeriodButton').eq(3).should('have.class', 'text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50')
       cy.get('#oraclesGraphArea').should('not.exist')
       cy.findAllByTestId('Oracles.Spinner').should('exist')
       cy.get('#oraclesGraphArea').should('exist')

@@ -28,13 +28,13 @@ export function OracleTickerDetail ({
           }
         })()}
         <div className='flex items-center'>
-          <h1 className='text-3xl font-bold'>
+          <h1 className='text-3xl font-bold dark:text-dark-gray-900'>
             {price.price.token} / {price.price.currency}
           </h1>
 
           {copy !== undefined && (
-            <div className='ml-2 bg-gray-200 p-1 rounded self-auto'>
-              <div className='text-xs font-medium'>{copy.type}</div>
+            <div className='ml-2 bg-gray-200 dark:bg-gray-700 p-1 rounded self-auto'>
+              <div className='text-xs font-medium dark:text-dark-primary-500'>{copy.type}</div>
             </div>
           )}
         </div>
@@ -47,7 +47,7 @@ export function OracleTickerDetail ({
           name='Trusted Answer'
           description={`Trusted price is aggregated from ${price.price.aggregated.oracles.active}/${price.price.aggregated.oracles.total} active pricing oracles.`}
         />
-        <h2 className='text-4xl font-bold'>
+        <h2 className='text-4xl font-bold dark:text-gray-100'>
           <NumberFormat
             value={price.price.aggregated.amount}
             displayType='text'
@@ -63,7 +63,7 @@ export function OracleTickerDetail ({
           name='Last Update'
           description={`${format(price.price.block.medianTime * 1000, 'MMM dd, hh:mm:ss aa')}`}
         />
-        <div className='text-lg font-semibold'>
+        <div className='text-lg font-semibold dark:text-gray-100'>
           {formatDistanceToNow(price.price.block.medianTime * 1000)} ago
         </div>
       </div>
@@ -75,7 +75,7 @@ export function OracleTickerDetail ({
             isActive(price.price.block) ? 'Pricing oracles is active with at least one oracles responding.' : 'Pricing oracles is inactive as market is currently closed.'
           }
         />
-        <div className='text-lg font-semibold flex items-center'>
+        <div className='text-lg font-semibold flex items-center dark:text-gray-100'>
           {isActive(price.price.block) ? (
             <span>Active</span>
           ) : (
@@ -89,7 +89,7 @@ export function OracleTickerDetail ({
           name='Oracle Responses'
           description='Pricing oracles collect price feed from other chains and non-crypto markets.'
         />
-        <div className='text-lg font-semibold'>
+        <div className='text-lg font-semibold dark:text-gray-100'>
           {price.price.aggregated.oracles.active} of {oracles.filter(oracle => oracle.feed !== undefined).length} responded
         </div>
       </div>
@@ -100,7 +100,7 @@ export function OracleTickerDetail ({
 function H6InfoCircleHoverPopover (props: { name: string, description: string }): JSX.Element {
   return (
     <div className='flex'>
-      <h6 className='text-sm font-semibold text-black opacity-60 mr-1'>{props.name}</h6>
+      <h6 className='text-sm font-semibold text-black opacity-60 mr-1 dark:text-gray-400 dark:opacity-100'>{props.name}</h6>
       <div className='flex items-center'>
         <InfoHoverPopover
           description='Pricing oracles collect price feed from other chains and non-crypto markets.'

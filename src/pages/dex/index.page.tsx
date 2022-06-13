@@ -64,7 +64,7 @@ export default function DexPage ({
       </StatsBar>
 
       <Container className='pt-12 pb-20'>
-        <h1 className='text-2xl font-medium mb-6'>DEX Pool Pairs</h1>
+        <h1 className='text-2xl font-medium mb-6 dark:text-dark-gray-900'>DEX Pool Pairs</h1>
 
         <div className='my-6 hidden md:block'>
           <PoolPairsTable

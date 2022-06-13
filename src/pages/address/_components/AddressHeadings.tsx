@@ -8,12 +8,12 @@ interface AddressHeadingProps {
 export function AddressHeading (props: AddressHeadingProps): JSX.Element {
   return (
     <>
-      <span className='leading-6 opacity-60' data-testid='title'>
+      <span className='leading-6 opacity-60 dark:text-dark-gray-900 dark:opacity-100' data-testid='title'>
         Address
       </span>
 
       <div className='flex items-center mt-1'>
-        <h1 className='text-2xl font-medium break-all' data-testid='AddressHeading.address'>{props.address}</h1>
+        <h1 className='text-2xl font-medium break-all dark:text-gray-100' data-testid='AddressHeading.address'>{props.address}</h1>
         <CopyButton className='ml-2' content={props.address} />
         <QRCodeButton className='ml-2' content={props.address} />
       </div>

@@ -7,18 +7,18 @@ import BigNumber from 'bignumber.js'
 export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   return (
-    <div className='mt-8 flex flex-wrap p-4 lg:p-6 rounded-lg border border-gray-200 justify-between' data-testid='PoolPairDetailsBar'>
+    <div className='mt-8 flex flex-wrap p-4 lg:p-6 rounded-lg border border-gray-200 dark:border-gray-700 justify-between dark:bg-gray-800' data-testid='PoolPairDetailsBar'>
       <PoolPairSymbolLocal
         tokenA={props.poolpair.tokenA}
         tokenB={props.poolpair.tokenB}
         primarySymbolClassName='h-7 w-7 md:h-8 md:w-8'
         secondarySymbolClassName='ml-5 h-6 w-6 md:ml-6 md:h-6 md:w-6'
         textClassName='ml-12 md:ml-16 font-normal text-lg md:text-xl'
-        primaryTextClassName='font-medium'
+        primaryTextClassName='font-medium dark:text-gray-100'
         secondaryTextClassName='text-gray-400'
         testId='PoolPairSymbol'
       />
-      <div className='text-gray-900' data-testid='PriceRatio'>
+      <div className='text-gray-900 dark:text-gray-100' data-testid='PriceRatio'>
         <div className='flex flex-col'>
           <ReactNumberFormat
             displayType='text'

@@ -22,14 +22,14 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
   return (
     <div className='mt-8 md:hidden'>
       <div
-        className='p-4 border border-gray-200 rounded w-full justify-self-center md:justify-self-stretch'
+        className='p-4 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 rounded w-full justify-self-center md:justify-self-stretch'
         data-testid='VaultLoanDetailsCard'
       >
         <div className='flex items-center justify-between'>
           <div className='flex items-center'>
             <LoanSymbol className='h-6 w-6' data-testid='MobileAuctionDetails.LoanSymbol' />
             <span
-              className='ml-1.5 font-medium text-gray-900'
+              className='ml-1.5 font-medium text-gray-900 dark:text-gray-100'
               data-testid='MobileAuctionDetails.displaySymbol'
             >{props.liquidationBatch.loan.displaySymbol}
             </span>
@@ -38,12 +38,12 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
 
         <div className='items-center mt-2'>
           <div
-            className='font-medium text-gray-500 text-xs'
+            className='font-medium text-gray-500 dark:text-gray-400 text-xs'
             data-testid='MobileAuctionDetails.BatchNumber'
           >{`BATCH #${Number(props.batchIndex) + 1}`}
           </div>
           <AuctionTimeLeft
-            liquidationHeight={props.liquidationHeight} className='text-sm text-gray-500'
+            liquidationHeight={props.liquidationHeight} className='text-sm text-gray-500 dark:text-gray-400'
             showApproximateSymbol
             testId='MobileAuctionDetails.AuctionTimeLeft'
           />
@@ -51,7 +51,7 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
 
         <div className='flex justify-between mt-4' data-testid='MobileAuctionDetails.MinNextBid'>
           <span
-            className='text-gray-500 text-sm'
+            className='text-gray-500 dark:text-gray-400 text-sm'
             data-testid='MobileAuctionDetails.MinNextBid.Label'
           >Min. Next Bid
           </span>
@@ -63,7 +63,7 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
         </div>
 
         <div className='flex justify-between mt-4' data-testid='MobileAuctionDetails.MinStartingBid'>
-          <span className='text-gray-500 text-sm' data-testid='MobileAuctionDetails.MinStartingBid.Label'>Min. Starting Bid</span>
+          <span className='text-gray-500 dark:text-gray-400 text-sm' data-testid='MobileAuctionDetails.MinStartingBid.Label'>Min. Starting Bid</span>
           <BidAmountValue
             isStartingBid
             batch={props.liquidationBatch}
@@ -73,7 +73,7 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
         </div>
 
         <div className='flex justify-between mt-4' data-testid='MobileAuctionDetails.VaultID'>
-          <span className='text-gray-500 text-sm' data-testid='MobileAuctionDetails.VaultID.Label'>Vault ID</span>
+          <span className='text-gray-500 dark:text-gray-400 text-sm' data-testid='MobileAuctionDetails.VaultID.Label'>Vault ID</span>
           <VaultLink vault={props.vaultId} testId='MobileAuctionDetails.VaultID.Value'>
             <TextTruncate text={props.vaultId} />
           </VaultLink>
@@ -84,7 +84,7 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
           data-testid='MobileAuctionDetails.CollateralsForAuctions'
         >
           <div className='flex items-center mb-2'>
-            <span className='text-sm text-gray-500' data-testid='MobileAuctionDetails.CollateralsForAuctions.Label'>Collaterals For Auction</span>
+            <span className='text-sm text-gray-500 dark:text-gray-400' data-testid='MobileAuctionDetails.CollateralsForAuctions.Label'>Collaterals For Auction</span>
           </div>
           {
             props.liquidationBatch.collaterals.map(collateral => (
@@ -107,12 +107,12 @@ function MobileCollateralListItem (props: { collateral: LoanVaultTokenAmount }):
       <div className='flex'>
         <CollateralSymbol className='h-6 w-6 mr-1.5' data-testid='MobileCollateralListItem.CollateralSymbol' />
         <span
-          className='font-medium text-gray-900'
+          className='font-medium text-gray-900 dark:text-gray-400'
           data-testid='MobileCollateralListItem.displaySymbol'
         >{props.collateral.displaySymbol}
         </span>
       </div>
-      <div className='text-right text-gray-900'>
+      <div className='text-right text-gray-900 dark:text-gray-100'>
         <ReactNumberFormat
           value={props.collateral.amount}
           displayType='text'
@@ -121,7 +121,7 @@ function MobileCollateralListItem (props: { collateral: LoanVaultTokenAmount }):
           thousandSeparator
           data-testid='MobileCollateralListItem.Amount'
         />
-        <div className='text-sm text-gray-500'>
+        <div className='text-sm text-gray-500 dark:text-gray-400'>
           {
             (!collateralValue.eq(0)) && (
               <ReactNumberFormat

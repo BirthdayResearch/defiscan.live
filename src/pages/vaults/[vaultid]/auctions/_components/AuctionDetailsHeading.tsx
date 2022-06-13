@@ -30,7 +30,7 @@ export function AuctionDetailsHeading (props: { vault: LoanVaultLiquidated, batc
       ]}
       />
 
-      <h2 className='text-xl font-semibold mt-8' data-testid='AuctionDetails.Heading'>
+      <h2 className='text-xl font-semibold mt-8 dark:text-dark-gray-900' data-testid='AuctionDetails.Heading'>
         Auction Details
       </h2>
     </>

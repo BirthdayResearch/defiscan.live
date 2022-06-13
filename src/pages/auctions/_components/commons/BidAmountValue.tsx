@@ -36,9 +36,10 @@ export function BidAmountValue (props: BidAmountValueProps): JSX.Element {
         suffix={` ${props.batch.loan.displaySymbol}`}
         displayType='text'
         data-testid='BidAmountValue.MinBidAmount'
+        className='dark:text-gray-100'
       />
       <div
-        className={classNames('text-gray-500', props.valueClassName)} data-testid='BidAmountValue.MinBidValue'
+        className={classNames('text-gray-500 dark:text-gray-400', props.valueClassName)} data-testid='BidAmountValue.MinBidValue'
       >
         {
           minBidValue.eq(0) ? (

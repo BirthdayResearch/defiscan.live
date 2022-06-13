@@ -28,7 +28,7 @@ export function DfTxPoolUpdatePair (props: DfTxPoolUpdatePairProps): JSX.Element
         />
         {props.dftx.data.customRewards.length > 0 &&
           <div className='w-full lg:w-1/2'>
-            <div className='-mb-4 lg:mb-2 lg:-mt-8 font-medium text-gray-800 opacity-80'>Custom Rewards</div>
+            <div className='-mb-4 lg:mb-2 lg:-mt-8 font-medium text-gray-800 opacity-80 dark:text-gray-100'>Custom Rewards</div>
             <AdaptiveTable>
               <AdaptiveTable.Header>
                 <AdaptiveTable.Head>TOKEN</AdaptiveTable.Head>

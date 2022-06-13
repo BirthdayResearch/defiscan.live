@@ -46,7 +46,6 @@ export default function TokenIdPage (props: InferGetServerSidePropsType<typeof g
 
       <Container className='pt-4 pb-20'>
         <TokenPageHeading token={props.token} />
-
         <div className='flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
           <ListLeft token={props.token} burnedAmount={burnedAmount} netSupply={netSupply} />
           <ListRight token={props.token} />
@@ -81,7 +80,7 @@ function TokenPageHeading ({ token }: { token: TokenData }): JSX.Element {
         return (
           <div className='flex flex-row flex-wrap items-center mt-8'>
             <Icon className='h-10 w-10 mr-4' />
-            <h1 data-testid='PageHeading' className='text-2xl font-semibold'>
+            <h1 data-testid='PageHeading' className='text-2xl font-semibold dark:text-dark-gray-900'>
               {name}
             </h1>
           </div>

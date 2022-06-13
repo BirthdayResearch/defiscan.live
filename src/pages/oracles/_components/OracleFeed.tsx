@@ -23,7 +23,7 @@ export function OracleFeed (props: PriceFeedProps): JSX.Element {
     <div className='w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4' data-testid='OracleFeed'>
       <Link href={{ pathname: `/oracles/${id}` }}>
         <a>
-          <div className='bg-gray-50 rounded p-6 cursor-pointer'>
+          <div className='bg-gray-50 dark:bg-gray-800 rounded p-6 cursor-pointer'>
             <div className='flex space-x-2'>
               {(() => {
                 if (copy !== undefined && copy.type === 'CRYPTO') {
@@ -31,13 +31,13 @@ export function OracleFeed (props: PriceFeedProps): JSX.Element {
                   return (<NativeIcon width={24} height={24} />)
                 }
               })()}
-              <h4>
+              <h4 className='dark:text-gray-100'>
                 {price.token} / {price.currency}
               </h4>
             </div>
 
             <div className='flex items-center mt-2'>
-              <h3 className='text-2xl font-medium'>
+              <h3 className='text-2xl font-medium dark:text-gray-100'>
                 <NumberFormat
                   value={price.aggregated.amount}
                   displayType='text'
@@ -67,12 +67,12 @@ export function OracleFeed (props: PriceFeedProps): JSX.Element {
 
             <div className='flex justify-between items-center mt-5'>
               {copy !== undefined && (
-                <div className='bg-gray-200 p-1 rounded'>
-                  <div className='text-xs font-medium text-gray-600'>{copy.type}</div>
+                <div className='bg-gray-200 dark:bg-gray-800 p-1 rounded'>
+                  <div className='text-xs font-medium text-gray-600 dark:text-dark-gray-600'>{copy.type}</div>
                 </div>
               )}
               <div className='flex-grow' />
-              <button className='text-primary-500'>
+              <button className='text-primary-500 dark:text-dark-primary-500'>
                 View
               </button>
             </div>

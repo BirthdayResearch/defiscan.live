@@ -19,7 +19,7 @@ export default function TokensPage ({ tokens }: InferGetServerSidePropsType<type
   return (
     <Container className='pt-12 pb-20'>
       <Head title='Tokens' />
-      <h1 className='text-2xl font-medium'>Tokens</h1>
+      <h1 className='text-2xl font-medium dark:text-dark-gray-900'>Tokens</h1>
 
       <div className='my-6 hidden md:block'>
         <TokenTable tokens={tokens.items} />

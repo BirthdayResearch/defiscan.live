@@ -40,6 +40,7 @@ export function VaultNumberValues (props: VaultNumberValuesProps): JSX.Element {
         fixedDecimalScale
         thousandSeparator
         data-testid={props.testId}
+        className='dark:text-gray-100'
       />
     </HoverPopover>
   )

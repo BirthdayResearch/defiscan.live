@@ -53,7 +53,7 @@ export function AddressTransactionTable (props: AddressTransactionTableProps): J
     return (
       <div className='flex flex-wrap'>
         <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-100'>
-          <CgSpinner size={32} className='animate-spin text-gray-600' />
+          <CgSpinner size={32} className='animate-spin text-gray-600 dark:text-gray-100' />
         </div>
       </div>
     )

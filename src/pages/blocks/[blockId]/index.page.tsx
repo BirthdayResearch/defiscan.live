@@ -47,9 +47,9 @@ function BlockHeading ({ block }: InferGetServerSidePropsType<typeof getServerSi
       ]}
       />
 
-      <h1 className='font-medium text-2xl mt-1'>Block #{block.height}</h1>
+      <h1 className='font-medium text-2xl mt-1 dark:text-dark-gray-900'>Block #{block.height}</h1>
 
-      <div className='flex items-center my-1'>
+      <div className='flex items-center my-1 dark:text-dark-gray-900'>
         <div className='font-semibold'>Hash:</div>
         <div className='ml-1 text-lg break-all' data-testid='block-hash'>{block.hash}</div>
         <CopyButton className='ml-2' content={block.hash} />

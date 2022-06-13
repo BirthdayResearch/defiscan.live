@@ -52,8 +52,8 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
               suffix='/ 1.2B'
               testId='StatCard.TotalMinted'
             >
-              <div className='mt-auto text-gray-500 text-sm'>
-                <span className='text-black font-medium mr-1'>{CalculatePercentage(data.supply.total, data.supply.max)}</span>
+              <div className='mt-auto text-gray-500 text-sm dark:text-gray-400'>
+                <span className='text-black font-medium mr-1 dark:text-gray-100'>{CalculatePercentage(data.supply.total, data.supply.max)}</span>
                 of max supply
               </div>
             </StatCard>
@@ -64,9 +64,9 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
               suffix='DFI'
               testId='StatCard.Circulating'
             >
-              <div className='mt-auto text-gray-500 text-sm'>
+              <div className='mt-auto text-gray-500 text-sm dark:text-gray-400'>
                 <span
-                  className='text-black font-medium mr-1'
+                  className='text-black font-medium mr-1 dark:text-gray-100'
                 >{CalculatePercentage(data.supply.circulating, data.supply.total)}
                 </span>
                 of total minted
@@ -79,11 +79,11 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
               prefix='$'
               testId='StatCard.Tvl'
             >
-              <div className='mt-auto text-gray-500 flex divide-x text-sm -mx-1'>
+              <div className='mt-auto text-gray-500 dark:text-gray-400 flex divide-x text-sm -mx-1'>
                 <div className='px-1'>
                   DEX:
                   <span
-                    className='text-black font-medium ml-1'
+                    className='text-black font-medium ml-1 dark:text-gray-100'
                   >{CalculatePercentage(data.stats.tvl.dex, data.stats.tvl.total)}
                   </span>
                 </div>
@@ -91,14 +91,14 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
                   <span className='hidden xl:inline-block'>Masternodes:</span>
                   <span className='xl:hidden'>MN:</span>
                   <span
-                    className='text-black font-medium ml-1'
+                    className='text-black font-medium ml-1 dark:text-gray-100'
                   >{CalculatePercentage(data.stats.tvl.masternodes, data.stats.tvl.total)}
                   </span>
                 </div>
                 <div className='px-1'>
                   Vaults:
                   <span
-                    className='text-black font-medium ml-1'
+                    className='text-black font-medium ml-1 dark:text-gray-100'
                   >{CalculatePercentage(data.stats.tvl.loan, data.stats.tvl.total)}
                   </span>
                 </div>
@@ -110,8 +110,8 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
               stat={data.supply.burned}
               testId='StatCard.TotalBurned'
             >
-              <div className='mt-auto text-gray-500 text-sm'>
-                <span className='text-black mr-1'>{CalculatePercentage(data.supply.burned, data.supply.total)}</span>
+              <div className='mt-auto text-gray-500 text-sm dark:text-gray-400'>
+                <span className='text-black mr-1 dark:text-gray-100'>{CalculatePercentage(data.supply.burned, data.supply.total)}</span>
                 of total minted
               </div>
             </StatCard>
@@ -125,9 +125,9 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
 function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string, stat: number | undefined, prefix?: string, suffix?: string, testId: string }>): JSX.Element {
   return (
     <div className='w-full md:w-1/2 p-1' data-testid={props.testId}>
-      <div className='flex flex-col border border-gray-200 p-4 md:p-5 rounded-lg'>
+      <div className='flex flex-col border dark:bg-gray-800 dark:border-gray-700 border-gray-200 p-4 md:p-5 rounded-lg'>
         <div className='flex items-center'>
-          <span className='font-normal text-sm md:text-base mr-1'>{props.heading}</span>
+          <span className='font-normal text-sm md:text-base mr-1 dark:text-gray-400'>{props.heading}</span>
           <InfoHoverPopover description={props.infodesc} />
         </div>
         <div className='flex flex-wrap items-center'>
@@ -135,11 +135,11 @@ function StatCard (props: PropsWithChildren<{ infodesc: string, heading: string,
             value={props.stat}
             displayType='text'
             thousandSeparator
-            className='text-lg lg:text-2xl font-semibold'
+            className='text-lg lg:text-2xl font-semibold dark:text-dark-gray-900'
             decimalScale={0}
             prefix={props.prefix !== undefined ? props.prefix : ''}
           />
-          {props.suffix !== undefined && <span className='ml-1'>{props.suffix}</span>}
+          {props.suffix !== undefined && <span className='ml-1 dark:text-gray-400'>{props.suffix}</span>}
         </div>
         <div className='mt-2'>
           {props.children}

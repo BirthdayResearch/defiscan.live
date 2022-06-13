@@ -50,7 +50,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
 
       <div>
         <div className='flex flex-wrap justify-between'>
-          <h1 className='text-2xl font-medium'>
+          <h1 className='text-2xl font-medium dark:text-dark-gray-900'>
             Prices provided by Oracles
           </h1>
 
@@ -58,7 +58,7 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
             <div className='flex w-full lg:max-w-max flex-wrap -mx-0.5' data-testid='FeedFilter.Types'>
               {types.map(type => (
                 <div
-                  className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', typeSelection === type ? 'text-white bg-primary-500 border-primary-500' : 'border-gray-300 text-gray-900 hover:bg-primary-50')}
+                  className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', typeSelection === type ? 'text-white bg-primary-500 border-primary-500 dark:bg-dark-primary-500 dark:border-dark-primary-500' : 'border-gray-300 text-gray-900 hover:bg-primary-50 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white')}
                   onClick={() => setTypeCurrentSelection(type)}
                   key={type}
                   data-testid='FeedFilter.Types'
@@ -73,14 +73,14 @@ export default function PricesPage (props: InferGetServerSidePropsType<typeof ge
                   checked={availabilitySelection}
                   onChange={setAvailabilitySelection}
                   className={`${
-                    availabilitySelection ? 'bg-primary-500' : 'bg-gray-200'
+                    availabilitySelection ? 'bg-primary-500' : 'bg-gray-200 dark:bg-dark-gray-200'
                   } relative inline-flex items-center h-6 rounded-full w-11 transition-colors`}
                 >
                   <span
-                    className={`${availabilitySelection ? 'translate-x-6' : 'translate-x-1'} inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
+                    className={`${availabilitySelection ? 'translate-x-6' : 'translate-x-1 dark:bg-black'} inline-block w-4 h-4 transform bg-white rounded-full transition-transform `}
                   />
                 </Switch>
-                <Switch.Label className='ml-1 flex items-center text-gray-900'>
+                <Switch.Label className='ml-1 flex items-center text-gray-900 dark:text-gray-100'>
                   Loan/Collateral Tokens
                   <InfoHoverPopover
                     className='ml-0.5'

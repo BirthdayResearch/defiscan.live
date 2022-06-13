@@ -53,7 +53,7 @@ export function HoverPopover (props: PropsWithChildren<IconPopoverProps>): JSX.E
           >
             {typeof props.popover === 'string' ? (
               <div
-                className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
+                className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs dark:bg-gray-800 dark:border-gray-700 dark:text-dark-gray-900'
               >
                 {props.popover}
               </div>

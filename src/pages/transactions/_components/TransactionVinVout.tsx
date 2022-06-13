@@ -18,7 +18,7 @@ export function TransactionVinVout (props: TransactionVinVoutProps): JSX.Element
 
   return (
     <>
-      <h1 className='font-medium text-2xl mt-6' data-testid='details-subtitle'>Details</h1>
+      <h1 className='font-medium text-2xl mt-6 dark:text-dark-gray-900' data-testid='details-subtitle'>Details</h1>
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <div className='w-full lg:w-1/2'>
           <div className='flex flex-col space-y-1' data-testid='TransactionDetailsLeft.List'>
@@ -95,7 +95,7 @@ function TransactionSummary (props: { transaction: Transaction, vins: Transactio
   const fee = props.vins[0].vout === undefined ? 'Coinbase' : `${props.fee.toFixed(8)} DFI`
 
   return (
-    <div className='flex flex-col items-end justify-between mt-8'>
+    <div className='flex flex-col items-end justify-between mt-8 dark:text-dark-gray-900'>
       <div className='flex justify-between space-x-3' data-testid='TransactionDetailsSummary.fee'>
         <span>Fees:</span>
         <span>{fee}</span>

@@ -74,7 +74,7 @@ export function VaultTable (props: VaultTableProps): JSX.Element {
 function VaultStatusInfo (): JSX.Element {
   return (
     <div
-      className='p-3 space-y-2 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
+      className='p-3 space-y-2 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs dark:bg-gray-800 dark:border-gray-700 dark:text-dark-gray-900'
     >
       <div>
         <span className='font-medium'>Empty</span>: When a vault has been created but no collateral has been deposited
@@ -103,7 +103,7 @@ function VaultStatusInfo (): JSX.Element {
 function CollateralizationRatioMinInfo (): JSX.Element {
   return (
     <div
-      className='px-3 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs'
+      className='px-3 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs dark:bg-gray-800 dark:border-gray-700 dark:text-dark-gray-900'
     >
       <span className='font-medium'>Collateralization Ratio</span>: Percentage of collaterals deposited in a vault in
       relation to the amount of loan taken.

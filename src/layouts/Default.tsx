@@ -4,12 +4,13 @@ import { StoreProvider } from '@contexts/StoreProvider'
 import { WhaleProvider } from '@contexts/WhaleContext'
 import { StatsProvider } from '@store/stats'
 import Head from 'next/head'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
 import { ScanAppProps } from '../pages/_app.page'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { PoolPairsProvider } from '@store/poolpairs'
 import { SupplyProvider } from '@store/supply'
+import { getInitialTheme, ThemeProvider } from '@contexts/ThemeContext'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -22,11 +23,22 @@ const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoi
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
 export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | null {
+  const initialTheme = getInitialTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    // to prevent flashes due to different color theme on user device when react hydration happens in client side
+    return <></>
+  }
+
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen dark:bg-gray-900'>
       <Head>
         <meta charSet='UTF-8' />
-
         <title key='title'>{title}</title>
         <meta key='description' name='description' content={description} />
         <meta key='robots' name='robots' content='follow,index' />
@@ -48,11 +60,13 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
             <StatsProvider>
               <SupplyProvider>
                 <PoolPairsProvider>
-                  <Header />
-                  <main className='flex-grow'>
-                    {props.children}
-                  </main>
-                  <Footer />
+                  <ThemeProvider theme={initialTheme}>
+                    <Header />
+                    <main className='flex-grow'>
+                      {props.children}
+                    </main>
+                    <Footer />
+                  </ThemeProvider>
                 </PoolPairsProvider>
               </SupplyProvider>
             </StatsProvider>

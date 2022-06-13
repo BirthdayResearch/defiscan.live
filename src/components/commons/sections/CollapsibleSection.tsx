@@ -25,7 +25,7 @@ export function CollapsibleSection (props: CollapsibleSectionProps): JSX.Element
         onClick={() => handleToggle()}
       >
         <h2
-          className={classNames('text-lg lg:text-xl font-semibold text-gray-900', { 'md:hidden': props.mdNotCollapsible })}
+          className={classNames('text-lg lg:text-xl font-semibold text-gray-900 dark:text-gray-100', { 'md:hidden': props.mdNotCollapsible })}
           data-testid='CollapsibleSection.Heading'
         >
           {props.heading}
