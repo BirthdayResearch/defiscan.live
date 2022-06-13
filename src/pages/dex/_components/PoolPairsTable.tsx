@@ -134,11 +134,11 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
           primarySymbolClassName='h-8 w-8'
           secondarySymbolClassName='ml-6 h-6 w-6'
           textClassName='ml-16'
-          primaryTextClassName='font-medium'
+          primaryTextClassName='font-medium dark:text-gray-100'
           secondaryTextClassName='text-gray-400'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle text-right'>
+      <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
         <NumberFormat
           value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
           displayType='text'
@@ -146,7 +146,8 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
           prefix='$'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle text-right'>
+
+      <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
         {poolPair.volume?.h24 !== undefined ? (
           <NumberFormat
             value={poolPair.volume?.h24}
@@ -161,7 +162,8 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
           </div>
         )}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle text-right'>
+
+      <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
         {poolPair.totalLiquidity.usd !== undefined ? (
           <div className='flex justify-end'>
             <MoreHoverPopover
@@ -190,13 +192,8 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
         {(() => {
           if (poolPair.apr !== undefined) {
             return (
-              <div className='flex justify-end'>
-                <MoreHoverPopover
-                  className='ml-1'
-                  description={
-                    <APRInfo {...poolPair.apr} />
-                  } placement='bottom'
-                >
+              <div className='flex justify-end dark:text-gray-100'>
+                <MoreHoverPopover className='ml-1' description={<APRInfo {...poolPair.apr} />} placement='bottom'>
                   <NumberFormat
                     value={poolPair.apr.total * 100}
                     displayType='text'

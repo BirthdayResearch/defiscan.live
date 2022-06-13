@@ -105,16 +105,16 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
         }}
       >
         <div
-          className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white border', { 'border-primary-200': isActive })}
+          className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white dark:bg-gray-800 dark:border-gray-700 border', { 'border-primary-200': isActive })}
           data-testid='SearchBar'
           ref={reference}
         >
           <Menu.Button as={Fragment}>
             <div className='flex w-full'>
-              <IoSearchSharp size={22} className='text-gray-600 ml-0.5 self-center' />
+              <IoSearchSharp size={22} className='dark:text-gray-100 text-gray-600 ml-0.5 self-center' />
               <input
                 placeholder='Search Block / Txn / Vault ID and more'
-                className='ml-1.5 h-full w-full focus:outline-none'
+                className='ml-1.5 h-full w-full focus:outline-none dark:bg-gray-800 dark:placeholder-gray-400 dark:text-dark-gray-900'
                 data-testid='SearchBar.Input'
                 onChange={onChangeDebounceHandler}
               />
@@ -133,7 +133,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
               left: x ?? ''
             }}
           >
-            <div className='w-full mt-1.5 rounded-md shadow-lg drop-shadow bg-white overflow-hidden'>
+            <div className='w-full mt-1.5 rounded-md shadow-lg drop-shadow bg-white overflow-hidden dark:bg-gray-800'>
               <SearchResultTable searchResults={searchResults} isSearching={isSearching} />
             </div>
           </div>

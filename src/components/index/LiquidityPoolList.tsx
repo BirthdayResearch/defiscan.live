@@ -8,7 +8,7 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
   return (
     <div className='mt-12' data-testid='LiquidityPoolList'>
       <div className='flex justify-between'>
-        <h1 className='text-xl font-semibold' data-testid='LiquidityPoolList.title'>Liquidity Pools</h1>
+        <h1 className='text-xl font-semibold dark:text-dark-gray-900' data-testid='LiquidityPoolList.title'>Liquidity Pools</h1>
       </div>
       <div
         className='mt-6 flex flex-wrap -m-1'
@@ -32,12 +32,12 @@ export function LiquidityPoolList ({ liquidityPools }: { liquidityPools: PoolPai
       <div className='flex justify-center mt-1.5'>
         <Link href={{ pathname: '/dex' }}>
           <a
-            className='font-medium cursor-pointer text-primary-500'
+            className='font-medium cursor-pointer text-primary-500 dark:text-dark-primary-500'
             data-testid='LiquidityPoolList.viewAllPoolsButton'
           >
             <button
               type='button'
-              className='mt-2 py-2 px-14 border border-gray-200 rounded-sm hover:shadow-md'
+              className='mt-2 py-2 px-14 border border-gray-200 dark:border-gray-700 rounded-sm hover:shadow-md'
             >
               VIEW ALL POOLS
             </button>
@@ -59,10 +59,10 @@ function LiquidityPoolCard (
   }): JSX.Element {
   return (
     <div className='w-full sm:w-1/2 xl:w-1/4 2xl:w-1/4 p-1'>
-      <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3' data-testid='LiquidityPoolCard'>
+      <div className='flex flex-col p-4 rounded border border-gray-200 space-y-3 dark:bg-gray-800 dark:border-gray-700' data-testid='LiquidityPoolCard'>
         <PoolPairSymbol
           poolPairId={props.poolId} symbolSizeClassName='h-6 w-6' symbolMarginClassName='ml-3.5'
-          textClassName='ml-11 font-medium'
+          textClassName='ml-11 font-medium dark:text-dark-gray-900'
           testId='LiquidityPoolCard.PoolPairSymbol'
         />
         <div className='my-auto'>
@@ -130,10 +130,10 @@ function LiquidityCardStat ({
 }: PropsWithChildren<{ label: string, testid?: string, children: ReactNode }>): JSX.Element {
   return (
     <div className='table-row border-collapse text-sm'>
-      <div className='table-cell opacity-40' data-testid={testid}>
+      <div className='table-cell opacity-40 dark:opacity-100 dark:text-gray-400' data-testid={testid}>
         {label}
       </div>
-      <div className='table-cell pl-2 md:pl-4'>{children}</div>
+      <div className='table-cell pl-2 md:pl-4 dark:text-gray-100'>{children}</div>
     </div>
   )
 }

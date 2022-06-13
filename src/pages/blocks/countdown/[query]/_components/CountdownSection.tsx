@@ -22,8 +22,8 @@ export function CountdownSection (props: { timeLeftSecs: number, estimatedTarget
       <CountdownTime value={secs} label='Seconds' testId='Seconds' />
 
       <div className='w-full flex items-center lg:w-4/6 mt-2 md:mt-0 px-0.5 md:px-2 text-sm'>
-        <span className='text-gray-500'>Estimated Target Date:</span>
-        <span className='ml-1 text-gray-900 font-medium'>
+        <span className='text-gray-500 dark:text-gray-400'>Estimated Target Date:</span>
+        <span className='ml-1 text-gray-900 font-medium dark:text-dark-gray-900'>
           {new Date(props.estimatedTargetTime).toString()}
         </span>
         <InfoHoverPopover
@@ -40,7 +40,7 @@ function CountdownTime (props: { value: number, label: string, testId: string })
   return (
     <div className='p-0.5 md:p-2 w-1/4 lg:w-1/6'>
       <div
-        className='flex flex-wrap rounded border py-4 md:py-8 text-center'
+        className='flex flex-wrap rounded dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700 border py-4 md:py-8 text-center'
         data-testid={`CountdownSection.${props.testId}`}
       >
         <div

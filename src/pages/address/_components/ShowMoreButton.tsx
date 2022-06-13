@@ -29,7 +29,7 @@ export function ShowMoreButton (props: ShowMoreButtonProps): JSX.Element {
     >
       <button
         type='button'
-        className='w-full md:w-1/3 py-2.5 text-primary-300 hover:text-primary-500 border border-primary-200 hover:border-primary-500 rounded'
+        className='w-full md:w-1/3 py-2.5 text-primary-300 hover:text-primary-500 border border-primary-200 hover:border-primary-500 rounded dark:bg-gray-900 dark:border=gray-400 dark:text-dark-primary-500 dark:hover:border-gray-400'
       >
         SHOW MORE
       </button>

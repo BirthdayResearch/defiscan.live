@@ -60,7 +60,7 @@ function SetOracleDataDetails (props: { oracleId: string, timestamp: BigNumber }
 
 function SetOracleDataTokenRow (props: { token: string, price: TokenAmount }): JSX.Element {
   return (
-    <AdaptiveTable.Row>
+    <AdaptiveTable.Row className='dark:text-gray-100'>
       <AdaptiveTable.Cell title='TOKEN' className='align-middle'>
         <div className='flex items-center' data-testid='DfTxSetOracleData.Token'>
           {props.token}

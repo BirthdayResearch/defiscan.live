@@ -12,7 +12,7 @@ export function TransactionsList ({ transactions }: { transactions: Transaction[
     <>
       <div className='hidden md:block' data-testid='Desktop.TransactionList'>
         <div className='flex justify-between'>
-          <h1 className='text-xl font-semibold' data-testid='Desktop.TransactionList.Title'>Latest Transactions</h1>
+          <h1 className='text-xl font-semibold dark:text-dark-gray-900' data-testid='Desktop.TransactionList.Title'>Latest Transactions</h1>
         </div>
 
         <div className='mt-6'>
@@ -57,7 +57,7 @@ function TransactionCard (props: PropsWithChildren<{ id: string }>): JSX.Element
   return (
     <Link href={{ pathname: `/transactions/${props.id}` }}>
       <a className='content'>
-        <div className='w-full flex flex-wrap p-4 rounded border border-gray-200 cursor-pointer my-1.5 hover:shadow-md'>
+        <div className='w-full flex flex-wrap p-4 rounded border dark:bg-gray-800 dark:border-gray-700 border-gray-200 cursor-pointer my-1.5 hover:shadow-md'>
           {props.children}
         </div>
       </a>
@@ -77,25 +77,25 @@ function DesktopTransactionCardDetails (props: {
           <MdSwapHorizontalCircle className='text-gray-400 inline-block' size={22} />
         </span>
         <div className='overflow-hidden'>
-          <div className='overflow-ellipsis overflow-hidden font-medium text-gray-900' data-testid='Desktop.TransactionCard.txid'>
+          <div className='overflow-ellipsis overflow-hidden font-medium dark:text-gray-100 text-gray-900' data-testid='Desktop.TransactionCard.txid'>
             {props.txid}
           </div>
-          <div className='text-xs text-gray-400 leading-5' data-testid='Desktop.TransactionCard.age'>
+          <div className='text-xs text-gray-400 dark:text-gray-400 leading-5' data-testid='Desktop.TransactionCard.age'>
             {props.age}
           </div>
         </div>
       </div>
       <div className='w-1/2 lg:w-3/5 xl:w-2/5 flex justify-between'>
         <div className='w-10/12 text-right text-sm flex'>
-          <div className='w-1/2 text-gray-500 lg:mr-2 xl:mr-0' data-testid='Desktop.TransactionCard.AmountLabel'>
+          <div className='w-1/2 text-gray-500 dark:text-gray-400 lg:mr-2 xl:mr-0' data-testid='Desktop.TransactionCard.AmountLabel'>
             Amount
           </div>
-          <div className='w-1/2 text-gray-900' data-testid='Desktop.TransactionCard.AmountValue'>
+          <div className='w-1/2 text-gray-900 dark:text-gray-100' data-testid='Desktop.TransactionCard.AmountValue'>
             {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
           </div>
         </div>
         <div className='flex items-center'>
-          <IoChevronForwardSharp size={24} />
+          <IoChevronForwardSharp size={24} className='dark:text-gray-100' />
         </div>
       </div>
     </div>
@@ -115,7 +115,7 @@ function MobileTransactionCardDetails (props: {
         </span>
         <div className='overflow-hidden'>
           <div className='flex'>
-            <div className='w-1/2 overflow-ellipsis overflow-hidden font-medium text-gray-900' data-testid='Mobile.TransactionCard.txid'>
+            <div className='w-1/2 overflow-ellipsis overflow-hidden font-medium text-gray-900 dark:text-gray-100' data-testid='Mobile.TransactionCard.txid'>
               {props.txid}
             </div>
             <div className='w-1/2 text-right text-xs text-gray-400 leading-5 mr-3' data-testid='Mobile.TransactionCard.age'>
@@ -123,16 +123,16 @@ function MobileTransactionCardDetails (props: {
             </div>
           </div>
           <div className='flex flex-wrap items-center'>
-            <div className='text-gray-500 text-sm' data-testid='Mobile.TransactionCard.AmountLabel'>
+            <div className='text-gray-500 dark:text-gray-400 text-sm' data-testid='Mobile.TransactionCard.AmountLabel'>
               Amount
             </div>
-            <div className='text-right text-gray-900 text-sm ml-2' data-testid='Mobile.TransactionCard.AmountValue'>
+            <div className='text-right text-gray-900 dark:text-gray-100 text-sm ml-2' data-testid='Mobile.TransactionCard.AmountValue'>
               {`${new BigNumber(props.totalVoutValue).toFixed(8)} DFI`}
             </div>
           </div>
         </div>
       </div>
-      <div className='w-1/12 flex items-center justify-end'>
+      <div className='w-1/12 flex items-center justify-end dark:text-gray-100'>
         <IoChevronForwardSharp size={24} />
       </div>
     </>

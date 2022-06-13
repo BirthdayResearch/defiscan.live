@@ -38,7 +38,7 @@ function Card (props: PropsWithChildren<{ className?: string, testId?: string }>
   const [isOpen, setIsOpen] = useState(true)
 
   return (
-    <div className='w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500' data-testid={props.testId}>
+    <div className='w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500 dark:bg-gray-800 dark:border-gray-700' data-testid={props.testId}>
       <CardListContext.Provider value={{
         isOpen,
         setIsOpen
@@ -59,7 +59,7 @@ function Header (props: PropsWithChildren<{ className?: string, path?: string }>
 
   return (
     <div className='w-full flex justify-between space-x-1.5' data-testid='CardList.Header'>
-      <div className='w-full flex items-center' data-testid='CardList.Header.Children'>
+      <div className={classNames('w-full flex items-center', props.className)} data-testid='CardList.Header.Children'>
         {props.children}
       </div>
       {
@@ -69,7 +69,7 @@ function Header (props: PropsWithChildren<{ className?: string, path?: string }>
               <div
                 data-testid='CardList.Header.ViewButton'
                 onClick={() => setIsClicked(!isClicked)}
-                className={classNames('border border-primary-300 rounded text-primary-400 px-1.5 py-1 text-sm h-min', { 'bg-primary-100': isClicked })}
+                className={classNames('border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min', { 'bg-primary-100': isClicked })}
               >
                 VIEW
               </div>
@@ -78,7 +78,7 @@ function Header (props: PropsWithChildren<{ className?: string, path?: string }>
         )
       }
       <div
-        className='text-primary-500 cursor-pointer border border-primary-300 rounded h-min'
+        className='text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 border border-primary-300 rounded h-min'
         onClick={() => setIsOpen(!isOpen)}
         data-testid='CardList.Header.Toggle'
       >
@@ -116,7 +116,7 @@ function ListItem (props: PropsWithChildren<{
     <div className='flex justify-between text-gray-900' data-testid={props.testId}>
       <div className='mt-0.5'>
         <div
-          className={classNames('flex items-center text-gray-500', props.titleClassNames)}
+          className={classNames('flex items-center text-gray-500 dark:text-gray-400', props.titleClassNames)}
           data-testid='CardList.Row.Title'
         >
           {props.title}
@@ -124,7 +124,7 @@ function ListItem (props: PropsWithChildren<{
             <InfoHoverPopover className='ml-1 self-center' description={props.infoDesc} placement='top' />)}
         </div>
       </div>
-      <div data-testid='CardList.Row.Child'>
+      <div data-testid='CardList.Row.Child' className={classNames(props.className, 'dark:text-gray-100')}>
         {props.children}
       </div>
     </div>
@@ -136,7 +136,7 @@ function DropDownSortButton (props: PropsWithChildren<{ selected?: { sortKey: st
     <div data-testid='CardList.DropDownSortButton'>
       <Menu as='div' className='relative inline-block text-left'>
         <Menu.Button
-          className='inline-flex items-center rounded border border-primary-300 shadow-sm text-sm px-2.5 py-1.5 bg-white text-primary-500 hover:bg-primary-50'
+          className='inline-flex items-center rounded border border-primary-300  shadow-sm text-sm px-2.5 py-1.5 bg-white text-primary-500 hover:bg-primary-50 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500'
         >
           Sort By
           <MdOutlineSort size={18} className='ml-1' />
@@ -152,7 +152,7 @@ function DropDownSortButton (props: PropsWithChildren<{ selected?: { sortKey: st
           leaveTo='transform opacity-0 scale-95'
         >
           <Menu.Items
-            className='absolute right-0 w-64 z-20 mt-2 origin-top-right bg-white rounded shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+            className='absolute right-0 w-64 z-20 mt-2 origin-top-right bg-white dark:bg-gray-900 rounded shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
           >
             {props.children}
           </Menu.Items>
@@ -176,9 +176,9 @@ function DropDownSortOption ({
       <Menu.Item>
         {({ active }) => (
           <button
-            className={`${isSelected ? 'bg-primary-100 text-gray'
-              : active ? 'bg-primary-500 text-white' : 'text-gray-900'
-            } group flex rounded text-left items-center w-full px-2 py-2 text-sm`}
+            className={`${isSelected ? 'bg-primary-100 text-gray dark:bg-dark-primary-500 dark:text-gray-100'
+              : active ? 'bg-primary-500 text-white' : 'text-gray-900 '
+            } group flex rounded text-left items-center w-full px-2 py-2 text-sm dark:text-gray-100`}
             onClick={onClick}
           >
             {sortType.value}

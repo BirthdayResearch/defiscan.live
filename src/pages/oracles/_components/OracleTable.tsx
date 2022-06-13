@@ -19,7 +19,7 @@ export function OracleTable ({
 }: PriceOracleTableProps): JSX.Element {
   return (
     <div data-testid='OracleTable'>
-      <h2 className='text-2xl font-semibold'>
+      <h2 className='text-2xl font-semibold dark:text-dark-gray-900'>
         Oracles
       </h2>
 
@@ -53,7 +53,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
     const feedActive = isActive(feed.block)
 
     return (
-      <OverflowTable.Row>
+      <OverflowTable.Row className='dark:text-gray-100'>
         <OverflowTable.Cell sticky className='align-middle'>
           {format(feed.time * 1000, 'MMM dd, hh:mm:ss aa')}
         </OverflowTable.Cell>
@@ -65,7 +65,7 @@ function OracleFeed (props: { oracle: PriceOracle, price: PriceTicker }): JSX.El
             {aggActive && feedActive ? (
               <>
                 <MdCheck className='h-4 w-4 mr-1 text-green-500' />
-                <div className='text-sm text-gray-700'>
+                <div className='text-sm text-gray-700 dark:text-gray-400'>
                   Responded
                 </div>
               </>

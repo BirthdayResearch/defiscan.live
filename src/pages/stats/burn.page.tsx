@@ -34,10 +34,10 @@ export default function BurnPage ({
     <>
       <Head title='Payback Burn Stats' />
       <Container>
-        <div className='text-2xl font-medium mt-10 mb-2'>
+        <div className='text-2xl font-medium mt-10 mb-2 dark:text-dark-gray-900'>
           Payback Burn Stats
         </div>
-        <div className='text-xl font-medium mt-6 mb-2'>
+        <div className='text-xl font-medium mt-6 mb-2 dark:text-dark-gray-900'>
           DFI
         </div>
         <AdaptiveList className='w-full lg:w-1/2'>
@@ -55,7 +55,7 @@ export default function BurnPage ({
           burnRates.map(tokenRates => {
             return (
               <div key={tokenRates.symbol}>
-                <div className='text-xl font-medium mt-6 mb-2'>
+                <div className='text-xl font-medium mt-6 mb-2 dark:text-dark-gray-900'>
                   {tokenRates.symbol}
                 </div>
                 <AdaptiveList className='w-full lg:w-1/2'>
@@ -89,7 +89,7 @@ export default function BurnPage ({
             )
           })
         }
-        <div className='mt-5 bg-gray-100 p-6 border-gray-500 text-gray-600 rounded'>
+        <div className='mt-5 bg-gray-100 p-6 border-gray-500 text-gray-600 dark:bg-gray-800 ark:border-gray-700 dark:text-dark-gray-900 rounded'>
           <pre className='whitespace-pre-wrap break-all'>{JSON.stringify(burnInfo, null, 2)}</pre>
         </div>
       </Container>

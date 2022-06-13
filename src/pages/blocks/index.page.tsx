@@ -19,7 +19,7 @@ export default function Blocks ({ blocks }: InferGetServerSidePropsType<typeof g
     <Container className='pt-12 pb-20'>
       <Head title='Blocks' />
 
-      <h1 className='text-2xl font-medium'>Blocks</h1>
+      <h1 className='text-2xl font-medium dark:text-dark-gray-900'>Blocks</h1>
 
       <div className='my-6 hidden md:block'>
         <BlocksTable blocks={blocks.items} />

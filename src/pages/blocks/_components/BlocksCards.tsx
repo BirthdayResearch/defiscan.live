@@ -26,8 +26,8 @@ export function BlocksCard ({ block }: { block: Block }): JSX.Element {
     <CardList.Card testId='BlocksCard'>
       <CardList.Header path={`/blocks/${block.height}`}>
         <div>
-          <span className='text-sm'>Height</span>
-          <div className='font-medium text-gray-900'>
+          <span className='text-sm dark:text-gray-100'>Height</span>
+          <div className='font-medium text-gray-900 dark:text-gray-400'>
             <NumberFormat
               value={block.height}
               fixedDecimalScale

@@ -14,7 +14,7 @@ export function VaultIdCollateralDetails (props: { collateralValue: string, vaul
     <>
       <div className='mt-10 hidden md:block' data-testid='CollateralDetailsDesktop'>
         <div className='flex items-center'>
-          <h2 data-testid='CollateralDetailsDesktop.Heading' className='text-xl font-semibold'>Collateral Details</h2>
+          <h2 data-testid='CollateralDetailsDesktop.Heading' className='text-xl font-semibold dark:text-dark-gray-900'>Collateral Details</h2>
           <InfoHoverPopover className='ml-1' description='Proportion of collaterals deposited in the vault.' />
         </div>
 
@@ -71,7 +71,7 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
   compositionPercentage = props.col.symbol === 'DUSD' ? compositionPercentage?.multipliedBy(0.99) : compositionPercentage
 
   return (
-    <div className='w-full p-4 border border-gray-200 rounded' data-testid='CollateralCard'>
+    <div className='w-full p-4 border border-gray-200 rounded dark:bg-gray-800 dark:border-gray-700' data-testid='CollateralCard'>
       <div className='flex justify-between items-start w-full'>
         <div className='flex items-center' data-testid='CollateralCard.AssetIcon'>
           <TokenSymbol className='h-6 w-6 z-10' />
@@ -79,23 +79,23 @@ function CollateralCard (props: { collateralValue: string, vaultState: LoanVault
             className='flex flex-wrap items-center ml-1.5 font-medium'
             data-testid='CollateralCard.displaySymbol'
           >
-            <div>{props.col.displaySymbol}</div>
+            <div className='dark:text-gray-400'>{props.col.displaySymbol}</div>
             {props.col.symbol === 'DUSD'
               ? <InfoHoverPopover className='ml-1' description='99.00% collateral factor' placement='top' /> : <></>}
           </div>
         </div>
         {(compositionPercentage != null) &&
           (
-            <div className='font-medium text-gray-900'>
+            <div className='font-medium text-gray-900 dark:text-gray-400'>
               <VaultNumberValues value={compositionPercentage.multipliedBy(100)} suffix='%' />
             </div>
           )}
       </div>
       <div className='mt-4'>
-        <div className='text-sm text-gray-500' data-testid='CollateralCard.CollateralAmountTitle'>Collateral Amount
+        <div className='text-sm text-gray-500 dark:text-gray-400' data-testid='CollateralCard.CollateralAmountTitle'>Collateral Amount
         </div>
         <div
-          className={classNames('flex items-center space-x-1', props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+          className={classNames('flex items-center space-x-1', props.vaultState === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900 dark:text-gray-100')}
           data-testid='CollateralCard.CollateralAmount'
         >
           <ReactNumberFormat

@@ -16,7 +16,7 @@ export function SearchResultTable (props: { searchResults?: SearchResult[], isSe
   if (props.isSearching) {
     return (
       <SearchStatusMessage message='Searching'>
-        <CgSpinner size={52} className='animate-spin text-gray-600' />
+        <CgSpinner size={52} className='animate-spin text-gray-600 dark:text-gray-100' />
       </SearchStatusMessage>
     )
   }
@@ -24,7 +24,7 @@ export function SearchResultTable (props: { searchResults?: SearchResult[], isSe
   if (props.searchResults === undefined) {
     return (
       <SearchStatusMessage message='Search by Block Hash, Block Height, Transaction ID, Vault ID or Address'>
-        <IoSearchSharp size={96} className='text-gray-400 opacity-30' />
+        <IoSearchSharp size={96} className='text-gray-400 opacity-30 dark:text-gray-100' />
       </SearchStatusMessage>
     )
   }
@@ -32,7 +32,7 @@ export function SearchResultTable (props: { searchResults?: SearchResult[], isSe
   if (props.searchResults.length === 0) {
     return (
       <SearchStatusMessage message='No Results'>
-        <IoCloseCircleSharp size={88} className='text-gray-400 opacity-30' />
+        <IoCloseCircleSharp size={88} className='text-gray-400 opacity-30 dark:text-gray-100 ' />
       </SearchStatusMessage>
     )
   }
@@ -60,10 +60,10 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
             data-testid={`SearchResultRow.${props.searchResults.type}.${props.searchResults.title}`}
           >
             <div
-              className={classNames('bg-white p-3 cursor-pointer', { 'bg-primary-50': active })}
+              className={classNames('bg-white dark:bg-gray-800 p-3 cursor-pointer', { 'bg-primary-50 dark:bg-gray-900': active })}
             >
               <div className='flex flex-row items-start gap-x-2'>
-                <div className='text-gray-400'>
+                <div className='text-gray-400 dark:text-gray-100'>
                   {(() => {
                     switch (props.searchResults.type) {
                       case 'Block': {
@@ -82,8 +82,8 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
                   })()}
                 </div>
                 <div className='overflow-hidden'>
-                  <div className='overflow-hidden font-medium overflow-ellipsis'>{props.searchResults.title}</div>
-                  <div className='overflow-hidden text-sm text-gray-500'>{props.searchResults.type}</div>
+                  <div className='overflow-hidden font-medium overflow-ellipsis dark:text-dark-gray-900'>{props.searchResults.title}</div>
+                  <div className='overflow-hidden text-sm text-gray-500 dark:text-gray-100'>{props.searchResults.type}</div>
                 </div>
               </div>
             </div>
@@ -96,10 +96,10 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
 
 function SearchStatusMessage (props: PropsWithChildren<{ message: string }>): JSX.Element {
   return (
-    <div className='w-full rounded mt-1 bg-white px-4 py-8'>
-      <div className='w-full flex flex-col bg-white items-center'>
+    <div className='w-full rounded mt-1 bg-white dark:bg-gray-800 px-4 py-8'>
+      <div className='w-full flex flex-col bg-white dark:bg-gray-800 items-center'>
         {props.children}
-        <span className='text-center text-gray-400'>{props.message}</span>
+        <span className='text-center text-gray-400 dark:text-gray-100'>{props.message}</span>
       </div>
     </div>
   )
