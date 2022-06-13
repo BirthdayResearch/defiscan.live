@@ -492,6 +492,7 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'KLNE-USD',
     type: 'ETF'
   },
+
   // Playground
   'CS25-USD': {
     id: 'CS25-USD',
