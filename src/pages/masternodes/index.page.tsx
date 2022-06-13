@@ -66,7 +66,7 @@ export default function MasternodesPage ({ masternodes }: InferGetServerSideProp
       </StatsBar>
 
       <Container className='pt-12 pb-20'>
-        <h1 className='text-2xl font-medium'>Masternodes</h1>
+        <h1 className='text-2xl font-medium dark:text-dark-gray-900'>Masternodes</h1>
 
         <div className='my-6 hidden md:block'>
           <MasternodeTable masternodes={masternodes.items} />

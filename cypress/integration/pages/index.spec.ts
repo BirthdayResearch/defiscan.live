@@ -13,7 +13,6 @@ context('/ on macbook-16', () => {
 
   it('should have Stats Bar', () => {
     cy.findByTestId('StatItem.priceUsdt').should('exist')
-    cy.findByTestId('StatItem.tvlTotal').should('exist')
     cy.findByTestId('StatItem.blockReward').should('exist')
     cy.findByTestId('StatItem.totalDFIBurned').should('exist')
     cy.findByTestId('StatItem.difficulty').should('exist')
@@ -25,8 +24,8 @@ context('/ on macbook-16', () => {
     cy.findByTestId('SupplyStats.Desktop').should('be.visible')
 
     cy.findByTestId('SupplyStats.Desktop').within(() => {
-      cy.findByTestId('StatCard.Tvl').should('be.visible')
       cy.findByTestId('StatCard.TotalBurned').should('be.visible')
+      cy.findByTestId('StatCard.Tvl').should('be.visible')
       cy.findByTestId('StatCard.TotalMinted').should('be.visible')
       cy.findByTestId('StatCard.Circulating').should('be.visible')
     })
@@ -108,7 +107,6 @@ context('/ on iphone-x', () => {
 
   it('should have Stats Bar', () => {
     cy.findByTestId('StatItem.priceUsdt').should('exist')
-    cy.findByTestId('StatItem.tvlTotal').should('exist')
     cy.findByTestId('StatItem.blockReward').should('exist')
     cy.findByTestId('StatItem.totalDFIBurned').should('exist')
     cy.findByTestId('StatItem.difficulty').should('exist')

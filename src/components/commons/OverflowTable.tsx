@@ -11,7 +11,7 @@ export function OverflowTable (props: PropsWithChildren<{ className?: string }>)
   return (
     <div
       data-testid='OverflowTable'
-      className={classNames('relative border border-gray-200 rounded-lg overflow-x-auto', props.className)}
+      className={classNames('relative border border-gray-200 dark:border-gray-700 rounded-lg overflow-x-auto', props.className)}
       onScroll={(ele: any) => setScroll(ele.target?.scrollLeft)}
     >
       <div className='table table-auto border-collapse w-full'>
@@ -29,7 +29,7 @@ function Header (props: PropsWithChildren<{ className?: string }>): JSX.Element 
   return (
     <div
       data-testid='OverflowTable.Header'
-      className={classNames('table-row border-gray-100 bg-gray-50', props.className)}
+      className={classNames('table-row border-gray-100 bg-gray-50 dark:bg-gray-700', props.className)}
     >
       {props.children}
     </div>
@@ -40,7 +40,7 @@ function Row (props: PropsWithChildren<{ className?: string, onClick?: MouseEven
   return (
     <div
       data-testid='OverflowTable.Row'
-      className={classNames('table-row border-t border-gray-100 group', props.className)}
+      className={classNames('table-row border-t border-gray-100 dark:border-gray-700 group', props.className)}
       onClick={props.onClick}
     >
       {props.children}
@@ -52,7 +52,7 @@ function Head (props: PropsWithChildren<{ title: string, className?: string, sti
   return (
     <div
       data-testid='OverflowTable.Head'
-      className={classNames('table-cell px-4 md:px-6 py-3 align-middle text-black text-opacity-60 text-sm font-semibold bg-gray-50', props.className, {
+      className={classNames('table-cell px-4 md:px-6 py-3 align-middle text-black dark:text-gray-100 text-opacity-60 text-sm font-semibold', props.className, {
         'sticky left-0': props.sticky!,
         'text-right': props.alignRight!
       })}
@@ -72,14 +72,14 @@ function Cell (props: PropsWithChildren<{ className?: string, sticky?: boolean, 
       {(left) => (
         <div
           data-testid='OverflowTable.Cell'
-          className={classNames('table-cell px-4 md:px-6 py-4 align-top bg-white group-hover:bg-primary-50', props.className, {
+          className={classNames('table-cell px-4 md:px-6 py-4 align-top bg-white dark:bg-gray-800 dark:group-hover:bg-gray-600 group-hover:bg-primary-50 dark:text-gray-100 ', props.className, {
             'sticky left-0': props.sticky!,
             'text-right': props.alignRight!
           })}
         >
           {props.children}
           <div className={classNames({
-            'h-full absolute inset-y-0 right-0 border-r border-gray-100': props.sticky! && left > 0
+            'h-full absolute inset-y-0 right-0 border-r border-gray-100 dark:border-gray-700': props.sticky! && left > 0
           })}
           />
         </div>

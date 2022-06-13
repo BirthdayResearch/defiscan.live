@@ -24,7 +24,7 @@ export function DfTxSetCollateralToken (props: DfTxSetCollateralTokenProps): JSX
           <AdaptiveList.Row name='Factor' testId='DfTxSetCollateralToken.Factor'>
             {props.dftx.data.factor.toFixed(8)}
           </AdaptiveList.Row>
-          <AdaptiveList.Row name='Actived After Block' testId='DfTxSetCollateralToken.Block'>
+          <AdaptiveList.Row name='Activate After Block' testId='DfTxSetCollateralToken.Block'>
             {props.dftx.data.activateAfterBlock}
           </AdaptiveList.Row>
         </AdaptiveList>

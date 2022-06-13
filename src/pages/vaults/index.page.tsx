@@ -28,7 +28,7 @@ export default function Vaults ({ vaults }: InferGetServerSidePropsType<typeof g
       <Container className='pt-12 pb-20'>
         <Head title='Vaults' />
 
-        <h1 className='text-2xl font-medium'>Vaults</h1>
+        <h1 className='text-2xl font-medium dark:text-dark-gray-900'>Vaults</h1>
 
         <div className='my-6 hidden md:block'>
           {vaults.items.length === 0

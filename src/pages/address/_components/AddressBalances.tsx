@@ -49,7 +49,7 @@ export function AddressBalances (props: AddressBalancesProps): JSX.Element {
     return (
       <div className='flex flex-wrap'>
         <div className='flex w-full h-40 items-center justify-center rounded p-4 border border-gray-100'>
-          <CgSpinner size={32} className='animate-spin text-gray-600' />
+          <CgSpinner size={32} className='animate-spin text-gray-600 dark:text-gray-100' />
         </div>
       </div>
     )
@@ -79,12 +79,12 @@ export function AddressBalances (props: AddressBalancesProps): JSX.Element {
 function AddressTokenCard (props: { token: AddressToken }): JSX.Element {
   return (
     <div className='w-full md:w-1/3 lg:w-1/4 xl:w-1/5 p-1' data-testid='AddressTokenCard'>
-      <div className='flex flex-wrap p-3 rounded border border-gray-200'>
+      <div className='flex flex-wrap p-3 rounded border border-gray-200 dark:bg-gray-800 dark:border-gray-700'>
         <div className='w-full flex justify-between'>
           <TokenSymbolName token={props.token} />
 
-          <div className='bg-gray-200 p-1 rounded'>
-            <div className='text-xs font-medium text-gray-600' data-testid='AddressTokenCard.Type'>
+          <div className='bg-gray-200 p-1 rounded dark:bg-gray-900'>
+            <div className='text-xs font-medium text-gray-600 dark:text-dark-primary-500' data-testid='AddressTokenCard.Type'>
               {(() => {
                 if (props.token.isLPS) {
                   return 'LPS'
@@ -98,7 +98,7 @@ function AddressTokenCard (props: { token: AddressToken }): JSX.Element {
           </div>
         </div>
 
-        <div className='w-full mt-2.5 text-gray-900 font-medium' data-testid='AddressTokenCard.Amount'>
+        <div className='w-full mt-2.5 text-gray-900 font-medium dark:text-gray-100' data-testid='AddressTokenCard.Amount'>
           {props.token.amount}
         </div>
       </div>
@@ -131,7 +131,7 @@ function TokenSymbolName (props: { token: AddressToken }): JSX.Element {
           return <TokenIcon className='h-6 w-6 mr-1' data-testid='AddressTokenCard.TokenSymbol' />
         })()}
 
-        <div className='text-gray-900 hover:text-blue-500' data-testid='AddressTokenCard.TokenName'>
+        <div className='text-gray-900 hover:text-blue-500 dark:text-gray-100' data-testid='AddressTokenCard.TokenName'>
           <Link href={{ pathname: `/tokens/${props.token.id}` }}>
             <a className='contents'>
               {props.token.displaySymbol}{!props.token.isDAT && `#${props.token.id}`}

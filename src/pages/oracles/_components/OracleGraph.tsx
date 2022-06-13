@@ -64,7 +64,7 @@ export function OracleGraph ({
 
   return (
     <div
-      className='rounded-lg flex flex-col bg-gray-50' style={{
+      className='rounded-lg flex flex-col bg-gray-50 dark:bg-gray-800' style={{
         height: '32rem',
         maxHeight: '80vh'
       }}
@@ -110,7 +110,7 @@ function GraphPeriodButton ({
   return (
     <div
       data-testid='Oracles.GraphPeriodButton'
-      className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', graphPeriod === current ? 'text-primary-500 bg-primary-100 border-primary-100' : 'text-gray-900 bg-gray-200 border-gray-200  hover:bg-primary-50 hover:border-primary-50')}
+      className={classNames('rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0', graphPeriod === current ? 'text-primary-500 bg-primary-100 border-primary-100 dark:bg-dark-primary-500 dark:border-dark-primary-500 dark:text-dark-gray-900' : 'text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50')}
       onClick={onClick}
       key={graphPeriod}
     >

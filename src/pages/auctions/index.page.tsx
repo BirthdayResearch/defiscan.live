@@ -25,7 +25,7 @@ export default function AuctionsPage ({ vaults }: InferGetServerSidePropsType<ty
 
       <Container className='pt-12 pb-20'>
         <div className='flex items-center'>
-          <h1 className='text-2xl font-medium' data-testid='AuctionsPage.Heading'>Auctions</h1>
+          <h1 className='text-2xl font-medium dark:text-dark-gray-900' data-testid='AuctionsPage.Heading'>Auctions</h1>
         </div>
 
         {vaults.items.length === 0 ? (

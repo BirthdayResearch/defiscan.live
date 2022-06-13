@@ -7,7 +7,7 @@ export function AdaptiveList (props: PropsWithChildren<{ className?: string }>):
     <div
       data-testid='AdaptiveList'
       className={classNames(
-        'rounded-lg border border-gray-200 overflow-hidden', props.className
+        'rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden', props.className
       )}
     >
       <div className='table w-full border-collapse'>
@@ -21,14 +21,14 @@ export function AdaptiveList (props: PropsWithChildren<{ className?: string }>):
 
 function Row (props: PropsWithChildren<{ name: string, className?: string, testId?: string, infoDesc?: string | ReactNode }>): JSX.Element {
   return (
-    <div className='table-row border-b border-gray-100 last:border-b-0'>
+    <div className='table-row border-b border-gray-100 dark:border-gray-700 last:border-b-0'>
       <div className='table-cell px-4 md:px-6 py-3'>
-        <div className='flex items-center'>
+        <div className='flex items-center dark:text-gray-400'>
           {props.name}
           {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
         </div>
       </div>
-      <div className={classNames('table-cell px-4 md:px-6 py-3 text-gray-600 align-middle', props.className)} data-testid={props.testId}>
+      <div className={classNames('table-cell px-4 md:px-6 py-3 text-gray-600 dark:text-gray-100 align-middle', props.className)} data-testid={props.testId}>
         {props.children}
       </div>
     </div>

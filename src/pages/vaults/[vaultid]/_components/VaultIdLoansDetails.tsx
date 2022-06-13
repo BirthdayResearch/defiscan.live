@@ -24,7 +24,7 @@ export function VaultIdLoansDetails (props: VaultIdLoansDetailsProps): JSX.Eleme
   return (
     <>
       <div className='hidden md:block mt-10' data-testid='VaultLoansDesktop'>
-        <h2 className='text-xl font-semibold' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
+        <h2 className='text-xl font-semibold dark:text-dark-gray-900' data-testid='VaultLoansDesktop.Heading'>Loan Details</h2>
 
         {props.loans.length === 0
           ? (
@@ -103,7 +103,7 @@ function VaultLoansTableRow (props: {
 
   return (
     <OverflowTable.Row
-      className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900')}
+      className={classNames(props.vault.state === LoanVaultState.FROZEN ? 'text-gray-200' : 'text-gray-900 dark:text-gray-100')}
     >
       <OverflowTable.Cell>
         <div className='flex items-center space-x-1'>
@@ -153,7 +153,7 @@ function VaultLoanDetailsCard (props: {
       <CardList.Header>
         <LoanSymbol className='h-6 w-6' data-testid='LoanDetailsCard.AssetIcon' />
         <div
-          className='ml-1.5 font-medium text-gray-900'
+          className='ml-1.5 font-medium text-gray-900 dark:text-gray-100'
           data-testid='LoanDetailsCard.displaySymbol'
         >{props.loan.displaySymbol}
         </div>

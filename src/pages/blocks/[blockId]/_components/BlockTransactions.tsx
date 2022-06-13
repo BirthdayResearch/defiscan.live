@@ -20,7 +20,7 @@ export function BlockTransactions (props: InferGetServerSidePropsType<typeof get
 
   function TransactionRow ({ transaction }: { transaction: Transaction }): JSX.Element {
     return (
-      <OverflowTable.Row key={transaction.txid} className='hover:text-primary-500'>
+      <OverflowTable.Row key={transaction.txid} className='hover:text-primary-500 dark:hover:text-white-100 dark:text-gray-100'>
         <OverflowTable.Cell>
           <div className='break-all w-80 md:w-full'>
             {transaction.txid}
@@ -47,7 +47,7 @@ export function BlockTransactions (props: InferGetServerSidePropsType<typeof get
 
   return (
     <div>
-      <h1 className='font-medium text-2xl mt-6'>Transactions</h1>
+      <h1 className='font-medium text-2xl mt-6 dark:text-dark-gray-900'>Transactions</h1>
 
       <OverflowTable className='mt-3'>
         <OverflowTable.Header>

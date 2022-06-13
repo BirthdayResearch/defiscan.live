@@ -26,7 +26,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
   return (
     <div className='md:w-full lg:w-1/3 mt-4 md:mt-4 lg:px-4 lg:mt-0' data-testid='VaultHealthBar'>
       <div className='w-full flex'>
-        <div className='w-1/2 text-gray-500'>Collateralization Ratio</div>
+        <div className='w-1/2 text-gray-500 dark:text-gray-400'>Collateralization Ratio</div>
         <div className='w-1/2 text-right'>
           <VaultCollateralizationRatio
             collateralizationRatio={new BigNumber(props.vault.collateralRatio).toFixed(0, BigNumber.ROUND_HALF_UP)}
@@ -36,7 +36,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
           />
         </div>
       </div>
-      <div className='mt-0.5 w-full flex flex-wrap text-sm text-gray-500'>
+      <div className='mt-0.5 w-full flex flex-wrap text-sm text-gray-500 dark:text-gray-100'>
         <div
           className='w-1/2'
           data-testid='VaultHealthBar.MinCollateralizationRatio'
@@ -101,15 +101,15 @@ function ColorScale (props: { normalizedLiquidatedThreshold: BigNumber, normaliz
   return (
     <div className='w-full flex flex-row mt-1.5' data-testid='VaultHealthBar.ColorScale'>
       <div
-        className='h-1 bg-red-300'
+        className='h-1 bg-red-300 dark:bg-dark-red-500'
         style={{ width: `${props.normalizedLiquidatedThreshold.toFixed(2)}%` }}
       />
       <div
-        className='h-1 bg-orange-300'
+        className='h-1 bg-orange-300 dark:bg-dark-orange-500'
         style={{ width: `${props.normalizedAtRiskThreshold.minus(props.normalizedLiquidatedThreshold).toFixed(2)}%` }}
       />
       <div
-        className='h-1 flex-1 bg-green-300'
+        className='h-1 flex-1 bg-green-300 dark:bg-dark-green-500'
       />
     </div>
   )

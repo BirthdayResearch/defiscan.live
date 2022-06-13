@@ -26,7 +26,7 @@ export function MasternodeTable ({ masternodes }: { masternodes: MasternodeData[
 
 function MasternodeRow ({ data }: { data: MasternodeData }): JSX.Element {
   return (
-    <OverflowTable.Row>
+    <OverflowTable.Row className='dark:text-gray-100'>
       <OverflowTable.Cell sticky>
         <AddressLink address={data.owner.address}>
           <TextTruncate text={data.owner.address} className='w-44' />

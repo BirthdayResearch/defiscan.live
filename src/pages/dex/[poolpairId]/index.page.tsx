@@ -71,13 +71,13 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         <PoolPairDetailsBar poolpair={poolpairs} />
         <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
           <div className='lg:flex lg:flex-col lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
-            <h3 className='text-lg font-semibold'>
+            <h3 className='text-lg font-semibold dark:text-dark-gray-900'>
               Pool Details
             </h3>
             <PoolPairDetails poolpair={poolpairs} />
           </div>
           <div className='w-full lg:w-3/4 overflow-hidden'>
-            <h3 className='text-lg font-semibold'>
+            <h3 className='text-lg font-semibold dark:text-dark-gray-900'>
               Swap History
             </h3>
             <div className='hidden lg:block'>

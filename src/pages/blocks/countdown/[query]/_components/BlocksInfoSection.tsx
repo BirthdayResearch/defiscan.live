@@ -7,10 +7,10 @@ export function BlocksInfoSection (props: { remaining: number, current: number }
     <div className='flex flex-wrap justify-center mt-10 -mx-2' data-testid='BlocksInfoSection'>
       <div className='w-full lg:w-4/6 flex flex-wrap'>
         <div className='w-full md:w-1/2 py-1 md:py-0 md:pr-1 md:pl-2'>
-          <div className='rounded border p-2 flex items-center'>
+          <div className='rounded border dark:border-gray-700 p-2 flex items-center'>
             <MdStairs className='text-gray-400 inline-block' size={22} />
-            <span className='text-gray-500 ml-1' data-testid='BlocksInfoSection.Current.Label'>Current Height:</span>
-            <span className='text-gray-900 ml-1' data-testid='BlocksInfoSection.Current.Value'>
+            <span className='text-gray-500 ml-1 dark:text-gray-400' data-testid='BlocksInfoSection.Current.Label'>Current Height:</span>
+            <span className='text-gray-900 ml-1 dark:text-gray-100' data-testid='BlocksInfoSection.Current.Value'>
               <NumberFormat
                 value={props.current}
                 displayType='text'
@@ -20,14 +20,14 @@ export function BlocksInfoSection (props: { remaining: number, current: number }
           </div>
         </div>
         <div className='w-full md:w-1/2 md:py-0 md:pr-2 md:pl-1'>
-          <div className='rounded border p-2 flex items-center'>
+          <div className='rounded border dark:border-gray-700 p-2 flex items-center'>
             <MdStairs className='text-gray-400 inline-block' size={22} />
             <span
-              className='text-gray-500 ml-1'
+              className='text-gray-500 dark:text-gray-400 ml-1'
               data-testid='BlocksInfoSection.Remaining.Label'
             >Remaining Blocks:
             </span>
-            <span className='text-gray-900 ml-1' data-testid='BlocksInfoSection.Remaining.Value'>
+            <span className='text-gray-900 dark:text-gray-100 ml-1' data-testid='BlocksInfoSection.Remaining.Value'>
               <NumberFormat
                 value={props.remaining}
                 displayType='text'

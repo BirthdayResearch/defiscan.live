@@ -32,23 +32,24 @@ export function BlocksTable ({ blocks }: { blocks: Block[] }): JSX.Element {
 function BlockRow ({ block }: { block: Block }): JSX.Element {
   const age = useAge(block.medianTime)
   return (
-    <OverflowTable.Row className='hover:text-primary-500'>
+    <OverflowTable.Row className='hover:text-primary-500 dark:hover:text-gray-100'>
       <OverflowTable.Cell sticky>
         <NumberFormat
           value={block.height}
           fixedDecimalScale
           thousandSeparator=','
           displayType='text'
+          className='dark:text-gray-100'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell className='dark:text-gray-100'>
         {age}
       </OverflowTable.Cell>
-      <OverflowTable.Cell>{block.transactionCount}</OverflowTable.Cell>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell className='dark:text-gray-100'>{block.transactionCount}</OverflowTable.Cell>
+      <OverflowTable.Cell className='dark:text-gray-100'>
         <TextTruncate text={block.minter} />
       </OverflowTable.Cell>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell className='dark:text-gray-100'>
         <NumberFormat
           value={block.size}
           fixedDecimalScale
@@ -56,7 +57,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
           displayType='text'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell>
+      <OverflowTable.Cell className='dark:text-gray-100'>
         <UnitSuffix
           value={block.difficulty}
           units={{

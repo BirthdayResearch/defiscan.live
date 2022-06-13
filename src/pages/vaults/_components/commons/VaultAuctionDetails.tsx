@@ -19,7 +19,7 @@ export function AuctionsTableRow (props: VaultAuctionDetailsProps): JSX.Element 
   const TokenSymbol = getAssetIcon(props.batch.loan.symbol)
 
   return (
-    <OverflowTable.Row>
+    <OverflowTable.Row className='dark:text-gray-100'>
       <OverflowTable.Cell>
         <AuctionTimeLeft liquidationHeight={props.vault.liquidationHeight} testId='AuctionsTableRow.AuctionTimeLeft' />
       </OverflowTable.Cell>
@@ -63,7 +63,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
   return (
     <CardList.Card testId='MobileAuctionDetailCard'>
       <CardList.Header path={`/vaults/${props.vault.vaultId}/auctions/${props.batch.index}`}>
-        <div className='flex items-center font-medium text-gray-900'>
+        <div className='flex items-center font-medium text-gray-900 dark:text-gray-100'>
           <TokenSymbol className='w-6 h-6 mr-1.5' data-testid='MobileAuctionDetailCard.TokenSymbol' />
           <span data-testid='MobileAuctionDetailCard.displaySymbol'>{props.batch.loan.displaySymbol}</span>
         </div>
@@ -71,7 +71,7 @@ export function MobileAuctionDetailsCard (props: VaultAuctionDetailsProps): JSX.
 
       <div className='text-sm mt-1' data-testid='MobileAuctionDetailCard.AuctionTimeLeft'>
         <AuctionTimeLeft
-          liquidationHeight={props.vault.liquidationHeight} className='text-sm text-gray-500'
+          liquidationHeight={props.vault.liquidationHeight} className='text-sm text-gray-500 dark:text-gray-400'
           showApproximateSymbol
         />
       </div>
