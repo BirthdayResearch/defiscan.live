@@ -452,8 +452,8 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'STIP-USD',
     type: 'ETF'
   },
-  'VIIP-USD': {
-    id: 'VIIP-USD',
+  'VTIP-USD': {
+    id: 'VTIP-USD',
     type: 'ETF'
   },
   'SHY-USD': {
