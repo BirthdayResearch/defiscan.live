@@ -26,7 +26,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
   return (
     <div className='md:w-full lg:w-1/3 mt-4 md:mt-4 lg:px-4 lg:mt-0' data-testid='VaultHealthBar'>
       <div className='w-full flex'>
-        <div className='w-1/2 text-gray-500 dark:text-gray-400'>Collateralization Ratio</div>
+        <div className='w-1/2 dark:text-white'>Collateralization Ratio</div>
         <div className='w-1/2 text-right'>
           <VaultCollateralizationRatio
             collateralizationRatio={new BigNumber(props.vault.collateralRatio).toFixed(0, BigNumber.ROUND_HALF_UP)}
@@ -38,12 +38,12 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
       </div>
       <div className='mt-0.5 w-full flex flex-wrap text-sm text-gray-500 dark:text-gray-100'>
         <div
-          className='w-1/2'
+          className='w-1/2 text-gray-500'
           data-testid='VaultHealthBar.MinCollateralizationRatio'
         >{`Min: ${minColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`}
         </div>
         <div
-          className='w-1/2 text-right flex items-center justify-end'
+          className='w-1/2 text-right flex items-center justify-end text-gray-500'
           data-testid='VaultHealthBar.NextCollateralizationRatio'
         >
           {(() => {
@@ -68,21 +68,21 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
         </div>
       </div>
       <div className='relative flex mt-2.5 items-center'>
-        <div className='w-full flex rounded-lg h-4 bg-gray-100 border overflow-hidden'>
+        <div className='w-full flex rounded-lg h-4 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-800 border overflow-hidden '>
           <div
-            className='bg-white h-4 overflow-hidden' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }}
+            className='bg-white h-4 overflow-hidden dark:bg-gray-200' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }}
             data-testid='VaultHealthBar.BarProgress'
           />
         </div>
         <span
-          className='absolute h-5 border-l border-black'
+          className='absolute h-5 border-l border-black dark:border-white'
           style={{ left: `${BigNumber.min(normalizedColRatio.multipliedBy(100), 99.7).toFixed(2)}%` }}
           data-testid='VaultHealthBar.CurrentLine'
         />
         {
           normalizedNextRatio !== undefined && (
             <span
-              className='absolute h-5 border-l border-black border-dashed'
+              className='absolute h-5 border-l border-black border-dashed dark:border-white'
               style={{ left: `${BigNumber.min(normalizedNextRatio, 99.7).toFixed(2)}%` }}
               data-testid='VaultHealthBar.NextLine'
             />

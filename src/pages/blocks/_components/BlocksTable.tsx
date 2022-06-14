@@ -12,10 +12,10 @@ export function BlocksTable ({ blocks }: { blocks: Block[] }): JSX.Element {
       <OverflowTable.Header>
         <OverflowTable.Head title='Height' sticky />
         <OverflowTable.Head title='Age' />
-        <OverflowTable.Head title='Transactions' />
+        <OverflowTable.Head title='Transactions' alignRight />
         <OverflowTable.Head title='Minter' />
-        <OverflowTable.Head title='Size (B)' />
-        <OverflowTable.Head title='Difficulty' />
+        <OverflowTable.Head title='Size (B)' alignRight />
+        <OverflowTable.Head title='Difficulty' alignRight />
       </OverflowTable.Header>
 
       {blocks.map(block => (
@@ -45,11 +45,11 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
       <OverflowTable.Cell className='dark:text-gray-100'>
         {age}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='dark:text-gray-100'>{block.transactionCount}</OverflowTable.Cell>
+      <OverflowTable.Cell className='dark:text-gray-100 text-right'>{block.transactionCount}</OverflowTable.Cell>
       <OverflowTable.Cell className='dark:text-gray-100'>
-        <TextTruncate text={block.minter} />
+        <TextTruncate text={block.minter} width='w-24 md:w-36 lg:w-60 xl:w-auto' />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='dark:text-gray-100'>
+      <OverflowTable.Cell className='dark:text-gray-100 text-right'>
         <NumberFormat
           value={block.size}
           fixedDecimalScale
@@ -57,7 +57,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
           displayType='text'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='dark:text-gray-100'>
+      <OverflowTable.Cell className='dark:text-gray-100 text-right'>
         <UnitSuffix
           value={block.difficulty}
           units={{
