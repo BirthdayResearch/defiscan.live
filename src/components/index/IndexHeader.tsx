@@ -1,7 +1,7 @@
 import { Container } from '@components/commons/Container'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { UnitSuffix } from '@components/commons/UnitSuffix'
 import ReactNumberFormat from 'react-number-format'
 import React, { PropsWithChildren } from 'react'
@@ -9,6 +9,8 @@ import { StatItem } from '@components/commons/stats/StatItem'
 import { StatsBar } from '@components/commons/stats/StatsBar'
 import { SearchBar } from '@components/commons/searchbar/SearchBar'
 import { useTheme } from '@contexts/ThemeContext'
+import FortCanningDark from '@public/assets/hero/fortcanningDark.webp'
+import FortCanning from '@public/assets/hero/fortcanning.webp'
 
 export function IndexHeader (): JSX.Element {
   const { theme } = useTheme()
@@ -18,7 +20,7 @@ export function IndexHeader (): JSX.Element {
       <HeaderWrapper
         title='header-image'
         gradient={theme === 'dark' ? 'linear-gradient(rgba(23, 23, 23, 0) 25.4%, rgb(23, 23, 23) 94.76%)' : 'linear-gradient(rgba(255, 255, 255, 0) 25.4%, rgb(255, 255, 255) 94.76%)'}
-        bgImage={theme === 'dark' ? '/assets/hero/fortcanningDark.svg' : '/assets/hero/fortcanning.svg'}
+        bgImage={theme === 'dark' ? FortCanningDark : FortCanning}
       >
         <Container className='h-full'>
           <div className='h-full flex flex-wrap items-center justify-center pt-14 pb-16'>
@@ -33,7 +35,7 @@ export function IndexHeader (): JSX.Element {
   )
 }
 
-function HeaderWrapper (props: PropsWithChildren<{bgImage: string, title: string, gradient: string}>): JSX.Element {
+function HeaderWrapper (props: PropsWithChildren<{bgImage: StaticImageData, title: string, gradient: string}>): JSX.Element {
   return (
     <div className='relative pb-24 -mb-24'>
       <Image
