@@ -33,7 +33,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
   const age = useAge(block.medianTime)
   return (
     <OverflowTable.Row className='hover:text-primary-500 dark:hover:text-gray-100'>
-      <OverflowTable.Cell sticky className='align-middle'>
+      <OverflowTable.Cell sticky>
         <NumberFormat
           value={block.height}
           fixedDecimalScale
@@ -42,14 +42,14 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
           className='dark:text-gray-100'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='dark:text-gray-100 align-middle'>
+      <OverflowTable.Cell className='dark:text-gray-100'>
         {age}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='dark:text-gray-100 align-middle text-right'>{block.transactionCount}</OverflowTable.Cell>
-      <OverflowTable.Cell className='dark:text-gray-100 align-middle'>
+      <OverflowTable.Cell className='dark:text-gray-100 text-right'>{block.transactionCount}</OverflowTable.Cell>
+      <OverflowTable.Cell className='dark:text-gray-100'>
         <TextTruncate text={block.minter} width='w-24 md:w-36 lg:w-60 xl:w-auto' />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='dark:text-gray-100 align-middle text-right'>
+      <OverflowTable.Cell className='dark:text-gray-100 text-right'>
         <NumberFormat
           value={block.size}
           fixedDecimalScale
@@ -57,7 +57,7 @@ function BlockRow ({ block }: { block: Block }): JSX.Element {
           displayType='text'
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='dark:text-gray-100 align-middle text-right'>
+      <OverflowTable.Cell className='dark:text-gray-100 text-right'>
         <UnitSuffix
           value={block.difficulty}
           units={{
