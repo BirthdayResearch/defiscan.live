@@ -68,9 +68,9 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
         </div>
       </div>
       <div className='relative flex mt-2.5 items-center'>
-        <div className='w-full flex rounded-lg h-4 bg-gray-100 border overflow-hidden'>
+        <div className='w-full flex rounded-lg h-4 bg-gray-100 dark:bg-gray-500 border-gray-300 dark:border-gray-800 border overflow-hidden '>
           <div
-            className='bg-white h-4 overflow-hidden' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }}
+            className='bg-white h-4 overflow-hidden dark:bg-gray-200' style={{ width: `${normalizedColRatio.toNumber() * 100}%` }}
             data-testid='VaultHealthBar.BarProgress'
           />
         </div>
@@ -82,7 +82,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
         {
           normalizedNextRatio !== undefined && (
             <span
-              className='absolute h-5 border-l border-black border-dashed'
+              className='absolute h-5 border-l border-black border-dashed dark:bg-white dark:border-white'
               style={{ left: `${BigNumber.min(normalizedNextRatio, 99.7).toFixed(2)}%` }}
               data-testid='VaultHealthBar.NextLine'
             />
