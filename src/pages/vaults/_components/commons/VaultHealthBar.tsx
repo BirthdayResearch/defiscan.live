@@ -26,7 +26,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
   return (
     <div className='md:w-full lg:w-1/3 mt-4 md:mt-4 lg:px-4 lg:mt-0' data-testid='VaultHealthBar'>
       <div className='w-full flex'>
-        <div className='w-1/2 text-gray-500 dark:text-gray-400'>Collateralization Ratio</div>
+        <div className='w-1/2 dark:text-white'>Collateralization Ratio</div>
         <div className='w-1/2 text-right'>
           <VaultCollateralizationRatio
             collateralizationRatio={new BigNumber(props.vault.collateralRatio).toFixed(0, BigNumber.ROUND_HALF_UP)}
@@ -38,12 +38,12 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
       </div>
       <div className='mt-0.5 w-full flex flex-wrap text-sm text-gray-500 dark:text-gray-100'>
         <div
-          className='w-1/2'
+          className='w-1/2 text-gray-500'
           data-testid='VaultHealthBar.MinCollateralizationRatio'
         >{`Min: ${minColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`}
         </div>
         <div
-          className='w-1/2 text-right flex items-center justify-end'
+          className='w-1/2 text-right flex items-center justify-end text-gray-500'
           data-testid='VaultHealthBar.NextCollateralizationRatio'
         >
           {(() => {
