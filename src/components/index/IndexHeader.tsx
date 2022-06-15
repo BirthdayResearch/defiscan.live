@@ -42,7 +42,9 @@ function HeaderWrapper (props: PropsWithChildren<{bgImage: StaticImageData, titl
         layout='fill'
         alt={props.title}
         src={props.bgImage}
-        className='object-center object-cover pointer-events-none'
+        objectFit='cover'
+        objectPosition='center'
+        className='pointer-events-none'
       />
       <div
         className='absolute h-full w-full'
