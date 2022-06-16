@@ -14,6 +14,7 @@ import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-clien
 import classNames from 'classnames'
 import { SearchResult, SearchResultTable } from './SearchResult'
 import { useRouter } from 'next/router'
+import { getEnvironment } from '@contexts/Environment'
 
 interface SearchBarInterface {
   atHeader: boolean
@@ -21,7 +22,7 @@ interface SearchBarInterface {
 
 export function SearchBar (props: SearchBarInterface): JSX.Element {
   const api = useWhaleApiClient()
-  const network = useNetwork().name
+  const { name: network, connection } = useNetwork()
   const router = useRouter()
 
   const [isSearching, setIsSearching] = useState<boolean>(false)
@@ -99,7 +100,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
   function onSelect (result: SearchResult): void {
     setSelected(result)
     if (result.url !== undefined) {
-      void router.push(result.url)
+      void router.push({ pathname: result.url, query: getEnvironment().isDefaultConnection(connection) ? {} : { network: connection } })
     }
   }
 
