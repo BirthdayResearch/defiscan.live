@@ -13,6 +13,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
 import classNames from 'classnames'
 import { SearchResult, SearchResultTable } from './SearchResult'
+import { useRouter } from 'next/router'
 
 interface SearchBarInterface {
   atHeader: boolean
@@ -21,6 +22,7 @@ interface SearchBarInterface {
 export function SearchBar (props: SearchBarInterface): JSX.Element {
   const api = useWhaleApiClient()
   const network = useNetwork().name
+  const router = useRouter()
 
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
@@ -94,8 +96,15 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
   const onChangeDebounceHandler = useMemo(() => debounce(changeHandler, 200), [])
 
+  function onSelect (result: SearchResult): void {
+    setSelected(result)
+    if (result.url !== undefined) {
+      void router.push(result.url)
+    }
+  }
+
   return (
-    <Combobox value={selected} onChange={setSelected} nullable>
+    <Combobox value={selected} onChange={onSelect} nullable>
       <div className={classNames('flex w-full', { 'md:w-3/4 xl:w-1/2': !props.atHeader })}>
         <div
           className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white dark:bg-gray-800 dark:border-gray-700 border focus-within:border-primary-200')}
