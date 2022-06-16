@@ -1,6 +1,6 @@
 import { CgSpinner } from 'react-icons/cg'
 import { IoCloseCircleSharp, IoSearchSharp } from 'react-icons/io5'
-import { Menu } from '@headlessui/react'
+import { Combobox } from '@headlessui/react'
 import { Fragment, PropsWithChildren } from 'react'
 import { SearchResultLink } from '../link/Link'
 import classNames from 'classnames'
@@ -39,13 +39,13 @@ export function SearchResultTable (props: { searchResults?: SearchResult[], isSe
 
   return (
     <>
-      <Menu.Items className='focus:outline-none' static>
+      <Combobox.Options className='focus:outline-none' static>
         {props.searchResults.map((searchResult, index) => {
           return (
-            <SearchResultRow searchResults={searchResult} index={index} key={searchResult.title} />
+            <SearchResultRow searchResults={searchResult} index={index} key={`${searchResult.type}.${searchResult.title}`} />
           )
         })}
-      </Menu.Items>
+      </Combobox.Options>
     </>
   )
 }
@@ -53,7 +53,7 @@ export function SearchResultTable (props: { searchResults?: SearchResult[], isSe
 function SearchResultRow (props: { searchResults: SearchResult, index: number }): JSX.Element {
   return (
     <>
-      <Menu.Item as={Fragment}>
+      <Combobox.Option as={Fragment} value={props.searchResults}>
         {({ active }) => (
           <SearchResultLink
             href={{ pathname: props.searchResults.url }}
@@ -89,7 +89,7 @@ function SearchResultRow (props: { searchResults: SearchResult, index: number })
             </div>
           </SearchResultLink>
         )}
-      </Menu.Item>
+      </Combobox.Option>
     </>
   )
 }
