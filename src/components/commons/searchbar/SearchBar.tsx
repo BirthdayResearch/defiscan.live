@@ -99,7 +99,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
   function onSelect (result: SearchResult): void {
     setSelected(result)
-    if (result?.url !== undefined) {
+    if (result?.url !== undefined && result?.url !== '') {
       void router.push({ pathname: result.url, query: getEnvironment().isDefaultConnection(connection) ? {} : { network: connection } })
     }
   }
@@ -112,7 +112,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
           data-testid='SearchBar'
           ref={reference}
         >
-          <div className='flex w-full'>
+          <Combobox.Button as='div' className='flex w-full'>
             <IoSearchSharp size={22} className='dark:text-gray-100 text-gray-600 ml-0.5 self-center' />
             <Combobox.Input
               as='input'
@@ -122,7 +122,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
               displayValue={(item: SearchResult) => item?.title}
               onChange={onChangeDebounceHandler}
             />
-          </div>
+          </Combobox.Button>
         </div>
 
         <Transition className='absolute'>
