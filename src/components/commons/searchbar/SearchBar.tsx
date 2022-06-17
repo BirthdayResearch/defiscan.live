@@ -99,7 +99,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
   function onSelect (result: SearchResult): void {
     setSelected(result)
-    if (result.url !== undefined) {
+    if (result?.url !== undefined) {
       void router.push({ pathname: result.url, query: getEnvironment().isDefaultConnection(connection) ? {} : { network: connection } })
     }
   }
