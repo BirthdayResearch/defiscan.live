@@ -28,7 +28,7 @@ function Row (props: PropsWithChildren<{ name: string, className?: string, testI
           {props.infoDesc !== undefined && (<InfoHoverPopover className='ml-1' description={props.infoDesc} />)}
         </div>
       </div>
-      <div className={classNames('table-cell px-4 md:px-6 py-3 text-gray-600 dark:text-gray-100 align-middle', props.className)} data-testid={props.testId}>
+      <div className={classNames('table-cell px-4 md:px-6 py-3 text-gray-600 dark:text-gray-100 align-middle break-all', props.className)} data-testid={props.testId}>
         {props.children}
       </div>
     </div>
