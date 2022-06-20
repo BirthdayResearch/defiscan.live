@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
+import { CollateralToken, LoanVaultActive, LoanVaultLiquidated, LoanVaultState } from '@defichain/whale-api-client/dist/api/loan'
 
 import { Container } from '@components/commons/Container'
 import { VaultIdHeading } from './_components/VaultIdHeading'
@@ -15,6 +15,7 @@ import React from 'react'
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated
+  collateralTokens: CollateralToken[]
 }
 
 export default function VaultIdPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
@@ -24,7 +25,7 @@ export default function VaultIdPage (props: InferGetServerSidePropsType<typeof g
 
       <Container className='pt-4 pb-20'>
         <VaultIdHeading vault={props.vault} />
-        <VaultIdDetails vault={props.vault} liquidatedVaultDerivedValues={calculateLiquidationValues(props.vault)} />
+        <VaultIdDetails vault={props.vault} collateralTokens={props.collateralTokens} liquidatedVaultDerivedValues={calculateLiquidationValues(props.vault)} />
         {
           (props.vault.state === LoanVaultState.IN_LIQUIDATION) ? (
             <VaultAuctions vault={props.vault} />
@@ -63,11 +64,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
     return {
       props: {
-        vault: await api.loan.getVault(vaultid)
+        vault: await api.loan.getVault(vaultid),
+        collateralTokens: await api.loan.listCollateralToken(50)
       }
     }
-  } catch
-  (e) {
+  } catch (e) {
     return {
       notFound: true
     }
