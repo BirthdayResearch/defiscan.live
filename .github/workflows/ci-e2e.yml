@@ -34,6 +34,7 @@ jobs:
 
       - uses: cypress-io/github-action@be2de7b1fe1cdafb4a3c8da0a3746476ef636b65
         with:
+          config-file: cypress.config.js
           install: false
           record: true
           parallel: true
@@ -41,7 +42,7 @@ jobs:
           start: npm run start
           wait-on: 'http://localhost:3000'
           browser: chrome
-          spec: cypress/integration/**
+          spec: cypress/e2e/**
           tag: ${{ github.event_name }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
