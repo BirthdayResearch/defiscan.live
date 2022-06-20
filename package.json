@@ -22,7 +22,7 @@
     "@defichain/whale-api-client": "^2.47.0",
     "@floating-ui/react-dom": "^0.4.3",
     "@headlessui/react": "^1.6.4",
-    "@prismicio/client": "^6.5.1",
+    "@prismicio/client": "^6.6.0",
     "@reduxjs/toolkit": "^1.8.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "bignumber.js": "^9.0.2",
