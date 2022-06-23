@@ -1,9 +1,9 @@
 import { IoSearchSharp } from 'react-icons/io5'
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useWhaleApiClient } from '@contexts/WhaleContext'
 import debounce from 'lodash.debounce'
 import { getScrollParents, shift, size, useFloating } from '@floating-ui/react-dom'
-import { Menu, Transition } from '@headlessui/react'
+import { Combobox, Transition } from '@headlessui/react'
 import { Transaction } from '@defichain/whale-api-client/dist/api/transactions'
 import { Block } from '@defichain/whale-api-client/dist/api/blocks'
 import { fromAddress } from '@defichain/jellyfish-address'
@@ -13,6 +13,8 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { LoanVaultActive, LoanVaultLiquidated } from '@defichain/whale-api-client/dist/api/loan'
 import classNames from 'classnames'
 import { SearchResult, SearchResultTable } from './SearchResult'
+import { useRouter } from 'next/router'
+import { getEnvironment } from '@contexts/Environment'
 
 interface SearchBarInterface {
   atHeader: boolean
@@ -20,11 +22,13 @@ interface SearchBarInterface {
 
 export function SearchBar (props: SearchBarInterface): JSX.Element {
   const api = useWhaleApiClient()
-  const network = useNetwork().name
+  const { name: network, connection } = useNetwork()
+  const router = useRouter()
 
-  const [isActive, setIsActive] = useState<boolean>(false)
   const [isSearching, setIsSearching] = useState<boolean>(false)
   const [searchResults, setSearchResults] = useState<SearchResult[] | undefined>(undefined)
+
+  const [selected, setSelected] = useState<SearchResult>()
 
   const {
     x,
@@ -80,7 +84,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
   async function changeHandler (event): Promise<void> {
     const query = event.target.value.trim()
-
+    setSelected({ title: query, url: '', type: 'Query' })
     if (query.length > 0) {
       setIsSearching(true)
       const results = await getSearchResults(api, network, query)
@@ -93,39 +97,35 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
 
   const onChangeDebounceHandler = useMemo(() => debounce(changeHandler, 200), [])
 
+  function onSelect (result: SearchResult): void {
+    setSelected(result)
+    if (result?.url !== undefined && result?.url !== '') {
+      void router.push({ pathname: result.url, query: getEnvironment().isDefaultConnection(connection) ? {} : { network: connection } })
+    }
+  }
+
   return (
-    <Menu as={Fragment}>
-      <div
-        className={classNames('flex w-full', { 'md:w-3/4 xl:w-1/2': !props.atHeader })}
-        onFocus={() => {
-          setIsActive(true)
-        }}
-        onBlur={() => {
-          setIsActive(false)
-        }}
-      >
+    <Combobox value={selected} onChange={onSelect} nullable>
+      <div className={classNames('flex w-full', { 'md:w-3/4 xl:w-1/2': !props.atHeader })}>
         <div
-          className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white dark:bg-gray-800 dark:border-gray-700 border', { 'border-primary-200': isActive })}
+          className={classNames('flex w-full p-2 rounded-3xl h-10 bg-white dark:bg-gray-800 dark:border-gray-700 border focus-within:border-primary-200')}
           data-testid='SearchBar'
           ref={reference}
         >
-          <Menu.Button as={Fragment}>
-            <div className='flex w-full'>
-              <IoSearchSharp size={22} className='dark:text-gray-100 text-gray-600 ml-0.5 self-center' />
-              <input
-                placeholder='Search Block / Txn / Vault ID and more'
-                className='ml-1.5 h-full w-full focus:outline-none dark:bg-gray-800 dark:placeholder-gray-400 dark:text-dark-gray-900'
-                data-testid='SearchBar.Input'
-                onChange={onChangeDebounceHandler}
-              />
-            </div>
-          </Menu.Button>
+          <Combobox.Button as='div' className='flex w-full'>
+            <IoSearchSharp size={22} className='dark:text-gray-100 text-gray-600 ml-0.5 self-center' />
+            <Combobox.Input
+              as='input'
+              placeholder='Search Block / Txn / Vault ID and more'
+              className='ml-1.5 h-full w-full focus:outline-none dark:bg-gray-800 dark:placeholder-gray-400 dark:text-dark-gray-900'
+              data-testid='SearchBar.Input'
+              displayValue={(item: SearchResult) => item?.title}
+              onChange={onChangeDebounceHandler}
+            />
+          </Combobox.Button>
         </div>
 
-        <Transition
-          show={isActive}
-          className='absolute'
-        >
+        <Transition className='absolute'>
           <div
             className='z-40' ref={floating} style={{
               position: strategy,
@@ -139,7 +139,7 @@ export function SearchBar (props: SearchBarInterface): JSX.Element {
           </div>
         </Transition>
       </div>
-    </Menu>
+    </Combobox>
   )
 }
 
