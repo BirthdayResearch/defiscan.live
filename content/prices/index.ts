@@ -428,10 +428,6 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'XOM-USD',
     type: 'STOCKS'
   },
-  'XPL-USD': {
-    id: 'XPL-USD',
-    type: 'STOCKS'
-  },
   'WNDY-USD': {
     id: 'WNDY-USD',
     type: 'STOCKS'
@@ -444,8 +440,8 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'VIXY-USD',
     type: 'ETF'
   },
-  'CORN-USD': {
-    id: 'CORN-USD',
+  'PPLT-USD': {
+    id: 'PPLT-USD',
     type: 'ETF'
   },
   'STIP-USD': {
