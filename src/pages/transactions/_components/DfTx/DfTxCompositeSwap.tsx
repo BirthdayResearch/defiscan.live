@@ -7,6 +7,7 @@ import { AddressLink } from '@components/commons/link/AddressLink'
 import { TokenSymbol } from '@components/commons/token/TokenSymbol'
 import { PoolPairSymbol } from '@components/commons/token/PoolPairSymbol'
 import { IoArrowForwardOutline } from 'react-icons/io5'
+import NumberFormat from 'react-number-format'
 
 interface DftxCompositeSwapProps {
   dftx: DfTx<CompositeSwap>
@@ -70,7 +71,11 @@ function PoolFrom ({
           {FromTokenSymbol}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Amount' testId='DfTxCompositeSwap.FromAmount'>
-          {poolswap.fromAmount.toFixed(8)}
+          <NumberFormat
+            value={poolswap.fromAmount.toFixed(8)}
+            thousandSeparator
+            displayType='text'
+          />
         </AdaptiveList.Row>
       </AdaptiveList>
     </div>
@@ -104,7 +109,11 @@ function PoolTo ({
           {ToTokenSymbol}
         </AdaptiveList.Row>
         <AdaptiveList.Row name='Max Amount' testId='DfTxCompositeSwap.MaxPrice'>
-          {poolswap.maxPrice.toFixed(8)}
+          <NumberFormat
+            value={poolswap.maxPrice.toFixed(8)}
+            thousandSeparator
+            displayType='text'
+          />
         </AdaptiveList.Row>
       </AdaptiveList>
     </div>
