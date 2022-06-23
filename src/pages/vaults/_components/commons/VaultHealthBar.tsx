@@ -1,12 +1,14 @@
 import React from 'react'
 import BigNumber from 'bignumber.js'
 import { VaultCollateralizationRatio } from './VaultCollateralizationRatio'
-import { LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
-import { getNextCollateralizationRatio } from '../../utils/NextCollateralizationRatio'
+import { CollateralToken, LoanVaultActive } from '@defichain/whale-api-client/dist/api/loan'
+import { useNextCollateralizationRatio } from '../../utils/NextCollateralizationRatio'
 import { WarningHoverPopover } from '@components/commons/popover/WarningHoverPopover'
+import NumberFormat from 'react-number-format'
 
 interface VaultHealthBarProps {
   vault: LoanVaultActive
+  collateralTokens: CollateralToken[]
 }
 
 export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
@@ -17,7 +19,8 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
   const normalizedLiquidatedThreshold = minColRatio.multipliedBy(1.25).dividedBy(maxRatio).multipliedBy(100)
   const normalizedAtRiskThreshold = minColRatio.multipliedBy(atRiskThresholdMultiplier).dividedBy(maxRatio).multipliedBy(100)
 
-  const nextColRatio = getNextCollateralizationRatio(props.vault.collateralAmounts, props.vault.loanAmounts)
+  const nextColRatio = useNextCollateralizationRatio(props.vault.collateralAmounts, props.vault.loanAmounts, props.collateralTokens)
+
   let normalizedNextRatio: BigNumber | undefined
   if (nextColRatio !== undefined) {
     normalizedNextRatio = new BigNumber(nextColRatio).dividedBy(maxRatio).multipliedBy(100)
@@ -53,7 +56,14 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
 
             return (
               <>
-                {`Next ~${nextColRatio.toFixed(0, BigNumber.ROUND_HALF_UP)}%`}
+                <NumberFormat
+                  value={nextColRatio.toFixed(8)}
+                  displayType='text'
+                  thousandSeparator
+                  suffix='%'
+                  prefix='Next ~'
+                  decimalScale={2}
+                />
                 {
                   nextColRatio.lt(minColRatio.multipliedBy(1.1)) && (
                     <>
