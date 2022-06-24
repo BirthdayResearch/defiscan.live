@@ -69,7 +69,9 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
                   thousandSeparator=','
                   displayType='text'
                 />
-                <FromIcon className='w-5 h-5 ml-0.5' />
+                <div className='bg-lime-green'>
+                  <FromIcon className='w-5 h-5 ml-1' />
+                </div>
               </div>
 
               )
@@ -87,7 +89,7 @@ function SwapRow ({ swap }: { swap: PoolSwapData }): JSX.Element {
                   thousandSeparator=','
                   displayType='text'
                 />
-                <ToIcon className='w-5 h-5 ml-0.5' />
+                <ToIcon className='w-5 h-5 ml-1' />
               </div>
               )
         }
