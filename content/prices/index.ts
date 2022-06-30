@@ -408,6 +408,86 @@ export const PRICES: Record<string, PriceCopy> = {
     id: 'URA-USD',
     type: 'ETF'
   },
+  'F-USD': {
+    id: 'F-USD',
+    type: 'STOCKS'
+  },
+  'ICE-USD': {
+    id: 'ICE-USD',
+    type: 'STOCKS'
+  },
+  'PFE-USD': {
+    id: 'PFE-USD',
+    type: 'STOCKS'
+  },
+  'TSM-USD': {
+    id: 'TSM-USD',
+    type: 'STOCKS'
+  },
+  'XOM-USD': {
+    id: 'XOM-USD',
+    type: 'STOCKS'
+  },
+  'WNDY-USD': {
+    id: 'WNDY-USD',
+    type: 'STOCKS'
+  },
+  'ESPO-USD': {
+    id: 'ESPO-USD',
+    type: 'ETF'
+  },
+  'VIXY-USD': {
+    id: 'VIXY-USD',
+    type: 'ETF'
+  },
+  'PPLT-USD': {
+    id: 'PPLT-USD',
+    type: 'ETF'
+  },
+  'STIP-USD': {
+    id: 'STIP-USD',
+    type: 'ETF'
+  },
+  'VTIP-USD': {
+    id: 'VTIP-USD',
+    type: 'ETF'
+  },
+  'SHY-USD': {
+    id: 'SHY-USD',
+    type: 'ETF'
+  },
+  'SHV-USD': {
+    id: 'SHV-USD',
+    type: 'ETF'
+  },
+  'GOVT-USD': {
+    id: 'GOVT-USD',
+    type: 'ETF'
+  },
+  'IEI-USD': {
+    id: 'IEI-USD',
+    type: 'ETF'
+  },
+  'HYDR-USD': {
+    id: 'HYDR-USD',
+    type: 'ETF'
+  },
+  'HDRO-USD': {
+    id: 'HDRO-USD',
+    type: 'ETF'
+  },
+  'RAYS-USD': {
+    id: 'RAYS-USD',
+    type: 'ETF'
+  },
+  'TAN-USD': {
+    id: 'TAN-USD',
+    type: 'ETF'
+  },
+  'KLNE-USD': {
+    id: 'KLNE-USD',
+    type: 'ETF'
+  },
 
   // Playground
   'CS25-USD': {
