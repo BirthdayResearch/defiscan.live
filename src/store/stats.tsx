@@ -66,6 +66,8 @@ export interface StatsState {
     }
   }
   updatedAt: string
+  lastSync?: string
+  lastSuccessfulSync?: string
 }
 
 const initialState: StatsState = {
@@ -78,7 +80,9 @@ const initialState: StatsState = {
   blockchain: {},
   net: {},
   loan: {},
-  updatedAt: formatISO(Date.now(), { representation: 'time' })
+  updatedAt: formatISO(Date.now(), { representation: 'time' }),
+  lastSync: undefined,
+  lastSuccessfulSync: undefined
 }
 
 export const stats = createSlice({
@@ -96,6 +100,9 @@ export const stats = createSlice({
       state.net = action.payload.net
       state.loan = action.payload.loan
       state.updatedAt = formatISO(Date.now(), { representation: 'time' })
+      const firstSuccessfulSync = state.lastSuccessfulSync ?? new Date().toString()
+      state.lastSuccessfulSync = action.payload.lastSuccessfulSync != null ? action.payload.lastSuccessfulSync : firstSuccessfulSync
+      state.lastSync = action.payload.lastSync // updated even if its not successful (no connection)
     }
   }
 })
@@ -109,7 +116,16 @@ export function StatsProvider (props: PropsWithChildren<{}>): JSX.Element {
   useEffect(() => {
     function fetch (): void {
       void api.stats.get().then(data => {
-        dispatch(stats.actions.update(data))
+        dispatch(stats.actions.update({
+          ...data,
+          lastSync: new Date().toString(),
+          lastSuccessfulSync: new Date().toString()
+        }))
+      }).catch((err) => {
+        dispatch(stats.actions.update({
+          ...err,
+          lastSync: new Date().toString()
+        }))
       })
     }
 

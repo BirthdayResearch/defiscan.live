@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { stats } from '@store/stats'
 import { poolpairs } from '@store/poolpairs'
 import { supply } from '@store/supply'
+import { statusWebsiteSlice } from './website'
 
 /**
  * RootState for DeFi Scan
@@ -17,7 +18,8 @@ export function initializeStore (preloadedState?: any) {
     reducer: {
       stats: stats.reducer,
       poolpairs: poolpairs.reducer,
-      supply: supply.reducer
+      supply: supply.reducer,
+      [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer
     },
     preloadedState: preloadedState
   })
