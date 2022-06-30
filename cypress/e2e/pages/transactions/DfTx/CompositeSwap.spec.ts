@@ -39,7 +39,7 @@ context('/transactions/[txid] - DfTx Composite Swap on desktop', () => {
 
       cy.findByTestId('DfTxCompositeSwap.ToTokenSymbol').should('be.visible')
 
-      cy.findByTestId('DfTxCompositeSwap.MaxPrice').should('have.text', '51500.00000000')
+      cy.findByTestId('DfTxCompositeSwap.MaxPrice').should('have.text', '51,500.00000000')
     })
   })
 
@@ -93,7 +93,7 @@ context('/transactions/[txid] - DfTx Composite Swap on mobile', () => {
 
       cy.findByTestId('DfTxCompositeSwap.ToTokenSymbol').should('be.visible')
 
-      cy.findByTestId('DfTxCompositeSwap.MaxPrice').should('have.text', '51500.00000000')
+      cy.findByTestId('DfTxCompositeSwap.MaxPrice').should('have.text', '51,500.00000000')
     })
   })
 
