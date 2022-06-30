@@ -21,6 +21,8 @@ export function initializeStore (preloadedState?: any) {
       supply: supply.reducer,
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(statusWebsiteSlice.middleware),
     preloadedState: preloadedState
   })
 }
