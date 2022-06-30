@@ -31,6 +31,9 @@
       ],
       "@store/*": [
         "store/*"
+      ],
+      "@public/*": [
+        "../public/*"
       ]
     },
     "incremental": true

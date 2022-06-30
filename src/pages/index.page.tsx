@@ -70,7 +70,7 @@ export default function HomePage (props: InferGetServerSidePropsType<typeof getS
   return (
     <>
       <IndexHeader />
-      <Container className='pb-20'>
+      <Container className='pb-20 relative z-1'>
         <SupplyStats stats={props.stats} supply={props.supply} />
         <div className='flex flex-wrap -mx-2'>
           <div className='w-full lg:w-3/5 xl:w-2/3 px-1'>
