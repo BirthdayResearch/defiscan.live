@@ -9,8 +9,8 @@ import { StatItem } from '@components/commons/stats/StatItem'
 import { StatsBar } from '@components/commons/stats/StatsBar'
 import { SearchBar } from '@components/commons/searchbar/SearchBar'
 import { useTheme } from '@contexts/ThemeContext'
-import FortCanningDark from '@public/assets/hero/fortcanningDark.webp'
-import FortCanning from '@public/assets/hero/fortcanning.webp'
+import FortCanningDark from '@public/assets/hero/fortcanningDark.svg'
+import FortCanning from '@public/assets/hero/fortcanning.svg'
 
 export function IndexHeader (): JSX.Element {
   const { theme } = useTheme()
@@ -24,7 +24,10 @@ export function IndexHeader (): JSX.Element {
       >
         <Container className='h-full'>
           <div className='h-full flex flex-wrap items-center justify-center pt-14 pb-16'>
-            <h1 className='text-4xl lg:text-5xl w-full mb-6 font-medium dark:text-dark-gray-900 text-center' data-testid='Header.title'>
+            <h1
+              className='text-4xl lg:text-5xl w-full mb-6 font-medium dark:text-dark-gray-900 text-center'
+              data-testid='Header.title'
+            >
               DeFiChain <span className='font-normal dark:text-gray-100'>Explorer</span>
             </h1>
             <SearchBar atHeader={false} />
@@ -35,7 +38,7 @@ export function IndexHeader (): JSX.Element {
   )
 }
 
-function HeaderWrapper (props: PropsWithChildren<{bgImage: StaticImageData, title: string, gradient: string}>): JSX.Element {
+function HeaderWrapper (props: PropsWithChildren<{ bgImage: StaticImageData, title: string, gradient: string }>): JSX.Element {
   return (
     <div className='relative pb-24 -mb-24'>
       <Image
