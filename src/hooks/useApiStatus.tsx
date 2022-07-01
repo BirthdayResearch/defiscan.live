@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 import { useGetBlockchainStatusQuery, useGetOceanStatusQuery } from '@store/website'
 
-// TODO: get env name
-const MAX_TIME_DIFF = getEnvironment().debug ? 5 * 1000 : 45 * 60 * 1000
+// MAX_TIME_DIFF set to 45 mins to display warning message (in WarningBanner) when blockchain is down only in Production mode, else 5 seconds for local runs
+const MAX_TIME_DIFF = getEnvironment().name === 'Development' ? 5 * 1000 : 45 * 60 * 1000 // 45 mins in milliseconds
 
 export function useApiStatus (): {
   isBlockchainDown: boolean
