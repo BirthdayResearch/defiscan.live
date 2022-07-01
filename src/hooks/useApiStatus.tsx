@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 import { useGetBlockchainStatusQuery, useGetOceanStatusQuery } from '@store/website'
 
+// TODO: get env name
 const MAX_TIME_DIFF = getEnvironment().debug ? 5 * 1000 : 45 * 60 * 1000
 
 export function useApiStatus (): {

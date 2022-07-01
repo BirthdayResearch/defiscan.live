@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'react'
-import { useNetwork } from '@contexts/NetworkContext'
+import { PropsWithChildren, useEffect, useState } from 'react'
+import { useApiStatus } from 'hooks/useApiStatus'
 
 interface WarningBannerProps {
   className?: string
@@ -9,23 +9,32 @@ interface WarningBannerProps {
 }
 
 export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JSX.Element {
-  const network = useNetwork().name
+  const { isBlockchainDown, isOceanDown } = useApiStatus()
 
-  if (props.mainnet === undefined && props.testnet === undefined) {
-    return <></>
-  }
+  const blockchainIsDownContent = 'We are currently investigating a syncing issue on the blockchain.'
+  const oceanIsDownContent = 'We are currently investigating connection issues on Ocean API.'
+  const [displayAnnouncement, setDisplayAnnouncement] = useState<string | undefined>('')
 
-  if (network !== 'mainnet' && props.mainnet!) {
-    return <></>
-  }
+  useEffect(() => {
+    if (isBlockchainDown) {
+      setDisplayAnnouncement(blockchainIsDownContent)
+    } else if (isOceanDown) {
+      setDisplayAnnouncement(oceanIsDownContent)
+    } else {
+      setDisplayAnnouncement(undefined)
+    }
+  }, [isBlockchainDown, isOceanDown])
 
-  if (network !== 'testnet' && props.testnet!) {
+  // don't display banner when not in Prod and blockchain is not down
+  if (displayAnnouncement === undefined) {
     return <></>
   }
 
   return (
     <div className='bg-orange-100 rounded p-3 text-center' data-testid={props.testId}>
-      {props.children}
+      <div>
+        {displayAnnouncement}
+      </div>
     </div>
   )
 }
