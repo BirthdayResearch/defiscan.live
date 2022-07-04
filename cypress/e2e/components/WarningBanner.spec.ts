@@ -57,7 +57,7 @@ context('Warning banner on desktop', () => {
     cy.wait('@getStats').then(() => {
       cy.wait(3000)
       cy.findByTestId('warning_banner').should('exist')
-      cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
+      cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain. ')
     })
   })
 
@@ -80,7 +80,7 @@ context('Warning banner on desktop', () => {
     cy.wait('@getStats').then(() => {
       cy.wait(3000)
       cy.findByTestId('warning_banner').should('exist')
-      cy.findByTestId('warning_banner').should('have.text', 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.')
+      cy.findByTestId('warning_banner').should('have.text', 'We are currently investigating connection issues on Ocean API. ')
     })
   })
 
@@ -103,7 +103,7 @@ context('Warning banner on desktop', () => {
     cy.wait('@getStats').then(() => {
       cy.wait(3000)
       cy.findByTestId('warning_banner').should('exist')
-      cy.findByTestId('warning_banner').should('have.text', 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.')
+      cy.findByTestId('warning_banner').should('have.text', 'We are currently investigating a syncing issue on the blockchain. ')
     })
   })
 })
