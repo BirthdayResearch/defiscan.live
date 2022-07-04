@@ -91,7 +91,7 @@ export const stats = createSlice({
   name: 'stats',
   initialState,
   reducers: {
-    update: (state, action: PayloadAction<StatsData>) => {
+    update: (state, action: PayloadAction<StatsData & { lastSuccessfulSync?: string, lastSync?: string }>) => {
       state.count = action.payload.count
       state.tvl = action.payload.tvl
       state.burned = action.payload.burned

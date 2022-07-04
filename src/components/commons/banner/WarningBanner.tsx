@@ -9,8 +9,8 @@ interface WarningBannerProps {
 }
 
 export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JSX.Element {
-  const blockchainIsDownContent = 'We are currently investigating a syncing issue on the blockchain.'
-  const oceanIsDownContent = 'We are currently investigating connection issues on Ocean API.'
+  const blockchainIsDownContent = 'We are currently investigating a syncing issue on the blockchain. View more details on the DeFiChain Status Page.'
+  const oceanIsDownContent = 'We are currently investigating connection issues on Ocean API. View more details on the DeFiChain Status Page.'
 
   const { isBlockchainDown, isOceanDown } = useApiStatus()
   const [displayAnnouncement, setDisplayAnnouncement] = useState<string | undefined>('')
@@ -25,11 +25,12 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
     }
   }, [isBlockchainDown, isOceanDown])
 
-  // don't display banner when not in Prod and blockchain is not down
+  // don't display banner when there is not announcement to display
   if (displayAnnouncement === undefined) {
     return <></>
   }
 
+  // TODO: CTA button?
   return (
     <div className='bg-orange-100 rounded p-3 text-center' data-testid='warning_banner'>
       <div>
