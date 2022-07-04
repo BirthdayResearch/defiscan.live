@@ -38,7 +38,6 @@ export function useApiStatus (): {
         if (isBlockchainSuccess && blockchainStatus?.status.description === 'outage') {
           setIsBlockchainDown(true)
         } else if (isOceanSuccess && oceanStatus?.status.description === 'outage') {
-          console.log('ocean down')
           // ocean api is down
           setIsOceanDown(true)
         } else {
@@ -47,7 +46,6 @@ export function useApiStatus (): {
           setIsOceanDown(true)
         }
       } else {
-        console.log('stats up')
         // stats api is up - both blockchain and ocean apis are up
         setIsOceanDown(false)
         setIsBlockchainDown(false)
