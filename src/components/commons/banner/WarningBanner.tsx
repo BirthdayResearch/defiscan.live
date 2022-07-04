@@ -9,10 +9,10 @@ interface WarningBannerProps {
 }
 
 export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JSX.Element {
-  const { isBlockchainDown, isOceanDown } = useApiStatus()
-
   const blockchainIsDownContent = 'We are currently investigating a syncing issue on the blockchain.'
   const oceanIsDownContent = 'We are currently investigating connection issues on Ocean API.'
+
+  const { isBlockchainDown, isOceanDown } = useApiStatus()
   const [displayAnnouncement, setDisplayAnnouncement] = useState<string | undefined>('')
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
   }
 
   return (
-    <div className='bg-orange-100 rounded p-3 text-center' data-testid={props.testId}>
+    <div className='bg-orange-100 rounded p-3 text-center' data-testid='warning_banner'>
       <div>
         {displayAnnouncement}
       </div>
