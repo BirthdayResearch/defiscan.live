@@ -75,20 +75,24 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       body: operational
     })
+    // useApiStatus.getBlockStatus has condition to check for synced blocks
     cy.intercept('**/stats', {
       statusCode: 200,
       data: {
         lastSync: new Date().toString(),
         lastSuccessfulSync: new Date().toString()
       }
-    })
+    }).as('getStats')
+    cy.wait('@getStats').then(() => {
+      cy.wait(5000)
     cy.findByTestId('warning_banner').should('not.exist')
+    })
   })
 
   it('should display blockchain is down warning banner after preset interval and hide existing announcements', () => {
     // to check timing for blockchain sync
-    var t = new Date();
-    t.setSeconds(t.getSeconds() - 5) // 5 secs interval for playground
+    let lastSuccessfulSync = new Date();
+    lastSuccessfulSync.setSeconds(lastSuccessfulSync.getSeconds() - 5) // 5 secs interval for playground
 
     cy.intercept('**/announcements', {
       statusCode: 200,
@@ -117,17 +121,21 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       data: {
         lastSync: new Date().toString(),
-        lastSuccessfulSync: t
+        lastSuccessfulSync: lastSuccessfulSync
       }
     }).as('getStats')
     cy.wait('@getStats').then(() => {
       cy.wait(3000)
       cy.findByTestId('warning_banner').should('exist')
-      cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain. ')
+      cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
     })
   })
 
-  it.only('should display ocean is down warning banner', () => {
+  it('should display ocean is down warning banner', () => {
+    // to check timing for blockchain sync
+    let lastSuccessfulSync = new Date();
+    lastSuccessfulSync.setSeconds(lastSuccessfulSync.getSeconds() - 5) // 5 secs interval for playground
+
     cy.intercept('**/blockchain', {
       statusCode: 200,
       body: operational
@@ -140,13 +148,13 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       data: {
         lastSync: new Date().toString(),
-        lastSuccessfulSync: new Date().toString()
+        lastSuccessfulSync: lastSuccessfulSync
       }
     }).as('getStats')
     cy.wait('@getStats').then(() => {
       cy.wait(3000)
       cy.findByTestId('warning_banner').should('exist')
-      cy.findByTestId('warning_banner').should('contain', 'We are currently investigating connection issues on Ocean API. ')
+      cy.findByTestId('warning_banner').should('contain', 'We are currently investigating connection issues on Ocean API.')
     })
   })
 
@@ -169,7 +177,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     cy.wait('@getStats').then(() => {
       cy.wait(3000)
       cy.findByTestId('warning_banner').should('exist')
-      cy.findByTestId('warning_banner').should('have.text', 'We are currently investigating a syncing issue on the blockchain. ')
+      cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
     })
   })
 })

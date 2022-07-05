@@ -14,7 +14,7 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
 
   const blockchainIsDownContent: AnnouncementData[] = [{
     lang: {
-      en: 'We are currently investigating a syncing issue on the blockchain. '
+      en: 'We are currently investigating a syncing issue on the blockchain.'
     },
     url: {
       web: deFiChainStatusUrl
@@ -22,7 +22,7 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
   }]
   const oceanIsDownContent: AnnouncementData[] = [{
     lang: {
-      en: 'We are currently investigating connection issues on Ocean API. '
+      en: 'We are currently investigating connection issues on Ocean API.'
     },
     url: {
       web: deFiChainStatusUrl
@@ -59,23 +59,21 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
   }
 
   return (
-    <div className='bg-orange-100 rounded p-3 text-center flex-row text-center' data-testid='warning_banner'>
-      <div>
-        {announcementToDisplay.content}
+    <div className='bg-orange-100 rounded p-3 flex justify-center' data-testid='warning_banner'>
+      {announcementToDisplay.content}
 
-        {announcementToDisplay.url !== undefined && announcementToDisplay.type !== 'SCAN' && (
-          <>
-            View more details on the
-            <a
-              href={`${announcementToDisplay.url}`}
-              className='text-primary-500 hover:text-primary-600 font-medium'
-              target='_blank' rel='noreferrer'
-            >
-              <span> DeFiChain Status </span> Page
-            </a>
-          </>
-        )}
-      </div>
+      {announcementToDisplay.url !== undefined && announcementToDisplay.type !== 'SCAN' && (
+        <div className='pl-1'>
+          View more details on the
+          <a
+            href={`${announcementToDisplay.url}`}
+            className='text-primary-500 hover:text-primary-600 font-medium'
+            target='_blank' rel='noreferrer'
+          >
+            <span> DeFiChain Status </span> Page
+          </a>
+        </div>
+      )}
     </div>
   )
 }
