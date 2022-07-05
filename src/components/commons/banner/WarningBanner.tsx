@@ -63,7 +63,7 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
       <div>
         {announcementToDisplay.content}
 
-        {announcementToDisplay.url !== undefined && (
+        {announcementToDisplay.url !== undefined && announcementToDisplay.type !== 'SCAN' && (
           <>
             View more details on the
             <a
