@@ -132,7 +132,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
   it('should not display warning banner if nothing is down', function () {
     cy.intercept('**/blockchain', {
       statusCode: 200,
-      body: outage
+      body: operational
     })
     cy.intercept('**/overall', {
       statusCode: 200,
@@ -140,7 +140,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     })
     cy.intercept('**/stats', {
       statusCode: 200,
-      data: sampleNetworkData
+      body: sampleNetworkData
     }).as('getStats')
     cy.wait('@getStats').then(() => {
       cy.wait(6000)
