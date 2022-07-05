@@ -5,8 +5,18 @@ interface DefiChainStatus {
     description: 'outage' | 'operational'
   }
 }
+
+export interface AnnouncementText {
+  en: string
+  de?: string
+  'zh-Hans'?: string
+  'zh-Hant'?: string
+  'fr'?: string
+  es?: string
+  it?: string
+}
 export interface AnnouncementData {
-  content: string
+  lang: AnnouncementText
   /**
    * Versioned matching represented as semver satisfies
    */

@@ -13,13 +13,17 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
   const deFiChainStatusUrl = 'https://status.defichain.com/'
 
   const blockchainIsDownContent: AnnouncementData[] = [{
-    content: 'We are currently investigating a syncing issue on the blockchain. ',
+    lang: {
+      en: 'We are currently investigating a syncing issue on the blockchain. '
+    },
     url: {
       web: deFiChainStatusUrl
     }
   }]
   const oceanIsDownContent: AnnouncementData[] = [{
-    content: 'We are currently investigating connection issues on Ocean API. ',
+    lang: {
+      en: 'We are currently investigating connection issues on Ocean API. '
+    },
     url: {
       web: deFiChainStatusUrl
     }
@@ -90,9 +94,10 @@ function findDisplayedAnnouncement (announcements?: AnnouncementData[]): Announc
 
   for (const announcement of announcements) {
     if (announcement.type === 'SCAN' || announcement.type === undefined) {
+      const lang: any = announcement.lang
       const platformUrl: any = announcement.url
       return {
-        content: announcement.content,
+        content: lang.en,
         url: platformUrl !== undefined ? platformUrl : undefined,
         id: announcement.id,
         type: announcement.type
