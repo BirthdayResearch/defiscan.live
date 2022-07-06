@@ -133,24 +133,27 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     cy.viewport('macbook-16')
   })
 
-  // Failing because of DUSD-DFI warning
-  // it('should not display warning banner if nothing is down', function () {
-  //   cy.intercept('**/blockchain', {
-  //     statusCode: 200,
-  //     body: operational
-  //   })
-  //   cy.intercept('**/overall', {
-  //     statusCode: 200,
-  //     body: operational
-  //   })
-  //   cy.intercept('**/stats', {
-  //     statusCode: 200,
-  //     body: sampleNetworkData
-  //   }).as('getStats')
-  //   cy.wait('@getStats').then(() => {
-  //     cy.findByTestId('warning_banner', { timeout: 6000 }).should('not.exist')
-  //   })
-  // })
+  it('should not display warning banner if nothing is down', function () {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: []
+    })
+    cy.intercept('**/blockchain', {
+      statusCode: 200,
+      body: operational
+    })
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: operational
+    })
+    cy.intercept('**/stats', {
+      statusCode: 200,
+      body: sampleNetworkData
+    }).as('getStats')
+    cy.wait('@getStats').then(() => {
+      cy.findByTestId('warning_banner', { timeout: 6000 }).should('not.exist')
+    })
+  })
 
   it('should display blockchain is down warning banner after preset interval and hide existing announcements', () => {
     cy.intercept('**/announcements', {
@@ -204,13 +207,17 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
   })
 
   it('should display blockchain is down warning banner if stats is down', () => {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: []
+    })
     cy.intercept('**/blockchain', {
       statusCode: 200,
-      body: outage
+      body: operational
     })
     cy.intercept('**/overall', {
       statusCode: 200,
-      body: outage
+      body: operational
     })
     // if stats' body is undefined or has error = only lastSync will be updated = blockchain is down
     cy.intercept('**/stats', {
