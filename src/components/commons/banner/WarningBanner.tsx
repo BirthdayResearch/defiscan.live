@@ -67,15 +67,14 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
     <div className='bg-orange-100 rounded p-3 flex justify-center' data-testid='warning_banner'>
       {announcementToDisplay.content}
 
-      {announcementToDisplay.url !== undefined && announcementToDisplay.type !== 'SCAN' && (
+      {announcementToDisplay.url !== undefined && (
         <div className='pl-1'>
-          View more details on the
           <a
             href={`${announcementToDisplay.url}`}
             className='text-primary-500 hover:text-primary-600 font-medium'
             target='_blank' rel='noreferrer'
           >
-            <span> DeFiChain Status </span> Page
+            <span> Learn more </span>
           </a>
         </div>
       )}
@@ -101,7 +100,7 @@ function findDisplayedAnnouncement (announcements?: AnnouncementData[]): Announc
       const platformUrl: any = announcement.url
       return {
         content: lang.en,
-        url: platformUrl !== undefined ? platformUrl : undefined,
+        url: platformUrl !== undefined ? platformUrl?.web : undefined,
         id: announcement.id,
         type: announcement.type
       }
