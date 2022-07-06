@@ -29,7 +29,7 @@ export function SupplyStats (props: SupplyStatsProps): JSX.Element {
   })
 
   useEffect(() => {
-    if (statsState.price.usd !== undefined && supplyState.total !== 0) {
+    if (statsState?.price?.usd !== undefined && supplyState?.total !== 0) {
       setData({
         stats: statsState,
         supply: supplyState

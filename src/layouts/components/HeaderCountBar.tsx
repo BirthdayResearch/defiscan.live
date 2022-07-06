@@ -73,22 +73,22 @@ export function HeaderCountBar (props: { className: string }): JSX.Element {
       <div
         className='px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md '
       >
-        <PopoverTVLAmount text='DEX' count={tvl.dex} />
-        <PopoverTVLAmount text='Masternode' count={tvl.masternodes} />
-        <PopoverTVLAmount text='Vault Collateral' count={tvl.loan} />
-        <PopoverTVLAmount text='Total' count={tvl.total} />
+        <PopoverTVLAmount text='DEX' count={tvl?.dex} />
+        <PopoverTVLAmount text='Masternode' count={tvl?.masternodes} />
+        <PopoverTVLAmount text='Vault Collateral' count={tvl?.loan} />
+        <PopoverTVLAmount text='Total' count={tvl?.total} />
       </div>
     )
   }
 
   return (
     <ul className={classNames(props.className, 'flex flex-wrap lg:space-x-6 overflow-hidden')}>
-      <HeaderCount text='Blocks' count={count.blocks} />
-      <HeaderCount text='Tokens' count={count.tokens} />
-      <HeaderCount text='Masternodes' count={count.masternodes} />
-      <HeaderCount text='Price Feeds' count={count.prices} />
+      <HeaderCount text='Blocks' count={count?.blocks} />
+      <HeaderCount text='Tokens' count={count?.tokens} />
+      <HeaderCount text='Masternodes' count={count?.masternodes} />
+      <HeaderCount text='Price Feeds' count={count?.prices} />
       <HoverPopover popover={<PopoverTVL />} className='mx-2 lg:mx-0'>
-        <HeaderAmount className='cursor-help ' text='Total Value Locked' count={tvl.total} />
+        <HeaderAmount className='cursor-help ' text='Total Value Locked' count={tvl?.total} />
       </HoverPopover>
     </ul>
   )

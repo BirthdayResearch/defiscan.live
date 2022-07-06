@@ -71,7 +71,7 @@ function Stats (): JSX.Element {
         <ReactNumberFormat
           displayType='text'
           thousandSeparator
-          value={stats.price.usd}
+          value={stats?.price?.usd}
           decimalScale={2}
           prefix='$'
           suffix=' USD'
@@ -79,7 +79,7 @@ function Stats (): JSX.Element {
       </StatItem>
       <StatItem label='Total DFI Burned' testId='StatItem.totalDFIBurned'>
         <UnitSuffix
-          value={stats.burned.total}
+          value={stats?.burned?.total}
           units={{
             3: 'K',
             6: 'M',
@@ -93,14 +93,14 @@ function Stats (): JSX.Element {
         <ReactNumberFormat
           displayType='text'
           thousandSeparator
-          value={stats.emission.total}
+          value={stats?.emission?.total}
           decimalScale={2}
         />
         <span className='ml-1'>DFI</span>
       </StatItem>
       <StatItem label='Difficulty' testId='StatItem.difficulty'>
         <UnitSuffix
-          value={stats.blockchain.difficulty}
+          value={stats?.blockchain?.difficulty}
           units={{
             3: 'K',
             6: 'M',

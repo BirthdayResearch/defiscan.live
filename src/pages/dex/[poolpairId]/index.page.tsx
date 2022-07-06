@@ -13,6 +13,7 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { PoolPairDexStabilizationFee } from './_components/PoolPairDexStabilizationFee'
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
@@ -68,7 +69,11 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
           }
         ]}
         />
-        <PoolPairDetailsBar poolpair={poolpairs} />
+        <div className='flex flex-wrap flex-row space-x-4'>
+          <PoolPairDetailsBar poolpair={poolpairs} />
+          {poolpairs.displaySymbol === 'DUSD-DFI' &&
+            <PoolPairDexStabilizationFee />}
+        </div>
         <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
           <div className='lg:flex lg:flex-col lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
             <h3 className='text-lg font-semibold dark:text-dark-gray-900'>

@@ -1,5 +1,6 @@
-import { PropsWithChildren } from 'react'
-import { useNetwork } from '@contexts/NetworkContext'
+import { PropsWithChildren, useEffect, useState } from 'react'
+import { useApiStatus } from 'hooks/useApiStatus'
+import { AnnouncementData, useGetAnnouncementsQuery } from '@store/website'
 
 interface WarningBannerProps {
   className?: string
@@ -8,24 +9,101 @@ interface WarningBannerProps {
   mainnet?: boolean
 }
 
+interface Announcement {
+  content: string
+  url?: string
+}
+
 export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JSX.Element {
-  const network = useNetwork().name
+  const deFiChainStatusUrl = 'https://status.defichain.com/'
 
-  if (props.mainnet === undefined && props.testnet === undefined) {
-    return <></>
-  }
+  const blockchainIsDownContent: AnnouncementData[] = [{
+    lang: {
+      en: 'We are currently investigating a syncing issue on the blockchain.'
+    },
+    url: {
+      web: deFiChainStatusUrl
+    }
+  }]
+  const oceanIsDownContent: AnnouncementData[] = [{
+    lang: {
+      en: 'We are currently investigating connection issues on Ocean API.'
+    },
+    url: {
+      web: deFiChainStatusUrl
+    }
+  }]
 
-  if (network !== 'mainnet' && props.mainnet!) {
-    return <></>
-  }
+  const {
+    isBlockchainDown,
+    isOceanDown
+  } = useApiStatus()
 
-  if (network !== 'testnet' && props.testnet!) {
+  const {
+    data: announcements,
+    isSuccess
+  } = useGetAnnouncementsQuery({})
+
+  const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
+  const emergencyAnnouncement = findDisplayedAnnouncement(emergencyMsgContent)
+  const announcement = findDisplayedAnnouncement(announcements)
+  const announcementToDisplay = emergencyAnnouncement ?? announcement
+
+  useEffect(() => {
+    if (isBlockchainDown) {
+      setEmergencyMsgContent(blockchainIsDownContent)
+    } else if (isOceanDown) {
+      setEmergencyMsgContent(oceanIsDownContent)
+    } else {
+      setEmergencyMsgContent(undefined)
+    }
+  }, [isBlockchainDown, isOceanDown])
+
+  if (!isSuccess || announcementToDisplay === undefined) {
     return <></>
   }
 
   return (
-    <div className='bg-orange-100 rounded p-3 text-center' data-testid={props.testId}>
-      {props.children}
+    <div className='bg-orange-100 rounded p-3 flex justify-center' data-testid='warning_banner'>
+      {announcementToDisplay.content}
+
+      {announcementToDisplay.url !== undefined && (
+        <div className='pl-1'>
+          <a
+            href={`${announcementToDisplay.url}`}
+            className='text-primary-500 hover:text-primary-600 font-medium'
+            target='_blank' rel='noreferrer'
+          >
+            <span> Learn more </span>
+          </a>
+        </div>
+      )}
     </div>
   )
+}
+
+interface Announcement {
+  content: string
+  url?: string
+  id?: string
+  type: AnnouncementData['type']
+}
+
+function findDisplayedAnnouncement (announcements?: AnnouncementData[]): Announcement | undefined {
+  if (announcements === undefined || announcements.length === 0) {
+    return
+  }
+
+  for (const announcement of announcements) {
+    if (announcement.type === 'SCAN' || announcement.type === undefined) {
+      const lang: any = announcement.lang
+      const platformUrl: any = announcement.url
+      return {
+        content: lang.en,
+        url: platformUrl !== undefined ? platformUrl?.web : undefined,
+        id: announcement.id,
+        type: announcement.type
+      }
+    }
+  }
 }
