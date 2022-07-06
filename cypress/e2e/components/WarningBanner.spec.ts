@@ -119,7 +119,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       },
       net: {
         version: 2090000,
-        subversion: "/DeFiChain:2.9.0/",
+        subversion: '/DeFiChain:2.9.0/',
         protocolversion: 70029
       },
       blockchain: {
