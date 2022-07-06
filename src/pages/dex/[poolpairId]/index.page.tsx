@@ -49,8 +49,6 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
     }
   }, [props, router.query])
 
-  console.log({ poolpairs })
-
   return (
     <>
       <Head
