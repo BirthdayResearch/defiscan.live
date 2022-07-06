@@ -1,5 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from 'react'
 import { useApiStatus } from 'hooks/useApiStatus'
+import { AnnouncementData, useGetAnnouncementsQuery } from '@store/website'
 
 interface WarningBannerProps {
   className?: string
@@ -16,49 +17,93 @@ interface Announcement {
 export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JSX.Element {
   const deFiChainStatusUrl = 'https://status.defichain.com/'
 
-  const blockchainIsDownContent: Announcement = {
-    content: 'We are currently investigating a syncing issue on the blockchain.',
-    url: deFiChainStatusUrl
-  }
-  const oceanIsDownContent: Announcement = {
-    content: 'We are currently investigating connection issues on Ocean API.',
-    url: deFiChainStatusUrl
-  }
+  const blockchainIsDownContent: AnnouncementData[] = [{
+    lang: {
+      en: 'We are currently investigating a syncing issue on the blockchain.'
+    },
+    url: {
+      web: deFiChainStatusUrl
+    }
+  }]
+  const oceanIsDownContent: AnnouncementData[] = [{
+    lang: {
+      en: 'We are currently investigating connection issues on Ocean API.'
+    },
+    url: {
+      web: deFiChainStatusUrl
+    }
+  }]
 
-  const { isBlockchainDown, isOceanDown } = useApiStatus()
-  const [displayAnnouncement, setDisplayAnnouncement] = useState<Announcement | undefined>()
+  const {
+    isBlockchainDown,
+    isOceanDown
+  } = useApiStatus()
+
+  const {
+    data: announcements,
+    isSuccess
+  } = useGetAnnouncementsQuery({})
+
+  const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
+  const emergencyAnnouncement = findDisplayedAnnouncement(emergencyMsgContent)
+  const announcement = findDisplayedAnnouncement(announcements)
+  const announcementToDisplay = emergencyAnnouncement ?? announcement
 
   useEffect(() => {
     if (isBlockchainDown) {
-      setDisplayAnnouncement(blockchainIsDownContent)
+      setEmergencyMsgContent(blockchainIsDownContent)
     } else if (isOceanDown) {
-      setDisplayAnnouncement(oceanIsDownContent)
+      setEmergencyMsgContent(oceanIsDownContent)
     } else {
-      setDisplayAnnouncement(undefined)
+      setEmergencyMsgContent(undefined)
     }
   }, [isBlockchainDown, isOceanDown])
 
-  // don't display banner when there is not announcement to display
-  if (displayAnnouncement === undefined) {
+  if (!isSuccess || announcementToDisplay === undefined) {
     return <></>
   }
 
   return (
     <div className='bg-orange-100 rounded p-3 flex justify-center' data-testid='warning_banner'>
-      {displayAnnouncement.content}
+      {announcementToDisplay.content}
 
-      {displayAnnouncement.url !== undefined && (
+      {announcementToDisplay.url !== undefined && (
         <div className='pl-1'>
-          View more details on the
           <a
-            href={`${displayAnnouncement.url}`}
+            href={`${announcementToDisplay.url}`}
             className='text-primary-500 hover:text-primary-600 font-medium'
             target='_blank' rel='noreferrer'
           >
-            <span> DeFiChain Status </span> Page
+            <span> Learn more </span>
           </a>
         </div>
       )}
     </div>
   )
+}
+
+interface Announcement {
+  content: string
+  url?: string
+  id?: string
+  type: AnnouncementData['type']
+}
+
+function findDisplayedAnnouncement (announcements?: AnnouncementData[]): Announcement | undefined {
+  if (announcements === undefined || announcements.length === 0) {
+    return
+  }
+
+  for (const announcement of announcements) {
+    if (announcement.type === 'SCAN' || announcement.type === undefined) {
+      const lang: any = announcement.lang
+      const platformUrl: any = announcement.url
+      return {
+        content: lang.en,
+        url: platformUrl !== undefined ? platformUrl?.web : undefined,
+        id: announcement.id,
+        type: announcement.type
+      }
+    }
+  }
 }
