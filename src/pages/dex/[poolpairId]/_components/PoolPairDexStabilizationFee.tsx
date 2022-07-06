@@ -2,7 +2,7 @@ import ReactNumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
-export function PoolPairDexStabilizationFee (): JSX.Element {
+export function PoolPairDexStabilizationFee (props: { fee: string }): JSX.Element {
   return (
     <div className='flex flex-wrap flex-row mt-8 p-4 lg:p-6 rounded-lg border border-gray-200 justify-between items-center dark:border-gray-700 dark:bg-gray-800' data-testid='PoolPairDexStabilizationFee'>
       <div className='flex items-center mr-4 lg:mr-8'>
@@ -16,7 +16,7 @@ export function PoolPairDexStabilizationFee (): JSX.Element {
         decimalScale={2}
         fixedDecimalScale
         suffix='%'
-        value={new BigNumber(29.74).toFixed(2, BigNumber.ROUND_HALF_UP)}
+        value={new BigNumber(props.fee).multipliedBy(100).toFixed(2, BigNumber.ROUND_HALF_UP)}
       />
     </div>
   )
