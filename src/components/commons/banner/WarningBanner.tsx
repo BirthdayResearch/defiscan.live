@@ -9,6 +9,11 @@ interface WarningBannerProps {
   mainnet?: boolean
 }
 
+interface Announcement {
+  content: string
+  url?: string
+}
+
 export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JSX.Element {
   const deFiChainStatusUrl = 'https://status.defichain.com/'
 
