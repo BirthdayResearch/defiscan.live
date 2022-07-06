@@ -173,7 +173,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     })
     cy.intercept('**/stats', {
       statusCode: 200,
-      data: undefined
+      body: undefined
     }).as('getStats')
     cy.wait('@getStats').then(() => {
       cy.wait(6000)
@@ -193,7 +193,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     })
     cy.intercept('**/stats', {
       statusCode: 200,
-      data: undefined
+      body: undefined
     }).as('getStats')
     cy.wait('@getStats').then(() => {
       cy.wait(6000)
