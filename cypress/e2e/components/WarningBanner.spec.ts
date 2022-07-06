@@ -30,7 +30,8 @@ context('Warning banner on desktop - Announcements', () => {
         type: 'OTHER_ANNOUNCEMENT'
       }]
     }).as('getAnnouncements')
-    cy.wait('@getAnnouncements').then(() => {
+    // Pierre - testing why github e2e is failing but not in local 30sec timeout
+    cy.wait('@getAnnouncements', { timeout: 30000 }).then(() => {
       cy.findByTestId('warning_banner').should('not.exist')
     })
   })
