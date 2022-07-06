@@ -64,19 +64,17 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
   }
 
   return (
-    <div className='bg-orange-100 rounded p-3 flex justify-center' data-testid='warning_banner'>
+    <div className='bg-orange-100 rounded p-3 text-center text-sm' data-testid='warning_banner'>
       {announcementToDisplay.content}
 
       {announcementToDisplay.url !== undefined && (
-        <div className='pl-1'>
-          <a
-            href={`${announcementToDisplay.url}`}
-            className='text-primary-500 hover:text-primary-600 font-medium'
-            target='_blank' rel='noreferrer'
-          >
-            <span> Learn more </span>
-          </a>
-        </div>
+        <a
+          href={`${announcementToDisplay.url}`}
+          className='text-primary-500 hover:text-primary-600 font-medium text-sm'
+          target='_blank' rel='noreferrer'
+        >
+          <span> Learn more </span>
+        </a>
       )}
     </div>
   )
