@@ -49,6 +49,8 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
     }
   }, [props, router.query])
 
+  console.log({ poolpairs })
+
   return (
     <>
       <Head
@@ -71,8 +73,8 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         />
         <div className='flex flex-wrap flex-row space-x-4'>
           <PoolPairDetailsBar poolpair={poolpairs} />
-          {/* TODO: Only display if DUSD-DFI pair */}
-          <PoolPairDexStabilizationFee />
+          {poolpairs.displaySymbol === 'DUSD-DFI' &&
+            <PoolPairDexStabilizationFee />}
         </div>
         <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
           <div className='lg:flex lg:flex-col lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
