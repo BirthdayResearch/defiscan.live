@@ -13,9 +13,11 @@ context('Warning banner on desktop - Announcements', () => {
         },
         type: 'SCAN'
       }]
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.findByTestId('warning_banner').should('exist')
+      cy.findByTestId('warning_banner').should('contain', 'Other announcements')
     })
-    cy.findByTestId('warning_banner').should('exist')
-    cy.findByTestId('warning_banner').should('contain', 'Other announcements')
   })
 
   it('should not display warning banner if there is existing announcement with other types', function () {
@@ -27,8 +29,10 @@ context('Warning banner on desktop - Announcements', () => {
         },
         type: 'OTHER_ANNOUNCEMENT'
       }]
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.findByTestId('warning_banner').should('not.exist')
     })
-    cy.findByTestId('warning_banner').should('not.exist')
   })
 
   it('should not display warning banner if there are no existing announcement', function () {
