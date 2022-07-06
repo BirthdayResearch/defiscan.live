@@ -66,6 +66,9 @@ export interface StatsState {
     }
   }
   updatedAt: string
+  connected: boolean
+  lastSync?: string
+  lastSuccessfulSync?: string
 }
 
 const initialState: StatsState = {
@@ -78,14 +81,17 @@ const initialState: StatsState = {
   blockchain: {},
   net: {},
   loan: {},
-  updatedAt: formatISO(Date.now(), { representation: 'time' })
+  updatedAt: formatISO(Date.now(), { representation: 'time' }),
+  connected: false,
+  lastSync: undefined,
+  lastSuccessfulSync: undefined
 }
 
 export const stats = createSlice({
   name: 'stats',
   initialState,
   reducers: {
-    update: (state, action: PayloadAction<StatsData>) => {
+    update: (state, action: PayloadAction<StatsData & { lastSuccessfulSync?: string, lastSync?: string }>) => {
       state.count = action.payload.count
       state.tvl = action.payload.tvl
       state.burned = action.payload.burned
@@ -96,6 +102,12 @@ export const stats = createSlice({
       state.net = action.payload.net
       state.loan = action.payload.loan
       state.updatedAt = formatISO(Date.now(), { representation: 'time' })
+      const firstSuccessfulSync = state.lastSuccessfulSync ?? new Date().toString()
+      state.lastSuccessfulSync = action.payload.lastSuccessfulSync != null ? action.payload.lastSuccessfulSync : firstSuccessfulSync
+      state.lastSync = action.payload.lastSync // updated even if its not successful (no connection)
+    },
+    setConnected: (state, action: PayloadAction<boolean>) => {
+      state.connected = action.payload
     }
   }
 })
@@ -108,15 +120,28 @@ export function StatsProvider (props: PropsWithChildren<{}>): JSX.Element {
 
   useEffect(() => {
     function fetch (): void {
-      void api.stats.get().then(data => {
-        dispatch(stats.actions.update(data))
+      // if blockchain is connected successfully, update both lastSync & lastSuccessfulSync to current date
+      void api.stats.get().then((data) => {
+        dispatch(stats.actions.update({
+          ...data,
+          lastSync: new Date().toString(),
+          lastSuccessfulSync: new Date().toString()
+        }))
+        dispatch(stats.actions.setConnected(true))
+      }).catch((err) => {
+        dispatch(stats.actions.update({
+          // if blockchain is not connected successfully, only update value of lastSync to current date
+          ...err,
+          lastSync: new Date().toString()
+        }))
+        dispatch(stats.actions.setConnected(false))
       })
     }
 
     fetch()
     const intervalId = setInterval(fetch, interval)
     return () => clearInterval(intervalId)
-  }, [])
+  }, [api, dispatch])
 
   return <>{props.children}</>
 }
