@@ -147,8 +147,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       body: sampleNetworkData
     }).as('getStats')
     cy.wait('@getStats').then(() => {
-      cy.wait(6000)
-      cy.findByTestId('warning_banner').should('not.exist')
+      cy.findByTestId('warning_banner', { timeout: 6000 }).should('not.exist')
     })
   })
 
@@ -163,8 +162,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       }]
     }).as('getAnnouncements')
     cy.wait('@getAnnouncements').then(() => {
-      cy.wait(6000)
-      cy.findByTestId('warning_banner').should('exist')
+      cy.findByTestId('warning_banner', { timeout: 6000 }).should('exist')
       cy.findByTestId('warning_banner').should('contain', 'Other announcements')
     })
     cy.intercept('**/blockchain', {
@@ -180,8 +178,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       body: undefined
     }).as('getStats')
     cy.wait('@getStats').then(() => {
-      cy.wait(6000)
-      cy.findByTestId('warning_banner').should('exist')
+      cy.findByTestId('warning_banner', { timeout: 6000 }).should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
     })
   })
@@ -200,8 +197,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       body: undefined
     }).as('getStats')
     cy.wait('@getStats').then(() => {
-      cy.wait(6000)
-      cy.findByTestId('warning_banner').should('exist')
+      cy.findByTestId('warning_banner', { timeout: 6000 }).should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating connection issues on Ocean API.')
     })
   })
@@ -224,8 +220,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       }
     }).as('getStats')
     cy.wait('@getStats').then(() => {
-      cy.wait(6000)
-      cy.findByTestId('warning_banner').should('exist')
+      cy.findByTestId('warning_banner', { timeout: 6000 }).should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
     })
   })

@@ -1,6 +1,7 @@
 import { PropsWithChildren, useEffect, useState } from 'react'
 import { useApiStatus } from 'hooks/useApiStatus'
 import { AnnouncementData, useGetAnnouncementsQuery } from '@store/website'
+import { getEnvironment } from '@contexts/Environment'
 
 interface WarningBannerProps {
   className?: string
@@ -42,7 +43,9 @@ export function WarningBanner (props: PropsWithChildren<WarningBannerProps>): JS
   const {
     data: announcements,
     isSuccess
-  } = useGetAnnouncementsQuery({})
+  } = useGetAnnouncementsQuery({ }, {
+    pollingInterval: getEnvironment().name === 'Development' ? 5000 : 1000 * 60 * 3 // every 3mins
+  })
 
   const [emergencyMsgContent, setEmergencyMsgContent] = useState<AnnouncementData[] | undefined>()
   const emergencyAnnouncement = findDisplayedAnnouncement(emergencyMsgContent)
