@@ -1,58 +1,58 @@
 // tests are failling only in github workflows 
 
-// context('Warning banner on desktop - Announcements', () => {
-//   beforeEach(() => {
-//     cy.visit('/?network=Playground')
-//     cy.viewport('macbook-16')
-//   })
+context('Warning banner on desktop - Announcements', () => {
+  beforeEach(() => {
+    cy.viewport('macbook-16')
+  })
 
-//   it('should display warning banner if there is existing announcement', function () {
-//     cy.intercept('**/announcements', {
-//       statusCode: 200,
-//       body: [{
-//         lang: {
-//           en: 'Other announcements'
-//         },
-//         type: 'SCAN'
-//       }]
-//     }).as('getAnnouncements')
-//     cy.wait('@getAnnouncements').then(() => {
-//       cy.findByTestId('warning_banner').should('exist')
-//       cy.findByTestId('warning_banner').should('contain', 'Other announcements')
-//     })
-//   })
+  it('should display warning banner if there is existing announcement', function () {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: [{
+        lang: {
+          en: 'Other announcements'
+        },
+        type: 'SCAN'
+      }]
+    }).as('getAnnouncements')
+    cy.visit('/?network=Playground')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.findByTestId('warning_banner').should('exist')
+      cy.findByTestId('warning_banner').should('contain', 'Other announcements')
+    })
+  })
 
-//   it('should not display warning banner if there is existing announcement with other types', function () {
-//     cy.intercept('**/announcements', {
-//       statusCode: 200,
-//       body: [{
-//         lang: {
-//           en: 'Other announcements'
-//         },
-//         type: 'OTHER_ANNOUNCEMENT'
-//       }]
-//     }).as('getAnnouncements')
-//     cy.wait('@getAnnouncements').then(() => {
-//       cy.findByTestId('warning_banner').should('not.exist')
-//     })
-//   })
+  // it('should not display warning banner if there is existing announcement with other types', function () {
+  //   cy.intercept('**/announcements', {
+  //     statusCode: 200,
+  //     body: [{
+  //       lang: {
+  //         en: 'Other announcements'
+  //       },
+  //       type: 'OTHER_ANNOUNCEMENT'
+  //     }]
+  //   }).as('getAnnouncements')
+  //   cy.wait('@getAnnouncements').then(() => {
+  //     cy.findByTestId('warning_banner').should('not.exist')
+  //   })
+  // })
 
-//   it('should not display warning banner if there are no existing announcement', function () {
-//     cy.intercept('**/announcements', {
-//       statusCode: 200,
-//       body: []
-//     })
-//     cy.findByTestId('warning_banner').should('not.exist')
-//   })
+  // it('should not display warning banner if there are no existing announcement', function () {
+  //   cy.intercept('**/announcements', {
+  //     statusCode: 200,
+  //     body: []
+  //   })
+  //   cy.findByTestId('warning_banner').should('not.exist')
+  // })
 
-//   it('should not display warning banner if not successful', function () {
-//     cy.intercept('**/announcements', {
-//       statusCode: 404,
-//       body: []
-//     })
-//     cy.findByTestId('warning_banner').should('not.exist')
-//   })
-// })
+  // it('should not display warning banner if not successful', function () {
+  //   cy.intercept('**/announcements', {
+  //     statusCode: 404,
+  //     body: []
+  //   })
+  //   cy.findByTestId('warning_banner').should('not.exist')
+  // })
+})
 
 // context('Warning banner on desktop - Blockchain and Ocean warning messages', () => {
 //   const outage = {
