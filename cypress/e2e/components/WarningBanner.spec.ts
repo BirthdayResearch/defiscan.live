@@ -1,5 +1,3 @@
-// tests are failling only in github workflows 
-
 context('Warning banner on desktop - Announcements', () => {
   beforeEach(() => {
     cy.viewport('macbook-16')
@@ -138,7 +136,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
   })
 
   it('should not display warning banner if nothing is down', function () {
-        cy.intercept('**/blockchain', {
+    cy.intercept('**/blockchain', {
       statusCode: 200,
       body: outage
     })
