@@ -159,7 +159,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
   })
 
   // failing in github
-  it('should display blockchain is down warning banner after preset interval and hide existing announcements', () => {
+  it.only('should display blockchain is down warning banner after preset interval and hide existing announcements', () => {
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: [{
@@ -186,7 +186,6 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       body: undefined
     }).as('getStats')
-    cy.visit('/?network=Playground')
     cy.wait('@getStats').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
@@ -216,7 +215,6 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       body: undefined
     })
-    cy.visit('/?network=Playground')
     cy.wait('@getOceanDown').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating connection issues on Ocean API.')
