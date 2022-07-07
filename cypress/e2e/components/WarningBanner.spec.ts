@@ -1,5 +1,5 @@
 /*
-cy.visit is used after cy.intercept(s) in this test case because github cypress is running too slow
+For /announcements, cy.visit is used after cy.intercept(s) in this test case because github cypress is running too slow
 and cypress is unable to intercept before the url is being called. Therefore, the work around is:
   1. init cy.intercept() in each test
   2. cy.visit() site url thereafter
@@ -137,6 +137,10 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     }
   }
 
+  before(() => {
+    cy.visit('/?network=Playground')
+  })
+
   beforeEach(() => {
     cy.viewport('macbook-16')
   })
@@ -164,6 +168,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     })
   })
 
+  // failing in github
   it('should display blockchain is down warning banner after preset interval and hide existing announcements', () => {
     cy.intercept('**/announcements', {
       statusCode: 200,
@@ -190,19 +195,18 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       body: undefined
     }).as('getStats')
-    cy.visit('/?network=Playground')
     cy.wait('@getStats').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
     })
   })
 
+  // failing in github
   it('should display ocean is down warning banner', () => {
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: []
     }).as('getAnnouncements')
-    cy.visit('/?network=Playground')
     cy.wait('@getAnnouncements').then(() => {
       cy.findByTestId('warning_banner').should('not.exist')
     })
@@ -225,6 +229,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     })
   })
 
+  // failing in github
   it('should display blockchain is down warning banner if stats is down', () => {
     cy.intercept('**/announcements', {
       statusCode: 200,
@@ -246,7 +251,6 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
         'x-not-found': 'true'
       }
     }).as('getStats')
-    cy.visit('/?network=Playground')
     cy.wait('@getStats').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
