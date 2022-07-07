@@ -12,7 +12,7 @@
     "start": "next start",
     "cypress:open": "cypress open",
     "cypress:build": "CYPRESS=true next build",
-    "cypress:run": "TZ=UTC cypress run --headless --browser chrome",
+    "cypress:run": "TZ=UTC cypress run --headed --browser chrome",
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
