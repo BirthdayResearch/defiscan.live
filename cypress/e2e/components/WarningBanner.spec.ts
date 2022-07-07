@@ -1,4 +1,3 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
 
 context('Warning banner on desktop - Announcements', () => {
   beforeEach(() => {
@@ -32,9 +31,7 @@ context('Warning banner on desktop - Announcements', () => {
         type: 'OTHER_ANNOUNCEMENT'
       }]
     }).as('getAnnouncements')
-    // Pierre - testing why github e2e is failing but not in local 30sec timeout
     cy.wait('@getAnnouncements').then(() => {
-      cy.wait(5000)
       cy.findByTestId('warning_banner').should('not.exist')
     })
   })
@@ -141,21 +138,8 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     cy.intercept('**/announcements', {
       statusCode: 200,
       body: []
-    })
-    cy.intercept('**/blockchain', {
-      statusCode: 200,
-      body: operational
-    })
-    cy.intercept('**/overall', {
-      statusCode: 200,
-      body: operational
-    })
-    cy.intercept('**/stats', {
-      statusCode: 200,
-      body: sampleNetworkData
-    }).as('getStats')
-    cy.wait('@getStats').then(() => {
-      cy.wait(5000)
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
       cy.findByTestId('warning_banner').should('not.exist')
     })
   })
@@ -171,7 +155,6 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       }]
     }).as('getAnnouncements')
     cy.wait('@getAnnouncements').then(() => {
-      cy.wait(5000)
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'Other announcements')
     })
@@ -188,13 +171,20 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       body: undefined
     }).as('getStats')
     cy.wait('@getStats').then(() => {
-      cy.wait(5000)
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
     })
   })
 
   it('should display ocean is down warning banner', () => {
+    cy.intercept('**/announcements', {
+      statusCode: 200,
+      body: []
+    }).as('getAnnouncements')
+    cy.wait('@getAnnouncements').then(() => {
+      cy.findByTestId('warning_banner').should('not.exist')
+    })
+
     cy.intercept('**/blockchain', {
       statusCode: 200,
       body: operational
@@ -202,13 +192,12 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     cy.intercept('**/overall', {
       statusCode: 200,
       body: outage
-    })
+    }).as('getOceanDown')
     cy.intercept('**/stats', {
       statusCode: 200,
       body: undefined
-    }).as('getStats')
-    cy.wait('@getStats').then(() => {
-      cy.wait(5000)
+    })
+    cy.wait('@getOceanDown').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating connection issues on Ocean API.')
     })
@@ -236,7 +225,6 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       }
     }).as('getStats')
     cy.wait('@getStats').then(() => {
-      cy.wait(5000)
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
     })
