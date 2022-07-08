@@ -175,15 +175,12 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
         type: 'SCAN'
       }]
     }).as('getAnnouncements')
-    cy.visit('/?network=Playground')
-    cy.wait('@getAnnouncements').then(() => {
-      cy.findByTestId('warning_banner').should('exist')
-      cy.findByTestId('warning_banner').should('contain', 'Other announcements')
-    })
+
     cy.intercept('**/blockchain', {
       statusCode: 200,
       body: outage
-    })
+    }).as('getBlockchain')
+
     cy.intercept('**/overall', {
       statusCode: 200,
       body: operational
@@ -191,11 +188,11 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     cy.intercept('**/stats', {
       statusCode: 200,
       body: undefined
-    }).as('getStats')
+    })
 
     cy.visit('/?network=Playground')
 
-    cy.wait('@getStats').then(() => {
+    cy.wait('@getBlockchain').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
     })
@@ -216,14 +213,16 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       body: operational
     })
-    cy.intercept('**/overall', {
-      statusCode: 200,
-      body: outage
-    }).as('getOceanDown')
+
     cy.intercept('**/stats', {
       statusCode: 200,
       body: undefined
     })
+
+    cy.intercept('**/overall', {
+      statusCode: 200,
+      body: outage
+    }).as('getOceanDown')
 
     cy.visit('/?network=Playground')
 
