@@ -137,10 +137,6 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
     }
   }
 
-  before(() => {
-    cy.visit('/?network=Playground')
-  })
-
   beforeEach(() => {
     cy.viewport('macbook-16')
   })
@@ -195,6 +191,9 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       body: undefined
     }).as('getStats')
+
+    cy.visit('/?network=Playground')
+
     cy.wait('@getStats').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
@@ -223,6 +222,9 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       body: undefined
     })
+
+    cy.visit('/?network=Playground')
+
     cy.wait('@getOceanDown').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating connection issues on Ocean API.')
@@ -251,6 +253,9 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
         'x-not-found': 'true'
       }
     }).as('getStats')
+
+    cy.visit('/?network=Playground')
+
     cy.wait('@getStats').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'We are currently investigating a syncing issue on the blockchain.')
