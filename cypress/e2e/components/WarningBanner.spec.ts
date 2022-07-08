@@ -175,6 +175,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
         type: 'SCAN'
       }]
     }).as('getAnnouncements')
+    cy.visit('/?network=Playground')
     cy.wait('@getAnnouncements').then(() => {
       cy.findByTestId('warning_banner').should('exist')
       cy.findByTestId('warning_banner').should('contain', 'Other announcements')
@@ -206,6 +207,7 @@ context('Warning banner on desktop - Blockchain and Ocean warning messages', () 
       statusCode: 200,
       body: []
     }).as('getAnnouncements')
+    cy.visit('/?network=Playground')
     cy.wait('@getAnnouncements').then(() => {
       cy.findByTestId('warning_banner').should('not.exist')
     })
