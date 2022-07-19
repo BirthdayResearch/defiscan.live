@@ -93,8 +93,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
 
   const next = CursorPagination.getNext(context)
   const items = await api.poolpairs.list(100, next)
-
-  const sorted = items.filter(poolpair => poolpair.status)
+  const sorted = items.filter(poolpair => !poolpair.displaySymbol.includes('/'))
 
   return {
     props: {
