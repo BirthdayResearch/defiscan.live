@@ -112,7 +112,7 @@ export function PoolPairsCard ({
   return (
     <CardList.Card testId='PoolPairsCard'>
       <CardList.Header
-        path={`/dex/${poolPair.displaySymbol.includes('DUSD') ? poolPair.displaySymbol : poolPair.tokenA.displaySymbol}`}
+        path={`/dex/${(poolPair.displaySymbol.includes('DUSD') || poolPair.displaySymbol.includes('dUSDT') || poolPair.displaySymbol.includes('dUSDC')) ? poolPair.displaySymbol : poolPair.tokenA.displaySymbol}`}
       >
         <div className='font-medium text-gray-900'>
           <PoolPairSymbolLocal
