@@ -44,12 +44,21 @@ const sortTypes = [{
   value: 'Primary Token Price (Low to High)'
 }]
 
-export function PoolPairsCards ({ poolPairs, sortKey, setSortKey, sortOrder, setSortOrder }): JSX.Element {
+export function PoolPairsCards ({
+  poolPairs,
+  sortKey,
+  setSortKey,
+  sortOrder,
+  setSortOrder
+}): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
 
   const poolPairsPrices = poolPairs.map(pair => {
     const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
-    return { poolPair: pair, tokenPrice: tokenPrice }
+    return {
+      poolPair: pair,
+      tokenPrice: tokenPrice
+    }
   })
 
   const sortedData = useCallback(
@@ -96,10 +105,15 @@ export function PoolPairsCards ({ poolPairs, sortKey, setSortKey, sortOrder, set
   )
 }
 
-export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenPrice: BigNumber }): JSX.Element {
+export function PoolPairsCard ({
+  poolPair,
+  tokenPrice
+}: { poolPair: PoolPairData, tokenPrice: BigNumber }): JSX.Element {
   return (
     <CardList.Card testId='PoolPairsCard'>
-      <CardList.Header path={`/dex/${poolPair.tokenA.displaySymbol}`}>
+      <CardList.Header
+        path={`/dex/${poolPair.displaySymbol.includes('DUSD') ? poolPair.displaySymbol : poolPair.tokenA.displaySymbol}`}
+      >
         <div className='font-medium text-gray-900'>
           <PoolPairSymbolLocal
             tokenA={poolPair.tokenA}
@@ -152,7 +166,11 @@ export function PoolPairsCard ({ poolPair, tokenPrice }: { poolPair: PoolPairDat
           testId='PoolPairsCard.CardList.TotalLiquidity'
         >
           {poolPair.totalLiquidity.usd !== undefined ? (
-            <MoreHoverPopover className='ml-1' description={<TotalLiquidityInfo tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} />} placement='left'>
+            <MoreHoverPopover
+              className='ml-1'
+              description={<TotalLiquidityInfo tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} />}
+              placement='left'
+            >
               <NumberFormat
                 value={poolPair.totalLiquidity.usd}
                 displayType='text'
