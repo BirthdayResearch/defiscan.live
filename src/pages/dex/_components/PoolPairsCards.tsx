@@ -133,12 +133,14 @@ export function PoolPairsCard ({
           titleClassNames='text-sm'
           testId='PoolPairsCard.CardList.TokenPrice'
         >
-          <NumberFormat
-            value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
-            displayType='text'
-            thousandSeparator
-            prefix='$'
-          />
+          {!tokenPrice.isNaN()
+            ? (<NumberFormat
+                value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
+                displayType='text'
+                thousandSeparator
+                prefix='$'
+               />)
+            : ('Error')}
         </CardList.ListItem>
         <CardList.ListItem
           title='Volume (24H)'

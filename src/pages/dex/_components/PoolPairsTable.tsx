@@ -154,12 +154,14 @@ function PoolPairRow ({
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
-        <NumberFormat
-          value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
-          displayType='text'
-          thousandSeparator
-          prefix='$'
-        />
+        {!tokenPrice.isNaN()
+          ? (<NumberFormat
+              value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
+              displayType='text'
+              thousandSeparator
+              prefix='$'
+             />)
+          : ('Error')}
       </OverflowTable.Cell>
 
       <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
