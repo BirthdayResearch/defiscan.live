@@ -89,7 +89,7 @@ export function PoolPairsTable ({
       </OverflowTable.Header>
       {sortedData().map((data) => (
         <Link
-          href={{ pathname: `/dex/${data.poolPair.displaySymbol.includes('DUSD') ? data.poolPair.displaySymbol : data.poolPair.tokenA.displaySymbol}` }}
+          href={{ pathname: `/dex/${(data.poolPair.displaySymbol.includes('DUSD') || data.poolPair.displaySymbol.includes('dUSDT') || data.poolPair.displaySymbol.includes('dUSDC')) ? data.poolPair.displaySymbol : data.poolPair.tokenA.displaySymbol}` }}
           key={data.poolPair.id}
         >
           <a className='contents'>
