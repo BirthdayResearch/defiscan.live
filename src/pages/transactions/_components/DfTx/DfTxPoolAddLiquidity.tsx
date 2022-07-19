@@ -66,7 +66,6 @@ function PoolAddLiquidityRow (props: { tokenId: number, amount: BigNumber }): JS
       <div className='table-cell px-4 md:px-6 py-3'>
         <div className='flex items-center dark:text-gray-400'>
           <TokenSymbol tokenId={props.tokenId} testId={`DfTxPoolAddLiquidity.${props.tokenId}-Symbol`} />
-          <span className='ml-0.5'>:</span>
         </div>
       </div>
       <div className={classNames('table-cell px-4 md:px-6 py-3 text-gray-600 dark:text-gray-100 align-middle break-all')}>
