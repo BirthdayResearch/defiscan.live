@@ -2,7 +2,11 @@ import ReactNumberFormat from 'react-number-format'
 import BigNumber from 'bignumber.js'
 import { InfoHoverPopover } from '@components/commons/popover/InfoHoverPopover'
 
-export function PoolPairDexStabilizationFee (props: { fee: string }): JSX.Element {
+export function PoolPairDexStabilizationFee (props: { fee: string | undefined }): JSX.Element {
+  if (props.fee === undefined) {
+    return <></>
+  }
+
   return (
     <div className='flex flex-wrap flex-row w-full lg:w-fit mt-2 lg:mt-8 p-4 lg:p-6 rounded-lg border border-gray-200 justify-between items-center dark:border-gray-700 dark:bg-gray-800' data-testid='PoolPairDexStabilizationFee'>
       <div className='flex items-center mr-4 lg:mr-8'>
