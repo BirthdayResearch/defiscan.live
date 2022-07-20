@@ -19,12 +19,21 @@ export enum SortKeys {
 
 export type SortOrder = 'asc' | 'desc'
 
-export function PoolPairsTable ({ poolPairs, sortKey, setSortKey, sortOrder, setSortOrder }): JSX.Element {
+export function PoolPairsTable ({
+  poolPairs,
+  sortKey,
+  setSortKey,
+  sortOrder,
+  setSortOrder
+}): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
 
   const poolPairsPrices = poolPairs.map(pair => {
     const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
-    return { poolPair: pair, tokenPrice: tokenPrice }
+    return {
+      poolPair: pair,
+      tokenPrice: tokenPrice
+    }
   })
 
   const sortedData = useCallback(
@@ -79,7 +88,10 @@ export function PoolPairsTable ({ poolPairs, sortKey, setSortKey, sortOrder, set
         </OverflowTable.Head>
       </OverflowTable.Header>
       {sortedData().map((data) => (
-        <Link href={{ pathname: `/dex/${data.poolPair.tokenA.displaySymbol}` }} key={data.poolPair.id}>
+        <Link
+          href={{ pathname: `/dex/${(data.poolPair.displaySymbol.includes('DUSD') || data.poolPair.displaySymbol.includes('dUSDT') || data.poolPair.displaySymbol.includes('dUSDC')) ? data.poolPair.displaySymbol : data.poolPair.tokenA.displaySymbol}` }}
+          key={data.poolPair.id}
+        >
           <a className='contents'>
             <PoolPairRow poolPair={data.poolPair} tokenPrice={data.tokenPrice} />
           </a>
@@ -120,7 +132,10 @@ export function SortData ({
   return reverse ? sortedData.reverse() : sortedData
 }
 
-function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenPrice: BigNumber }): JSX.Element {
+function PoolPairRow ({
+  poolPair,
+  tokenPrice
+}: { poolPair: PoolPairData, tokenPrice: BigNumber }): JSX.Element {
   if (poolPair.symbol === 'BURN-DFI') {
     return <></>
   }
@@ -139,12 +154,14 @@ function PoolPairRow ({ poolPair, tokenPrice }: { poolPair: PoolPairData, tokenP
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
-        <NumberFormat
-          value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
-          displayType='text'
-          thousandSeparator
-          prefix='$'
-        />
+        {!tokenPrice.isNaN()
+          ? (<NumberFormat
+              value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
+              displayType='text'
+              thousandSeparator
+              prefix='$'
+             />)
+          : ('Error')}
       </OverflowTable.Cell>
 
       <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
