@@ -71,7 +71,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         />
         <div className='flex flex-wrap flex-row lg:space-x-4'>
           <PoolPairDetailsBar poolpair={poolpairs} />
-          {poolpairs.displaySymbol === 'DUSD-DFI' && poolpairs.tokenA.fee?.pct !== undefined &&
+          {['DUSD-DFI', 'dUSDC-DFI', 'dUSDT-DFI'].includes(poolpairs.displaySymbol) && poolpairs.tokenA.fee?.pct !== undefined &&
             <PoolPairDexStabilizationFee fee={poolpairs.tokenA.fee.pct} />}
         </div>
         <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
