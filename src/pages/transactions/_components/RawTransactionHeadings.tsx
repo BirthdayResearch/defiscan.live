@@ -10,7 +10,7 @@ export function RawTransactionHeading (props: RawTransactionHeadingProps): JSX.E
   return (
     <>
       <RawTransactionPendingHeading txid={txid} />
-      <span className='leading-6 opacity-60 dark:opacity-100 dark:text-gray-100' data-testid='title'>
+      <span className='leading-6 opacity-60 dark:opacity-100 dark:text-gray-100' data-testid='RawTransaction.title'>
         Transaction ID
       </span>
       <div className='flex items-center mt-1'>
