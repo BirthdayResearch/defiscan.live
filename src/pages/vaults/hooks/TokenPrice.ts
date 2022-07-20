@@ -7,6 +7,7 @@ import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
 import { checkIfPair, findPath, GraphProps } from '../utils/path-finding'
 import { useSelector } from 'react-redux'
 import { RootState } from '@store/index'
+import { useMemo } from 'react'
 
 interface CalculatePriceRatesI {
   aToBPrice: BigNumber
@@ -21,7 +22,11 @@ interface DexTokenPrice {
 }
 
 export function useTokenPrice (): DexTokenPrice {
-  const { poolpairs } = useSelector((state: RootState) => state.poolpairs)
+  const { poolpairs: rawPoolPairs } = useSelector((state: RootState) => state.poolpairs)
+
+  const poolpairs = useMemo(() => {
+    return rawPoolPairs.filter(poolpair => !poolpair.displaySymbol.includes('/'))
+  }, [rawPoolPairs])
 
   const graph: GraphProps[] = poolpairs.map(pair => {
     return {
