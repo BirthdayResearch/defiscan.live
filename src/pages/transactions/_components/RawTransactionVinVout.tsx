@@ -17,7 +17,7 @@ export function RawTransactionVinVout (props: RawTransactionVinVoutProps): JSX.E
 
   return (
     <>
-      <h1 className='font-medium text-2xl mt-6' data-testid='RawTransaction.details-subtitle'>Details</h1>
+      <h1 className='font-medium text-2xl mt-6 dark:text-dark-gray-900' data-testid='RawTransaction.details-subtitle'>Details</h1>
       <div className='mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0'>
         <div className='w-full lg:w-1/2'>
           <div className='flex flex-col space-y-1' data-testid='RawTransaction.DetailsLeft.List'>
@@ -65,7 +65,7 @@ export function RawTransactionVinVout (props: RawTransactionVinVoutProps): JSX.E
         </div>
       </div>
 
-      <div className='flex flex-col items-end justify-between mt-8'>
+      <div className='flex flex-col items-end justify-between mt-8 dark:text-dark-gray-900'>
         <div className='flex justify-between space-x-3 mt-2' data-testid='RawTransaction.DetailsSummary.total'>
           <span>Total:</span>
           <span>{getTotalVoutValue(props.vouts)} DFI</span>
