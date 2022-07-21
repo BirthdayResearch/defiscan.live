@@ -62,14 +62,13 @@ export function DfTxPoolAddLiquidity (props: DfTxPoolAddLiquidityProps): JSX.Ele
 
 function PoolAddLiquidityRow (props: { tokenId: number, amount: BigNumber }): JSX.Element {
   return (
-    <div className='table-row border-b border-gray-100 last:border-b-0'>
-      <div className='table-cell px-6 py-3'>
-        <div className='flex flex-row'>
+    <div className='table-row border-b border-gray-100 dark:border-gray-700 last:border-b-0'>
+      <div className='table-cell px-4 md:px-6 py-3'>
+        <div className='flex items-center dark:text-gray-400'>
           <TokenSymbol tokenId={props.tokenId} testId={`DfTxPoolAddLiquidity.${props.tokenId}-Symbol`} />
-          <span className='ml-0.5'>:</span>
         </div>
       </div>
-      <div className={classNames('table-cell px-6 py-3 text-gray-600')}>
+      <div className={classNames('table-cell px-4 md:px-6 py-3 text-gray-600 dark:text-gray-100 align-middle break-all')}>
         <span data-testid={`DfTxPoolAddLiquidity.${props.tokenId}-Amount`}>{props.amount.toFixed(8)}</span>
       </div>
     </div>
