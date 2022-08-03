@@ -35,7 +35,7 @@ export function VaultStatus (props: VaultStatusProps): JSX.Element {
       }
 
       const minColRatio = new BigNumber(props.vault.loanScheme.minColRatio)
-      const collateralRatio = new BigNumber(props.vault.collateralRatio)
+      const collateralRatio = new BigNumber(props.vault.informativeRatio)
       const currentPercentage = collateralRatio.div(minColRatio)
 
       if (currentPercentage.gt(1.5)) {

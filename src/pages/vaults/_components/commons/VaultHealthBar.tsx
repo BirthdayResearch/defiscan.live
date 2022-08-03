@@ -15,7 +15,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
   const atRiskThresholdMultiplier = 1.5
   const minColRatio = new BigNumber(props.vault.loanScheme.minColRatio)
   const maxRatio = getMaxRatio(minColRatio.multipliedBy(atRiskThresholdMultiplier))
-  const normalizedColRatio = new BigNumber(props.vault.collateralRatio).dividedBy(maxRatio)
+  const normalizedColRatio = new BigNumber(props.vault.informativeRatio).dividedBy(maxRatio)
   const normalizedLiquidatedThreshold = minColRatio.multipliedBy(1.25).dividedBy(maxRatio).multipliedBy(100)
   const normalizedAtRiskThreshold = minColRatio.multipliedBy(atRiskThresholdMultiplier).dividedBy(maxRatio).multipliedBy(100)
 
@@ -32,7 +32,7 @@ export function VaultHealthBar (props: VaultHealthBarProps): JSX.Element {
         <div className='w-1/2 dark:text-white'>Collateralization Ratio</div>
         <div className='w-1/2 text-right'>
           <VaultCollateralizationRatio
-            collateralizationRatio={new BigNumber(props.vault.collateralRatio).toFixed(0, BigNumber.ROUND_HALF_UP)}
+            collateralizationRatio={new BigNumber(props.vault.informativeRatio).toFixed(2)}
             loanScheme={props.vault.loanScheme}
             vaultState={props.vault.state}
             testId='VaultHealthBar.CollateralizationRatio'

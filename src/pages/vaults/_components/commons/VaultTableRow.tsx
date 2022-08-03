@@ -83,20 +83,19 @@ export function VaultTableRow (props: VaultTableRowProps): JSX.Element {
             } else {
               return (
                 <VaultCollateralizationRatio
-                  collateralizationRatio={props.vault.collateralRatio}
+                  collateralizationRatio={props.vault.informativeRatio}
                   loanScheme={props.vault.loanScheme}
                   vaultState={props.vault.state}
                 />
               )
             }
           })()}
+          <span>&nbsp;/&nbsp;</span>
           <ReactNumberFormat
-            value={props.vault.loanScheme.minColRatio}
+            value={new BigNumber(props.vault.loanScheme.minColRatio).toFixed(2)}
             suffix='%'
             displayType='text'
             thousandSeparator
-            className='ml-1'
-            prefix=' / '
           />
         </span>
       </OverflowTable.Cell>
