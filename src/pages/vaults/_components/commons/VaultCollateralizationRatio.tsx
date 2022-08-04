@@ -37,7 +37,7 @@ export function VaultCollateralizationRatio (props: VaultCollateralizationRatioP
       {collateralRatio.lt(0)
         ? ('N/A')
         : (<ReactNumberFormat
-            value={props.collateralizationRatio}
+            value={new BigNumber(props.collateralizationRatio).toFixed(2)}
             suffix={props.suffix === undefined ? '%' : ''}
             displayType='text'
             thousandSeparator

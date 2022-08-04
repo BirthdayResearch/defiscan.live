@@ -94,7 +94,7 @@ function VaultMobileDetails (props: { vault: LoanVaultActive | LoanVaultLiquidat
             />
             )
           : (<VaultCollateralizationRatio
-              collateralizationRatio={props.vault.collateralRatio}
+              collateralizationRatio={props.vault.informativeRatio}
               loanScheme={props.vault.loanScheme}
               vaultState={props.vault.state}
               testId={`VaultRow.${props.vault.vaultId}.CollateralizationRatio`}
