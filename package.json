@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.0",
-    "@netlify/plugin-nextjs": "^4.13.1",
+    "@netlify/plugin-nextjs": "^4.14.2",
     "@testing-library/cypress": "^8.0.3",
     "@types/lodash": "^4.14.182",
     "@types/node": "^14.18.20",
