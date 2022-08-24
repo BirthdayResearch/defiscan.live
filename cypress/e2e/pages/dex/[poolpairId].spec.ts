@@ -87,12 +87,12 @@ context('/dex/[poolpairid] on macbook-16', () => {
     cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
   })
 
-  it('should only display DUSD price in dBTC-DFI', function () {
+  it('should display DUSD price in all poolpair page', function () {
     cy.visit('/dex/dBTC-DFI')
     cy.findByTestId('PoolPair.DUSDPrice').should('exist')
 
     cy.visit('/dex/dUSDC-DUSD')
-    cy.findByTestId('PoolPair.DUSDPrice').should('not.exist')
+    cy.findByTestId('PoolPair.DUSDPrice').should('exist')
   })
 
   it('should only display DEX stabilization fee in (dUSDC/dUSDT)-DUSD', function () {
@@ -205,12 +205,12 @@ context('/dex/[poolpairId] on iphone-x', () => {
     cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
   })
 
-  it('should only display DUSD price in dBTC-DFI', function () {
+  it('should display DUSD price in all poolpair page', function () {
     cy.visit('/dex/dBTC-DFI')
     cy.findByTestId('PoolPair.DUSDPrice').should('exist')
 
     cy.visit('/dex/dUSDC-DUSD')
-    cy.findByTestId('PoolPair.DUSDPrice').should('not.exist')
+    cy.findByTestId('PoolPair.DUSDPrice').should('exist')
   })
 
   it('should only display DEX stabilization fee in (dUSDC/dUSDT)-DUSD and DUSD-DFI', function () {

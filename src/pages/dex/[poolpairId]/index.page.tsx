@@ -77,17 +77,15 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         />
         <div className='flex flex-wrap flex-row lg:space-x-4'>
           <PoolPairDetailsBar poolpair={poolpairs} />
-          {poolpairs.displaySymbol === 'dBTC-DFI' && (
-            <PoolPairInfo
-              testId='DUSDPrice'
-              lhsComponent={() => (<span className='flex items-center text-lg dark:text-dark-gray-900 mr-1.5'><TokenIconDUSD className='mr-2 w-8 h-8' />DUSD Price</span>)}
-              popoverDescription='The indicated price is an average of the 2 stablecoin (USDC & USDT) from the DUSD-DEX pools.'
-              rhs={{
-                value: props.averageStableCoinPriceInDUSD,
-                prefix: '$'
-              }}
-            />
-          )}
+          <PoolPairInfo
+            testId='DUSDPrice'
+            lhsComponent={() => (<span className='flex items-center text-lg dark:text-dark-gray-900 mr-1.5'><TokenIconDUSD className='mr-2 w-8 h-8' />DUSD Price</span>)}
+            popoverDescription='The indicated price is an average of the 2 stablecoin (USDC & USDT) from the DUSD-DEX pools.'
+            rhs={{
+              value: props.averageStableCoinPriceInDUSD,
+              prefix: '$'
+            }}
+          />
           {['DUSD-DFI', 'dUSDC-DUSD', 'dUSDT-DUSD'].includes(poolpairs.displaySymbol) &&
             <PoolPairInfo
               testId='DexStabilizationFee'
@@ -150,22 +148,16 @@ function getPoolPairsByParam (param: string, poolpairs: PoolPairData[]): PoolPai
   }).pop()
 }
 
-async function getAverageStableCoinPrice (poolPair: PoolPairData, poolpairs: PoolPairData[], api: WhaleApiClient): Promise<string> {
+async function getAverageStableCoinPrice (poolpairs: PoolPairData[], api: WhaleApiClient): Promise<string> {
   let averageStableCoinPriceInDUSD = ''
-  if (poolpairs.length === 0) {
-    /* To reduce API calls, only re-fetch from API if poolPairs is empty */
-    poolpairs = await getPoolPairs(api)
-  }
 
-  if (poolPair.displaySymbol === 'dBTC-DFI') {
-    const stableCoinPoolPairs = poolpairs.filter(pair => ['dUSDT-DUSD', 'dUSDC-DUSD'].includes(pair.displaySymbol))
-    let totalPriceInDUSD = new BigNumber(0)
-    stableCoinPoolPairs.forEach(pair => {
-      totalPriceInDUSD = (new BigNumber(pair.priceRatio.ab).div(pair.priceRatio.ba)).plus(totalPriceInDUSD)
-    })
+  const stableCoinPoolPairs = poolpairs.filter(pair => ['dUSDT-DUSD', 'dUSDC-DUSD'].includes(pair.displaySymbol))
+  let totalPriceInDUSD = new BigNumber(0)
+  stableCoinPoolPairs.forEach(pair => {
+    totalPriceInDUSD = (new BigNumber(pair.priceRatio.ab).div(pair.priceRatio.ba)).plus(totalPriceInDUSD)
+  })
 
-    averageStableCoinPriceInDUSD = totalPriceInDUSD.div(stableCoinPoolPairs.length).toFixed(8)
-  }
+  averageStableCoinPriceInDUSD = totalPriceInDUSD.div(stableCoinPoolPairs.length).toFixed(8)
 
   return averageStableCoinPriceInDUSD
 }
@@ -177,12 +169,11 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   }
 
   const api = getWhaleApiClient(context)
+  const poolPairs = await getPoolPairs(api)
 
-  let poolPairs: PoolPairData[] = []
   let poolPair: PoolPairData | undefined
 
   if (poolpairId.includes('-')) {
-    poolPairs = await getPoolPairs(api)
     poolPair = getPoolPairsByParam(poolpairId, poolPairs)
   } else if (isNumeric(poolpairId)) {
     try {
@@ -191,7 +182,6 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       return { notFound: true }
     }
   } else {
-    poolPairs = await getPoolPairs(api)
     poolPair = getPoolPairsByParam(poolpairId, poolPairs)
   }
 
@@ -200,7 +190,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   }
 
   /* DUSD price based on stablecoin pools - (USDC & USDT)-DUSD */
-  const averageStableCoinPriceInDUSD = await getAverageStableCoinPrice(poolPair, poolPairs, api)
+  const averageStableCoinPriceInDUSD = await getAverageStableCoinPrice(poolPairs, api)
 
   const next = CursorPagination.getNext(context)
   const swaps = await api.poolpairs.listPoolSwapsVerbose(poolPair.id, 10, next)
