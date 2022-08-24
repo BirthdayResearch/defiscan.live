@@ -81,7 +81,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
             <PoolPairInfo
               testId='DUSDPrice'
               lhsComponent={() => (<span className='flex items-center text-lg dark:text-dark-gray-900 mr-1.5'><TokenIconDUSD className='mr-2 w-8 h-8' />DUSD Price</span>)}
-              popoverDescription='The indicated price is an average of the 2 stablecoin (USDC & USDT) from the DUSD-DEX pools.'
+              popoverDescription='The indicated price is an average of the 2 stablecoin-DUSD (dUSDC & dUSDT) DEX pools'
               rhs={{
                 value: props.averageStableCoinPriceInDUSD,
                 prefix: '$'
