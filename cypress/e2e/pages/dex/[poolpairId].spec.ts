@@ -98,7 +98,7 @@ context('/dex/[poolpairid] on macbook-16', () => {
     cy.findByTestId('PoolPair.DUSDPrice').should('exist')
   })
 
-  it('should only display DEX stabilization fee in (dUSDC/dUSDT)-DUSD', function () {
+  it('should only display DEX stabilization fee in (dUSDC/dUSDT)-DUSD and DUSD-DFI', function () {
     cy.visit('/dex/dUSDC-DUSD')
     cy.findByTestId('PoolPair.DexStabilizationFee').should('exist')
 

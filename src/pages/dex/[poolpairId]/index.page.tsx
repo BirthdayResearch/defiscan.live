@@ -149,7 +149,7 @@ function getPoolPairsByParam (param: string, poolpairs: PoolPairData[]): PoolPai
   }).pop()
 }
 
-async function getAverageStableCoinPrice (poolpairs: PoolPairData[], api: WhaleApiClient): Promise<string> {
+function getAverageStableCoinPrice (poolpairs: PoolPairData[]): string {
   const stableCoinPoolPairs = poolpairs.filter(pair => ['dUSDT-DUSD', 'dUSDC-DUSD'].includes(pair.displaySymbol))
   let totalTokenBReserve = new BigNumber(0)
   let totalTokenAReserve = new BigNumber(0)
@@ -190,7 +190,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   }
 
   /* DUSD price based on stablecoin pools - (USDC & USDT)-DUSD */
-  const averageStableCoinPriceInDUSD = await getAverageStableCoinPrice(poolPairs, api)
+  const averageStableCoinPriceInDUSD = getAverageStableCoinPrice(poolPairs)
 
   const next = CursorPagination.getNext(context)
   const swaps = await api.poolpairs.listPoolSwapsVerbose(poolPair.id, 10, next)
