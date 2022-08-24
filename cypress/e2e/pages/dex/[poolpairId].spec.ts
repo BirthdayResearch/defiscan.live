@@ -73,7 +73,7 @@ context('/dex/[poolpairid] on macbook-16', () => {
     })
   })
 
-  it('should redirect to individual poolpair page', () => {
+  it('should redirect to individual poolpair page', function () {
     cy.visit('/dex/dBTC-DFI')
     cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
 
@@ -85,6 +85,25 @@ context('/dex/[poolpairid] on macbook-16', () => {
 
     cy.visit('/dex/BTC')
     cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
+  })
+
+  it('should only display DUSD price in dBTC-DFI', function () {
+    cy.visit('/dex/dBTC-DFI')
+    cy.findByTestId('PoolPair.DUSDPrice').should('exist')
+
+    cy.visit('/dex/dUSDC-DUSD')
+    cy.findByTestId('PoolPair.DUSDPrice').should('not.exist')
+  })
+
+  it('should only display DEX stabilization fee in (dUSDC/dUSDT)-DUSD', function () {
+    cy.visit('/dex/dUSDC-DUSD')
+    cy.findByTestId('PoolPair.DexStabilizationFee').should('exist')
+
+    cy.visit('/dex/dUSDT-DUSD')
+    cy.findByTestId('PoolPair.DexStabilizationFee').should('exist')
+
+    cy.visit('/dex/DUSD-DFI')
+    cy.findByTestId('PoolPair.DexStabilizationFee').should('exist')
   })
 })
 
@@ -172,7 +191,7 @@ context('/dex/[poolpairId] on iphone-x', () => {
     })
   })
 
-  it('should redirect to individual poolpair page', () => {
+  it('should redirect to individual poolpair page', function () {
     cy.visit('/dex/dBTC-DFI')
     cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
 
@@ -184,5 +203,24 @@ context('/dex/[poolpairId] on iphone-x', () => {
 
     cy.visit('/dex/BTC')
     cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
+  })
+
+  it('should only display DUSD price in dBTC-DFI', function () {
+    cy.visit('/dex/dBTC-DFI')
+    cy.findByTestId('PoolPair.DUSDPrice').should('exist')
+
+    cy.visit('/dex/dUSDC-DUSD')
+    cy.findByTestId('PoolPair.DUSDPrice').should('not.exist')
+  })
+
+  it('should only display DEX stabilization fee in (dUSDC/dUSDT)-DUSD and DUSD-DFI', function () {
+    cy.visit('/dex/dUSDC-DUSD')
+    cy.findByTestId('PoolPair.DexStabilizationFee').should('exist')
+
+    cy.visit('/dex/dUSDT-DUSD')
+    cy.findByTestId('PoolPair.DexStabilizationFee').should('exist')
+
+    cy.visit('/dex/DUSD-DFI')
+    cy.findByTestId('PoolPair.DexStabilizationFee').should('exist')
   })
 })
