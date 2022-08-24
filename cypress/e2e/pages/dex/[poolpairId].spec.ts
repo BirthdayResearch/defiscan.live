@@ -87,11 +87,14 @@ context('/dex/[poolpairid] on macbook-16', () => {
     cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
   })
 
-  it('should display DUSD price in all poolpair page', function () {
+  it('should display DUSD price in poolpair page with DUSD token', function () {
     cy.visit('/dex/dBTC-DFI')
-    cy.findByTestId('PoolPair.DUSDPrice').should('exist')
+    cy.findByTestId('PoolPair.DUSDPrice').should('not.exist')
 
     cy.visit('/dex/dUSDC-DUSD')
+    cy.findByTestId('PoolPair.DUSDPrice').should('exist')
+
+    cy.visit('/dex/DUSD-DFI')
     cy.findByTestId('PoolPair.DUSDPrice').should('exist')
   })
 
@@ -205,11 +208,14 @@ context('/dex/[poolpairId] on iphone-x', () => {
     cy.findByTestId('PoolPairSymbol').should('have.text', 'dBTC-DFI')
   })
 
-  it('should display DUSD price in all poolpair page', function () {
+  it('should display DUSD price in poolpair page with DUSD token', function () {
     cy.visit('/dex/dBTC-DFI')
-    cy.findByTestId('PoolPair.DUSDPrice').should('exist')
+    cy.findByTestId('PoolPair.DUSDPrice').should('not.exist')
 
     cy.visit('/dex/dUSDC-DUSD')
+    cy.findByTestId('PoolPair.DUSDPrice').should('exist')
+
+    cy.visit('/dex/DUSD-DFI')
     cy.findByTestId('PoolPair.DUSDPrice').should('exist')
   })
 

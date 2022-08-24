@@ -77,15 +77,16 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         />
         <div className='flex flex-wrap flex-row lg:space-x-4'>
           <PoolPairDetailsBar poolpair={poolpairs} />
-          <PoolPairInfo
-            testId='DUSDPrice'
-            lhsComponent={() => (<span className='flex items-center text-lg dark:text-dark-gray-900 mr-1.5'><TokenIconDUSD className='mr-2 w-8 h-8' />DUSD Price</span>)}
-            popoverDescription='The indicated price is an average of the 2 stablecoin (USDC & USDT) from the DUSD-DEX pools.'
-            rhs={{
-              value: props.averageStableCoinPriceInDUSD,
-              prefix: '$'
-            }}
-          />
+          {[poolpairs.tokenA.displaySymbol, poolpairs.tokenB.displaySymbol].includes('DUSD') &&
+            <PoolPairInfo
+              testId='DUSDPrice'
+              lhsComponent={() => (<span className='flex items-center text-lg dark:text-dark-gray-900 mr-1.5'><TokenIconDUSD className='mr-2 w-8 h-8' />DUSD Price</span>)}
+              popoverDescription='The indicated price is an average of the 2 stablecoin (USDC & USDT) from the DUSD-DEX pools.'
+              rhs={{
+                value: props.averageStableCoinPriceInDUSD,
+                prefix: '$'
+              }}
+            />}
           {['DUSD-DFI', 'dUSDC-DUSD', 'dUSDT-DUSD'].includes(poolpairs.displaySymbol) &&
             <PoolPairInfo
               testId='DexStabilizationFee'
