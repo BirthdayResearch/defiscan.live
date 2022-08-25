@@ -15,7 +15,6 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import BigNumber from 'bignumber.js'
 import { PoolPairInfo } from './_components/PoolPairInfo'
-import { getAssetIcon } from '@components/icons/assets/tokens'
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
@@ -32,7 +31,6 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
   const [poolpairs, setPoolpairs] = useState<PoolPairData>(props.poolpair)
   const router = useRouter()
 
-  const TokenIconDUSD = getAssetIcon('DUSD')
   const dexStabilizationFee = poolpairs.tokenA.displaySymbol === 'DUSD' ? poolpairs.tokenA.fee?.pct : poolpairs.tokenB.fee?.pct
 
   useEffect(() => {
@@ -77,16 +75,6 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         />
         <div className='flex flex-wrap flex-row lg:space-x-4'>
           <PoolPairDetailsBar poolpair={poolpairs} />
-          {[poolpairs.tokenA.displaySymbol, poolpairs.tokenB.displaySymbol].includes('DUSD') &&
-            <PoolPairInfo
-              testId='DUSDPrice'
-              lhsComponent={() => (<span className='flex items-center text-lg dark:text-dark-gray-900 mr-1.5'><TokenIconDUSD className='mr-2 w-8 h-8' />DUSD Price</span>)}
-              popoverDescription='The indicated price is an average of the 2 stablecoin-DUSD (dUSDC & dUSDT) DEX pools'
-              rhs={{
-                value: props.averageStableCoinPriceInDUSD,
-                prefix: '$'
-              }}
-            />}
           {['DUSD-DFI', 'dUSDC-DUSD', 'dUSDT-DUSD'].includes(poolpairs.displaySymbol) &&
             <PoolPairInfo
               testId='DexStabilizationFee'
