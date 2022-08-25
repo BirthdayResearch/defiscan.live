@@ -61,8 +61,8 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
             <StatsProvider>
               <SupplyProvider>
                 <PoolPairsProvider>
-                  <WarningBanner />
                   <ThemeProvider theme={initialTheme}>
+                    <WarningBanner />
                     <Header />
                     <main className='flex-grow'>
                       {props.children}
