@@ -4,13 +4,13 @@
 /.github/                                       @fuxingloh @joeldavidw @thedoublejay
 /.husky/                                        @fuxingloh @joeldavidw @thedoublejay
 
-/src/                                           @joeldavidw @siradji @nichellekoh @thedoublejay @chloezxyy @fullstackninja864 @kyleleow @pierregee
+/src/                                           @joeldavidw @nichellekoh @thedoublejay @chloezxyy @fullstackninja864 @kyleleow @pierregee @G9000 @JoshuaC817
 
-/src/styles/                                    @joeldavidw @thedoublejay @kyleleow @pierregee
-postcss.config.js                               @joeldavidw @thedoublejay @kyleleow @pierregee
-tailwind.config.js                              @joeldavidw @thedoublejay @kyleleow @pierregee
+/src/styles/                                    @joeldavidw @thedoublejay @kyleleow @pierregee @G9000 @JoshuaC817
+postcss.config.js                               @joeldavidw @thedoublejay @kyleleow @pierregee @G9000 @JoshuaC817
+tailwind.config.js                              @joeldavidw @thedoublejay @kyleleow @pierregee @G9000 @JoshuaC817
 
-/public/                                        @joeldavidw @thedoublejay @kyleleow @pierregee
+/public/                                        @joeldavidw @thedoublejay @kyleleow @pierregee @G9000 @JoshuaC817
 
 next.config.js                                  @joeldavidw @thedoublejay @kyleleow @pierregee
 package.json                                    @joeldavidw @thedoublejay @kyleleow @pierregee
