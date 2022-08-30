@@ -107,7 +107,7 @@ export function DesktopAuctionDetails (props: DesktopAuctionDetailsProps): JSX.E
 function DesktopCollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const CollateralSymbol = getAssetIcon(props.collateral.symbol)
-  const collateralValue = getTokenPrice(props.collateral.symbol, props.collateral.amount)
+  const collateralValue = getTokenPrice(props.collateral.symbol, new BigNumber(props.collateral.amount))
 
   return (
     <div className='w-1/2 lg:w-1/4 flex py-2 items-middle' data-testid='DesktopCollateralListItem'>

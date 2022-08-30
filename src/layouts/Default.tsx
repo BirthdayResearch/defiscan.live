@@ -12,6 +12,7 @@ import { PoolPairsProvider } from '@store/poolpairs'
 import { SupplyProvider } from '@store/supply'
 import { getInitialTheme, ThemeProvider } from '@contexts/ThemeContext'
 import { WarningBanner } from '@components/commons/banner/WarningBanner'
+import { DexPricesProvider } from '@store/dexPrices'
 
 const title = 'DeFi Scan – Native Decentralized Finance for Bitcoin'
 const description = 'DeFi Blockchain, enabling decentralized finance with Bitcoin-grade security, strength and immutability. A blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone.'
@@ -61,14 +62,16 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
             <StatsProvider>
               <SupplyProvider>
                 <PoolPairsProvider>
-                  <ThemeProvider theme={initialTheme}>
-                    <WarningBanner />
-                    <Header />
-                    <main className='flex-grow'>
-                      {props.children}
-                    </main>
-                    <Footer />
-                  </ThemeProvider>
+                  <DexPricesProvider>
+                    <ThemeProvider theme={initialTheme}>
+                      <WarningBanner />
+                      <Header />
+                      <main className='flex-grow'>
+                        {props.children}
+                      </main>
+                      <Footer />
+                    </ThemeProvider>
+                  </DexPricesProvider>
                 </PoolPairsProvider>
               </SupplyProvider>
             </StatsProvider>

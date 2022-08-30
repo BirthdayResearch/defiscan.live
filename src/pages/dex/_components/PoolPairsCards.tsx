@@ -54,7 +54,7 @@ export function PoolPairsCards ({
   const { getTokenPrice } = useTokenPrice()
 
   const poolPairsPrices = poolPairs.map(pair => {
-    const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
+    const tokenPrice = getTokenPrice(pair.tokenA.symbol, new BigNumber(1)) ?? new BigNumber(0)
     return {
       poolPair: pair,
       tokenPrice: tokenPrice

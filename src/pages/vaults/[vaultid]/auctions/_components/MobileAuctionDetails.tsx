@@ -100,7 +100,7 @@ export function MobileAuctionDetails (props: MobileAuctionDetailsProps): JSX.Ele
 function MobileCollateralListItem (props: { collateral: LoanVaultTokenAmount }): JSX.Element {
   const { getTokenPrice } = useTokenPrice()
   const CollateralSymbol = getAssetIcon(props.collateral.symbol)
-  const collateralValue = getTokenPrice(props.collateral.symbol, props.collateral.amount)
+  const collateralValue = getTokenPrice(props.collateral.symbol, new BigNumber(props.collateral.amount))
 
   return (
     <div className='flex justify-between mt-4' data-testid='MobileCollateralListItem'>

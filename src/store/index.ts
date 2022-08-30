@@ -4,6 +4,7 @@ import { stats } from '@store/stats'
 import { poolpairs } from '@store/poolpairs'
 import { supply } from '@store/supply'
 import { announcementWebsiteSlice, statusWebsiteSlice } from './website'
+import { dexPrices } from './dexPrices'
 
 /**
  * RootState for DeFi Scan
@@ -19,6 +20,7 @@ export function initializeStore (preloadedState?: any) {
       stats: stats.reducer,
       poolpairs: poolpairs.reducer,
       supply: supply.reducer,
+      dexPrices: dexPrices.reducer,
       [announcementWebsiteSlice.reducerPath]: announcementWebsiteSlice.reducer,
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer
     },
