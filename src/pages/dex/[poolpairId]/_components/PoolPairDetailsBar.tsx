@@ -25,7 +25,7 @@ export function PoolPairDetailsBar (props: {poolpair: PoolPairData}): JSX.Elemen
             thousandSeparator
             className='font-medium md:text-xl'
             prefix='$'
-            value={getTokenPrice(props.poolpair.tokenB.displaySymbol, props.poolpair.priceRatio.ba).toFixed(2, BigNumber.ROUND_HALF_UP)}
+            value={getTokenPrice(props.poolpair.tokenB.displaySymbol, new BigNumber(props.poolpair.priceRatio.ba)).toFixed(2, BigNumber.ROUND_HALF_UP)}
           />
           <ReactNumberFormat
             value={props.poolpair.priceRatio.ba}

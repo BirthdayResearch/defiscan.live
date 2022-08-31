@@ -21,10 +21,10 @@ export function BidAmountValue (props: BidAmountValueProps): JSX.Element {
 
   if (props.batch.highestBid?.amount === undefined || props.isStartingBid!) {
     minBidAmount = new BigNumber(props.batch.loan.amount).multipliedBy(1.05)
-    minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount.toFixed(8))
+    minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount)
   } else {
     minBidAmount = new BigNumber(props.batch.highestBid.amount.amount).multipliedBy(1.01)
-    minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount.toFixed(8))
+    minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount)
   }
 
   return (
