@@ -11,7 +11,7 @@ export function useCalculateAuctionsValue (batches: LoanVaultTokenAmount[]): Col
   let totalCollateralValue = new BigNumber(0)
 
   batches.forEach(collateral => {
-    const price = getTokenPrice(collateral.symbol, collateral.amount)
+    const price = getTokenPrice(collateral.symbol, new BigNumber(collateral.amount))
     totalCollateralValue = totalCollateralValue.plus(price)
   })
 

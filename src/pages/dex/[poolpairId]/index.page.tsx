@@ -13,10 +13,12 @@ import { WhaleApiClient } from '@defichain/whale-api-client'
 import { Breadcrumb } from '@components/commons/Breadcrumb'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { PoolPairDexStabilizationFee } from './_components/PoolPairDexStabilizationFee'
+import BigNumber from 'bignumber.js'
+import { PoolPairInfo } from './_components/PoolPairInfo'
 
 interface PoolPairPageProps {
   poolpair: PoolPairData
+  averageStableCoinPriceInDUSD: string
   swaps: {
     items: PoolSwapData[]
     pages: CursorPage[]
@@ -28,6 +30,8 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
   const [swapItems, setSwapItems] = useState<PoolSwapData[]>(props.swaps.items)
   const [poolpairs, setPoolpairs] = useState<PoolPairData>(props.poolpair)
   const router = useRouter()
+
+  const dexStabilizationFee = poolpairs.tokenA.displaySymbol === 'DUSD' ? poolpairs.tokenA.fee?.pct : poolpairs.tokenB.fee?.pct
 
   useEffect(() => {
     setPoolpairs(props.poolpair)
@@ -72,7 +76,15 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
         <div className='flex flex-wrap flex-row lg:space-x-4'>
           <PoolPairDetailsBar poolpair={poolpairs} />
           {['DUSD-DFI', 'dUSDC-DUSD', 'dUSDT-DUSD'].includes(poolpairs.displaySymbol) &&
-            <PoolPairDexStabilizationFee fee={poolpairs.tokenA.displaySymbol === 'DUSD' ? poolpairs.tokenA.fee?.pct : poolpairs.tokenB.fee?.pct} />}
+            <PoolPairInfo
+              testId='DexStabilizationFee'
+              lhsComponent={() => <span className='flex items-center dark:text-gray-400 mr-2'>DEX stabilization fee</span>}
+              popoverDescription='There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps due to DFIP 2206-D.'
+              rhs={{
+                value: dexStabilizationFee === undefined ? undefined : new BigNumber(dexStabilizationFee).multipliedBy(100).toFixed(2, BigNumber.ROUND_HALF_UP),
+                suffix: '%'
+              }}
+            />}
         </div>
         <div className='flex flex-wrap space-y-12 lg:space-y-0 lg:flex-nowrap mt-8'>
           <div className='lg:flex lg:flex-col lg:mr-4 w-full lg:w-1/4 min-w-[320px]'>
@@ -101,8 +113,7 @@ export default function PoolPairPage (props: InferGetServerSidePropsType<typeof 
   )
 }
 
-async function getPoolPairsByParam (param: string, api: WhaleApiClient): Promise<PoolPairData | undefined> {
-  const [tokenA, tokenB] = param.split('-')
+async function getPoolPairs (api: WhaleApiClient): Promise<PoolPairData[]> {
   const poolpairs: PoolPairData[] = []
 
   let poolpairsResponse = await api.poolpairs.list(200)
@@ -111,6 +122,12 @@ async function getPoolPairsByParam (param: string, api: WhaleApiClient): Promise
     poolpairsResponse = await api.poolpairs.list(200, poolpairsResponse.nextToken)
     poolpairs.push(...poolpairsResponse)
   }
+
+  return poolpairs
+}
+
+function getPoolPairsByParam (param: string, poolpairs: PoolPairData[]): PoolPairData | undefined {
+  const [tokenA, tokenB] = param.split('-')
   return poolpairs.filter(pair => {
     if (tokenB !== undefined) {
       return pair.tokenA.displaySymbol.toLowerCase() === tokenA.toLowerCase() && pair.tokenB.displaySymbol.toLowerCase() === tokenB.toLowerCase()
@@ -120,6 +137,19 @@ async function getPoolPairsByParam (param: string, api: WhaleApiClient): Promise
   }).pop()
 }
 
+function getAverageStableCoinPrice (poolpairs: PoolPairData[]): string {
+  const stableCoinPoolPairs = poolpairs.filter(pair => ['dUSDT-DUSD', 'dUSDC-DUSD'].includes(pair.displaySymbol))
+  let totalTokenBReserve = new BigNumber(0)
+  let totalTokenAReserve = new BigNumber(0)
+
+  stableCoinPoolPairs.forEach(pair => {
+    totalTokenBReserve = new BigNumber(pair.tokenB.reserve).plus(totalTokenBReserve)
+    totalTokenAReserve = new BigNumber(pair.tokenA.reserve).plus(totalTokenAReserve)
+  })
+
+  return new BigNumber(totalTokenAReserve).div(totalTokenBReserve).toFixed(8)
+}
+
 export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
   const poolpairId = context.params?.poolpairId?.toString().trim() as string
   if (!isAlphanumeric(poolpairId, '-.')) {
@@ -127,11 +157,12 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   }
 
   const api = getWhaleApiClient(context)
+  const poolPairs = await getPoolPairs(api)
 
   let poolPair: PoolPairData | undefined
 
   if (poolpairId.includes('-')) {
-    poolPair = await getPoolPairsByParam(poolpairId, api)
+    poolPair = getPoolPairsByParam(poolpairId, poolPairs)
   } else if (isNumeric(poolpairId)) {
     try {
       poolPair = await api.poolpairs.get(poolpairId)
@@ -139,12 +170,15 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
       return { notFound: true }
     }
   } else {
-    poolPair = await getPoolPairsByParam(poolpairId, api)
+    poolPair = getPoolPairsByParam(poolpairId, poolPairs)
   }
 
   if (poolPair === undefined) {
     return { notFound: true }
   }
+
+  /* DUSD price based on stablecoin pools - (USDC & USDT)-DUSD */
+  const averageStableCoinPriceInDUSD = getAverageStableCoinPrice(poolPairs)
 
   const next = CursorPagination.getNext(context)
   const swaps = await api.poolpairs.listPoolSwapsVerbose(poolPair.id, 10, next)
@@ -152,6 +186,7 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
   return {
     props: {
       poolpair: poolPair,
+      averageStableCoinPriceInDUSD,
       swaps: {
         items: swaps,
         pages: CursorPagination.getPages(context, swaps)
