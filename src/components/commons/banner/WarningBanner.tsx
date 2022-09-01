@@ -64,10 +64,7 @@ export function WarningBanner(): JSX.Element {
   }
 
   return (
-    <div
-      className="bg-orange-100 rounded p-3 text-center text-sm text-black"
-      data-testid="warning_banner"
-    >
+    <div className='text-gray-900 bg-orange-100 rounded p-3 text-center text-sm' data-testid='warning_banner'>
       {announcementToDisplay.content}
 
       {announcementToDisplay.url !== undefined && (
