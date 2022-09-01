@@ -32,11 +32,6 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    // to prevent flashes due to different color theme on user device when react hydration happens in client side
-    return <></>
-  }
-
   return (
     <div className='flex flex-col min-h-screen dark:bg-gray-900'>
       <Head>
@@ -67,7 +62,7 @@ export function Default (props: PropsWithChildren<ScanAppProps>): JSX.Element | 
                       <WarningBanner />
                       <Header />
                       <main className='flex-grow'>
-                        {props.children}
+                        {mounted && props.children}
                       </main>
                       <Footer />
                     </ThemeProvider>
