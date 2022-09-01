@@ -1,44 +1,55 @@
-import React from 'react'
-import NumberFormat from 'react-number-format'
+import React from "react";
+import NumberFormat from "react-number-format";
 
-export function InfoSection (props: { target: { height: number, name: string | null } }): JSX.Element {
+export function InfoSection(props: {
+  target: { height: number; name: string | null };
+}): JSX.Element {
   return (
-    <div className='flex flex-wrap text-center mt-6'>
-      <div className='w-full text-gray-500 dark:text-dark-gray-900'>
+    <div className="flex flex-wrap text-center mt-6">
+      <div className="w-full text-gray-500 dark:text-dark-gray-900">
         Countdown for
       </div>
-      <div className='mt-1.5 w-full text-gray-900'>
+      <div className="mt-1.5 w-full text-gray-900">
         {(() => {
           if (props.target.name !== null) {
             return (
               <>
-                <div className='text-2xl md:text-3xl font-medium dark:text-gray-100' data-testid='InfoSection.EventTitle'>
+                <div
+                  className="text-2xl md:text-3xl font-medium dark:text-gray-100"
+                  data-testid="InfoSection.EventTitle"
+                >
                   {props.target.name}
                 </div>
-                <div className='mt-1 text-sm text-gray-500 font-light dark:text-gray-100' data-testid='InfoSection.EventHeight'>
+                <div
+                  className="mt-1 text-sm text-gray-500 font-light dark:text-gray-100"
+                  data-testid="InfoSection.EventHeight"
+                >
                   <NumberFormat
                     value={props.target.height}
-                    displayType='text'
+                    displayType="text"
                     thousandSeparator
-                    prefix='Target Height - '
+                    prefix="Target Height - "
                   />
                 </div>
               </>
-            )
+            );
           }
 
           return (
-            <div className='text-2xl md:text-3xl font-medium dark:text-gray-100' data-testid='InfoSection.BlockHeight'>
+            <div
+              className="text-2xl md:text-3xl font-medium dark:text-gray-100"
+              data-testid="InfoSection.BlockHeight"
+            >
               <NumberFormat
                 value={props.target.height}
-                displayType='text'
+                displayType="text"
                 thousandSeparator
-                prefix='Block #'
+                prefix="Block #"
               />
             </div>
-          )
+          );
         })()}
       </div>
     </div>
-  )
+  );
 }
