@@ -1,61 +1,82 @@
-import { GetServerSidePropsContext, GetServerSidePropsResult, InferGetServerSidePropsType } from 'next'
-import { Transaction, TransactionVin, TransactionVout } from '@defichain/whale-api-client/dist/api/transactions'
-import { getWhaleApiClient } from '@contexts/WhaleContext'
-import { Container } from '@components/commons/Container'
-import BigNumber from 'bignumber.js'
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  InferGetServerSidePropsType,
+} from "next";
+import {
+  Transaction,
+  TransactionVin,
+  TransactionVout,
+} from "@defichain/whale-api-client/dist/api/transactions";
+import { getWhaleApiClient } from "@contexts/WhaleContext";
+import { Container } from "@components/commons/Container";
+import BigNumber from "bignumber.js";
 import {
   TransactionHeading,
-  TransactionNotFoundHeading
-} from './_components/TransactionHeadings'
-import { TransactionVinVout } from './_components/TransactionVinVout'
-import { TransactionSummaryTable } from './_components/TransactionSummaryTable'
-import { TransactionDfTx } from './_components/TransactionDfTx'
-import { SmartBuffer } from 'smart-buffer'
-import { AccountToUtxos, CAccountToUtxos, DfTx, OP_DEFI_TX, toOPCodes } from '@defichain/jellyfish-transaction'
-import { isAlphanumeric } from '../../utils/commons/StringValidator'
-import { Head } from '@components/commons/Head'
-import { useRouter } from 'next/router'
-import { RawTransaction } from './_components/RawTransaction'
+  TransactionNotFoundHeading,
+} from "./_components/TransactionHeadings";
+import { TransactionVinVout } from "./_components/TransactionVinVout";
+import { TransactionSummaryTable } from "./_components/TransactionSummaryTable";
+import { TransactionDfTx } from "./_components/TransactionDfTx";
+import { SmartBuffer } from "smart-buffer";
+import {
+  AccountToUtxos,
+  CAccountToUtxos,
+  DfTx,
+  OP_DEFI_TX,
+  toOPCodes,
+} from "@defichain/jellyfish-transaction";
+import { isAlphanumeric } from "../../utils/commons/StringValidator";
+import { Head } from "@components/commons/Head";
+import { useRouter } from "next/router";
+import { RawTransaction } from "./_components/RawTransaction";
 
 interface TransactionPageProps {
-  txid: string
-  transaction?: Transaction
-  vins?: TransactionVin[]
-  vouts?: TransactionVout[]
+  txid: string;
+  transaction?: Transaction;
+  vins?: TransactionVin[];
+  vouts?: TransactionVout[];
 }
 
-export default function TransactionPage (props: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const router = useRouter()
+export default function TransactionPage(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+): JSX.Element {
+  const router = useRouter();
 
-  const transactionPending = props.transaction === undefined || props.vins === undefined || props.vouts === undefined
+  const transactionPending =
+    props.transaction === undefined ||
+    props.vins === undefined ||
+    props.vouts === undefined;
   if (router.query.rawtx !== undefined && transactionPending) {
     return (
-      <Container className='pt-12 pb-20'>
-        <RawTransaction
-          rawTx={router.query.rawtx as string}
-        />
+      <Container className="pt-12 pb-20">
+        <RawTransaction rawTx={router.query.rawtx as string} />
       </Container>
-    )
+    );
   }
 
-  if (props.transaction === undefined || props.vins === undefined || props.vouts === undefined) {
+  if (
+    props.transaction === undefined ||
+    props.vins === undefined ||
+    props.vouts === undefined
+  ) {
     return (
-      <Container className='pt-12 pb-20'>
+      <Container className="pt-12 pb-20">
         <TransactionNotFoundHeading txid={props.txid} />
       </Container>
-    )
+    );
   }
 
-  const dftx: DfTx<any> | undefined = getDfTx(props.vouts)
-  const isDeFiTransaction = dftx !== undefined
-  const fee = getTransactionFee(props.transaction, props.vins, dftx)
-  const feeRate = fee.multipliedBy(100000000).dividedBy(props.transaction.size)
+  const dftx: DfTx<any> | undefined = getDfTx(props.vouts);
+  const isDeFiTransaction = dftx !== undefined;
+  const fee = getTransactionFee(props.transaction, props.vins, dftx);
+  const feeRate = fee.multipliedBy(100000000).dividedBy(props.transaction.size);
 
   return (
     <>
       <Head title={`Transaction #${props.transaction.txid}`} />
 
-      <Container className='pt-12 pb-20'>
+      <Container className="pt-12 pb-20">
         <TransactionHeading transaction={props.transaction} />
         <TransactionSummaryTable
           transaction={props.transaction}
@@ -72,87 +93,105 @@ export default function TransactionPage (props: InferGetServerSidePropsType<type
           fee={fee}
           dftxName={dftx?.name}
         />
-        <TransactionDfTx
-          dftx={dftx}
-        />
+        <TransactionDfTx dftx={dftx} />
       </Container>
     </>
-  )
+  );
 }
 
-function getTransactionFee (transaction: Transaction, vins: TransactionVin[], dftx?: DfTx<any>): BigNumber {
+function getTransactionFee(
+  transaction: Transaction,
+  vins: TransactionVin[],
+  dftx?: DfTx<any>
+): BigNumber {
   if (dftx === undefined || dftx.type !== CAccountToUtxos.OP_CODE) {
-    return new BigNumber(getTotalVinsValue(vins).minus(transaction.totalVoutValue))
+    return new BigNumber(
+      getTotalVinsValue(vins).minus(transaction.totalVoutValue)
+    );
   }
 
   // AccountToUtxos
-  const accountToUtxos = dftx as DfTx<AccountToUtxos>
-  const sumOfInputs = getTotalVinsValue(vins)
-  const sumOfAccountInputs = accountToUtxos.data.balances.map(balance => balance.amount).reduce((a, b) => a.plus(b))
-  return new BigNumber(sumOfInputs.plus(sumOfAccountInputs).minus(transaction.totalVoutValue))
+  const accountToUtxos = dftx as DfTx<AccountToUtxos>;
+  const sumOfInputs = getTotalVinsValue(vins);
+  const sumOfAccountInputs = accountToUtxos.data.balances
+    .map((balance) => balance.amount)
+    .reduce((a, b) => a.plus(b));
+  return new BigNumber(
+    sumOfInputs.plus(sumOfAccountInputs).minus(transaction.totalVoutValue)
+  );
 }
 
-function getTotalVinsValue (vins: TransactionVin[]): BigNumber {
-  let value: BigNumber = new BigNumber(0)
-  vins.forEach(vin => {
+function getTotalVinsValue(vins: TransactionVin[]): BigNumber {
+  let value: BigNumber = new BigNumber(0);
+  vins.forEach((vin) => {
     if (vin.vout !== undefined) {
-      value = new BigNumber(vin.vout.value).plus(value)
+      value = new BigNumber(vin.vout.value).plus(value);
     }
-  })
-  return value
+  });
+  return value;
 }
 
-function getDfTx (vouts: TransactionVout[]): DfTx<any> | undefined {
-  const hex = vouts[0].script.hex
-  const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, 'hex'))
-  const stack = toOPCodes(buffer)
-  if (stack.length !== 2 || stack[1].type !== 'OP_DEFI_TX') {
-    return undefined
+function getDfTx(vouts: TransactionVout[]): DfTx<any> | undefined {
+  const hex = vouts[0].script.hex;
+  const buffer = SmartBuffer.fromBuffer(Buffer.from(hex, "hex"));
+  const stack = toOPCodes(buffer);
+  if (stack.length !== 2 || stack[1].type !== "OP_DEFI_TX") {
+    return undefined;
   }
-  return (stack[1] as OP_DEFI_TX).tx
+  return (stack[1] as OP_DEFI_TX).tx;
 }
 
-export async function getServerSideProps (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TransactionPageProps>> {
-  const api = getWhaleApiClient(context)
-  const txid = context.params?.txid?.toString().trim() as string
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<TransactionPageProps>> {
+  const api = getWhaleApiClient(context);
+  const txid = context.params?.txid?.toString().trim() as string;
 
   if (!isAlphanumeric(txid)) {
-    return { notFound: true }
+    return { notFound: true };
   }
 
-  let transaction: Transaction | undefined
+  let transaction: Transaction | undefined;
 
   try {
-    transaction = await api.transactions.get(txid)
+    transaction = await api.transactions.get(txid);
   } catch (e) {
     return {
       props: {
-        txid: txid
-      }
-    }
+        txid: txid,
+      },
+    };
   }
 
   // Will improve with newer iteration of whale api
-  async function getVins (): Promise<TransactionVin[]> {
-    const vins: TransactionVin[] = []
-    let vinsResponse = await api.transactions.getVins(txid, 100)
-    vins.push(...vinsResponse)
+  async function getVins(): Promise<TransactionVin[]> {
+    const vins: TransactionVin[] = [];
+    let vinsResponse = await api.transactions.getVins(txid, 100);
+    vins.push(...vinsResponse);
     while (vinsResponse.hasNext) {
-      vinsResponse = await api.transactions.getVins(txid, 100, vinsResponse.nextToken)
-      vins.push(...vinsResponse)
+      vinsResponse = await api.transactions.getVins(
+        txid,
+        100,
+        vinsResponse.nextToken
+      );
+      vins.push(...vinsResponse);
     }
-    return vins
+    return vins;
   }
 
-  async function getVouts (): Promise<TransactionVout[]> {
-    const vouts: TransactionVout[] = []
-    let voutsResponse = await api.transactions.getVouts(txid, 100)
-    vouts.push(...voutsResponse)
+  async function getVouts(): Promise<TransactionVout[]> {
+    const vouts: TransactionVout[] = [];
+    let voutsResponse = await api.transactions.getVouts(txid, 100);
+    vouts.push(...voutsResponse);
     while (voutsResponse.hasNext) {
-      voutsResponse = await api.transactions.getVouts(txid, 100, voutsResponse.nextToken)
-      vouts.push(...voutsResponse)
+      voutsResponse = await api.transactions.getVouts(
+        txid,
+        100,
+        voutsResponse.nextToken
+      );
+      vouts.push(...voutsResponse);
     }
-    return vouts
+    return vouts;
   }
 
   try {
@@ -161,14 +200,14 @@ export async function getServerSideProps (context: GetServerSidePropsContext): P
         txid: txid,
         transaction: transaction,
         vins: await getVins(),
-        vouts: await getVouts()
-      }
-    }
+        vouts: await getVouts(),
+      },
+    };
   } catch (e) {
     return {
       props: {
-        txid: txid
-      }
-    }
+        txid: txid,
+      },
+    };
   }
 }

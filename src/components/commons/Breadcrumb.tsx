@@ -1,19 +1,19 @@
-import { Head } from '@components/commons/Head'
-import { Link } from '@components/commons/link/Link'
-import { MdChevronRight } from 'react-icons/md'
-import { jsonLdScriptProps } from 'react-schemaorg'
-import { BreadcrumbList } from 'schema-dts'
-import { ReactNode } from 'react'
-import classNames from 'classnames'
+import { Head } from "@components/commons/Head";
+import { Link } from "@components/commons/link/Link";
+import { MdChevronRight } from "react-icons/md";
+import { jsonLdScriptProps } from "react-schemaorg";
+import { BreadcrumbList } from "schema-dts";
+import { ReactNode } from "react";
+import classNames from "classnames";
 
-const DOMAIN = 'https://defiscan.live'
+const DOMAIN = "https://defiscan.live";
 
 export interface BreadcrumbItem {
-  path: string
-  name: string | ReactNode
-  hide?: boolean
-  canonical?: boolean
-  isCurrentPath?: boolean
+  path: string;
+  name: string | ReactNode;
+  hide?: boolean;
+  canonical?: boolean;
+  isCurrentPath?: boolean;
 }
 
 /**
@@ -26,65 +26,85 @@ export interface BreadcrumbItem {
  * @param {boolean} [props.items.hide=false] to hide this breadcrumb from displaying, will still be added in schema.org
  * @param {boolean} [props.items.canonical=false] set the canonical path of the page and og:url
  */
-export function Breadcrumb (props: { items: BreadcrumbItem[] }): JSX.Element {
-  const canonical = props.items.filter(value => value.canonical === true)
+export function Breadcrumb(props: { items: BreadcrumbItem[] }): JSX.Element {
+  const canonical = props.items.filter((value) => value.canonical === true);
 
   return (
-    <div className='flex items-center text-black dark:text-dark-gray-900' data-testid='Breadcrumb'>
+    <div
+      className="flex items-center text-black dark:text-dark-gray-900"
+      data-testid="Breadcrumb"
+    >
       <Head>
         <SchemaOrgBreadcrumbList items={props.items} />
 
         {canonical.length > 0 && (
           <>
-            <link key='canonical' rel='canonical' href={`${DOMAIN}${canonical[0].path}`} />
-            <meta key='og:url' name='og:url' content={`${DOMAIN}${canonical[0].path}`} />
+            <link
+              key="canonical"
+              rel="canonical"
+              href={`${DOMAIN}${canonical[0].path}`}
+            />
+            <meta
+              key="og:url"
+              name="og:url"
+              content={`${DOMAIN}${canonical[0].path}`}
+            />
           </>
         )}
       </Head>
 
-      <Link href={{ pathname: '/' }}>
-        <a className='cursor-pointer hover:text-blue-500 opacity-60 hover:opacity-100 dark:opacity-90'>Scan</a>
+      <Link href={{ pathname: "/" }}>
+        <a className="cursor-pointer hover:text-blue-500 opacity-60 hover:opacity-100 dark:opacity-90">
+          Scan
+        </a>
       </Link>
 
       {props.items
         .filter(({ hide }) => hide === undefined || !hide)
-        .map(item => <BreadcrumbNext key={item.path} {...item} />)}
+        .map((item) => (
+          <BreadcrumbNext key={item.path} {...item} />
+        ))}
     </div>
-  )
+  );
 }
 
-function BreadcrumbNext (props: BreadcrumbItem): JSX.Element {
+function BreadcrumbNext(props: BreadcrumbItem): JSX.Element {
   return (
-    <div className='flex' key={props.path}>
-      <div className='px-1'>
-        <MdChevronRight className='h-6 w-6 opacity-60 dark:opacity-90' />
+    <div className="flex" key={props.path}>
+      <div className="px-1">
+        <MdChevronRight className="h-6 w-6 opacity-60 dark:opacity-90" />
       </div>
       <Link href={{ pathname: props.path }}>
-        <a className={classNames('cursor-pointer hover:text-blue-500 text-gray-500 dark:text-dark-gray-900 hover:opacity-100',
-          { 'text-gray-900 dark:text-gray-400': props.isCurrentPath })}
+        <a
+          className={classNames(
+            "cursor-pointer hover:text-blue-500 text-gray-500 dark:text-dark-gray-900 hover:opacity-100",
+            { "text-gray-900 dark:text-gray-400": props.isCurrentPath }
+          )}
         >
           {props.name}
         </a>
       </Link>
     </div>
-  )
+  );
 }
 
-function SchemaOrgBreadcrumbList (props: { items: BreadcrumbItem[] }): JSX.Element {
+function SchemaOrgBreadcrumbList(props: {
+  items: BreadcrumbItem[];
+}): JSX.Element {
   return (
     <script
       {...jsonLdScriptProps<BreadcrumbList>({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
         itemListElement: props.items.map((item, index) => ({
-          '@type': 'ListItem',
+          "@type": "ListItem",
           position: index + 1,
           item: {
-            '@id': `${DOMAIN}${item.path}`,
-            name: item.name
-          }
-        }))
+            "@id": `${DOMAIN}${item.path}`,
+            name: item.name,
+          },
+        })),
       })}
     />
-  )
+  );
 }
