@@ -3,17 +3,84 @@
     "project": "./tsconfig.json"
   },
   "extends": [
-    "standard-with-typescript",
-    "standard-jsx",
-    "next",
-    "next/core-web-vitals"
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb-typescript",
+    "prettier"
   ],
   "ignorePatterns": [
     "*.json"
   ],
   "rules": {
-    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ]
+      }
+    ],
+    "react/prop-types": "off",
+    "import/extensions": "off",
+    "no-undef": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "hrefLeft",
+          "hrefRight"
+        ],
+        "aspects": [
+          "invalidHref",
+          "preferButton"
+        ]
+      }
+    ],
+    // Temporary warning as moving from Standard to Airbnb
+    "react/destructuring-assignment": "warn",
+    "react/no-unused-prop-types": "warn",
+    "@typescript-eslint/no-use-before-define": "warn",
     "react-hooks/exhaustive-deps": "off",
+    "react/jsx-no-constructed-context-values": "warn",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "react/button-has-type": "warn",
+    "no-nested-ternary": "warn",
+    "arrow-body-style": "warn",
+    "no-restricted-syntax": "warn",
+    "import/prefer-default-export": "warn",
+    "no-param-reassign": "warn",
+    "prefer-destructuring": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "object-shorthand": "warn",
+    "@typescript-eslint/no-shadow": "warn",
+    "import/order": "warn",
+    "no-else-return": "warn",
+    "react/no-unescaped-entities": "warn",
+    "default-case": "warn",
+    "no-unsafe-optional-chaining": "warn",
+    "react/no-array-index-key": "warn",
+    "no-restricted-globals": "warn",
+    "no-await-in-loop": "warn",
+    "consistent-return": "warn",
+    "react/no-unstable-nested-components": "warn",
+    "react/jsx-no-bind": "warn",
+    "no-restricted-properties": "warn",
+    "prefer-exponentiation-operator": "warn",
+    "@typescript-eslint/return-await": "warn",
+    "import/no-cycle": "warn",
+    "@typescript-eslint/naming-convention": "warn",
+    "@typescript-eslint/no-unused-expressions": "warn",
+    "no-underscore-dangle": "warn",
+    "global-require": "warn",
     "curly": [
       "error",
       "all"
@@ -29,6 +96,7 @@
     "no-void": "off",
     "import/no-default-export": "error",
     "multiline-ternary": "off",
+    "jsx-a11y/mouse-events-have-key-events": "off",
     "no-restricted-imports": [
       "error",
       {
@@ -47,8 +115,7 @@
         "src/pages/**/*.page.tsx"
       ],
       "rules": {
-        "import/no-default-export": "off",
-        "import/prefer-default-export": "error"
+        "import/no-default-export": "off"
       }
     }
   ]
