@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { configureStore } from '@reduxjs/toolkit'
-import { stats } from '@store/stats'
-import { poolpairs } from '@store/poolpairs'
-import { supply } from '@store/supply'
-import { announcementWebsiteSlice, statusWebsiteSlice } from './website'
-import { dexPrices } from './dexPrices'
+import { configureStore } from "@reduxjs/toolkit";
+import { stats } from "@store/stats";
+import { poolpairs } from "@store/poolpairs";
+import { supply } from "@store/supply";
+import { announcementWebsiteSlice, statusWebsiteSlice } from "./website";
+import { dexPrices } from "./dexPrices";
 
 /**
  * RootState for DeFi Scan
@@ -14,7 +14,7 @@ import { dexPrices } from './dexPrices'
  *
  * Non-global state should be managed independently within their own React Component/Page.
  */
-export function initializeStore (preloadedState?: any) {
+export function initializeStore(preloadedState?: any) {
   return configureStore({
     reducer: {
       stats: stats.reducer,
@@ -22,15 +22,15 @@ export function initializeStore (preloadedState?: any) {
       supply: supply.reducer,
       dexPrices: dexPrices.reducer,
       [announcementWebsiteSlice.reducerPath]: announcementWebsiteSlice.reducer,
-      [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer
+      [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false })
         .concat(announcementWebsiteSlice.middleware)
         .concat(statusWebsiteSlice.middleware),
-    preloadedState: preloadedState
-  })
+    preloadedState: preloadedState,
+  });
 }
 
-export type RootStore = ReturnType<typeof initializeStore>
-export type RootState = ReturnType<RootStore['getState']>
+export type RootStore = ReturnType<typeof initializeStore>;
+export type RootState = ReturnType<RootStore["getState"]>;
