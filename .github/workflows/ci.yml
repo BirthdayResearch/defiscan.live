@@ -37,5 +37,5 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npx --no-install pretty-quick --staged --check --pattern "src/**/*.{js,jsx,ts,tsx}"
+      - run: npx pretty-quick --staged --check --pattern "src/**/*.{js,jsx,ts,tsx}"
 
