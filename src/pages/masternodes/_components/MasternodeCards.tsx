@@ -1,34 +1,43 @@
-import React from 'react'
-import { CardList } from '@components/commons/CardList'
-import { MasternodeData, MasternodeState } from '@defichain/whale-api-client/dist/api/masternodes'
-import { TextTruncate } from '@components/commons/text/TextTruncate'
-import { AddressLink } from '@components/commons/link/AddressLink'
-import ReactNumberFormat from 'react-number-format'
+import React from "react";
+import { CardList } from "@components/commons/CardList";
+import {
+  MasternodeData,
+  MasternodeState,
+} from "@defichain/whale-api-client/dist/api/masternodes";
+import { TextTruncate } from "@components/commons/text/TextTruncate";
+import { AddressLink } from "@components/commons/link/AddressLink";
+import ReactNumberFormat from "react-number-format";
 
-export function MasternodeCards ({ masternodes }: { masternodes: MasternodeData[] }): JSX.Element {
+export function MasternodeCards({
+  masternodes,
+}: {
+  masternodes: MasternodeData[];
+}): JSX.Element {
   return (
     <CardList>
-      {masternodes.map(masternode => {
-        return (
-          <MasternodeCard
-            masternode={masternode}
-            key={masternode.id}
-          />
-        )
+      {masternodes.map((masternode) => {
+        return <MasternodeCard masternode={masternode} key={masternode.id} />;
       })}
     </CardList>
-  )
+  );
 }
 
-function MasternodeCard ({ masternode }: { masternode: MasternodeData }): JSX.Element {
+function MasternodeCard({
+  masternode,
+}: {
+  masternode: MasternodeData;
+}): JSX.Element {
   return (
-    <CardList.Card testId='MasternodeCard'>
+    <CardList.Card testId="MasternodeCard">
       <CardList.Header>
         <div>
-          <span className='text-sm text-gray-400'>Owner</span>
-          <div className='text-gray-900'>
+          <span className="text-sm text-gray-400">Owner</span>
+          <div className="text-gray-900">
             <AddressLink address={masternode.owner.address}>
-              <TextTruncate text={masternode.owner.address} className='w-44 font-medium' />
+              <TextTruncate
+                text={masternode.owner.address}
+                className="w-44 font-medium"
+              />
             </AddressLink>
           </div>
         </div>
@@ -36,9 +45,9 @@ function MasternodeCard ({ masternode }: { masternode: MasternodeData }): JSX.El
 
       <CardList.List>
         <CardList.ListItem
-          title='Operator'
-          titleClassNames='text-sm'
-          testId='BlocksCard.CardList.Operator'
+          title="Operator"
+          titleClassNames="text-sm"
+          testId="BlocksCard.CardList.Operator"
         >
           <AddressLink address={masternode.operator.address}>
             <TextTruncate text={masternode.operator.address} />
@@ -46,29 +55,29 @@ function MasternodeCard ({ masternode }: { masternode: MasternodeData }): JSX.El
         </CardList.ListItem>
 
         <CardList.ListItem
-          title='Creation Height'
-          titleClassNames='text-sm'
-          testId='BlocksCard.CardList.CreationHeight'
+          title="Creation Height"
+          titleClassNames="text-sm"
+          testId="BlocksCard.CardList.CreationHeight"
         >
           <ReactNumberFormat
             value={masternode.creation.height}
             fixedDecimalScale
-            displayType='text'
-            thousandSeparator=','
+            displayType="text"
+            thousandSeparator=","
           />
         </CardList.ListItem>
 
         <CardList.ListItem
-          title='Resign Height'
-          titleClassNames='text-sm'
-          testId='BlocksCard.CardList.ResignHeight'
+          title="Resign Height"
+          titleClassNames="text-sm"
+          testId="BlocksCard.CardList.ResignHeight"
         >
           {masternode.resign?.height !== undefined ? (
             <ReactNumberFormat
               value={masternode.resign?.height}
               fixedDecimalScale
-              displayType='text'
-              thousandSeparator=','
+              displayType="text"
+              thousandSeparator=","
             />
           ) : (
             <>-</>
@@ -76,62 +85,62 @@ function MasternodeCard ({ masternode }: { masternode: MasternodeData }): JSX.El
         </CardList.ListItem>
 
         <CardList.ListItem
-          title='Minted Blocks'
-          titleClassNames='text-sm'
-          testId='BlocksCard.CardList.MintedBlocks'
+          title="Minted Blocks"
+          titleClassNames="text-sm"
+          testId="BlocksCard.CardList.MintedBlocks"
         >
           <ReactNumberFormat
             value={masternode.mintedBlocks}
             fixedDecimalScale
-            thousandSeparator=','
-            displayType='text'
+            thousandSeparator=","
+            displayType="text"
           />
         </CardList.ListItem>
 
         <CardList.ListItem
-          title='State'
-          titleClassNames='text-sm'
-          testId='BlocksCard.CardList.State'
+          title="State"
+          titleClassNames="text-sm"
+          testId="BlocksCard.CardList.State"
         >
           {(() => {
             switch (masternode.state) {
               case MasternodeState.PRE_ENABLED:
-                return 'Pre-Enabled'
+                return "Pre-Enabled";
               case MasternodeState.ENABLED:
-                return 'Enabled'
+                return "Enabled";
               case MasternodeState.PRE_RESIGNED:
-                return 'Pre-Resigned'
+                return "Pre-Resigned";
               case MasternodeState.RESIGNED:
-                return 'Resigned'
+                return "Resigned";
               case MasternodeState.PRE_BANNED:
-                return 'Pre-Banned'
+                return "Pre-Banned";
               case MasternodeState.BANNED:
-                return 'Banned'
+                return "Banned";
               default:
-                return masternode.state
+                return masternode.state;
             }
           })()}
         </CardList.ListItem>
 
         <CardList.ListItem
-          title='Time Lock'
-          titleClassNames='text-sm'
-          testId='BlocksCard.CardList.TimeLock'
+          title="Time Lock"
+          titleClassNames="text-sm"
+          testId="BlocksCard.CardList.TimeLock"
         >
           {(() => {
             switch (masternode.timelock) {
               case 0:
-                return <div>0 Yrs</div>
+                return <div>0 Yrs</div>;
               case 260:
-                return <div>5 Yrs</div>
+                return <div>5 Yrs</div>;
               case 520:
-                return <div>10 Yrs</div>
+                return <div>10 Yrs</div>;
               default:
-                return <div>{masternode.timelock} Weeks</div>
+                return <div>{masternode.timelock} Weeks</div>;
             }
           })()}
         </CardList.ListItem>
       </CardList.List>
     </CardList.Card>
-  )
+  );
 }

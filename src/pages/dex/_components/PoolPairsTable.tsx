@@ -1,60 +1,61 @@
-import { PoolPairData } from '@defichain/whale-api-client/dist/api/poolpairs'
-import NumberFormat from 'react-number-format'
-import React, { useCallback } from 'react'
-import { MoreHoverPopover } from '@components/commons/popover/MoreHoverPopover'
-import { OverflowTable } from '@components/commons/OverflowTable'
-import { APRInfo } from './APRInfo'
-import { PoolPairSymbolLocal } from '@components/commons/token/PoolPairSymbolLocal'
-import { Link } from '@components/commons/link/Link'
-import { useTokenPrice } from '../../vaults/hooks/TokenPrice'
-import { TotalLiquidityInfo } from './TotalLiquidityInfo'
-import BigNumber from 'bignumber.js'
+import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
+import NumberFormat from "react-number-format";
+import React, { useCallback } from "react";
+import { MoreHoverPopover } from "@components/commons/popover/MoreHoverPopover";
+import { OverflowTable } from "@components/commons/OverflowTable";
+import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLocal";
+import { Link } from "@components/commons/link/Link";
+import BigNumber from "bignumber.js";
+import { APRInfo } from "./APRInfo";
+import { useTokenPrice } from "../../vaults/hooks/TokenPrice";
+import { TotalLiquidityInfo } from "./TotalLiquidityInfo";
 
 export enum SortKeys {
-  VOLUME = 'volume',
-  TOTAL_LIQUIDITY = 'totalLiquidity',
-  APR = 'apr',
-  PRIMARY_TOKEN_PRICE = 'primaryTokenPrice'
+  VOLUME = "volume",
+  TOTAL_LIQUIDITY = "totalLiquidity",
+  APR = "apr",
+  PRIMARY_TOKEN_PRICE = "primaryTokenPrice",
 }
 
-export type SortOrder = 'asc' | 'desc'
+export type SortOrder = "asc" | "desc";
 
-export function PoolPairsTable ({
+export function PoolPairsTable({
   poolPairs,
   sortKey,
   setSortKey,
   sortOrder,
-  setSortOrder
+  setSortOrder,
 }): JSX.Element {
-  const { getTokenPrice } = useTokenPrice()
+  const { getTokenPrice } = useTokenPrice();
 
-  const poolPairsPrices = poolPairs.map(pair => {
-    const tokenPrice = new BigNumber(getTokenPrice(pair.tokenA.symbol, '1') ?? 0)
+  const poolPairsPrices = poolPairs.map((pair) => {
+    const tokenPrice = getTokenPrice(pair.tokenA.symbol, new BigNumber(1));
     return {
       poolPair: pair,
-      tokenPrice: tokenPrice
-    }
-  })
+      tokenPrice: tokenPrice,
+    };
+  });
 
   const sortedData = useCallback(
-    () => SortData({
-      poolPairsPrices: poolPairsPrices,
-      sortKey,
-      reverse: sortOrder === 'desc'
-    }),
+    () =>
+      SortData({
+        poolPairsPrices: poolPairsPrices,
+        sortKey,
+        reverse: sortOrder === "desc",
+      }),
     [poolPairsPrices, sortKey, sortOrder]
-  )
+  );
 
-  function changeSort (key: SortKeys): void {
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-    setSortKey(key)
+  function changeSort(key: SortKeys): void {
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    setSortKey(key);
   }
 
   return (
     <OverflowTable>
       <OverflowTable.Header>
-        <OverflowTable.Head title='Pair' />
-        <OverflowTable.Head title='Primary Token Price (USD)' alignRight>
+        <OverflowTable.Head title="Pair" />
+        <OverflowTable.Head title="Primary Token Price (USD)" alignRight>
           <OverflowTable.SortButton
             columnKey={SortKeys.PRIMARY_TOKEN_PRICE}
             onClick={() => changeSort(SortKeys.PRIMARY_TOKEN_PRICE)}
@@ -62,7 +63,7 @@ export function PoolPairsTable ({
             sortKey={sortKey}
           />
         </OverflowTable.Head>
-        <OverflowTable.Head title='Volume (24H)' alignRight>
+        <OverflowTable.Head title="Volume (24H)" alignRight>
           <OverflowTable.SortButton
             columnKey={SortKeys.VOLUME}
             onClick={() => changeSort(SortKeys.VOLUME)}
@@ -70,7 +71,7 @@ export function PoolPairsTable ({
             sortKey={sortKey}
           />
         </OverflowTable.Head>
-        <OverflowTable.Head title='Total Liquidity' alignRight>
+        <OverflowTable.Head title="Total Liquidity" alignRight>
           <OverflowTable.SortButton
             columnKey={SortKeys.TOTAL_LIQUIDITY}
             onClick={() => changeSort(SortKeys.TOTAL_LIQUIDITY)}
@@ -78,7 +79,11 @@ export function PoolPairsTable ({
             sortKey={sortKey}
           />
         </OverflowTable.Head>
-        <OverflowTable.Head title='APR' infoDesc='APR includes commission.' alignRight>
+        <OverflowTable.Head
+          title="APR"
+          infoDesc="APR includes commission."
+          alignRight
+        >
           <OverflowTable.SortButton
             columnKey={SortKeys.APR}
             onClick={() => changeSort(SortKeys.APR)}
@@ -89,148 +94,170 @@ export function PoolPairsTable ({
       </OverflowTable.Header>
       {sortedData().map((data) => (
         <Link
-          href={{ pathname: `/dex/${(data.poolPair.displaySymbol.includes('DUSD') || data.poolPair.displaySymbol.includes('dUSDT') || data.poolPair.displaySymbol.includes('dUSDC')) ? data.poolPair.displaySymbol : data.poolPair.tokenA.displaySymbol}` }}
+          href={{
+            pathname: `/dex/${
+              data.poolPair.displaySymbol.includes("DUSD") ||
+              data.poolPair.displaySymbol.includes("dUSDT") ||
+              data.poolPair.displaySymbol.includes("dUSDC")
+                ? data.poolPair.displaySymbol
+                : data.poolPair.tokenA.displaySymbol
+            }`,
+          }}
           key={data.poolPair.id}
         >
-          <a className='contents'>
-            <PoolPairRow poolPair={data.poolPair} tokenPrice={data.tokenPrice} />
+          <a className="contents">
+            <PoolPairRow
+              poolPair={data.poolPair}
+              tokenPrice={data.tokenPrice}
+            />
           </a>
         </Link>
       ))}
     </OverflowTable>
-  )
+  );
 }
 
-export function SortData ({
+export function SortData({
   poolPairsPrices,
   sortKey,
-  reverse
+  reverse,
 }: {
-  poolPairsPrices: Array<{ poolPair: PoolPairData, tokenPrice: BigNumber }>
-  sortKey: string
-  reverse: boolean
-}): Array<{ poolPair: PoolPairData, tokenPrice: BigNumber }> {
+  poolPairsPrices: Array<{ poolPair: PoolPairData; tokenPrice: BigNumber }>;
+  sortKey: string;
+  reverse: boolean;
+}): Array<{ poolPair: PoolPairData; tokenPrice: BigNumber }> {
   if (sortKey === undefined) {
-    return poolPairsPrices
+    return poolPairsPrices;
   }
 
   const sortedData = poolPairsPrices.sort((a, b) => {
     switch (sortKey) {
       case SortKeys.VOLUME:
-        return (a.poolPair.volume?.h24 ?? 0) - (b.poolPair.volume?.h24 ?? 0)
+        return (a.poolPair.volume?.h24 ?? 0) - (b.poolPair.volume?.h24 ?? 0);
       case SortKeys.APR:
-        return (a.poolPair.apr?.total ?? 0) - (b.poolPair.apr?.total ?? 0)
+        return (a.poolPair.apr?.total ?? 0) - (b.poolPair.apr?.total ?? 0);
       case SortKeys.TOTAL_LIQUIDITY:
-        return Number(a.poolPair.totalLiquidity?.usd ?? 0) - Number(b.poolPair.totalLiquidity?.usd ?? 0)
+        return (
+          Number(a.poolPair.totalLiquidity?.usd ?? 0) -
+          Number(b.poolPair.totalLiquidity?.usd ?? 0)
+        );
       case SortKeys.PRIMARY_TOKEN_PRICE:
-        return a.tokenPrice.minus(b.tokenPrice).toNumber()
+        return a.tokenPrice.minus(b.tokenPrice).toNumber();
       default:
-        return b[sortKey] - a[sortKey]
+        return b[sortKey] - a[sortKey];
     }
-  })
+  });
 
-  return reverse ? sortedData.reverse() : sortedData
+  return reverse ? sortedData.reverse() : sortedData;
 }
 
-function PoolPairRow ({
+function PoolPairRow({
   poolPair,
-  tokenPrice
-}: { poolPair: PoolPairData, tokenPrice: BigNumber }): JSX.Element {
-  if (poolPair.symbol === 'BURN-DFI') {
-    return <></>
+  tokenPrice,
+}: {
+  poolPair: PoolPairData;
+  tokenPrice: BigNumber;
+}): JSX.Element {
+  if (poolPair.symbol === "BURN-DFI") {
+    return <></>;
   }
 
   return (
-    <OverflowTable.Row className='hover:text-primary-500'>
-      <OverflowTable.Cell className='align-middle'>
+    <OverflowTable.Row className="hover:text-primary-500">
+      <OverflowTable.Cell className="align-middle">
         <PoolPairSymbolLocal
           tokenA={poolPair.tokenA}
           tokenB={poolPair.tokenB}
-          primarySymbolClassName='h-8 w-8'
-          secondarySymbolClassName='ml-6 h-6 w-6'
-          textClassName='ml-16'
-          primaryTextClassName='font-medium dark:text-gray-100'
-          secondaryTextClassName='text-gray-400'
+          primarySymbolClassName="h-8 w-8"
+          secondarySymbolClassName="ml-6 h-6 w-6"
+          textClassName="ml-16"
+          primaryTextClassName="font-medium dark:text-gray-100"
+          secondaryTextClassName="text-gray-400"
         />
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
-        {!tokenPrice.isNaN()
-          ? (<NumberFormat
-              value={tokenPrice.isGreaterThan(100) ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP) : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)}
-              displayType='text'
-              thousandSeparator
-              prefix='$'
-             />)
-          : ('Error')}
-      </OverflowTable.Cell>
-
-      <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
-        {poolPair.volume?.h24 !== undefined ? (
+      <OverflowTable.Cell className="align-middle text-right dark:text-gray-100">
+        {!tokenPrice.isNaN() ? (
           <NumberFormat
-            value={poolPair.volume?.h24}
-            displayType='text'
+            value={
+              tokenPrice.isGreaterThan(100)
+                ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP)
+                : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)
+            }
+            displayType="text"
             thousandSeparator
-            decimalScale={0}
-            prefix='$'
+            prefix="$"
           />
         ) : (
-          <div className='text-yellow-500'>
-            Error
-          </div>
+          "Error"
         )}
       </OverflowTable.Cell>
 
-      <OverflowTable.Cell className='align-middle text-right dark:text-gray-100'>
+      <OverflowTable.Cell className="align-middle text-right dark:text-gray-100">
+        {poolPair.volume?.h24 !== undefined ? (
+          <NumberFormat
+            value={poolPair.volume?.h24}
+            displayType="text"
+            thousandSeparator
+            decimalScale={0}
+            prefix="$"
+          />
+        ) : (
+          <div className="text-yellow-500">Error</div>
+        )}
+      </OverflowTable.Cell>
+
+      <OverflowTable.Cell className="align-middle text-right dark:text-gray-100">
         {poolPair.totalLiquidity.usd !== undefined ? (
-          <div className='flex justify-end'>
+          <div className="flex justify-end">
             <MoreHoverPopover
-              className='ml-1'
+              className="ml-1"
               description={
-                <TotalLiquidityInfo tokenA={poolPair.tokenA} tokenB={poolPair.tokenB} />
+                <TotalLiquidityInfo
+                  tokenA={poolPair.tokenA}
+                  tokenB={poolPair.tokenB}
+                />
               }
-              placement='bottom'
+              placement="bottom"
             >
               <NumberFormat
                 value={poolPair.totalLiquidity.usd}
-                displayType='text'
+                displayType="text"
                 thousandSeparator
                 decimalScale={0}
-                prefix='$'
+                prefix="$"
               />
             </MoreHoverPopover>
           </div>
         ) : (
-          <div className='text-yellow-500'>
-            Error
-          </div>
+          <div className="text-yellow-500">Error</div>
         )}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className='align-middle'>
+      <OverflowTable.Cell className="align-middle">
         {(() => {
           if (poolPair.apr !== undefined) {
             return (
-              <div className='flex justify-end dark:text-gray-100'>
-                <MoreHoverPopover className='ml-1' description={<APRInfo {...poolPair.apr} />} placement='bottom'>
+              <div className="flex justify-end dark:text-gray-100">
+                <MoreHoverPopover
+                  className="ml-1"
+                  description={<APRInfo {...poolPair.apr} />}
+                  placement="bottom"
+                >
                   <NumberFormat
                     value={poolPair.apr.total * 100}
-                    displayType='text'
+                    displayType="text"
                     thousandSeparator
                     decimalScale={2}
                     fixedDecimalScale
-                    suffix='%'
+                    suffix="%"
                   />
                 </MoreHoverPopover>
               </div>
-            )
+            );
           } else {
-            return (
-              <div className='text-yellow-500'>
-                Error
-              </div>
-            )
+            return <div className="text-yellow-500">Error</div>;
           }
         })()}
       </OverflowTable.Cell>
     </OverflowTable.Row>
-  )
+  );
 }

@@ -3,9 +3,9 @@
  */
 
 export interface GraphProps {
-  pairId: string
-  a: string
-  b: string
+  pairId: string;
+  a: string;
+  b: string;
 }
 
 /**
@@ -13,17 +13,20 @@ export interface GraphProps {
  * @param startNode
  * @param graph
  */
-export function getAdjacentNodes (startNode: string, graph: GraphProps[]): string[] {
-  const adjacentNodesSet = new Set()
+export function getAdjacentNodes(
+  startNode: string,
+  graph: GraphProps[]
+): string[] {
+  const adjacentNodesSet = new Set();
   graph.forEach((vertices) => {
     if (vertices.a === startNode && vertices.b !== startNode) {
-      adjacentNodesSet.add(vertices.b)
+      adjacentNodesSet.add(vertices.b);
     } else if (vertices.b === startNode && vertices.a !== startNode) {
-      adjacentNodesSet.add(vertices.a)
+      adjacentNodesSet.add(vertices.a);
     }
-  })
+  });
 
-  return Array.from(adjacentNodesSet) as string[]
+  return Array.from(adjacentNodesSet) as string[];
 }
 
 /**
@@ -32,70 +35,84 @@ export function getAdjacentNodes (startNode: string, graph: GraphProps[]): strin
  * @param start
  * @param target
  */
-export function findPath (graph: GraphProps[], origin: string, target: string): { visitedNodes: Set<string>, path: string[] } {
-  let isPathFound = false
-  let nodesToVisit = [origin, ...getAdjacentNodes(origin, graph)]
-  const visitedNodes = new Set<string>([]) // track visited nodes in a set
-  const path: string[] = [] // store the first path found by token
+export function findPath(
+  graph: GraphProps[],
+  origin: string,
+  target: string
+): { visitedNodes: Set<string>; path: string[] } {
+  let isPathFound = false;
+  let nodesToVisit = [origin, ...getAdjacentNodes(origin, graph)];
+  const visitedNodes = new Set<string>([]); // track visited nodes in a set
+  const path: string[] = []; // store the first path found by token
   bfs({
     start: {
       value: origin,
       edges: getAdjacentNodes(origin, graph),
-      currentDistance: 0
+      currentDistance: 0,
     },
-    target: target
-  })
+    target: target,
+  });
 
-  function bfs ({
+  function bfs({
     start,
-    target
-  }: { start: { value: string, edges: string[], currentDistance: number }, target: string }): void {
-    if (start.edges.length === 0 && start.value !== target) { // no possible path
-      visitedNodes.add(start.value)
-      return
+    target,
+  }: {
+    start: { value: string; edges: string[]; currentDistance: number };
+    target: string;
+  }): void {
+    if (start.edges.length === 0 && start.value !== target) {
+      // no possible path
+      visitedNodes.add(start.value);
+      return;
     }
 
     if (!isPathFound) {
-      path[start.currentDistance] = start.value
+      path[start.currentDistance] = start.value;
     }
 
     if (start.value === target) {
-      isPathFound = true
-      visitedNodes.add(start.value)
-      nodesToVisit = []
-      return
+      isPathFound = true;
+      visitedNodes.add(start.value);
+      nodesToVisit = [];
+      return;
     }
-    visitedNodes.add(start.value)
+    visitedNodes.add(start.value);
 
     while (nodesToVisit.length > 0) {
-      nodesToVisit.shift()
-      const nextNodeToVisitEdges = start.edges
+      nodesToVisit.shift();
+      const nextNodeToVisitEdges = start.edges;
 
       while (nextNodeToVisitEdges.length !== 0 && !isPathFound) {
-        const startValue = nextNodeToVisitEdges[0]
+        const startValue = nextNodeToVisitEdges[0];
         const innerStart = {
           value: startValue,
-          edges: getAdjacentNodes(startValue, graph).filter(node => !visitedNodes.has(node)),
-          currentDistance: start.currentDistance + 1
-        }
-        const startEdgesToVisit = innerStart.edges
+          edges: getAdjacentNodes(startValue, graph).filter(
+            (node) => !visitedNodes.has(node)
+          ),
+          currentDistance: start.currentDistance + 1,
+        };
+        const startEdgesToVisit = innerStart.edges;
 
-        nodesToVisit = [...nodesToVisit, ...startEdgesToVisit]
+        nodesToVisit = [...nodesToVisit, ...startEdgesToVisit];
         bfs({
           start: innerStart,
-          target: target
-        })
-        nextNodeToVisitEdges.shift()
+          target: target,
+        });
+        nextNodeToVisitEdges.shift();
       }
     }
   }
 
   return {
     visitedNodes,
-    path: isPathFound ? path : []
-  }
+    path: isPathFound ? path : [],
+  };
 }
 
-export function checkIfPair (pair: { a: string, b: string }, a: string, b: string): boolean {
-  return ((pair.a === a && pair.b === b) || (pair.b === a && pair.a === b))
+export function checkIfPair(
+  pair: { a: string; b: string },
+  a: string,
+  b: string
+): boolean {
+  return (pair.a === a && pair.b === b) || (pair.b === a && pair.a === b);
 }
