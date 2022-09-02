@@ -3,9 +3,9 @@ import BigNumber from "bignumber.js";
 import { format, fromUnixTime } from "date-fns";
 
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveTable } from "@components/commons/AdaptiveTable";
 import { TokenAmount } from "@defichain/jellyfish-transaction/dist/script/dftx/dftx_price";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxSetOracleDataProps {
   dftx: DfTx<SetOracleData>;

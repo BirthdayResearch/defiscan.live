@@ -1,11 +1,11 @@
 import { DfTx, PoolSwap } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import BigNumber from "bignumber.js";
 import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxPoolSwapProps {
   dftx: DfTx<PoolSwap>;

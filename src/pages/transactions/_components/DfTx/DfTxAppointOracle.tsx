@@ -6,10 +6,10 @@ import {
 import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxAppointOracleProps {
   dftx: DfTx<AppointOracle>;

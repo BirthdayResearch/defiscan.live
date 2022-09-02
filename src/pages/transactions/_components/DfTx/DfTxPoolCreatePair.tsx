@@ -1,5 +1,4 @@
 import { DfTx, PoolCreatePair } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { fromScript } from "@defichain/jellyfish-address";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { useNetwork } from "@contexts/NetworkContext";
@@ -7,6 +6,7 @@ import { TokenBalance } from "@defichain/jellyfish-transaction/dist/script/dftx/
 import { AdaptiveTable } from "@components/commons/AdaptiveTable";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxPoolCreatePairProps {
   dftx: DfTx<PoolCreatePair>;

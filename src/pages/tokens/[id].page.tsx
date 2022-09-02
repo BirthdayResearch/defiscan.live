@@ -12,13 +12,13 @@ import { IoAlertCircleOutline, IoCheckmarkCircle } from "react-icons/io5";
 import { Container } from "@components/commons/Container";
 import { AddressLinkExternal } from "@components/commons/link/AddressLink";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
-import { isAlphanumeric, isNumeric } from "../../utils/commons/StringValidator";
 import React, { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
 import ReactNumberFormat from "react-number-format";
 import { Head } from "@components/commons/Head";
-import { getTokenName } from "../../utils/commons/token/getTokenName";
 import { WhaleApiClient } from "@defichain/whale-api-client";
+import { getTokenName } from "../../utils/commons/token/getTokenName";
+import { isAlphanumeric, isNumeric } from "../../utils/commons/StringValidator";
 
 interface TokenAssetPageProps {
   token: TokenData;

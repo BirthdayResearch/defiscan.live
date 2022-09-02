@@ -1,13 +1,13 @@
 import React from "react";
 import BigNumber from "bignumber.js";
-import { VaultCollateralizationRatio } from "./VaultCollateralizationRatio";
 import {
   CollateralToken,
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { useNextCollateralizationRatio } from "../../utils/NextCollateralizationRatio";
 import { WarningHoverPopover } from "@components/commons/popover/WarningHoverPopover";
 import NumberFormat from "react-number-format";
+import { useNextCollateralizationRatio } from "../../utils/NextCollateralizationRatio";
+import { VaultCollateralizationRatio } from "./VaultCollateralizationRatio";
 
 interface VaultHealthBarProps {
   vault: LoanVaultActive;

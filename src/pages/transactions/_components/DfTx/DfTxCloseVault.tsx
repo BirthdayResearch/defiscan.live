@@ -1,10 +1,10 @@
 import { CloseVault, DfTx } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { useNetwork } from "@contexts/NetworkContext";
 import { fromScript } from "@defichain/jellyfish-address";
 import { VaultLink } from "@components/commons/link/VaultLink";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxCloseVaultProps {
   dftx: DfTx<CloseVault>;

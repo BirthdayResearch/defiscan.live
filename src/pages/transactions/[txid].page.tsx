@@ -11,13 +11,6 @@ import {
 import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { Container } from "@components/commons/Container";
 import BigNumber from "bignumber.js";
-import {
-  TransactionHeading,
-  TransactionNotFoundHeading,
-} from "./_components/TransactionHeadings";
-import { TransactionVinVout } from "./_components/TransactionVinVout";
-import { TransactionSummaryTable } from "./_components/TransactionSummaryTable";
-import { TransactionDfTx } from "./_components/TransactionDfTx";
 import { SmartBuffer } from "smart-buffer";
 import {
   AccountToUtxos,
@@ -26,9 +19,16 @@ import {
   OP_DEFI_TX,
   toOPCodes,
 } from "@defichain/jellyfish-transaction";
-import { isAlphanumeric } from "../../utils/commons/StringValidator";
 import { Head } from "@components/commons/Head";
 import { useRouter } from "next/router";
+import {
+  TransactionHeading,
+  TransactionNotFoundHeading,
+} from "./_components/TransactionHeadings";
+import { TransactionVinVout } from "./_components/TransactionVinVout";
+import { TransactionSummaryTable } from "./_components/TransactionSummaryTable";
+import { TransactionDfTx } from "./_components/TransactionDfTx";
+import { isAlphanumeric } from "../../utils/commons/StringValidator";
 import { RawTransaction } from "./_components/RawTransaction";
 
 interface TransactionPageProps {

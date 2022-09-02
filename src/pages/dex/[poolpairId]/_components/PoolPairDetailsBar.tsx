@@ -1,8 +1,8 @@
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLocal";
 import ReactNumberFormat from "react-number-format";
-import { useTokenPrice } from "../../../vaults/hooks/TokenPrice";
 import BigNumber from "bignumber.js";
+import { useTokenPrice } from "../../../vaults/hooks/TokenPrice";
 
 export function PoolPairDetailsBar(props: {
   poolpair: PoolPairData;

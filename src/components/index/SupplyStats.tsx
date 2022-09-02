@@ -4,13 +4,13 @@ import ReactNumberFormat from "react-number-format";
 import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
 import { RootState } from "@store/index";
 import { StatPriceCard } from "@components/index/StatCard";
-import { CalculatePercentage } from "../../utils/index/CalculatePercentage";
 import { useSelector } from "react-redux";
 import {
   StatsData,
   SupplyData,
 } from "@defichain/whale-api-client/dist/api/stats";
 import { StatsState } from "@store/stats";
+import { CalculatePercentage } from "../../utils/index/CalculatePercentage";
 
 interface SupplyStatsProps {
   stats: StatsData;

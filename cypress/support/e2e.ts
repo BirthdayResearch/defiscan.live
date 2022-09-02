@@ -13,11 +13,11 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import '@cypress/code-coverage/support'
-import './commands'
+import "@cypress/code-coverage/support";
+import "./commands";
 
 Cypress.Server.defaults({
   ignore: (xhr: Request) => {
-    return xhr.url.match(/^.+\/v0\/playground\/$/)
-  }
-})
+    return xhr.url.match(/^.+\/v0\/playground\/$/);
+  },
+});

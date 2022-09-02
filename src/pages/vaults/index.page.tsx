@@ -13,14 +13,14 @@ import {
   CursorPage,
   CursorPagination,
 } from "@components/commons/CursorPagination";
-import { VaultMobileCard } from "./_components/VaultMobileCard";
 import { getWhaleApiClient } from "@contexts/WhaleContext";
-import { calculateLiquidationValues } from "./utils/LiquidatedVaultDerivedValues";
-import { VaultStatsBar } from "./_components/VaultStatsBar";
-import { VaultTable } from "./_components/commons/VaultTable";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import React from "react";
 import { CardList } from "@components/commons/CardList";
+import { VaultMobileCard } from "./_components/VaultMobileCard";
+import { calculateLiquidationValues } from "./utils/LiquidatedVaultDerivedValues";
+import { VaultStatsBar } from "./_components/VaultStatsBar";
+import { VaultTable } from "./_components/commons/VaultTable";
 
 interface VaultsPageData {
   vaults: {

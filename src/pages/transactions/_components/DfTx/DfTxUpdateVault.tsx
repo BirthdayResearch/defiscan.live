@@ -1,5 +1,4 @@
 import { DfTx, UpdateVault } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { useNetwork } from "@contexts/NetworkContext";
 import { fromScript } from "@defichain/jellyfish-address";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
@@ -7,6 +6,7 @@ import { AddressLink } from "@components/commons/link/AddressLink";
 import { Link } from "@components/commons/link/Link";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import React from "react";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxUpdateVaultProps {
   dftx: DfTx<UpdateVault>;

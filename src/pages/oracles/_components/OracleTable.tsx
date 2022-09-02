@@ -1,5 +1,4 @@
 import { JSX } from "@babel/types";
-import { isActive } from "./OracleFeed";
 import {
   PriceOracle,
   PriceTicker,
@@ -10,6 +9,7 @@ import { MdCheck } from "react-icons/md";
 import NumberFormat from "react-number-format";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
+import { isActive } from "./OracleFeed";
 
 interface PriceOracleTableProps {
   price: PriceTicker;

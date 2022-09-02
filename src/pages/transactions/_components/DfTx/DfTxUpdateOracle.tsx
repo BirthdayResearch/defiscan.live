@@ -1,4 +1,3 @@
-import { DfTxHeader } from "./DfTxHeader";
 import {
   CurrencyPair,
   DfTx,
@@ -9,6 +8,7 @@ import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxUpdateOracleProps {
   dftx: DfTx<UpdateOracle>;

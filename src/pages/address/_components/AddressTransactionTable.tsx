@@ -2,9 +2,9 @@ import { AddressActivity } from "@defichain/whale-api-client/dist/api/address";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { useWhaleApiClient } from "@contexts/WhaleContext";
 import React, { useEffect, useState } from "react";
-import { AddressTransactionTableRow } from "./AddressTransactionTableRow";
 import { CgSpinner } from "react-icons/cg";
 import { EmptySection } from "@components/commons/sections/EmptySection";
+import { AddressTransactionTableRow } from "./AddressTransactionTableRow";
 import { ShowMoreButton } from "./ShowMoreButton";
 
 interface AddressTransactionTableProps {

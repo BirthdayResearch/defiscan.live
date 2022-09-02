@@ -2,11 +2,11 @@ import { OverflowTable } from "@components/commons/OverflowTable";
 import { Link } from "@components/commons/link/Link";
 import { format, formatDistanceToNow, fromUnixTime } from "date-fns";
 import { AddressActivity } from "@defichain/whale-api-client/dist/api/address";
-import { AddressVinVout } from "./AddressVinVout";
 import { useState } from "react";
 import { MdExpand } from "react-icons/md";
 import { HoverPopover } from "@components/commons/popover/HoverPopover";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
+import { AddressVinVout } from "./AddressVinVout";
 
 interface TransactionTableRowProps {
   address: string;

@@ -6,13 +6,13 @@ import {
 import React from "react";
 import BigNumber from "bignumber.js";
 import ReactNumberFormat from "react-number-format";
-import { LiquidatedVaultDerivedValues } from "../utils/LiquidatedVaultDerivedValues";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
+import { CardList } from "@components/commons/CardList";
+import { LiquidatedVaultDerivedValues } from "../utils/LiquidatedVaultDerivedValues";
 import { VaultStatus } from "./commons/VaultStatus";
 import { VaultTokenSymbols } from "./commons/VaultTokenSymbols";
 import { VaultNumberValues } from "./commons/VaultNumberValues";
 import { VaultCollateralizationRatio } from "./commons/VaultCollateralizationRatio";
-import { CardList } from "@components/commons/CardList";
 
 interface VaultMobileCardProps {
   vault: LoanVaultActive | LoanVaultLiquidated;

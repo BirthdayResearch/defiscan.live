@@ -14,6 +14,11 @@ import {
   CursorPage,
   CursorPagination,
 } from "@components/commons/CursorPagination";
+import { WhaleApiClient } from "@defichain/whale-api-client";
+import { Breadcrumb } from "@components/commons/Breadcrumb";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import BigNumber from "bignumber.js";
 import { SwapCards } from "./_components/SwapCards";
 import { PoolPairDetails } from "./_components/PoolPairDetails";
 import { SwapTable } from "./_components/SwapTable";
@@ -22,11 +27,6 @@ import {
   isAlphanumeric,
   isNumeric,
 } from "../../../utils/commons/StringValidator";
-import { WhaleApiClient } from "@defichain/whale-api-client";
-import { Breadcrumb } from "@components/commons/Breadcrumb";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import BigNumber from "bignumber.js";
 import { PoolPairInfo } from "./_components/PoolPairInfo";
 
 interface PoolPairPageProps {

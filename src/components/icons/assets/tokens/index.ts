@@ -1,4 +1,9 @@
 import { _Default } from "@components/icons/assets/tokens/_Default";
+import { SVGProps } from "react";
+import { USDT } from "@components/icons/assets/tokens/USDT";
+import { USDC } from "@components/icons/assets/tokens/USDC";
+import { ETH } from "@components/icons/assets/tokens/ETH";
+import { DOGE } from "@components/icons/assets/tokens/DOGE";
 import { dBCH } from "./dBCH";
 import { dBTC } from "./dBTC";
 import { BTC } from "./BTC";
@@ -12,11 +17,6 @@ import { dLTC } from "./dLTC";
 import { dUSDC } from "./dUSDC";
 import { dUSDT } from "./dUSDT";
 import { DUSD } from "./DUSD";
-import { SVGProps } from "react";
-import { USDT } from "@components/icons/assets/tokens/USDT";
-import { USDC } from "@components/icons/assets/tokens/USDC";
-import { ETH } from "@components/icons/assets/tokens/ETH";
-import { DOGE } from "@components/icons/assets/tokens/DOGE";
 import { _TokenDefault } from "./_TokenDefault";
 
 const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =

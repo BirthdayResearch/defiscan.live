@@ -3,10 +3,10 @@ import {
   TokenBalance,
   TokenMint,
 } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import NumberFormat from "react-number-format";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxTokenMintProps {
   dftx: DfTx<TokenMint>;

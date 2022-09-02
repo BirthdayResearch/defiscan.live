@@ -1,8 +1,5 @@
 import { Breadcrumb } from "@components/commons/Breadcrumb";
 import { Head } from "@components/commons/Head";
-import { OracleGraph } from "./_components/OracleGraph";
-import { OracleTable } from "./_components/OracleTable";
-import { OracleTickerDetail } from "./_components/OracleTickerDetail";
 import { getWhaleApiClient } from "@contexts/WhaleContext";
 import {
   PriceOracle,
@@ -14,6 +11,9 @@ import {
   InferGetServerSidePropsType,
 } from "next";
 import { Container } from "@components/commons/Container";
+import { OracleTickerDetail } from "./_components/OracleTickerDetail";
+import { OracleTable } from "./_components/OracleTable";
+import { OracleGraph } from "./_components/OracleGraph";
 import { isAlphanumeric } from "../../utils/commons/StringValidator";
 
 interface PricesPageProps {

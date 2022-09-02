@@ -208,6 +208,7 @@ function DropDownSortOption({
       <Menu.Item>
         {({ active }) => (
           <button
+            type="button"
             className={`${
               isSelected
                 ? "bg-primary-100 text-gray dark:bg-dark-primary-500 dark:text-gray-100"

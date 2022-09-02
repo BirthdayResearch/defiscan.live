@@ -1,5 +1,4 @@
 import { JSX } from "@babel/types";
-import { isActive } from "./OracleFeed";
 import { getPriceCopy, PriceCopy } from "@content/prices";
 import {
   PriceOracle,
@@ -9,6 +8,7 @@ import { format, formatDistanceToNow } from "date-fns";
 import NumberFormat from "react-number-format";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { getNativeIcon } from "@components/icons/assets/tokens";
+import { isActive } from "./OracleFeed";
 
 interface PriceTickerDetailProps {
   price: PriceTicker;

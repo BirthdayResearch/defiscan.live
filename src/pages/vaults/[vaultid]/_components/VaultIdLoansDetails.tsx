@@ -8,11 +8,11 @@ import { OverflowTable } from "@components/commons/OverflowTable";
 import React from "react";
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
-import { LoanTotalInterestRate } from "./LoanTotalInterestRate";
 import ReactNumberFormat from "react-number-format";
 import { EmptySection } from "@components/commons/sections/EmptySection";
-import { VaultNumberValues } from "../../_components/commons/VaultNumberValues";
 import { CardList } from "@components/commons/CardList";
+import { VaultNumberValues } from "../../_components/commons/VaultNumberValues";
+import { LoanTotalInterestRate } from "./LoanTotalInterestRate";
 
 interface VaultIdLoansDetailsProps {
   vault: {

@@ -3,10 +3,10 @@ import { DfTx, PoolAddLiquidity } from "@defichain/jellyfish-transaction";
 import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import { DfTxHeader } from "./DfTxHeader";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import classNames from "classnames";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxPoolAddLiquidityProps {
   dftx: DfTx<PoolAddLiquidity>;

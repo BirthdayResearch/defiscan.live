@@ -3,9 +3,9 @@ import { DfTx, PoolRemoveLiquidity } from "@defichain/jellyfish-transaction";
 import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import { DfTxHeader } from "./DfTxHeader";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxPoolRemoveLiquidityProps {
   dftx: DfTx<PoolRemoveLiquidity>;

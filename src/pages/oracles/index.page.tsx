@@ -1,5 +1,4 @@
 import { Head } from "@components/commons/Head";
-import { OracleFeed, PriceFeedProps } from "./_components/OracleFeed";
 import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { prices } from "@defichain/whale-api-client";
 import {
@@ -18,6 +17,7 @@ import {
   LoanToken,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { PriceTicker } from "@defichain/whale-api-client/dist/api/prices";
+import { OracleFeed, PriceFeedProps } from "./_components/OracleFeed";
 
 interface PricesPageProps {
   prices: {

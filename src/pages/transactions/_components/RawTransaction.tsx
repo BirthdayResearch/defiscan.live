@@ -9,10 +9,10 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { SmartBuffer } from "smart-buffer";
 import { Container } from "@components/commons/Container";
+import { useEffect } from "react";
 import { RawTransactionHeading } from "./RawTransactionHeadings";
 import { RawTransactionVinVout } from "./RawTransactionVinVout";
 import { TransactionDfTx } from "./TransactionDfTx";
-import { useEffect } from "react";
 
 export function RawTransaction({ rawTx }: { rawTx: string }): JSX.Element {
   let transaction: TransactionSegWit | Transaction | undefined;

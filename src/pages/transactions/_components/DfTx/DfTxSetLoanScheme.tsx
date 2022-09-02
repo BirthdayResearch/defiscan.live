@@ -1,6 +1,6 @@
 import { DfTx, SetLoanScheme } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxSetLoanSchemeProps {
   dftx: DfTx<SetLoanScheme>;

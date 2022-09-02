@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { Container } from "@components/commons/Container";
+import { SearchBar } from "@components/commons/searchbar/SearchBar";
 import { HeaderCountBar } from "./HeaderCountBar";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
-import { SearchBar } from "@components/commons/searchbar/SearchBar";
 
 export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);

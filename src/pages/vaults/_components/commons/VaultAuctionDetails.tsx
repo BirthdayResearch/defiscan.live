@@ -1,17 +1,17 @@
 import { OverflowTable } from "@components/commons/OverflowTable";
 import ReactNumberFormat from "react-number-format";
 import BigNumber from "bignumber.js";
-import { VaultTokenSymbols } from "./VaultTokenSymbols";
 import {
   LoanVaultLiquidated,
   LoanVaultLiquidationBatch,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { getAssetIcon } from "@components/icons/assets/tokens";
 import React from "react";
+import { CardList } from "@components/commons/CardList";
+import { VaultTokenSymbols } from "./VaultTokenSymbols";
 import { AuctionTimeLeft } from "../../../auctions/_components/commons/AuctionTimeLeft";
 import { BidAmountValue } from "../../../auctions/_components/commons/BidAmountValue";
 import { useCalculateAuctionsValue } from "../../hooks/CalculateAuctionsValue";
-import { CardList } from "@components/commons/CardList";
 
 interface VaultAuctionDetailsProps {
   batch: LoanVaultLiquidationBatch;

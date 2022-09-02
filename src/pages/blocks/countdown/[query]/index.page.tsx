@@ -6,17 +6,17 @@ import {
 import { Container } from "@components/commons/Container";
 import React, { useEffect, useState } from "react";
 import { getWhaleApiClient, getWhaleRpcClient } from "@contexts/WhaleContext";
-import { isNumeric } from "../../../../utils/commons/StringValidator";
 import { Head } from "@components/commons/Head";
-import { BlocksInfoSection } from "./_components/BlocksInfoSection";
-import { CountdownSection } from "./_components/CountdownSection";
-import { InfoSection } from "./_components/InfoSection";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
 import * as prismic from "@prismicio/client";
 import _ from "lodash";
 import { getEnvironment } from "@contexts/Environment";
 import { PrismicDocument } from "@prismicio/types";
+import { InfoSection } from "./_components/InfoSection";
+import { CountdownSection } from "./_components/CountdownSection";
+import { BlocksInfoSection } from "./_components/BlocksInfoSection";
+import { isNumeric } from "../../../../utils/commons/StringValidator";
 
 interface BlockDetailsPageProps {
   target: {

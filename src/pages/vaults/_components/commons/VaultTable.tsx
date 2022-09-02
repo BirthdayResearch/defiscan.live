@@ -4,8 +4,8 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { Link } from "@components/commons/link/Link";
-import { calculateLiquidationValues } from "../../utils/LiquidatedVaultDerivedValues";
 import React from "react";
+import { calculateLiquidationValues } from "../../utils/LiquidatedVaultDerivedValues";
 import { VaultTableRow } from "./VaultTableRow";
 
 interface VaultTableProps {

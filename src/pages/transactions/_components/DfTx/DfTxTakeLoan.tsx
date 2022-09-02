@@ -1,11 +1,11 @@
 import { DfTx, TakeLoan } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import { DfTxHeader } from "./DfTxHeader";
 import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { VaultLink } from "@components/commons/link/VaultLink";
 import { AddressLink } from "@components/commons/link/AddressLink";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxTakeLoanProps {
   dftx: DfTx<TakeLoan>;

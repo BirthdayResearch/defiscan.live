@@ -3,12 +3,12 @@ import { CardList } from "@components/commons/CardList";
 import NumberFormat from "react-number-format";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { MoreHoverPopover } from "@components/commons/popover/MoreHoverPopover";
-import { APRInfo } from "./APRInfo";
 import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLocal";
+import BigNumber from "bignumber.js";
+import { APRInfo } from "./APRInfo";
 import { SortData, SortKeys } from "./PoolPairsTable";
 import { useTokenPrice } from "../../vaults/hooks/TokenPrice";
 import { TotalLiquidityInfo } from "./TotalLiquidityInfo";
-import BigNumber from "bignumber.js";
 
 const sortTypes = [
   {
