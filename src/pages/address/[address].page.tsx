@@ -4,6 +4,10 @@ import {
   InferGetServerSidePropsType,
 } from "next";
 import { Container } from "@components/commons/Container";
+import { fromAddress } from "@defichain/jellyfish-address";
+import { useNetwork } from "@contexts/NetworkContext";
+import { Head } from "@components/commons/Head";
+import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
 import {
   AddressHeading,
   AddressNotFoundHeading,
@@ -11,11 +15,7 @@ import {
 import { AddressSummaryTable } from "./_components/AddressSummaryTable";
 import { AddressTransactionTable } from "./_components/AddressTransactionTable";
 import { AddressBalances } from "./_components/AddressBalances";
-import { fromAddress } from "@defichain/jellyfish-address";
-import { useNetwork } from "@contexts/NetworkContext";
 import { isAlphanumeric } from "../../utils/commons/StringValidator";
-import { Head } from "@components/commons/Head";
-import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
 import { AddressVaults } from "./_components/AddressVaults";
 
 interface AddressPageProps {

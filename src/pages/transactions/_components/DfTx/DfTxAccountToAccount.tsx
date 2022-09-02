@@ -1,11 +1,11 @@
 import { AccountToAccount, DfTx } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { TokenBalance } from "@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxAccountToAccountProps {
   dftx: DfTx<AccountToAccount>;

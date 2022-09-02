@@ -163,7 +163,11 @@ function SortButton({
   }
 
   return (
-    <button onClick={onClick} data-testid="OverflowTable.SortButton">
+    <button
+      type="button"
+      onClick={onClick}
+      data-testid="OverflowTable.SortButton"
+    >
       {arrow}
     </button>
   );

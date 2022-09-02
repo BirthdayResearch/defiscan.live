@@ -1,10 +1,10 @@
 import { DfTx, ICXMakeOffer } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { AddressLink } from "@components/commons/link/AddressLink";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxICXMakeOfferProps {
   dftx: DfTx<ICXMakeOffer>;

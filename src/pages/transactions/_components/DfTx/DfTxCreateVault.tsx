@@ -1,9 +1,9 @@
 import { CreateVault, DfTx } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { useNetwork } from "@contexts/NetworkContext";
 import { fromScript } from "@defichain/jellyfish-address";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxCreateVaultProps {
   dftx: DfTx<CreateVault>;

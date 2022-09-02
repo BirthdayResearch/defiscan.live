@@ -1,6 +1,6 @@
 import { DfTx, ResignMasternode } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxResignMasternodeProps {
   dftx: DfTx<ResignMasternode>;

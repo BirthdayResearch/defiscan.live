@@ -2,7 +2,6 @@ import { CgSpinner } from "react-icons/cg";
 import { IoCloseCircleSharp, IoSearchSharp } from "react-icons/io5";
 import { Combobox } from "@headlessui/react";
 import { Fragment, PropsWithChildren } from "react";
-import { SearchResultLink } from "../link/Link";
 import classNames from "classnames";
 import {
   MdAccountBalanceWallet,
@@ -10,6 +9,7 @@ import {
   MdStairs,
   MdSwapHorizontalCircle,
 } from "react-icons/md";
+import { SearchResultLink } from "../link/Link";
 
 export interface SearchResult {
   url: string;

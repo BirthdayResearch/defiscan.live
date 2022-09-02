@@ -5,14 +5,14 @@ import { WhaleProvider } from "@contexts/WhaleContext";
 import { StatsProvider } from "@store/stats";
 import Head from "next/head";
 import { PropsWithChildren, useEffect, useState } from "react";
-import { ScanAppProps } from "../pages/_app.page";
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
 import { PoolPairsProvider } from "@store/poolpairs";
 import { SupplyProvider } from "@store/supply";
 import { getInitialTheme, ThemeProvider } from "@contexts/ThemeContext";
 import { WarningBanner } from "@components/commons/banner/WarningBanner";
 import { DexPricesProvider } from "@store/dexPrices";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { ScanAppProps } from "../pages/_app.page";
 
 const title = "DeFi Scan – Native Decentralized Finance for Bitcoin";
 const description =

@@ -1,6 +1,5 @@
 import { DfTx, SetGovernance } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import { DfTxHeader } from "./DfTxHeader";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import {
   GovernanceLpDailyReward,
@@ -9,6 +8,7 @@ import {
   LiqPoolSplit,
 } from "@defichain/jellyfish-transaction/dist/script/dftx/dftx_governance";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxSetGovernanceProps {
   dftx: DfTx<SetGovernance>;

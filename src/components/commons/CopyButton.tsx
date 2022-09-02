@@ -34,6 +34,7 @@ export function CopyButton(props: CopyButtonProps): JSX.Element {
   return (
     <div className={classNames("relative", props.className)} ref={reference}>
       <button
+        type="button"
         className="cursor-pointer outline-none p-2 bg-white dark:bg-gray-900 dark:border-gray-700  border border-gray-200 rounded"
         onClick={copy}
       >

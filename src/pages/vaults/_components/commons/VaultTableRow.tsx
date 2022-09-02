@@ -5,14 +5,14 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import classNames from "classnames";
 import { OverflowTable } from "@components/commons/OverflowTable";
-import { LiquidatedVaultDerivedValues } from "../../utils/LiquidatedVaultDerivedValues";
 import React from "react";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
+import BigNumber from "bignumber.js";
+import ReactNumberFormat from "react-number-format";
+import { LiquidatedVaultDerivedValues } from "../../utils/LiquidatedVaultDerivedValues";
 import { VaultStatus } from "./VaultStatus";
 import { VaultNumberValues } from "./VaultNumberValues";
-import BigNumber from "bignumber.js";
 import { VaultCollateralizationRatio } from "./VaultCollateralizationRatio";
-import ReactNumberFormat from "react-number-format";
 import { VaultTokenSymbols } from "./VaultTokenSymbols";
 
 interface VaultTableRowProps {

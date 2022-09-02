@@ -1,7 +1,7 @@
 import { DfTx, SetGovernanceHeight } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import { DfTxHeader } from "./DfTxHeader";
 import { GovernanceUnmapped } from "@defichain/jellyfish-transaction/dist/script/dftx/dftx_governance";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxSetGovernanceHeightProps {
   dftx: DfTx<SetGovernanceHeight>;

@@ -5,11 +5,11 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { useNetwork } from "@contexts/NetworkContext";
 import { fromScript } from "@defichain/jellyfish-address";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { VaultLink } from "@components/commons/link/VaultLink";
 import { AddressLink } from "@components/commons/link/AddressLink";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxPayBackLoanProps {
   dftx: DfTx<PaybackLoan>;

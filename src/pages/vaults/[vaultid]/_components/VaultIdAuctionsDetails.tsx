@@ -3,11 +3,11 @@ import React from "react";
 import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { Link } from "@components/commons/link/Link";
+import { CardList } from "@components/commons/CardList";
 import {
   AuctionsTableRow,
   MobileAuctionDetailsCard,
 } from "../../_components/commons/VaultAuctionDetails";
-import { CardList } from "@components/commons/CardList";
 
 export function VaultAuctions(props: {
   vault: LoanVaultLiquidated;

@@ -1,4 +1,3 @@
-import { DfTxHeader } from "./DfTxHeader";
 import {
   CompositeSwap,
   DfTx,
@@ -13,6 +12,7 @@ import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { PoolPairSymbol } from "@components/commons/token/PoolPairSymbol";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import NumberFormat from "react-number-format";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DftxCompositeSwapProps {
   dftx: DfTx<CompositeSwap>;

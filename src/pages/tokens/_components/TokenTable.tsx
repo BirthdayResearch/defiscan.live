@@ -3,8 +3,8 @@ import React from "react";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { getAssetIcon, getTokenIcon } from "@components/icons/assets/tokens";
-import { getTokenName } from "../../../utils/commons/token/getTokenName";
 import { Link } from "@components/commons/link/Link";
+import { getTokenName } from "../../../utils/commons/token/getTokenName";
 
 export function TokenTable({ tokens }: { tokens: TokenData[] }): JSX.Element {
   return (

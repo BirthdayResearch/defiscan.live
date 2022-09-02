@@ -11,16 +11,16 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 
 import { Container } from "@components/commons/Container";
+import { getWhaleApiClient } from "@contexts/WhaleContext";
+import { Head } from "@components/commons/Head";
+import React from "react";
 import { VaultIdHeading } from "./_components/VaultIdHeading";
 import { VaultIdDetails } from "./_components/VaultIdDetails";
 import { VaultIdCollateralDetails } from "./_components/VaultIdCollateralDetails";
 import { VaultIdLoansDetails } from "./_components/VaultIdLoansDetails";
-import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { isAlphanumeric } from "../../../utils/commons/StringValidator";
 import { VaultAuctions } from "./_components/VaultIdAuctionsDetails";
 import { calculateLiquidationValues } from "../utils/LiquidatedVaultDerivedValues";
-import { Head } from "@components/commons/Head";
-import React from "react";
 
 interface VaultsPageData {
   vault: LoanVaultActive | LoanVaultLiquidated;

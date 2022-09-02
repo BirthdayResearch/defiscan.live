@@ -80,7 +80,10 @@ export function OracleFeed(props: PriceFeedProps): JSX.Element {
                 </div>
               )}
               <div className="flex-grow" />
-              <button className="text-primary-500 dark:text-dark-primary-500">
+              <button
+                type="button"
+                className="text-primary-500 dark:text-dark-primary-500"
+              >
                 View
               </button>
             </div>

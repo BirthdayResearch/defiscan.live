@@ -1,7 +1,7 @@
 import { DfTx, ICXCloseOrder } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxICXCloseOrderProps {
   dftx: DfTx<ICXCloseOrder>;

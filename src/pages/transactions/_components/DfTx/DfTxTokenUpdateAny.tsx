@@ -1,9 +1,9 @@
 import { DfTx, TokenUpdateAny } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import BigNumber from "bignumber.js";
 import { getAssetIcon, getTokenIcon } from "@components/icons/assets/tokens";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxTokenUpdateAnyProps {
   dftx: DfTx<TokenUpdateAny>;

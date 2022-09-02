@@ -1,9 +1,9 @@
 import { initializeStore, RootState } from "@store/index";
 import { GetServerSidePropsResult } from "next";
 import NextNProgress from "nextjs-progressbar";
+import React from "react";
 import { Default } from "../layouts/Default";
 import "../styles/globals.css";
-import React from "react";
 
 export interface ScanAppProps {
   initialReduxState: RootState;

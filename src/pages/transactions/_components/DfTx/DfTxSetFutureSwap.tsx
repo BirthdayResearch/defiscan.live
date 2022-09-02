@@ -1,8 +1,8 @@
 import { DfTx, SetFutureSwap } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import BigNumber from "bignumber.js";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxSetFutureSwapProps {
   dftx: DfTx<SetFutureSwap>;

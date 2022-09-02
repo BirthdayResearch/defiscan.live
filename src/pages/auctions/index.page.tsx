@@ -15,11 +15,11 @@ import { OverflowTable } from "@components/commons/OverflowTable";
 import { Link } from "@components/commons/link/Link";
 import React from "react";
 import { EmptySection } from "@components/commons/sections/EmptySection";
+import { CardList } from "@components/commons/CardList";
 import {
   AuctionsTableRow,
   MobileAuctionDetailsCard,
 } from "../vaults/_components/commons/VaultAuctionDetails";
-import { CardList } from "@components/commons/CardList";
 
 interface ActionsPageProps {
   vaults: {

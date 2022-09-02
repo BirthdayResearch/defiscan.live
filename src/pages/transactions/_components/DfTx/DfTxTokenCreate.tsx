@@ -1,8 +1,8 @@
 import { DfTx, TokenCreate } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import BigNumber from "bignumber.js";
 import { getAssetIcon, getTokenIcon } from "@components/icons/assets/tokens";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxTokenCreateProps {
   dftx: DfTx<TokenCreate>;

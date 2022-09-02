@@ -3,12 +3,12 @@ import NumberFormat from "react-number-format";
 import React, { useCallback } from "react";
 import { MoreHoverPopover } from "@components/commons/popover/MoreHoverPopover";
 import { OverflowTable } from "@components/commons/OverflowTable";
-import { APRInfo } from "./APRInfo";
 import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLocal";
 import { Link } from "@components/commons/link/Link";
+import BigNumber from "bignumber.js";
+import { APRInfo } from "./APRInfo";
 import { useTokenPrice } from "../../vaults/hooks/TokenPrice";
 import { TotalLiquidityInfo } from "./TotalLiquidityInfo";
-import BigNumber from "bignumber.js";
 
 export enum SortKeys {
   VOLUME = "volume",

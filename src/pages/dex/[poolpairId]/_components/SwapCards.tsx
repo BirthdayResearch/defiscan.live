@@ -8,8 +8,8 @@ import {
   SwapType,
 } from "@defichain/whale-api-client/dist/api/poolpairs";
 import classNames from "classnames";
-import { useAge } from "../../../../hooks/useAge";
 import { getAssetIcon } from "@components/icons/assets/tokens";
+import { useAge } from "../../../../hooks/useAge";
 
 export function SwapCards({ swaps }: { swaps: PoolSwapData[] }): JSX.Element {
   return (

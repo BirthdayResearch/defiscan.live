@@ -4,11 +4,11 @@ import { OverflowTable } from "@components/commons/OverflowTable";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
-import { BiddingHistoryCard } from "./BiddingHistoryMobileCard";
 import { formatDistanceToNow } from "date-fns";
 import { fromScriptHex } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { BiddingHistoryCard } from "./BiddingHistoryMobileCard";
 
 interface AuctionBiddingHistoryProps {
   history: VaultAuctionBatchHistory[];

@@ -8,11 +8,10 @@
     "prettier",
     "plugin:cypress/recommended"
   ],
-  "plugins": [
-    "prettier"
-  ],
-  "ignorePatterns": [
-    "**/plugins/*.ts",
-    "**/support/*.ts"
-  ]
+  "plugins": ["prettier"],
+  "ignorePatterns": ["**/plugins/*.ts", "**/support/*.ts"],
+  "rules": {
+    "no-plusplus": "warn",
+    "radix": "warn"
+  }
 }

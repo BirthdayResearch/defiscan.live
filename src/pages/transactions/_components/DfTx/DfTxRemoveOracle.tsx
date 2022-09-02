@@ -1,6 +1,6 @@
 import { DfTx, RemoveOracle } from "@defichain/jellyfish-transaction";
-import { DfTxHeader } from "./DfTxHeader";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
+import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxRemoveOracleProps {
   dftx: DfTx<RemoveOracle>;
