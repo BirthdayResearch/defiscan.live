@@ -16,7 +16,7 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
-    "@babel/types": "^7.18.13",
+    "@babel/types": "^7.19.0",
     "@defichain/jellyfish-address": "^2.56.0",
     "@defichain/jellyfish-network": "^2.56.0",
     "@defichain/jellyfish-transaction": "^2.56.0",
@@ -44,7 +44,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
-    "react-number-format": "^4.9.3",
+    "react-number-format": "^4.9.4",
     "react-redux": "^8.0.2",
     "react-schemaorg": "^2.0.0",
     "recharts": "2.1.10",
