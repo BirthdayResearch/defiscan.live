@@ -6,6 +6,11 @@ labels:
     matcher:
       title: "^feat\\(.+\\): .+"
 
+  - label: kind/feature
+    sync: true
+    matcher:
+      title: "^feature\\(.+\\): .+"
+
   - label: kind/fix
     sync: true
     matcher:
@@ -108,7 +113,7 @@ labels:
 
 checks:
   - context: "Semantic Pull Request"
-    url: "https://github.com/DeFiCh/jellyfish/blob/main/.github/labeler.yml"
+    url: "https://github.com/JellyfishSDK/jellyfish/blob/main/.github/labeler.yml"
     description:
       success: Ready for review & merge.
       failure: "Missing semantic title or label for merge [kind(directory): title]"
