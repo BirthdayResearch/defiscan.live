@@ -24,7 +24,7 @@
     "@defichain/whale-api-client": "^2.58.0",
     "@floating-ui/react-dom": "^0.4.3",
     "@headlessui/react": "^1.7.0",
-    "@prismicio/client": "^6.6.1",
+    "@prismicio/client": "^6.7.1",
     "@prismicio/types": "^0.2.3",
     "@reduxjs/toolkit": "^1.8.2",
     "@tailwindcss/line-clamp": "^0.4.2",
