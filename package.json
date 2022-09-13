@@ -36,7 +36,7 @@
     "install": "^0.13.0",
     "lodash": "^4.17.21",
     "next": "^12.2.5",
-    "next-sitemap": "^3.1.7",
+    "next-sitemap": "^3.1.22",
     "nextjs-progressbar": "^0.0.14",
     "npm": "^8.19.1",
     "qrcode.react": "^3.1.0",
@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@cypress/code-coverage": "^3.10.0",
-    "@netlify/plugin-nextjs": "^4.21.2",
+    "@netlify/plugin-nextjs": "^4.23.1",
     "@testing-library/cypress": "^8.0.3",
     "@types/lodash": "^4.14.182",
     "@types/node": "^14.18.20",
