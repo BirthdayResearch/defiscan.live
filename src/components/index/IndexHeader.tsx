@@ -83,7 +83,6 @@ function Stats(): JSX.Element {
           value={stats?.price?.usd}
           decimalScale={2}
           prefix="$"
-          suffix=" USD"
         />
       </StatItem>
       <StatItem label="Total DFI Burned" testId="StatItem.totalDFIBurned">

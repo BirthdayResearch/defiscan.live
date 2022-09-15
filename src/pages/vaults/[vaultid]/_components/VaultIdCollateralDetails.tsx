@@ -10,6 +10,7 @@ import React from "react";
 import classNames from "classnames";
 import ReactNumberFormat from "react-number-format";
 import { EmptySection } from "@components/commons/sections/EmptySection";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 import { VaultNumberValues } from "../../_components/commons/VaultNumberValues";
 
 export function VaultIdCollateralDetails(props: {
@@ -171,10 +172,13 @@ function CollateralCard(props: {
             {usdAmount != null && (
               <div className="flex">
                 <span className="ml-0.5 mr-1">/</span>
-                <VaultNumberValues
-                  value={new BigNumber(usdAmount)}
-                  prefix="$"
-                />
+                <div className="flex justify-end items-center">
+                  <VaultNumberValues
+                    value={new BigNumber(usdAmount)}
+                    prefix="$"
+                  />
+                  <IconTooltip />
+                </div>
               </div>
             )}
           </div>

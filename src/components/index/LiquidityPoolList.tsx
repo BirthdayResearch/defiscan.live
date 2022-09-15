@@ -109,7 +109,7 @@ function LiquidityPoolCard(props: {
               thousandSeparator
               value={props.totalLiquidity}
               decimalScale={0}
-              suffix=" USD"
+              suffix=" USDT"
               data-testid="LiquidityCardStat.Liquidity.Value"
             />
           </LiquidityCardStat>

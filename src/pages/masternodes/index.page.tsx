@@ -50,7 +50,6 @@ export default function MasternodesPage({
             value={tvl?.masternodes}
             decimalScale={0}
             prefix="$"
-            suffix=" USD"
           />
         </StatItem>
         <StatItem label="0 Year Locked" testId="Masternodes.Stats.ZeroYearLock">

@@ -11,6 +11,7 @@ import classNames from "classnames";
 import BigNumber from "bignumber.js";
 import React from "react";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 import { LiquidatedVaultDerivedValues } from "../../utils/LiquidatedVaultDerivedValues";
 import { VaultHealthBar } from "../../_components/commons/VaultHealthBar";
 import { VaultNumberValues } from "../../_components/commons/VaultNumberValues";
@@ -127,34 +128,32 @@ function DesktopVaultDetailsRow(props: {
         </AddressLink>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="text-right">
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
+        <div className="flex justify-end items-center">
           <VaultNumberValues
-            value={props.liquidatedVaultDerivedValues?.loanValue}
+            value={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.loanValue
+                : new BigNumber(props.vault.loanValue)
+            }
             prefix="$"
             testId="DesktopVaultDetailsRow.TotalLoanValue"
           />
-        ) : (
-          <VaultNumberValues
-            value={new BigNumber(props.vault.loanValue)}
-            prefix="$"
-            testId="DesktopVaultDetailsRow.TotalLoanValue"
-          />
-        )}
+          <IconTooltip />
+        </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="text-right">
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
+        <div className="flex justify-end items-center">
           <VaultNumberValues
-            value={props.liquidatedVaultDerivedValues?.collateralValue}
+            value={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.collateralValue
+                : new BigNumber(props.vault.collateralValue)
+            }
             prefix="$"
             testId="DesktopVaultDetailsRow.TotalCollateralValue"
           />
-        ) : (
-          <VaultNumberValues
-            value={new BigNumber(props.vault.collateralValue)}
-            prefix="$"
-            testId="DesktopVaultDetailsRow.TotalCollateralValue"
-          />
-        )}
+          <IconTooltip />
+        </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="text-right">
         <VaultNumberValues
@@ -196,38 +195,36 @@ function MobileVaultDetails(props: {
         infoDesc="Total loan value (in USD) taken by the vault."
         testId="VaultDetailList.TotalLoanValue"
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
+        <div className="flex justify-end items-center">
           <VaultNumberValues
-            value={props.liquidatedVaultDerivedValues?.loanValue}
+            value={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.loanValue
+                : new BigNumber(props.vault.loanValue)
+            }
             prefix="$"
             testId="VaultDetailList.TotalLoanValue.Value"
           />
-        ) : (
-          <VaultNumberValues
-            value={new BigNumber(props.vault.loanValue)}
-            prefix="$"
-            testId="VaultDetailList.TotalLoanValue.Value"
-          />
-        )}
+          <IconTooltip />
+        </div>
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title="Total Collateral Value (USD)"
         infoDesc="Total value of tokens (in USD) deposited as collaterals in the vault."
         testId="VaultDetailList.TotalCollateralValue"
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
+        <div className="flex justify-end items-center">
           <VaultNumberValues
-            value={props.liquidatedVaultDerivedValues?.collateralValue}
+            value={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.collateralValue
+                : new BigNumber(props.vault.collateralValue)
+            }
             prefix="$"
             testId="VaultDetailList.TotalCollateralValue.Value"
           />
-        ) : (
-          <VaultNumberValues
-            value={new BigNumber(props.vault.collateralValue)}
-            prefix="$"
-            testId="VaultDetailList.TotalCollateralValue.Value"
-          />
-        )}
+          <IconTooltip />
+        </div>
       </VaultDetailsListItem>
       <VaultDetailsListItem
         title="Vault Interest Rate (APR)"

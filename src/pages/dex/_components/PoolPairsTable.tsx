@@ -55,7 +55,7 @@ export function PoolPairsTable({
     <OverflowTable>
       <OverflowTable.Header>
         <OverflowTable.Head title="Pair" />
-        <OverflowTable.Head title="Primary Token Price (USD)" alignRight>
+        <OverflowTable.Head title="Primary Token Price (USDT)" alignRight>
           <OverflowTable.SortButton
             columnKey={SortKeys.PRIMARY_TOKEN_PRICE}
             onClick={() => changeSort(SortKeys.PRIMARY_TOKEN_PRICE)}

@@ -50,7 +50,7 @@ export function HeaderCountBar(props: { className: string }): JSX.Element {
               displayType="text"
               decimalScale={0}
               thousandSeparator
-              suffix=" USD"
+              prefix="$"
             />
           ) : (
             "..."

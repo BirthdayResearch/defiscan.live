@@ -21,6 +21,7 @@ import classNames from "classnames";
 import BigNumber from "bignumber.js";
 import { CgSpinner } from "react-icons/cg";
 import ReactNumberFormat from "react-number-format";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 
 interface PriceGraphProps {
   price: PriceTicker;
@@ -309,15 +310,17 @@ function TooltipDialog({
       <Row
         title="Price"
         content={
-          <ReactNumberFormat
-            displayType="text"
-            thousandSeparator
-            value={feed.aggregated.amount}
-            decimalScale={2}
-            prefix="$"
-            suffix=" USD"
-            data-testid="LiquidityCardStat.Liquidity.Value"
-          />
+          <div className="flex items-center">
+            <ReactNumberFormat
+              displayType="text"
+              thousandSeparator
+              value={feed.aggregated.amount}
+              decimalScale={2}
+              prefix="$"
+              data-testid="LiquidityCardStat.Liquidity.Value"
+            />
+            <IconTooltip />
+          </div>
         }
       />
       <Row

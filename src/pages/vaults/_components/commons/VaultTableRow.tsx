@@ -9,6 +9,7 @@ import React from "react";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import BigNumber from "bignumber.js";
 import ReactNumberFormat from "react-number-format";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 import { LiquidatedVaultDerivedValues } from "../../utils/LiquidatedVaultDerivedValues";
 import { VaultStatus } from "./VaultStatus";
 import { VaultNumberValues } from "./VaultNumberValues";
@@ -56,47 +57,46 @@ export function VaultTableRow(props: VaultTableRowProps): JSX.Element {
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <div className="flex justify-end" data-testid="VaultRow.LoansValue">
-          {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
-            <VaultNumberValues
-              value={props.liquidatedVaultDerivedValues?.loanValue}
-              prefix="$"
-            />
-          ) : (
-            <VaultNumberValues
-              value={new BigNumber(props.vault.loanValue)}
-              prefix="$"
-            />
-          )}
+        <div
+          className="flex justify-end items-center"
+          data-testid="VaultRow.LoansValue"
+        >
+          <VaultNumberValues
+            value={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.loanValue
+                : new BigNumber(props.vault.loanValue)
+            }
+            prefix="$"
+          />
+          <IconTooltip />
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className="flex justify-end" data-testid="VaultRow.Collaterals">
-          {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
-            <VaultTokenSymbols
-              tokens={props.liquidatedVaultDerivedValues?.collateralAmounts}
-            />
-          ) : (
-            <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
-          )}
+          <VaultTokenSymbols
+            tokens={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.collateralAmounts
+                : props.vault.collateralAmounts
+            }
+          />
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div
-          className="flex justify-end"
+          className="flex justify-end items-center"
           data-testid="VaultRow.CollateralValue"
         >
-          {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
-            <VaultNumberValues
-              value={props.liquidatedVaultDerivedValues?.collateralValue}
-              prefix="$"
-            />
-          ) : (
-            <VaultNumberValues
-              value={new BigNumber(props.vault.collateralValue)}
-              prefix="$"
-            />
-          )}
+          <VaultNumberValues
+            value={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.collateralValue
+                : new BigNumber(props.vault.collateralValue)
+            }
+            prefix="$"
+          />
+          <IconTooltip />
         </div>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="text-right">
@@ -104,28 +104,18 @@ export function VaultTableRow(props: VaultTableRowProps): JSX.Element {
           className="flex flex-row justify-end"
           data-testid="VaultRow.CollateralizationRatio"
         >
-          {(() => {
-            if (props.vault.state === LoanVaultState.IN_LIQUIDATION) {
-              return (
-                <VaultCollateralizationRatio
-                  collateralizationRatio={props.liquidatedVaultDerivedValues?.collateralRatio.toFixed(
+          <VaultCollateralizationRatio
+            collateralizationRatio={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.collateralRatio.toFixed(
                     0,
                     BigNumber.ROUND_HALF_UP
-                  )}
-                  loanScheme={props.vault.loanScheme}
-                  vaultState={props.vault.state}
-                />
-              );
-            } else {
-              return (
-                <VaultCollateralizationRatio
-                  collateralizationRatio={props.vault.informativeRatio}
-                  loanScheme={props.vault.loanScheme}
-                  vaultState={props.vault.state}
-                />
-              );
+                  )
+                : props.vault.informativeRatio
             }
-          })()}
+            loanScheme={props.vault.loanScheme}
+            vaultState={props.vault.state}
+          />
           <span>&nbsp;/&nbsp;</span>
           <ReactNumberFormat
             value={new BigNumber(props.vault.loanScheme.minColRatio).toFixed(2)}

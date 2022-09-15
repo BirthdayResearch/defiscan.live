@@ -11,6 +11,7 @@ import classNames from "classnames";
 import ReactNumberFormat from "react-number-format";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { CardList } from "@components/commons/CardList";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 import { VaultNumberValues } from "../../_components/commons/VaultNumberValues";
 import { LoanTotalInterestRate } from "./LoanTotalInterestRate";
 
@@ -163,7 +164,10 @@ function VaultLoansTableRow(props: {
         {loanUsdAmount === undefined || interestUsdAmount === undefined ? (
           "N/A"
         ) : (
-          <VaultNumberValues value={loanUsdAmount} prefix="$" />
+          <div className="flex justify-end items-center">
+            <VaultNumberValues value={loanUsdAmount} prefix="$" />
+            <IconTooltip />
+          </div>
         )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
@@ -226,7 +230,10 @@ function VaultLoanDetailsCard(props: {
           {loanUsdAmount === undefined || interestUsdAmount === undefined ? (
             "N/A"
           ) : (
-            <VaultNumberValues value={loanUsdAmount} prefix="$" />
+            <div className="flex justify-end items-center">
+              <VaultNumberValues value={loanUsdAmount} prefix="$" />
+              <IconTooltip />
+            </div>
           )}
         </CardList.ListItem>
 

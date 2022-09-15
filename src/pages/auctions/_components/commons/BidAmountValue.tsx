@@ -55,7 +55,6 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
             thousandSeparator
             decimalScale={8}
             prefix="$"
-            suffix={props.valueSuffix! ? " USD" : ""}
             displayType="text"
           />
         )}
