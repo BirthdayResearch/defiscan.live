@@ -9,6 +9,7 @@ import { MdCheck } from "react-icons/md";
 import NumberFormat from "react-number-format";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 import { isActive } from "./OracleFeed";
 
 interface PriceOracleTableProps {
@@ -30,8 +31,8 @@ export function OracleTable({
         <OverflowTable.Header>
           <OverflowTable.Head title="DATE LAST UPDATED" />
           <OverflowTable.Head title="ORACLE" />
-          <OverflowTable.Head title="PRICE" />
-          <OverflowTable.Head title="AGGREGATED PRICE" />
+          <OverflowTable.Head title="PRICE" alignRight />
+          <OverflowTable.Head title="AGGREGATED PRICE" alignRight />
           <OverflowTable.Head title="TXID" />
         </OverflowTable.Header>
         {oracles
@@ -85,22 +86,28 @@ function OracleFeed(props: {
           </div>
         </OverflowTable.Cell>
         <OverflowTable.Cell className="align-middle">
-          <NumberFormat
-            value={feed.amount}
-            displayType="text"
-            thousandSeparator
-            decimalScale={2}
-            prefix="$"
-          />
+          <div className="flex items-center justify-end">
+            <NumberFormat
+              value={feed.amount}
+              displayType="text"
+              thousandSeparator
+              decimalScale={2}
+              prefix="$"
+            />
+            <IconTooltip />
+          </div>
         </OverflowTable.Cell>
         <OverflowTable.Cell className="align-middle">
-          <NumberFormat
-            value={price.price.aggregated.amount}
-            displayType="text"
-            thousandSeparator
-            decimalScale={2}
-            prefix="$"
-          />
+          <div className="flex items-center justify-end">
+            <NumberFormat
+              value={price.price.aggregated.amount}
+              displayType="text"
+              thousandSeparator
+              decimalScale={2}
+              prefix="$"
+            />
+            <IconTooltip />
+          </div>
         </OverflowTable.Cell>
         <OverflowTable.Cell className="align-middle md:w-1/3 md:break-all">
           <TxIdLink txid={feed.txid} />

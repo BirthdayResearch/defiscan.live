@@ -8,6 +8,7 @@ import { format, formatDistanceToNow } from "date-fns";
 import NumberFormat from "react-number-format";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { getNativeIcon } from "@components/icons/assets/tokens";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 import { isActive } from "./OracleFeed";
 
 interface PriceTickerDetailProps {
@@ -53,13 +54,16 @@ export function OracleTickerDetail({
           description={`Trusted price is aggregated from ${price.price.aggregated.oracles.active}/${price.price.aggregated.oracles.total} active pricing oracles.`}
         />
         <h2 className="text-4xl font-bold dark:text-gray-100">
-          <NumberFormat
-            value={price.price.aggregated.amount}
-            displayType="text"
-            thousandSeparator
-            decimalScale={2}
-            suffix={` ${price.price.currency}`}
-          />
+          <div className="flex items-center">
+            <NumberFormat
+              value={price.price.aggregated.amount}
+              displayType="text"
+              thousandSeparator
+              decimalScale={2}
+              prefix="$"
+            />
+            <IconTooltip />
+          </div>
         </h2>
       </div>
 

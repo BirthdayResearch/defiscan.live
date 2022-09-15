@@ -295,16 +295,18 @@ function TooltipDialog({
 
   function Row(props: { title: string; content: any }): JSX.Element {
     return (
-      <div className="flex flex-wrap mt-1.5 text-gray-900">
-        <div className="w-full text-gray-500 text-sm">{props.title}</div>
-        <div className="font-medium">{props.content}</div>
+      <div className="flex flex-wrap mt-1.5 text-gray-900 ">
+        <div className="w-full text-gray-500 text-sm dark:text-gray-400 dark:opacity-100">
+          {props.title}
+        </div>
+        <div className="font-medium dark:text-gray-100">{props.content}</div>
       </div>
     );
   }
 
   return (
-    <div className="table px-4 py-3 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5">
-      <div className="font-medium text-gray-900">
+    <div className="table px-4 py-3 rounded shadow-lg bg-white ring-1 ring-gray-500 ring-opacity-5 dark:bg-gray-900">
+      <div className="font-medium text-gray-900 dark:text-gray-100">
         {format(feed.aggregated.time.start * 1000, "MMM dd, hh:mm:ss aa")}
       </div>
       <Row
@@ -313,6 +315,7 @@ function TooltipDialog({
           <div className="flex items-center">
             <ReactNumberFormat
               displayType="text"
+              className="dark:text-gray-100"
               thousandSeparator
               value={feed.aggregated.amount}
               decimalScale={2}
