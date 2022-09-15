@@ -107,7 +107,7 @@ context("/ on macbook-16", () => {
         .should("have.text", "Liquidity");
       cy.findByTestId("LiquidityCardStat.Liquidity.Value")
         .should("be.visible")
-        .contains(/^\d{1,3}(,\d{3})* USD$/);
+        .contains(/^\d{1,3}(,\d{3})* USDT$/);
 
       cy.findByTestId("LiquidityCardStat.Ratio.Label")
         .should("be.visible")
@@ -231,7 +231,7 @@ context("/ on iphone-x", () => {
         .should("have.text", "Liquidity");
       cy.findByTestId("LiquidityCardStat.Liquidity.Value")
         .should("be.visible")
-        .contains(/^\d{1,3}(,\d{3})* USD$/);
+        .contains(/^\d{1,3}(,\d{3})* USDT$/);
 
       cy.findByTestId("LiquidityCardStat.Ratio.Label")
         .should("be.visible")
