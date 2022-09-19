@@ -25,7 +25,6 @@ export function VaultStatsBar(): JSX.Element {
           value={stats.loan.value?.loan}
           decimalScale={0}
           prefix="$"
-          suffix=" USD"
         />
       </StatItem>
       <StatItem
@@ -38,7 +37,6 @@ export function VaultStatsBar(): JSX.Element {
           value={stats.loan.value?.collateral}
           decimalScale={0}
           prefix="$"
-          suffix=" USD"
         />
       </StatItem>
       {stats.loan.value?.loan !== undefined &&

@@ -68,7 +68,7 @@ export default function AuctionsPage({
                     alignRight
                   />
                   <OverflowTable.Head
-                    title="Collateral Value (USD)"
+                    title="Collateral Value (USDT)"
                     testId="AuctionTable.CollateralValue"
                     alignRight
                   />

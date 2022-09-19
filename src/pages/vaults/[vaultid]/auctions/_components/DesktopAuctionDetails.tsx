@@ -171,7 +171,6 @@ function DesktopCollateralListItem(props: {
               displayType="text"
               decimalScale={2}
               prefix="$"
-              suffix=" USD"
               fixedDecimalScale
               thousandSeparator
               data-testid="DesktopCollateralListItem.Value"

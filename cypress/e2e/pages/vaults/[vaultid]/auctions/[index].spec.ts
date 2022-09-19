@@ -42,7 +42,7 @@ context("/vaults/[vaultid]/auctions/[index] on desktop", () => {
         .contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/);
       cy.findByTestId("BidAmountValue.MinBidValue")
         .should("be.visible")
-        .contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/);
+        .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
     });
 
     cy.findAllByTestId("DesktopAuctionDetails.MinStartingBid").within(() => {
@@ -54,7 +54,7 @@ context("/vaults/[vaultid]/auctions/[index] on desktop", () => {
         .contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/);
       cy.findByTestId("BidAmountValue.MinBidValue")
         .should("be.visible")
-        .contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/);
+        .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
     });
 
     cy.findAllByTestId("DesktopAuctionDetails.VaultID").within(() => {
@@ -81,7 +81,7 @@ context("/vaults/[vaultid]/auctions/[index] on desktop", () => {
             .contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/);
           cy.findByTestId("DesktopCollateralListItem.Value")
             .should("be.visible")
-            .contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/);
+            .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
         });
       }
     );
@@ -132,7 +132,7 @@ context("/vaults/[vaultid]/auctions/[index] on mobile", () => {
         .contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/);
       cy.findByTestId("BidAmountValue.MinBidValue")
         .should("be.visible")
-        .contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/);
+        .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
     });
 
     cy.findAllByTestId("MobileAuctionDetails.MinStartingBid").within(() => {
@@ -144,7 +144,7 @@ context("/vaults/[vaultid]/auctions/[index] on mobile", () => {
         .contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/);
       cy.findByTestId("BidAmountValue.MinBidValue")
         .should("be.visible")
-        .contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/);
+        .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
     });
 
     cy.findAllByTestId("MobileAuctionDetails.VaultID").within(() => {
@@ -174,7 +174,7 @@ context("/vaults/[vaultid]/auctions/[index] on mobile", () => {
             .contains(/^\d{1,3}(,\d{3})*(\.\d+)$/);
           cy.findByTestId("MobileCollateralListItem.Value")
             .should("be.visible")
-            .contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/);
+            .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
         });
       }
     );

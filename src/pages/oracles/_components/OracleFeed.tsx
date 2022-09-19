@@ -7,6 +7,7 @@ import { IoAlertCircleOutline, IoCheckmarkCircle } from "react-icons/io5";
 import NumberFormat from "react-number-format";
 import { PriceTicker } from "@defichain/whale-api-client/dist/api/prices";
 import { getNativeIcon } from "@components/icons/assets/tokens";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 
 export interface PriceFeedProps {
   price: PriceTicker;
@@ -46,9 +47,10 @@ export function OracleFeed(props: PriceFeedProps): JSX.Element {
                   displayType="text"
                   thousandSeparator
                   decimalScale={2}
-                  suffix={` ${price.currency}`}
+                  prefix="$"
                 />
               </h3>
+              <IconTooltip />
               <div>
                 {isActive(price.block) ? (
                   <HoverPopover popover="Verified by oracles">

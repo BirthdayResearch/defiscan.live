@@ -41,7 +41,7 @@ export function VaultAuctions(props: {
                 className="lg:w-52"
               />
               <OverflowTable.Head
-                title="Collateral Value (USD)"
+                title="Collateral Value (USDT)"
                 testId="AuctionTable.CollateralValue"
                 alignRight
               />

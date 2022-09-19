@@ -155,7 +155,7 @@ export function PoolPairsCard({
 
       <CardList.List>
         <CardList.ListItem
-          title="Primary Token Price (USD)"
+          title="Primary Token Price (USDT)"
           titleClassNames="text-sm"
           testId="PoolPairsCard.CardList.TokenPrice"
         >

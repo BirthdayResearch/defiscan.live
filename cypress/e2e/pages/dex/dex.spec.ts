@@ -21,7 +21,9 @@ context("/dex on macbook-16", () => {
       cy.wrap(ele).findByText("Pair").should("be.visible");
       cy.wrap(ele).findByText("Total Liquidity").should("be.visible");
       cy.wrap(ele).findByText("Volume (24H)").should("be.visible");
-      cy.wrap(ele).findByText("Primary Token Price (USD)").should("be.visible");
+      cy.wrap(ele)
+        .findByText("Primary Token Price (USDT)")
+        .should("be.visible");
       cy.wrap(ele).findByText("APR").should("be.visible");
     });
   });
@@ -74,7 +76,7 @@ context("/dex on macbook-16", () => {
         .findByTestId("OverflowTable.SortButton")
         .should("exist");
       cy.wrap(ele)
-        .findByText("Primary Token Price (USD)")
+        .findByText("Primary Token Price (USDT)")
         .findByTestId("OverflowTable.SortButton")
         .should("exist");
     });
@@ -155,7 +157,7 @@ context("/dex on macbook-16", () => {
     });
 
     cy.findByTestId("OverflowTable.Header").within(() => {
-      cy.findByText("Primary Token Price (USD)")
+      cy.findByText("Primary Token Price (USDT)")
         .findByTestId("OverflowTable.SortButton")
         .click();
     });
@@ -221,7 +223,7 @@ context("/dex on iphone-x", () => {
       cy.findByTestId("PoolPairsCard.CardList.TokenPrice").within(() => {
         cy.findByTestId("CardList.Row.Title")
           .should("be.visible")
-          .should("have.text", "Primary Token Price (USD)");
+          .should("have.text", "Primary Token Price (USDT)");
         cy.findByTestId("CardList.Row.Child").should("be.visible");
       });
       cy.findByTestId("PoolPairsCard.CardList.APR").within(() => {

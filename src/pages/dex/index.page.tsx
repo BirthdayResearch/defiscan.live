@@ -62,7 +62,6 @@ export default function DexPage({
             value={tvl}
             decimalScale={0}
             prefix="$"
-            suffix=" USD"
           />
         </StatItem>
         <StatItem label="Total 24H Volume" testId="Dex.Stats.24hVolume">
@@ -72,7 +71,6 @@ export default function DexPage({
             value={aggregate.volume.total24h.toString()}
             decimalScale={0}
             prefix="$"
-            suffix=" USD"
           />
         </StatItem>
       </StatsBar>

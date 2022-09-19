@@ -8,6 +8,7 @@ import BigNumber from "bignumber.js";
 import ReactNumberFormat from "react-number-format";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { CardList } from "@components/commons/CardList";
+import { IconTooltip } from "@components/commons/IconsTooltip";
 import { LiquidatedVaultDerivedValues } from "../utils/LiquidatedVaultDerivedValues";
 import { VaultStatus } from "./commons/VaultStatus";
 import { VaultTokenSymbols } from "./commons/VaultTokenSymbols";
@@ -58,13 +59,13 @@ function VaultMobileDetails(props: {
   return (
     <CardList.List>
       <CardList.ListItem title="Loans" testId="VaultMobileCard.Loans">
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
-          <VaultTokenSymbols
-            tokens={props.liquidatedVaultDerivedValues?.loanAmounts}
-          />
-        ) : (
-          <VaultTokenSymbols tokens={props.vault.loanAmounts} />
-        )}
+        <VaultTokenSymbols
+          tokens={
+            props.vault.state === LoanVaultState.IN_LIQUIDATION
+              ? props.liquidatedVaultDerivedValues?.loanAmounts
+              : props.vault.loanAmounts
+          }
+        />
       </CardList.ListItem>
 
       <CardList.ListItem
@@ -72,27 +73,27 @@ function VaultMobileDetails(props: {
         infoDesc="Loan token(s) and value (in USD) taken by a vault."
         testId="VaultMobileCard.LoansValue"
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
+        <div className="flex justify-end items-center">
           <VaultNumberValues
-            value={props.liquidatedVaultDerivedValues?.loanValue}
+            value={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.loanValue
+                : new BigNumber(props.vault.loanValue)
+            }
             prefix="$"
           />
-        ) : (
-          <VaultNumberValues
-            value={new BigNumber(props.vault.loanValue)}
-            prefix="$"
-          />
-        )}
+          <IconTooltip />
+        </div>
       </CardList.ListItem>
 
       <CardList.ListItem title="Collateral" testId="VaultMobileCard.Collateral">
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
-          <VaultTokenSymbols
-            tokens={props.liquidatedVaultDerivedValues?.collateralAmounts}
-          />
-        ) : (
-          <VaultTokenSymbols tokens={props.vault.collateralAmounts} />
-        )}
+        <VaultTokenSymbols
+          tokens={
+            props.vault.state === LoanVaultState.IN_LIQUIDATION
+              ? props.liquidatedVaultDerivedValues?.collateralAmounts
+              : props.vault.collateralAmounts
+          }
+        />
       </CardList.ListItem>
 
       <CardList.ListItem
@@ -100,17 +101,17 @@ function VaultMobileDetails(props: {
         infoDesc="Value of tokens (in USD) deposited as collateral in a vault."
         testId="VaultMobileCard.CollateralValue"
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
+        <div className="flex justify-end items-center">
           <VaultNumberValues
-            value={props.liquidatedVaultDerivedValues?.collateralValue}
+            value={
+              props.vault.state === LoanVaultState.IN_LIQUIDATION
+                ? props.liquidatedVaultDerivedValues?.collateralValue
+                : new BigNumber(props.vault.collateralValue)
+            }
             prefix="$"
           />
-        ) : (
-          <VaultNumberValues
-            value={new BigNumber(props.vault.collateralValue)}
-            prefix="$"
-          />
-        )}
+          <IconTooltip />
+        </div>
       </CardList.ListItem>
 
       <CardList.ListItem
@@ -118,23 +119,19 @@ function VaultMobileDetails(props: {
         infoDesc="Percentage of collaterals deposited in a vault in relation to the amount of loan taken."
         testId="VaultMobileCard.CollateralizationRatio"
       >
-        {props.vault.state === LoanVaultState.IN_LIQUIDATION ? (
-          <VaultCollateralizationRatio
-            collateralizationRatio={props.liquidatedVaultDerivedValues?.collateralRatio.toFixed(
-              0,
-              BigNumber.ROUND_HALF_UP
-            )}
-            loanScheme={props.vault.loanScheme}
-            vaultState={props.vault.state}
-          />
-        ) : (
-          <VaultCollateralizationRatio
-            collateralizationRatio={props.vault.informativeRatio}
-            loanScheme={props.vault.loanScheme}
-            vaultState={props.vault.state}
-            testId={`VaultRow.${props.vault.vaultId}.CollateralizationRatio`}
-          />
-        )}
+        <VaultCollateralizationRatio
+          collateralizationRatio={
+            props.vault.state === LoanVaultState.IN_LIQUIDATION
+              ? props.liquidatedVaultDerivedValues?.collateralRatio.toFixed(
+                  0,
+                  BigNumber.ROUND_HALF_UP
+                )
+              : props.vault.informativeRatio
+          }
+          loanScheme={props.vault.loanScheme}
+          vaultState={props.vault.state}
+          testId={`VaultRow.${props.vault.vaultId}.CollateralizationRatio`}
+        />
       </CardList.ListItem>
 
       <CardList.ListItem
