@@ -30,7 +30,7 @@ context("/auctions on desktop", () => {
       .should("have.text", "Collateral For Auction");
     cy.findByTestId("AuctionTable.CollateralValue")
       .should("be.visible")
-      .should("have.text", "Collateral Value (USD)");
+      .should("have.text", "Collateral Value (USDT)");
     cy.findByTestId("AuctionTable.MinNextBid")
       .should("be.visible")
       .should("have.text", "Min. Next Bid");
@@ -107,7 +107,7 @@ context("/auctions on mobile", () => {
             .contains(/^\d{1,3}(,\d{3})*(\.\d+) [a-zA-Z]+$/);
           cy.findByTestId("BidAmountValue.MinBidValue")
             .should("be.visible")
-            .contains(/^\$\d{1,3}(,\d{3})*(\.\d+) USD$/);
+            .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
         });
 
         cy.findAllByTestId(
@@ -125,7 +125,7 @@ context("/auctions on mobile", () => {
           () => {
             cy.findByTestId("CardList.Row.Title")
               .should("be.visible")
-              .should("have.text", "Collateral Value (USD)");
+              .should("have.text", "Collateral Value (USDT)");
             cy.findByTestId("MobileAuctionDetailCard.CollateralValue.Value")
               .should("be.visible")
               .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);

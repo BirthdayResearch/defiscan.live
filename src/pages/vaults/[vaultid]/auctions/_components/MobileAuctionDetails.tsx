@@ -180,7 +180,6 @@ function MobileCollateralListItem(props: {
               displayType="text"
               decimalScale={2}
               prefix="$"
-              suffix=" USDT"
               fixedDecimalScale
               thousandSeparator
               data-testid="MobileCollateralListItem.Value"
