@@ -1,5 +1,6 @@
 import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
 import {
+  CollateralToken,
   LoanVaultState,
   LoanVaultTokenAmount,
 } from "@defichain/whale-api-client/dist/api/loan";
@@ -11,12 +12,14 @@ import classNames from "classnames";
 import ReactNumberFormat from "react-number-format";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { IconTooltip } from "@components/commons/IconsTooltip";
+import { getActivePrice } from "pages/vaults/utils/ActivePrice";
 import { VaultNumberValues } from "../../_components/commons/VaultNumberValues";
 
 export function VaultIdCollateralDetails(props: {
-  collateralValue: string;
+  totalCollateralValue: string;
   vaultState: LoanVaultState;
-  collaterals: LoanVaultTokenAmount[];
+  collateralAmounts: LoanVaultTokenAmount[];
+  collateralTokens: CollateralToken[];
 }): JSX.Element {
   return (
     <>
@@ -37,19 +40,24 @@ export function VaultIdCollateralDetails(props: {
           />
         </div>
 
-        {props.collaterals.length === 0 ? (
+        {props.collateralAmounts.length === 0 ? (
           <EmptySection message="There are no collaterals in the vault at this time" />
         ) : (
           <div
             className="mt-3 grid gap-2 justify-between grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 justify-items-stretch"
             data-testid="CollateralDetailsDesktop.Cards"
           >
-            {props.collaterals.map((col) => (
+            {props.collateralAmounts.map((col) => (
               <CollateralCard
-                collateralValue={props.collateralValue}
+                vaultTotalCollateralValue={props.totalCollateralValue}
                 vaultState={props.vaultState}
                 col={col}
                 key={col.id}
+                priceFactor={
+                  props.collateralTokens.find(
+                    (token) => token.token.id === col.id
+                  )?.factor ?? "1"
+                }
               />
             ))}
           </div>
@@ -61,19 +69,24 @@ export function VaultIdCollateralDetails(props: {
         className="block md:hidden"
         testId="VaultCollapsibleSection.CollateralDetails"
       >
-        {props.collaterals.length === 0 ? (
+        {props.collateralAmounts.length === 0 ? (
           <EmptySection message="There are no collaterals in the vault at this time" />
         ) : (
           <div
             className="mt-4 mb-8 grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
             data-testid="CollateralDetailsMobile.Cards"
           >
-            {props.collaterals.map((col) => (
+            {props.collateralAmounts.map((col) => (
               <CollateralCard
-                collateralValue={props.collateralValue}
+                vaultTotalCollateralValue={props.totalCollateralValue}
                 vaultState={props.vaultState}
                 col={col}
                 key={col.id}
+                priceFactor={
+                  props.collateralTokens.find(
+                    (token) => token.token.id === col.id
+                  )?.factor ?? "1"
+                }
               />
             ))}
           </div>
@@ -84,29 +97,25 @@ export function VaultIdCollateralDetails(props: {
 }
 
 function CollateralCard(props: {
-  collateralValue: string;
+  vaultTotalCollateralValue: string;
   vaultState: LoanVaultState;
   col: LoanVaultTokenAmount;
+  priceFactor: string;
 }): JSX.Element {
   const TokenSymbol = getAssetIcon(props.col.symbol);
-
-  let usdAmount =
-    props.col?.activePrice?.active != null
-      ? new BigNumber(props.col.activePrice.active.amount).multipliedBy(
-          new BigNumber(props.col.amount)
-        )
-      : undefined;
-  usdAmount =
-    props.col.symbol === "DUSD" ? new BigNumber(props.col.amount) : usdAmount;
-
-  let compositionPercentage =
-    usdAmount != null
-      ? usdAmount.div(new BigNumber(props.collateralValue))
-      : undefined;
-  compositionPercentage =
-    props.col.symbol === "DUSD"
-      ? compositionPercentage?.multipliedBy(0.99)
-      : compositionPercentage;
+  const collateralPrice = getActivePrice(
+    props.col.symbol,
+    props.col.activePrice,
+    props.priceFactor,
+    "ACTIVE",
+    "COLLATERAL"
+  );
+  const collateralValue = new BigNumber(props.col.amount).multipliedBy(
+    collateralPrice
+  );
+  const compositionPercentage = collateralValue
+    .dividedBy(props.vaultTotalCollateralValue)
+    .multipliedBy(100);
 
   return (
     <div
@@ -127,7 +136,9 @@ function CollateralCard(props: {
             {props.col.symbol === "DUSD" ? (
               <InfoHoverPopover
                 className="ml-1"
-                description="99.00% collateral factor"
+                description={`${new BigNumber(props.priceFactor)
+                  .multipliedBy(100)
+                  .toFixed(2)}% collateral factor`}
                 placement="top"
               />
             ) : (
@@ -137,10 +148,7 @@ function CollateralCard(props: {
         </div>
         {compositionPercentage != null && (
           <div className="font-medium text-gray-900 dark:text-gray-400">
-            <VaultNumberValues
-              value={compositionPercentage.multipliedBy(100)}
-              suffix="%"
-            />
+            <VaultNumberValues value={compositionPercentage} suffix="%" />
           </div>
         )}
       </div>
@@ -169,12 +177,12 @@ function CollateralCard(props: {
             thousandSeparator
           />
           <div className="text-sm text-gray-500">
-            {usdAmount != null && (
+            {collateralPrice != null && (
               <div className="flex">
                 <span className="ml-0.5 mr-1">/</span>
                 <div className="flex justify-end items-center">
                   <VaultNumberValues
-                    value={new BigNumber(usdAmount)}
+                    value={new BigNumber(collateralPrice)}
                     prefix="$"
                   />
                   <IconTooltip />

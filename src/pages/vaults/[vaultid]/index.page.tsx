@@ -46,9 +46,10 @@ export default function VaultIdPage(
         ) : (
           <>
             <VaultIdCollateralDetails
-              collateralValue={props.vault.collateralValue}
+              totalCollateralValue={props.vault.collateralValue}
               vaultState={props.vault.state}
-              collaterals={props.vault.collateralAmounts}
+              collateralAmounts={props.vault.collateralAmounts}
+              collateralTokens={props.collateralTokens}
             />
             <VaultIdLoansDetails
               loans={props.vault.loanAmounts}
