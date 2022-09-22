@@ -2,10 +2,8 @@ import {
   LoanVaultTokenAmount,
   CollateralToken,
 } from "@defichain/whale-api-client/dist/api/loan";
-import { ActivePrice } from "@defichain/whale-api-client/dist/api/prices";
 import BigNumber from "bignumber.js";
-
-type ActivePriceType = "ACTIVE" | "NEXT";
+import { getActivePrice } from "./ActivePrice";
 
 export function useNextCollateralizationRatio(
   collateralAmounts: LoanVaultTokenAmount[],
@@ -43,21 +41,4 @@ export function useNextCollateralizationRatio(
     ?.reduce((prev, next) => prev.plus(next))
     .dividedBy(loans?.reduce((prev, next) => prev.plus(next)))
     .multipliedBy(100);
-}
-
-// oracle prices
-export function getActivePrice(
-  symbol: string,
-  activePrice?: ActivePrice,
-  priceFactor: string = "1",
-  type: ActivePriceType = "ACTIVE"
-): string {
-  if (symbol === "DUSD") {
-    return new BigNumber("1").multipliedBy(priceFactor).toFixed(8);
-  }
-  return (
-    (type === "ACTIVE"
-      ? activePrice?.active?.amount
-      : activePrice?.next?.amount) ?? "0"
-  );
 }
