@@ -56,6 +56,7 @@ export function getAssetIcon(
 ): (props: SVGProps<SVGSVGElement>) => JSX.Element {
   const Icon = mapping[`d${symbol}`];
   if (Icon === undefined) {
+    // if its a loan token
     return _TokenDefault(symbol);
   }
   return Icon;
