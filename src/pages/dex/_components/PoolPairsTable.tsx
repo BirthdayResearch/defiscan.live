@@ -29,7 +29,10 @@ export function PoolPairsTable({
   const { getTokenPrice } = useTokenPrice();
 
   const poolPairsPrices = poolPairs.map((pair) => {
-    const tokenPrice = getTokenPrice(pair.tokenA.symbol, new BigNumber(1));
+    const tokenPrice = getTokenPrice(
+      pair.tokenB.symbol,
+      new BigNumber(pair.priceRatio.ba)
+    );
     return {
       poolPair: pair,
       tokenPrice: tokenPrice,
