@@ -63,7 +63,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/jellyfishsdk/whale-api:2.61.0
+    image: ghcr.io/jellyfishsdk/whale-api:2.64.0
     depends_on:
       - defi-blockchain
     ports:
