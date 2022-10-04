@@ -202,6 +202,15 @@ context("<Footer/> on iphone-x", () => {
         .should("have.attr", "href", "https://discord.com/invite/py55egyaGy")
         .should("be.visible")
         .should("have.text", "Discord");
+
+      cy.findByTestId("FooterSectionSocial.CoinMarketCap")
+        .should(
+          "have.attr",
+          "href",
+          "https://coinmarketcap.com/community/profile/DeFiChain/"
+        )
+        .should("be.visible")
+        .should("have.text", "CoinMarketCap");
     });
   });
 

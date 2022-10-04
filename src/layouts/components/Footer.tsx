@@ -16,6 +16,7 @@ import { NetlifyLightLogo } from "@components/icons/NetlifyLightLogo";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
 import { HoverPopover } from "@components/commons/popover/HoverPopover";
+import { CMCLogo } from "@components/icons/CMCLogo";
 
 export function Footer(): JSX.Element {
   return (
@@ -129,6 +130,13 @@ function FooterSectionSocial(): JSX.Element {
           testId="FooterSectionSocial.Discord"
         >
           <FaDiscord size={24} />
+        </FooterSocialRow>
+        <FooterSocialRow
+          url="https://coinmarketcap.com/community/profile/DeFiChain/"
+          text="CoinMarketCap"
+          testId="FooterSectionSocial.CoinMarketCap"
+        >
+          <CMCLogo size={24} />
         </FooterSocialRow>
       </div>
     </section>
