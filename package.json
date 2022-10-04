@@ -36,7 +36,7 @@
     "install": "^0.13.0",
     "lodash": "^4.17.21",
     "next": "^12.3.1",
-    "next-sitemap": "^3.1.22",
+    "next-sitemap": "^3.1.23",
     "nextjs-progressbar": "^0.0.14",
     "npm": "^8.19.2",
     "qrcode.react": "^3.1.0",
