@@ -15,7 +15,7 @@ context("<Footer/> on macbook-16", () => {
 
       cy.findByTestId("FooterSectionSocial.div")
         .children()
-        .should("have.length", 8);
+        .should("have.length", 9);
 
       cy.findByTestId("FooterSectionSocial.Twitter")
         .should("have.attr", "href", "https://twitter.com/defichain")
@@ -64,6 +64,15 @@ context("<Footer/> on macbook-16", () => {
         .should("have.attr", "href", "https://discord.com/invite/py55egyaGy")
         .should("be.visible")
         .should("have.text", "Discord");
+
+      cy.findByTestId("FooterSectionSocial.CoinMarketCap")
+        .should(
+          "have.attr",
+          "href",
+          "https://coinmarketcap.com/community/profile/DeFiChain/"
+        )
+        .should("be.visible")
+        .should("have.text", "CoinMarketCap");
     });
   });
 
@@ -153,7 +162,7 @@ context("<Footer/> on iphone-x", () => {
 
       cy.findByTestId("FooterSectionSocial.div")
         .children()
-        .should("have.length", 8);
+        .should("have.length", 9);
 
       cy.findByTestId("FooterSectionSocial.Twitter")
         .should("have.attr", "href", "https://twitter.com/defichain")
