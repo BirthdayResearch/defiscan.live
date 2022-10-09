@@ -50,7 +50,7 @@ services:
       -greatworldheight=14
 
   defi-playground:
-    image: ghcr.io/jellyfishsdk/playground-api:2.64.0
+    image: ghcr.io/jellyfishsdk/playground-api:2.65.0
     depends_on:
       - defi-blockchain
     ports:
