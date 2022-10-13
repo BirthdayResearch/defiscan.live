@@ -22,7 +22,7 @@
     "@defichain/jellyfish-transaction": "^2.65.0",
     "@defichain/playground-api-client": "^2.65.0",
     "@defichain/whale-api-client": "^2.65.0",
-    "@floating-ui/react-dom": "^0.4.3",
+    "@floating-ui/react-dom": "^0.7.2",
     "@headlessui/react": "^1.7.3",
     "@prismicio/client": "^6.7.1",
     "@prismicio/types": "^0.2.3",
