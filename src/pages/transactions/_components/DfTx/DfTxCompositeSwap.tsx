@@ -34,26 +34,25 @@ export function DfTxCompositeSwap({
   const api = useWhaleApiClient();
 
   useEffect(() => {
-    void getAccountHistory();
+    getSwapToAmount().then(setToAmount);
   }, [transaction]);
 
-  async function getAccountHistory() {
-    const toTokenId = data.poolSwap.toTokenId.toString();
+  async function getSwapToAmount(): Promise<string | undefined> {
     if (transaction?.block && toAddress !== undefined) {
+      const toTokenId = data.poolSwap.toTokenId.toString();
       const toTokenDetails = await api.tokens.get(toTokenId);
       const accountHistory = await api.address.getAccountHistory(
         toAddress.address,
         transaction.block.height,
         transaction.order
       );
-      const toAmount = accountHistory?.amounts?.reduce((toAmount, current) => {
+      return accountHistory?.amounts?.reduce((toAmount, current) => {
         const [amount, symbol] = current.split("@");
         if (toAmount === undefined && symbol === toTokenDetails.symbol) {
           return amount;
         }
         return toAmount;
       }, undefined);
-      setToAmount(toAmount);
     }
   }
 
