@@ -187,7 +187,7 @@ function PoolTo({
         <AdaptiveList.Row name="Token" testId="DfTxCompositeSwap.TokenTo">
           {ToTokenSymbol}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name="Max Amount" testId="DfTxCompositeSwap.MaxPrice">
+        <AdaptiveList.Row name="Max Price" testId="DfTxCompositeSwap.MaxPrice">
           <NumberFormat
             value={poolswap.maxPrice.toFixed(8)}
             thousandSeparator
