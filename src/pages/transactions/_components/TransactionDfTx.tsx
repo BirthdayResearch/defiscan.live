@@ -101,7 +101,7 @@ export function TransactionDfTx(
 
   switch (props.dftx.type) {
     case CPoolSwap.OP_CODE:
-      return <DfTxPoolSwap dftx={props.dftx} />;
+      return <DfTxPoolSwap dftx={props.dftx} transaction={props.transaction} />;
     case CPoolAddLiquidity.OP_CODE:
       return <DfTxPoolAddLiquidity dftx={props.dftx} />;
     case CPoolRemoveLiquidity.OP_CODE:

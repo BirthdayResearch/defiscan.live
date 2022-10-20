@@ -5,23 +5,54 @@ import { fromScript } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
+import { useEffect, useState } from "react";
+import { useWhaleApiClient } from "@contexts/WhaleContext";
+import NumberFormat from "react-number-format";
 import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxPoolSwapProps {
   dftx: DfTx<PoolSwap>;
+  transaction?: Transaction;
 }
 
 export function DfTxPoolSwap(props: DfTxPoolSwapProps): JSX.Element {
   const network = useNetwork().name;
+  const { transaction, dftx } = props;
 
   const from =
-    props.dftx.data.fromScript !== undefined
-      ? fromScript(props.dftx.data.fromScript, network)
+    dftx.data.fromScript !== undefined
+      ? fromScript(dftx.data.fromScript, network)
       : undefined;
   const to =
-    props.dftx.data.toScript !== undefined
-      ? fromScript(props.dftx.data.toScript, network)
+    dftx.data.toScript !== undefined
+      ? fromScript(dftx.data.toScript, network)
       : undefined;
+  const [toAmount, setToAmount] = useState<string>();
+  const api = useWhaleApiClient();
+
+  useEffect(() => {
+    getSwapToAmount().then(setToAmount);
+  }, [transaction]);
+
+  async function getSwapToAmount(): Promise<string | undefined> {
+    if (transaction?.block && to !== undefined) {
+      const toTokenId = dftx.data.toTokenId.toString();
+      const toTokenDetails = await api.tokens.get(toTokenId);
+      const accountHistory = await api.address.getAccountHistory(
+        to?.address,
+        transaction.block.height,
+        transaction.order
+      );
+      return accountHistory?.amounts?.reduce((toAmount, current) => {
+        const [amount, symbol] = current.split("@");
+        if (toAmount === undefined && symbol === toTokenDetails.symbol) {
+          return amount;
+        }
+        return toAmount;
+      }, undefined);
+    }
+  }
 
   return (
     <div>
@@ -29,11 +60,12 @@ export function DfTxPoolSwap(props: DfTxPoolSwapProps): JSX.Element {
       <div className="mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0">
         <PoolSwapDetailsTable
           fromAddress={from?.address}
-          fromTokenId={props.dftx.data.fromTokenId}
-          fromAmount={props.dftx.data.fromAmount}
+          fromTokenId={dftx.data.fromTokenId}
+          fromAmount={dftx.data.fromAmount}
           toAddress={to?.address}
-          toTokenId={props.dftx.data.toTokenId}
-          maxPrice={props.dftx.data.maxPrice}
+          toTokenId={dftx.data.toTokenId}
+          maxPrice={dftx.data.maxPrice}
+          toAmount={toAmount}
         />
       </div>
     </div>
@@ -47,6 +79,7 @@ function PoolSwapDetailsTable(props: {
   toAddress?: string;
   toTokenId: number;
   maxPrice: BigNumber;
+  toAmount?: string;
 }): JSX.Element {
   return (
     <>
@@ -100,6 +133,17 @@ function PoolSwapDetailsTable(props: {
           <span data-testid="DfTxPoolSwap.maxPrice">
             {props.maxPrice.toFixed(8)}
           </span>
+        </AdaptiveList.Row>
+        <AdaptiveList.Row name="Amount" testId="DfTxPoolSwap.toAmount">
+          {props.toAmount === undefined ? (
+            <div>pending</div>
+          ) : (
+            <NumberFormat
+              value={new BigNumber(props.toAmount).toFixed(8)}
+              thousandSeparator
+              displayType="text"
+            />
+          )}
         </AdaptiveList.Row>
       </AdaptiveList>
     </>
