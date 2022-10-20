@@ -43,6 +43,7 @@ import {
   CWithdrawFromVault,
   DfTx,
 } from "@defichain/jellyfish-transaction";
+import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
 import { DfTxTakeLoan } from "./DfTx/DfTxTakeLoan";
 import { DfTxUnmapped } from "./DfTx/DfTxUnmapped";
 import { DfTxPoolAddLiquidity } from "./DfTx/DfTxPoolAddLiquidity";
@@ -88,6 +89,7 @@ import { DfTxSetFutureSwap } from "./DfTx/DfTxSetFutureSwap";
 
 interface TransactionDfTxProps {
   dftx?: DfTx<any>;
+  transaction?: Transaction;
 }
 
 export function TransactionDfTx(
@@ -165,7 +167,9 @@ export function TransactionDfTx(
     case CUpdateVault.OP_CODE:
       return <DfTxUpdateVault dftx={props.dftx} />;
     case CCompositeSwap.OP_CODE:
-      return <DfTxCompositeSwap dftx={props.dftx} />;
+      return (
+        <DfTxCompositeSwap dftx={props.dftx} transaction={props.transaction} />
+      );
     case CDepositToVault.OP_CODE:
       return <DfTxDepositToVault dftx={props.dftx} />;
     case CCloseVault.OP_CODE:

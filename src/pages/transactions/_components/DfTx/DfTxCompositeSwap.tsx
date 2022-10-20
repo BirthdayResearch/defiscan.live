@@ -12,19 +12,50 @@ import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { PoolPairSymbol } from "@components/commons/token/PoolPairSymbol";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import NumberFormat from "react-number-format";
+import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
+import { useEffect, useState } from "react";
+import { useWhaleApiClient } from "@contexts/WhaleContext";
+import BigNumber from "bignumber.js";
 import { DfTxHeader } from "./DfTxHeader";
 
 interface DftxCompositeSwapProps {
   dftx: DfTx<CompositeSwap>;
+  transaction?: Transaction;
 }
 
 export function DfTxCompositeSwap({
   dftx: { data },
+  transaction,
 }: DftxCompositeSwapProps): JSX.Element {
   const network = useNetwork().name;
-
   const toAddress = fromScript(data.poolSwap.toScript, network);
   const fromAddress = fromScript(data.poolSwap.fromScript, network);
+  const [toAmount, setToAmount] = useState<string>();
+  const api = useWhaleApiClient();
+
+  useEffect(() => {
+    void getAccountHistory();
+  }, [transaction]);
+
+  async function getAccountHistory() {
+    const toTokenId = data.poolSwap.toTokenId.toString();
+    if (transaction?.block && toAddress !== undefined) {
+      const toTokenDetails = await api.tokens.get(toTokenId);
+      const accountHistory = await api.address.getAccountHistory(
+        toAddress.address,
+        transaction.block.height,
+        transaction.order
+      );
+      const toAmount = accountHistory?.amounts?.reduce((toAmount, current) => {
+        const [amount, symbol] = current.split("@");
+        if (toAmount === undefined && symbol === toTokenDetails.symbol) {
+          return amount;
+        }
+        return toAmount;
+      }, undefined);
+      setToAmount(toAmount);
+    }
+  }
 
   const FromTokenSymbol = (
     <TokenSymbol
@@ -54,6 +85,7 @@ export function DfTxCompositeSwap({
           poolswap={data.poolSwap}
           ToTokenSymbol={ToTokenSymbol}
           address={toAddress?.address}
+          toAmount={toAmount}
         />
         <Path
           pools={data.pools}
@@ -119,10 +151,12 @@ function PoolTo({
   poolswap,
   ToTokenSymbol,
   address,
+  toAmount,
 }: {
   poolswap: PoolSwap;
   ToTokenSymbol: JSX.Element;
   address: string | undefined;
+  toAmount?: string;
 }): JSX.Element {
   return (
     <div
@@ -159,6 +193,17 @@ function PoolTo({
             thousandSeparator
             displayType="text"
           />
+        </AdaptiveList.Row>
+        <AdaptiveList.Row name="Amount" testId="DfTxCompositeSwap.toAmount">
+          {toAmount === undefined ? (
+            <div>pending</div>
+          ) : (
+            <NumberFormat
+              value={new BigNumber(toAmount).toFixed(8)}
+              thousandSeparator
+              displayType="text"
+            />
+          )}
         </AdaptiveList.Row>
       </AdaptiveList>
     </div>

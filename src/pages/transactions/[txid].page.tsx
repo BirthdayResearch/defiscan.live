@@ -93,7 +93,7 @@ export default function TransactionPage(
           fee={fee}
           dftxName={dftx?.name}
         />
-        <TransactionDfTx dftx={dftx} />
+        <TransactionDfTx dftx={dftx} transaction={props.transaction} />
       </Container>
     </>
   );

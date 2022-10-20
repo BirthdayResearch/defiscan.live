@@ -96,6 +96,13 @@ context("/transactions/[txid]?rawTx=[] on desktop", () => {
     );
   });
 
+  it("should DfTxCompositeSwap to amount", () => {
+    cy.findAllByTestId("DfTxCompositeSwap.toAmount").should(
+      "contain.text",
+      "pending"
+    );
+  });
+
   it("should invalid raw transaction", () => {
     cy.visit("/transactions/invalidtxnid?rawtx=invalidrawtx");
     cy.findAllByTestId("RawTransaction.not-found-banner").should(
@@ -200,6 +207,13 @@ context("/transactions/[txid]?rawTx=[] on mobile", () => {
     cy.findAllByTestId("DfTxCompositeSwap.MaxPrice").should(
       "contain.text",
       "3.01761445"
+    );
+  });
+
+  it("should DfTxCompositeSwap to amount", () => {
+    cy.findAllByTestId("DfTxCompositeSwap.toAmount").should(
+      "contain.text",
+      "pending"
     );
   });
 
