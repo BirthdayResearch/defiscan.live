@@ -16,9 +16,11 @@ interface DfTxPoolSwapProps {
   transaction?: Transaction;
 }
 
-export function DfTxPoolSwap(props: DfTxPoolSwapProps): JSX.Element {
+export function DfTxPoolSwap({
+  transaction,
+  dftx,
+}: DfTxPoolSwapProps): JSX.Element {
   const network = useNetwork().name;
-  const { transaction, dftx } = props;
 
   const from =
     dftx.data.fromScript !== undefined
