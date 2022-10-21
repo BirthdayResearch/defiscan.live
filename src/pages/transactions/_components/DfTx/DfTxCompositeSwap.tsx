@@ -14,8 +14,8 @@ import { IoArrowForwardOutline } from "react-icons/io5";
 import NumberFormat from "react-number-format";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
 import { useEffect, useState } from "react";
-import { useWhaleApiClient } from "@contexts/WhaleContext";
 import BigNumber from "bignumber.js";
+import { useSwapToAmount } from "hooks/useSwapToAmount";
 import { DfTxHeader } from "./DfTxHeader";
 
 interface DftxCompositeSwapProps {
@@ -31,30 +31,19 @@ export function DfTxCompositeSwap({
   const toAddress = fromScript(data.poolSwap.toScript, network);
   const fromAddress = fromScript(data.poolSwap.fromScript, network);
   const [toAmount, setToAmount] = useState<string>();
-  const api = useWhaleApiClient();
+  const getSwapToAmount = useSwapToAmount();
 
   useEffect(() => {
-    getSwapToAmount().then(setToAmount);
-  }, [transaction]);
-
-  async function getSwapToAmount(): Promise<string | undefined> {
     if (transaction?.block && toAddress !== undefined) {
-      const toTokenId = data.poolSwap.toTokenId.toString();
-      const toTokenDetails = await api.tokens.get(toTokenId);
-      const accountHistory = await api.address.getAccountHistory(
-        toAddress.address,
-        transaction.block.height,
-        transaction.order
-      );
-      return accountHistory?.amounts?.reduce((toAmount, current) => {
-        const [amount, symbol] = current.split("@");
-        if (toAmount === undefined && symbol === toTokenDetails.symbol) {
-          return amount;
-        }
-        return toAmount;
-      }, undefined);
+      const tokenId = data.poolSwap.toTokenId.toString();
+      getSwapToAmount({
+        tokenId,
+        address: toAddress.address,
+        txnHeight: transaction.block.height,
+        order: transaction.order,
+      }).then(setToAmount);
     }
-  }
+  }, [transaction]);
 
   const FromTokenSymbol = (
     <TokenSymbol
