@@ -63,6 +63,10 @@ context("/transactions/[txid] - DfTx pool swap on desktop", () => {
     );
   });
 
+  it("should have DfTxPoolSwap toAmount", () => {
+    cy.findByTestId("DfTxPoolSwap.toAmount").should("have.text", "0.00025077");
+  });
+
   it("should have DfTxPoolSwap maxPriceSymbol", () => {
     cy.findByTestId("DfTxPoolSwap.maxPriceSymbol").should("have.text", "dBTC");
   });
@@ -131,6 +135,10 @@ context("/transactions/[txid] - DfTx pool swap on mobile", () => {
       "have.text",
       "22284.93664040"
     );
+  });
+
+  it("should have DfTxPoolSwap toAmount", () => {
+    cy.findByTestId("DfTxPoolSwap.toAmount").should("have.text", "0.00025077");
   });
 
   it("should have DfTxPoolSwap maxPriceSymbol", () => {

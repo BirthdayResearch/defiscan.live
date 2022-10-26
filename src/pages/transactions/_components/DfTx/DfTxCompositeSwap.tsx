@@ -12,19 +12,38 @@ import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { PoolPairSymbol } from "@components/commons/token/PoolPairSymbol";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import NumberFormat from "react-number-format";
+import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
+import { useEffect, useState } from "react";
+import BigNumber from "bignumber.js";
+import { useSwapToAmount } from "hooks/useSwapToAmount";
 import { DfTxHeader } from "./DfTxHeader";
 
 interface DftxCompositeSwapProps {
   dftx: DfTx<CompositeSwap>;
+  transaction?: Transaction;
 }
 
 export function DfTxCompositeSwap({
   dftx: { data },
+  transaction,
 }: DftxCompositeSwapProps): JSX.Element {
   const network = useNetwork().name;
-
   const toAddress = fromScript(data.poolSwap.toScript, network);
   const fromAddress = fromScript(data.poolSwap.fromScript, network);
+  const [toAmount, setToAmount] = useState<string>();
+  const getSwapToAmount = useSwapToAmount();
+
+  useEffect(() => {
+    if (transaction?.block && toAddress !== undefined) {
+      const tokenId = data.poolSwap.toTokenId.toString();
+      getSwapToAmount({
+        tokenId,
+        address: toAddress.address,
+        txnHeight: transaction.block.height,
+        order: transaction.order,
+      }).then(setToAmount);
+    }
+  }, [transaction]);
 
   const FromTokenSymbol = (
     <TokenSymbol
@@ -54,6 +73,7 @@ export function DfTxCompositeSwap({
           poolswap={data.poolSwap}
           ToTokenSymbol={ToTokenSymbol}
           address={toAddress?.address}
+          toAmount={toAmount}
         />
         <Path
           pools={data.pools}
@@ -119,10 +139,12 @@ function PoolTo({
   poolswap,
   ToTokenSymbol,
   address,
+  toAmount,
 }: {
   poolswap: PoolSwap;
   ToTokenSymbol: JSX.Element;
   address: string | undefined;
+  toAmount?: string;
 }): JSX.Element {
   return (
     <div
@@ -153,12 +175,23 @@ function PoolTo({
         <AdaptiveList.Row name="Token" testId="DfTxCompositeSwap.TokenTo">
           {ToTokenSymbol}
         </AdaptiveList.Row>
-        <AdaptiveList.Row name="Max Amount" testId="DfTxCompositeSwap.MaxPrice">
+        <AdaptiveList.Row name="Max Price" testId="DfTxCompositeSwap.MaxPrice">
           <NumberFormat
             value={poolswap.maxPrice.toFixed(8)}
             thousandSeparator
             displayType="text"
           />
+        </AdaptiveList.Row>
+        <AdaptiveList.Row name="Amount" testId="DfTxCompositeSwap.toAmount">
+          {toAmount === undefined ? (
+            <div>pending</div>
+          ) : (
+            <NumberFormat
+              value={new BigNumber(toAmount).toFixed(8)}
+              thousandSeparator
+              displayType="text"
+            />
+          )}
         </AdaptiveList.Row>
       </AdaptiveList>
     </div>
