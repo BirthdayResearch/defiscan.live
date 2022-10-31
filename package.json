@@ -35,7 +35,7 @@
     "defichain": "^2.67.2",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
-    "next": "^12.3.1",
+    "next": "^12.3.2",
     "next-sitemap": "^3.1.29",
     "nextjs-progressbar": "^0.0.16",
     "npm": "^8.19.2",
