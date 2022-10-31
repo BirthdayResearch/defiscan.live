@@ -38,7 +38,7 @@ function SetFutureSwapDetailsTable(props: {
         data-testid="DfTxCompositeSwap.SwapFrom"
       >
         <h2
-          className="my-3 font-medium"
+          className="my-3 font-medium dark:text-gray-100"
           data-testid="DfTxCompositeSwap.SwapFromTitle"
         >
           Swap From
@@ -64,7 +64,7 @@ function SetFutureSwapDetailsTable(props: {
         data-testid="DfTxCompositeSwap.SwapTo"
       >
         <h2
-          className="my-3 font-medium"
+          className="my-3 font-medium dark:text-gray-100"
           data-testid="DfTxCompositeSwap.SwapToTitle"
         >
           Swap To
