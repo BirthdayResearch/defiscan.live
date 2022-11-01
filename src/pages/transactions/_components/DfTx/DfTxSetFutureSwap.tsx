@@ -17,7 +17,8 @@ export function DfTxSetFutureSwap(props: DfTxSetFutureSwapProps): JSX.Element {
   /**  
     This check here is due to 
     Destination is serialised as 0 in the transaction message in the blockchain if 
-    the source is dToken 
+    the source is dToken. When is serialized as 0 token will be shown as DFI instead of DUSD 
+    for dToken -> DUSD swaps 
   * */
   if (from.token > 0 && to === 0) {
     switch (connection) {
