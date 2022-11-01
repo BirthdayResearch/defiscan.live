@@ -1,7 +1,7 @@
 import { Container } from "@components/commons/Container";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
-import Image, { StaticImageData } from "next/image";
+import Image, { StaticImageData } from "next/legacy/image";
 import { UnitSuffix } from "@components/commons/UnitSuffix";
 import ReactNumberFormat from "react-number-format";
 import React, { PropsWithChildren } from "react";

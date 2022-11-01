@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { SVGProps } from "react";
 
 export function USDT(props: SVGProps<SVGSVGElement>): JSX.Element {
