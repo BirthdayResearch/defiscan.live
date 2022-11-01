@@ -4,7 +4,7 @@ import { SVGProps } from "react";
 export function DOGE(props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
     <div
-      style={{ width: props.width, height: props.heigh, position: "relative" }}
+      style={{ width: props.width, height: props.height, position: "relative" }}
     >
       <Image
         src={require("@content/prices/images/doge.png")}
