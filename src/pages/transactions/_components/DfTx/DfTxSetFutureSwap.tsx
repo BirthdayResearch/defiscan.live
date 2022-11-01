@@ -11,6 +11,11 @@ interface DfTxSetFutureSwapProps {
 export function DfTxSetFutureSwap(props: DfTxSetFutureSwapProps): JSX.Element {
   const from = props.dftx.data.source;
   const to = props.dftx.data.destination;
+  let destToken = "";
+
+  if (from.token > 0 && to === 0) {
+    destToken = "DUSD";
+  }
 
   return (
     <div>
@@ -20,6 +25,7 @@ export function DfTxSetFutureSwap(props: DfTxSetFutureSwapProps): JSX.Element {
           fromTokenId={from?.token}
           fromAmount={from?.amount}
           toTokenId={to}
+          destToken={destToken}
         />
       </div>
     </div>
@@ -30,6 +36,7 @@ function SetFutureSwapDetailsTable(props: {
   fromTokenId: number;
   fromAmount: BigNumber;
   toTokenId: number;
+  destToken: string;
 }): JSX.Element {
   return (
     <>
@@ -75,6 +82,7 @@ function SetFutureSwapDetailsTable(props: {
               tokenId={props.toTokenId}
               testId="DfTxSetFutureSwap.toAmountSymbol"
               symbolLeft
+              destToken={props.destToken}
             />
           </AdaptiveList.Row>
         </AdaptiveList>
