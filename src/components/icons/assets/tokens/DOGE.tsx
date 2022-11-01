@@ -3,7 +3,9 @@ import { SVGProps } from "react";
 
 export function DOGE(props: SVGProps<SVGSVGElement>): JSX.Element {
   return (
-    <div style={{ width: props.width, height: props.height }}>
+    <div
+      style={{ width: props.width, height: props.heigh, position: "relative" }}
+    >
       <Image
         src={require("@content/prices/images/doge.png")}
         fill
