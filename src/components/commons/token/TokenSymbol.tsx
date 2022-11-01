@@ -89,10 +89,10 @@ export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
         if (props.destToken === "DUSD") {
           const TokenIcon = getTokenIcon(props.destToken);
           return <TokenIcon className="h-6 w-6" />;
-        } else {
-          const TokenIcon = getTokenIcon(tokenData.symbol);
-          return <TokenIcon className="h-6 w-6" />;
         }
+
+        const TokenIcon = getTokenIcon(tokenData.symbol);
+        return <TokenIcon className="h-6 w-6" />;
       })()}
     </div>
   );
