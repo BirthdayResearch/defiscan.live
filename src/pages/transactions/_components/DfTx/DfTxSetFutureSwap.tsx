@@ -15,22 +15,19 @@ export function DfTxSetFutureSwap(props: DfTxSetFutureSwapProps): JSX.Element {
   const { connection } = useNetwork();
 
   /**  
-    This check here is due to 
-    Destination is serialised as 0 in the transaction message in the blockchain if 
-    the source is dToken. When is serialized as 0 token will be shown as DFI instead of DUSD 
-    for dToken -> DUSD swaps 
+    Manually set destination to DUSD when the swap is dToken -> DUSD. 
+    By default blockchain serializes destination as 0 when the source is dToken, 
+    and 0 is having conflict with the token ID of DFI
   * */
   if (from.token > 0 && to === 0) {
     switch (connection) {
+      case "Playground":
+        to = 12;
+        break;
       case "TestNet":
         to = 11;
         break;
       case "MainNet":
-        to = 15;
-        break;
-      case "Playground":
-        to = 12;
-        break;
       default:
         to = 15;
     }
