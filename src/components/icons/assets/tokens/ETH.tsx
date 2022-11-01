@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { SVGProps } from "react";
 
 export function ETH(props: SVGProps<SVGSVGElement>): JSX.Element {
