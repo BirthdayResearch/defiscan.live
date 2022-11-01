@@ -10,7 +10,6 @@ interface TokenSymbolProps {
   testId?: string;
   symbolLeft?: boolean;
   symbolOnly?: boolean;
-  destToken?: string;
 }
 
 export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
@@ -68,32 +67,20 @@ export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
         )}
         data-testid={props.testId}
       >
-        {props.destToken === "DUSD" ? props.destToken : tokenData.displaySymbol}
+        {tokenData.displaySymbol}
         {!tokenData.isDAT && `#${tokenData.id}`}
       </div>
       {(() => {
-        let TokenIcon;
-
         if (props.symbolOnly !== undefined && props.symbolOnly) {
           return;
         }
 
         if (tokenData.isDAT) {
-          if (props.destToken === "DUSD") {
-            const AssetIcon = getAssetIcon(props.destToken);
-            return <AssetIcon className="h-6 w-6" />;
-          }
-
           const AssetIcon = getAssetIcon(tokenData.symbol);
           return <AssetIcon className="h-6 w-6" />;
         }
 
-        if (props.destToken === "DUSD") {
-          TokenIcon = getTokenIcon(props.destToken);
-        } else {
-          TokenIcon = getTokenIcon(tokenData.symbol);
-        }
-
+        const TokenIcon = getTokenIcon(tokenData.symbol);
         return <TokenIcon className="h-6 w-6" />;
       })()}
     </div>

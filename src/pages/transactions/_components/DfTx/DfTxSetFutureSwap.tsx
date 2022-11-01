@@ -2,6 +2,7 @@ import { DfTx, SetFutureSwap } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import BigNumber from "bignumber.js";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
+import { useNetwork } from "@contexts/NetworkContext";
 import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxSetFutureSwapProps {
@@ -10,11 +11,28 @@ interface DfTxSetFutureSwapProps {
 
 export function DfTxSetFutureSwap(props: DfTxSetFutureSwapProps): JSX.Element {
   const from = props.dftx.data.source;
-  const to = props.dftx.data.destination;
-  let destToken = "";
+  let to = props.dftx.data.destination;
+  const { connection } = useNetwork();
 
+  /**  
+    This check here is due to 
+    Destination is serialised as 0 in the transaction message in the blockchain if 
+    the source is dToken 
+  * */
   if (from.token > 0 && to === 0) {
-    destToken = "DUSD";
+    switch (connection) {
+      case "TestNet":
+        to = 11;
+        break;
+      case "MainNet":
+        to = 15;
+        break;
+      case "Playground":
+        to = 12;
+        break;
+      default:
+        to = 15;
+    }
   }
 
   return (
@@ -25,7 +43,6 @@ export function DfTxSetFutureSwap(props: DfTxSetFutureSwapProps): JSX.Element {
           fromTokenId={from?.token}
           fromAmount={from?.amount}
           toTokenId={to}
-          destToken={destToken}
         />
       </div>
     </div>
@@ -36,7 +53,6 @@ function SetFutureSwapDetailsTable(props: {
   fromTokenId: number;
   fromAmount: BigNumber;
   toTokenId: number;
-  destToken: string;
 }): JSX.Element {
   return (
     <>
@@ -82,7 +98,6 @@ function SetFutureSwapDetailsTable(props: {
               tokenId={props.toTokenId}
               testId="DfTxSetFutureSwap.toAmountSymbol"
               symbolLeft
-              destToken={props.destToken}
             />
           </AdaptiveList.Row>
         </AdaptiveList>
