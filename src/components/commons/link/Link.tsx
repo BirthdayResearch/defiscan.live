@@ -34,7 +34,7 @@ export function Link(props: PropsWithChildren<LinkProps>): JSX.Element {
   }
 
   return (
-    <NextLink passHref {...props}>
+    <NextLink passHref {...props} legacyBehavior>
       {props.children}
     </NextLink>
   );
@@ -54,8 +54,8 @@ export function SearchResultLink(
   }
 
   return (
-    <NextLink href={href}>
-      <a {...rest}>{children}</a>
+    <NextLink href={href} {...rest}>
+      {children}
     </NextLink>
   );
 }
