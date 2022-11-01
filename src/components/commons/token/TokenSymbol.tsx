@@ -72,6 +72,8 @@ export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
         {!tokenData.isDAT && `#${tokenData.id}`}
       </div>
       {(() => {
+        let TokenIcon;
+
         if (props.symbolOnly !== undefined && props.symbolOnly) {
           return;
         }
@@ -87,11 +89,11 @@ export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
         }
 
         if (props.destToken === "DUSD") {
-          const TokenIcon = getTokenIcon(props.destToken);
-          return <TokenIcon className="h-6 w-6" />;
+          TokenIcon = getTokenIcon(props.destToken);
+        } else {
+          TokenIcon = getTokenIcon(tokenData.symbol);
         }
 
-        const TokenIcon = getTokenIcon(tokenData.symbol);
         return <TokenIcon className="h-6 w-6" />;
       })()}
     </div>
