@@ -53,11 +53,10 @@ function HeaderWrapper(
   return (
     <div className="relative pb-24 -mb-24">
       <Image
-        layout="fill"
+        style={{ objectFit: "cover", objectPosition: "center" }}
+        fill
         alt={props.title}
         src={props.bgImage}
-        objectFit="cover"
-        objectPosition="center"
         className="pointer-events-none"
       />
       <div
