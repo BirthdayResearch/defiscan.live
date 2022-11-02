@@ -2,6 +2,7 @@ import { DfTx, SetFutureSwap } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import BigNumber from "bignumber.js";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
+import { useNetwork } from "@contexts/NetworkContext";
 import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxSetFutureSwapProps {
@@ -10,7 +11,27 @@ interface DfTxSetFutureSwapProps {
 
 export function DfTxSetFutureSwap(props: DfTxSetFutureSwapProps): JSX.Element {
   const from = props.dftx.data.source;
-  const to = props.dftx.data.destination;
+  let to = props.dftx.data.destination;
+  const { connection } = useNetwork();
+
+  /**  
+    Manually set destination to DUSD when the swap is dToken -> DUSD. 
+    By default blockchain serializes destination as 0 when the source is dToken, 
+    and 0 is having conflict with the token ID of DFI
+  * */
+  if (from.token > 0 && to === 0) {
+    switch (connection) {
+      case "Playground":
+        to = 12;
+        break;
+      case "TestNet":
+        to = 11;
+        break;
+      case "MainNet":
+      default:
+        to = 15;
+    }
+  }
 
   return (
     <div>
