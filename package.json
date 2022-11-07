@@ -45,7 +45,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
     "react-number-format": "^4.9.4",
-    "react-redux": "^8.0.4",
+    "react-redux": "^8.0.5",
     "react-schemaorg": "^2.0.0",
     "recharts": "2.1.16",
     "schema-dts": "^1.1.0",
