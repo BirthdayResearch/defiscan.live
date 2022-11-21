@@ -7,8 +7,8 @@ import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLoc
 import { Link } from "@components/commons/link/Link";
 import BigNumber from "bignumber.js";
 import { APRInfo } from "./APRInfo";
-import { useTokenPrice } from "../../vaults/hooks/TokenPrice";
 import { TotalLiquidityInfo } from "./TotalLiquidityInfo";
+import { usePoolPairPrices } from "../hooks/CalculatePoolPairPrices";
 
 export enum SortKeys {
   VOLUME = "volume",
@@ -26,18 +26,7 @@ export function PoolPairsTable({
   sortOrder,
   setSortOrder,
 }): JSX.Element {
-  const { getTokenPrice } = useTokenPrice();
-
-  const poolPairsPrices = poolPairs.map((pair) => {
-    const tokenPrice = getTokenPrice(
-      pair.tokenB.symbol,
-      new BigNumber(pair.priceRatio.ba)
-    );
-    return {
-      poolPair: pair,
-      tokenPrice: tokenPrice,
-    };
-  });
+  const poolPairsPrices = usePoolPairPrices(poolPairs);
 
   const sortedData = useCallback(
     () =>
