@@ -7,8 +7,8 @@ import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLoc
 import BigNumber from "bignumber.js";
 import { APRInfo } from "./APRInfo";
 import { SortData, SortKeys } from "./PoolPairsTable";
-import { useTokenPrice } from "../../vaults/hooks/TokenPrice";
 import { TotalLiquidityInfo } from "./TotalLiquidityInfo";
+import { usePoolPairPrices } from "../hooks/CalculatePoolPairPrices";
 
 const sortTypes = [
   {
@@ -60,15 +60,7 @@ export function PoolPairsCards({
   sortOrder,
   setSortOrder,
 }): JSX.Element {
-  const { getTokenPrice } = useTokenPrice();
-
-  const poolPairsPrices = poolPairs.map((pair) => {
-    const tokenPrice = getTokenPrice(pair.tokenA.symbol, new BigNumber(1));
-    return {
-      poolPair: pair,
-      tokenPrice: tokenPrice,
-    };
-  });
+  const poolPairsPrices = usePoolPairPrices(poolPairs);
 
   const sortedData = useCallback(
     () =>
