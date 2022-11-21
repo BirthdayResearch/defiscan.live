@@ -23,7 +23,7 @@ export function Footer(): JSX.Element {
       <Container className="py-12">
         <Link href={{ pathname: "/" }}>
           <a className="cursor-pointer inline-block">
-            <DeFiChainLogo className="w-28 h-full" />
+            <DeFiChainLogo className="w-44 h-full" />
           </a>
         </Link>
         <div className="mt-4 flex flex-wrap lg:flex-nowrap">

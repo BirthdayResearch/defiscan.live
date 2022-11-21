@@ -56,10 +56,7 @@ export function Header(): JSX.Element {
             <div className="flex w-full">
               <Link href={{ pathname: "/" }} passHref>
                 <a className="flex items-center cursor-pointer hover:text-primary-500">
-                  <DeFiChainLogo className="w-12 md:hidden lg:block lg:w-16 h-full" />
-                  <h6 className="ml-3 md:ml-0 lg:ml-3 text-xl font-medium dark:text-dark-gray-900">
-                    Scan
-                  </h6>
+                  <DeFiChainLogo className="w-32 md:hidden lg:block lg:w-40 h-full" />
                 </a>
               </Link>
               <DesktopNavbar />
