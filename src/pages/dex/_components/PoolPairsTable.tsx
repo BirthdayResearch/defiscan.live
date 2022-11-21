@@ -175,7 +175,6 @@ function PoolPairRow({
                 ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP)
                 : tokenPrice.toFixed(2, BigNumber.ROUND_HALF_UP)
             }
-            // value={100}
             displayType="text"
             thousandSeparator
             prefix="$"
