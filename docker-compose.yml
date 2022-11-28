@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:2.11.1
+    image: defi/defichain:master-1d169a751
     command: >
       defid
       -printtoconsole
@@ -47,7 +47,9 @@ services:
       -fortcanningroadheight=11
       -fortcanningcrunchheight=12
       -fortcanningspringheight=13
-      -greatworldheight=14
+      -fortcanninggreatworldheight=14
+      -fortcanningepilogueheight=15
+      -grandcentralheight=16
 
   defi-playground:
     image: ghcr.io/jellyfishsdk/playground-api:2.70.0
