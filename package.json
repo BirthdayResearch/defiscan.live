@@ -16,7 +16,7 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
-    "@babel/types": "^7.20.2",
+    "@babel/types": "^7.20.5",
     "@defichain/jellyfish-address": "^2.70.0",
     "@defichain/jellyfish-network": "^2.70.0",
     "@defichain/jellyfish-transaction": "^2.70.0",
