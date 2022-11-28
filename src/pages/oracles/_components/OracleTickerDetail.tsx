@@ -5,7 +5,7 @@ import {
   PriceTicker,
 } from "@defichain/whale-api-client/dist/api/prices";
 import { format, formatDistanceToNow } from "date-fns";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { getNativeIcon } from "@components/icons/assets/tokens";
 import { IconTooltip } from "@components/commons/IconsTooltip";
@@ -55,7 +55,7 @@ export function OracleTickerDetail({
         />
         <h2 className="text-4xl font-bold dark:text-gray-100">
           <div className="flex items-center">
-            <NumberFormat
+            <NumericFormat
               value={price.price.aggregated.amount}
               displayType="text"
               thousandSeparator

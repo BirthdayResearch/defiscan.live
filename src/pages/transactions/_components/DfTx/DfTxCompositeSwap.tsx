@@ -11,7 +11,7 @@ import { AddressLink } from "@components/commons/link/AddressLink";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { PoolPairSymbol } from "@components/commons/token/PoolPairSymbol";
 import { IoArrowForwardOutline } from "react-icons/io5";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
 import { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
@@ -124,7 +124,7 @@ function PoolFrom({
           {FromTokenSymbol}
         </AdaptiveList.Row>
         <AdaptiveList.Row name="Amount" testId="DfTxCompositeSwap.FromAmount">
-          <NumberFormat
+          <NumericFormat
             value={poolswap.fromAmount.toFixed(8)}
             thousandSeparator
             displayType="text"
@@ -176,7 +176,7 @@ function PoolTo({
           {ToTokenSymbol}
         </AdaptiveList.Row>
         <AdaptiveList.Row name="Max Price" testId="DfTxCompositeSwap.MaxPrice">
-          <NumberFormat
+          <NumericFormat
             value={poolswap.maxPrice.toFixed(8)}
             thousandSeparator
             displayType="text"
@@ -186,7 +186,7 @@ function PoolTo({
           {toAmount === undefined ? (
             <div>pending</div>
           ) : (
-            <NumberFormat
+            <NumericFormat
               value={new BigNumber(toAmount).toFixed(8)}
               thousandSeparator
               displayType="text"

@@ -5,7 +5,7 @@ import {
   LoanVaultActive,
 } from "@defichain/whale-api-client/dist/api/loan";
 import { WarningHoverPopover } from "@components/commons/popover/WarningHoverPopover";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { useNextCollateralizationRatio } from "../../utils/NextCollateralizationRatio";
 import { VaultCollateralizationRatio } from "./VaultCollateralizationRatio";
 
@@ -81,7 +81,7 @@ export function VaultHealthBar(props: VaultHealthBarProps): JSX.Element {
 
             return (
               <>
-                <NumberFormat
+                <NumericFormat
                   value={nextColRatio.toFixed(8)}
                   displayType="text"
                   thousandSeparator

@@ -20,7 +20,7 @@ import {
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
 import { CgSpinner } from "react-icons/cg";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { IconTooltip } from "@components/commons/IconsTooltip";
 
 interface PriceGraphProps {
@@ -313,7 +313,7 @@ function TooltipDialog({
         title="Price"
         content={
           <div className="flex items-center">
-            <ReactNumberFormat
+            <NumericFormat
               displayType="text"
               className="dark:text-gray-100"
               thousandSeparator

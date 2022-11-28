@@ -14,7 +14,7 @@ import { Container } from "@components/commons/Container";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
 import { StatsBar } from "@components/commons/stats/StatsBar";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import React from "react";
 import { StatItem } from "@components/commons/stats/StatItem";
 import { MasternodeTable } from "./_components/MasternodeTable";
@@ -44,7 +44,7 @@ export default function MasternodesPage({
           label="Total Value Locked in Masternodes"
           testId="Masternodes.Stats.TVL"
         >
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={tvl?.masternodes}
@@ -53,7 +53,7 @@ export default function MasternodesPage({
           />
         </StatItem>
         <StatItem label="0 Year Locked" testId="Masternodes.Stats.ZeroYearLock">
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={locked?.find((l) => l.weeks === 0)?.count}
@@ -61,7 +61,7 @@ export default function MasternodesPage({
           />
         </StatItem>
         <StatItem label="5 Year Locked" testId="Masternodes.Stats.FiveYearLock">
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={locked?.find((l) => l.weeks === 260)?.count}
@@ -69,7 +69,7 @@ export default function MasternodesPage({
           />
         </StatItem>
         <StatItem label="10 Year Locked" testId="Masternodes.Stats.TenYearLock">
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={locked?.find((l) => l.weeks === 520)?.count}

@@ -6,7 +6,7 @@ import {
 import { format } from "date-fns";
 import { IoAlertCircleOutline } from "react-icons/io5";
 import { MdCheck } from "react-icons/md";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
 import { IconTooltip } from "@components/commons/IconsTooltip";
@@ -87,7 +87,7 @@ function OracleFeed(props: {
         </OverflowTable.Cell>
         <OverflowTable.Cell className="align-middle">
           <div className="flex items-center justify-end">
-            <NumberFormat
+            <NumericFormat
               value={feed.amount}
               displayType="text"
               thousandSeparator
@@ -99,7 +99,7 @@ function OracleFeed(props: {
         </OverflowTable.Cell>
         <OverflowTable.Cell className="align-middle">
           <div className="flex items-center justify-end">
-            <NumberFormat
+            <NumericFormat
               value={price.price.aggregated.amount}
               displayType="text"
               thousandSeparator

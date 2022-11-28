@@ -6,7 +6,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/masternodes";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { AddressLink } from "@components/commons/link/AddressLink";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 
 export function MasternodeCards({
   masternodes,
@@ -59,7 +59,7 @@ function MasternodeCard({
           titleClassNames="text-sm"
           testId="BlocksCard.CardList.CreationHeight"
         >
-          <ReactNumberFormat
+          <NumericFormat
             value={masternode.creation.height}
             fixedDecimalScale
             displayType="text"
@@ -73,7 +73,7 @@ function MasternodeCard({
           testId="BlocksCard.CardList.ResignHeight"
         >
           {masternode.resign?.height !== undefined ? (
-            <ReactNumberFormat
+            <NumericFormat
               value={masternode.resign?.height}
               fixedDecimalScale
               displayType="text"
@@ -89,7 +89,7 @@ function MasternodeCard({
           titleClassNames="text-sm"
           testId="BlocksCard.CardList.MintedBlocks"
         >
-          <ReactNumberFormat
+          <NumericFormat
             value={masternode.mintedBlocks}
             fixedDecimalScale
             thousandSeparator=","

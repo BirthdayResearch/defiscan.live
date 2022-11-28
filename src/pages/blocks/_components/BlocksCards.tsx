@@ -2,7 +2,7 @@ import { Block } from "@defichain/whale-api-client/dist/api/blocks";
 import { CardList } from "@components/commons/CardList";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { UnitSuffix } from "@components/commons/UnitSuffix";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { useAge } from "../../../hooks/useAge";
 
 export function BlocksCards({ blocks }: { blocks: Block[] }): JSX.Element {
@@ -23,7 +23,7 @@ export function BlocksCard({ block }: { block: Block }): JSX.Element {
         <div>
           <span className="text-sm dark:text-gray-100">Height</span>
           <div className="font-medium text-gray-900 dark:text-gray-400">
-            <NumberFormat
+            <NumericFormat
               value={block.height}
               fixedDecimalScale
               thousandSeparator=","
@@ -63,7 +63,7 @@ export function BlocksCard({ block }: { block: Block }): JSX.Element {
           titleClassNames="text-sm"
           testId="BlocksCard.CardList.Size"
         >
-          <NumberFormat
+          <NumericFormat
             value={block.size}
             fixedDecimalScale
             thousandSeparator=","

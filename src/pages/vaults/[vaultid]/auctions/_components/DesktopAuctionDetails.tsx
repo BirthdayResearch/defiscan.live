@@ -5,7 +5,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import BigNumber from "bignumber.js";
 import { getAssetIcon } from "@components/icons/assets/tokens";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { VaultLink } from "@components/commons/link/VaultLink";
 import { BidAmountValue } from "../../../../auctions/_components/commons/BidAmountValue";
 import { AuctionTimeLeft } from "../../../../auctions/_components/commons/AuctionTimeLeft";
@@ -154,7 +154,7 @@ function DesktopCollateralListItem(props: {
       </div>
       <div className="ml-1.5 dark:text-gray-100">
         <div>
-          <ReactNumberFormat
+          <NumericFormat
             value={props.collateral.amount}
             displayType="text"
             suffix={` ${props.collateral.displaySymbol}`}
@@ -166,7 +166,7 @@ function DesktopCollateralListItem(props: {
         </div>
         <div className="text-sm text-gray-500 dark:text-gray-400">
           {!collateralValue.eq(0) && (
-            <ReactNumberFormat
+            <NumericFormat
               value={collateralValue.toFixed(2, BigNumber.ROUND_HALF_UP)}
               displayType="text"
               decimalScale={2}

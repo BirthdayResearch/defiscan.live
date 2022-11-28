@@ -1,6 +1,6 @@
 import { MdStairs } from "react-icons/md";
 import React from "react";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 
 export function BlocksInfoSection(props: {
   remaining: number;
@@ -25,7 +25,7 @@ export function BlocksInfoSection(props: {
               className="text-gray-900 ml-1 dark:text-gray-100"
               data-testid="BlocksInfoSection.Current.Value"
             >
-              <NumberFormat
+              <NumericFormat
                 value={props.current}
                 displayType="text"
                 thousandSeparator
@@ -46,7 +46,7 @@ export function BlocksInfoSection(props: {
               className="text-gray-900 dark:text-gray-100 ml-1"
               data-testid="BlocksInfoSection.Remaining.Value"
             >
-              <NumberFormat
+              <NumericFormat
                 value={props.remaining}
                 displayType="text"
                 thousandSeparator

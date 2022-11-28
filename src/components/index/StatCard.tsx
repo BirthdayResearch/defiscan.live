@@ -1,5 +1,5 @@
 import { DFI as DfiIcon } from "@components/icons/assets/tokens/DFI";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 
 export function StatPriceCard(props: {
   usd: number | undefined;
@@ -19,7 +19,7 @@ export function StatPriceCard(props: {
           data-testid="StatPriceCard.Price"
           className="font-semibold text-2xl md:text-4xl lg:text-5xl dark:text-dark-gray-900"
         >
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={props.usd}

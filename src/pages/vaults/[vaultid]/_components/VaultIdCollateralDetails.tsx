@@ -9,7 +9,7 @@ import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import BigNumber from "bignumber.js";
 import React from "react";
 import classNames from "classnames";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { IconTooltip } from "@components/commons/IconsTooltip";
 import { getActivePrice } from "pages/vaults/utils/ActivePrice";
@@ -168,7 +168,7 @@ function CollateralCard(props: {
           )}
           data-testid="CollateralCard.CollateralAmount"
         >
-          <ReactNumberFormat
+          <NumericFormat
             value={new BigNumber(props.col.amount).toFixed(8)}
             displayType="text"
             suffix={` ${props.col.displaySymbol}`}

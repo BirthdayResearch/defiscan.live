@@ -1,4 +1,4 @@
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { HoverPopover } from "@components/commons/popover/HoverPopover";
 import React from "react";
@@ -17,7 +17,7 @@ export function VaultNumberValues(props: VaultNumberValuesProps): JSX.Element {
 
   const HoverDesc = (
     <div className="px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs">
-      <ReactNumberFormat
+      <NumericFormat
         value={props.value.toFixed(8)}
         prefix={props.prefix}
         suffix={props.suffix}
@@ -29,7 +29,7 @@ export function VaultNumberValues(props: VaultNumberValuesProps): JSX.Element {
 
   return (
     <HoverPopover popover={HoverDesc} placement="top-end">
-      <ReactNumberFormat
+      <NumericFormat
         value={props.value.toFixed(2, BigNumber.ROUND_HALF_UP)}
         prefix={props.prefix}
         suffix={props.suffix}

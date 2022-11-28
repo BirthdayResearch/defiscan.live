@@ -1,5 +1,5 @@
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import React, { useCallback } from "react";
 import { MoreHoverPopover } from "@components/commons/popover/MoreHoverPopover";
 import { OverflowTable } from "@components/commons/OverflowTable";
@@ -169,7 +169,7 @@ function PoolPairRow({
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle text-right dark:text-gray-100">
         {!tokenPrice.isNaN() ? (
-          <NumberFormat
+          <NumericFormat
             value={
               tokenPrice.isGreaterThan(100)
                 ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP)
@@ -186,7 +186,7 @@ function PoolPairRow({
 
       <OverflowTable.Cell className="align-middle text-right dark:text-gray-100">
         {poolPair.volume?.h24 !== undefined ? (
-          <NumberFormat
+          <NumericFormat
             value={poolPair.volume?.h24}
             displayType="text"
             thousandSeparator
@@ -211,7 +211,7 @@ function PoolPairRow({
               }
               placement="bottom"
             >
-              <NumberFormat
+              <NumericFormat
                 value={poolPair.totalLiquidity.usd}
                 displayType="text"
                 thousandSeparator
@@ -234,7 +234,7 @@ function PoolPairRow({
                   description={<APRInfo {...poolPair.apr} />}
                   placement="bottom"
                 >
-                  <NumberFormat
+                  <NumericFormat
                     value={poolPair.apr.total * 100}
                     displayType="text"
                     thousandSeparator

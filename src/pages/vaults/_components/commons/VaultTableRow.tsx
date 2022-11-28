@@ -8,7 +8,7 @@ import { OverflowTable } from "@components/commons/OverflowTable";
 import React from "react";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import BigNumber from "bignumber.js";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { IconTooltip } from "@components/commons/IconsTooltip";
 import { LiquidatedVaultDerivedValues } from "../../utils/LiquidatedVaultDerivedValues";
 import { VaultStatus } from "./VaultStatus";
@@ -117,7 +117,7 @@ export function VaultTableRow(props: VaultTableRowProps): JSX.Element {
             vaultState={props.vault.state}
           />
           <span>&nbsp;/&nbsp;</span>
-          <ReactNumberFormat
+          <NumericFormat
             value={new BigNumber(props.vault.loanScheme.minColRatio).toFixed(2)}
             suffix="%"
             displayType="text"

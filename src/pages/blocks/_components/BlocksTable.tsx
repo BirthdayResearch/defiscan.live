@@ -1,4 +1,4 @@
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { Link } from "@components/commons/link/Link";
 import { Block } from "@defichain/whale-api-client/dist/api/blocks";
@@ -34,7 +34,7 @@ function BlockRow({ block }: { block: Block }): JSX.Element {
   return (
     <OverflowTable.Row className="hover:text-primary-500 dark:hover:text-gray-100">
       <OverflowTable.Cell sticky>
-        <NumberFormat
+        <NumericFormat
           value={block.height}
           fixedDecimalScale
           thousandSeparator=","
@@ -55,7 +55,7 @@ function BlockRow({ block }: { block: Block }): JSX.Element {
         />
       </OverflowTable.Cell>
       <OverflowTable.Cell className="dark:text-gray-100 text-right">
-        <NumberFormat
+        <NumericFormat
           value={block.size}
           fixedDecimalScale
           thousandSeparator=","

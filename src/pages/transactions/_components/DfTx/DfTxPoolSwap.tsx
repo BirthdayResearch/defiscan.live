@@ -7,7 +7,7 @@ import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { AddressLink } from "@components/commons/link/AddressLink";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
 import { useEffect, useState } from "react";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { useSwapToAmount } from "hooks/useSwapToAmount";
 import { DfTxHeader } from "./DfTxHeader";
 
@@ -129,7 +129,7 @@ function PoolSwapDetailsTable(props: {
           {props.toAmount === undefined ? (
             <div>pending</div>
           ) : (
-            <NumberFormat
+            <NumericFormat
               value={new BigNumber(props.toAmount).toFixed(8)}
               thousandSeparator
               displayType="text"

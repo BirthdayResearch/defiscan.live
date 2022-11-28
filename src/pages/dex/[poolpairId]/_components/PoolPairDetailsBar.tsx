@@ -1,6 +1,6 @@
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLocal";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { useTokenPrice } from "../../../vaults/hooks/TokenPrice";
 
@@ -28,7 +28,7 @@ export function PoolPairDetailsBar(props: {
         data-testid="PriceRatio"
       >
         <div className="flex flex-col">
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             className="font-medium md:text-xl"
@@ -38,7 +38,7 @@ export function PoolPairDetailsBar(props: {
               new BigNumber(props.poolpair.priceRatio.ba)
             ).toFixed(2, BigNumber.ROUND_HALF_UP)}
           />
-          <ReactNumberFormat
+          <NumericFormat
             value={props.poolpair.priceRatio.ba}
             displayType="text"
             thousandSeparator

@@ -1,5 +1,5 @@
 import { OverflowTable } from "@components/commons/OverflowTable";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import {
   LoanVaultLiquidated,
@@ -49,7 +49,7 @@ export function AuctionsTableRow(props: VaultAuctionDetailsProps): JSX.Element {
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
         <div className="text-right">
-          <ReactNumberFormat
+          <NumericFormat
             value={useCalculateAuctionsValue(
               props.batch.collaterals
             ).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
@@ -133,7 +133,7 @@ export function MobileAuctionDetailsCard(
             titleClassNames="text-sm"
             testId="MobileAuctionDetailCard.CollateralValue"
           >
-            <ReactNumberFormat
+            <NumericFormat
               value={useCalculateAuctionsValue(
                 props.batch.collaterals
               ).value.toFixed(2, BigNumber.ROUND_HALF_UP)}

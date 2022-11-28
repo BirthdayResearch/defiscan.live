@@ -1,4 +1,4 @@
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 
 export function PoolPairInfo(props: {
@@ -24,7 +24,7 @@ export function PoolPairInfo(props: {
         {props.lhsComponent()}
         <InfoHoverPopover description={props.popoverDescription} />
       </div>
-      <ReactNumberFormat
+      <NumericFormat
         displayType="text"
         className="font-medium md:text-xl dark:text-gray-100"
         thousandSeparator

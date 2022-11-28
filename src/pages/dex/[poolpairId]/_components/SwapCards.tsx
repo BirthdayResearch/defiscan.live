@@ -2,7 +2,7 @@ import { CardList } from "@components/commons/CardList";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
 import { AddressLink } from "@components/commons/link/AddressLink";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import {
   PoolSwapData,
   SwapType,
@@ -66,7 +66,7 @@ export function SwapCard({ swap }: { swap: PoolSwapData }): JSX.Element {
             "N/A"
           ) : (
             <div className="flex items-center justify-end">
-              <NumberFormat
+              <NumericFormat
                 value={swap.from.amount}
                 fixedDecimalScale
                 thousandSeparator=","
@@ -85,7 +85,7 @@ export function SwapCard({ swap }: { swap: PoolSwapData }): JSX.Element {
             "N/A"
           ) : (
             <div className="flex items-center justify-end">
-              <NumberFormat
+              <NumericFormat
                 value={swap.to.amount}
                 fixedDecimalScale
                 thousandSeparator=","
