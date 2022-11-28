@@ -2,7 +2,7 @@ import { JSX } from "@babel/types";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { AddressLink } from "@components/commons/link/AddressLink";
 import {
   PoolSwapData,
@@ -69,7 +69,7 @@ function SwapRow({ swap }: { swap: PoolSwapData }): JSX.Element {
           "N/A"
         ) : (
           <div className="flex items-center justify-end dark:text-gray-100">
-            <NumberFormat
+            <NumericFormat
               value={swap.fromAmount}
               fixedDecimalScale
               thousandSeparator=","
@@ -86,7 +86,7 @@ function SwapRow({ swap }: { swap: PoolSwapData }): JSX.Element {
           "N/A"
         ) : (
           <div className="flex items-center justify-end dark:text-gray-100">
-            <NumberFormat
+            <NumericFormat
               value={swap.to.amount}
               fixedDecimalScale
               thousandSeparator=","

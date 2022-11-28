@@ -1,4 +1,4 @@
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import React from "react";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
@@ -82,7 +82,7 @@ function TokenRow({ data }: { data: TokenData }): JSX.Element {
           }
 
           return (
-            <NumberFormat
+            <NumericFormat
               value={data.minted}
               displayType="text"
               thousandSeparator

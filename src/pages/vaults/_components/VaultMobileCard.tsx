@@ -5,7 +5,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import React from "react";
 import BigNumber from "bignumber.js";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { CardList } from "@components/commons/CardList";
 import { IconTooltip } from "@components/commons/IconsTooltip";
@@ -139,7 +139,7 @@ function VaultMobileDetails(props: {
         infoDesc="Minimum required collateral ratio based on vault scheme selected by vault owner."
         testId="VaultMobileCard.MinCollateralizationRatio"
       >
-        <ReactNumberFormat
+        <NumericFormat
           value={props.vault.loanScheme.minColRatio}
           suffix="%"
           displayType="text"

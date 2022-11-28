@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
 import { RootState } from "@store/index";
 import { StatPriceCard } from "@components/index/StatCard";
@@ -165,7 +165,7 @@ function StatCard(
           <InfoHoverPopover description={props.infodesc} />
         </div>
         <div className="flex flex-wrap items-center">
-          <ReactNumberFormat
+          <NumericFormat
             value={props.stat}
             displayType="text"
             thousandSeparator

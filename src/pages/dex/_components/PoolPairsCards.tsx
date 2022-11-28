@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { CardList } from "@components/commons/CardList";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { MoreHoverPopover } from "@components/commons/popover/MoreHoverPopover";
 import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLocal";
@@ -152,7 +152,7 @@ export function PoolPairsCard({
           testId="PoolPairsCard.CardList.TokenPrice"
         >
           {!tokenPrice.isNaN() ? (
-            <NumberFormat
+            <NumericFormat
               value={
                 tokenPrice.isGreaterThan(100)
                   ? tokenPrice.toFixed(0, BigNumber.ROUND_HALF_UP)
@@ -172,7 +172,7 @@ export function PoolPairsCard({
           testId="PoolPairsCard.CardList.24hVolume"
         >
           {poolPair.volume?.h24 !== undefined ? (
-            <NumberFormat
+            <NumericFormat
               value={poolPair.volume?.h24}
               displayType="text"
               thousandSeparator
@@ -199,7 +199,7 @@ export function PoolPairsCard({
               }
               placement="left"
             >
-              <NumberFormat
+              <NumericFormat
                 value={poolPair.totalLiquidity.usd}
                 displayType="text"
                 thousandSeparator
@@ -225,7 +225,7 @@ export function PoolPairsCard({
                   description={<APRInfo {...poolPair.apr} />}
                   placement="left"
                 >
-                  <NumberFormat
+                  <NumericFormat
                     value={poolPair.apr.total * 100}
                     displayType="text"
                     thousandSeparator

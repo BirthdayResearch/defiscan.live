@@ -4,7 +4,7 @@ import { getPriceCopy, PriceCopy } from "@content/prices";
 import { prices } from "@defichain/whale-api-client";
 import { format } from "date-fns";
 import { IoAlertCircleOutline, IoCheckmarkCircle } from "react-icons/io5";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { PriceTicker } from "@defichain/whale-api-client/dist/api/prices";
 import { getNativeIcon } from "@components/icons/assets/tokens";
 import { IconTooltip } from "@components/commons/IconsTooltip";
@@ -42,7 +42,7 @@ export function OracleFeed(props: PriceFeedProps): JSX.Element {
 
             <div className="flex items-center mt-2">
               <h3 className="text-2xl font-medium dark:text-gray-100">
-                <NumberFormat
+                <NumericFormat
                   value={price.aggregated.amount}
                   displayType="text"
                   thousandSeparator

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
 import { StatItem } from "@components/commons/stats/StatItem";
@@ -11,7 +11,7 @@ export function VaultStatsBar(): JSX.Element {
   return (
     <StatsBar>
       <StatItem label="Vaults" testId="VaultStatsBar.Vaults">
-        <ReactNumberFormat
+        <NumericFormat
           displayType="text"
           thousandSeparator
           value={stats.loan.count?.openVaults}
@@ -19,7 +19,7 @@ export function VaultStatsBar(): JSX.Element {
         />
       </StatItem>
       <StatItem label="Total Loan Value" testId="VaultStatsBar.TotalLoanValue">
-        <ReactNumberFormat
+        <NumericFormat
           displayType="text"
           thousandSeparator
           value={stats.loan.value?.loan}
@@ -31,7 +31,7 @@ export function VaultStatsBar(): JSX.Element {
         label="Total Collateral Value"
         testId="VaultStatsBar.TotalCollateralValue"
       >
-        <ReactNumberFormat
+        <NumericFormat
           displayType="text"
           thousandSeparator
           value={stats.loan.value?.collateral}
@@ -45,7 +45,7 @@ export function VaultStatsBar(): JSX.Element {
             label="Total Collateralization Ratio"
             testId="VaultStatsBar.TotalCollateralizationRatio"
           >
-            <ReactNumberFormat
+            <NumericFormat
               displayType="text"
               thousandSeparator
               value={
@@ -57,7 +57,7 @@ export function VaultStatsBar(): JSX.Element {
           </StatItem>
         )}
       <StatItem label="Active Auctions" testId="VaultStatsBar.ActiveAuctions">
-        <ReactNumberFormat
+        <NumericFormat
           displayType="text"
           thousandSeparator
           value={stats.loan.count?.openAuctions}

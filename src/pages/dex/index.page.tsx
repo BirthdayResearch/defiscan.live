@@ -14,7 +14,7 @@ import {
 import { useSelector } from "react-redux";
 import { Container } from "@components/commons/Container";
 import { StatItem } from "@components/commons/stats/StatItem";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { StatsBar } from "@components/commons/stats/StatsBar";
 import React, { useState } from "react";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
@@ -56,7 +56,7 @@ export default function DexPage({
           label="Total Value Locked in Pool Pairs"
           testId="Dex.Stats.TVL"
         >
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={tvl}
@@ -65,7 +65,7 @@ export default function DexPage({
           />
         </StatItem>
         <StatItem label="Total 24H Volume" testId="Dex.Stats.24hVolume">
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={aggregate.volume.total24h.toString()}

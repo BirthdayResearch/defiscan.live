@@ -4,7 +4,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/loan";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 
 interface VaultCollateralizationRatioProps {
   collateralizationRatio?: string;
@@ -45,7 +45,7 @@ export function VaultCollateralizationRatio(
       {collateralRatio.lt(0) ? (
         "N/A"
       ) : (
-        <ReactNumberFormat
+        <NumericFormat
           value={new BigNumber(props.collateralizationRatio).toFixed(2)}
           suffix={props.suffix === undefined ? "%" : ""}
           displayType="text"

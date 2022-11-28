@@ -1,5 +1,5 @@
 import React from "react";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 
 export function InfoSection(props: {
   target: { height: number; name: string | null };
@@ -24,7 +24,7 @@ export function InfoSection(props: {
                   className="mt-1 text-sm text-gray-500 font-light dark:text-gray-100"
                   data-testid="InfoSection.EventHeight"
                 >
-                  <NumberFormat
+                  <NumericFormat
                     value={props.target.height}
                     displayType="text"
                     thousandSeparator
@@ -40,7 +40,7 @@ export function InfoSection(props: {
               className="text-2xl md:text-3xl font-medium dark:text-gray-100"
               data-testid="InfoSection.BlockHeight"
             >
-              <NumberFormat
+              <NumericFormat
                 value={props.target.height}
                 displayType="text"
                 thousandSeparator

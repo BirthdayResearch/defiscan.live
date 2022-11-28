@@ -1,4 +1,4 @@
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import React from "react";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import {
@@ -45,7 +45,7 @@ function MasternodeRow({ data }: { data: MasternodeData }): JSX.Element {
         </AddressLink>
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <ReactNumberFormat
+        <NumericFormat
           value={data.creation.height}
           fixedDecimalScale
           displayType="text"
@@ -54,7 +54,7 @@ function MasternodeRow({ data }: { data: MasternodeData }): JSX.Element {
       </OverflowTable.Cell>
       <OverflowTable.Cell>
         {data.resign?.height !== undefined ? (
-          <ReactNumberFormat
+          <NumericFormat
             value={data.resign?.height}
             fixedDecimalScale
             displayType="text"
@@ -65,7 +65,7 @@ function MasternodeRow({ data }: { data: MasternodeData }): JSX.Element {
         )}
       </OverflowTable.Cell>
       <OverflowTable.Cell>
-        <ReactNumberFormat
+        <NumericFormat
           value={data.mintedBlocks}
           fixedDecimalScale
           thousandSeparator=","

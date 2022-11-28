@@ -5,7 +5,7 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxTokenMintProps {
@@ -40,7 +40,7 @@ function TokenMintRow({ balance }: { balance: TokenBalance }): JSX.Element {
         name="Amount"
         testId={`DfTxTokenMint.Token${balance.token}Amount`}
       >
-        <NumberFormat
+        <NumericFormat
           value={balance.amount.toNumber()}
           title="AMOUNT"
           displayType="text"

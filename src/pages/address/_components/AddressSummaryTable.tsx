@@ -3,7 +3,7 @@ import BigNumber from "bignumber.js";
 import { AddressAggregation } from "@defichain/whale-api-client/dist/api/address";
 import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { useEffect, useState } from "react";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 
 interface AddressSummaryTableProps {
   address: string;
@@ -76,7 +76,7 @@ export function AddressSummaryTable(
             className="text-left"
             testId="AddressSummaryTable.totalSent"
           >
-            <NumberFormat
+            <NumericFormat
               value={new BigNumber(aggregationData.amount.txOut).toFixed(8)}
               thousandSeparator
               displayType="text"
@@ -88,7 +88,7 @@ export function AddressSummaryTable(
             className="text-left"
             testId="AddressSummaryTable.totalReceived"
           >
-            <NumberFormat
+            <NumericFormat
               value={new BigNumber(aggregationData.amount.txIn).toFixed(8)}
               thousandSeparator
               displayType="text"

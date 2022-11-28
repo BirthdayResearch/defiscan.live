@@ -1,5 +1,5 @@
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { getAssetIcon } from "@components/icons/assets/tokens";
 
 export function PoolPairDetails(props: {
@@ -91,7 +91,7 @@ function TokenDetailsItem(props: {
       <span className="flex items-center dark:text-gray-400">
         <TokenIcon className="mr-2 w-4 h-4" /> {props.displaySymbol}
       </span>
-      <NumberFormat
+      <NumericFormat
         value={props.value}
         displayType="text"
         thousandSeparator
@@ -118,7 +118,7 @@ function TokenLiquidityItem(props: {
       <span className="text-sm text-gray-500 dark:text-gray-400">
         {props.title}
       </span>
-      <NumberFormat
+      <NumericFormat
         value={props.value}
         prefix="$"
         thousandSeparator
@@ -150,7 +150,7 @@ function AprDetails(props: {
         <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
           APR
         </span>
-        <NumberFormat
+        <NumericFormat
           value={props.apr.total * 100}
           displayType="text"
           thousandSeparator
@@ -165,7 +165,7 @@ function AprDetails(props: {
         data-testid="Rewards"
       >
         <span>Rewards</span>
-        <NumberFormat
+        <NumericFormat
           value={props.apr.reward * 100}
           thousandSeparator
           displayType="text"
@@ -180,7 +180,7 @@ function AprDetails(props: {
         data-testid="Commissions"
       >
         <span>Commissions</span>
-        <NumberFormat
+        <NumericFormat
           value={props.apr.commission * 100}
           thousandSeparator
           displayType="text"

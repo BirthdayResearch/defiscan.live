@@ -1,4 +1,4 @@
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import React from "react";
 import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/loan";
@@ -31,7 +31,7 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
 
   return (
     <div data-testid={props.testId}>
-      <ReactNumberFormat
+      <NumericFormat
         value={minBidAmount.toFixed(8)}
         thousandSeparator
         decimalScale={8}
@@ -50,7 +50,7 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
         {minBidValue.eq(0) ? (
           "N/A"
         ) : (
-          <ReactNumberFormat
+          <NumericFormat
             value={minBidValue.toFixed(2, BigNumber.ROUND_HALF_UP)}
             thousandSeparator
             decimalScale={8}

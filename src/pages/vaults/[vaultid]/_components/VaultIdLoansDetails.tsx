@@ -8,7 +8,7 @@ import { OverflowTable } from "@components/commons/OverflowTable";
 import React from "react";
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { CardList } from "@components/commons/CardList";
 import { IconTooltip } from "@components/commons/IconsTooltip";
@@ -171,7 +171,7 @@ function VaultLoansTableRow(props: {
         )}
       </OverflowTable.Cell>
       <OverflowTable.Cell alignRight>
-        <ReactNumberFormat
+        <NumericFormat
           value={new BigNumber(props.loan.amount).toFixed(8)}
           displayType="text"
           decimalScale={8}
@@ -242,7 +242,7 @@ function VaultLoanDetailsCard(props: {
           testId="LoanDetailsCard.LoanAmount"
           titleClassNames="text-sm"
         >
-          <ReactNumberFormat
+          <NumericFormat
             value={new BigNumber(props.loan.amount).toFixed(8)}
             displayType="text"
             decimalScale={8}

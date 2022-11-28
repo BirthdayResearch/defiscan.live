@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import classNames from "classnames";
 import { HoverPopover } from "@components/commons/popover/HoverPopover";
 import React from "react";
@@ -20,7 +20,7 @@ export function HeaderCountBar(props: { className: string }): JSX.Element {
         </span>
         <span className="text-sm text-white ml-0.5">
           {props.count !== undefined ? (
-            <NumberFormat
+            <NumericFormat
               value={props.count}
               displayType="text"
               thousandSeparator
@@ -45,7 +45,7 @@ export function HeaderCountBar(props: { className: string }): JSX.Element {
         </span>
         <span className="text-sm text-white ml-0.5">
           {props.count !== undefined ? (
-            <NumberFormat
+            <NumericFormat
               value={props.count}
               displayType="text"
               decimalScale={0}
@@ -70,7 +70,7 @@ export function HeaderCountBar(props: { className: string }): JSX.Element {
           <span className="text-sm mr-4">{props.text} </span>
           <span className="text-sm font-medium text-right">
             {props.count !== undefined ? (
-              <NumberFormat
+              <NumericFormat
                 value={props.count}
                 displayType="text"
                 decimalScale={0}

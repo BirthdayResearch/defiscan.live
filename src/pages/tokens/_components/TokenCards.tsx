@@ -2,7 +2,7 @@ import React from "react";
 import { CardList } from "@components/commons/CardList";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { getAssetIcon, getTokenIcon } from "@components/icons/assets/tokens";
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { getTokenName } from "../../../utils/commons/token/getTokenName";
 
 export function TokenCards({ tokens }: { tokens: TokenData[] }): JSX.Element {
@@ -84,7 +84,7 @@ function TokenCard({ token }: { token: TokenData }): JSX.Element {
             }
 
             return (
-              <NumberFormat
+              <NumericFormat
                 value={token.minted}
                 displayType="text"
                 thousandSeparator

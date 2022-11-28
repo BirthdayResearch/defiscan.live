@@ -8,7 +8,7 @@ import React from "react";
 import { Container } from "@components/commons/Container";
 import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 
 interface BurnInfoData {
@@ -46,7 +46,7 @@ export default function BurnPage({
         </div>
         <AdaptiveList className="w-full lg:w-1/2">
           <AdaptiveList.Row name="DFI Burned">
-            <ReactNumberFormat
+            <NumericFormat
               displayType="text"
               thousandSeparator
               value={burnInfo.dfipaybackfee}
@@ -63,7 +63,7 @@ export default function BurnPage({
               </div>
               <AdaptiveList className="w-full lg:w-1/2">
                 <AdaptiveList.Row name={`${tokenRates.symbol} Burned`}>
-                  <ReactNumberFormat
+                  <NumericFormat
                     displayType="text"
                     thousandSeparator
                     value={
@@ -82,7 +82,7 @@ export default function BurnPage({
                     </div>
                   }
                 >
-                  <ReactNumberFormat
+                  <NumericFormat
                     displayType="text"
                     thousandSeparator
                     value={burnRates[0].rate}

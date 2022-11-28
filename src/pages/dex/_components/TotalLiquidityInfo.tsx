@@ -1,4 +1,4 @@
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import React from "react";
 
 interface TotalLiquidityInfoProps {
@@ -31,7 +31,7 @@ export function TotalLiquidityInfo(
         <div className="flex mt-1">
           <div className="w-1/2">{props.tokenA.displaySymbol}</div>
           <div className="w-1/2 font-medium text-right">
-            <NumberFormat
+            <NumericFormat
               value={props.tokenA.reserve}
               displayType="text"
               thousandSeparator
@@ -43,7 +43,7 @@ export function TotalLiquidityInfo(
         <div className="flex mt-0.5">
           <div className="w-1/2">{props.tokenB.displaySymbol}</div>
           <div className="w-1/2 font-medium text-right">
-            <NumberFormat
+            <NumericFormat
               value={props.tokenB.reserve}
               displayType="text"
               thousandSeparator

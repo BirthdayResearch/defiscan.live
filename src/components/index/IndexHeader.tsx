@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
 import Image, { StaticImageData } from "next/image";
 import { UnitSuffix } from "@components/commons/UnitSuffix";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import React, { PropsWithChildren } from "react";
 import { StatItem } from "@components/commons/stats/StatItem";
 import { StatsBar } from "@components/commons/stats/StatsBar";
@@ -76,7 +76,7 @@ function Stats(): JSX.Element {
   return (
     <StatsBar>
       <StatItem label="Price" testId="StatItem.priceUsdt">
-        <ReactNumberFormat
+        <NumericFormat
           displayType="text"
           thousandSeparator
           value={stats?.price?.usd}
@@ -97,7 +97,7 @@ function Stats(): JSX.Element {
         <span className="ml-1">DFI</span>
       </StatItem>
       <StatItem label="Block Reward" testId="StatItem.blockReward">
-        <ReactNumberFormat
+        <NumericFormat
           displayType="text"
           thousandSeparator
           value={stats?.emission?.total}

@@ -1,4 +1,4 @@
-import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import React from "react";
 
 export function APRInfo(props: {
@@ -13,7 +13,7 @@ export function APRInfo(props: {
         <div className="flex mt-1">
           <div className="w-1/2">Reward</div>
           <div className="w-1/2 font-medium text-right">
-            <NumberFormat
+            <NumericFormat
               value={props.reward * 100}
               displayType="text"
               thousandSeparator
@@ -26,7 +26,7 @@ export function APRInfo(props: {
         <div className="flex mt-0.5">
           <div className="w-1/2">Commission</div>
           <div className="w-1/2 font-medium text-right">
-            <NumberFormat
+            <NumericFormat
               value={props.commission * 100}
               displayType="text"
               thousandSeparator

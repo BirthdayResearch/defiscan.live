@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, ReactNode } from "react";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { Link } from "@components/commons/link/Link";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { PoolPairSymbol } from "@components/commons/token/PoolPairSymbol";
 
 export function LiquidityPoolList({
@@ -86,7 +86,7 @@ function LiquidityPoolCard(props: {
                   label="APR"
                   testid="LiquidityCardStat.APR.Label"
                 >
-                  <ReactNumberFormat
+                  <NumericFormat
                     displayType="text"
                     thousandSeparator
                     value={props.apr}
@@ -104,7 +104,7 @@ function LiquidityPoolCard(props: {
             label="Liquidity"
             testid="LiquidityCardStat.Liquidity.Label"
           >
-            <ReactNumberFormat
+            <NumericFormat
               displayType="text"
               thousandSeparator
               value={props.totalLiquidity}
@@ -117,7 +117,7 @@ function LiquidityPoolCard(props: {
             label="Ratio"
             testid="LiquidityCardStat.Ratio.Label"
           >
-            <ReactNumberFormat
+            <NumericFormat
               displayType="text"
               thousandSeparator
               value={props.priceRatio}

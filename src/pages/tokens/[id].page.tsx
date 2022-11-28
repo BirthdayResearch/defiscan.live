@@ -14,7 +14,7 @@ import { AddressLinkExternal } from "@components/commons/link/AddressLink";
 import { TxIdLink } from "@components/commons/link/TxIdLink";
 import React, { useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
-import ReactNumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
 import { Head } from "@components/commons/Head";
 import { WhaleApiClient } from "@defichain/whale-api-client";
 import { getTokenName } from "../../utils/commons/token/getTokenName";
@@ -208,7 +208,7 @@ function ListLeft({
         })()}
       </AdaptiveList.Row>
       <AdaptiveList.Row name="Minted">
-        <ReactNumberFormat
+        <NumericFormat
           displayType="text"
           thousandSeparator
           value={new BigNumber(token.minted).toFixed(8)}
@@ -219,7 +219,7 @@ function ListLeft({
         {burnedAmount === undefined ? (
           "N/A"
         ) : (
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={burnedAmount.toFixed(8)}
@@ -231,7 +231,7 @@ function ListLeft({
         {netSupply === undefined ? (
           "N/A"
         ) : (
-          <ReactNumberFormat
+          <NumericFormat
             displayType="text"
             thousandSeparator
             value={netSupply.toFixed(8)}
@@ -240,7 +240,7 @@ function ListLeft({
         )}
       </AdaptiveList.Row>
       <AdaptiveList.Row name="Creation Height">
-        <ReactNumberFormat
+        <NumericFormat
           displayType="text"
           thousandSeparator
           value={token.creation.height}
