@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { debounce } from "lodash";
 import {
-  getScrollParents,
+  getOverflowAncestors,
   shift,
   size,
   useFloating,
@@ -45,14 +45,14 @@ export function SearchBar(props: SearchBarInterface): JSX.Element {
     middleware: [
       shift(),
       size({
-        apply({ reference }) {
+        apply({ rects }) {
           if (
             refs.floating.current !== null &&
             refs.floating.current !== undefined
           ) {
             Object.assign(refs.floating.current.style, {
               minWidth: "325px",
-              width: `${reference.width}px`,
+              width: `${rects.reference.width}px`,
             });
           }
         },
@@ -64,14 +64,13 @@ export function SearchBar(props: SearchBarInterface): JSX.Element {
     if (refs.reference.current == null || refs.floating.current == null) {
       return;
     }
-
+    const currentReference = refs.reference.current as Element;
     Object.assign(refs.floating.current?.style, {
-      width: `${refs.reference.current?.scrollWidth}px`,
+      width: `${currentReference.scrollWidth}px`,
       left:
         `${
-          refs.reference.current?.scrollLeft +
-          (refs.reference.current?.scrollWidth -
-            refs.floating.current?.scrollWidth)
+          currentReference.scrollLeft +
+          (currentReference.scrollWidth - refs.floating.current?.scrollWidth)
         }px` ?? "",
     });
   }
@@ -81,7 +80,11 @@ export function SearchBar(props: SearchBarInterface): JSX.Element {
       return;
     }
 
-    const parents = [...getScrollParents(refs.reference.current)];
+    const parents = [
+      ...(refs.reference.current instanceof Element
+        ? getOverflowAncestors(refs.reference.current)
+        : []),
+    ];
 
     parents.forEach((parent) => {
       parent.addEventListener("resize", updateFloater);
