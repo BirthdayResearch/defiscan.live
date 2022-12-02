@@ -80,7 +80,7 @@ function newWhaleClient(
       return new WhaleApiClient({
         url: "https://testnet.ocean.jellyfishsdk.com",
         network: "testnet",
-        version: "v0",
+        version: "v3",
       });
     case NetworkConnection.MainNet:
     default:
@@ -101,7 +101,7 @@ function newRpcClient(connection?: string | NetworkConnection): WhaleRpcClient {
         "https://playground.jellyfishsdk.com/v0/regtest/rpc"
       );
     case NetworkConnection.TestNet: {
-      const version = "v0";
+      const version = "v3";
       return new WhaleRpcClient(
         `https://testnet.ocean.jellyfishsdk.com/${version}/testnet/rpc`
       );
