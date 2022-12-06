@@ -62,7 +62,7 @@ function ProofOfAssetsRow({
       </OverflowTable.Cell>
       <BorderedCell>{memberInfo.name}</BorderedCell>
       <BorderedCell>
-        <div className="flex flex-col">
+        <div className="flex flex-col divide-y">
           {memberInfo.backingAddresses.map((backingAddress, index) => {
             const backingAddressLink = getBackingAddressLink(
               backingAddress,
@@ -72,10 +72,9 @@ function ProofOfAssetsRow({
             return (
               <div
                 key={index}
-                className={classNames({
-                  "border-b border-gray-100 pb-4 dark:border-gray-700":
-                    index !== backingAddress.length - 1,
-                  "pt-4 border-none": index !== 0,
+                className={classNames("border-gray-100 dark:border-gray-700", {
+                  "pb-4": index !== backingAddress.length - 1,
+                  "pt-4": index !== 0,
                 })}
               >
                 {backingAddressLink === undefined && (
