@@ -80,18 +80,15 @@ export default function ProofOfAssets({
         />
         <div className="my-6 hidden md:block">
           <ProofOfAssetsTable assets={filteredAssets} />
-          {Object.values(filteredAssets).length === 0 && (
-            <div>{`No Results found ${
-              searchText !== "" ? `for ${searchText}` : ""
-            }`}</div>
-          )}
         </div>
         <div className="my-6 md:hidden">
           <ProofOfAssetCards assets={filteredAssets} />
-          {Object.values(assets.items).length === 0 && (
-            <div>No Results found</div>
-          )}
         </div>
+        {Object.values(filteredAssets).length === 0 && (
+          <div>{`No Results found ${
+            searchText !== "" ? `for "${searchText}"` : ""
+          }`}</div>
+        )}
       </ConsortiumLayout>
     </Container>
   );

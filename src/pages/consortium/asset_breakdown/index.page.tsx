@@ -129,6 +129,11 @@ export default function AssetBreakdown({
         <div className="my-6 md:hidden">
           <AssetBreakdownCards assets={filteredAssets} />
         </div>
+        {Object.values(filteredAssets).length === 0 && (
+          <div>{`No Results found ${
+            searchText !== "" ? `for "${searchText}"` : ""
+          }`}</div>
+        )}
       </ConsortiumLayout>
     </Container>
   );
@@ -160,7 +165,7 @@ export async function getServerSideProps(
           tokenId: "1",
           id: "1",
           name: "Cake",
-          backingAddresses: ["backing1", "backing2"],
+          backingAddresses: ["38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT", "backing2"],
         },
         {
           minted: "20.300",
