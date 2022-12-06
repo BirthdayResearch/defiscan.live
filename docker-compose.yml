@@ -52,7 +52,7 @@ services:
       -grandcentralheight=16
 
   defi-playground:
-    image: ghcr.io/jellyfishsdk/playground-api:3.5.0
+    image: ghcr.io/jellyfishsdk/playground-api:3.5.2
     depends_on:
       - defi-blockchain
     ports:
