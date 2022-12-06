@@ -73,7 +73,7 @@ function ProofOfAssetsRow({
               <div
                 key={index}
                 className={classNames("border-gray-100 dark:border-gray-700", {
-                  "pb-4": index !== backingAddress.length - 1,
+                  "pb-4": index !== memberInfo.backingAddresses.length - 1,
                   "pt-4": index !== 0,
                 })}
               >
