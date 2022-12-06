@@ -1,54 +1,8 @@
 {
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
-  "extends": [
-    "next/core-web-vitals",
-    "airbnb",
-    "airbnb-typescript",
-    "prettier"
-  ],
-  "ignorePatterns": [
-    "*.json"
-  ],
-  "plugins": [
-    "prettier"
-  ],
+  "extends": ["./node_modules/@waveshq/standard-web-linter"],
   "rules": {
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
-      }
-    ],
-    "react/prop-types": "off",
-    "import/extensions": "off",
-    "no-undef": "warn",
-    "react/jsx-props-no-spreading": "off",
-    "react/require-default-props": "off",
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        "components": [
-          "Link"
-        ],
-        "specialLink": [
-          "hrefLeft",
-          "hrefRight"
-        ],
-        "aspects": [
-          "invalidHref",
-          "preferButton"
-        ]
-      }
-    ],
     // Temporary warning as moving from Standard to Airbnb
-    "react/destructuring-assignment": "warn",
+    "react/destructuring-assignment": "off",
     "react/no-unused-prop-types": "warn",
     "@typescript-eslint/no-use-before-define": "off",
     "react-hooks/exhaustive-deps": "off",
