@@ -197,6 +197,13 @@ function FooterSectionSitemap(): JSX.Element {
             testId="FooterSectionSitemap.Masternodes"
           />
         </div>
+        <div className="space-x-2 py-2 w-1/2">
+          <FooterInternalLink
+            pathname="/consortium/asset_breakdown"
+            text="Consortium"
+            testId="FooterSectionSitemap.Consortium"
+          />
+        </div>
       </div>
     </section>
   );
