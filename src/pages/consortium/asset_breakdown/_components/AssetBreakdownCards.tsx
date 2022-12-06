@@ -2,6 +2,7 @@ import { NumericFormat } from "react-number-format";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
 import { AssetBreakdownInfo } from "@defichain/whale-api-client/dist/api/consortium";
+import { useTokenPrice } from "pages/vaults/hooks/TokenPrice";
 import { CardList } from "@components/commons/CardList";
 import { getAssetIcon } from "@components/icons/assets/tokens";
 
@@ -25,6 +26,7 @@ export function AssetBreakdownCard({
   asset: AssetBreakdownInfo;
 }): JSX.Element {
   const AssetIcon = getAssetIcon(asset.tokenSymbol);
+  const { getTokenPrice } = useTokenPrice();
 
   return (
     <CardList.Card testId="AssetBreakdownCard">
@@ -57,12 +59,18 @@ export function AssetBreakdownCard({
               <CardRowItem
                 header="Minted"
                 value={new BigNumber(member.minted).toFixed(8)}
-                subValue={`${member.minted}`}
+                subValue={getTokenPrice(
+                  asset.tokenSymbol,
+                  new BigNumber(member.minted)
+                ).toFixed(2)}
               />
               <CardRowItem
                 header="Burned"
                 value={new BigNumber(member.burned).toFixed(8)}
-                subValue={`${member.burned}`}
+                subValue={getTokenPrice(
+                  asset.tokenSymbol,
+                  new BigNumber(member.burned)
+                ).toFixed(2)}
               />
             </div>
           );
@@ -92,7 +100,7 @@ function CardRowItem({
         className="font-semibold"
       />
       <NumericFormat
-        value={new BigNumber(subValue).toFixed(8)}
+        value={new BigNumber(subValue).toFixed(2)}
         fixedDecimalScale
         thousandSeparator=","
         prefix="≈$"
