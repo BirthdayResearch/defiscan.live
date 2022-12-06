@@ -122,7 +122,7 @@ export async function getServerSideProps(
           tokenId: "1",
           id: "1",
           name: "Cake",
-          backingAddresses: ["backing1", "backing2"],
+          backingAddresses: ["38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT", "backing2"],
         },
         {
           minted: "12312",
@@ -130,7 +130,7 @@ export async function getServerSideProps(
           tokenId: "2",
           id: "2",
           name: "Birthday Research",
-          backingAddresses: ["backing3", "backing4"],
+          backingAddresses: ["backing3", "D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba"],
         },
       ],
     },
@@ -169,4 +169,26 @@ export async function getServerSideProps(
 
 function isSubstringOfText(keyword: string, text: string): boolean {
   return text.toLowerCase().trim().includes(keyword.toLowerCase().trim());
+}
+
+export function getBackingAddressLink(
+  backingAddress: string,
+  symbol: string
+): string | undefined {
+  switch (symbol) {
+    case "BTC":
+      return `https://www.blockchain.com/btc/address/${backingAddress}`;
+    case "DOGE":
+      return `https://dogechain.info/address/${backingAddress}`;
+    case "LTC":
+      return `https://live.blockcypher.com/ltc/address/${backingAddress}`;
+    case "BCH":
+      return `https://explorer.bitcoin.com/bch/address/${backingAddress}`;
+    case "ETH":
+    case "USDT":
+    case "USDC":
+      return `https://etherscan.io/address/${backingAddress}`;
+    default:
+      return undefined;
+  }
 }

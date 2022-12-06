@@ -6,6 +6,8 @@ import {
 } from "@defichain/whale-api-client/dist/api/consortium";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { getAssetIcon } from "@components/icons/assets/tokens";
+import { Link } from "@components/commons/link/Link";
+import { getBackingAddressLink } from "../index.page";
 
 export function ProofOfAssetsTable({
   assets,
@@ -62,6 +64,11 @@ function ProofOfAssetsRow({
       <BorderedCell>
         <div className="flex flex-col">
           {memberInfo.backingAddresses.map((backingAddress, index) => {
+            const backingAddressLink = getBackingAddressLink(
+              backingAddress,
+              symbol
+            );
+
             return (
               <div
                 key={index}
@@ -71,9 +78,20 @@ function ProofOfAssetsRow({
                   "pt-4 border-none": index !== 0,
                 })}
               >
-                <a className="text-hyperlink-default hover:text-hyperlink-focused">
-                  {backingAddress}
-                </a>
+                {backingAddressLink === undefined && (
+                  <span>{backingAddress}</span>
+                )}
+                {backingAddressLink !== undefined && (
+                  <Link
+                    href={{
+                      pathname: backingAddressLink,
+                    }}
+                  >
+                    <a className="text-hyperlink-default hover:text-hyperlink-focused">
+                      {backingAddress}
+                    </a>
+                  </Link>
+                )}
               </div>
             );
           })}
