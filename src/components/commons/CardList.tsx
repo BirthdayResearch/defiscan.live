@@ -46,7 +46,7 @@ function Card(
 
   return (
     <div
-      className="w-full flex flex-wrap rounded border border-gray-200 p-4 text-gray-500 dark:bg-gray-800 dark:border-gray-700"
+      className="flex w-full flex-wrap rounded border border-gray-200 p-4 text-gray-500 dark:border-gray-700 dark:bg-gray-800"
       data-testid={props.testId}
     >
       <CardListContext.Provider
@@ -61,9 +61,16 @@ function Card(
   );
 }
 
-function Header(
-  props: PropsWithChildren<{ className?: string; path?: string }>
-): JSX.Element {
+function Header({
+  className,
+  path,
+  isToggleDisplayed = true,
+  children,
+}: PropsWithChildren<{
+  className?: string;
+  path?: string;
+  isToggleDisplayed?: boolean;
+}>): JSX.Element {
   const { isOpen, setIsOpen } = useContext(CardListContext);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -73,19 +80,19 @@ function Header(
       data-testid="CardList.Header"
     >
       <div
-        className={classNames("w-full flex items-center", props.className)}
+        className={classNames("w-full flex items-center", className)}
         data-testid="CardList.Header.Children"
       >
-        {props.children}
+        {children}
       </div>
-      {props.path !== undefined && (
-        <Link href={{ pathname: props.path }}>
+      {path !== undefined && (
+        <Link href={{ pathname: path }}>
           <a className="contents">
             <div
               data-testid="CardList.Header.ViewButton"
               onClick={() => setIsClicked(!isClicked)}
               className={classNames(
-                "border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min",
+                "h-min rounded border border-primary-300 px-1.5 py-1 text-sm text-primary-400 dark:border-gray-700 dark:bg-gray-900 dark:text-dark-primary-500",
                 { "bg-primary-100": isClicked }
               )}
             >
@@ -94,17 +101,19 @@ function Header(
           </a>
         </Link>
       )}
-      <div
-        className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 border border-primary-300 rounded h-min"
-        onClick={() => setIsOpen(!isOpen)}
-        data-testid="CardList.Header.Toggle"
-      >
-        {!isOpen ? (
-          <MdOutlineKeyboardArrowDown size={28} />
-        ) : (
-          <MdOutlineKeyboardArrowUp size={28} />
-        )}
-      </div>
+      {isToggleDisplayed && (
+        <div
+          className="h-min cursor-pointer rounded border border-primary-300 text-primary-500 dark:border-gray-700 dark:bg-gray-900 dark:text-dark-primary-500"
+          onClick={() => setIsOpen(!isOpen)}
+          data-testid="CardList.Header.Toggle"
+        >
+          {!isOpen ? (
+            <MdOutlineKeyboardArrowDown size={28} />
+          ) : (
+            <MdOutlineKeyboardArrowUp size={28} />
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -114,7 +123,7 @@ function List(props: PropsWithChildren<{ className?: string }>): JSX.Element {
 
   return (
     <Transition className="w-full" show={isOpen}>
-      <div className={classNames("w-full mt-4 space-y-2.5", props.className)}>
+      <div className={classNames("mt-4 w-full space-y-2.5", props.className)}>
         {props.children}
       </div>
     </Transition>
@@ -171,7 +180,7 @@ function DropDownSortButton(
   return (
     <div data-testid="CardList.DropDownSortButton">
       <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button className="inline-flex items-center rounded border border-primary-300  shadow-sm text-sm px-2.5 py-1.5 bg-white text-primary-500 hover:bg-primary-50 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500">
+        <Menu.Button className="inline-flex items-center rounded border border-primary-300  bg-white px-2.5 py-1.5 text-sm text-primary-500 shadow-sm hover:bg-primary-50 dark:border-gray-700 dark:bg-gray-900 dark:text-dark-primary-500">
           Sort By
           <MdOutlineSort size={18} className="ml-1" />
         </Menu.Button>
@@ -185,7 +194,7 @@ function DropDownSortButton(
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-64 z-20 mt-2 origin-top-right bg-white dark:bg-gray-900 rounded shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 z-20 mt-2 w-64 origin-top-right rounded bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-900">
             {props.children}
           </Menu.Items>
         </Transition>
@@ -211,11 +220,11 @@ function DropDownSortOption({
             type="button"
             className={`${
               isSelected
-                ? "bg-primary-100 text-gray dark:bg-dark-primary-500 dark:text-gray-100"
+                ? "text-gray bg-primary-100 dark:bg-dark-primary-500 dark:text-gray-100"
                 : active
                 ? "bg-primary-500 text-white"
                 : "text-gray-900 "
-            } group flex rounded text-left items-center w-full px-2 py-2 text-sm dark:text-gray-100`}
+            } group flex w-full items-center rounded px-2 py-2 text-left text-sm dark:text-gray-100`}
             onClick={onClick}
           >
             {sortType.value}

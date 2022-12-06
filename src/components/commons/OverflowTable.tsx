@@ -24,12 +24,12 @@ export function OverflowTable(
     <div
       data-testid="OverflowTable"
       className={classNames(
-        "relative border border-gray-200 dark:border-gray-700 rounded-lg overflow-x-auto",
+        "relative overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700",
         props.className
       )}
       onScroll={(ele: any) => setScroll(ele.target?.scrollLeft)}
     >
-      <div className="table table-auto border-collapse w-full">
+      <div className="table w-full table-auto border-collapse">
         <div className="table-row-group">
           <OverflowTableContext.Provider value={scroll}>
             {props.children}
@@ -61,7 +61,7 @@ function Row(
     <div
       data-testid="OverflowTable.Row"
       className={classNames(
-        "table-row border-t border-gray-100 dark:border-gray-700 group",
+        "group table-row border-t border-gray-100 dark:border-gray-700",
         props.className
       )}
       onClick={props.onClick}
@@ -85,7 +85,7 @@ function Head(
     <div
       data-testid="OverflowTable.Head"
       className={classNames(
-        "table-cell px-4 md:px-6 py-3 align-middle text-black dark:text-gray-100 text-opacity-60 text-sm font-semibold",
+        "table-cell px-4 py-3 align-middle text-sm font-semibold text-black text-opacity-60 dark:text-gray-100 md:px-6",
         props.className,
         {
           "sticky left-0": props.sticky!,
@@ -122,7 +122,7 @@ function Cell(
         <div
           data-testid="OverflowTable.Cell"
           className={classNames(
-            "table-cell px-4 md:px-6 py-4 align-top bg-white dark:bg-gray-800 dark:group-hover:bg-gray-600 group-hover:bg-primary-50 dark:text-gray-100 ",
+            "table-cell bg-white px-4 py-4 align-top group-hover:bg-primary-50 dark:bg-gray-800 dark:text-gray-100 dark:group-hover:bg-gray-600 md:px-6",
             props.className,
             {
               "sticky left-0": props.sticky!,
@@ -133,7 +133,7 @@ function Cell(
           {props.children}
           <div
             className={classNames({
-              "h-full absolute inset-y-0 right-0 border-r border-gray-100 dark:border-gray-700":
+              "absolute inset-y-0 right-0 h-full border-r border-gray-100 dark:border-gray-700":
                 props.sticky! && left > 0,
             })}
           />
