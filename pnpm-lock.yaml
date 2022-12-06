@@ -27,7 +27,7 @@ specifiers:
   classnames: ^2.3.2
   cypress: ^11.2.0
   date-fns: ^2.29.3
-  dayjs: ^1.11.6
+  dayjs: ^1.11.7
   defichain: ^3.5.2
   install: ^0.13.0
   lodash: ^4.17.21
@@ -60,7 +60,7 @@ dependencies:
   bignumber.js: 9.1.1
   classnames: 2.3.2
   date-fns: 2.29.3
-  dayjs: 1.11.6
+  dayjs: 1.11.7
   defichain: 3.5.2
   install: 0.13.0
   lodash: 4.17.21
@@ -3384,7 +3384,7 @@ packages:
       cli-table3: 0.6.3
       commander: 5.1.0
       common-tags: 1.8.2
-      dayjs: 1.11.6
+      dayjs: 1.11.7
       debug: 4.3.4_supports-color@8.1.1
       enquirer: 2.3.6
       eventemitter2: 6.4.7
@@ -3484,8 +3484,8 @@ packages:
     resolution: {integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==}
     dev: true
 
-  /dayjs/1.11.6:
-    resolution: {integrity: sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==}
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
