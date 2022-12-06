@@ -131,6 +131,12 @@ function DesktopNavbar(): JSX.Element {
           pathname="/masternodes"
           testId="Desktop.HeaderLink.Masternodes"
         />
+        <HeaderLink
+          className="ml-1 lg:ml-4"
+          text="On-Chain Governance"
+          pathname="/on-chain-governance"
+          testId="Desktop.HeaderLink.OnChainGovernance"
+        />
       </div>
       <div
         className="hidden w-1/4 md:block"
@@ -188,6 +194,12 @@ function MobileMenu(): JSX.Element {
             text="Masternodes"
             pathname="/masternodes"
             testId="Mobile.HeaderLink.Masternodes"
+          />
+          <HeaderLink
+            className="flex justify-center border-b border-gray-100 dark:border-gray-700"
+            text="On-Chain Governance"
+            pathname="/on-chain-governance"
+            testId="Mobile.HeaderLink.OnChainGovernance"
           />
         </div>
 
