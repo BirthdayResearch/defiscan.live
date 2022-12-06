@@ -84,8 +84,8 @@ export function Header(): JSX.Element {
       <>
         {menu && (
           <>
-            <div className="md:hidden">
-              <MobileMenu />
+            <div className="fixed z-50 md:hidden">
+              <MobileMenu toggleMenu={() => setMenu(false)} />
             </div>
             <div className="hidden md:block md:fixed md:z-50">
               <TabletMenu toggleMenu={() => setMenu(false)} />
@@ -193,9 +193,25 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   );
 }
 
-function MobileMenu(): JSX.Element {
+function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   return (
-    <div className=" dark:bg-gray-900 md:hidden" data-testid="MobileMenu">
+    <div
+      className="bg-white dark:bg-gray-900 md:hidden"
+      data-testid="MobileMenu"
+    >
+      <div className="flex flex-row justify-between m-4">
+        <Link href={{ pathname: "/" }} passHref>
+          <a className="hover:text-primary-500">
+            <DeFiChainLogo className="h-full w-32" />
+          </a>
+        </Link>
+        <MdClose
+          className="h-6 w-6 text-primary-500"
+          onClick={() => toggleMenu()}
+          data-testid="Header.CloseMenu"
+        />
+      </div>
+
       <Container className="border-b border-gray-100 pt-2 pb-4 text-gray-600 shadow-sm dark:text-dark-gray-900">
         <MenuItems />
         <div className="mt-4" data-testid="Mobile.HeaderSearchBar">
@@ -203,7 +219,7 @@ function MobileMenu(): JSX.Element {
         </div>
       </Container>
 
-      <div className="flex flex-wrap bg-primary-700 p-2 p-4 dark:bg-gray-900 md:p-0">
+      <div className="flex flex-wrap bg-primary-700 p-4 dark:bg-gray-900 md:p-0">
         <HeaderCountBar className="flex w-full flex-wrap" />
         <div className="mt-4 w-full">
           <HeaderNetworkMenu />
