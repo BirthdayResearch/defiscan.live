@@ -87,7 +87,7 @@ export function Header(): JSX.Element {
             <div className="fixed z-50 md:hidden">
               <MobileMenu toggleMenu={() => setMenu(false)} />
             </div>
-            <div className="hidden md:block md:fixed md:z-50">
+            <div className="w-full hidden md:block md:fixed md:z-50">
               <TabletMenu toggleMenu={() => setMenu(false)} />
             </div>
           </>

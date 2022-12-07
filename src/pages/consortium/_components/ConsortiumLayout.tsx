@@ -28,12 +28,6 @@ export function ConsortiumLayout({
           pathname="/consortium/proof_of_assets"
           testId="Desktop.HeaderLink.ProofOfAssets"
         />
-        {/* <HeaderLink
-          className="flex justify-center border-b border-gray-100 dark:border-gray-700"
-          text="Transaction History"
-          pathname="/consortium/transaction_history"
-          testId="Desktop.HeaderLink.TransactionHistory"
-        /> */}
       </div>
       <div className={classNames(className)}>{children}</div>
     </Container>
