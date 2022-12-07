@@ -9,6 +9,7 @@ import { CopyToClipboardIcon } from "../_components/CopyToClipboardIcon";
 import { OpenLinkIcon } from "../_components/OpenLinkIcon";
 import { ProgressBar } from "../_components/ProgressBar";
 import { RejectedIcon } from "../_components/RejectedIcon";
+import { VotingBreakdown } from "../_components/VotingBreakdown";
 
 enum DetailSectionStatusType {
   voting,
@@ -17,14 +18,15 @@ enum DetailSectionStatusType {
 }
 
 export default function ProposalDetailPage() {
-  const mockProposalType = DetailSectionStatusType.accepted;
+  const mockProposalStatus = DetailSectionStatusType.accepted;
   return (
     <Container className="mt-[40px] md:mt-[44px]">
       <ProposalDetail
         payoutAddress="3432erthyhfujrgrterthyhqepojgfiboget784reedwfert534xD"
-        status={mockProposalType}
+        status={mockProposalStatus}
       />
       <VotingProgressSection />
+      <VotingResultSection />
     </Container>
   );
 }
@@ -40,7 +42,7 @@ function ProposalDetail({
     navigator.clipboard.writeText(content);
   }
   return (
-    <div className="border border-gray-200 rounded-lg py-6 px-5 md:px-6 mb-2 lg:mb-4">
+    <div className="border border-gray-200 rounded-lg py-6 px-5 md:px-6">
       <div className="flex flex-col md:flex-row justify-between flex-wrap mb-6 md:mb-0">
         <span className="p-2 text-xs font-medium text-gray-900 bg-gray-100 border border-transparent rounded mb-2 inline-block w-fit">
           CFP PROPOSAL
@@ -157,7 +159,7 @@ function DetailSectionStatusTag({ type }: { type: DetailSectionStatusType }) {
 
 function VotingProgressSection() {
   return (
-    <div className="border border-gray-200 rounded-lg py-6 px-5 md:px-6">
+    <div className="border border-gray-200 rounded-lg py-6 px-5 md:px-6 mt-2 lg:mt-4">
       <div className="flex flex-col lg:flex-row lg:gap-[146px] gap-6 md:gap-2 mb-6 md:mb-5 lg:mb-4">
         <VotingProgressSectionInfo
           label="Proposal current stage:"
@@ -169,9 +171,66 @@ function VotingProgressSection() {
         />
       </div>
       <ProgressBar
-        totalTime={new BigNumber(100)}
-        timeLeft={new BigNumber(50)}
+        votingProgress={{
+          totalTime: new BigNumber(100),
+          timeLeft: new BigNumber(100),
+        }}
+        submissionProgress={{
+          totalTime: new BigNumber(100),
+          timeLeft: new BigNumber(10),
+        }}
+        segment={2}
       />
+      <div className="mt-8">
+        <ProgressBar
+          votingProgress={{
+            totalTime: new BigNumber(100),
+            timeLeft: new BigNumber(100),
+          }}
+        />
+      </div>
+      <div className="mt-8">
+        <ProgressBar
+          votingProgress={{
+            totalTime: new BigNumber(100),
+            timeLeft: new BigNumber(70),
+          }}
+          submissionProgress={{
+            totalTime: new BigNumber(100),
+            timeLeft: new BigNumber(0),
+          }}
+          segment={2}
+        />
+      </div>
+      <div className="mt-8">
+        <ProgressBar
+          votingProgress={{
+            totalTime: new BigNumber(100),
+            timeLeft: new BigNumber(70),
+          }}
+        />
+      </div>
+      <div className="mt-8">
+        <ProgressBar
+          votingProgress={{
+            totalTime: new BigNumber(100),
+            timeLeft: new BigNumber(0),
+          }}
+          submissionProgress={{
+            totalTime: new BigNumber(100),
+            timeLeft: new BigNumber(0),
+          }}
+          segment={2}
+        />
+      </div>
+      <div className="mt-8">
+        <ProgressBar
+          votingProgress={{
+            totalTime: new BigNumber(100),
+            timeLeft: new BigNumber(0),
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -185,10 +244,46 @@ function VotingProgressSectionInfo({
 }) {
   return (
     <span className="text-lg text-gray-500">
-      {`${label}: `}
+      {`${label} `}
       <span className="text-lg text-gray-900 font-semibold block md:inline">
         {value}
       </span>
+    </span>
+  );
+}
+
+function VotingResultSection() {
+  return (
+    <div className="border border-gray-200 rounded-lg py-6 px-5 md:px-6 mt-2 lg:mt-4 text-center">
+      <span className="text-lg md:text-2xl font-semibold text-gray-900 mb-2 block">
+        Proposal has been voted on
+      </span>
+      <span className="md:text-lg text-gray-600">
+        This proposal has been accepted by the community
+      </span>
+      <div className="flex flex-col lg:flex-row justify-center mt-6 md:mt-5 lg:mt-8 gap-2 mb-6 md:mb-5">
+        <span className="text-lg text-gray-500">Voting results:</span>
+        <div className="flex gap-4 justify-center">
+          <VotingResultPercentage value="78% Yes" customStyle="font-semibold" />
+          <VotingResultPercentage value="6% Neutral" />
+          <VotingResultPercentage value="16% No" />
+        </div>
+      </div>
+      <VotingBreakdown yesPercent="78" neutralPercent="6" noPercent="16" />
+    </div>
+  );
+}
+
+function VotingResultPercentage({
+  value,
+  customStyle,
+}: {
+  value: string;
+  customStyle?: string;
+}) {
+  return (
+    <span className={`text-lg text-gray-900 ${customStyle ?? ""}`}>
+      {value}
     </span>
   );
 }
