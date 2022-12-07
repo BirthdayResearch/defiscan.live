@@ -1,5 +1,5 @@
 import { Link } from "@components/commons/link/Link";
-import { IoChevronDown } from "react-icons/io5";
+import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { DeFiChainLogo } from "@components/icons/DeFiChainLogo";
 import classNames from "classnames";
 import { useRouter } from "next/router";
@@ -327,43 +327,80 @@ function MenuItems(): JSX.Element {
 }
 
 function MoreDropdown(): JSX.Element {
+  const [isItemClicked, setIsItemClicked] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    setIsItemClicked(
+      dropDownLinks.some((ddl) =>
+        router.pathname.includes(ddl.name.toLowerCase())
+      )
+    );
+  }, [router.pathname]);
+
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="flex flex-row items-center mx-4 dark:hover:text-dark-50 cursor-pointer text-lg hover:text-primary-500">
-        More
-        <IoChevronDown className="ml-2" size={20} />
-      </Menu.Button>
-      <Transition
-        enter="transition duration-100 ease-out"
-        enterFrom="transform scale-95 opacity-0"
-        enterTo="transform scale-100 opacity-100"
-        leave="transition duration-75 ease-out"
-        leaveFrom="transform scale-100 opacity-100"
-        leaveTo="transform scale-95 opacity-0"
-      >
-        <Menu.Items className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700">
-          {[
-            {
-              name: "Consortium",
-              link: "/consortium/asset_breakdown",
-            },
-            {
-              name: "On Chain Governance",
-              link: "",
-            },
-          ].map((item, index) => {
-            return (
-              <Menu.Item key={index}>
-                <Link href={{ pathname: item.link }}>
-                  <a className="px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50">
-                    {item.name}
-                  </a>
-                </Link>
-              </Menu.Item>
-            );
-          })}
-        </Menu.Items>
-      </Transition>
+      {({ open }) => (
+        <>
+          <Menu.Button
+            className={classNames(
+              "flex flex-row items-center mx-4 dark:hover:text-dark-50 cursor-pointer text-lg hover:text-primary-500",
+              {
+                "dark:text-dark-50 text-primary-500": isItemClicked,
+              }
+            )}
+          >
+            More
+            {open ? (
+              <IoChevronUp className="ml-2" size={20} />
+            ) : (
+              <IoChevronDown className="ml-2" size={20} />
+            )}
+          </Menu.Button>
+          <Transition
+            enter="transition duration-100 ease-out"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0"
+          >
+            <Menu.Items className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700">
+              {dropDownLinks.map((item, index) => {
+                return (
+                  <Menu.Item key={index}>
+                    <>
+                      <Link href={{ pathname: item.link }} passHref>
+                        <a
+                          className={classNames(
+                            "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
+                            {
+                              "dark:text-dark-50 text-primary-500":
+                                router.pathname === item.link,
+                            }
+                          )}
+                        >
+                          {item.name}
+                        </a>
+                      </Link>
+                    </>
+                  </Menu.Item>
+                );
+              })}
+            </Menu.Items>
+          </Transition>
+        </>
+      )}
     </Menu>
   );
 }
+
+const dropDownLinks = [
+  {
+    name: "Consortium",
+    link: "/consortium/asset_breakdown",
+  },
+  {
+    name: "On-Chain-Governance",
+    link: "/on-chain-governance",
+  },
+];
