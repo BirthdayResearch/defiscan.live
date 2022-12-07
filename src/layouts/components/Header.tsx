@@ -1,4 +1,5 @@
 import { Link } from "@components/commons/link/Link";
+import { IoChevronDown } from "react-icons/io5";
 import { DeFiChainLogo } from "@components/icons/DeFiChainLogo";
 import classNames from "classnames";
 import { useRouter } from "next/router";
@@ -6,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { Container } from "@components/commons/Container";
 import { SearchBar } from "@components/commons/searchbar/SearchBar";
+import { Menu, Transition } from "@headlessui/react";
 import { HeaderCountBar } from "./HeaderCountBar";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 
@@ -102,53 +104,54 @@ function DesktopNavbar(): JSX.Element {
     <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
       <div className="hidden md:flex">
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="DEX"
           pathname="/dex"
           testId="Desktop.HeaderLink.DEX"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Blocks"
           pathname="/blocks"
           testId="Desktop.HeaderLink.Blocks"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Vaults"
           pathname="/vaults"
           testId="Desktop.HeaderLink.Vaults"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Auctions"
           pathname="/auctions"
           testId="Desktop.HeaderLink.Auctions"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Oracles"
           pathname="/oracles"
           testId="Desktop.HeaderLink.Oracles"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Tokens"
           pathname="/tokens"
           testId="Desktop.HeaderLink.Tokens"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Masternodes"
           pathname="/masternodes"
           testId="Desktop.HeaderLink.Masternodes"
         />
-        <HeaderLink
+        <MoreDropdown />
+        {/* <HeaderLink
           className="ml-1 lg:ml-4"
           text="Consortium"
           pathname="/consortium/asset_breakdown"
           testId="Desktop.HeaderLink.Consortium"
-        />
+        /> */}
       </div>
       <div
         className="hidden w-1/4 md:block"
@@ -320,5 +323,47 @@ function MenuItems(): JSX.Element {
         testId="Mobile.HeaderLink.Consortium"
       />
     </div>
+  );
+}
+
+function MoreDropdown(): JSX.Element {
+  return (
+    <Menu as="div" className="relative">
+      <Menu.Button className="flex flex-row items-center mx-4 dark:hover:text-dark-50 cursor-pointer text-lg hover:text-primary-500">
+        More
+        <IoChevronDown className="ml-2" size={20} />
+      </Menu.Button>
+      <Transition
+        enter="transition duration-100 ease-out"
+        enterFrom="transform scale-95 opacity-0"
+        enterTo="transform scale-100 opacity-100"
+        leave="transition duration-75 ease-out"
+        leaveFrom="transform scale-100 opacity-100"
+        leaveTo="transform scale-95 opacity-0"
+      >
+        <Menu.Items className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700">
+          {[
+            {
+              name: "Consortium",
+              link: "/consortium/asset_breakdown",
+            },
+            {
+              name: "On Chain Governance",
+              link: "",
+            },
+          ].map((item, index) => {
+            return (
+              <Menu.Item key={index}>
+                <Link href={{ pathname: item.link }}>
+                  <a className="px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50">
+                    {item.name}
+                  </a>
+                </Link>
+              </Menu.Item>
+            );
+          })}
+        </Menu.Items>
+      </Transition>
+    </Menu>
   );
 }
