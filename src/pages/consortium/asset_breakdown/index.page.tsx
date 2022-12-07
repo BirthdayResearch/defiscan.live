@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { IoSearchSharp } from "react-icons/io5";
 import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
@@ -112,15 +113,22 @@ export default function AssetBreakdown({
             ]}
           /> */}
           {/* </div> */}
-          <input
-            className="h-10 rounded-md border border-gray-200 px-2"
-            placeholder="Search"
-            type="text"
-            value={searchText}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchText(e.target.value);
-            }}
-          />
+          <div className="flex flex-row rounded-md border md:w-2/4 xl:w-2/12 border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <IoSearchSharp
+              size={22}
+              className="ml-4 dark:text-gray-100 text-gray-600 self-center"
+            />
+
+            <input
+              className="inline-block h-10 px-2 outline-0 dark:text-white dark:bg-gray-800"
+              placeholder="Search"
+              type="text"
+              value={searchText}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSearchText(e.target.value);
+              }}
+            />
+          </div>
           <div className="mt-6 hidden md:block">
             <AssetBreakdownTable assets={filteredAssets} />
           </div>
