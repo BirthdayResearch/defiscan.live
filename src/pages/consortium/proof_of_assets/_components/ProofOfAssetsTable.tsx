@@ -25,6 +25,7 @@ export function ProofOfAssetsTable({
       {assets.map((asset) =>
         asset.memberInfo.map((memberInfo, index) => (
           <ProofOfAssetsRow
+            key={index}
             symbol={asset.tokenSymbol}
             memberInfo={memberInfo}
             isFirstRow={index === 0}
