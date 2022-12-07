@@ -332,7 +332,7 @@ function MoreDropdown(): JSX.Element {
   useEffect(() => {
     setIsItemClicked(
       dropDownLinks.some((ddl) =>
-        router.pathname.includes(ddl.name.toLowerCase())
+        router.pathname.includes(ddl.rootPathName.toLowerCase())
       )
     );
   }, [router.pathname]);
@@ -398,9 +398,6 @@ const dropDownLinks = [
   {
     name: "Consortium",
     link: "/consortium/asset_breakdown",
-  },
-  {
-    name: "On-Chain-Governance",
-    link: "/on-chain-governance",
+    rootPathName: "consortium",
   },
 ];
