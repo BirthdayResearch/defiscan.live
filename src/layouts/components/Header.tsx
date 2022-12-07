@@ -329,6 +329,18 @@ function MenuItems(): JSX.Element {
 function MoreDropdown(): JSX.Element {
   const [isItemClicked, setIsItemClicked] = useState(false);
   const router = useRouter();
+  useEffect(() => {
+    let isLinkItemClick = false;
+    for (let i = 0; i < dropDownLinks.length; i += 1) {
+      if (router.pathname.includes(dropDownLinks[i].name.toLocaleLowerCase())) {
+        isLinkItemClick = true;
+        break;
+      } else {
+        isLinkItemClick = false;
+      }
+    }
+    setIsItemClicked(isLinkItemClick);
+  });
 
   return (
     <Menu as="div" className="relative">
@@ -358,17 +370,7 @@ function MoreDropdown(): JSX.Element {
             leaveTo="transform scale-95 opacity-0"
           >
             <Menu.Items className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700">
-              {[
-                {
-                  name: "Consortium",
-                  link: "/consortium/asset_breakdown",
-                },
-              ].map((item, index) => {
-                if (router.pathname.includes(item.name.toLocaleLowerCase())) {
-                  setIsItemClicked(true);
-                } else {
-                  setIsItemClicked(false);
-                }
+              {dropDownLinks.map((item, index) => {
                 return (
                   <Menu.Item key={index}>
                     <>
@@ -396,3 +398,10 @@ function MoreDropdown(): JSX.Element {
     </Menu>
   );
 }
+
+const dropDownLinks = [
+  {
+    name: "Consortium",
+    link: "/consortium/asset_breakdown",
+  },
+];
