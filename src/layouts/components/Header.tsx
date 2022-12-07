@@ -399,8 +399,4 @@ const dropDownLinks = [
     name: "Consortium",
     link: "/consortium/asset_breakdown",
   },
-  {
-    name: "On-Chain-Governance",
-    link: "/on-chain-governance",
-  },
 ];
