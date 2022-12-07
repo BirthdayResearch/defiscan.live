@@ -35,15 +35,23 @@ export function AssetBreakdownPieChart({
                   )}
                 />
                 <div className="flex flex-col dark:text-gray-100">
-                  <div className="text-sm font-semibold">{share.member}</div>
-                  <div className="text-xs">{`${share.value}%`}</div>
+                  <div
+                    data-testid={`Pie.Member.${share.member}.Name`}
+                    className="text-sm font-semibold"
+                  >
+                    {share.member}
+                  </div>
+                  <div
+                    data-testid={`Pie.Member.${share.member}.Value`}
+                    className="text-xs"
+                  >{`${share.value}%`}</div>
                 </div>
               </div>
             );
           })}
         </div>
       </div>
-      <div className="h-full w-full">
+      <div data-testid="Asset.Breakdown.PieChart" className="h-full w-full">
         <ResponsiveContainer aspect={1} maxHeight={454}>
           <PieChart
             className="mb-2"
