@@ -327,12 +327,21 @@ function MenuItems(): JSX.Element {
 }
 
 function MoreDropdown(): JSX.Element {
+  const [isItemClicked, setIsItemClicked] = useState(false);
+
   const router = useRouter();
   return (
     <Menu as="div" className="relative">
       {({ open }) => (
         <>
-          <Menu.Button className="flex flex-row items-center mx-4 dark:hover:text-dark-50 cursor-pointer text-lg hover:text-primary-500">
+          <Menu.Button
+            className={classNames(
+              "flex flex-row items-center mx-4 dark:hover:text-dark-50 cursor-pointer text-lg hover:text-primary-500",
+              {
+                "dark:text-dark-50 text-primary-500": isItemClicked,
+              }
+            )}
+          >
             More
             {open ? (
               <IoChevronDown className="ml-2" size={20} />
@@ -355,6 +364,11 @@ function MoreDropdown(): JSX.Element {
                   link: "/consortium/asset_breakdown",
                 },
               ].map((item, index) => {
+                if (router.pathname === item.link) {
+                  setIsItemClicked(true);
+                } else {
+                  setIsItemClicked(false);
+                }
                 return (
                   <Menu.Item key={index}>
                     <>
