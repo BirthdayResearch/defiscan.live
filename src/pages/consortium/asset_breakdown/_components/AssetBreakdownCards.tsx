@@ -63,6 +63,7 @@ export function AssetBreakdownCard({
                   asset.tokenSymbol,
                   new BigNumber(member.minted)
                 ).toFixed(2)}
+                index={index}
               />
               <CardRowItem
                 header="Burned"
@@ -71,6 +72,7 @@ export function AssetBreakdownCard({
                   asset.tokenSymbol,
                   new BigNumber(member.burned)
                 ).toFixed(2)}
+                index={index}
               />
             </div>
           );
@@ -84,14 +86,21 @@ function CardRowItem({
   header,
   value,
   subValue,
+  index,
 }: {
   header: string;
   value: string;
   subValue: string;
+  index: number;
 }): JSX.Element {
   return (
-    <div className="flex flex-col">
-      <div className="mt-4 mb-2">{header}</div>
+    <div
+      data-testid={`AssetBreakdownCard.CardList.${header}.${index}`}
+      className="flex flex-col"
+    >
+      <div data-testid="CardList.Title" className="mt-4 mb-2">
+        {header}
+      </div>
       <NumericFormat
         value={new BigNumber(value).toFixed(8)}
         fixedDecimalScale
