@@ -330,17 +330,12 @@ function MoreDropdown(): JSX.Element {
   const [isItemClicked, setIsItemClicked] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    let isLinkItemClick = false;
-    for (let i = 0; i < dropDownLinks.length; i += 1) {
-      if (router.pathname.includes(dropDownLinks[i].name.toLocaleLowerCase())) {
-        isLinkItemClick = true;
-        break;
-      } else {
-        isLinkItemClick = false;
-      }
-    }
-    setIsItemClicked(isLinkItemClick);
-  });
+    setIsItemClicked(
+      dropDownLinks.some((ddl) =>
+        router.pathname.includes(ddl.name.toLowerCase())
+      )
+    );
+  }, [router.pathname]);
 
   return (
     <Menu as="div" className="relative">
@@ -403,5 +398,9 @@ const dropDownLinks = [
   {
     name: "Consortium",
     link: "/consortium/asset_breakdown",
+  },
+  {
+    name: "On-Chain-Governance",
+    link: "/on-chain-governance",
   },
 ];
