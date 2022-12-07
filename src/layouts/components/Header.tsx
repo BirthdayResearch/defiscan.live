@@ -328,8 +328,8 @@ function MenuItems(): JSX.Element {
 
 function MoreDropdown(): JSX.Element {
   const [isItemClicked, setIsItemClicked] = useState(false);
-
   const router = useRouter();
+
   return (
     <Menu as="div" className="relative">
       {({ open }) => (
@@ -344,9 +344,9 @@ function MoreDropdown(): JSX.Element {
           >
             More
             {open ? (
-              <IoChevronDown className="ml-2" size={20} />
-            ) : (
               <IoChevronUp className="ml-2" size={20} />
+            ) : (
+              <IoChevronDown className="ml-2" size={20} />
             )}
           </Menu.Button>
           <Transition
@@ -364,7 +364,7 @@ function MoreDropdown(): JSX.Element {
                   link: "/consortium/asset_breakdown",
                 },
               ].map((item, index) => {
-                if (router.pathname === item.link) {
+                if (router.pathname.includes(item.name.toLocaleLowerCase())) {
                   setIsItemClicked(true);
                 } else {
                   setIsItemClicked(false);
