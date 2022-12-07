@@ -11,12 +11,12 @@ import {
   InferGetServerSidePropsType,
 } from "next";
 import React, { useEffect, useState } from "react";
-import { IoSearchSharp } from "react-icons/io5";
 import {
   ConsortiumDescription,
   ConsortiumLayout,
   ConsortiumTitle,
 } from "../_components/ConsortiumLayout";
+import { SearchInput } from "../_components/SearchInput";
 import { ProofOfAssetCards } from "./_components/ProofOfAssetsCards";
 import { ProofOfAssetsTable } from "./_components/ProofOfAssetsTable";
 
@@ -70,21 +70,10 @@ export default function ProofOfAssets({
       <ConsortiumDescription className="mt-4 w-6/12 text-justify dark:text-dark-gray-900" />
       <ConsortiumLayout className="pt-7 pb-20">
         <Head title="Consortium" />
-        <div className="flex flex-row rounded-md border md:w-2/4 xl:w-2/12 border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-          <IoSearchSharp
-            size={22}
-            className="ml-4 dark:text-gray-100 text-gray-600 self-center"
-          />
-          <input
-            className="inline-block h-10 px-2 outline-0 dark:text-white dark:bg-gray-800"
-            placeholder="Search"
-            type="text"
-            value={searchText}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchText(e.target.value);
-            }}
-          />
-        </div>
+        <SearchInput
+          searchText={searchText}
+          onSearchText={(text) => setSearchText(text)}
+        />
         <div className="my-6 hidden md:block">
           <ProofOfAssetsTable assets={filteredAssets} />
         </div>
