@@ -19,10 +19,12 @@ enum DetailSectionStatusType {
 
 export default function ProposalDetailPage() {
   const mockProposalStatus = DetailSectionStatusType.accepted;
+  const mockPayoutAddress =
+    "3432erthyhfujrgrterthyhqepojgfiboget784reedwfert534xD";
   return (
     <Container className="mt-[40px] md:mt-[44px]">
       <ProposalDetail
-        payoutAddress="3432erthyhfujrgrterthyhqepojgfiboget784reedwfert534xD"
+        payoutAddress={mockPayoutAddress}
         status={mockProposalStatus}
       />
       <VotingProgressSection />
