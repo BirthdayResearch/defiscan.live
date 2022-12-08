@@ -10,6 +10,7 @@ module.exports = {
       sans: ['"IBM Plex Sans"', 'sans-serif']
     },
     colors: {
+      transparent: '#0000',
       black: '#000000',
       white: '#FFFFFF',
       primary: {
