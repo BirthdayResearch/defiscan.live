@@ -48,7 +48,7 @@ export function ConsortiumDescription({
   className?: string;
 }): JSX.Element {
   return (
-    <div className={className}>
+    <div data-testid="heading-desc" className={className}>
       DeFiChain consortium provides an overview of the dtokens which each
       consortium member is accountable for. Consortium members will be
       responsible for the backing of the available tokens that was minted

@@ -183,7 +183,7 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
       </div>
       <div className="flex h-full flex-col justify-between">
         <Container className="pt-2 pb-4 text-gray-600 dark:text-dark-gray-900">
-          <MenuItems />
+          <MenuItems viewPort="Tablet" />
         </Container>
         <div className="flex flex-wrap bg-primary-700 p-4 dark:bg-gray-900">
           <HeaderCountBar className="flex w-full flex-wrap" />
@@ -216,7 +216,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
       </div>
 
       <Container className="border-b border-gray-100 pt-2 pb-4 text-gray-600 shadow-sm dark:text-dark-gray-900">
-        <MenuItems />
+        <MenuItems viewPort="Mobile" />
         <div className="mt-4" data-testid="Mobile.HeaderSearchBar">
           <SearchBar atHeader={false} />
         </div>
@@ -271,56 +271,56 @@ export function HeaderLink(props: {
   );
 }
 
-function MenuItems(): JSX.Element {
+function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
   return (
     <div className="flex flex-col">
       <HeaderLink
         className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
         text="DEX"
         pathname="/dex"
-        testId="Mobile.HeaderLink.DEX"
+        testId={`${viewPort}.HeaderLink.DEX`}
       />
       <HeaderLink
         className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
         text="Blocks"
         pathname="/blocks"
-        testId="Mobile.HeaderLink.Blocks"
+        testId={`${viewPort}.HeaderLink.Blocks`}
       />
       <HeaderLink
         className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
         text="Vaults"
         pathname="/vaults"
-        testId="Mobile.HeaderLink.Vaults"
+        testId={`${viewPort}.HeaderLink.Vaults`}
       />
       <HeaderLink
         className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
         text="Auctions"
         pathname="/auctions"
-        testId="Mobile.HeaderLink.Auctions"
+        testId={`${viewPort}.HeaderLink.Auctions`}
       />
       <HeaderLink
         className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
         text="Oracles"
         pathname="/oracles"
-        testId="Mobile.HeaderLink.Oracles"
+        testId={`${viewPort}.HeaderLink.Oracles`}
       />
       <HeaderLink
         className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
         text="Tokens"
         pathname="/tokens"
-        testId="Mobile.HeaderLink.Tokens"
+        testId={`${viewPort}.HeaderLink.Tokens`}
       />
       <HeaderLink
         className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
         text="Masternodes"
         pathname="/masternodes"
-        testId="Mobile.HeaderLink.Masternodes"
+        testId={`${viewPort}.HeaderLink.Masternodes`}
       />
       <HeaderLink
         className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
         text="Consortium"
         pathname="/consortium/asset_breakdown"
-        testId="Mobile.HeaderLink.Consortium"
+        testId={`${viewPort}.HeaderLink.Consortium`}
       />
     </div>
   );

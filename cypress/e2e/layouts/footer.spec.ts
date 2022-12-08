@@ -75,7 +75,7 @@ context("<Footer/> on macbook-16", () => {
 
       cy.findByTestId("FooterSectionSitemap.div")
         .children()
-        .should("have.length", 7);
+        .should("have.length", 8);
 
       cy.findByTestId("FooterSectionSitemap.Dex")
         .should("have.attr", "href", "/dex")
@@ -106,6 +106,11 @@ context("<Footer/> on macbook-16", () => {
         .should("have.attr", "href", "/masternodes")
         .should("be.visible")
         .should("have.text", "Masternodes");
+
+      cy.findByTestId("FooterSectionSitemap.Consortium")
+        .should("have.attr", "href", "/consortium/asset_breakdown")
+        .should("be.visible")
+        .should("have.text", "Consortium");
     });
   });
 
@@ -213,7 +218,7 @@ context("<Footer/> on iphone-x", () => {
 
       cy.findByTestId("FooterSectionSitemap.div")
         .children()
-        .should("have.length", 7);
+        .should("have.length", 8);
 
       cy.findByTestId("FooterSectionSitemap.Dex")
         .should("have.attr", "href", "/dex")
@@ -244,6 +249,11 @@ context("<Footer/> on iphone-x", () => {
         .should("have.attr", "href", "/masternodes")
         .should("be.visible")
         .should("have.text", "Masternodes");
+
+      cy.findByTestId("FooterSectionSitemap.Consortium")
+        .should("have.attr", "href", "/consortium/asset_breakdown")
+        .should("be.visible")
+        .should("have.text", "Consortium");
     });
   });
 

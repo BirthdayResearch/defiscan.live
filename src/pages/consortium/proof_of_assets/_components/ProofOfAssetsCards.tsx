@@ -37,48 +37,51 @@ function ProofOfAssetsCard({
       </CardList.Header>
 
       <CardList.List className="space-y-12 ml-10">
-        {asset.memberInfo.map((memberInfo) => {
+        {asset.memberInfo.map((memberInfo, index) => {
           return (
-            <div>
+            <div key={index}>
               <div className="font-semibold text-lg pb-6 text-gray-900 dark:text-dark-gray-900">
                 {memberInfo.name}
               </div>
               <div className="flex flex-col divide-y">
-                {memberInfo.backingAddresses.map((backingAddress, index) => {
-                  const backingAddressLink = getBackingAddressLink(
-                    backingAddress,
-                    asset.tokenSymbol
-                  );
-                  const isLastRow =
-                    index === memberInfo.backingAddresses.length - 1;
+                {memberInfo.backingAddresses.map(
+                  (backingAddress, backingIndex) => {
+                    const backingAddressLink = getBackingAddressLink(
+                      backingAddress,
+                      asset.tokenSymbol
+                    );
+                    const isLastRow =
+                      backingIndex === memberInfo.backingAddresses.length - 1;
 
-                  return (
-                    <div
-                      className={classNames(
-                        "border-gray-100 dark:border-gray-700",
-                        {
-                          "pt-3": index > 0,
-                          "pb-3": !isLastRow,
-                        }
-                      )}
-                    >
-                      {backingAddressLink === undefined && (
-                        <span>{backingAddress}</span>
-                      )}
-                      {backingAddressLink !== undefined && (
-                        <Link
-                          href={{
-                            pathname: backingAddressLink,
-                          }}
-                        >
-                          <a className="block w-5/6 overflow-ellipsis overflow-hidden text-hyperlink-default hover:text-hyperlink-focused">
-                            {backingAddress}
-                          </a>
-                        </Link>
-                      )}
-                    </div>
-                  );
-                })}
+                    return (
+                      <div
+                        key={backingIndex}
+                        className={classNames(
+                          "border-gray-100 dark:border-gray-700",
+                          {
+                            "pt-3": backingIndex > 0,
+                            "pb-3": !isLastRow,
+                          }
+                        )}
+                      >
+                        {backingAddressLink === undefined && (
+                          <span>{backingAddress}</span>
+                        )}
+                        {backingAddressLink !== undefined && (
+                          <Link
+                            href={{
+                              pathname: backingAddressLink,
+                            }}
+                          >
+                            <a className="block w-5/6 overflow-ellipsis overflow-hidden text-hyperlink-default hover:text-hyperlink-focused">
+                              {backingAddress}
+                            </a>
+                          </Link>
+                        )}
+                      </div>
+                    );
+                  }
+                )}
               </div>
             </div>
           );
