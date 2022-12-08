@@ -26,7 +26,7 @@ function ProofOfAssetsCard({
 }): JSX.Element {
   const AssetIcon = getAssetIcon(asset.tokenSymbol);
   return (
-    <CardList.Card testId="ProofOfAssetsCard">
+    <CardList.Card testId={`ProofOfAssetsCard.${asset.tokenSymbol}`}>
       <CardList.Header isToggleDisplayed={false}>
         <div className={classNames("flex", {})}>
           <AssetIcon className="h-8 w-8" />
@@ -40,7 +40,10 @@ function ProofOfAssetsCard({
         {asset.memberInfo.map((memberInfo, index) => {
           return (
             <div key={index}>
-              <div className="font-semibold text-lg pb-6 text-gray-900 dark:text-dark-gray-900">
+              <div
+                data-testid={`CardList.Title.${index}`}
+                className="font-semibold text-lg pb-6 text-gray-900 dark:text-dark-gray-900"
+              >
                 {memberInfo.name}
               </div>
               <div className="flex flex-col divide-y">
@@ -56,6 +59,7 @@ function ProofOfAssetsCard({
                     return (
                       <div
                         key={backingIndex}
+                        data-testid="CardList.Content"
                         className={classNames(
                           "border-gray-100 dark:border-gray-700",
                           {

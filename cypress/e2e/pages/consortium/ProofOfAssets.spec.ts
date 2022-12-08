@@ -1,70 +1,105 @@
 
 context("/consortium/proof_of_assets on macbook-16", () => {
-    before(() => {
-        cy.visit("/consortium/proof_of_assets?network=MainNet");
+  before(() => {
+    cy.visit("/consortium/proof_of_assets?network=MainNet");
+  });
+
+  beforeEach(() => {
+    cy.viewport("macbook-16");
+  });
+
+  it("should have heading", () => {
+    cy.get("h1").should("have.text", "DeFiChain Consortium");
+  });
+
+  it("should have heading desc", () => {
+    cy.findByTestId("heading-desc").should("have.text", "DeFiChain consortium provides an overview of the dtokens which each consortium member is accountable for. Consortium members will be responsible for the backing of the available tokens that was minted through them.");
+  })
+
+  it("should have OverflowTable header information", () => {
+    cy.findByTestId("OverflowTable.Header").then((ele) => {
+      cy.wrap(ele).findByText("Token").should("be.visible");
+      cy.wrap(ele).findByText("Member").should("be.visible");
+      cy.wrap(ele).findByText("Address(es)").should("be.visible");
     });
+  });
 
-    beforeEach(() => {
-        cy.viewport("macbook-16");
-    });
+  it('should display no results if list is empty', () => {
+    cy.findByTestId("ConsortiumSearchBar.Input").type("xxx");
+    cy.findByTestId('ProofOfAssets.EmptyResults').should("have.text", 'No Results found for "xxx"')
+  })
 
-    it("should have heading", () => {
-        cy.get("h1").should("have.text", "DeFiChain Consortium");
-    });
+  /* Stats to be updated post-hf */
+  it('should filter the results by member', () => {
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("Cake");
+    cy.findAllByTestId("OverflowTable.Row").should("have.length", 2); // rowCount is by member
+  })
 
-    it("should have heading desc", () => {
-        cy.findByTestId("heading-desc").should("have.text", "DeFiChain consortium provides an overview of the dtokens which each consortium member is accountable for. Consortium members will be responsible for the backing of the available tokens that was minted through them.");
+  /* Stats to be updated post-hf */
+  it('should filter the results by token', () => {
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("BTC");
+    cy.findAllByTestId("OverflowTable.Row").should("have.length", 2); // rowCount is by member
+    cy.findAllByTestId("OverflowTable.Cell").within(() => {
+      cy.get("span").should('not.have.text', 'ETH')
     })
+  })
 
-    it("should have OverflowTable header information", () => {
-        cy.findByTestId("OverflowTable.Header").then((ele) => {
-            cy.wrap(ele).findByText("Token").should("be.visible");
-            cy.wrap(ele).findByText("Member").should("be.visible");
-            cy.wrap(ele).findByText("Address(es)").should("be.visible");
-        });
-    });
-
-    it('should display no results if list is empty', () => {
-        cy.findByTestId("ConsortiumSearchBar.Input").type("xxx");
-        cy.findByTestId('ProofOfAssets.EmptyResults').should("have.text", 'No Results found for "xxx"')
-    })
-
-    /* Stats to be updated post-hf */
-    it('should filter the results by member', () => {
-        cy.findByTestId("ConsortiumSearchBar.Input").clear().type("Cake");
-        cy.findAllByTestId("OverflowTable.Row").should("have.length", 2); // rowCount is by member
-    })
-
-    /* Stats to be updated post-hf */
-    it('should filter the results by token', () => {
-        cy.findByTestId("ConsortiumSearchBar.Input").clear().type("BTC");
-        cy.findAllByTestId("OverflowTable.Row").should("have.length", 2); // rowCount is by member
-        cy.findAllByTestId("OverflowTable.Cell").within(() => {
-            cy.get("span").should('not.have.text', 'ETH')
-        })
-    })
-
-    /* Stats to be updated post-hf */
-    it('should filter the results by address', () => {
-        cy.findByTestId("ConsortiumSearchBar.Input").clear().type("38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT");
-        cy.findAllByTestId("OverflowTable.Row").should("have.length", 1); // rowCount is by member
-    })
+  /* Stats to be updated post-hf */
+  it('should filter the results by address', () => {
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT");
+    cy.findAllByTestId("OverflowTable.Row").should("have.length", 1); // rowCount is by member
+  })
 });
 
 context("/consortium/proof_of_assets on iphone-x", () => {
-    before(() => {
-        cy.visit("/consortium/proof_of_assets?network=MainNet");
-    });
+  before(() => {
+    cy.visit("/consortium/proof_of_assets?network=MainNet");
+  });
 
-    beforeEach(() => {
-        cy.viewport("iphone-x");
-    });
+  beforeEach(() => {
+    cy.viewport("iphone-x");
+  });
 
-    it("should have heading", () => {
-        cy.get("h1").should("have.text", "DeFiChain Consortium");
-    });
+  it("should have heading", () => {
+    cy.get("h1").should("have.text", "DeFiChain Consortium");
+  });
 
-    it("should have heading desc", () => {
-        cy.findByTestId("heading-desc").should("have.text", "DeFiChain consortium provides an overview of the dtokens which each consortium member is accountable for. Consortium members will be responsible for the backing of the available tokens that was minted through them.");
+  it("should have heading desc", () => {
+    cy.findByTestId("heading-desc").should("have.text", "DeFiChain consortium provides an overview of the dtokens which each consortium member is accountable for. Consortium members will be responsible for the backing of the available tokens that was minted through them.");
+  })
+
+  it("should have CardList list items", () => {
+    cy.findAllByTestId("ProofOfAssetsCard.BTC").within(() => {
+      cy.findAllByTestId("CardList.Header.Children").within(() => {
+        cy.get("span")
+          .should("be.visible")
+          .should('have.text', 'BTC')
+      })
+      cy.findByTestId('CardList.Title.0')
+        .should("be.visible")
+        .should('have.text', 'Cake')
+      cy.findByTestId('CardList.Title.1')
+        .should("be.visible")
+        .should('have.text', 'Birthday Research')
+      cy.findAllByTestId('CardList.Content').should("have.length", 4)
     })
+  })
+
+  /* Stats to be updated post-hf */
+  it('should filter the results by member', () => {
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("Cake");
+    cy.findAllByTestId('CardList.Content').should("have.length", 4) // rowCount is by member
+  })
+
+  /* Stats to be updated post-hf */
+  it('should filter the results by token', () => {
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("BTC");
+    cy.findAllByTestId('CardList.Content').should("have.length", 4) // rowCount is by member
+  })
+
+  /* Stats to be updated post-hf */
+  it('should filter the results by address', () => {
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT");
+    cy.findAllByTestId('CardList.Content').should("have.length", 1) // rowCount is by member
+  })
 })
