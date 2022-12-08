@@ -3,13 +3,13 @@ import { TextMiddleTruncate } from "@components/commons/text/TextMiddleTruncate"
 import { DFI } from "@components/icons/assets/tokens/DFI";
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
+import { IoMdOpen } from "react-icons/io";
 import { CheckIcon } from "../_components/CheckIcon";
 import { CircularCheckIcon } from "../_components/CircularCheckIcon";
 import { CopyToClipboardIcon } from "../_components/CopyToClipboardIcon";
-import { OpenLinkIcon } from "../_components/OpenLinkIcon";
 import { ProgressBar } from "../_components/ProgressBar";
 import { RejectedIcon } from "../_components/RejectedIcon";
-import { VotingBreakdown } from "../_components/VotingBreakdown";
+import { VotingResultBreakdown } from "../_components/VotingBreakdown";
 
 enum DetailSectionStatusType {
   voting,
@@ -121,7 +121,7 @@ function DetailSectionLink({ label, href }: { label: string; href: string }) {
   return (
     <a href={href} className="flex items-center">
       <span className="text-lg text-[#4A72DA] mr-2 inline-block">{label}</span>
-      <OpenLinkIcon />
+      <IoMdOpen size={24} className="text-[#4A72DA]" />
     </a>
   );
 }
@@ -271,7 +271,11 @@ function VotingResultSection() {
           <VotingResultPercentage value="16% No" />
         </div>
       </div>
-      <VotingBreakdown yesPercent="78" neutralPercent="6" noPercent="16" />
+      <VotingResultBreakdown
+        yesPercent="78"
+        neutralPercent="6"
+        noPercent="16"
+      />
     </div>
   );
 }

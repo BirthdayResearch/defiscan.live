@@ -1,4 +1,4 @@
-export function VotingBreakdown({
+export function VotingResultBreakdown({
   yesPercent,
   neutralPercent,
   noPercent,
