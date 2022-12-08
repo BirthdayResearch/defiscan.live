@@ -48,12 +48,12 @@ context("/consortium/asset_breakdown on macbook-16", () => {
 
   /* Stats to be updated post-hf */
   it('should filter the results by name', () => {
-    cy.findByTestId("AssetSearchBar.Input").clear().type("Cake");
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("Cake");
     cy.findAllByTestId("OverflowTable.Row").should("have.length", 2);
   })
 
   it('should filter the results by token', () => {
-    cy.findByTestId("AssetSearchBar.Input").clear().type("dBTC");
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("dBTC");
     cy.findAllByTestId("OverflowTable.Row").should("have.length", 2);
     cy.findAllByTestId("OverflowTable.Cell").within(() => {
       cy.get("span").should('not.have.text', 'dETH')
@@ -107,12 +107,12 @@ context("/consortium/asset_breakdown on iphone-x", () => {
   });
 
   it('should display no results if list is empty', () => {
-    cy.findByTestId("AssetSearchBar.Input").type("xxx");
+    cy.findByTestId("ConsortiumSearchBar.Input").type("xxx");
     cy.findByTestId('AssetBreakdown.EmptyResults').should("have.text", 'No Results found for "xxx"')
   })
 
   it('should filter the results by name', () => {
-    cy.findByTestId("AssetSearchBar.Input").clear().type("Cake");
+    cy.findByTestId("ConsortiumSearchBar.Input").clear().type("Cake");
     cy.findAllByTestId("AssetBreakdownCard").should("have.length", 2);
   })
 });

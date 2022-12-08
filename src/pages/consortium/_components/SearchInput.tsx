@@ -17,7 +17,7 @@ export function SearchInput({
       <input
         className="inline-block h-10 flex-1 px-2 outline-0 dark:text-white dark:bg-gray-800"
         placeholder="Search"
-        data-testid="AssetSearchBar.Input"
+        data-testid="ConsortiumSearchBar.Input"
         type="text"
         value={searchText}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
