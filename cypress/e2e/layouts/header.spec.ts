@@ -56,6 +56,13 @@ context("<Header/> on macbook-13", () => {
       "href",
       "/masternodes"
     );
+
+    cy.findByTestId("Desktop.HeaderLink.Consortium").should("be.visible");
+    cy.findByTestId("Desktop.HeaderLink.Consortium").should(
+      "have.attr",
+      "href",
+      "/consortium/asset_breakdown"
+    );
   });
 
   it("should have Desktop.HeaderSearchBar", () => {
@@ -122,6 +129,13 @@ context("<Header/> on iphone-x", () => {
       "have.attr",
       "href",
       "/masternodes"
+    );
+
+    cy.findByTestId("Mobile.HeaderLink.Consortium").should("be.visible");
+    cy.findByTestId("Mobile.HeaderLink.Consortium").should(
+      "have.attr",
+      "href",
+      "/consortium/asset_breakdown"
     );
 
     cy.findByTestId("Mobile.HeaderSearchBar").should("be.visible");
