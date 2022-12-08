@@ -51,7 +51,7 @@ context("/consortium/proof_of_assets on macbook-16", () => {
     })
 });
 
-context.only("/consortium/proof_of_assets on iphone-x", () => {
+context("/consortium/proof_of_assets on iphone-x", () => {
     before(() => {
         cy.visit("/consortium/proof_of_assets?network=MainNet");
     });
