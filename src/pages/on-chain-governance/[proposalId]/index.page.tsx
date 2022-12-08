@@ -4,12 +4,14 @@ import { DFI } from "@components/icons/assets/tokens/DFI";
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
 import { IoMdOpen } from "react-icons/io";
+import { useState } from "react";
 import { CheckIcon } from "../_components/CheckIcon";
 import { CircularCheckIcon } from "../_components/CircularCheckIcon";
 import { CopyToClipboardIcon } from "../_components/CopyToClipboardIcon";
 import { ProgressBar } from "../_components/ProgressBar";
 import { RejectedIcon } from "../_components/RejectedIcon";
-import { VotingResultBreakdown } from "../_components/VotingBreakdown";
+import { VoteModal } from "../_components/VoteModal";
+import { VotingResultBreakdown } from "../_components/VotingResultBreakdown";
 
 enum DetailSectionStatusType {
   voting,
@@ -18,17 +20,26 @@ enum DetailSectionStatusType {
 }
 
 export default function ProposalDetailPage() {
-  const mockProposalStatus = DetailSectionStatusType.accepted;
+  const mockProposalStatus = DetailSectionStatusType.voting;
   const mockPayoutAddress =
     "3432erthyhfujrgrterthyhqepojgfiboget784reedwfert534xD";
+  const mockProposalId = "8Yv2DLTc8Yu8VV3ypC58V26wmRnJ7D6YuB";
+  const [displayVoteModal, setDisplayVoteModal] = useState(false);
   return (
     <Container className="mt-[40px] md:mt-[44px]">
       <ProposalDetail
         payoutAddress={mockPayoutAddress}
         status={mockProposalStatus}
+        onVoteButtonPress={(value) => setDisplayVoteModal(value)}
       />
       <VotingProgressSection />
       <VotingResultSection />
+      {displayVoteModal && (
+        <VoteModal
+          proposalId={mockProposalId}
+          onClose={() => setDisplayVoteModal(false)}
+        />
+      )}
     </Container>
   );
 }
@@ -36,9 +47,11 @@ export default function ProposalDetailPage() {
 function ProposalDetail({
   payoutAddress,
   status,
+  onVoteButtonPress,
 }: {
   payoutAddress: string;
   status: DetailSectionStatusType;
+  onVoteButtonPress: (value: boolean) => void;
 }) {
   function onClickCopy(content: string) {
     navigator.clipboard.writeText(content);
@@ -101,6 +114,7 @@ function ProposalDetail({
             "bg-primary-50 text-primary-500 rounded-sm text-sm font-medium py-2 px-18 self-auto md:self-start lg:self-end grow w-full md:w-[200px] lg:w-auto"
           )}
           type="button"
+          onClick={() => onVoteButtonPress(true)}
         >
           VOTE
         </button>
