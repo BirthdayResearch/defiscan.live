@@ -85,7 +85,7 @@ export default function AssetBreakdown({
         </div>
         {Object.values(filteredAssets).length === 0 && (
           <span
-            className="dark:text-dark-gray-900"
+            className="break-all dark:text-dark-gray-900"
             data-testid="AssetBreakdown.EmptyResults"
           >{`No Results found ${
             searchText !== "" ? `for "${searchText}"` : ""
