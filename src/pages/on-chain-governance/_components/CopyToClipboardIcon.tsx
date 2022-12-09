@@ -1,4 +1,4 @@
-export function CopyToClipboardIcon() {
+export function CopyToClipboardIcon({ customStyle }: { customStyle?: string }) {
   return (
     <svg
       width="25"
@@ -6,6 +6,7 @@ export function CopyToClipboardIcon() {
       viewBox="0 0 25 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={customStyle}
     >
       <g clipPath="url(#clip0_6839_9399)">
         <path
