@@ -1,10 +1,11 @@
 import classNames from "classnames";
+import React, { MouseEventHandler } from "react";
 
 interface ButtonProps {
   label: string;
   testId: string;
   href?: string;
-  onClick?: () => void;
+  onClick?: MouseEventHandler;
   customStyle?: string;
 }
 
@@ -46,19 +47,14 @@ function ButtonElement({
 }: {
   label: string;
   testId: string;
-  onClick?: () => void;
+  onClick?: MouseEventHandler;
   customStyle?: string;
 }) {
-  function handleButtonClick() {
-    if (onClick) {
-      onClick();
-    }
-  }
   return (
     <button
       type="button"
       data-testid={testId}
-      onClick={handleButtonClick}
+      onClick={onClick}
       className={classNames(
         "p-2 text-sm font-medium text-primary-500",
         customStyle

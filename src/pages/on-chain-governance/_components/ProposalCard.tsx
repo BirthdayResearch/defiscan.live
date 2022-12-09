@@ -1,9 +1,11 @@
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { IoMdOpen } from "react-icons/io";
+import { Dispatch, SetStateAction, useState } from "react";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
+import { VoteModal } from "./VoteModal";
 
 export function ProposalCards({
   proposals,
@@ -13,20 +15,34 @@ export function ProposalCards({
   currentStage: votingStages;
 }) {
   const router = useRouter();
+  const [displayVoteModal, setDisplayVoteModal] = useState(false);
   return (
     <div className="relative overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
       <div className="border-gray-200 text-gray-500 dark:border-gray-700 dark:bg-gray-800">
         {proposals.map((proposal: Proposal, index) => (
-          <div
-            key={index}
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              router.push("/on-chain-governance/proposalid");
-            }}
-          >
-            <ProposalCard currentStage={currentStage} proposal={proposal} />
-          </div>
+          <>
+            <div
+              key={index}
+              role="button"
+              tabIndex={0}
+              onClick={() => {
+                router.push("/on-chain-governance/proposalid");
+              }}
+            >
+              <ProposalCard
+                displayVoteModal={displayVoteModal}
+                setDisplayVoteModal={setDisplayVoteModal}
+                currentStage={currentStage}
+                proposal={proposal}
+              />
+            </div>
+            {displayVoteModal && (
+              <VoteModal
+                proposalId={proposal.proposalName}
+                onClose={() => setDisplayVoteModal(false)}
+              />
+            )}
+          </>
         ))}
       </div>
       {(proposals === null || proposals.length === 0) && (
@@ -43,7 +59,6 @@ export interface Proposal {
   proposalType: string;
   proposer: string;
   links: {
-    reddit: string;
     github: string;
   };
 }
@@ -51,12 +66,20 @@ export interface Proposal {
 function ProposalCard({
   proposal,
   currentStage,
+  displayVoteModal,
+  setDisplayVoteModal,
 }: {
   proposal: Proposal;
   currentStage: votingStages;
+  displayVoteModal: boolean;
+  setDisplayVoteModal: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
-    <div className="hover:bg-primary-50 dark:hover:bg-gray-600">
+    <div
+      className={classNames("hover:bg-primary-50 dark:hover:bg-gray-600", {
+        "pointer-events-none": displayVoteModal,
+      })}
+    >
       <div className="group lg:hidden md:block hidden">
         <div
           className={classNames(
@@ -93,7 +116,7 @@ function ProposalCard({
 
           <div
             className={classNames(
-              "flex flex-row gap-x-[27px] items-end justify-end",
+              "flex flex-row gap-x-[27px] items-end",
               currentStage === votingStages.vote
                 ? "row-start-2 col-start-3 "
                 : "col-span-2"
@@ -103,13 +126,7 @@ function ProposalCard({
               <a href={proposal.links.github}>
                 {OnChainGovernanceTitles.github}
               </a>
-              <IoMdOpen />
-            </div>
-            <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer">
-              <a href={proposal.links.reddit}>
-                {OnChainGovernanceTitles.reddit}
-              </a>
-              <IoMdOpen />
+              <IoMdOpen size={18} />
             </div>
           </div>
           {currentStage === votingStages.vote && (
@@ -139,10 +156,11 @@ function ProposalCard({
                 <Button
                   label={`vote`.toUpperCase()}
                   testId="OnChainGovernance.SubmitProposalButton"
-                  onClick={() => {
-                    window.location.href = "/on-chain-governance";
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDisplayVoteModal(true);
                   }}
-                  customStyle="px-7 text-base tracking-[0.0086em] w-full border bg-white hover:border-primary-200 active:border-primary-400"
+                  customStyle="px-7 py-1 rounded-sm text-base tracking-[0.0086em] w-full border bg-white hover:border-primary-200"
                 />
               </div>
             </>
@@ -153,7 +171,7 @@ function ProposalCard({
       <div className="group md:hidden block hover:bg-primary-50 dark:hover:bg-gray-600">
         <div
           className={classNames(
-            "grid pt-5 pb-6 px-6 gap-y-6 border-b",
+            "grid pt-5 pb-6 px-6 gap-y-6 border-b grid-rows-[44px_minmax(0px,_1fr)_44px]",
             currentStage === votingStages.vote
               ? "grid-cols-2 grid-rows-5"
               : "grid-cols-2 grid-rows-3"
@@ -196,12 +214,6 @@ function ProposalCard({
               </a>
               <IoMdOpen />
             </div>
-            <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer">
-              <a href={proposal.links.reddit}>
-                {OnChainGovernanceTitles.reddit}
-              </a>
-              <IoMdOpen />
-            </div>
           </div>
           {currentStage === votingStages.vote && (
             <>
@@ -231,10 +243,11 @@ function ProposalCard({
                 <Button
                   label={`vote`.toUpperCase()}
                   testId="OnChainGovernance.SubmitProposalButton"
-                  onClick={() => {
-                    window.location.href = "/on-chain-governance";
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setDisplayVoteModal(true);
                   }}
-                  customStyle="px-5 text-base tracking-[0.0086em] w-full border bg-white hover:border-primary-200 active:border-primary-400"
+                  customStyle="px-5 py-1 rounded-sm text-base tracking-[0.0086em] w-full border bg-white hover:border-primary-200"
                 />
               </div>
             </>

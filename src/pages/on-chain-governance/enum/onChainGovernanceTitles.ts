@@ -3,6 +3,7 @@ export enum OnChainGovernanceTitles {
   proposalsSubmittedTitle = "Proposals submitted",
   dfipsTitle = "DFIPS",
   cfpsTitle = "CFPS",
+  totalVotesTitle = "Total Votes",
   currentStageTitle = "Current Stage:",
   timeLeftTitle = "Time left:",
   nameOfProposalTitle = "Name of Proposal",

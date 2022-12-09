@@ -1,10 +1,13 @@
 import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { IoMdOpen } from "react-icons/io";
+import { Dispatch, SetStateAction, useState } from "react";
+import classNames from "classnames";
 import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { Proposal } from "./ProposalCard";
+import { VoteModal } from "./VoteModal";
 
 export function ProposalTable({
   proposals,
@@ -13,6 +16,7 @@ export function ProposalTable({
   proposals: Proposal[];
   currentStage: votingStages;
 }) {
+  const [displayVoteModal, setDisplayVoteModal] = useState(false);
   return (
     <div>
       <OverflowTable>
@@ -34,11 +38,23 @@ export function ProposalTable({
         </OverflowTable.Header>
 
         {proposals.map((proposal: Proposal, index) => (
-          <ProposalRow
-            key={index}
-            currentStage={currentStage}
-            proposal={proposal}
-          />
+          <>
+            <ProposalRow
+              key={index}
+              currentStage={currentStage}
+              proposal={proposal}
+              displayVoteModal={displayVoteModal}
+              setDisplayVoteModal={setDisplayVoteModal}
+            />
+            {displayVoteModal && (
+              <VoteModal
+                proposalId={proposal.proposalName}
+                onClose={() => {
+                  setDisplayVoteModal(false);
+                }}
+              />
+            )}
+          </>
         ))}
       </OverflowTable>
       {(proposals === null || proposals.length === 0) && (
@@ -53,9 +69,13 @@ export function ProposalTable({
 function ProposalRow({
   proposal,
   currentStage,
+  displayVoteModal,
+  setDisplayVoteModal,
 }: {
   proposal: Proposal;
   currentStage: votingStages;
+  displayVoteModal: boolean;
+  setDisplayVoteModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const router = useRouter();
   return (
@@ -63,7 +83,10 @@ function ProposalRow({
       onClick={() => {
         router.push("/on-chain-governance/proposalid");
       }}
-      className="hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer"
+      className={classNames(
+        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer",
+        { "pointer-events-none": displayVoteModal }
+      )}
     >
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
         {proposal.proposalName}
@@ -77,29 +100,16 @@ function ProposalRow({
       {currentStage === votingStages.vote ? (
         <>
           <OverflowTable.Cell className="align-middle">
-            <div className="flex flex-row gap-x-[27px]">
-              <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline">
-                <button
-                  type="button"
-                  onClick={() => {
-                    document.location.href = proposal.links.github;
-                  }}
-                >
-                  {OnChainGovernanceTitles.github}
-                </button>
-                <IoMdOpen />
-              </div>
-              <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline">
-                <button
-                  type="button"
-                  onClick={() => {
-                    document.location.href = proposal.links.reddit;
-                  }}
-                >
-                  {OnChainGovernanceTitles.reddit}
-                </button>
-                <IoMdOpen />
-              </div>
+            <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline">
+              <a
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                href={proposal.links.github}
+              >
+                {OnChainGovernanceTitles.github}
+              </a>
+              <IoMdOpen size={18} />
             </div>
           </OverflowTable.Cell>
           <OverflowTable.Cell className="align-middle">
@@ -123,10 +133,11 @@ function ProposalRow({
             <Button
               label={`vote`.toUpperCase()}
               testId="OnChainGovernance.SubmitProposalButton"
-              onClick={() => {
-                window.location.href = "/on-chain-governance";
+              onClick={(e) => {
+                e.stopPropagation();
+                setDisplayVoteModal(true);
               }}
-              customStyle="px-5 text-base w-full border bg-white hover:border-primary-200 active:border-primary-400"
+              customStyle="px-5 py-1 rounded-sm text-base w-full border bg-white hover:border-primary-200 active:border-primary-400"
             />
           </OverflowTable.Cell>
         </>
@@ -137,13 +148,7 @@ function ProposalRow({
               <a href={proposal.links.github}>
                 {OnChainGovernanceTitles.github}
               </a>
-              <IoMdOpen />
-            </div>
-            <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer">
-              <a href={proposal.links.reddit}>
-                {OnChainGovernanceTitles.reddit}
-              </a>
-              <IoMdOpen />
+              <IoMdOpen size={18} />
             </div>
           </div>
         </OverflowTable.Cell>

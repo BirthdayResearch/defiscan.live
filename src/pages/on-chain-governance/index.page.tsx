@@ -1,6 +1,7 @@
 import { Container } from "@components/commons/Container";
 import BigNumber from "bignumber.js";
 import { CursorPagination } from "@components/commons/CursorPagination";
+import { NumericFormat } from "react-number-format";
 import { Button } from "./_components/Button";
 import { getDuration } from "./shared/durationHelper";
 import { ProgressBar } from "./_components/ProgressBar";
@@ -36,14 +37,14 @@ export default function OnChainGovernancePage({
               label={`Previous voting cycles`.toUpperCase()}
               testId="OnChainGovernance.PreviousVotingCycleButton"
               onClick={() => {}}
-              customStyle="hover:bg-gray-50 active:bg-opacity-0"
+              customStyle="hover:bg-gray-50"
             />
             {votingCycle.currentStage === votingStages.open && (
               <Button
                 label={`Submit a proposal`.toUpperCase()}
                 testId="OnChainGovernance.SubmitProposalButton"
                 onClick={() => {}}
-                customStyle="bg-primary-50 hover:bg-primary-100 active:bg-primary-50"
+                customStyle="bg-primary-50 hover:bg-primary-100"
               />
             )}
           </div>
@@ -66,7 +67,7 @@ export default function OnChainGovernancePage({
             </div>
           </div>
 
-          <div className="flex flex-row gap-x-5">
+          <div className="flex flex-row md:gap-x-5 gap-x-9">
             <div className="flex md:flex-row flex-col md:items-center gap-2">
               <div
                 data-testid="OnChainGovernance.DfipsTitle"
@@ -96,6 +97,27 @@ export default function OnChainGovernancePage({
               </div>
             </div>
           </div>
+          {votingCycle.currentStage === votingStages.vote && (
+            <div className="flex md:flex-row flex-col md:items-center gap-2">
+              <div
+                data-testid="OnChainGovernance.TotalVotesTitle"
+                className="text-gray-500 text-lg"
+              >
+                {OnChainGovernanceTitles.totalVotesTitle}
+              </div>
+              <div
+                data-testid="OnChainGovernance.TotalVotes"
+                className="font-semibold text-gray-900 text-lg"
+              >
+                <NumericFormat
+                  displayType="text"
+                  thousandSeparator
+                  value={votingCycle.totalVotes}
+                  decimalScale={0}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex md:flex-row flex-col gap-5">
@@ -148,14 +170,14 @@ export default function OnChainGovernancePage({
             label={`Previous voting cycles`.toUpperCase()}
             testId="OnChainGovernance.PreviousVotingCycleButton"
             onClick={() => {}}
-            customStyle="w-full hover:bg-gray-50 active:bg-opacity-0"
+            customStyle="w-full hover:bg-gray-50 "
           />
           {votingCycle.currentStage === votingStages.open && (
             <Button
               label={`Submit a proposal`.toUpperCase()}
               testId="OnChainGovernance.SubmitProposalButton"
               onClick={() => {}}
-              customStyle="mt-4 w-full bg-primary-50 hover:bg-primary-100 active:bg-primary-50"
+              customStyle="mt-4 w-full bg-primary-50 hover:bg-primary-100"
             />
           )}
         </div>
@@ -193,6 +215,7 @@ export async function getServerSideProps() {
         currentStage: votingStages.vote,
         timeLeft: 9000,
         totalTime: 10000,
+        totalVotes: 8392,
       },
       proposals: {
         items: [
@@ -201,7 +224,6 @@ export async function getServerSideProps() {
             proposalType: "DFIP",
             proposer: "Chevol Valra",
             links: {
-              reddit: "https://www.reddit.com/",
               github: "https://github.com/",
             },
           },
@@ -210,7 +232,6 @@ export async function getServerSideProps() {
             proposalType: "DFIP",
             proposer: "Chevol Valra",
             links: {
-              reddit: "www.reddit.com",
               github: "www.github.com",
             },
           },
@@ -219,7 +240,6 @@ export async function getServerSideProps() {
             proposalType: "DFIP",
             proposer: "Chevol Valra",
             links: {
-              reddit: "www.reddit.com",
               github: "www.github.com",
             },
           },
@@ -228,7 +248,6 @@ export async function getServerSideProps() {
             proposalType: "DFIP",
             proposer: "Chevol Valra",
             links: {
-              reddit: "www.reddit.com",
               github: "www.github.com",
             },
           },
