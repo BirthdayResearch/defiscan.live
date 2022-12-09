@@ -40,7 +40,6 @@ export function ProposalTable({
         {proposals.map((proposal: Proposal, index) => (
           <React.Fragment key={index}>
             <ProposalRow
-              key={index}
               currentStage={currentStage}
               proposal={proposal}
               displayVoteModal={displayVoteModal}
@@ -48,7 +47,6 @@ export function ProposalTable({
             />
             {displayVoteModal && (
               <VoteModal
-                key={index}
                 proposalId={proposal.proposalName}
                 onClose={() => {
                   setDisplayVoteModal(false);
