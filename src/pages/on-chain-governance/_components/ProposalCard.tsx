@@ -1,7 +1,7 @@
+import React, { Dispatch, SetStateAction, useState } from "react";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { IoMdOpen } from "react-icons/io";
-import { Dispatch, SetStateAction, useState } from "react";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
@@ -20,9 +20,8 @@ export function ProposalCards({
     <div className="relative overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
       <div className="border-gray-200 text-gray-500 dark:border-gray-700 dark:bg-gray-800">
         {proposals.map((proposal: Proposal, index) => (
-          <>
+          <React.Fragment key={index}>
             <div
-              key={index}
               role="button"
               tabIndex={0}
               onClick={() => {
@@ -42,7 +41,7 @@ export function ProposalCards({
                 onClose={() => setDisplayVoteModal(false)}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
       {(proposals === null || proposals.length === 0) && (

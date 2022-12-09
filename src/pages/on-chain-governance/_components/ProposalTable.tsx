@@ -1,7 +1,7 @@
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { IoMdOpen } from "react-icons/io";
-import { Dispatch, SetStateAction, useState } from "react";
 import classNames from "classnames";
 import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
@@ -38,7 +38,7 @@ export function ProposalTable({
         </OverflowTable.Header>
 
         {proposals.map((proposal: Proposal, index) => (
-          <>
+          <React.Fragment key={index}>
             <ProposalRow
               key={index}
               currentStage={currentStage}
@@ -48,13 +48,14 @@ export function ProposalTable({
             />
             {displayVoteModal && (
               <VoteModal
+                key={index}
                 proposalId={proposal.proposalName}
                 onClose={() => {
                   setDisplayVoteModal(false);
                 }}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
       </OverflowTable>
       {(proposals === null || proposals.length === 0) && (
