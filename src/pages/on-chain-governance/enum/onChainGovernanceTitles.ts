@@ -1,0 +1,16 @@
+export enum OnChainGovernanceTitles {
+  votingCycleTitle = "Voting Cycle #",
+  proposalsSubmittedTitle = "Proposals submitted",
+  dfipsTitle = "DFIPS",
+  cfpsTitle = "CFPS",
+  currentStageTitle = "Current Stage:",
+  timeLeftTitle = "Time left:",
+  nameOfProposalTitle = "Name of Proposal",
+  typeTitle = "Type",
+  proposerTitle = "Proposer",
+  communityDiscussionTitle = "Community discussions",
+  noProposals = "No proposals yet",
+  github = "Github",
+  reddit = "Reddit",
+  voteBreakdownTitle = "Vote Breakdown",
+}
