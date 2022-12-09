@@ -111,7 +111,7 @@ function ProposalDetail({
         <button
           className={classNames(
             { hidden: status !== DetailSectionStatusType.voting },
-            "bg-primary-50 text-primary-500 rounded-sm text-sm font-medium py-2 px-18 self-auto md:self-start lg:self-end grow w-full md:w-[200px] lg:w-auto"
+            "bg-primary-50 text-primary-500 rounded-sm text-sm font-medium py-2 px-18 self-auto md:self-start lg:self-end grow w-full md:w-[200px] lg:w-auto hover:bg-primary-100"
           )}
           type="button"
           onClick={() => onVoteButtonPress(true)}
