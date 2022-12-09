@@ -99,17 +99,16 @@ function ProposalRow({
       {currentStage === votingStages.vote ? (
         <>
           <OverflowTable.Cell className="align-middle">
-            <div className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline">
-              <a
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                href={proposal.links.github}
-              >
-                {OnChainGovernanceTitles.github}
-              </a>
+            <a
+              className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              href={proposal.links.github}
+            >
+              {OnChainGovernanceTitles.github}
               <IoMdOpen size={24} />
-            </div>
+            </a>
           </OverflowTable.Cell>
           <OverflowTable.Cell className="align-middle">
             <div className="flex flex-row gap-x-5">
@@ -142,14 +141,16 @@ function ProposalRow({
         </>
       ) : (
         <OverflowTable.Cell>
-          <div className="flex flex-row gap-x-[27px] justify-end">
-            <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer">
-              <a href={proposal.links.github}>
-                {OnChainGovernanceTitles.github}
-              </a>
-              <IoMdOpen size={24} />
-            </div>
-          </div>
+          <a
+            className="justify-end flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            href={proposal.links.github}
+          >
+            {OnChainGovernanceTitles.github}
+            <IoMdOpen size={24} />
+          </a>
         </OverflowTable.Cell>
       )}
     </OverflowTable.Row>

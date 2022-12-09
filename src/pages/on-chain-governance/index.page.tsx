@@ -212,7 +212,7 @@ export async function getServerSideProps() {
         proposalsSubmitted: 12,
         dfips: 24,
         cfps: 24,
-        currentStage: votingStages.vote,
+        currentStage: votingStages.open,
         timeLeft: 9000,
         totalTime: 10000,
         totalVotes: 8392,
@@ -232,7 +232,7 @@ export async function getServerSideProps() {
             proposalType: "DFIP",
             proposer: "Chevol Valra",
             links: {
-              github: "www.github.com",
+              github: "https://github.com/",
             },
           },
           {
@@ -240,7 +240,7 @@ export async function getServerSideProps() {
             proposalType: "DFIP",
             proposer: "Chevol Valra",
             links: {
-              github: "www.github.com",
+              github: "https://github.com/",
             },
           },
           {
@@ -248,7 +248,7 @@ export async function getServerSideProps() {
             proposalType: "DFIP",
             proposer: "Chevol Valra",
             links: {
-              github: "www.github.com",
+              github: "https://github.com/",
             },
           },
         ],

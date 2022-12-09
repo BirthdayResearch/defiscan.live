@@ -88,7 +88,7 @@ function ProposalCard({
               : "grid-cols-5"
           )}
         >
-          <div className="flex flex-col gap-x-1">
+          <div className="flex flex-col gap-y-1">
             <div className=" text-xs text-gray-500">
               {OnChainGovernanceTitles.nameOfProposalTitle}
             </div>
@@ -96,7 +96,7 @@ function ProposalCard({
               {proposal.proposalName}
             </div>
           </div>
-          <div className="flex flex-col gap-x-1 ml-5">
+          <div className="flex flex-col gap-y-1 ml-5">
             <div className=" text-xs text-gray-500">
               {OnChainGovernanceTitles.typeTitle}
             </div>
@@ -104,7 +104,7 @@ function ProposalCard({
               {proposal.proposalType}
             </div>
           </div>
-          <div className="flex flex-col gap-x-1">
+          <div className="flex flex-col gap-y-1">
             <div className=" text-xs text-gray-500">
               {OnChainGovernanceTitles.proposerTitle}
             </div>
@@ -115,22 +115,26 @@ function ProposalCard({
 
           <div
             className={classNames(
-              "flex flex-row gap-x-[27px] items-end",
+              "flex flex-row gap-x-[27px] items-end ",
               currentStage === votingStages.vote
                 ? "row-start-2 col-start-3 "
-                : "col-span-2"
+                : "col-span-2 justify-end"
             )}
           >
-            <div className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline cursor-pointer">
-              <a href={proposal.links.github}>
-                {OnChainGovernanceTitles.github}
-              </a>
+            <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline cursor-pointer"
+              href={proposal.links.github}
+            >
+              {OnChainGovernanceTitles.github}
               <IoMdOpen size={24} />
-            </div>
+            </a>
           </div>
           {currentStage === votingStages.vote && (
             <>
-              <div className="row-start-2 col-span-2 flex flex-col gap-x-1">
+              <div className="row-start-2 col-span-2 flex flex-col gap-y-1">
                 <div className=" text-xs text-gray-500">
                   {OnChainGovernanceTitles.voteBreakdownTitle}
                 </div>
@@ -170,13 +174,13 @@ function ProposalCard({
       <div className="group md:hidden block hover:bg-primary-50 dark:hover:bg-gray-600">
         <div
           className={classNames(
-            "grid pt-5 pb-6 px-6 gap-y-6 border-b grid-rows-[44px_minmax(0px,_1fr)_44px]",
+            "grid pt-5 pb-6 px-6 gap-y-6 border-b",
             currentStage === votingStages.vote
-              ? "grid-cols-2 grid-rows-5"
-              : "grid-cols-2 grid-rows-3"
+              ? "grid-cols-2 grid-rows-[44px_minmax(0px,_1fr)_44px]"
+              : "grid-cols-2 grid-rows-[44px_minmax(0px,_1fr)_24px]"
           )}
         >
-          <div className="flex flex-col gap-x-1">
+          <div className="flex flex-col gap-y-1">
             <div className=" text-xs text-gray-500">
               {OnChainGovernanceTitles.nameOfProposalTitle}
             </div>
@@ -184,15 +188,15 @@ function ProposalCard({
               {proposal.proposalName}
             </div>
           </div>
-          <div className="flex flex-col gap-x-1 text-right">
-            <div className=" text-xs text-gray-500">
+          <div className="flex flex-col gap-y-1 text-right">
+            <div className="text-xs text-gray-500">
               {OnChainGovernanceTitles.typeTitle}
             </div>
             <div className="text-gray-900 group-hover:text-primary-500">
               {proposal.proposalType}
             </div>
           </div>
-          <div className="row-start-2 flex flex-col gap-x-1">
+          <div className="row-start-2 flex flex-col gap-y-1">
             <div className=" text-xs text-gray-500">
               {OnChainGovernanceTitles.proposerTitle}
             </div>
@@ -207,16 +211,20 @@ function ProposalCard({
               currentStage === votingStages.vote ? "row-start-4" : "row-start-3"
             )}
           >
-            <div className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline cursor-pointer">
-              <a href={proposal.links.github}>
-                {OnChainGovernanceTitles.github}
-              </a>
+            <a
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+              className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline cursor-pointer"
+              href={proposal.links.github}
+            >
+              {OnChainGovernanceTitles.github}
               <IoMdOpen size={24} />
-            </div>
+            </a>
           </div>
           {currentStage === votingStages.vote && (
             <>
-              <div className="row-start-3 col-span-2 flex flex-col gap-x-1">
+              <div className="row-start-3 col-span-2 flex flex-col gap-y-1">
                 <div className=" text-xs text-gray-500">
                   {OnChainGovernanceTitles.voteBreakdownTitle}
                 </div>
