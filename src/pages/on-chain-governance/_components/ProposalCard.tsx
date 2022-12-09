@@ -122,11 +122,11 @@ function ProposalCard({
                 : "col-span-2"
             )}
           >
-            <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer">
+            <div className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline cursor-pointer">
               <a href={proposal.links.github}>
                 {OnChainGovernanceTitles.github}
               </a>
-              <IoMdOpen size={18} />
+              <IoMdOpen size={24} />
             </div>
           </div>
           {currentStage === votingStages.vote && (
@@ -208,11 +208,11 @@ function ProposalCard({
               currentStage === votingStages.vote ? "row-start-4" : "row-start-3"
             )}
           >
-            <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer">
+            <div className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline cursor-pointer">
               <a href={proposal.links.github}>
                 {OnChainGovernanceTitles.github}
               </a>
-              <IoMdOpen />
+              <IoMdOpen size={24} />
             </div>
           </div>
           {currentStage === votingStages.vote && (

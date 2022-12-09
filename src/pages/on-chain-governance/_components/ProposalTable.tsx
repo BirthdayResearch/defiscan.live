@@ -100,7 +100,7 @@ function ProposalRow({
       {currentStage === votingStages.vote ? (
         <>
           <OverflowTable.Cell className="align-middle">
-            <div className="flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline">
+            <div className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline">
               <a
                 onClick={(e) => {
                   e.stopPropagation();
@@ -109,7 +109,7 @@ function ProposalRow({
               >
                 {OnChainGovernanceTitles.github}
               </a>
-              <IoMdOpen size={18} />
+              <IoMdOpen size={24} />
             </div>
           </OverflowTable.Cell>
           <OverflowTable.Cell className="align-middle">
@@ -148,7 +148,7 @@ function ProposalRow({
               <a href={proposal.links.github}>
                 {OnChainGovernanceTitles.github}
               </a>
-              <IoMdOpen size={18} />
+              <IoMdOpen size={24} />
             </div>
           </div>
         </OverflowTable.Cell>
