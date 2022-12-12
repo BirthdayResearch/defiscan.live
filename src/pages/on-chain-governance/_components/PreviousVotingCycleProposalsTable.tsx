@@ -127,7 +127,7 @@ function PreviousVotingCycleProposalRow({
           />
         </div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="dark:text-gray-100">
+      <OverflowTable.Cell className="dark:text-gray-100 w-[100px]">
         <VoteResult
           yesPercent={percYes}
           noPercent={percNo}
@@ -163,18 +163,16 @@ function VoteResult({
 }) {
   if (yesPercent > noPercent && yesPercent > neutralPercent) {
     return (
-      <div className="flex flex-row justify-center items-center px-1 rounded-[5px] py-1 text-green-700 bg-green-100">
-        <div className="text-xs pr-[10px] font-medium">ACCEPTED</div>
+      <div className="flex flex-row rounded-[5px] justify-end items-center py-1 px-2 gap-x-[10px] bg-green-100 text-green-700">
+        <div className="font-medium text-xs">ACCEPTED</div>
         <IoCheckmarkSharp size={18} className="" />
       </div>
     );
   }
   return (
-    <div>
-      <div className="flex flex-row justify-center items-center px-1 rounded-[5px] py-1 text-red-700 bg-red-100">
-        <div className="text-xs pr-[10px] font-medium">REJECTED</div>
-        <IoBanSharp size={18} className="rotate-90" />
-      </div>
+    <div className="flex flex-row rounded-[5px] justify-end items-center py-1 px-2 gap-x-[10px] text-red-700 bg-red-100">
+      <div className="font-medium text-xs">REJECTED</div>
+      <IoBanSharp size={18} className="rotate-90" />
     </div>
   );
 }
