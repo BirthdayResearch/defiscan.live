@@ -242,14 +242,14 @@ function VoteResult({
     return (
       <div className="flex flex-row rounded-[5px] justify-end items-center py-1 px-2 gap-x-[10px] bg-green-100 text-green-700">
         <div className="font-medium text-xs">ACCEPTED</div>
-        <IoCheckmarkSharp size={18} className="" />
+        <IoCheckmarkSharp size={15} className="" />
       </div>
     );
   }
   return (
     <div className="flex flex-row rounded-[5px] justify-end items-center py-1 px-2 gap-x-[10px] text-red-700 bg-red-100">
       <div className="font-medium text-xs">REJECTED</div>
-      <IoBanSharp size={18} className="rotate-90" />
+      <IoBanSharp size={15} className="rotate-90" />
     </div>
   );
 }
