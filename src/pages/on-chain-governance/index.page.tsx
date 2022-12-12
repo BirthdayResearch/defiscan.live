@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import BigNumber from "bignumber.js";
 import { CursorPagination } from "@components/commons/CursorPagination";
@@ -15,6 +16,7 @@ export default function OnChainGovernancePage({
   proposals,
   pages,
 }) {
+  const router = useRouter();
   return (
     <Container className="md:pt-11 pt-10 pb-20">
       <div
@@ -28,7 +30,7 @@ export default function OnChainGovernancePage({
           data-testid="OnChainGovernance.VotingCycleTitle"
           className="text-2xl font-medium grow dark:text-dark-gray-900"
         >
-          {OnChainGovernanceTitles.votingCycleTitle +
+          {OnChainGovernanceTitles.votingCycleTitleWithHash +
             votingCycle.votingCycleNumber}
         </div>
         <div className="hidden md:block">
@@ -36,7 +38,9 @@ export default function OnChainGovernancePage({
             <Button
               label={`Previous voting cycles`.toUpperCase()}
               testId="OnChainGovernance.PreviousVotingCycleButton"
-              onClick={() => {}}
+              onClick={() => {
+                router.push("on-chain-governance/previous-voting-cycles");
+              }}
               customStyle="hover:bg-gray-50"
             />
             {votingCycle.currentStage === votingStages.open && (
@@ -169,7 +173,9 @@ export default function OnChainGovernancePage({
           <Button
             label={`Previous voting cycles`.toUpperCase()}
             testId="OnChainGovernance.PreviousVotingCycleButton"
-            onClick={() => {}}
+            onClick={() => {
+              router.push("on-chain-governance/previous-voting-cycles");
+            }}
             customStyle="w-full hover:bg-gray-50 "
           />
           {votingCycle.currentStage === votingStages.open && (
