@@ -87,7 +87,7 @@ function newWhaleClient(
       return new WhaleApiClient({
         url: "https://ocean.defichain.com",
         network: "mainnet",
-        version: "v0",
+        version: "v3.7",
       });
   }
 }
@@ -108,7 +108,7 @@ function newRpcClient(connection?: string | NetworkConnection): WhaleRpcClient {
     }
     case NetworkConnection.MainNet:
     default: {
-      const version = "v0";
+      const version = "v3.7";
       return new WhaleRpcClient(
         `https://ocean.defichain.com/${version}/mainnet/rpc`
       );
