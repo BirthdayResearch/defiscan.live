@@ -2,6 +2,8 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { IoMdOpen } from "react-icons/io";
+import BigNumber from "bignumber.js";
+import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
@@ -11,7 +13,7 @@ export function ProposalCards({
   proposals,
   currentStage,
 }: {
-  proposals: Proposal[];
+  proposals: ProposalInfo[];
   currentStage: votingStages;
 }) {
   const router = useRouter();
@@ -19,7 +21,7 @@ export function ProposalCards({
   return (
     <div className="relative overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
       <div className="border-gray-200 text-gray-500 dark:border-gray-700 dark:bg-gray-800">
-        {proposals.map((proposal: Proposal, index) => (
+        {proposals.map((proposal: ProposalInfo, index) => (
           <React.Fragment key={index}>
             <div
               role="button"
@@ -53,13 +55,46 @@ export function ProposalCards({
   );
 }
 
-export interface Proposal {
-  proposalName: string;
-  proposalType: string;
-  proposer: string;
-  links: {
-    github: string;
-  };
+enum ProposalStatus {
+  VOTING = "Voting",
+  REJECTED = "Rejected",
+  COMPLETED = "Completed",
+}
+
+export enum ProposalType {
+  COMMUNITY_FUND_PROPOSAL = "CommunityFundProposal",
+  VOTE_OF_CONFIDENCE = "VoteOfConfidence",
+}
+
+export enum ProposalDisplayName {
+  CommunityFundProposal = "CFPS",
+  VoteOfConfidence = "DFIPS",
+}
+
+export interface ProposalInfo {
+  proposalId: string;
+  title: string;
+  context: string;
+  contextHash: string;
+  type: ProposalType;
+  status: ProposalStatus;
+  amount?: BigNumber;
+  currentCycle: number;
+  totalCycles: number;
+  creationHeight: number;
+  cycleEndHeight: number;
+  proposalEndHeight: number;
+  payoutAddress?: string;
+  votingPeriod: number;
+  approvalThreshold: string;
+  quorum: string;
+  votesPossible?: number;
+  votesPresent?: number;
+  votesPresentPct?: string;
+  votesYes?: number;
+  votesYesPct?: string;
+  fee: number;
+  options?: string[];
 }
 
 function ProposalCard({
@@ -68,7 +103,7 @@ function ProposalCard({
   displayVoteModal,
   setDisplayVoteModal,
 }: {
-  proposal: Proposal;
+  proposal: ProposalInfo;
   currentStage: votingStages;
   displayVoteModal: boolean;
   setDisplayVoteModal: Dispatch<SetStateAction<boolean>>;
@@ -89,27 +124,27 @@ function ProposalCard({
           )}
         >
           <div className="flex flex-col gap-y-1">
-            <div className=" text-xs text-gray-500">
+            <div className="text-xs text-gray-500">
               {OnChainGovernanceTitles.nameOfProposalTitle}
             </div>
             <div className="text-gray-900 group-hover:text-primary-500">
-              {proposal.proposalName}
+              {proposal.title}
             </div>
           </div>
           <div className="flex flex-col gap-y-1 ml-5">
-            <div className=" text-xs text-gray-500">
+            <div className="text-xs text-gray-500">
               {OnChainGovernanceTitles.typeTitle}
             </div>
             <div className="text-gray-900 group-hover:text-primary-500">
-              {proposal.proposalType}
+              {ProposalDisplayName[proposal.type]}
             </div>
           </div>
           <div className="flex flex-col gap-y-1">
-            <div className=" text-xs text-gray-500">
-              {OnChainGovernanceTitles.proposerTitle}
+            <div className="text-xs text-gray-500">
+              {OnChainGovernanceTitles.proposerId}
             </div>
             <div className="text-gray-900 group-hover:text-primary-500">
-              {proposal.proposer}
+              <TextTruncate text={proposal.proposalId} width="w-full" />
             </div>
           </div>
 
@@ -126,7 +161,7 @@ function ProposalCard({
                 e.stopPropagation();
               }}
               className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline cursor-pointer"
-              href={proposal.links.github}
+              href={proposal.context}
             >
               {OnChainGovernanceTitles.github}
               <IoMdOpen size={24} />
@@ -185,7 +220,7 @@ function ProposalCard({
               {OnChainGovernanceTitles.nameOfProposalTitle}
             </div>
             <div className="text-gray-900 group-hover:text-primary-500">
-              {proposal.proposalName}
+              {proposal.title}
             </div>
           </div>
           <div className="flex flex-col gap-y-1 text-right">
@@ -193,15 +228,15 @@ function ProposalCard({
               {OnChainGovernanceTitles.typeTitle}
             </div>
             <div className="text-gray-900 group-hover:text-primary-500">
-              {proposal.proposalType}
+              {ProposalDisplayName[proposal.type]}
             </div>
           </div>
           <div className="row-start-2 flex flex-col gap-y-1">
             <div className=" text-xs text-gray-500">
-              {OnChainGovernanceTitles.proposerTitle}
+              {OnChainGovernanceTitles.proposerId}
             </div>
             <div className="text-gray-900 group-hover:text-primary-500">
-              {proposal.proposer}
+              <TextTruncate text={proposal.proposalId} width="w-full" />
             </div>
           </div>
 
@@ -216,7 +251,7 @@ function ProposalCard({
                 e.stopPropagation();
               }}
               className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline cursor-pointer"
-              href={proposal.links.github}
+              href={proposal.context}
             >
               {OnChainGovernanceTitles.github}
               <IoMdOpen size={24} />

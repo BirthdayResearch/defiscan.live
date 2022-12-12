@@ -12,7 +12,7 @@ import { ProgressBar } from "./_components/ProgressBar";
 import { votingStages } from "./enum/votingStages";
 import { OnChainGovernanceTitles } from "./enum/onChainGovernanceTitles";
 import { ProposalTable } from "./_components/ProposalTable";
-import { ProposalCards } from "./_components/ProposalCard";
+import { ProposalCards, ProposalType } from "./_components/ProposalCard";
 
 export default function OnChainGovernancePage({
   votingCycle,
@@ -211,74 +211,102 @@ export default function OnChainGovernancePage({
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
+  let items = [
+    {
+      proposalId:
+        "9de29e3744b6a20181e676b069ec6465162b5d7b43c261e711f54b4321d76ade",
+      creationHeight: 6936,
+      title: "Testing proposal 1",
+      context: "<Git issue url>",
+      contextHash: "",
+      status: "Rejected",
+      type: "VoteOfConfidence",
+      currentCycle: 1,
+      totalCycles: 1,
+      cycleEndHeight: 7070,
+      proposalEndHeight: 7070,
+      votingPeriod: 70,
+      quorum: "1.00%",
+      approvalThreshold: "66.67%",
+      fee: 5,
+    },
+    {
+      proposalId:
+        "39d4ad07b599ca220f6841b673f0b5a2543734c5a88de64e2139e1594d97cbf4",
+      creationHeight: 6455,
+      title: "Testing proposal 2",
+      context: "<Git issue url>",
+      contextHash: "",
+      status: "Rejected",
+      type: "VoteOfConfidence",
+      currentCycle: 1,
+      totalCycles: 1,
+      cycleEndHeight: 6580,
+      proposalEndHeight: 6580,
+      votingPeriod: 70,
+      quorum: "1.00%",
+      approvalThreshold: "66.67%",
+      fee: 5,
+    },
+    {
+      proposalId:
+        "c91a6237f4519bb7155d6eff30b3041cb616747e604bc96ae0a8bf2464d379fd",
+      creationHeight: 7324,
+      title: "Testing proposal 3",
+      context: "<Git issue url>",
+      contextHash: "",
+      status: "Rejected",
+      type: "VoteOfConfidence",
+      currentCycle: 1,
+      totalCycles: 1,
+      cycleEndHeight: 7420,
+      proposalEndHeight: 7420,
+      votingPeriod: 70,
+      quorum: "1.00%",
+      approvalThreshold: "66.67%",
+      fee: 5,
+    },
+  ];
   if (NetworkConnection.RemotePlayground === network) {
     const rpc = newPlaygroundRpcClient(context);
-    // TODO uncomment to create test data
+    // TODO implement api call when listgovproposals gets whitelisted
+    // Note uncomment to create test data
     // const data = {
     //   title: 'Testing proposal',
     //   amount: '100000000',
     //   context: '<Git issue url>',
     //   payoutAddress: 'bcrt1q4lkkq8snxjrfxm03yukmpw3nnnkwaprmhg9pmz',
-    //   cycles: 2
+    //   cycles: 0
     // }
-    // for( let i=0; i < 10; i += 1) {
-    //   await rpc.call(
-    //     "creategovvoc",[{...data, title: `${data.title} ${i+1}`}, [] ],
+    // for( let i=1; i < 2; i += 1 ) {
+    //   const a = await rpc.call(
+    //     "creategovvoc", [{...data, title: `${data.title} ${i+1}`}, [] ],
     //     'number'
     //   )
+    //   console.log(a)
     // }
-    const items = await rpc.call("listgovproposals", ["all", "all"], {
+    items = await rpc.call("listgovproposals", ["all", "voting"], {
       amount: "bignumber",
     });
-    console.log({ items });
   }
   return {
     props: {
       votingCycle: {
         votingCycleNumber: 3434,
-        proposalsSubmitted: 12,
-        dfips: 24,
-        cfps: 24,
+        proposalsSubmitted: items.length,
+        dfips: items.filter(
+          (item) => item.type === ProposalType.VOTE_OF_CONFIDENCE
+        ).length,
+        cfps: items.filter(
+          (item) => item.type === ProposalType.COMMUNITY_FUND_PROPOSAL
+        ).length,
         currentStage: votingStages.open,
         timeLeft: 9000,
         totalTime: 10000,
         totalVotes: 8392,
       },
       proposals: {
-        items: [
-          {
-            proposalName: "Support Europe",
-            proposalType: "DFIP",
-            proposer: "Chevol Valra",
-            links: {
-              github: "https://github.com/",
-            },
-          },
-          {
-            proposalName: "Support SG",
-            proposalType: "DFIP",
-            proposer: "Chevol Valra",
-            links: {
-              github: "https://github.com/",
-            },
-          },
-          {
-            proposalName: "Support MY",
-            proposalType: "DFIP",
-            proposer: "Chevol Valra",
-            links: {
-              github: "https://github.com/",
-            },
-          },
-          {
-            proposalName: "Support IN",
-            proposalType: "DFIP",
-            proposer: "Chevol Valra",
-            links: {
-              github: "https://github.com/",
-            },
-          },
-        ],
+        items,
         pages: [
           {
             n: 1,
