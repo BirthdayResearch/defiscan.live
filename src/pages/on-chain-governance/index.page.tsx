@@ -2,6 +2,10 @@ import { Container } from "@components/commons/Container";
 import BigNumber from "bignumber.js";
 import { CursorPagination } from "@components/commons/CursorPagination";
 import { NumericFormat } from "react-number-format";
+import { newPlaygroundRpcClient } from "@contexts/WhaleContext";
+import { GetServerSidePropsContext } from "next";
+import { getEnvironment } from "@contexts/Environment";
+import { NetworkConnection } from "@contexts/NetworkContext";
 import { Button } from "./_components/Button";
 import { getDuration } from "./shared/durationHelper";
 import { ProgressBar } from "./_components/ProgressBar";
@@ -204,7 +208,30 @@ export default function OnChainGovernancePage({
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const network =
+    context.query.network?.toString() ?? getEnvironment().networks[0];
+  if (NetworkConnection.RemotePlayground === network) {
+    const rpc = newPlaygroundRpcClient(context);
+    // TODO uncomment to create test data
+    // const data = {
+    //   title: 'Testing proposal',
+    //   amount: '100000000',
+    //   context: '<Git issue url>',
+    //   payoutAddress: 'bcrt1q4lkkq8snxjrfxm03yukmpw3nnnkwaprmhg9pmz',
+    //   cycles: 2
+    // }
+    // for( let i=0; i < 10; i += 1) {
+    //   await rpc.call(
+    //     "creategovvoc",[{...data, title: `${data.title} ${i+1}`}, [] ],
+    //     'number'
+    //   )
+    // }
+    const items = await rpc.call("listgovproposals", ["all", "all"], {
+      amount: "bignumber",
+    });
+    console.log({ items });
+  }
   return {
     props: {
       votingCycle: {

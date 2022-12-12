@@ -1,3 +1,7 @@
+import {
+  PlaygroundApiClient,
+  PlaygroundRpcClient,
+} from "@defichain/playground-api-client";
 import { WhaleApiClient, WhaleRpcClient } from "@defichain/whale-api-client";
 import { GetServerSidePropsContext } from "next";
 import { createContext, PropsWithChildren, useContext, useMemo } from "react";
@@ -31,6 +35,14 @@ export function getWhaleRpcClient(
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
   return newRpcClient(network);
+}
+
+export function newPlaygroundRpcClient(
+  context: GetServerSidePropsContext
+): PlaygroundRpcClient {
+  const network =
+    context.query.network?.toString() ?? getEnvironment().networks[0];
+  return new PlaygroundRpcClient(newPlaygroundClient(network));
 }
 
 export function useWhaleApiClient(): WhaleApiClient {
@@ -113,5 +125,20 @@ function newRpcClient(connection?: string | NetworkConnection): WhaleRpcClient {
         `https://ocean.defichain.com/${version}/mainnet/rpc`
       );
     }
+  }
+}
+
+function newPlaygroundClient(
+  network: string | NetworkConnection
+): PlaygroundApiClient {
+  switch (network) {
+    case NetworkConnection.RemotePlayground:
+      return new PlaygroundApiClient({
+        url: "https://playground.jellyfishsdk.com",
+      });
+    case NetworkConnection.LocalPlayground:
+      return new PlaygroundApiClient({ url: "http://localhost:19553" });
+    default:
+      throw new Error(`playground not available for '${network}'`);
   }
 }
