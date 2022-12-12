@@ -275,12 +275,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     //   title: 'Testing proposal',
     //   amount: '100000000',
     //   context: '<Git issue url>',
-    //   payoutAddress: 'bcrt1q4lkkq8snxjrfxm03yukmpw3nnnkwaprmhg9pmz',
-    //   cycles: 0
+    //   payoutAddress: 'mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy',
+    //   cycles: 1
     // }
-    // for( let i=1; i < 2; i += 1 ) {
+    // for( let i=1; i < 20; i += 1 ) {
+    //   const governanceType = ["creategovvoc", "creategovcfp"]
     //   const a = await rpc.call(
-    //     "creategovvoc", [{...data, title: `${data.title} ${i+1}`}, [] ],
+    //     // get random governance type
+    //     governanceType[Math.floor(Math.random() * governanceType.length)],
+    //     [{...data, title: `${data.title} ${i+1}`}, [] ],
     //     'number'
     //   )
     //   console.log(a)
