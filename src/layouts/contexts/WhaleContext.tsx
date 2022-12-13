@@ -1,6 +1,7 @@
 import { WhaleApiClient, WhaleRpcClient } from "@defichain/whale-api-client";
 import { GetServerSidePropsContext } from "next";
 import { createContext, PropsWithChildren, useContext, useMemo } from "react";
+import { WhaleApiClientOptions } from "@defichain/whale-api-client/dist/whale.api.client";
 import { getEnvironment } from "./Environment";
 import { NetworkConnection, useNetwork } from "./NetworkContext";
 
@@ -22,7 +23,7 @@ export function getWhaleApiClient(
 ): WhaleApiClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  return newWhaleClient(network);
+  return newWhaleClient(newOceanOptions(network));
 }
 
 export function getWhaleRpcClient(
@@ -30,7 +31,7 @@ export function getWhaleRpcClient(
 ): WhaleRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  return newRpcClient(network);
+  return newRpcClient(newOceanOptions(network));
 }
 
 export function useWhaleApiClient(): WhaleApiClient {
@@ -43,11 +44,10 @@ export function WhaleProvider(
   const connection = useNetwork().connection;
 
   const memo = useMemo(() => {
-    const api = newWhaleClient(connection);
-    const rpc = newRpcClient(connection);
+    const options = newOceanOptions(connection);
     return {
-      api: api,
-      rpc: rpc,
+      api: newWhaleClient(options),
+      rpc: newRpcClient(options),
     };
   }, [connection]);
 
@@ -60,58 +60,44 @@ export function WhaleProvider(
   );
 }
 
-function newWhaleClient(
+function newOceanOptions(
   connection?: string | NetworkConnection
-): WhaleApiClient {
+): WhaleApiClientOptions {
   switch (connection) {
     case NetworkConnection.LocalPlayground:
-      return new WhaleApiClient({
+      return {
         url: "http://localhost:19553",
         network: "regtest",
         version: "v0",
-      });
+      };
     case NetworkConnection.RemotePlayground:
-      return new WhaleApiClient({
+      return {
         url: "https://playground.jellyfishsdk.com",
         network: "regtest",
         version: "v0",
-      });
+      };
     case NetworkConnection.TestNet:
-      return new WhaleApiClient({
+      return {
         url: "https://testnet.ocean.jellyfishsdk.com",
         network: "testnet",
         version: "v0",
-      });
+      };
     case NetworkConnection.MainNet:
     default:
-      return new WhaleApiClient({
+      return {
         url: "https://ocean.defichain.com",
         network: "mainnet",
         version: "v0",
-      });
+      };
   }
 }
 
-function newRpcClient(connection?: string | NetworkConnection): WhaleRpcClient {
-  switch (connection) {
-    case NetworkConnection.LocalPlayground:
-      return new WhaleRpcClient("http://localhost:19553/v0/regtest/rpc");
-    case NetworkConnection.RemotePlayground:
-      return new WhaleRpcClient(
-        "https://playground.jellyfishsdk.com/v0/regtest/rpc"
-      );
-    case NetworkConnection.TestNet: {
-      const version = "v0";
-      return new WhaleRpcClient(
-        `https://testnet.ocean.jellyfishsdk.com/${version}/testnet/rpc`
-      );
-    }
-    case NetworkConnection.MainNet:
-    default: {
-      const version = "v0";
-      return new WhaleRpcClient(
-        `https://ocean.defichain.com/${version}/mainnet/rpc`
-      );
-    }
-  }
+function newWhaleClient(options: WhaleApiClientOptions): WhaleApiClient {
+  return new WhaleApiClient(options);
+}
+
+function newRpcClient(options: WhaleApiClientOptions): WhaleRpcClient {
+  return new WhaleRpcClient(
+    `${options.url}/${options.version}/${options.network}/rpc`
+  );
 }
