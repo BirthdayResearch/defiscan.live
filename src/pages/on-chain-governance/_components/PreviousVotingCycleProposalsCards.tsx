@@ -52,14 +52,11 @@ function PreviousVotingCycleProposalsCard({
 }: {
   previousVotingCycleProposal: PreviousVotingCycleProposal;
 }) {
-  const votingPerc = getVotePercentage(
+  const { percYes, percNo, percNeutral } = getVotePercentage(
     previousVotingCycleProposal.voteDecision.yes,
     previousVotingCycleProposal.voteDecision.no,
     previousVotingCycleProposal.voteDecision.neutral
   );
-  const percYes = votingPerc.percYes;
-  const percNo = votingPerc.percNo;
-  const percNeutral = votingPerc.percNeutral;
 
   return (
     <div className={classNames("hover:bg-primary-50 dark:hover:bg-gray-600")}>

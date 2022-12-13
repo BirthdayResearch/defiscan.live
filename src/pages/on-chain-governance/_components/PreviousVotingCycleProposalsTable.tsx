@@ -54,14 +54,12 @@ function PreviousVotingCycleProposalRow({
   previousVotingCycleProposal: PreviousVotingCycleProposal;
 }) {
   const router = useRouter();
-  const votingPerc = getVotePercentage(
+  const { percYes, percNo, percNeutral } = getVotePercentage(
     previousVotingCycleProposal.voteDecision.yes,
     previousVotingCycleProposal.voteDecision.no,
     previousVotingCycleProposal.voteDecision.neutral
   );
-  const percYes = votingPerc.percYes;
-  const percNo = votingPerc.percNo;
-  const percNeutral = votingPerc.percNeutral;
+
   return (
     <OverflowTable.Row
       onClick={() => {
