@@ -4,6 +4,7 @@ import { OverflowTable } from "@components/commons/OverflowTable";
 import classNames from "classnames";
 import { IoMdOpen } from "react-icons/io";
 import { IoCheckmarkSharp, IoBanSharp } from "react-icons/io5";
+import BigNumber from "bignumber.js";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getVotePercentage } from "../shared/getTotalVotes";
 
@@ -53,25 +54,14 @@ function PreviousVotingCycleProposalRow({
   previousVotingCycleProposal: PreviousVotingCycleProposal;
 }) {
   const router = useRouter();
-  const percYes = getVotePercentage(
+  const votingPerc = getVotePercentage(
     previousVotingCycleProposal.voteDecision.yes,
     previousVotingCycleProposal.voteDecision.no,
-    previousVotingCycleProposal.voteDecision.neutral,
-    "yes"
+    previousVotingCycleProposal.voteDecision.neutral
   );
-  const percNo = getVotePercentage(
-    previousVotingCycleProposal.voteDecision.yes,
-    previousVotingCycleProposal.voteDecision.no,
-    previousVotingCycleProposal.voteDecision.neutral,
-    "no"
-  );
-  const percNeutral = getVotePercentage(
-    previousVotingCycleProposal.voteDecision.yes,
-    previousVotingCycleProposal.voteDecision.no,
-    previousVotingCycleProposal.voteDecision.neutral,
-    "neutral"
-  );
-
+  const percYes = votingPerc.percYes;
+  const percNo = votingPerc.percNo;
+  const percNeutral = votingPerc.percNeutral;
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -156,9 +146,9 @@ function VoteResult({
   noPercent,
   neutralPercent,
 }: {
-  yesPercent: number;
-  noPercent: number;
-  neutralPercent: number;
+  yesPercent: BigNumber;
+  noPercent: BigNumber;
+  neutralPercent: BigNumber;
 }) {
   if (yesPercent > noPercent && yesPercent > neutralPercent) {
     return (

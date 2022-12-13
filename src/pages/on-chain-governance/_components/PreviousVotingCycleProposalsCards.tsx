@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import { IoCheckmarkSharp, IoBanSharp } from "react-icons/io5";
 import { IoMdOpen } from "react-icons/io";
+import BigNumber from "bignumber.js";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { PreviousVotingCycleProposal } from "./PreviousVotingCycleProposalsTable";
 import { getVotePercentage } from "../shared/getTotalVotes";
@@ -51,24 +52,14 @@ function PreviousVotingCycleProposalsCard({
 }: {
   previousVotingCycleProposal: PreviousVotingCycleProposal;
 }) {
-  const percYes = getVotePercentage(
+  const votingPerc = getVotePercentage(
     previousVotingCycleProposal.voteDecision.yes,
     previousVotingCycleProposal.voteDecision.no,
-    previousVotingCycleProposal.voteDecision.neutral,
-    "yes"
+    previousVotingCycleProposal.voteDecision.neutral
   );
-  const percNo = getVotePercentage(
-    previousVotingCycleProposal.voteDecision.yes,
-    previousVotingCycleProposal.voteDecision.no,
-    previousVotingCycleProposal.voteDecision.neutral,
-    "no"
-  );
-  const percNeutral = getVotePercentage(
-    previousVotingCycleProposal.voteDecision.yes,
-    previousVotingCycleProposal.voteDecision.no,
-    previousVotingCycleProposal.voteDecision.neutral,
-    "neutral"
-  );
+  const percYes = votingPerc.percYes;
+  const percNo = votingPerc.percNo;
+  const percNeutral = votingPerc.percNeutral;
 
   return (
     <div className={classNames("hover:bg-primary-50 dark:hover:bg-gray-600")}>
@@ -233,9 +224,9 @@ function VoteResult({
   noPercent,
   neutralPercent,
 }: {
-  yesPercent: number;
-  noPercent: number;
-  neutralPercent: number;
+  yesPercent: BigNumber;
+  noPercent: BigNumber;
+  neutralPercent: BigNumber;
 }) {
   if (yesPercent > noPercent && yesPercent > neutralPercent) {
     return (

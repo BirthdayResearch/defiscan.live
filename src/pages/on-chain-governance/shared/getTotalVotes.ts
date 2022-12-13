@@ -1,20 +1,21 @@
-export function getVotePercentage(
-  percYes: number,
-  percNo: number,
-  percNeutral: number,
-  voteDecision: string
-) {
-  const totalVotes = percYes + percNo + percNeutral;
-  switch (voteDecision) {
-    case "yes":
-      return Math.round((percYes / totalVotes) * 100);
-      break;
-    case "no":
-      return Math.round((percNo / totalVotes) * 100);
-      break;
+import BigNumber from "bignumber.js";
 
-    case "neutral":
-    default:
-      return Math.round((percNeutral / totalVotes) * 100);
-  }
+export function getVotePercentage(
+  numYes: number,
+  numNo: number,
+  numNeutral: number
+) {
+  const totalVotes = numYes + numNo + numNeutral;
+
+  const percYes = new BigNumber((numYes / totalVotes) * 100).precision(2);
+  const percNo = new BigNumber((numNo / totalVotes) * 100).precision(2);
+  const percNeutral = new BigNumber((numNeutral / totalVotes) * 100).precision(
+    2
+  );
+
+  return {
+    percYes: percYes,
+    percNo: percNo,
+    percNeutral: percNeutral,
+  };
 }
