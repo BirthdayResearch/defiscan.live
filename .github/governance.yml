@@ -3,7 +3,7 @@ version: v1
 issue:
   labels:
     - prefix: triage
-      list: [ "accepted" ]
+      list: ["accepted"]
       multiple: false
       author_association:
         collaborator: true
@@ -66,7 +66,7 @@ issue:
 
     - prefix: priority
       multiple: false
-      list: [ "urgent-now", "important-soon" ]
+      list: ["urgent-now", "important-soon"]
       author_association:
         collaborator: true
         member: true
@@ -74,7 +74,7 @@ issue:
 
     - prefix: design
       multiple: false
-      list: [ "in-progress", "ready" ]
+      list: ["in-progress", "ready"]
       author_association:
         collaborator: true
         member: true
@@ -82,7 +82,7 @@ issue:
 
     - prefix: prd
       multiple: false
-      list: [ "epic", "story" ]
+      list: ["epic", "story"]
       author_association:
         collaborator: true
         member: true

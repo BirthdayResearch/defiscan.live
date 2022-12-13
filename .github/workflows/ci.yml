@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
@@ -28,7 +28,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: tsc
-      - run: npm run lint
+      - run: pnpm run lint
 
   lint_prettier:
     name: Lint - Prettier
@@ -47,4 +47,3 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: npx pretty-quick --staged --check --pattern "**/*.{js,jsx,ts,tsx}"
-
