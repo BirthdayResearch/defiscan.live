@@ -3,11 +3,11 @@ name: CI - E2E
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: "0 1 * * *"
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false # https://github.com/cypress-io/github-action/issues/48
       matrix:
-        containers: [ 1, 2, 3, 4, 5 ]
+        containers: [1, 2, 3, 4, 5]
     steps:
       - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
 
@@ -32,7 +32,6 @@ jobs:
       - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3.5.1
         with:
           node-version: 16
-          cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
 
@@ -42,9 +41,9 @@ jobs:
           install: false
           record: true
           parallel: true
-          build: npm run cypress:build
-          start: npm run start
-          wait-on: 'http://localhost:3000'
+          build: pnpm run cypress:build
+          start: pnpm run start
+          wait-on: "http://localhost:3000"
           browser: chrome
           spec: cypress/e2e/**
           tag: ${{ github.event_name }}
