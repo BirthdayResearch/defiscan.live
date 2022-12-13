@@ -3,30 +3,13 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@content/*": [
-        "../content/*"
-      ],
-      "@contexts/*": [
-        "layouts/contexts/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@store/*": [
-        "store/*"
-      ],
-      "@public/*": [
-        "../public/*"
-      ]
+      "@content/*": ["../content/*"],
+      "@contexts/*": ["layouts/contexts/*"],
+      "@components/*": ["components/*"],
+      "@store/*": ["store/*"],
+      "@public/*": ["../public/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "cypress"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "cypress"]
 }
