@@ -11,7 +11,6 @@ import { PreviousVotingCyclesCards } from "../_components/PreviousVotingCyclesCa
 export default function OnChainGovernancePage({
   previousVotingCycle,
   previousCycles,
-  pages,
 }) {
   const router = useRouter();
   return (
@@ -22,7 +21,7 @@ export default function OnChainGovernancePage({
       >
         On Chain Governance
       </div>
-      <div className="flex md:flex-row md:items-center flex-col md:mt-12 mt-8 gap-y-4">
+      <div className="flex md:flex-row md:items-center flex-col md:mt-12 mt-8 gap-4">
         <div
           data-testid="OnChainGovernance.PreviousCyclesTitle"
           className="text-2xl font-medium grow dark:text-dark-gray-900"
@@ -36,11 +35,11 @@ export default function OnChainGovernancePage({
           onClick={() => {
             router.push("/on-chain-governance/");
           }}
-          customStyle="hover:bg-gray-50 md:p-2 px-0 md:mt-0 mt-4"
+          customStyle="hover:bg-gray-50 md:p-2 px-0"
         />
       </div>
 
-      <div className="flex md:flex-row flex-col gap-x-5 gap-y-2 mt-6">
+      <div className="flex md:flex-row flex-col gap-x-5 gap-y-2 mt-4">
         <div className="flex flex-row items-center gap-2">
           <div
             data-testid="OnChainGovernance.PreviousCyclesProposalsSubmittedTitle"
@@ -120,7 +119,10 @@ export default function OnChainGovernancePage({
         />
       </div>
       <div className="flex justify-end mt-8">
-        <CursorPagination pages={pages} path="/on-chain-governance" />
+        <CursorPagination
+          pages={previousCycles.pages}
+          path="/on-chain-governance"
+        />
       </div>
     </Container>
   );
@@ -187,16 +189,6 @@ export async function getServerSideProps() {
             n: 1,
             active: true,
             cursors: [],
-          },
-          {
-            n: 2,
-            active: false,
-            cursors: ["1"],
-          },
-          {
-            n: 3,
-            active: false,
-            cursors: ["1", "2"],
           },
         ],
       },

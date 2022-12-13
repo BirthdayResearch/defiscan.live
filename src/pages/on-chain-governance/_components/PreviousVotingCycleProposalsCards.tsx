@@ -5,6 +5,7 @@ import { IoCheckmarkSharp, IoBanSharp } from "react-icons/io5";
 import { IoMdOpen } from "react-icons/io";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { PreviousVotingCycleProposal } from "./PreviousVotingCycleProposalsTable";
+import { getVotePercentage } from "../shared/getTotalVotes";
 
 export function PreviousVotingCycleProposalsCards({
   previousVotingCycleProposals,
@@ -50,27 +51,25 @@ function PreviousVotingCycleProposalsCard({
 }: {
   previousVotingCycleProposal: PreviousVotingCycleProposal;
 }) {
-  const percYes = Math.round(
-    (previousVotingCycleProposal.voteDecision.yes /
-      (previousVotingCycleProposal.voteDecision.yes +
-        previousVotingCycleProposal.voteDecision.no +
-        previousVotingCycleProposal.voteDecision.neutral)) *
-      100
+  const percYes = getVotePercentage(
+    previousVotingCycleProposal.voteDecision.yes,
+    previousVotingCycleProposal.voteDecision.no,
+    previousVotingCycleProposal.voteDecision.neutral,
+    "yes"
   );
-  const percNo = Math.round(
-    (previousVotingCycleProposal.voteDecision.no /
-      (previousVotingCycleProposal.voteDecision.yes +
-        previousVotingCycleProposal.voteDecision.no +
-        previousVotingCycleProposal.voteDecision.neutral)) *
-      100
+  const percNo = getVotePercentage(
+    previousVotingCycleProposal.voteDecision.yes,
+    previousVotingCycleProposal.voteDecision.no,
+    previousVotingCycleProposal.voteDecision.neutral,
+    "no"
   );
-  const percNeutral = Math.round(
-    (previousVotingCycleProposal.voteDecision.neutral /
-      (previousVotingCycleProposal.voteDecision.yes +
-        previousVotingCycleProposal.voteDecision.no +
-        previousVotingCycleProposal.voteDecision.neutral)) *
-      100
+  const percNeutral = getVotePercentage(
+    previousVotingCycleProposal.voteDecision.yes,
+    previousVotingCycleProposal.voteDecision.no,
+    previousVotingCycleProposal.voteDecision.neutral,
+    "neutral"
   );
+
   return (
     <div className={classNames("hover:bg-primary-50 dark:hover:bg-gray-600")}>
       <div className="group lg:hidden md:block hidden">

@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { IoMdOpen } from "react-icons/io";
 import { IoCheckmarkSharp, IoBanSharp } from "react-icons/io5";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { getVotePercentage } from "../shared/getTotalVotes";
 
 export function PreviousVotingCycleProposalsTable({
   previousVotingCycleProposals,
@@ -52,27 +53,25 @@ function PreviousVotingCycleProposalRow({
   previousVotingCycleProposal: PreviousVotingCycleProposal;
 }) {
   const router = useRouter();
-  const percYes = Math.round(
-    (previousVotingCycleProposal.voteDecision.yes /
-      (previousVotingCycleProposal.voteDecision.yes +
-        previousVotingCycleProposal.voteDecision.no +
-        previousVotingCycleProposal.voteDecision.neutral)) *
-      100
+  const percYes = getVotePercentage(
+    previousVotingCycleProposal.voteDecision.yes,
+    previousVotingCycleProposal.voteDecision.no,
+    previousVotingCycleProposal.voteDecision.neutral,
+    "yes"
   );
-  const percNo = Math.round(
-    (previousVotingCycleProposal.voteDecision.no /
-      (previousVotingCycleProposal.voteDecision.yes +
-        previousVotingCycleProposal.voteDecision.no +
-        previousVotingCycleProposal.voteDecision.neutral)) *
-      100
+  const percNo = getVotePercentage(
+    previousVotingCycleProposal.voteDecision.yes,
+    previousVotingCycleProposal.voteDecision.no,
+    previousVotingCycleProposal.voteDecision.neutral,
+    "no"
   );
-  const percNeutral = Math.round(
-    (previousVotingCycleProposal.voteDecision.neutral /
-      (previousVotingCycleProposal.voteDecision.yes +
-        previousVotingCycleProposal.voteDecision.no +
-        previousVotingCycleProposal.voteDecision.neutral)) *
-      100
+  const percNeutral = getVotePercentage(
+    previousVotingCycleProposal.voteDecision.yes,
+    previousVotingCycleProposal.voteDecision.no,
+    previousVotingCycleProposal.voteDecision.neutral,
+    "neutral"
   );
+
   return (
     <OverflowTable.Row
       onClick={() => {

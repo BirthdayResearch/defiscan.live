@@ -11,11 +11,7 @@ import { OnChainGovernanceTitles } from "./enum/onChainGovernanceTitles";
 import { ProposalTable } from "./_components/ProposalTable";
 import { ProposalCards } from "./_components/ProposalCard";
 
-export default function OnChainGovernancePage({
-  votingCycle,
-  proposals,
-  pages,
-}) {
+export default function OnChainGovernancePage({ votingCycle, proposals }) {
   const router = useRouter();
   return (
     <Container className="md:pt-11 pt-10 pb-20">
@@ -204,7 +200,7 @@ export default function OnChainGovernancePage({
         />
       </div>
       <div className="flex justify-end mt-8">
-        <CursorPagination pages={pages} path="/on-chain-governance" />
+        <CursorPagination pages={proposals.pages} path="/on-chain-governance" />
       </div>
     </Container>
   );
@@ -263,16 +259,6 @@ export async function getServerSideProps() {
             n: 1,
             active: true,
             cursors: [],
-          },
-          {
-            n: 2,
-            active: false,
-            cursors: ["1"],
-          },
-          {
-            n: 3,
-            active: false,
-            cursors: ["1", "2"],
           },
         ],
       },
