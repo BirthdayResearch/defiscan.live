@@ -83,7 +83,7 @@ export default function ProofOfAssets({
         {Object.values(filteredAssets).length === 0 && (
           <span
             className="break-all dark:text-dark-gray-900"
-            data-testId="ProofOfAssets.EmptyResults"
+            data-testid="ProofOfAssets.EmptyResults"
           >{`No Results found ${
             searchText !== "" ? `for "${searchText}"` : ""
           }`}</span>
