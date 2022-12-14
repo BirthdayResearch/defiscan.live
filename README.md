@@ -29,7 +29,7 @@ npm install
 First, run the development server:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -63,17 +63,17 @@ scan/
 DeFi Scan project is structured with 2 core directories. Each pull request will likely carry significant changes into
 those directories.
 
-Directory               | Description
-------------------------|-------------
-`/.github`              | workflow for shift left automation
-`/content`              | static code based content management system with type safety
-`/public`               | static resources
-`/src/components`       | top level components for a shared design language
-`/src/layouts`          | top level layouts for shared page layout & components
-`/src/pages`            | each page is associated with a route based on its file name
-`/src/store`            | global state that is used in at least more than once
-`/app/styles`           | tailwind css style configuration
-`/cypress`              | E2E testing
+| Directory         | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| `/.github`        | workflow for shift left automation                           |
+| `/content`        | static code based content management system with type safety |
+| `/public`         | static resources                                             |
+| `/src/components` | top level components for a shared design language            |
+| `/src/layouts`    | top level layouts for shared page layout & components        |
+| `/src/pages`      | each page is associated with a route based on its file name  |
+| `/src/store`      | global state that is used in at least more than once         |
+| `/app/styles`     | tailwind css style configuration                             |
+| `/cypress`        | E2E testing                                                  |
 
 ### End-to-end Testing
 
