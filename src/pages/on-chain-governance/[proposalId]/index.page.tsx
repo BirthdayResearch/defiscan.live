@@ -444,10 +444,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     );
     const proposalCreationMedianTime = proposalCreationBlockInfo.mediantime;
 
-    console.log(proposal);
-    console.log("---------------------------------");
-    console.log("currentBlockHeight: ", currentBlockCount);
-
     return {
       props: {
         proposal,
