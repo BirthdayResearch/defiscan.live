@@ -6,10 +6,14 @@ export function getVotePercentage(
   numNeutral: number
 ) {
   const totalVotes = numYes + numNo + numNeutral;
-  const percYes =
-    BigNumber(numYes).div(totalVotes).multipliedBy(100).precision(2) || 0;
-  const percNo =
-    BigNumber(numNo).div(totalVotes).multipliedBy(100).precision(2) || 0;
+  const percYes = BigNumber(numYes)
+    .div(totalVotes)
+    .multipliedBy(100)
+    .precision(2);
+  const percNo = BigNumber(numNo)
+    .div(totalVotes)
+    .multipliedBy(100)
+    .precision(2);
   const percNeutral = BigNumber(numNeutral)
     .div(totalVotes)
     .multipliedBy(100)

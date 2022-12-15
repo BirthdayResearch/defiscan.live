@@ -124,7 +124,10 @@ function ProposalDetail({
               </div>
             </div>
             <div className="lg:w-[202px]">
-              <DetailSectionTitle label="Payout address" />
+              <DetailSectionTitle
+                label="Payout address"
+                customStyle="lg:mb-[9px]"
+              />
               <button
                 className="flex items-center bg-blue-100 lg:py-1.5 py-2.5 px-5 md:px-[17.5px] lg:px-[10.5px] rounded w-fit"
                 onClick={() => onClickCopy(proposal.payoutAddress)}
@@ -145,9 +148,20 @@ function ProposalDetail({
   );
 }
 
-function DetailSectionTitle({ label }: { label: string }) {
+function DetailSectionTitle({
+  label,
+  customStyle,
+}: {
+  label: string;
+  customStyle?: string;
+}) {
   return (
-    <span className="inline-block text-gray-500 text-sm mb-2 lg:mb-3 tracking-[0.04px]">
+    <span
+      className={classNames(
+        "inline-block text-gray-500 text-sm mb-2 lg:mb-3 tracking-[0.04px]",
+        customStyle
+      )}
+    >
       {label}
     </span>
   );
