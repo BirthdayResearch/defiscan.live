@@ -36,18 +36,9 @@
     "@typescript-eslint/no-unused-expressions": "off",
     "no-underscore-dangle": "off",
     "global-require": "off",
-    "curly": [
-      "error",
-      "all"
-    ],
-    "brace-style": [
-      "error",
-      "1tbs"
-    ],
-    "func-style": [
-      2,
-      "declaration"
-    ],
+    "curly": ["error", "all"],
+    "brace-style": ["error", "1tbs"],
+    "func-style": [2, "declaration"],
     "no-void": "off",
     "import/no-default-export": "error",
     "multiline-ternary": "off",
@@ -66,9 +57,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "src/pages/**/*.page.tsx"
-      ],
+      "files": ["src/pages/**/*.page.tsx"],
       "rules": {
         "import/no-default-export": "off"
       }
