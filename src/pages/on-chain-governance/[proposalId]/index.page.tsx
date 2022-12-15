@@ -15,7 +15,6 @@ import { CircularCheckIcon } from "../_components/CircularCheckIcon";
 import { CopyToClipboardIcon } from "../_components/CopyToClipboardIcon";
 import { ProgressBar } from "../_components/ProgressBar";
 import { RejectedIcon } from "../_components/RejectedIcon";
-import { VoteModal } from "../_components/VoteModal";
 import { VotingResultBreakdown } from "../_components/VotingResultBreakdown";
 import { getDuration } from "../shared/durationHelper";
 import { getVoteCount } from "../shared/getVoteCount";
@@ -33,14 +32,12 @@ export default function ProposalDetailPage({
   currentBlockCount,
   proposalCreationMedianTime,
 }) {
-  const [displayVoteModal, setDisplayVoteModal] = useState(false);
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const { percYes, percNo, percNeutral } = getVotePercentage(yes, no, neutral);
 
   return (
     <Container className="mt-[40px] md:mt-[44px]">
       <ProposalDetail
-        onVoteButtonPress={(value) => setDisplayVoteModal(value)}
         proposal={proposal}
         proposalCreationMedianTime={proposalCreationMedianTime}
       />
@@ -61,13 +58,6 @@ export default function ProposalDetailPage({
           proposal={proposal}
         />
       )}
-
-      {displayVoteModal && (
-        <VoteModal
-          proposalId={proposal.proposalId}
-          onClose={() => setDisplayVoteModal(false)}
-        />
-      )}
     </Container>
   );
 }
@@ -76,7 +66,6 @@ function ProposalDetail({
   proposal,
   proposalCreationMedianTime,
 }: {
-  onVoteButtonPress: (value: boolean) => void;
   proposal: ProposalInfo;
   proposalCreationMedianTime: number;
 }) {
