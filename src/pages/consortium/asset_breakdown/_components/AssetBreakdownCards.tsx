@@ -112,7 +112,7 @@ function CardRowItem({
         value={new BigNumber(subValue).toFixed(2)}
         fixedDecimalScale
         thousandSeparator=","
-        prefix="≈$"
+        prefix="≈(USDT) "
         displayType="text"
         className="text-sm text-gray-500 dark:text-gray-400"
       />
