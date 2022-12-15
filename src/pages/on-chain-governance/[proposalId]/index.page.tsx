@@ -4,7 +4,12 @@ import { DFI } from "@components/icons/assets/tokens/DFI";
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
 import { IoMdOpen } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getWhaleRpcClient } from "@contexts/WhaleContext";
+import { GetServerSidePropsContext } from "next";
+import { useNetwork } from "@contexts/NetworkContext";
+import { NumericFormat } from "react-number-format";
+import { format, fromUnixTime } from "date-fns";
 import { CheckIcon } from "../_components/CheckIcon";
 import { CircularCheckIcon } from "../_components/CircularCheckIcon";
 import { CopyToClipboardIcon } from "../_components/CopyToClipboardIcon";
@@ -12,31 +17,54 @@ import { ProgressBar } from "../_components/ProgressBar";
 import { RejectedIcon } from "../_components/RejectedIcon";
 import { VoteModal } from "../_components/VoteModal";
 import { VotingResultBreakdown } from "../_components/VotingResultBreakdown";
+import { getDuration } from "../shared/durationHelper";
+import { getVoteCount } from "../shared/getVoteCount";
+import { getVotePercentage } from "../shared/getTotalVotes";
 
-enum DetailSectionStatusType {
-  voting,
-  accepted,
-  rejected,
+enum ProposalStatus {
+  VOTING = "Voting",
+  REJECTED = "Rejected",
+  COMPLETED = "Completed",
 }
 
-export default function ProposalDetailPage() {
-  const mockProposalStatus = DetailSectionStatusType.voting;
-  const mockPayoutAddress =
-    "3432erthyhfujrgrterthyhqepojgfiboget784reedwfert534xD";
-  const mockProposalId = "8Yv2DLTc8Yu8VV3ypC58V26wmRnJ7D6YuB";
+export default function ProposalDetailPage({
+  proposal,
+  proposalVotes,
+  currentBlockCount,
+  proposalCreationMedianTime,
+}) {
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
+  const { yes, no, neutral } = getVoteCount(proposalVotes);
+  const { percYes, percNo, percNeutral } = getVotePercentage(yes, no, neutral);
+
   return (
     <Container className="mt-[40px] md:mt-[44px]">
       <ProposalDetail
-        payoutAddress={mockPayoutAddress}
-        status={mockProposalStatus}
         onVoteButtonPress={(value) => setDisplayVoteModal(value)}
+        proposal={proposal}
+        proposalCreationMedianTime={proposalCreationMedianTime}
       />
-      <VotingProgressSection />
-      <VotingResultSection />
+
+      {proposal.status === ProposalStatus.VOTING ? (
+        <VotingProgressSection
+          percYes={percYes}
+          percNo={percNo}
+          percNeutral={percNeutral}
+          currentBlockCount={currentBlockCount}
+          proposal={proposal}
+        />
+      ) : (
+        <VotingResultSection
+          percYes={percYes}
+          percNo={percNo}
+          percNeutral={percNeutral}
+          proposal={proposal}
+        />
+      )}
+
       {displayVoteModal && (
         <VoteModal
-          proposalId={mockProposalId}
+          proposalId={proposal.proposalId}
           onClose={() => setDisplayVoteModal(false)}
         />
       )}
@@ -45,30 +73,37 @@ export default function ProposalDetailPage() {
 }
 
 function ProposalDetail({
-  payoutAddress,
-  status,
-  onVoteButtonPress,
+  proposal,
+  proposalCreationMedianTime,
 }: {
-  payoutAddress: string;
-  status: DetailSectionStatusType;
   onVoteButtonPress: (value: boolean) => void;
+  proposal: ProposalInfo;
+  proposalCreationMedianTime: number;
 }) {
   function onClickCopy(content: string) {
     navigator.clipboard.writeText(content);
   }
+
+  let submittedTime = format(
+    fromUnixTime(proposalCreationMedianTime),
+    "dd/MM/yy HH:mm:ss"
+  );
+  submittedTime = submittedTime.replace(" ", " at ");
   return (
     <div className="border border-gray-200 rounded-lg py-6 px-5 md:px-6">
       <div className="flex flex-col md:flex-row justify-between flex-wrap mb-6 md:mb-0">
         <span className="p-2 text-xs font-medium text-gray-900 bg-gray-100 border border-transparent rounded mb-2 inline-block w-fit">
-          CFP PROPOSAL
+          {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL
+            ? "CFP PROPOSAL"
+            : "DFIP PROPOSAL"}
         </span>
-        {status !== DetailSectionStatusType.voting && (
-          <DetailSectionStatusTag type={status} />
+        {proposal.status !== ProposalStatus.VOTING && (
+          <DetailSectionStatusTag type={proposal.status} />
         )}
       </div>
       <div className="flex items-center mb-6 md:mb-8 lg:mb-10">
         <div className="text-gray-900 text-2xl font-semibold md:text-4xl mr-3">
-          Name of proposal
+          {proposal.title}
         </div>
         <CircularCheckIcon />
       </div>
@@ -76,48 +111,46 @@ function ProposalDetail({
         <div>
           <DetailSectionTitle label="Community links" />
           <div className="flex flex-col md:flex-row gap-5 lg:mb-1">
-            <DetailSectionLink label="Github's Link" href="/" />
-            <DetailSectionLink label="Reddit's Link" href="/" />
+            <DetailSectionLink label="Github's Link" href={proposal.context} />
           </div>
         </div>
         <div className="lg:w-[202px]">
           <DetailSectionTitle label="Submitted" />
-          <span className="text-gray-900 text-lg block">
-            23/08/22 at 12:34:32
-          </span>
+          <span className="text-gray-900 text-lg block">{submittedTime}</span>
         </div>
-        <div className="lg:w-[202px]">
-          <DetailSectionTitle label="Request DFI" />
-          <div className="flex items-center">
-            <span className="text-gray-900 text-lg block">2,000</span>
-            <DFI className="text-xl ml-2" />
-          </div>
-        </div>
-        <div className="lg:w-[202px]">
-          <DetailSectionTitle label="Payout address" />
-          <button
-            className="flex items-center bg-blue-100 lg:py-1.5 py-2.5 px-5 md:px-[17.5px] lg:px-[10.5px] rounded w-fit"
-            onClick={() => onClickCopy(payoutAddress)}
-            type="button"
-          >
-            <TextMiddleTruncate
-              text={payoutAddress}
-              textLength={8}
-              className="text-[#4A72DA] mr-3"
-            />
-            <CopyToClipboardIcon />
-          </button>
-        </div>
-        <button
-          className={classNames(
-            { hidden: status !== DetailSectionStatusType.voting },
-            "bg-primary-50 text-primary-500 rounded-sm text-sm font-medium py-2 px-18 self-auto md:self-start lg:self-end grow w-full md:w-[200px] lg:w-auto hover:bg-primary-100"
-          )}
-          type="button"
-          onClick={() => onVoteButtonPress(true)}
-        >
-          VOTE
-        </button>
+        {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
+          <>
+            <div className="lg:w-[202px]">
+              <DetailSectionTitle label="Request DFI" />
+              <div className="flex items-center">
+                <span className="text-gray-900 text-lg block">
+                  <NumericFormat
+                    displayType="text"
+                    thousandSeparator
+                    value={proposal.amount?.toString()}
+                    decimalScale={2}
+                  />
+                </span>
+                <DFI className="text-xl ml-2" />
+              </div>
+            </div>
+            <div className="lg:w-[202px]">
+              <DetailSectionTitle label="Payout address" />
+              <button
+                className="flex items-center bg-blue-100 lg:py-1.5 py-2.5 px-5 md:px-[17.5px] lg:px-[10.5px] rounded w-fit"
+                onClick={() => onClickCopy(proposal.payoutAddress)}
+                type="button"
+              >
+                <TextMiddleTruncate
+                  text={proposal.payoutAddress}
+                  textLength={8}
+                  className="text-[#4A72DA] mr-3"
+                />
+                <CopyToClipboardIcon />
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -140,13 +173,13 @@ function DetailSectionLink({ label, href }: { label: string; href: string }) {
   );
 }
 
-function DetailSectionStatusTag({ type }: { type: DetailSectionStatusType }) {
+function DetailSectionStatusTag({ type }: { type: ProposalStatus }) {
   return (
     <div
       className={classNames(
         {
-          "bg-green-100": type === DetailSectionStatusType.accepted,
-          "bg-red-100": type === DetailSectionStatusType.rejected,
+          "bg-green-100": type === ProposalStatus.COMPLETED,
+          "bg-red-100": type === ProposalStatus.REJECTED,
         },
         "py-2 px-3 rounded-[5px] flex items-center w-fit"
       )}
@@ -154,17 +187,17 @@ function DetailSectionStatusTag({ type }: { type: DetailSectionStatusType }) {
       <span
         className={classNames(
           {
-            "text-green-700": type === DetailSectionStatusType.accepted,
-            "text-red-700": type === DetailSectionStatusType.rejected,
+            "text-green-700": type === ProposalStatus.COMPLETED,
+            "text-red-700": type === ProposalStatus.REJECTED,
           },
           "text-sm font-medium lg:text-lg lg:font-semibold mr-2"
         )}
       >
-        {type === DetailSectionStatusType.accepted
+        {type === ProposalStatus.COMPLETED
           ? "PROPOSAL ACCEPTED"
           : "PROPOSAL REJECTED"}
       </span>
-      {type === DetailSectionStatusType.accepted ? (
+      {type === ProposalStatus.COMPLETED ? (
         <CheckIcon />
       ) : (
         <RejectedIcon width={16} height={16} />
@@ -173,80 +206,124 @@ function DetailSectionStatusTag({ type }: { type: DetailSectionStatusType }) {
   );
 }
 
-function VotingProgressSection() {
+function VotingProgressSection({
+  proposal,
+  currentBlockCount,
+  percYes,
+  percNo,
+  percNeutral,
+}: {
+  proposal: ProposalInfo;
+  currentBlockCount: number;
+  percYes: BigNumber;
+  percNo: BigNumber;
+  percNeutral: BigNumber;
+}) {
+  const { connection } = useNetwork();
+  let blockSeconds = 30;
+  switch (connection) {
+    case "Playground":
+      blockSeconds = 3;
+      break;
+    case "TestNet":
+      blockSeconds = 3;
+      break;
+    case "MainNet":
+    default:
+      blockSeconds = 30;
+  }
+
+  const [timeLeft, setTimeLeft] = useState(
+    (proposal.cycleEndHeight - currentBlockCount) * blockSeconds
+  );
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+    if (timeLeft === 0) {
+      window.location.reload();
+    }
+    return () => clearInterval(id);
+  }, [timeLeft]);
+
   return (
     <div className="border border-gray-200 rounded-lg py-6 px-5 md:px-6 mt-2 lg:mt-4">
       <div className="flex flex-col lg:flex-row lg:gap-[146px] gap-6 md:gap-2 mb-6 md:mb-5 lg:mb-4">
         <VotingProgressSectionInfo
           label="Proposal current stage:"
-          value="Voting"
+          value={
+            timeLeft > proposal.votingPeriod * blockSeconds
+              ? "Proposal submission & voting"
+              : proposal?.status.toString()
+          }
         />
         <VotingProgressSectionInfo
-          label="Time left:"
-          value="08 days 12 hours 23 minutes"
+          label="Estimated Time left:"
+          value={getDuration(timeLeft)}
         />
       </div>
+
       <ProgressBar
         votingProgress={{
-          totalTime: new BigNumber(100),
-          timeLeft: new BigNumber(100),
+          totalTime: new BigNumber(proposal.votingPeriod * blockSeconds),
+          timeLeft: new BigNumber(
+            timeLeft < proposal.votingPeriod * blockSeconds
+              ? timeLeft
+              : proposal.votingPeriod * blockSeconds
+          ),
         }}
         submissionProgress={{
-          totalTime: new BigNumber(100),
-          timeLeft: new BigNumber(10),
+          totalTime: new BigNumber(
+            (proposal.cycleEndHeight - proposal.votingPeriod) * blockSeconds
+          ),
+          timeLeft: new BigNumber(
+            timeLeft > proposal.votingPeriod * blockSeconds ? timeLeft : 0
+          ),
         }}
         segment={2}
       />
-      <div className="mt-8">
-        <ProgressBar
-          votingProgress={{
-            totalTime: new BigNumber(100),
-            timeLeft: new BigNumber(100),
-          }}
-        />
+      <div className="flex flex-col lg:flex-row lg:mt-[38px] mb-5 mt-[46px] gap-4">
+        <span className="text-lg text-gray-500">Voting Results:</span>
+        <div className="flex gap-4 ">
+          <VotingResultPercentage
+            value={` ${percYes}% Yes`}
+            customStyle={classNames("group-hover:text-primary-500", {
+              "font-semibold": percYes > percNo && percYes > percNeutral,
+            })}
+          />
+          <VotingResultPercentage
+            value={`${percNo}% No`}
+            customStyle={classNames("group-hover:text-primary-500", {
+              "font-semibold": percNo > percYes && percNo > percNeutral,
+            })}
+          />
+          <VotingResultPercentage
+            value={`${percNeutral}% Neutral`}
+            customStyle={classNames("group-hover:text-primary-500", {
+              "font-semibold": percNeutral > percYes && percNeutral > percNo,
+            })}
+          />
+        </div>
       </div>
-      <div className="mt-8">
-        <ProgressBar
-          votingProgress={{
-            totalTime: new BigNumber(100),
-            timeLeft: new BigNumber(70),
-          }}
-          submissionProgress={{
-            totalTime: new BigNumber(100),
-            timeLeft: new BigNumber(0),
-          }}
-          segment={2}
-        />
-      </div>
-      <div className="mt-8">
-        <ProgressBar
-          votingProgress={{
-            totalTime: new BigNumber(100),
-            timeLeft: new BigNumber(70),
-          }}
-        />
-      </div>
-      <div className="mt-8">
-        <ProgressBar
-          votingProgress={{
-            totalTime: new BigNumber(100),
-            timeLeft: new BigNumber(0),
-          }}
-          submissionProgress={{
-            totalTime: new BigNumber(100),
-            timeLeft: new BigNumber(0),
-          }}
-          segment={2}
-        />
-      </div>
-      <div className="mt-8">
-        <ProgressBar
-          votingProgress={{
-            totalTime: new BigNumber(100),
-            timeLeft: new BigNumber(0),
-          }}
-        />
-      </div>
+      {percYes.eq(BigNumber(0)) &&
+      percNo.eq(BigNumber(0)) &&
+      percNeutral.eq(BigNumber(0)) ? (
+        <div className="">
+          <VotingResultBreakdown
+            yesPercent="0"
+            neutralPercent="100"
+            noPercent="0"
+          />
+        </div>
+      ) : (
+        <div className="">
+          <VotingResultBreakdown
+            yesPercent={percYes.toString()}
+            neutralPercent={percNeutral.toString()}
+            noPercent={percNo.toString()}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -268,28 +345,71 @@ function VotingProgressSectionInfo({
   );
 }
 
-function VotingResultSection() {
+function VotingResultSection({
+  proposal,
+  percYes,
+  percNo,
+  percNeutral,
+}: {
+  proposal: ProposalInfo;
+  percYes: BigNumber;
+  percNo: BigNumber;
+  percNeutral: BigNumber;
+}) {
   return (
     <div className="border border-gray-200 rounded-lg py-6 px-5 md:px-6 mt-2 lg:mt-4 text-center">
       <span className="text-lg md:text-2xl font-semibold text-gray-900 mb-2 block">
         Proposal has been voted on
       </span>
       <span className="md:text-lg text-gray-600">
-        This proposal has been accepted by the community
+        {proposal.status === ProposalStatus.COMPLETED ? (
+          <div className="text-green-500">
+            This proposal has been accepted by the community
+          </div>
+        ) : (
+          <div className="text-red-500">
+            This proposal has been rejected by the community
+          </div>
+        )}
       </span>
       <div className="flex flex-col lg:flex-row justify-center mt-6 md:mt-5 lg:mt-8 gap-2 mb-6 md:mb-5">
         <span className="text-lg text-gray-500">Voting results:</span>
         <div className="flex gap-4 justify-center">
-          <VotingResultPercentage value="78% Yes" customStyle="font-semibold" />
-          <VotingResultPercentage value="6% Neutral" />
-          <VotingResultPercentage value="16% No" />
+          <VotingResultPercentage
+            value={`${percYes}% Yes`}
+            customStyle={classNames("group-hover:text-primary-500", {
+              "font-semibold": percYes > percNo && percYes > percNeutral,
+            })}
+          />
+          <VotingResultPercentage
+            value={`${percNo}% No`}
+            customStyle={classNames("group-hover:text-primary-500", {
+              "font-semibold": percNo > percYes && percNo > percNeutral,
+            })}
+          />
+          <VotingResultPercentage
+            value={`${percNeutral}% Neutral`}
+            customStyle={classNames("group-hover:text-primary-500", {
+              "font-semibold": percNeutral > percYes && percNeutral > percNo,
+            })}
+          />
         </div>
       </div>
-      <VotingResultBreakdown
-        yesPercent="78"
-        neutralPercent="6"
-        noPercent="16"
-      />
+      {percYes.eq(BigNumber(0)) &&
+      percNo.eq(BigNumber(0)) &&
+      percNeutral.eq(BigNumber(0)) ? (
+        <VotingResultBreakdown
+          yesPercent="0"
+          neutralPercent="100"
+          noPercent="0"
+        />
+      ) : (
+        <VotingResultBreakdown
+          yesPercent={percYes.toString()}
+          neutralPercent={percNeutral.toString()}
+          noPercent={percNo.toString()}
+        />
+      )}
     </div>
   );
 }
@@ -306,4 +426,65 @@ function VotingResultPercentage({
       {value}
     </span>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const proposalId = context.params?.proposalId?.toString().trim() as string;
+  const rpc = getWhaleRpcClient(context);
+  try {
+    let proposal = await rpc.governance.getGovProposal(proposalId);
+    proposal = JSON.parse(JSON.stringify(proposal));
+    const proposalVotes = await rpc.governance.listGovProposalVotes(proposalId);
+    const currentBlockCount = await rpc.blockchain.getBlockCount();
+    const proposalCreationBlockInfo = await rpc.blockchain.getBlockStats(
+      proposal.creationHeight
+    );
+    const proposalCreationMedianTime = proposalCreationBlockInfo.mediantime;
+
+    console.log(proposal);
+    console.log("---------------------------------");
+    console.log("currentBlockHeight: ", currentBlockCount);
+
+    return {
+      props: {
+        proposal,
+        proposalVotes,
+        currentBlockCount,
+        proposalCreationMedianTime,
+      },
+    };
+  } catch {
+    return { notFound: true };
+  }
+}
+
+export interface ProposalInfo {
+  proposalId: string;
+  title: string;
+  context: string;
+  contextHash: string;
+  type: ProposalType;
+  status: ProposalStatus;
+  amount?: BigNumber;
+  currentCycle: number;
+  totalCycles: number;
+  creationHeight: number;
+  cycleEndHeight: number;
+  proposalEndHeight: number;
+  payoutAddress?: string;
+  votingPeriod: number;
+  approvalThreshold: string;
+  quorum: string;
+  votesPossible?: number;
+  votesPresent?: number;
+  votesPresentPct?: string;
+  votesYes?: number;
+  votesYesPct?: string;
+  fee: number;
+  options?: string[];
+}
+
+export enum ProposalType {
+  COMMUNITY_FUND_PROPOSAL = "CommunityFundProposal",
+  VOTE_OF_CONFIDENCE = "VoteOfConfidence",
 }
