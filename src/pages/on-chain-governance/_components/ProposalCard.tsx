@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { IoMdOpen } from "react-icons/io";
-import BigNumber from "bignumber.js";
+import { ProposalInfo } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { votingStages } from "../enum/votingStages";
@@ -55,46 +55,9 @@ export function ProposalCards({
   );
 }
 
-enum ProposalStatus {
-  VOTING = "Voting",
-  REJECTED = "Rejected",
-  COMPLETED = "Completed",
-}
-
-export enum ProposalType {
-  COMMUNITY_FUND_PROPOSAL = "CommunityFundProposal",
-  VOTE_OF_CONFIDENCE = "VoteOfConfidence",
-}
-
 export enum ProposalDisplayName {
-  CommunityFundProposal = "CFPS",
-  VoteOfConfidence = "DFIPS",
-}
-
-export interface ProposalInfo {
-  proposalId: string;
-  title: string;
-  context: string;
-  contextHash: string;
-  type: ProposalType;
-  status: ProposalStatus;
-  amount?: BigNumber;
-  currentCycle: number;
-  totalCycles: number;
-  creationHeight: number;
-  cycleEndHeight: number;
-  proposalEndHeight: number;
-  payoutAddress?: string;
-  votingPeriod: number;
-  approvalThreshold: string;
-  quorum: string;
-  votesPossible?: number;
-  votesPresent?: number;
-  votesPresentPct?: string;
-  votesYes?: number;
-  votesYesPct?: string;
-  fee: number;
-  options?: string[];
+  CommunityFundProposal = "CFP",
+  VoteOfConfidence = "DFIP",
 }
 
 function ProposalCard({

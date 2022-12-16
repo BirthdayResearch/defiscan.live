@@ -49,6 +49,10 @@ export function useWhaleApiClient(): WhaleApiClient {
   return useContext(WhaleApiClientContext);
 }
 
+export function useWhaleRpcClient(): WhaleRpcClient {
+  return useContext(WhaleRpcClientContext);
+}
+
 export function WhaleProvider(
   props: PropsWithChildren<any>
 ): JSX.Element | null {
