@@ -4,7 +4,7 @@ specifiers:
   '@babel/types': ^7.20.5
   '@cypress/code-coverage': ^3.10.0
   '@floating-ui/react-dom': ^1.0.1
-  '@headlessui/react': ^1.7.5
+  '@headlessui/react': ^1.7.7
   '@netlify/plugin-lighthouse': ^4.0.3
   '@netlify/plugin-nextjs': ^4.29.3
   '@prismicio/client': ^6.7.1
@@ -42,7 +42,7 @@ specifiers:
 dependencies:
   '@babel/types': 7.20.5
   '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
-  '@headlessui/react': 1.7.5_biqbaboplfbrettd7655fr4n2y
+  '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
   '@prismicio/client': 6.7.1
   '@prismicio/types': 0.2.4
   '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
@@ -1548,8 +1548,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@headlessui/react/1.7.5_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-UZSxOfA0CYKO7QDT5OGlFvesvlR1SKkawwSjwQJwt7XQItpzRKdE3ZUQxHcg4LEz3C0Wler2s9psdb872ynwrQ==}
+  /@headlessui/react/1.7.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-BqDOd/tB9u2tA0T3Z0fn18ktw+KbVwMnkxxsGPIH2hzssrQhKB5n/6StZOyvLYP/FsYtvuXfi9I0YowKPv2c1w==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
