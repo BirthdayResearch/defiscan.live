@@ -118,7 +118,7 @@ function newRpcClient(options: WhaleApiClientOptions): WhaleRpcClient {
   );
 }
 
-function newPlaygroundClient(
+export function newPlaygroundClient(
   network: string | NetworkConnection
 ): PlaygroundApiClient {
   switch (network) {

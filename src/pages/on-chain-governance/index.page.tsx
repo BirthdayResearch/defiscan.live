@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import BigNumber from "bignumber.js";
@@ -7,7 +7,11 @@ import {
   CursorPagination,
 } from "@components/commons/CursorPagination";
 import { NumericFormat } from "react-number-format";
-import { getWhaleRpcClient, useWhaleRpcClient } from "@contexts/WhaleContext";
+import {
+  getWhaleRpcClient,
+  newPlaygroundClient,
+  useWhaleRpcClient,
+} from "@contexts/WhaleContext";
 import { GetServerSidePropsContext } from "next";
 import {
   ListProposalsType,
@@ -15,6 +19,8 @@ import {
   ProposalType,
   ProposalInfo,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
+import { NetworkConnection, useNetwork } from "@contexts/NetworkContext";
+import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import { Button } from "./_components/Button";
 import { getDuration } from "./shared/durationHelper";
 import { ProgressBar } from "./_components/ProgressBar";
@@ -42,6 +48,8 @@ interface OCGProps {
 export default function OnChainGovernancePage(props) {
   const rpc = useWhaleRpcClient();
   const router = useRouter();
+  const connection = useNetwork().connection;
+
   const [data, setData] = useState<OCGProps>({
     votingCycle: props.votingCycle,
     proposals: props.proposals,
@@ -61,6 +69,30 @@ export default function OnChainGovernancePage(props) {
       status: ListProposalsStatus.VOTING,
     });
     setData(getOCGData(JSON.parse(JSON.stringify(response))));
+  }
+
+  // TODO remove this before release to prod
+  async function createDummyProposals(): Promise<void> {
+    const playgroundRPC = new PlaygroundRpcClient(
+      newPlaygroundClient(connection)
+    );
+    const data = {
+      title: "Testing proposal",
+      amount: "100000000",
+      context: "https://github.com/WavesHQ/scan",
+      payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
+      cycles: 1,
+    };
+    for (let i = 1; i < 20; i += 1) {
+      const governanceType = ["creategovvoc", "creategovcfp"];
+      const proposal = await playgroundRPC.call(
+        // get random governance type
+        governanceType[Math.floor(Math.random() * governanceType.length)],
+        [{ ...data, title: `${data.title} ${i + 1}` }, []],
+        "number"
+      );
+      console.log(`proposal created with id:${proposal}`);
+    }
   }
 
   return (
@@ -95,6 +127,16 @@ export default function OnChainGovernancePage(props) {
                 testId="OnChainGovernance.SubmitProposalButton"
                 onClick={() => {}}
                 customStyle="bg-primary-50 hover:bg-primary-100"
+              />
+            )}
+            {/* TODO remove this before release to prod */}
+            {(connection === NetworkConnection.LocalPlayground ||
+              connection === NetworkConnection.RemotePlayground) && (
+              <Button
+                testId="dummy-proposal"
+                label="Create dummy proposal"
+                onClick={createDummyProposals}
+                customStyle="hover:bg-gray-50"
               />
             )}
           </div>
