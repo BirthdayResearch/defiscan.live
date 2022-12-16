@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { isPlayground } from "@contexts/Environment";
 import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import BigNumber from "bignumber.js";
@@ -19,7 +20,7 @@ import {
   ProposalType,
   ProposalInfo,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
-import { NetworkConnection, useNetwork } from "@contexts/NetworkContext";
+import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import { Button } from "./_components/Button";
 import { getDuration } from "./shared/durationHelper";
@@ -130,8 +131,7 @@ export default function OnChainGovernancePage(props) {
               />
             )}
             {/* TODO remove this before release to prod */}
-            {(connection === NetworkConnection.LocalPlayground ||
-              connection === NetworkConnection.RemotePlayground) && (
+            {isPlayground(connection) && (
               <Button
                 testId="dummy-proposal"
                 label="Create dummy proposal"
