@@ -1,5 +1,5 @@
 export enum OnChainGovernanceTitles {
-  votingCycleTitle = "Voting Cycle #",
+  votingCycleTitleWithHash = "Voting Cycle #",
   proposalsSubmittedTitle = "Proposals submitted",
   dfipsTitle = "DFIPS",
   cfpsTitle = "CFPS",
@@ -14,4 +14,13 @@ export enum OnChainGovernanceTitles {
   github = "Github",
   reddit = "Reddit",
   voteBreakdownTitle = "Vote Breakdown",
+  previousVotingCyclesTitle = "Previous Voting Cycles",
+  backToCurrentCycle = "BACK TO CURRENT CYCLE",
+  votingCyclesTitle = "Voting Cycles",
+  startedTableTitle = "Started",
+  endedTableTitle = "Ended",
+  cfpTitle = "CFP",
+  dfipTitle = "DFIP",
+  votingCycleTitle = "Voting Cycle",
+  voteResultTitle = "Vote Result",
 }

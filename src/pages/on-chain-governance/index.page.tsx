@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import BigNumber from "bignumber.js";
 import {
@@ -40,6 +41,7 @@ interface OCGProps {
 }
 export default function OnChainGovernancePage(props) {
   const rpc = useWhaleRpcClient();
+  const router = useRouter();
   const [data, setData] = useState<OCGProps>({
     votingCycle: props.votingCycle,
     proposals: props.proposals,
@@ -58,7 +60,7 @@ export default function OnChainGovernancePage(props) {
       type: ListProposalsType.ALL,
       status: ListProposalsStatus.VOTING,
     });
-    setData(getProposalData(JSON.parse(JSON.stringify(response))));
+    setData(getOCGData(JSON.parse(JSON.stringify(response))));
   }
 
   return (
@@ -74,7 +76,7 @@ export default function OnChainGovernancePage(props) {
           data-testid="OnChainGovernance.VotingCycleTitle"
           className="text-2xl font-medium grow dark:text-dark-gray-900"
         >
-          {OnChainGovernanceTitles.votingCycleTitle +
+          {OnChainGovernanceTitles.votingCycleTitleWithHash +
             votingCycle.votingCycleNumber}
         </div>
         <div className="hidden md:block">
@@ -82,7 +84,9 @@ export default function OnChainGovernancePage(props) {
             <Button
               label={`Previous voting cycles`.toUpperCase()}
               testId="OnChainGovernance.PreviousVotingCycleButton"
-              onClick={() => {}}
+              onClick={() => {
+                router.push("on-chain-governance/previous-voting-cycles");
+              }}
               customStyle="hover:bg-gray-50"
             />
             {votingCycle.currentStage === votingStages.open && (
@@ -215,7 +219,9 @@ export default function OnChainGovernancePage(props) {
           <Button
             label={`Previous voting cycles`.toUpperCase()}
             testId="OnChainGovernance.PreviousVotingCycleButton"
-            onClick={() => {}}
+            onClick={() => {
+              router.push("on-chain-governance/previous-voting-cycles");
+            }}
             customStyle="w-full hover:bg-gray-50 "
           />
           {votingCycle.currentStage === votingStages.open && (
@@ -257,11 +263,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     status: ListProposalsStatus.VOTING,
   });
   return {
-    props: getProposalData(JSON.parse(JSON.stringify(response))),
+    props: getOCGData(JSON.parse(JSON.stringify(response))),
   };
 }
 
-function getProposalData(items: ProposalInfo[]): OCGProps {
+function getOCGData(items: ProposalInfo[]): OCGProps {
   return {
     votingCycle: {
       votingCycleNumber: 3434,
