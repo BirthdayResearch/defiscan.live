@@ -76,19 +76,19 @@ export default function OnChainGovernancePage(props) {
     const playgroundRPC = new PlaygroundRpcClient(
       newPlaygroundClient(connection)
     );
-    const data = {
-      title: "Testing proposal",
-      amount: "100000000",
-      context: "https://github.com/WavesHQ/scan",
-      payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
-      cycles: 1,
-    };
     for (let i = 1; i < 20; i += 1) {
       const governanceType = ["creategovvoc", "creategovcfp"];
+      const data = {
+        title: `Testing proposal ${new Date().getTime()}`,
+        amount: "100000000",
+        context: "https://github.com/WavesHQ/scan",
+        payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
+        cycles: 1,
+      };
       const proposal = await playgroundRPC.call(
         // get random governance type
         governanceType[Math.floor(Math.random() * governanceType.length)],
-        [{ ...data, title: `${data.title} ${i + 1}` }, []],
+        [data, []],
         "number"
       );
       console.log(`proposal created with id:${proposal}`);
