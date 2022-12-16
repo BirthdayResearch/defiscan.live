@@ -10,6 +10,7 @@ import { GetServerSidePropsContext } from "next";
 import { useNetwork } from "@contexts/NetworkContext";
 import { NumericFormat } from "react-number-format";
 import { format, fromUnixTime } from "date-fns";
+import * as LosslessJSON from "lossless-json";
 import { CheckIcon } from "../_components/CheckIcon";
 import { CircularCheckIcon } from "../_components/CircularCheckIcon";
 import { CopyToClipboardIcon } from "../_components/CopyToClipboardIcon";
@@ -435,8 +436,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const proposalId = context.params?.proposalId?.toString().trim() as string;
   const rpc = getWhaleRpcClient(context);
   try {
-    let proposal = await rpc.governance.getGovProposal(proposalId);
-    proposal = JSON.parse(JSON.stringify(proposal));
+    const proposal = await rpc.governance.getGovProposal(proposalId);
+    proposal.amount = LosslessJSON.parse(
+      LosslessJSON.stringify(proposal.amount)
+    );
     const proposalVotes = await rpc.governance.listGovProposalVotes(proposalId);
     const currentBlockCount = await rpc.blockchain.getBlockCount();
     const proposalCreationBlockInfo = await rpc.blockchain.getBlockStats(
