@@ -310,7 +310,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 function getOCGData(items: ProposalInfo[]): OCGProps {
-  console.log(items);
   return {
     votingCycle: {
       votingCycleNumber: 3434,
@@ -319,7 +318,7 @@ function getOCGData(items: ProposalInfo[]): OCGProps {
         (item) => item.type === ProposalType.VOTE_OF_CONFIDENCE
       ).length,
       cfps: items.filter(
-        (item) => item.type === ProposalType.COMMUNITY_FUND_REQUEST
+        (item) => item.type === ProposalType.COMMUNITY_FUND_PROPOSAL
       ).length,
       currentStage: votingStages.open,
       timeLeft: 9000,

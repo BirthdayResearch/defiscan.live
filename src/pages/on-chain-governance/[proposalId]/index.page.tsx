@@ -11,6 +11,11 @@ import { useNetwork } from "@contexts/NetworkContext";
 import { NumericFormat } from "react-number-format";
 import { format, fromUnixTime } from "date-fns";
 import * as LosslessJSON from "lossless-json";
+import {
+  ProposalInfo,
+  ProposalStatus,
+  ProposalType,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
 import { CheckIcon } from "../_components/CheckIcon";
 import { CircularCheckIcon } from "../_components/CircularCheckIcon";
 import { CopyToClipboardIcon } from "../_components/CopyToClipboardIcon";
@@ -20,12 +25,6 @@ import { VotingResultBreakdown } from "../_components/VotingResultBreakdown";
 import { getDuration } from "../shared/durationHelper";
 import { getVoteCount } from "../shared/getVoteCount";
 import { getVotePercentage } from "../shared/getTotalVotes";
-
-enum ProposalStatus {
-  VOTING = "Voting",
-  REJECTED = "Rejected",
-  COMPLETED = "Completed",
-}
 
 export default function ProposalDetailPage({
   proposal,
@@ -131,11 +130,11 @@ function ProposalDetail({
               />
               <button
                 className="flex items-center bg-blue-100 lg:py-1.5 py-2.5 px-5 md:px-[17.5px] lg:px-[10.5px] rounded w-fit"
-                onClick={() => onClickCopy(proposal.payoutAddress)}
+                onClick={() => onClickCopy(proposal.payoutAddress ?? "")}
                 type="button"
               >
                 <TextMiddleTruncate
-                  text={proposal.payoutAddress}
+                  text={proposal.payoutAddress ?? ""}
                   textLength={8}
                   className="text-[#4A72DA] mr-3"
                 />
@@ -437,9 +436,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const rpc = getWhaleRpcClient(context);
   try {
     const proposal = await rpc.governance.getGovProposal(proposalId);
-    proposal.amount = LosslessJSON.parse(
-      LosslessJSON.stringify(proposal.amount)
-    );
+    if (proposal.amount) {
+      proposal.amount = LosslessJSON.parse(
+        LosslessJSON.stringify(proposal.amount)
+      );
+    }
     const proposalVotes = await rpc.governance.listGovProposalVotes(proposalId);
     const currentBlockCount = await rpc.blockchain.getBlockCount();
     const proposalCreationBlockInfo = await rpc.blockchain.getBlockStats(
@@ -458,35 +459,4 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   } catch {
     return { notFound: true };
   }
-}
-
-export interface ProposalInfo {
-  proposalId: string;
-  title: string;
-  context: string;
-  contextHash: string;
-  type: ProposalType;
-  status: ProposalStatus;
-  amount?: BigNumber;
-  currentCycle: number;
-  totalCycles: number;
-  creationHeight: number;
-  cycleEndHeight: number;
-  proposalEndHeight: number;
-  payoutAddress?: string;
-  votingPeriod: number;
-  approvalThreshold: string;
-  quorum: string;
-  votesPossible?: number;
-  votesPresent?: number;
-  votesPresentPct?: string;
-  votesYes?: number;
-  votesYesPct?: string;
-  fee: number;
-  options?: string[];
-}
-
-export enum ProposalType {
-  COMMUNITY_FUND_PROPOSAL = "CommunityFundProposal",
-  VOTE_OF_CONFIDENCE = "VoteOfConfidence",
 }
