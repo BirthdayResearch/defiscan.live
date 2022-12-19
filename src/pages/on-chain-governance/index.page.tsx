@@ -58,10 +58,7 @@ export default function OnChainGovernancePage(props) {
   const { votingCycle, proposals } = data;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      void fetchData();
-    }, 15000);
-    return () => clearInterval(interval);
+    fetchData();
   }, []);
 
   async function fetchData(): Promise<void> {
@@ -77,8 +74,10 @@ export default function OnChainGovernancePage(props) {
     const playgroundRPC = new PlaygroundRpcClient(
       newPlaygroundClient(connection)
     );
-    for (let i = 1; i < 20; i += 1) {
+    for (let i = 0; i < 5; i += 1) {
       const governanceType = ["creategovvoc", "creategovcfp"];
+      const proposalType =
+        governanceType[Math.floor(Math.random() * governanceType.length)]; // get random governance type
       const data = {
         title: `Testing proposal ${new Date().getTime()}`,
         amount: "100000000",
@@ -87,12 +86,13 @@ export default function OnChainGovernancePage(props) {
         cycles: 1,
       };
       const proposal = await playgroundRPC.call(
-        // get random governance type
-        governanceType[Math.floor(Math.random() * governanceType.length)],
+        proposalType,
         [data, []],
         "number"
       );
-      console.log(`proposal created with id:${proposal}`);
+      console.log(
+        `proposal created with id:${proposal} is created with ${proposalType}`
+      );
     }
   }
 
@@ -310,6 +310,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 function getOCGData(items: ProposalInfo[]): OCGProps {
+  console.log(items);
   return {
     votingCycle: {
       votingCycleNumber: 3434,
@@ -318,7 +319,7 @@ function getOCGData(items: ProposalInfo[]): OCGProps {
         (item) => item.type === ProposalType.VOTE_OF_CONFIDENCE
       ).length,
       cfps: items.filter(
-        (item) => item.type === ProposalType.COMMUNITY_FUND_PROPOSAL
+        (item) => item.type === ProposalType.COMMUNITY_FUND_REQUEST
       ).length,
       currentStage: votingStages.open,
       timeLeft: 9000,
