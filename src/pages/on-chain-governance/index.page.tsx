@@ -1,8 +1,27 @@
+import React, { useEffect, useState } from "react";
+import { isPlayground } from "@contexts/Environment";
 import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import BigNumber from "bignumber.js";
-import { CursorPagination } from "@components/commons/CursorPagination";
+import {
+  CursorPage,
+  CursorPagination,
+} from "@components/commons/CursorPagination";
 import { NumericFormat } from "react-number-format";
+import {
+  getWhaleRpcClient,
+  newPlaygroundClient,
+  useWhaleRpcClient,
+} from "@contexts/WhaleContext";
+import { GetServerSidePropsContext } from "next";
+import {
+  ListProposalsType,
+  ListProposalsStatus,
+  ProposalType,
+  ProposalInfo,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
+import { useNetwork } from "@contexts/NetworkContext";
+import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import { Button } from "./_components/Button";
 import { getDuration } from "./shared/durationHelper";
 import { ProgressBar } from "./_components/ProgressBar";
@@ -11,8 +30,72 @@ import { OnChainGovernanceTitles } from "./enum/onChainGovernanceTitles";
 import { ProposalTable } from "./_components/ProposalTable";
 import { ProposalCards } from "./_components/ProposalCard";
 
-export default function OnChainGovernancePage({ votingCycle, proposals }) {
+interface OCGProps {
+  votingCycle: {
+    votingCycleNumber: number;
+    proposalsSubmitted: number;
+    dfips: number;
+    cfps: number;
+    currentStage: votingStages;
+    timeLeft: number;
+    totalTime: number;
+    totalVotes: number;
+  };
+  proposals: {
+    items: ProposalInfo[];
+    pages: CursorPage[];
+  };
+}
+export default function OnChainGovernancePage(props) {
+  const rpc = useWhaleRpcClient();
   const router = useRouter();
+  const connection = useNetwork().connection;
+
+  const [data, setData] = useState<OCGProps>({
+    votingCycle: props.votingCycle,
+    proposals: props.proposals,
+  });
+  const { votingCycle, proposals } = data;
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData(): Promise<void> {
+    const response = await rpc.governance.listGovProposals({
+      type: ListProposalsType.ALL,
+      status: ListProposalsStatus.VOTING,
+    });
+    setData(getOCGData(JSON.parse(JSON.stringify(response))));
+  }
+
+  // TODO remove this before release to prod
+  async function createDummyProposals(): Promise<void> {
+    const playgroundRPC = new PlaygroundRpcClient(
+      newPlaygroundClient(connection)
+    );
+    for (let i = 0; i < 5; i += 1) {
+      const governanceType = ["creategovvoc", "creategovcfp"];
+      const proposalType =
+        governanceType[Math.floor(Math.random() * governanceType.length)]; // get random governance type
+      const data = {
+        title: `Testing proposal ${new Date().getTime()}`,
+        amount: "100000000",
+        context: "https://github.com/WavesHQ/scan",
+        payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
+        cycles: 1,
+      };
+      const proposal = await playgroundRPC.call(
+        proposalType,
+        [data, []],
+        "number"
+      );
+      console.log(
+        `proposal created with id:${proposal} is created with ${proposalType}`
+      );
+    }
+  }
+
   return (
     <Container className="md:pt-11 pt-10 pb-20">
       <div
@@ -45,6 +128,15 @@ export default function OnChainGovernancePage({ votingCycle, proposals }) {
                 testId="OnChainGovernance.SubmitProposalButton"
                 onClick={() => {}}
                 customStyle="bg-primary-50 hover:bg-primary-100"
+              />
+            )}
+            {/* TODO remove this before release to prod */}
+            {isPlayground(connection) && (
+              <Button
+                testId="dummy-proposal"
+                label="Create dummy proposal"
+                onClick={createDummyProposals}
+                customStyle="hover:bg-gray-50"
               />
             )}
           </div>
@@ -206,62 +298,53 @@ export default function OnChainGovernancePage({ votingCycle, proposals }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const rpc = getWhaleRpcClient(context);
+  const response = await rpc.governance.listGovProposals({
+    type: ListProposalsType.ALL,
+    status: ListProposalsStatus.VOTING,
+  });
   return {
-    props: {
-      votingCycle: {
-        votingCycleNumber: 3434,
-        proposalsSubmitted: 12,
-        dfips: 24,
-        cfps: 24,
-        currentStage: votingStages.open,
-        timeLeft: 9000,
-        totalTime: 10000,
-        totalVotes: 8392,
-      },
-      proposals: {
-        items: [
-          {
-            proposalName: "Support Europe",
-            proposalType: "DFIP",
-            proposer: "Chevol Valra",
-            links: {
-              github: "https://github.com/",
-            },
-          },
-          {
-            proposalName: "Support SG",
-            proposalType: "DFIP",
-            proposer: "Chevol Valra",
-            links: {
-              github: "https://github.com/",
-            },
-          },
-          {
-            proposalName: "Support MY",
-            proposalType: "DFIP",
-            proposer: "Chevol Valra",
-            links: {
-              github: "https://github.com/",
-            },
-          },
-          {
-            proposalName: "Support IN",
-            proposalType: "DFIP",
-            proposer: "Chevol Valra",
-            links: {
-              github: "https://github.com/",
-            },
-          },
-        ],
-        pages: [
-          {
-            n: 1,
-            active: true,
-            cursors: [],
-          },
-        ],
-      },
+    props: getOCGData(JSON.parse(JSON.stringify(response))),
+  };
+}
+
+function getOCGData(items: ProposalInfo[]): OCGProps {
+  console.log(items);
+  return {
+    votingCycle: {
+      votingCycleNumber: 3434,
+      proposalsSubmitted: items.length,
+      dfips: items.filter(
+        (item) => item.type === ProposalType.VOTE_OF_CONFIDENCE
+      ).length,
+      cfps: items.filter(
+        (item) => item.type === ProposalType.COMMUNITY_FUND_REQUEST
+      ).length,
+      currentStage: votingStages.open,
+      timeLeft: 9000,
+      totalTime: 10000,
+      totalVotes: 8392,
+    },
+    proposals: {
+      items,
+      pages: [
+        {
+          n: 1,
+          active: true,
+          cursors: [],
+        },
+        {
+          n: 2,
+          active: false,
+          cursors: ["1"],
+        },
+        {
+          n: 3,
+          active: false,
+          cursors: ["1", "2"],
+        },
+      ],
     },
   };
 }
