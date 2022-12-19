@@ -118,6 +118,7 @@ function newRpcClient(options: WhaleApiClientOptions): WhaleRpcClient {
   );
 }
 
+// TODO remove this before release to prod
 export function newPlaygroundClient(
   network: string | NetworkConnection
 ): PlaygroundApiClient {
