@@ -34,7 +34,7 @@ specifiers:
   react-number-format: ^5.1.2
   react-redux: ^8.0.5
   react-schemaorg: ^2.0.0
-  recharts: 2.1.16
+  recharts: 2.2.0
   schema-dts: ^1.1.0
   smart-buffer: ^4.2.0
   tailwindcss: ^3.2.4
@@ -60,7 +60,7 @@ dependencies:
   react-number-format: 5.1.2_biqbaboplfbrettd7655fr4n2y
   react-redux: 8.0.5_e42enmjmqb4imi3q3iaq2rrebm
   react-schemaorg: 2.0.0_rjebligfvfzam422hdjp2um35a
-  recharts: 2.1.16_v2m5e27vhdewzwhryxwfaorcca
+  recharts: 2.2.0_v2m5e27vhdewzwhryxwfaorcca
   schema-dts: 1.1.0_typescript@4.9.4
   smart-buffer: 4.2.0
 
@@ -7420,8 +7420,8 @@ packages:
       decimal.js-light: 2.5.1
     dev: false
 
-  /recharts/2.1.16_v2m5e27vhdewzwhryxwfaorcca:
-    resolution: {integrity: sha512-aYn1plTjYzRCo3UGxtWsduslwYd+Cuww3h/YAAEoRdGe0LRnBgYgaXSlVrNFkWOOSXrBavpmnli9h7pvRuk5wg==}
+  /recharts/2.2.0_v2m5e27vhdewzwhryxwfaorcca:
+    resolution: {integrity: sha512-/uRJ0oaESGyz//PgAzvrwXEhrKaNha1ELLysEMRklbnsddiVQsSNicP7DWiz8qFcyYXy3BrDqrUjiLiVRTSMtA==}
     engines: {node: '>=12'}
     peerDependencies:
       prop-types: ^15.6.0

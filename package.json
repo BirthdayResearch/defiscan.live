@@ -36,7 +36,7 @@
     "react-number-format": "^5.1.2",
     "react-redux": "^8.0.5",
     "react-schemaorg": "^2.0.0",
-    "recharts": "2.1.16",
+    "recharts": "2.2.0",
     "schema-dts": "^1.1.0",
     "smart-buffer": "^4.2.0"
   },
