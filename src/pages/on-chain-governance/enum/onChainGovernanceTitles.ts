@@ -8,7 +8,7 @@ export enum OnChainGovernanceTitles {
   timeLeftTitle = "Time left:",
   nameOfProposalTitle = "Name of Proposal",
   typeTitle = "Type",
-  proposerTitle = "Proposer",
+  proposerId = "Proposal id",
   communityDiscussionTitle = "Community discussions",
   noProposals = "No proposals yet",
   github = "Github",

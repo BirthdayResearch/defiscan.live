@@ -3,17 +3,18 @@ import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { IoMdOpen } from "react-icons/io";
 import classNames from "classnames";
+import { TextTruncate } from "@components/commons/text/TextTruncate";
 import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
-import { Proposal } from "./ProposalCard";
+import { ProposalInfo, ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 
 export function ProposalTable({
   proposals,
   currentStage,
 }: {
-  proposals: Proposal[];
+  proposals: ProposalInfo[];
   currentStage: votingStages;
 }) {
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
@@ -25,7 +26,7 @@ export function ProposalTable({
             title={OnChainGovernanceTitles.nameOfProposalTitle}
           />
           <OverflowTable.Head title={OnChainGovernanceTitles.typeTitle} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.proposerTitle} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.proposerId} />
           {currentStage === votingStages.vote ? (
             <>
               <OverflowTable.Head title="Community discussions" />
@@ -37,7 +38,7 @@ export function ProposalTable({
           )}
         </OverflowTable.Header>
 
-        {proposals.map((proposal: Proposal, index) => (
+        {proposals.map((proposal: ProposalInfo, index) => (
           <React.Fragment key={index}>
             <ProposalRow
               currentStage={currentStage}
@@ -71,7 +72,7 @@ function ProposalRow({
   displayVoteModal,
   setDisplayVoteModal,
 }: {
-  proposal: Proposal;
+  proposal: ProposalInfo;
   currentStage: votingStages;
   displayVoteModal: boolean;
   setDisplayVoteModal: Dispatch<SetStateAction<boolean>>;
@@ -88,13 +89,13 @@ function ProposalRow({
       )}
     >
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        {proposal.proposalName}
+        {proposal.title}
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        {proposal.proposalType}
+        {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        {proposal.proposer}
+        <TextTruncate text={proposal.proposalId} width="w-full" />
       </OverflowTable.Cell>
       {currentStage === votingStages.vote ? (
         <>
@@ -104,7 +105,7 @@ function ProposalRow({
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              href={proposal.links.github}
+              href={proposal.context}
             >
               {OnChainGovernanceTitles.github}
               <IoMdOpen size={24} />
@@ -146,7 +147,7 @@ function ProposalRow({
             onClick={(e) => {
               e.stopPropagation();
             }}
-            href={proposal.links.github}
+            href={proposal.context}
           >
             {OnChainGovernanceTitles.github}
             <IoMdOpen size={24} />
