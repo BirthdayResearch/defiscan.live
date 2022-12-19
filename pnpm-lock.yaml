@@ -14,9 +14,9 @@ specifiers:
   '@testing-library/cypress': ^8.0.7
   '@types/lodash': ^4.14.191
   '@types/node': ^18.11.13
-  '@waveshq/standard-defichain-jellyfishsdk': ^0.20.0
-  '@waveshq/standard-web': ^0.20.0
-  '@waveshq/standard-web-linter': ^0.20.0
+  '@waveshq/standard-defichain-jellyfishsdk': ^0.20.1
+  '@waveshq/standard-web': ^0.20.1
+  '@waveshq/standard-web-linter': ^0.20.1
   autoprefixer: ^10.4.13
   babel-plugin-istanbul: ^6.1.1
   babel-plugin-jsx-remove-data-test-id: ^3.0.0
@@ -47,8 +47,8 @@ dependencies:
   '@prismicio/types': 0.2.4
   '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
   '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
-  '@waveshq/standard-defichain-jellyfishsdk': 0.20.0
-  '@waveshq/standard-web': 0.20.0_ofvxzjmh3ttgc4a4tlq34kj4ty
+  '@waveshq/standard-defichain-jellyfishsdk': 0.20.1
+  '@waveshq/standard-web': 0.20.1_ofvxzjmh3ttgc4a4tlq34kj4ty
   bignumber.js: 9.1.1
   classnames: 2.3.2
   date-fns: 2.29.3
@@ -71,7 +71,7 @@ devDependencies:
   '@testing-library/cypress': 8.0.7_cypress@11.2.0
   '@types/lodash': 4.14.191
   '@types/node': 18.11.13
-  '@waveshq/standard-web-linter': 0.20.0_rsrorrpfqoe5pmgf4axxk6jweq
+  '@waveshq/standard-web-linter': 0.20.1_rsrorrpfqoe5pmgf4axxk6jweq
   autoprefixer: 10.4.13_postcss@8.4.20
   babel-plugin-istanbul: 6.1.1
   babel-plugin-jsx-remove-data-test-id: 3.0.0_@babel+core@7.20.5
@@ -2490,8 +2490,8 @@ packages:
     resolution: {integrity: sha512-haGBC8noyA5BfjCRXRH+VIkHCDVW5iD5UX24P2nOdilwUxI4qWsattS/co8QBGq64XsNLRAMdM5pQUE3zxkF9Q==}
     dev: true
 
-  /@waveshq/standard-defichain-jellyfishsdk/0.20.0:
-    resolution: {integrity: sha512-U42Cwui40icQBSA95p/v2MSHSW5LewyHMmWtYXA6H/DtmA4ml1SewQ+7t7dv0kSFkP/oyxamsJPenNfi9GKq2g==}
+  /@waveshq/standard-defichain-jellyfishsdk/0.20.1:
+    resolution: {integrity: sha512-6sm0GbxZSbP0+2pDx3fxyMK++28bawlAInLYkpzT1ftxO4ywyoGBSSq1KhZrUd55xJ4uIARHXrJG6+RDqUGDgw==}
     dependencies:
       '@defichain/jellyfish-address': 3.10.1_defichain@3.10.1
       '@defichain/jellyfish-api-core': 3.10.1_defichain@3.10.1
@@ -2509,8 +2509,8 @@ packages:
       - encoding
     dev: false
 
-  /@waveshq/standard-web-linter/0.20.0_rsrorrpfqoe5pmgf4axxk6jweq:
-    resolution: {integrity: sha512-yn2ZWOhPNZooU88vpMMF7XKIC7HRSEnAlVUrTT7XbsuR4zcngSySuSC5PbfSDWXECS9HMX3RexIGK8clOx9h3g==}
+  /@waveshq/standard-web-linter/0.20.1_rsrorrpfqoe5pmgf4axxk6jweq:
+    resolution: {integrity: sha512-X9Wx4NrAICX9w2uxp4CjNFuyAib52cYkl6+mJCWyahW0sVrmVEsQRG8bKrJ5pBGEEnLRVw9s4L8G5NZHeByJZg==}
     dependencies:
       eslint: 8.29.0
       eslint-config-airbnb: 19.0.4_u6r7wmyqgznou2plc6ye67x2ku
@@ -2546,8 +2546,8 @@ packages:
       - supports-color
     dev: true
 
-  /@waveshq/standard-web/0.20.0_ofvxzjmh3ttgc4a4tlq34kj4ty:
-    resolution: {integrity: sha512-AoK7KRHCK5cZ/bOKX7JwkmsIXBpgAAC3n3sHAHOGvId13gWkTl3vQe0DZjHDzgAygvqRzS/6eAarBe9Oeo7CuQ==}
+  /@waveshq/standard-web/0.20.1_ofvxzjmh3ttgc4a4tlq34kj4ty:
+    resolution: {integrity: sha512-HhmkLu6KbjaQs1Y8rycE45mvd0aPnu4rDP+fipTUcA60eEifiOjNwwBf2Ik8bN6L3F3dxE9A/ERMhrhvXqFVew==}
     dependencies:
       '@netlify/ipx': 1.3.2
       '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
