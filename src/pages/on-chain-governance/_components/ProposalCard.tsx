@@ -47,7 +47,7 @@ export function ProposalCards({
             </div>
             {displayVoteModal && (
               <VoteModal
-                proposalId={proposal.proposalName}
+                proposalId={proposal.title}
                 onClose={() => setDisplayVoteModal(false)}
               />
             )}
