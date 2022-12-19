@@ -8,6 +8,7 @@ import {
   MdShield,
   MdStairs,
   MdSwapHorizontalCircle,
+  MdMenuBook,
 } from "react-icons/md";
 import { SearchResultLink } from "../link/Link";
 
@@ -104,6 +105,9 @@ function SearchResultRow(props: {
                       }
                       case "Vault": {
                         return <MdShield size={24} />;
+                      }
+                      case "Proposal": {
+                        return <MdMenuBook size={24} />;
                       }
                     }
                   })()}
