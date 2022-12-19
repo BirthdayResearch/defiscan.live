@@ -20,8 +20,8 @@ export function getVotePercentage(
     .precision(2);
 
   return {
-    percYes: percYes,
-    percNo: percNo,
-    percNeutral: percNeutral,
+    percYes: percYes.isNaN() ? BigNumber(0) : percYes,
+    percNo: percNo.isNaN() ? BigNumber(0) : percNo,
+    percNeutral: percNeutral.isNaN() ? BigNumber(0) : percNeutral,
   };
 }

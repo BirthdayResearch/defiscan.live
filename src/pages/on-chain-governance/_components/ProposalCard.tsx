@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { IoMdOpen } from "react-icons/io";
 import { ProposalInfo } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
+import { getEnvironment } from "@contexts/Environment";
+import { useNetwork } from "@contexts/NetworkContext";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
@@ -17,6 +19,7 @@ export function ProposalCards({
   currentStage: votingStages;
 }) {
   const router = useRouter();
+  const { connection } = useNetwork();
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
   return (
     <div className="relative overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
@@ -27,7 +30,12 @@ export function ProposalCards({
               role="button"
               tabIndex={0}
               onClick={() => {
-                router.push("/on-chain-governance/proposalid");
+                router.push({
+                  pathname: `/on-chain-governance/${proposal.proposalId}`,
+                  query: getEnvironment().isDefaultConnection(connection)
+                    ? {}
+                    : { network: connection },
+                });
               }}
             >
               <ProposalCard

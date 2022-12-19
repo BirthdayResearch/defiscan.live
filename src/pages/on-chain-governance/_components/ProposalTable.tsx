@@ -4,10 +4,13 @@ import { OverflowTable } from "@components/commons/OverflowTable";
 import { IoMdOpen } from "react-icons/io";
 import classNames from "classnames";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
+import { ProposalInfo } from "@defichain/jellyfish-api-core/dist/category/governance";
+import { getEnvironment } from "@contexts/Environment";
+import { useNetwork } from "@contexts/NetworkContext";
 import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
-import { ProposalInfo, ProposalDisplayName } from "./ProposalCard";
+import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 
 export function ProposalTable({
@@ -48,7 +51,7 @@ export function ProposalTable({
             />
             {displayVoteModal && (
               <VoteModal
-                proposalId={proposal.proposalName}
+                proposalId={proposal.title}
                 onClose={() => {
                   setDisplayVoteModal(false);
                 }}
@@ -78,10 +81,16 @@ function ProposalRow({
   setDisplayVoteModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const router = useRouter();
+  const { connection } = useNetwork();
   return (
     <OverflowTable.Row
       onClick={() => {
-        router.push("/on-chain-governance/proposalid");
+        router.push({
+          pathname: `/on-chain-governance/${proposal.proposalId}`,
+          query: getEnvironment().isDefaultConnection(connection)
+            ? {}
+            : { network: connection },
+        });
       }}
       className={classNames(
         "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer",
