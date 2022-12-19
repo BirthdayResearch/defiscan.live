@@ -22,6 +22,8 @@ import {
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
+import { IoCloseCircleSharp } from "react-icons/io5";
+import { MdModeEditOutline } from "react-icons/md";
 import { Button } from "./_components/Button";
 import { getDuration } from "./shared/durationHelper";
 import { ProgressBar } from "./_components/ProgressBar";
@@ -50,6 +52,15 @@ export default function OnChainGovernancePage(props) {
   const rpc = useWhaleRpcClient();
   const router = useRouter();
   const connection = useNetwork().connection;
+  const [masterNodeInput, setMasterNodeInput] = useState("");
+  const [confirmedMasterNodeInput, setConfirmedMasterNodeInput] = useState("");
+  const [isMasterNodeInputFocused, setIsMasterNodeInputFocused] =
+    useState<boolean>(false);
+  const [isMasterNodeInputConfirmed, setIsMasterNodeInputConfirmed] =
+    useState(false);
+  const [masterNodeState, setMasterNodeState] = useState(
+    MasterNodeStates.enter
+  );
 
   const [data, setData] = useState<OCGProps>({
     votingCycle: props.votingCycle,
@@ -94,6 +105,15 @@ export default function OnChainGovernancePage(props) {
         `proposal created with id:${proposal} is created with ${proposalType}`
       );
     }
+  }
+
+  function getAllMasternodes() {
+    const playgroundRPC = new PlaygroundRpcClient(
+      newPlaygroundClient(connection)
+    );
+
+    const masternodes = playgroundRPC.masternode.listMasternodes();
+    return masternodes;
   }
 
   return (
@@ -277,11 +297,90 @@ export default function OnChainGovernancePage(props) {
         </div>
       </div>
 
+      <div className="border border-gray-200 rounded-lg py-6 px-6 mt-[62px]">
+        <div className=" font-medium text-lg text-[#531D42]">
+          {masterNodeState}
+        </div>
+        <div className="flex flex-row mt-6 gap-x-4 items-center">
+          <div
+            onBlur={() => {
+              setIsMasterNodeInputFocused(false);
+            }}
+            onFocus={() => {
+              setIsMasterNodeInputFocused(true);
+            }}
+            className="flex flex-row w-[535px] items-center border-gray-300 border-[1px] rounded py-3 px-4"
+          >
+            <input
+              onChange={(v) => setMasterNodeInput(v.target.value)}
+              disabled={isMasterNodeInputConfirmed}
+              placeholder="Your masternode ID"
+              value={masterNodeInput}
+              className="border-0 grow focus:outline-none text-[#A3A3A3] disabled:bg-white"
+            />
+            {(masterNodeInput !== "" || isMasterNodeInputFocused) &&
+              !isMasterNodeInputConfirmed && (
+                <IoCloseCircleSharp
+                  onClick={() => {
+                    setMasterNodeInput("");
+                  }}
+                  role="button"
+                  className="text-[#000000] justify-end"
+                  color="#F5F5F5"
+                  size={24}
+                />
+              )}
+          </div>
+          {masterNodeState === MasterNodeStates.vote ? (
+            <MdModeEditOutline
+              size={24}
+              onClick={() => {
+                setIsMasterNodeInputConfirmed(false);
+                setMasterNodeState(MasterNodeStates.edit);
+              }}
+            />
+          ) : (
+            <Button
+              label={
+                masterNodeState === MasterNodeStates.edit
+                  ? "CONFIRM NEW ID"
+                  : "CONFIRM"
+              }
+              testId="OnChainGovernance.ConfirmMasterNodeIdButton"
+              customStyle={
+                masterNodeInput === ""
+                  ? "py-4 px-[64px] bg-gray-100 font-medium text-gray-300 pointer-events-none"
+                  : "py-4 px-[64px] bg-primary-50 font-medium text-primary-500"
+              }
+              onClick={async () => {
+                const allMasterNodes = await getAllMasternodes();
+                // console.log(Object.keys(allMasterNodes))
+                const masterNodeExist = Object.keys(allMasterNodes).some(
+                  (masternodeId) => {
+                    if (masterNodeInput === masternodeId) {
+                      return true;
+                    }
+                    return false;
+                  }
+                );
+                if (masterNodeExist) {
+                  setIsMasterNodeInputConfirmed(true);
+                  setMasterNodeState(MasterNodeStates.vote);
+                  setConfirmedMasterNodeInput(masterNodeInput);
+                }
+              }}
+            />
+          )}
+        </div>
+      </div>
+
       <div className="hidden lg:block mt-[62px]">
         <ProposalTable
           data-testid="OnChainGovernance.CurrentProposalListTable"
           currentStage={votingCycle.currentStage}
           proposals={proposals.items}
+          masternodeId={confirmedMasterNodeInput}
+          masternodeIdConfirmation={isMasterNodeInputConfirmed}
         />
       </div>
       <div className="lg:hidden block mt-[62px]">
@@ -320,7 +419,7 @@ function getOCGData(items: ProposalInfo[]): OCGProps {
       cfps: items.filter(
         (item) => item.type === ProposalType.COMMUNITY_FUND_PROPOSAL
       ).length,
-      currentStage: votingStages.open,
+      currentStage: votingStages.vote,
       timeLeft: 9000,
       totalTime: 10000,
       totalVotes: 8392,
@@ -346,4 +445,10 @@ function getOCGData(items: ProposalInfo[]): OCGProps {
       ],
     },
   };
+}
+
+enum MasterNodeStates {
+  enter = "Enter Masternode ID to vote on Proposal",
+  vote = "You can now vote on Proposals!",
+  edit = "Edit Masternode ID",
 }

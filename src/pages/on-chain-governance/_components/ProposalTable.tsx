@@ -11,16 +11,20 @@ import { votingStages } from "../enum/votingStages";
 import { Button } from "./Button";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { ProposalDisplayName } from "./ProposalCard";
-import { VoteModal } from "./VoteModal";
+import { CopyToClipboardIcon } from "./CopyToClipboardIcon";
+import { sleep } from "../shared/sleep";
 
 export function ProposalTable({
   proposals,
   currentStage,
+  masternodeId,
+  masternodeIdConfirmation,
 }: {
   proposals: ProposalInfo[];
   currentStage: votingStages;
+  masternodeId: string;
+  masternodeIdConfirmation: boolean;
 }) {
-  const [displayVoteModal, setDisplayVoteModal] = useState(false);
   return (
     <div>
       <OverflowTable>
@@ -34,7 +38,8 @@ export function ProposalTable({
             <>
               <OverflowTable.Head title="Community discussions" />
               <OverflowTable.Head title="Vote Breakdown" />
-              <OverflowTable.Head title="Action" alignRight />
+              <OverflowTable.Head title="Action" />
+              <OverflowTable.Head title="Vote Command" alignRight />
             </>
           ) : (
             <OverflowTable.Head title="Community discussions" alignRight />
@@ -44,19 +49,11 @@ export function ProposalTable({
         {proposals.map((proposal: ProposalInfo, index) => (
           <React.Fragment key={index}>
             <ProposalRow
+              masternodeId={masternodeId}
+              masternodeIdConfirmation={masternodeIdConfirmation}
               currentStage={currentStage}
               proposal={proposal}
-              displayVoteModal={displayVoteModal}
-              setDisplayVoteModal={setDisplayVoteModal}
             />
-            {displayVoteModal && (
-              <VoteModal
-                proposalId={proposal.title}
-                onClose={() => {
-                  setDisplayVoteModal(false);
-                }}
-              />
-            )}
           </React.Fragment>
         ))}
       </OverflowTable>
@@ -72,16 +69,21 @@ export function ProposalTable({
 function ProposalRow({
   proposal,
   currentStage,
-  displayVoteModal,
-  setDisplayVoteModal,
+  masternodeId,
+  masternodeIdConfirmation,
 }: {
   proposal: ProposalInfo;
   currentStage: votingStages;
-  displayVoteModal: boolean;
-  setDisplayVoteModal: Dispatch<SetStateAction<boolean>>;
+  masternodeId: string;
+  masternodeIdConfirmation: boolean;
 }) {
   const router = useRouter();
   const { connection } = useNetwork();
+  const [masterNodeVoteDecision, setMasterNodeVoteDecision] = useState(
+    VoteDecision.notVoted
+  );
+  const [isVotingCommandCopied, setIsVotingCommandCopied] = useState(false);
+
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -93,8 +95,7 @@ function ProposalRow({
         });
       }}
       className={classNames(
-        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer",
-        { "pointer-events-none": displayVoteModal }
+        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer"
       )}
     >
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
@@ -104,7 +105,7 @@ function ProposalRow({
         {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        <TextTruncate text={proposal.proposalId} width="w-full" />
+        <TextTruncate text={proposal.proposalId} />
       </OverflowTable.Cell>
       {currentStage === votingStages.vote ? (
         <>
@@ -124,29 +125,99 @@ function ProposalRow({
             <div className="flex flex-row gap-x-5">
               <VotingResultPercentage
                 value="78% Yes"
-                customStyle="font-semibold group-hover:text-primary-500"
+                customStyle="whitespace-nowrap font-semibold group-hover:text-primary-500"
               />
               <VotingResultPercentage
                 value="16% No"
-                customStyle="group-hover:text-primary-500"
+                customStyle="whitespace-nowrap group-hover:text-primary-500"
               />
               <VotingResultPercentage
                 value="6% Neutral"
-                customStyle="group-hover:text-primary-500"
+                customStyle="whitespace-nowrap group-hover:text-primary-500"
               />
             </div>
           </OverflowTable.Cell>
-
-          <OverflowTable.Cell>
-            <Button
-              label={`vote`.toUpperCase()}
-              testId="OnChainGovernance.SubmitProposalButton"
-              onClick={(e) => {
-                e.stopPropagation();
-                setDisplayVoteModal(true);
-              }}
-              customStyle="px-5 py-1 rounded-sm text-base w-full border bg-white hover:border-primary-200 active:border-primary-400"
-            />
+          <OverflowTable.Cell className="align-middle">
+            {masternodeIdConfirmation && (
+              <div className="flex flex-row gap-x-1">
+                <Button
+                  label={`yes`.toUpperCase()}
+                  testId="OnChainGovernance.SubmitProposalButton"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMasterNodeVoteDecision(VoteDecision.yes);
+                  }}
+                  customStyle="w-[96px] px-5 py-1 rounded-sm text-base w-full border bg-white hover:border-primary-200 active:border-primary-400"
+                />
+                <Button
+                  label={`no`.toUpperCase()}
+                  testId="OnChainGovernance.SubmitProposalButton"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMasterNodeVoteDecision(VoteDecision.no);
+                  }}
+                  customStyle="w-[96px] px-5 py-1 rounded-sm text-base w-full border bg-white hover:border-primary-200 active:border-primary-400"
+                />
+                <Button
+                  label={`neutral`.toUpperCase()}
+                  testId="OnChainGovernance.SubmitProposalButton"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setMasterNodeVoteDecision(VoteDecision.neutral);
+                  }}
+                  customStyle="px-5 py-1 rounded-sm text-base w-full border bg-white hover:border-primary-200 active:border-primary-400"
+                />
+              </div>
+            )}
+          </OverflowTable.Cell>
+          <OverflowTable.Cell className="align-middle">
+            {masternodeIdConfirmation ? (
+              <>
+                {masterNodeVoteDecision === VoteDecision.notVoted ? (
+                  <div className="whitespace-nowrap py-1 px-2 bg-gray-100 text-gray-500 font-medium pointer-events-none">
+                    VOTE FIRST
+                  </div>
+                ) : (
+                  <button
+                    className="flex items-center bg-blue-100 lg:py-1.5 py-2.5 px-5 md:px-[17.5px] lg:px-[10.5px] rounded w-fit"
+                    onClick={(e) => {
+                      onClickCopy(
+                        setIsVotingCommandCopied,
+                        `defi-cli votegov ${proposal.proposalId} ${masternodeId} ${masterNodeVoteDecision}`
+                      );
+                      e.stopPropagation();
+                    }}
+                    type="button"
+                  >
+                    {isVotingCommandCopied ? (
+                      <>
+                        <div className="bg-blue-100 text-[#4A72DA]">
+                          Copied!
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <TextTruncate
+                          text={`defi-cli votegov ${proposal.proposalId} ${masternodeId} ${masterNodeVoteDecision}`}
+                          className="text-[#4A72DA] mr-3 whitespace-nowrap"
+                          width="w-10"
+                        />
+                        <CopyToClipboardIcon />
+                      </>
+                    )}
+                  </button>
+                )}
+              </>
+            ) : (
+              <input
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                disabled
+                className=" bg-gray-50 h-[32px] w-[431px] py-[6px] text-center"
+                placeholder="Enter masternode ID to unlock voting & command ID"
+              />
+            )}
           </OverflowTable.Cell>
         </>
       ) : (
@@ -179,4 +250,21 @@ function VotingResultPercentage({
       {value}
     </span>
   );
+}
+
+enum VoteDecision {
+  yes = "YES",
+  no = "NO",
+  neutral = "NEUTRAL",
+  notVoted = "NOT VOTED",
+}
+
+async function onClickCopy(
+  onTextClick: Dispatch<SetStateAction<boolean>>,
+  command: string
+) {
+  onTextClick(true);
+  navigator.clipboard.writeText(command);
+  await sleep(2000);
+  onTextClick(false);
 }
