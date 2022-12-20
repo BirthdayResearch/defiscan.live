@@ -1,6 +1,5 @@
 import { MdClose } from "react-icons/md";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
-import { useState } from "react";
 
 interface InputComponentProps {
   label: string;
@@ -9,6 +8,7 @@ interface InputComponentProps {
   value: string | number;
   placeholder: string;
   infoDesc?: string;
+  isVisited: boolean;
   onChange: (value: string | number) => void;
 }
 
@@ -19,10 +19,9 @@ export function InputComponent({
   infoDesc,
   note,
   onChange,
+  isVisited,
   error,
 }: InputComponentProps): JSX.Element {
-  const [touched, setTouched] = useState(false);
-
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row w-full">
@@ -44,7 +43,6 @@ export function InputComponent({
             spellCheck={false}
             placeholder={placeholder}
             onChange={(e) => onChange(e.target.value)}
-            onBlur={() => setTouched(true)}
             className="w-full mr-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none text-base placeholder:text-gray-400"
           />
           {value !== "" && (
@@ -67,7 +65,7 @@ export function InputComponent({
             </span>
           </div>
         )}
-        {touched && error !== "" && (
+        {isVisited && error !== "" && (
           <div className="mt-1">
             <span className="text-xs text-red-500">{error}</span>
           </div>

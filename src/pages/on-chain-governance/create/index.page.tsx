@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "@components/commons/Container";
 import { Head } from "@components/commons/Head";
 import {
@@ -20,6 +20,7 @@ import { ReviewProposal } from "../_components/ReviewProposal";
 import { InputComponent } from "../_components/InputComponent";
 import { GettingStartedInfo } from "../_components/GettingStartedInfo";
 import { DisclosureComponent } from "../_components/DisclosureComponent";
+import { ConfirmDialog } from "../_components/ConfirmDialog";
 
 export default function ProposalDetailPage() {
   const { connection } = useNetwork();
@@ -33,6 +34,17 @@ export default function ProposalDetailPage() {
   const [amount, setAmount] = useState<string>("");
   const [cycle, setCycle] = useState<number>(1);
   const [minCycle, maxCycle] = [1, 100];
+  const [isEditing, setEditing] = useState<boolean>(false);
+  const [visited, setVisited] = useState<{ [key: string]: boolean }>({});
+  const [canSwitchType, setCanSwitchType] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  useEffect(() => {
+    if (isEditing) {
+      setEditing(false);
+    }
+  }, [title, proposalType, payoutAddress, context, amount, cycle]);
+
   const proposalTypes = [
     {
       name: "Community Funding Proposal (CFP)",
@@ -116,13 +128,25 @@ export default function ProposalDetailPage() {
     return false;
   }
 
+  function clearForm() {
+    if (canClearForm()) {
+      setCycle(1);
+      setTitle("");
+      setAmount("");
+      setContext("");
+      setPayoutAddress("");
+      setVisited({});
+    }
+  }
+
   const command =
     proposalType === ProposalDisplayName.CommunityFundProposal
       ? `creategovcfp '{"title": "${title}" ,"context":"${context}","amount": ${amount} ,"payoutAddress":"${payoutAddress}", "cycle": "${cycle}"}'`
       : `creategovvoc '{"title": "${title}" ,"context":"${context}"}'`;
+
   return (
     <>
-      <Head title="On-Chain Proposal" />
+      <Head title="Create Proposal" />
       <Container className="mt-10 md:mt-12 px-6 lg:px-[312px]">
         <Breadcrumb
           items={[
@@ -146,8 +170,13 @@ export default function ProposalDetailPage() {
           <DisclosureComponent
             title="Step 1: Proposal Details"
             isOpen={activeStep === 1}
-            isCompleted={activeStep > 1}
-            {...(activeStep > 1 && { onEdit: () => setActiveStep(1) })}
+            isCompleted={activeStep > 1 || (isEditing && activeStep === 1)}
+            {...(activeStep > 1 && {
+              onEdit: () => {
+                setActiveStep(1);
+                setEditing(true);
+              },
+            })}
           >
             <span className="text-gray-600 dark:text-gray-100 text-sm md:text-base">
               Enter from Github the title of the proposal and the type of
@@ -155,7 +184,12 @@ export default function ProposalDetailPage() {
             </span>
             <RadioGroup
               value={proposalType}
-              onChange={setProposalType}
+              onChange={(type) => {
+                if (canSwitchType) {
+                  return setProposalType(type);
+                }
+                setIsDialogOpen(true);
+              }}
               className="flex flex-col md:flex-row my-6 md:space-x-3 space-y-2 md:space-y-0"
             >
               {proposalTypes.map((item) => (
@@ -199,6 +233,7 @@ export default function ProposalDetailPage() {
                 </RadioGroup.Option>
               ))}
             </RadioGroup>
+
             <div className="space-y-6">
               <InputComponent
                 label="Name of proposal"
@@ -206,14 +241,22 @@ export default function ProposalDetailPage() {
                 note="Make sure that the name added here is the same as from the one posted in Github."
                 value={title}
                 error={isValidName()}
-                onChange={(value) => setTitle(value as string)}
+                isVisited={visited.title}
+                onChange={(value) => {
+                  setTitle(value as string);
+                  setVisited({ ...visited, title: true });
+                }}
               />
               <InputComponent
                 label="Github discussion"
                 placeholder="Paste URL"
                 error={isValidGithubUrl()}
                 value={context}
-                onChange={(value) => setContext(value as string)}
+                isVisited={visited.context}
+                onChange={(value) => {
+                  setContext(value as string);
+                  setVisited({ ...visited, context: true });
+                }}
               />
               {proposalType === ProposalDisplayName.CommunityFundProposal && (
                 <>
@@ -223,11 +266,13 @@ export default function ProposalDetailPage() {
                         label="Funding amount in DFI"
                         placeholder="0.00 DFI"
                         value={amount}
+                        isVisited={visited.amount}
                         error={isValidAmount()}
                         onChange={(value) => {
                           const re = /^\d*\.?\d*$/;
                           if (value === "" || re.test(value.toString())) {
                             setAmount(value as string);
+                            setVisited({ ...visited, amount: true });
                           }
                         }}
                       />
@@ -239,9 +284,11 @@ export default function ProposalDetailPage() {
                         infoDesc="Cycles"
                         error={isValidCycle()}
                         value={cycle}
+                        isVisited={visited.cycle}
                         onChange={(value) => {
                           const re = /^\d*\.?\d*$/;
                           if (value === "" || re.test(value.toString())) {
+                            setVisited({ ...visited, cycle: true });
                             if (value > maxCycle) {
                               return setCycle(maxCycle);
                             }
@@ -293,21 +340,17 @@ export default function ProposalDetailPage() {
                     placeholder="Paste DFI address for receiving payout"
                     value={payoutAddress}
                     error={isValidAddress()}
-                    onChange={(value) => setPayoutAddress(value as string)}
+                    isVisited={visited.payoutAddress}
+                    onChange={(value) => {
+                      setPayoutAddress(value as string);
+                      setVisited({ ...visited, payoutAddress: true });
+                    }}
                   />
                 </>
               )}
               <div className="flex flex-col-reverse md:flex-row md:space-x-2">
                 <button
-                  onClick={() => {
-                    if (canClearForm()) {
-                      setCycle(1);
-                      setTitle("");
-                      setAmount("");
-                      setContext("");
-                      setPayoutAddress("");
-                    }
-                  }}
+                  onClick={clearForm}
                   disabled={!canClearForm()}
                   type="button"
                   className={classNames(
@@ -325,6 +368,8 @@ export default function ProposalDetailPage() {
                   onClick={() => {
                     if (canReviewProposal()) {
                       setActiveStep(2);
+                      setCanSwitchType(false);
+                      setEditing(false);
                     }
                   }}
                   className={classNames(
@@ -391,6 +436,20 @@ export default function ProposalDetailPage() {
           </DisclosureComponent>
         </div>
       </Container>
+      <ConfirmDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        onConfirm={() => {
+          clearForm();
+          setIsDialogOpen(false);
+          setCanSwitchType(true);
+          setProposalType(
+            proposalType === ProposalDisplayName.CommunityFundProposal
+              ? ProposalDisplayName.VoteOfConfidence
+              : ProposalDisplayName.CommunityFundProposal
+          );
+        }}
+      />
     </>
   );
 }

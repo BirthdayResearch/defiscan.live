@@ -15,7 +15,7 @@ export function DisclosureComponent({
   onEdit?: () => void;
 }>) {
   return (
-    <div className="pt-5 pb-10 px-4 md:px-10 rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="py-5 px-4 md:px-10 rounded-lg border border-gray-200 dark:border-gray-700">
       <Disclosure defaultOpen>
         {({ open }) => (
           <>
@@ -36,9 +36,8 @@ export function DisclosureComponent({
                 )}
               </div>
               {onEdit !== undefined && (
-                <button
-                  type="button"
-                  className="flex flex-row items-center justify-end"
+                <div
+                  className="flex flex-row items-center justify-end cursor-pointer"
                   onClick={onEdit}
                 >
                   <MdEdit
@@ -48,12 +47,14 @@ export function DisclosureComponent({
                   <span className="text-sm font-medium text-gray-600 dark:text-gray-100">
                     EDIT
                   </span>
-                </button>
+                </div>
               )}
             </Disclosure.Button>
             <Transition show={open}>
               {isOpen && (
-                <Disclosure.Panel className="mt-2">{children}</Disclosure.Panel>
+                <Disclosure.Panel className="mt-2 pb-5">
+                  {children}
+                </Disclosure.Panel>
               )}
             </Transition>
           </>
