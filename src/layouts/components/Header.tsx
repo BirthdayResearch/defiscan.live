@@ -227,6 +227,7 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
             </a>
           </Link>
           <MdClose
+            role="button"
             className="h-6 w-6 text-primary-500"
             onClick={() => toggleMenu()}
             data-testid="Header.CloseMenu"
