@@ -6,7 +6,7 @@ export function ConfirmDialog({ isOpen, onConfirm, onClose }) {
     <Transition appear show={isOpen} as="div">
       <Dialog as="div" className="relative z-10" onClose={onClose}>
         <Transition.Child as="div">
-          <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-[1.5px]" />
+          <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-[2.5px]" />
         </Transition.Child>
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-8 text-center">
@@ -29,14 +29,14 @@ export function ConfirmDialog({ isOpen, onConfirm, onClose }) {
                   <button
                     onClick={onClose}
                     type="button"
-                    className="w-full text-sm md:w-1/2 py-4 border rounded-sm font-medium border-gray-300 text-primary-500"
+                    className="text-sm w-1/2 py-4 border rounded-sm font-medium border-gray-300 text-primary-500"
                   >
                     CANCEL
                   </button>
                   <button
                     type="button"
                     onClick={onConfirm}
-                    className="w-full text-sm md:w-1/2 py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50"
+                    className="text-sm w-1/2 py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50"
                   >
                     CONFIRM
                   </button>
