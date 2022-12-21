@@ -60,7 +60,7 @@ export function Header(): JSX.Element {
           <Container className="py-4 md:py-8">
             <div className="flex items-center justify-between">
               {isSearchIconClicked ? (
-                <div className="flex flex-row items-center w-full mt-2">
+                <div className="flex flex-row items-center w-full m-2 h-9">
                   <div className="flex grow">
                     <SearchBar atHeader />
                   </div>
@@ -284,7 +284,6 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
       </div>
       <div
         ref={ref}
-        data-height={`${dimension.height - 800}px`}
         className={classNames(
           "text-gray-600 dark:text-dark-gray-900 overflow-auto"
         )}
