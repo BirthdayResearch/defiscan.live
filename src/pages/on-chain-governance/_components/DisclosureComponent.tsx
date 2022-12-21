@@ -1,6 +1,7 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import { MdEdit, MdCheckCircle } from "react-icons/md";
 import { Disclosure, Transition } from "@headlessui/react";
+import classNames from "classnames";
 
 export function DisclosureComponent({
   title,
@@ -15,50 +16,43 @@ export function DisclosureComponent({
   onEdit?: () => void;
 }>) {
   return (
-    <div className="py-5 px-4 md:px-10 rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="py-5 px-6 md:px-10 rounded-lg border border-gray-200 dark:border-gray-700">
       <Disclosure defaultOpen>
-        {({ open }) => (
-          <>
-            <Disclosure.Button
-              className="flex w-full flex-row items-center justify-between cursor-default"
-              onClick={(e) => {
-                if (open) {
-                  e.preventDefault();
-                }
-              }}
-            >
-              <div className="flex w-full flex-row items-center">
-                <span className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                  {title}
-                </span>
-                {isCompleted && (
-                  <MdCheckCircle size={24} className="text-green-500 ml-2.5" />
+        <div className={classNames({ "py-1 md:py-5": isOpen })}>
+          <Disclosure.Button className="flex w-full flex-row items-center justify-between cursor-default">
+            <div className="flex w-full flex-row items-center">
+              <span
+                className={classNames(
+                  "text-base md:text-lg font-medium",
+                  isOpen || isCompleted
+                    ? "text-gray-900 dark:text-gray-100"
+                    : "text-gray-400"
                 )}
+              >
+                {title}
+              </span>
+              {isCompleted && (
+                <MdCheckCircle className="text-green-500 ml-2.5 h-4 w-4 md:h-6 md:w-6" />
+              )}
+            </div>
+            {onEdit !== undefined && (
+              <div
+                className="flex flex-row items-center justify-end cursor-pointer"
+                onClick={onEdit}
+              >
+                <MdEdit className="mr-1 text-gray-600 dark:text-gray-100 h-6 w-6 md:h-5 md:w-5" />
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-100 hidden md:block">
+                  EDIT
+                </span>
               </div>
-              {onEdit !== undefined && (
-                <div
-                  className="flex flex-row items-center justify-end cursor-pointer"
-                  onClick={onEdit}
-                >
-                  <MdEdit
-                    className="mr-1 text-gray-600 dark:text-gray-100"
-                    size={20}
-                  />
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-100">
-                    EDIT
-                  </span>
-                </div>
-              )}
-            </Disclosure.Button>
-            <Transition show={open}>
-              {isOpen && (
-                <Disclosure.Panel className="mt-2 pb-5">
-                  {children}
-                </Disclosure.Panel>
-              )}
-            </Transition>
-          </>
-        )}
+            )}
+          </Disclosure.Button>
+          <Transition show={isOpen}>
+            {isOpen && (
+              <Disclosure.Panel className="mt-2">{children}</Disclosure.Panel>
+            )}
+          </Transition>
+        </div>
       </Disclosure>
     </div>
   );

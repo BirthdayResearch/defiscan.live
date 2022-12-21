@@ -14,13 +14,13 @@ import { fromAddress } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { isPlayground } from "@contexts/Environment";
-import { CopyButton } from "@components/commons/CopyButton";
 import { ProposalDisplayName } from "../_components/ProposalCard";
 import { ReviewProposal } from "../_components/ReviewProposal";
 import { InputComponent } from "../_components/InputComponent";
 import { GettingStartedInfo } from "../_components/GettingStartedInfo";
 import { DisclosureComponent } from "../_components/DisclosureComponent";
 import { ConfirmDialog } from "../_components/ConfirmDialog";
+import { SubmitProposal } from "../_components/SubmitProposal";
 
 export default function ProposalDetailPage() {
   const { connection } = useNetwork();
@@ -78,7 +78,7 @@ export default function ProposalDetailPage() {
     if (regex.test(context)) {
       return "";
     }
-    return "Invalid github URL";
+    return "Invalid URL. Only Github URL are accepted";
   }
 
   function isValidCycle() {
@@ -94,7 +94,7 @@ export default function ProposalDetailPage() {
       : (connection.toLowerCase() as NetworkName);
     const decodedAddress = fromAddress(payoutAddress, network);
     if (decodedAddress === undefined) {
-      return "Invalid address";
+      return "Invalid payout address. Only DFI addresses are accepted";
     }
     return "";
   }
@@ -190,7 +190,7 @@ export default function ProposalDetailPage() {
                 }
                 setIsDialogOpen(true);
               }}
-              className="flex flex-col md:flex-row my-6 md:space-x-3 space-y-2 md:space-y-0"
+              className="flex flex-col md:flex-row my-6 md:space-x-3 space-y-3 md:space-y-0"
             >
               {proposalTypes.map((item) => (
                 <RadioGroup.Option
@@ -242,10 +242,8 @@ export default function ProposalDetailPage() {
                 value={title}
                 error={isValidName()}
                 isVisited={visited.title}
-                onChange={(value) => {
-                  setTitle(value as string);
-                  setVisited({ ...visited, title: true });
-                }}
+                onBlur={() => setVisited({ ...visited, title: true })}
+                onChange={(value) => setTitle(value as string)}
               />
               <InputComponent
                 label="Github discussion"
@@ -253,26 +251,24 @@ export default function ProposalDetailPage() {
                 error={isValidGithubUrl()}
                 value={context}
                 isVisited={visited.context}
-                onChange={(value) => {
-                  setContext(value as string);
-                  setVisited({ ...visited, context: true });
-                }}
+                onBlur={() => setVisited({ ...visited, context: true })}
+                onChange={(value) => setContext(value as string)}
               />
               {proposalType === ProposalDisplayName.CommunityFundProposal && (
                 <>
                   <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row">
                     <div className="w-full md:w-1/2">
                       <InputComponent
-                        label="Funding amount in DFI"
+                        label="Amount requested in DFI"
                         placeholder="0.00 DFI"
                         value={amount}
                         isVisited={visited.amount}
                         error={isValidAmount()}
+                        onBlur={() => setVisited({ ...visited, amount: true })}
                         onChange={(value) => {
                           const re = /^\d*\.?\d*$/;
                           if (value === "" || re.test(value.toString())) {
                             setAmount(value as string);
-                            setVisited({ ...visited, amount: true });
                           }
                         }}
                       />
@@ -281,14 +277,14 @@ export default function ProposalDetailPage() {
                       <InputComponent
                         label="Cycles"
                         placeholder=""
-                        infoDesc="Cycles"
+                        infoDesc="Cycles determine the duration for which a proposal can accept votes. Each voting cycle lasts ~130,000 blocks."
                         error={isValidCycle()}
                         value={cycle}
                         isVisited={visited.cycle}
+                        onBlur={() => setVisited({ ...visited, cycle: true })}
                         onChange={(value) => {
                           const re = /^\d*\.?\d*$/;
                           if (value === "" || re.test(value.toString())) {
-                            setVisited({ ...visited, cycle: true });
                             if (value > maxCycle) {
                               return setCycle(maxCycle);
                             }
@@ -311,8 +307,8 @@ export default function ProposalDetailPage() {
                               size={24}
                               className={
                                 cycle <= minCycle
-                                  ? "text-gray-300"
-                                  : "text-gray-900"
+                                  ? "text-gray-300 dark:text-gray-600"
+                                  : "text-gray-900 dark:text-gray-100"
                               }
                             />
                           </button>
@@ -326,8 +322,8 @@ export default function ProposalDetailPage() {
                               size={24}
                               className={
                                 cycle >= maxCycle
-                                  ? "text-gray-300"
-                                  : "text-gray-900"
+                                  ? "text-gray-300 dark:text-gray-600"
+                                  : "text-gray-900 dark:text-gray-100"
                               }
                             />
                           </button>
@@ -336,15 +332,15 @@ export default function ProposalDetailPage() {
                     </div>
                   </div>
                   <InputComponent
-                    label="Payout Address"
+                    label="Receiving address"
                     placeholder="Paste DFI address for receiving payout"
                     value={payoutAddress}
                     error={isValidAddress()}
                     isVisited={visited.payoutAddress}
-                    onChange={(value) => {
-                      setPayoutAddress(value as string);
-                      setVisited({ ...visited, payoutAddress: true });
-                    }}
+                    onBlur={() =>
+                      setVisited({ ...visited, payoutAddress: true })
+                    }
+                    onChange={(value) => setPayoutAddress(value as string)}
                   />
                 </>
               )}
@@ -354,7 +350,7 @@ export default function ProposalDetailPage() {
                   disabled={!canClearForm()}
                   type="button"
                   className={classNames(
-                    "w-full md:w-1/2 py-3 border rounded-sm font-semibold mt-4 md:mt-0",
+                    "w-full md:w-1/2 py-3 border rounded-sm font-medium text-base mt-4 md:mt-0",
                     canClearForm()
                       ? "border-gray-300 text-primary-500"
                       : "border-gray-100 text-gray-300"
@@ -373,10 +369,10 @@ export default function ProposalDetailPage() {
                     }
                   }}
                   className={classNames(
-                    "w-full md:w-1/2 py-3 rounded-sm font-semibold border",
+                    "w-full md:w-1/2 py-3 rounded-sm font-medium text-base border",
                     canReviewProposal()
-                      ? "border-primary-50 text-primary-500 bg-primary-50"
-                      : "text-gray-300 bg-gray-100 border-gray-50"
+                      ? "text-primary-500 bg-primary-50 border-primary-50"
+                      : "text-gray-300 bg-gray-100 border-gray-100"
                   )}
                 >
                   REVIEW PROPOSAL
@@ -407,32 +403,7 @@ export default function ProposalDetailPage() {
             title="Step 3: Submit proposal on-chain"
             isOpen={activeStep === 3}
           >
-            <span className="text-gray-600 dark:text-gray-100 text-sm md:text-base">
-              To finalize your submission on-chain, copy the generated command
-              line, and paste it in the CLI located in your full node wallet. If
-              you have not downloaded a full node wallet,
-              <a
-                className="text-[#4A72DA]"
-                href="/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                &nbsp;download here
-              </a>
-            </span>
-            <div className="flex flex-row mt-6 mb-2 md:mb-4 bg-blue-100 rounded py-3 px-4 items-center">
-              <span className="text-[#4A72DA] break-all">{command}</span>
-              <CopyButton
-                className="ml-2"
-                content={command}
-                iconsClass="text-[#4A72DA] h-6 w-6"
-                buttonClass="cursor-pointer outline-none bg-transparent dark:bg-transparent border-none"
-              />
-            </div>
-            <span className="text-orange-600 text-xs md:text-sm">
-              Command line submitted into CLI will not be editable. Please check
-              your details carefully before submitting.
-            </span>
+            <SubmitProposal command={command} />
           </DisclosureComponent>
         </div>
       </Container>

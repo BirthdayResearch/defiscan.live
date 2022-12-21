@@ -1,5 +1,7 @@
+import React from "react";
 import { MdClose } from "react-icons/md";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
+import classNames from "classnames";
 
 interface InputComponentProps {
   label: string;
@@ -9,6 +11,7 @@ interface InputComponentProps {
   placeholder: string;
   infoDesc?: string;
   isVisited: boolean;
+  onBlur: () => void;
   onChange: (value: string | number) => void;
 }
 
@@ -19,6 +22,7 @@ export function InputComponent({
   infoDesc,
   note,
   onChange,
+  onBlur,
   isVisited,
   error,
 }: InputComponentProps): JSX.Element {
@@ -37,11 +41,19 @@ export function InputComponent({
         )}
       </div>
       <div className="mt-1">
-        <div className="flex flex-row py-3 px-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-dark-gray-300 rounded">
+        <div
+          className={classNames(
+            "flex flex-row py-3 px-4 bg-white dark:bg-gray-800 border rounded",
+            isVisited && error !== ""
+              ? "border-red-500"
+              : "border-gray-300 dark:border-dark-gray-300"
+          )}
+        >
           <input
             value={value}
             spellCheck={false}
             placeholder={placeholder}
+            onBlur={onBlur}
             onChange={(e) => onChange(e.target.value)}
             className="w-full mr-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none text-base placeholder:text-gray-400"
           />
@@ -58,18 +70,19 @@ export function InputComponent({
             </button>
           )}
         </div>
-        {note !== undefined && (
-          <div className="mt-1">
-            <span className="text-xs text-gray-600 dark:text-gray-100">
-              {note}
-            </span>
-          </div>
-        )}
-        {isVisited && error !== "" && (
-          <div className="mt-1">
+        <div className="mt-1">
+          {isVisited && error !== "" ? (
             <span className="text-xs text-red-500">{error}</span>
-          </div>
-        )}
+          ) : (
+            <>
+              {note !== undefined && (
+                <span className="text-xs text-gray-600 dark:text-gray-100">
+                  {note}
+                </span>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

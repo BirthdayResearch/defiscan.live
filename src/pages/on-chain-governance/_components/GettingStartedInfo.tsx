@@ -1,9 +1,10 @@
+import React from "react";
 import { MdInfo } from "react-icons/md";
 
 export function GettingStartedInfo(): JSX.Element {
   const link = "https://github.com/DeFiCh/dfips";
   return (
-    <div className="bg-blue-50 dark:bg-dark-blue-50 py-6 px-6 md:py-9 md:px-10 rounded-lg mb-4">
+    <div className="bg-blue-50 dark:bg-dark-blue-50 py-6 px-6 md:px-10 rounded-lg mb-4">
       <div className="flex flex-row">
         <MdInfo size={24} className="mr-2 text-[#4A72DA]" />
         <span className="font-semibold text-base text-[#4A72DA]">
@@ -16,7 +17,7 @@ export function GettingStartedInfo(): JSX.Element {
           active discussion&nbsp;
         </span>
         <a
-          className="text-[#4A72DA] text-sm md:text-base underline"
+          className="text-sm md:text-base text-[#4A72DA] underline"
           href={link}
           target="_blank"
           rel="noreferrer"
