@@ -2,7 +2,7 @@ import React from "react";
 import { MdInfo } from "react-icons/md";
 
 export function GettingStartedInfo(): JSX.Element {
-  const link = "https://github.com/DeFiCh/dfips";
+  const link = "https://github.com/DeFiCh/dfips/issues";
   return (
     <div className="bg-blue-50 dark:bg-dark-blue-50 py-6 px-6 md:px-10 rounded-lg mb-4">
       <div className="flex flex-row">
