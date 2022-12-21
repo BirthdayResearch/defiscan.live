@@ -51,7 +51,7 @@ export function ProposalTable({
             />
             {displayVoteModal && (
               <VoteModal
-                proposalId={proposal.title}
+                proposalId={proposal.proposalId}
                 onClose={() => {
                   setDisplayVoteModal(false);
                 }}
