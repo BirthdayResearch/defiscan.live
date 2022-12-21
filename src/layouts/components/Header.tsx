@@ -39,6 +39,12 @@ export function Header(): JSX.Element {
     };
   }, []);
 
+  if (menu) {
+    document.documentElement.style.overflow = "hidden";
+  } else {
+    document.documentElement.style.overflow = "auto";
+  }
+
   return (
     <>
       <header
@@ -254,7 +260,9 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   const dimension = useWindowDimensions();
   useEffect(() => {
     if (ref.current) {
-      ref.current.style.height = `${dimension.height - 225}px`;
+      ref.current.style.height = `${
+        dimension.height - ref.current.offsetTop
+      }px`;
     }
   }, [ref, dimension]);
 
