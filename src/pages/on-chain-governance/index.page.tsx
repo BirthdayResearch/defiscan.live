@@ -126,7 +126,7 @@ export default function OnChainGovernancePage(props) {
               <Button
                 label={`Submit a proposal`.toUpperCase()}
                 testId="OnChainGovernance.SubmitProposalButton"
-                onClick={() => {}}
+                onClick={() => router.push("on-chain-governance/create")}
                 customStyle="bg-primary-50 hover:bg-primary-100"
               />
             )}
@@ -270,7 +270,7 @@ export default function OnChainGovernancePage(props) {
             <Button
               label={`Submit a proposal`.toUpperCase()}
               testId="OnChainGovernance.SubmitProposalButton"
-              onClick={() => {}}
+              onClick={() => router.push("on-chain-governance/create")}
               customStyle="mt-4 w-full bg-primary-50 hover:bg-primary-100"
             />
           )}

@@ -29,14 +29,14 @@ export function ConfirmDialog({ isOpen, onConfirm, onClose }) {
                   <button
                     onClick={onClose}
                     type="button"
-                    className="text-sm w-1/2 py-4 border rounded-sm font-medium border-gray-300 text-primary-500"
+                    className="text-sm w-1/2 py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
                   >
                     CANCEL
                   </button>
                   <button
                     type="button"
                     onClick={onConfirm}
-                    className="text-sm w-1/2 py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50"
+                    className="text-sm w-1/2 py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
                   >
                     CONFIRM
                   </button>

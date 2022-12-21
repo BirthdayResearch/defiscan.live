@@ -352,7 +352,7 @@ export default function ProposalDetailPage() {
                   className={classNames(
                     "w-full md:w-1/2 py-3 border rounded-sm font-medium text-base mt-4 md:mt-0",
                     canClearForm()
-                      ? "border-gray-300 text-primary-500"
+                      ? "border-gray-300 text-primary-500 hover:border-primary-200"
                       : "border-gray-100 text-gray-300"
                   )}
                 >
@@ -371,7 +371,7 @@ export default function ProposalDetailPage() {
                   className={classNames(
                     "w-full md:w-1/2 py-3 rounded-sm font-medium text-base border",
                     canReviewProposal()
-                      ? "text-primary-500 bg-primary-50 border-primary-50"
+                      ? "text-primary-500 bg-primary-50 border-primary-50 hover:bg-primary-100 hover:border-primary-100"
                       : "text-gray-300 bg-gray-100 border-gray-100"
                   )}
                 >
