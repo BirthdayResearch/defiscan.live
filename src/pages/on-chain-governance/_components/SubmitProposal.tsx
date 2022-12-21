@@ -10,7 +10,7 @@ export function SubmitProposal({ command }: SubmitProposalProps): JSX.Element {
       <span className="text-gray-600 dark:text-gray-100 text-sm md:text-base">
         To finalize your submission on-chain, copy the generated command line,
         and paste it in the CLI located in your full node wallet. If you have
-        not downloaded a full node wallet,
+        not downloaded a full node wallet,&nbsp;
         <a
           className="text-[#4A72DA]"
           href="https://defichain.com/downloads"
