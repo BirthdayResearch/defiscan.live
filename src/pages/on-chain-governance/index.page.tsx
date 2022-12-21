@@ -320,7 +320,7 @@ function getOCGData(items: ProposalInfo[]): OCGProps {
       cfps: items.filter(
         (item) => item.type === ProposalType.COMMUNITY_FUND_PROPOSAL
       ).length,
-      currentStage: votingStages.vote,
+      currentStage: votingStages.open,
       timeLeft: 9000,
       totalTime: 10000,
       totalVotes: 8392,
