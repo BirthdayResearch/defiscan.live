@@ -182,24 +182,7 @@ function DesktopNavbar(): JSX.Element {
           pathname="/masternodes"
           testId="Desktop.HeaderLink.Masternodes"
         />
-
-        {/* <HeaderLink
-          className="ml-1 lg:ml-4"
-          text="Consortium"
-          pathname="/consortium/asset_breakdown"
-          testId="Desktop.HeaderLink.Consortium"
-        /> */}
-
-        {useWindowDimensions().width <= 1530 ? (
-          <MoreDropdown />
-        ) : (
-          <HeaderLink
-            className="ml-1 lg:ml-4"
-            text="On-Chain Governance"
-            pathname="/on-chain-governance"
-            testId="Desktop.HeaderLink.OnChainGovernance"
-          />
-        )}
+        <MoreDropdown />
       </div>
       <div
         className="hidden w-1/4 md:block"
@@ -327,7 +310,7 @@ export function HeaderLink(props: {
       >
         <div
           className={classNames(
-            "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg  hover:text-primary-500",
+            "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
             {
               "dark:border-dark-50 border-b-2 border-primary-500":
                 router.pathname === props.pathname,
