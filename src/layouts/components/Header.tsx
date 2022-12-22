@@ -39,11 +39,13 @@ export function Header(): JSX.Element {
     };
   }, []);
 
-  if (menu) {
-    document.documentElement.style.overflow = "hidden";
-  } else {
-    document.documentElement.style.overflow = "auto";
-  }
+  useEffect(() => {
+    if (menu) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "auto";
+    }
+  }, [menu]);
 
   return (
     <>
@@ -328,7 +330,7 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
   return (
     <div className="flex flex-col">
       <HeaderLink
-        className="flex justify-start border-b border-[#E5E5E5] dark:border-gray-700 md:pt-0 px-4 p-1.5"
+        className="flex justify-start border-b border-gray-200 dark:border-gray-700 md:pt-0 px-4 p-1.5"
         text="DEX"
         pathname="/dex"
         testId={`${viewPort}.HeaderLink.DEX`}
@@ -398,7 +400,7 @@ function MoreDropdown(): JSX.Element {
 
   return (
     <Menu as="div" className="relative">
-      {({ open }) => (
+      {({ open, close }) => (
         <>
           <Menu.Button
             className={classNames(
@@ -423,25 +425,28 @@ function MoreDropdown(): JSX.Element {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Menu.Items className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700">
+            <Menu.Items
+              static
+              className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700"
+            >
               {dropDownLinks.map((item, index) => {
                 return (
                   <Menu.Item key={index}>
-                    <>
-                      <Link href={{ pathname: item.link }} passHref>
-                        <a
-                          className={classNames(
-                            "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
-                            {
-                              "dark:text-dark-50 text-primary-500":
-                                router.pathname.includes(item.rootPathName),
-                            }
-                          )}
-                        >
-                          {item.name}
-                        </a>
-                      </Link>
-                    </>
+                    <Link href={{ pathname: item.link }} passHref>
+                      <a
+                        onClick={close}
+                        href={item.link}
+                        className={classNames(
+                          "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
+                          {
+                            "dark:text-dark-50 text-primary-500":
+                              router.pathname.includes(item.rootPathName),
+                          }
+                        )}
+                      >
+                        {item.name}
+                      </a>
+                    </Link>
                   </Menu.Item>
                 );
               })}
