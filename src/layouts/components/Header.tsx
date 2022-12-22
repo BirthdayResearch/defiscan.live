@@ -425,10 +425,7 @@ function MoreDropdown(): JSX.Element {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Menu.Items
-              static
-              className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700"
-            >
+            <Menu.Items className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700">
               {dropDownLinks.map((item, index) => {
                 return (
                   <Menu.Item key={index}>
