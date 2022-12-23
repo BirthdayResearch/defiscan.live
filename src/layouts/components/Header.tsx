@@ -123,18 +123,16 @@ export function Header(): JSX.Element {
           </Container>
         </div>
       </header>
-      <>
-        {menu && (
-          <>
-            <div className="fixed z-50 md:hidden">
-              <MobileMenu toggleMenu={() => setMenu(false)} />
-            </div>
-            <div className="w-full hidden md:block md:fixed md:z-50">
-              <TabletMenu toggleMenu={() => setMenu(false)} />
-            </div>
-          </>
-        )}
-      </>
+      {menu && (
+        <>
+          <div className="fixed z-50 md:hidden">
+            <MobileMenu toggleMenu={() => setMenu(false)} />
+          </div>
+          <div className="w-full hidden md:block md:fixed md:z-50">
+            <TabletMenu toggleMenu={() => setMenu(false)} />
+          </div>
+        </>
+      )}
     </>
   );
 }
