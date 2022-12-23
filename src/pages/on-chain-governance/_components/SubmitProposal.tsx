@@ -30,7 +30,7 @@ export function SubmitProposal({ command }: SubmitProposalProps): JSX.Element {
         />
       </div>
       <span className="text-orange-600 text-xs md:text-sm">
-        Command line submitted into CLI will not be editable. Please check your
+        Command submitted into defi-cli will not be editable. Please check your
         details carefully before submitting.
       </span>
     </>
