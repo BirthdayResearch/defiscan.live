@@ -16,7 +16,7 @@
     "playground:start": "docker-compose rm -fsv && docker-compose up"
   },
   "dependencies": {
-    "@babel/types": "^7.20.5",
+    "@babel/types": "^7.20.7",
     "@floating-ui/react-dom": "^1.0.1",
     "@headlessui/react": "^1.7.7",
     "@prismicio/client": "^6.7.1",
