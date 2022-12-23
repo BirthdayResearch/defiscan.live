@@ -329,60 +329,19 @@ export function HeaderLink(props: {
 function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
   return (
     <div className="flex flex-col">
-      <HeaderLink
-        className="flex justify-start border-b border-gray-200 dark:border-gray-700 md:pt-0 px-4 p-1.5"
-        text="DEX"
-        pathname="/dex"
-        testId={`${viewPort}.HeaderLink.DEX`}
-      />
-      <HeaderLink
-        className="flex justify-start border-b border-[#E5E5E5] dark:border-gray-700 px-4 p-1.5"
-        text="Blocks"
-        pathname="/blocks"
-        testId={`${viewPort}.HeaderLink.Blocks`}
-      />
-      <HeaderLink
-        className="flex justify-start border-b border-[#E5E5E5] dark:border-gray-700 px-4 p-1.5"
-        text="Vaults"
-        pathname="/vaults"
-        testId={`${viewPort}.HeaderLink.Vaults`}
-      />
-      <HeaderLink
-        className="flex justify-start border-b border-[#E5E5E5] dark:border-gray-700 px-4 p-1.5"
-        text="Auctions"
-        pathname="/auctions"
-        testId={`${viewPort}.HeaderLink.Auctions`}
-      />
-      <HeaderLink
-        className="flex justify-start border-b border-[#E5E5E5] dark:border-gray-700 px-4 p-1.5"
-        text="Oracles"
-        pathname="/oracles"
-        testId={`${viewPort}.HeaderLink.Oracles`}
-      />
-      <HeaderLink
-        className="flex justify-start border-b border-[#E5E5E5] dark:border-gray-700 px-4 p-1.5"
-        text="Tokens"
-        pathname="/tokens"
-        testId={`${viewPort}.HeaderLink.Tokens`}
-      />
-      <HeaderLink
-        className="flex justify-start border-b border-[#E5E5E5] dark:border-gray-700 px-4 p-1.5"
-        text="Masternodes"
-        pathname="/masternodes"
-        testId={`${viewPort}.HeaderLink.Masternodes`}
-      />
-      {/* <HeaderLink
-        className="flex justify-start border-b border-gray-100 dark:border-gray-700 p-1.5 md:px-4"
-        text="Consortium"
-        pathname="/consortium/asset_breakdown"
-        testId={`${viewPort}.HeaderLink.Consortium`}
-      /> */}
-      <HeaderLink
-        className="flex justify-start border-b border-[#E5E5E5] dark:border-gray-700 px-4 p-1.5"
-        text="On-Chain Governance"
-        pathname="/on-chain-governance"
-        testId={`${viewPort}.HeaderLink.Consortium`}
-      />
+      {menuItemLinks.map((item, index) => {
+        return (
+          <HeaderLink
+            className={classNames(
+              "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 p-1.5",
+              { "md:pt-0": index === 0 }
+            )}
+            text={item.text}
+            pathname={item.pathname}
+            testId={`${viewPort}.HeaderLink.${item.text.replace(" ", "")}`}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -465,5 +424,44 @@ const dropDownLinks = [
     name: "On-Chain Governance",
     link: "/on-chain-governance",
     rootPathName: "on-chain-governance",
+  },
+];
+
+const menuItemLinks = [
+  {
+    text: "Dex",
+    pathname: "/dex",
+  },
+  {
+    text: "Blocks",
+    pathname: "/blocks",
+  },
+  {
+    text: "Vaults",
+    pathname: "/vaults",
+  },
+  {
+    text: "Auctions",
+    pathname: "/auctions",
+  },
+  {
+    text: "Oracles",
+    pathname: "/oracles",
+  },
+  {
+    text: "Tokens",
+    pathname: "/tokens",
+  },
+  {
+    text: "Masternodes",
+    pathname: "/masternodes",
+  },
+  // {
+  //   text: "Consortium",
+  //   pathname: "/consortium/asset_breakdown"
+  // },
+  {
+    text: "On-Chain Governance",
+    pathname: "/on-chain-governance",
   },
 ];
