@@ -168,7 +168,7 @@ export default function ProposalDetailPage() {
           <GettingStartedInfo />
           {/* Step 1 */}
           <DisclosureComponent
-            title="Step 1: Proposal Details"
+            title="Step 1: Proposal details"
             isOpen={activeStep === 1}
             isCompleted={activeStep > 1 || (isEditing && activeStep === 1)}
             {...(activeStep > 1 && {
