@@ -22,6 +22,7 @@ import {
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
+import { Link } from "@components/commons/link/Link";
 import { Button } from "./_components/Button";
 import { getDuration } from "./shared/durationHelper";
 import { ProgressBar } from "./_components/ProgressBar";
@@ -123,12 +124,16 @@ export default function OnChainGovernancePage(props) {
               customStyle="hover:bg-gray-50"
             />
             {votingCycle.currentStage === votingStages.open && (
-              <Button
-                label={`Submit a proposal`.toUpperCase()}
-                testId="OnChainGovernance.SubmitProposalButton"
-                onClick={() => {}}
-                customStyle="bg-primary-50 hover:bg-primary-100"
-              />
+              <button
+                type="button"
+                className="p-2 bg-primary-50 hover:bg-primary-100"
+              >
+                <Link href={{ pathname: "on-chain-governance/create" }}>
+                  <span className="text-sm font-medium text-primary-500">
+                    SUBMIT A PROPOSAL
+                  </span>
+                </Link>
+              </button>
             )}
             {/* TODO remove this before release to prod */}
             {isPlayground(connection) && (
@@ -266,13 +271,18 @@ export default function OnChainGovernancePage(props) {
             }}
             customStyle="w-full hover:bg-gray-50 "
           />
+
           {votingCycle.currentStage === votingStages.open && (
-            <Button
-              label={`Submit a proposal`.toUpperCase()}
-              testId="OnChainGovernance.SubmitProposalButton"
-              onClick={() => {}}
-              customStyle="mt-4 w-full bg-primary-50 hover:bg-primary-100"
-            />
+            <button
+              type="button"
+              className="p-2 mt-4 w-full bg-primary-50 hover:bg-primary-100"
+            >
+              <Link href={{ pathname: "on-chain-governance/create" }}>
+                <span className="text-sm font-medium text-primary-500">
+                  SUBMIT A PROPOSAL
+                </span>
+              </Link>
+            </button>
           )}
         </div>
       </div>
@@ -320,7 +330,7 @@ function getOCGData(items: ProposalInfo[]): OCGProps {
       cfps: items.filter(
         (item) => item.type === ProposalType.COMMUNITY_FUND_PROPOSAL
       ).length,
-      currentStage: votingStages.open,
+      currentStage: votingStages.vote,
       timeLeft: 9000,
       totalTime: 10000,
       totalVotes: 8392,
