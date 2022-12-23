@@ -18,7 +18,7 @@ export function DisclosureComponent({
   return (
     <div className="py-5 px-6 md:px-10 rounded-lg border border-gray-200 dark:border-gray-700">
       <Disclosure defaultOpen>
-        <div className={classNames({ "py-1 md:py-5": isOpen })}>
+        <div className={classNames({ "py-5": isOpen })}>
           <Disclosure.Button className="flex w-full flex-row items-center justify-between cursor-default">
             <div className="flex w-full flex-row items-center">
               <span
