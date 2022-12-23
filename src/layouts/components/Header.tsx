@@ -330,7 +330,7 @@ export function HeaderLink(props: {
 function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
   return (
     <div className="flex flex-col">
-      {menuItemLinks.map((item, index) => {
+      {drawerMenuItemLinks.map((item, index) => {
         return (
           <HeaderLink
             key={index}
@@ -428,7 +428,7 @@ const dropDownLinks = [
   },
 ];
 
-const menuItemLinks = [
+const drawerMenuItemLinks = [
   {
     text: "Dex",
     pathname: "/dex",
