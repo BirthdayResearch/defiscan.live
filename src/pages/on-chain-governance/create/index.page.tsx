@@ -158,6 +158,7 @@ export default function ProposalDetailPage() {
               path: `/on-chain-governance/create`,
               name: "Create Proposal",
               canonical: true,
+              isCurrentPath: true,
             },
           ]}
         />
