@@ -10,6 +10,7 @@ import { Container } from "@components/commons/Container";
 import { SearchBar } from "@components/commons/searchbar/SearchBar";
 import { Menu, Transition } from "@headlessui/react";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { useNetwork } from "@contexts/NetworkContext";
 import { HeaderCountBar } from "./HeaderCountBar";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 
@@ -332,6 +333,7 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
       {menuItemLinks.map((item, index) => {
         return (
           <HeaderLink
+            key={index}
             className={classNames(
               "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 p-1.5",
               { "md:pt-0": index === 0 }
@@ -349,6 +351,7 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
 function MoreDropdown(): JSX.Element {
   const [isItemClicked, setIsItemClicked] = useState(false);
   const router = useRouter();
+  const connection = useNetwork().connection;
   useEffect(() => {
     setIsItemClicked(
       dropDownLinks.some((ddl) =>
@@ -388,21 +391,19 @@ function MoreDropdown(): JSX.Element {
               {dropDownLinks.map((item, index) => {
                 return (
                   <Menu.Item key={index}>
-                    <Link href={{ pathname: item.link }} passHref>
-                      <a
-                        onClick={close}
-                        href={item.link}
-                        className={classNames(
-                          "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
-                          {
-                            "dark:text-dark-50 text-primary-500":
-                              router.pathname.includes(item.rootPathName),
-                          }
-                        )}
-                      >
-                        {item.name}
-                      </a>
-                    </Link>
+                    <a
+                      onClick={close}
+                      href={`${item.link}?network=${connection}`}
+                      className={classNames(
+                        "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
+                        {
+                          "dark:text-dark-50 text-primary-500":
+                            router.pathname.includes(item.rootPathName),
+                        }
+                      )}
+                    >
+                      {item.name}
+                    </a>
                   </Menu.Item>
                 );
               })}
