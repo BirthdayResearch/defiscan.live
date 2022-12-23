@@ -10,7 +10,6 @@ import { Container } from "@components/commons/Container";
 import { SearchBar } from "@components/commons/searchbar/SearchBar";
 import { Menu, Transition } from "@headlessui/react";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import { useNetwork } from "@contexts/NetworkContext";
 import { HeaderCountBar } from "./HeaderCountBar";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 
@@ -349,7 +348,6 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
 function MoreDropdown(): JSX.Element {
   const [isItemClicked, setIsItemClicked] = useState(false);
   const router = useRouter();
-  const connection = useNetwork().connection;
   useEffect(() => {
     setIsItemClicked(
       dropDownLinks.some((ddl) =>
@@ -389,19 +387,11 @@ function MoreDropdown(): JSX.Element {
               {dropDownLinks.map((item, index) => {
                 return (
                   <Menu.Item key={index}>
-                    <a
-                      onClick={close}
-                      href={`${item.link}?network=${connection}`}
-                      className={classNames(
-                        "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
-                        {
-                          "dark:text-dark-50 text-primary-500":
-                            router.pathname.includes(item.rootPathName),
-                        }
-                      )}
-                    >
-                      {item.name}
-                    </a>
+                    <DropDownLink
+                      routerPathName={router.pathname}
+                      item={item}
+                      close={close}
+                    />
                   </Menu.Item>
                 );
               })}
@@ -412,6 +402,40 @@ function MoreDropdown(): JSX.Element {
     </Menu>
   );
 }
+
+interface DropDownLinkProps {
+  routerPathName: string;
+  item: {
+    name: string;
+    rootPathName: string;
+    link: string;
+  };
+  close: () => void;
+}
+
+const DropDownLink = React.forwardRef<HTMLAnchorElement, DropDownLinkProps>(
+  ({ routerPathName, item, close }, ref) => {
+    return (
+      <Link href={{ pathname: item.link }} passHref legacyBehavior>
+        <a
+          ref={ref}
+          href={item.link}
+          onClick={close}
+          className={classNames(
+            "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
+            {
+              "dark:text-dark-50 text-primary-500": routerPathName.includes(
+                item.rootPathName
+              ),
+            }
+          )}
+        >
+          {item.name}
+        </a>
+      </Link>
+    );
+  }
+);
 
 const dropDownLinks = [
   // {
