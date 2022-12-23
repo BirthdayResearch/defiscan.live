@@ -124,7 +124,7 @@ export function ReviewProposal({
         <button
           type="button"
           onClick={onClick}
-          className="w-full py-3 border border-primary-50 rounded-sm font-medium text-primary-500 bg-primary-50 mb-3"
+          className="w-full py-3 border border-primary-50 rounded-sm font-medium text-primary-500 bg-primary-50 mb-3 hover:bg-primary-100 hover:border-primary-100"
         >
           CONFIRM DETAILS
         </button>
