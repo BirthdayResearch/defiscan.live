@@ -18,7 +18,6 @@ export function ProposalDetail({
   proposalCreationMedianTime,
 }: {
   proposal: ProposalInfo;
-  currentBlockCount: number;
   proposalEndMedianTime: number;
   proposalCreationMedianTime: number;
 }) {
