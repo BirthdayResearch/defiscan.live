@@ -9,37 +9,24 @@ import {
   ProposalStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { Link } from "@components/commons/link/Link";
-import { NetworkConnection, useNetwork } from "@contexts/NetworkContext";
 import { AddressLink } from "@components/commons/link/AddressLink";
 import { ProposalDisplayName } from "./ProposalCard";
 
 export function ProposalDetail({
   proposal,
-  currentBlockCount,
+  proposalEndMedianTime,
   proposalCreationMedianTime,
 }: {
   proposal: ProposalInfo;
   currentBlockCount: number;
+  proposalEndMedianTime: number;
   proposalCreationMedianTime: number;
 }) {
-  const submittedTime = format(
+  const dateFormat = "dd/MM/yy";
+  const endDate = format(fromUnixTime(proposalEndMedianTime), dateFormat);
+  const startDate = format(
     fromUnixTime(proposalCreationMedianTime),
-    "dd/MM/yy"
-  );
-  const { connection } = useNetwork();
-
-  const secondsPerBlock =
-    connection === NetworkConnection.MainNet ||
-    connection === NetworkConnection.TestNet
-      ? 30
-      : 3;
-  const votingTimeLeft = new BigNumber(proposal.cycleEndHeight)
-    .minus(currentBlockCount)
-    .multipliedBy(secondsPerBlock)
-    .toNumber();
-  const estimatedEndData = format(
-    new Date().getTime() + votingTimeLeft * 1000,
-    "dd/MM/yy"
+    dateFormat
   );
 
   return (
@@ -61,7 +48,7 @@ export function ProposalDetail({
               Voting stops at&nbsp;
             </span>
             <span className="text-sm md:text-lg text-gray-900 dark:text-gray-100 font-semibold">
-              {estimatedEndData}&nbsp;
+              {endDate}&nbsp;
             </span>
             <Link href={{ pathname: `/blocks/${proposal.cycleEndHeight}` }}>
               <span className="text-sm md:text-lg hover:underline text-blue-500 cursor-pointer">
@@ -71,17 +58,33 @@ export function ProposalDetail({
           </div>
         )}
       </div>
-      <div className="grid md:grid-cols-3 gap-y-3 md:gap-y-1">
+      <div
+        className={classNames("grid md:grid-cols-3 gap-y-3 md:gap-y-1", {
+          "md:grid-cols-4": proposal.status !== ProposalStatus.VOTING,
+        })}
+      >
         <div className="flex flex-row md:flex-col">
           <div className="w-1/2 md:w-full mb-0 md:mb-2">
             <DetailSectionTitle label="Date posted" />
           </div>
           <div className="w-1/2 md:w-full flex">
             <span className="text-gray-900 dark:text-gray-100 text-sm md:text-lg text-right md:text-left w-full">
-              {submittedTime}
+              {startDate}
             </span>
           </div>
         </div>
+        {proposal.status !== ProposalStatus.VOTING && (
+          <div className="flex flex-row md:flex-col">
+            <div className="w-1/2 md:w-full mb-0 md:mb-2">
+              <DetailSectionTitle label="Ended on" />
+            </div>
+            <div className="w-1/2 md:w-full flex">
+              <span className="text-gray-900 dark:text-gray-100 text-sm md:text-lg text-right md:text-left w-full">
+                {endDate}
+              </span>
+            </div>
+          </div>
+        )}
         {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
           <>
             <div className="flex flex-row md:flex-col">

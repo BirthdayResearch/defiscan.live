@@ -4,6 +4,9 @@ import { GetServerSidePropsContext } from "next";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
+import { NetworkConnection } from "@contexts/NetworkContext";
+import { getEnvironment } from "@contexts/Environment";
+import BigNumber from "bignumber.js";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingDetail } from "../_components/VotingDetail";
@@ -12,8 +15,8 @@ import { ProposalDetail } from "../_components/ProposalDetail";
 export default function ProposalDetailPage({
   proposal,
   proposalVotes,
-  currentBlockCount,
   proposalCreationMedianTime,
+  proposalEndMedianTime,
 }) {
   const { yes, no, neutral } = getVoteCount(proposalVotes);
 
@@ -39,8 +42,8 @@ export default function ProposalDetailPage({
           <div className="w-full md:w-8/12">
             <ProposalDetail
               proposal={proposal}
-              currentBlockCount={currentBlockCount}
               proposalCreationMedianTime={proposalCreationMedianTime}
+              proposalEndMedianTime={proposalEndMedianTime}
             />
             <div className="hidden md:block mt-6">
               <VotesTable votes={proposalVotes} />
@@ -95,12 +98,37 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     );
     const proposalCreationMedianTime = proposalCreationBlockInfo.mediantime;
 
+    const network =
+      context.query.network?.toString() ?? getEnvironment().networks[0];
+    const secondsPerBlock =
+      network === NetworkConnection.MainNet ||
+      network === NetworkConnection.TestNet
+        ? 30
+        : 3;
+
+    let proposalEndMedianTime;
+    if (new BigNumber(currentBlockCount).gt(proposal.cycleEndHeight)) {
+      const endBlockInfo = await rpc.blockchain.getBlockStats(
+        proposal.cycleEndHeight
+      );
+      proposalEndMedianTime = endBlockInfo.mediantime;
+    } else {
+      const currentBlockInfo = await rpc.blockchain.getBlockStats(
+        currentBlockCount
+      );
+      const votingTimeLeftInSec = new BigNumber(proposal.cycleEndHeight)
+        .minus(currentBlockCount)
+        .multipliedBy(secondsPerBlock)
+        .toNumber();
+      proposalEndMedianTime = currentBlockInfo.mediantime + votingTimeLeftInSec;
+    }
+
     return {
       props: {
         proposal,
         proposalVotes,
-        currentBlockCount,
         proposalCreationMedianTime,
+        proposalEndMedianTime,
       },
     };
   } catch {
