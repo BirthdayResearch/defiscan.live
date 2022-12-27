@@ -1,24 +1,31 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
-import { IoMdOpen } from "react-icons/io";
+import { AiFillGithub } from "react-icons/ai";
 import classNames from "classnames";
 import { TextTruncate } from "@components/commons/text/TextTruncate";
-import { ProposalInfo } from "@defichain/jellyfish-api-core/dist/category/governance";
+import {
+  ProposalInfo,
+  ProposalStatus,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
-import { votingStages } from "../enum/votingStages";
-import { Button } from "./Button";
+import { format, fromUnixTime } from "date-fns";
+import { Link } from "@components/commons/link/Link";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 
 export function ProposalTable({
   proposals,
-  currentStage,
+  currentBlockHeight,
+  currentBlockMedianTime,
+  isOpenProposalsClicked,
 }: {
   proposals: ProposalInfo[];
-  currentStage: votingStages;
+  currentBlockHeight: number;
+  currentBlockMedianTime: number;
+  isOpenProposalsClicked: boolean;
 }) {
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
   return (
@@ -30,24 +37,20 @@ export function ProposalTable({
           />
           <OverflowTable.Head title={OnChainGovernanceTitles.typeTitle} />
           <OverflowTable.Head title={OnChainGovernanceTitles.proposerId} />
-          {currentStage === votingStages.vote ? (
-            <>
-              <OverflowTable.Head title="Community discussions" />
-              <OverflowTable.Head title="Vote Breakdown" />
-              <OverflowTable.Head title="Action" alignRight />
-            </>
-          ) : (
-            <OverflowTable.Head title="Community discussions" alignRight />
+          <OverflowTable.Head title={OnChainGovernanceTitles.endOfVoting} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.discussions} />
+          {!isOpenProposalsClicked && (
+            <OverflowTable.Head title={OnChainGovernanceTitles.result} />
           )}
         </OverflowTable.Header>
 
         {proposals.map((proposal: ProposalInfo, index) => (
           <React.Fragment key={index}>
             <ProposalRow
-              currentStage={currentStage}
               proposal={proposal}
-              displayVoteModal={displayVoteModal}
-              setDisplayVoteModal={setDisplayVoteModal}
+              currentBlockHeight={currentBlockHeight}
+              currentBlockMedianTime={currentBlockMedianTime}
+              isOpenProposalsClicked={isOpenProposalsClicked}
             />
             {displayVoteModal && (
               <VoteModal
@@ -71,17 +74,42 @@ export function ProposalTable({
 
 function ProposalRow({
   proposal,
-  currentStage,
-  displayVoteModal,
-  setDisplayVoteModal,
+  currentBlockHeight,
+  currentBlockMedianTime,
+  isOpenProposalsClicked,
 }: {
   proposal: ProposalInfo;
-  currentStage: votingStages;
-  displayVoteModal: boolean;
-  setDisplayVoteModal: Dispatch<SetStateAction<boolean>>;
+  currentBlockHeight: number;
+  currentBlockMedianTime: number;
+  isOpenProposalsClicked: boolean;
 }) {
   const router = useRouter();
   const { connection } = useNetwork();
+  const timeDifferenceInBlocks = proposal.cycleEndHeight - currentBlockHeight;
+  let blockSeconds = 30;
+  switch (connection) {
+    case "Playground":
+      blockSeconds = 3;
+      break;
+    case "TestNet":
+      blockSeconds = 3;
+      break;
+    case "MainNet":
+    default:
+      blockSeconds = 30;
+  }
+
+  let cycleEndMedianTime = 0;
+  if (timeDifferenceInBlocks < 0) {
+    cycleEndMedianTime =
+      currentBlockMedianTime - Math.abs(timeDifferenceInBlocks) * blockSeconds;
+  } else {
+    cycleEndMedianTime =
+      currentBlockMedianTime + timeDifferenceInBlocks * blockSeconds;
+  }
+
+  const cycleEndTime = format(fromUnixTime(cycleEndMedianTime), "MM/dd/yyyy");
+
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -93,90 +121,68 @@ function ProposalRow({
         });
       }}
       className={classNames(
-        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer",
-        { "pointer-events-none": displayVoteModal }
+        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer"
       )}
     >
-      <OverflowTable.Cell className="align-middle dark:text-gray-100">
+      <OverflowTable.Cell className="align-middle font-semibold dark:text-gray-100 w-[320px]">
         {proposal.title}
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
         {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        <TextTruncate text={proposal.proposalId} width="w-full" />
+      <OverflowTable.Cell className="align-middle break-all dark:text-gray-100">
+        <TextTruncate text={proposal.proposalId} width="w-60" />
       </OverflowTable.Cell>
-      {currentStage === votingStages.vote ? (
-        <>
-          <OverflowTable.Cell className="align-middle">
+      <OverflowTable.Cell className="align-middle dark:text-gray-100">
+        <div className="flex flex-col">
+          <Link
+            href={{ pathname: `/blocks/${proposal.cycleEndHeight}` }}
+            passHref
+          >
             <a
               className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline"
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              href={proposal.context}
+              href={`/blocks/${proposal.cycleEndHeight}`}
             >
-              {OnChainGovernanceTitles.github}
-              <IoMdOpen size={24} />
+              {`Block ${proposal.cycleEndHeight}`}
             </a>
-          </OverflowTable.Cell>
-          <OverflowTable.Cell className="align-middle">
-            <div className="flex flex-row gap-x-5">
-              <VotingResultPercentage
-                value="78% Yes"
-                customStyle="font-semibold group-hover:text-primary-500"
-              />
-              <VotingResultPercentage
-                value="16% No"
-                customStyle="group-hover:text-primary-500"
-              />
-              <VotingResultPercentage
-                value="6% Neutral"
-                customStyle="group-hover:text-primary-500"
-              />
-            </div>
-          </OverflowTable.Cell>
+          </Link>
+          <div>{`~ ${cycleEndTime}`}</div>
+        </div>
+      </OverflowTable.Cell>
 
-          <OverflowTable.Cell>
-            <Button
-              label={`vote`.toUpperCase()}
-              testId="OnChainGovernance.SubmitProposalButton"
-              onClick={(e) => {
-                e.stopPropagation();
-                setDisplayVoteModal(true);
-              }}
-              customStyle="px-5 py-1 rounded-sm text-base w-full border bg-white hover:border-primary-200 active:border-primary-400"
-            />
-          </OverflowTable.Cell>
-        </>
-      ) : (
-        <OverflowTable.Cell>
-          <a
-            className="justify-end flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            href={proposal.context}
-          >
+      <OverflowTable.Cell className="align-middle dark:text-gray-100">
+        <a
+          href={proposal.context}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <div className="flex flex-row items-center gap-x-2 px-2 py-[6px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+            <AiFillGithub size={20} />
             {OnChainGovernanceTitles.github}
-            <IoMdOpen size={24} />
-          </a>
+          </div>
+        </a>
+      </OverflowTable.Cell>
+
+      {!isOpenProposalsClicked && (
+        <OverflowTable.Cell className="align-middle">
+          <div
+            className={classNames(
+              "py-1 px-3 rounded-[32px] w-fit",
+              proposal.status === ProposalStatus.COMPLETED
+                ? "bg-green-100 text-green-600"
+                : "bg-red-100 text-red-600"
+            )}
+          >
+            {proposal.status === ProposalStatus.COMPLETED
+              ? "Approved"
+              : proposal.status}
+          </div>
         </OverflowTable.Cell>
       )}
     </OverflowTable.Row>
-  );
-}
-
-function VotingResultPercentage({
-  value,
-  customStyle,
-}: {
-  value: string;
-  customStyle?: string;
-}) {
-  return (
-    <span className={`tracking-[0.0044em] text-gray-900 ${customStyle ?? ""}`}>
-      {value}
-    </span>
   );
 }
