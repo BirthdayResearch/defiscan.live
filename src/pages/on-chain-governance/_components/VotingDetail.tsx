@@ -9,11 +9,13 @@ export function VotingDetail({
   no,
   neutral,
   status,
+  onSubmitVote,
 }: {
   yes: number;
   no: number;
   neutral: number;
   status: ProposalStatus;
+  onSubmitVote: () => void;
 }) {
   const { percYes, percNo } = getVotePercentage(yes, no, neutral);
   const total = new BigNumber(yes).plus(no).plus(neutral);
@@ -127,7 +129,7 @@ export function VotingDetail({
             <div className="mt-2">
               <button
                 type="button"
-                onClick={() => {}}
+                onClick={onSubmitVote}
                 className={classNames(
                   "w-full py-4 rounded-sm font-medium text-base text-primary-500 bg-primary-25 hover:bg-primary-50 mb-2"
                 )}

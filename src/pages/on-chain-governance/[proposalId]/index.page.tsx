@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Container } from "@components/commons/Container";
 import { getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext } from "next";
@@ -11,6 +12,7 @@ import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingDetail } from "../_components/VotingDetail";
 import { ProposalDetail } from "../_components/ProposalDetail";
+import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
 
 export default function ProposalDetailPage({
   proposal,
@@ -19,6 +21,7 @@ export default function ProposalDetailPage({
   proposalEndMedianTime,
 }) {
   const { yes, no, neutral } = getVoteCount(proposalVotes);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <>
@@ -55,6 +58,7 @@ export default function ProposalDetailPage({
               no={no}
               status={proposal.status}
               neutral={neutral}
+              onSubmitVote={() => setIsDialogOpen(true)}
             />
           </div>
           {proposalVotes.length > 0 && (
@@ -72,6 +76,11 @@ export default function ProposalDetailPage({
           )}
         </div>
       </Container>
+      <ConfirmVoteDialog
+        isOpen={isDialogOpen}
+        onConfirm={() => setIsDialogOpen(false)}
+        onClose={() => setIsDialogOpen(false)}
+      />
     </>
   );
 }
