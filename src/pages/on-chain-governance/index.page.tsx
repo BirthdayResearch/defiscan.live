@@ -13,15 +13,14 @@ import {
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
-import { FiInfo } from "react-icons/fi";
 import { MdEdit, MdClose } from "react-icons/md";
 import classNames from "classnames";
 import { Link } from "@components/commons/link/Link";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
-import { Tooltip } from "./_components/Tooltip";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -168,7 +167,14 @@ export default function OnChainGovernancePage(props) {
                     )}
                   >
                     <input
-                      onChange={(v) => setMasterNodeID(v.target.value)}
+                      onChange={(v) => {
+                        if (v.target.value.length !== 64) {
+                          setMasterNodeErrorMsg("Invalid masternode address");
+                        } else {
+                          setMasterNodeErrorMsg("");
+                        }
+                        setMasterNodeID(v.target.value);
+                      }}
                       value={masterNodeID}
                       className="w-2/3 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900"
                       placeholder="Set your masternode"
@@ -186,18 +192,10 @@ export default function OnChainGovernancePage(props) {
                   <Button
                     label="SAVE"
                     testId="OnChainGovernance.SaveMasterNodeID"
-                    disabled={masterNodeID === ""}
+                    disabled={masterNodeID === "" || masterNodeErrorMsg !== ""}
                     onClick={() => {
-                      if (
-                        masterNodeID.length < 64 ||
-                        masterNodeID.length > 64
-                      ) {
-                        setMasterNodeErrorMsg("Invalid masternode address");
-                      } else {
-                        setMasterNodeErrorMsg("");
-                        setIsMasterNodeClicked(false);
-                        localStorage.setItem("masternodeID", masterNodeID);
-                      }
+                      setIsMasterNodeClicked(false);
+                      localStorage.setItem("masternodeID", masterNodeID);
                     }}
                   />
                   <InfoIconToolTip />
@@ -322,9 +320,10 @@ export default function OnChainGovernancePage(props) {
 
 function InfoIconToolTip() {
   return (
-    <Tooltip active text="Set your masternode to vote on proposals">
-      <FiInfo role="button" size={20} className="text-blue-500" />
-    </Tooltip>
+    <InfoHoverPopover
+      className="ml-1"
+      description="Set your masternode to vote on proposals"
+    />
   );
 }
 

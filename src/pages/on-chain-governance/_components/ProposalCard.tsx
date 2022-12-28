@@ -119,7 +119,7 @@ function ProposalCard({
             <div className="grow">
               <div
                 className={classNames(
-                  "w-[125px] font-semibold text-dark-gray-50 text-sm dark:text-dark-gray-900",
+                  "w-[125px] font-semibold text-gray-900 text-sm dark:text-dark-gray-900",
                   { "line-clamp-2": !isViewClicked }
                 )}
               >
@@ -154,7 +154,7 @@ function ProposalCard({
             <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
               Proposal Type
             </div>
-            <div className="text-dark-gray-50 text-sm dark:text-dark-gray-900">
+            <div className="text-gray-900 text-sm dark:text-dark-gray-900">
               {ProposalDisplayName[proposal.type]}
             </div>
           </div>
@@ -163,7 +163,7 @@ function ProposalCard({
             <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
               Proposal ID
             </div>
-            <div className="text-dark-gray-50 text-sm w-[146px] text-right break-all dark:text-dark-gray-900">
+            <div className="text-gray-900 text-sm w-[146px] text-right break-all dark:text-dark-gray-900">
               {proposal.proposalId}
             </div>
           </div>
@@ -196,7 +196,7 @@ function ProposalCard({
                 </a>
               </Link>
               <div>
-                <div className="text-dark-gray-50 font-semibold text-sm text-right dark:text-dark-gray-900">
+                <div className="text-gray-900 font-semibold text-sm text-right dark:text-dark-gray-900">
                   {`~ ${cycleEndTime}`}
                 </div>
               </div>
@@ -213,7 +213,7 @@ function ProposalCard({
                 e.stopPropagation();
               }}
             >
-              <div className="flex flex-row font-semibold items-center gap-x-2 text-sm text-dark-gray-50 dark:text-dark-gray-900">
+              <div className="flex flex-row font-semibold items-center gap-x-1 text-sm text-gray-900 dark:text-dark-gray-900">
                 <AiFillGithub size={20} />
                 {OnChainGovernanceTitles.github}
               </div>
