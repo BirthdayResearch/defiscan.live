@@ -136,8 +136,8 @@ export default function OnChainGovernancePage(props) {
 
       <Container className="md:pt-11 pt-10 pb-20">
         <div className="flex md:flex-row flex-col">
-          {/* main title */}
           <div className="flex flex-col grow">
+            {/* main title */}
             <div
               data-testid="OnChainGovernance.Title"
               className="text-[10px] tracking-[0.0015em] font-medium text-gray-500 dark:text-dark-gray-900"
@@ -151,6 +151,7 @@ export default function OnChainGovernancePage(props) {
               Proposals
             </div>
 
+            {/* Set Masternode */}
             {isMasterNodeClicked ? (
               <>
                 <div className="flex flex-row items-center gap-x-[10px] mt-2">
@@ -183,7 +184,6 @@ export default function OnChainGovernancePage(props) {
                       />
                     )}
                   </div>
-
                   <Button
                     label="SAVE"
                     testId="OnChainGovernance.SaveMasterNodeID"
@@ -213,7 +213,6 @@ export default function OnChainGovernancePage(props) {
                 masterNodeID !== "" &&
                 masterNodeErrorMsg === "" ? (
                   <div className="flex flex-row gap-x-[10px] items-center mt-[14px]">
-                    {/* <TextTruncate width="w-60" text={` ${masterNodeID}`} /> */}
                     <div className="lg:w-[385px] md:w-[185px] break-all">
                       Masternode: {masterNodeID}
                     </div>
@@ -239,6 +238,8 @@ export default function OnChainGovernancePage(props) {
               </>
             )}
           </div>
+
+          {/* Proposal Info Table */}
           <div className="flex flex-col md:mt-0 mt-[46px]">
             <div className="justify-self-center border border-gray-200 rounded-lg flex flex-row items-center px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
               <div className="flex-col grow lg:px-7 dark:text-dark-gray-900">
@@ -273,6 +274,7 @@ export default function OnChainGovernancePage(props) {
               </div>
             </div>
 
+            {/* Tablet and Mobile Create Proposal Button */}
             <div className="lg:hidden flex w-full md:justify-end mt-4">
               <button
                 type="button"
