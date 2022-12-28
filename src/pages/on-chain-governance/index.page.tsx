@@ -241,25 +241,25 @@ export default function OnChainGovernancePage(props) {
           </div>
           <div className="flex flex-col md:mt-0 mt-[46px]">
             <div className="justify-self-center border border-gray-200 rounded-lg flex flex-row items-center px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
-              <div className="flex-col grow lg:px-[28px] dark:text-dark-gray-900">
+              <div className="flex-col grow lg:px-7 dark:text-dark-gray-900">
                 <div className="md:text-2xl text-lg font-semibold text-center">
                   {allProposalsDetails.proposalsSubmitted}
                 </div>
                 <div className="md:text-base text-sm text-center">Total</div>
               </div>
-              <div className="flex-col grow border-r border-l lg:px-[28px] dark:text-dark-gray-900">
+              <div className="flex-col grow border-r border-l lg:px-7 dark:text-dark-gray-900">
                 <div className="md:text-2xl text-lg font-semibold text-center">
                   {allProposalsDetails.openProposals}
                 </div>
                 <div className="md:text-base text-sm text-center">Open</div>
               </div>
-              <div className="flex-col grow lg:border-r lg:px-[28px] dark:text-dark-gray-900">
+              <div className="flex-col grow lg:border-r lg:px-7 dark:text-dark-gray-900">
                 <div className="md:text-2xl text-lg font-semibold text-center">
                   {allProposalsDetails.closedProposals}
                 </div>
                 <div className="md:text-base text-sm text-center">Closed</div>
               </div>
-              <div className="px-[28px] lg:block hidden">
+              <div className="px-7 lg:block hidden">
                 <button
                   type="button"
                   className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded"
