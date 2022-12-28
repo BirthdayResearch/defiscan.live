@@ -17,10 +17,10 @@ import { FiInfo } from "react-icons/fi";
 import { MdEdit, MdClose } from "react-icons/md";
 import classNames from "classnames";
 import { Link } from "@components/commons/link/Link";
+import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
-import { useWindowDimensions } from "./shared/useWindowDimensions";
 import { Tooltip } from "./_components/Tooltip";
 
 interface OCGProps {
