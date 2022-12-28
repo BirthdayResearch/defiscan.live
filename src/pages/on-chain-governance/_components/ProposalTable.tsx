@@ -136,7 +136,11 @@ function ProposalRow({
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
         <div className="flex flex-col">
           <Link
-            href={{ pathname: `/blocks/${proposal.cycleEndHeight}` }}
+            href={{
+              pathname: isOpenProposalsClicked
+                ? "/blocks"
+                : `/blocks/${proposal.cycleEndHeight}`,
+            }}
             passHref
           >
             <a
@@ -144,7 +148,11 @@ function ProposalRow({
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              href={`/blocks/${proposal.cycleEndHeight}`}
+              href={
+                isOpenProposalsClicked
+                  ? "/blocks"
+                  : `/blocks/${proposal.cycleEndHeight}`
+              }
             >
               {`Block ${proposal.cycleEndHeight}`}
             </a>

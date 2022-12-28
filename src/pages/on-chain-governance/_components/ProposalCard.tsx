@@ -117,7 +117,12 @@ function ProposalCard({
         <div className={classNames("grid py-4 px-4 gap-y-3")}>
           <div className="flex flex-row align-middle w-full">
             <div className="grow">
-              <div className="w-[125px] font-semibold text-dark-gray-50 text-sm">
+              <div
+                className={classNames(
+                  "w-[125px] font-semibold text-dark-gray-50 text-sm dark:text-dark-gray-900",
+                  { "line-clamp-2": !isViewClicked }
+                )}
+              >
                 {proposal.title}
               </div>
             </div>
@@ -146,24 +151,34 @@ function ProposalCard({
           </div>
 
           <div className="flex flex-row align-middle">
-            <div className="text-sm text-gray-500 grow">Proposal Type</div>
-            <div className="text-dark-gray-50 text-sm">
+            <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
+              Proposal Type
+            </div>
+            <div className="text-dark-gray-50 text-sm dark:text-dark-gray-900">
               {ProposalDisplayName[proposal.type]}
             </div>
           </div>
 
           <div className="flex flex-row align-middle">
-            <div className="text-sm text-gray-500 grow">Proposal ID</div>
-            <div className="text-dark-gray-50 text-sm w-[146px] text-right break-all">
+            <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
+              Proposal ID
+            </div>
+            <div className="text-dark-gray-50 text-sm w-[146px] text-right break-all dark:text-dark-gray-900">
               {proposal.proposalId}
             </div>
           </div>
 
           <div className="flex flex-row align-middle">
-            <div className="text-sm text-gray-500 grow">End of voting</div>
+            <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
+              End of voting
+            </div>
             <div className="flex flex-col">
               <Link
-                href={{ pathname: `/blocks/${proposal.cycleEndHeight}` }}
+                href={{
+                  pathname: isOpenProposalsClicked
+                    ? "/blocks"
+                    : `/blocks/${proposal.cycleEndHeight}`,
+                }}
                 passHref
               >
                 <a
@@ -171,13 +186,17 @@ function ProposalCard({
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
-                  href={`/blocks/${proposal.cycleEndHeight}`}
+                  href={
+                    isOpenProposalsClicked
+                      ? "/blocks"
+                      : `/blocks/${proposal.cycleEndHeight}`
+                  }
                 >
                   {`Block ${proposal.cycleEndHeight}`}
                 </a>
               </Link>
               <div>
-                <div className="text-dark-gray-50 font-semibold text-sm text-right">
+                <div className="text-dark-gray-50 font-semibold text-sm text-right dark:text-dark-gray-900">
                   {`~ ${cycleEndTime}`}
                 </div>
               </div>
@@ -185,14 +204,16 @@ function ProposalCard({
           </div>
 
           <div className="flex flex-row align-middle">
-            <div className="text-sm text-gray-500 grow">Discussion</div>
+            <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
+              Discussion
+            </div>
             <a
               href={proposal.context}
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
-              <div className="flex flex-row font-semibold items-center gap-x-2 text-sm text-dark-gray-50">
+              <div className="flex flex-row font-semibold items-center gap-x-2 text-sm text-dark-gray-50 dark:text-dark-gray-900">
                 <AiFillGithub size={20} />
                 {OnChainGovernanceTitles.github}
               </div>
@@ -201,7 +222,9 @@ function ProposalCard({
 
           {!isOpenProposalsClicked && (
             <div className="flex flex-row align-middle">
-              <div className="text-sm text-gray-500 grow">Result</div>
+              <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
+                Result
+              </div>
               <div
                 className={classNames(
                   "text-sm",

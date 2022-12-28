@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getEnvironment, isPlayground } from "@contexts/Environment";
+import { isPlayground } from "@contexts/Environment";
 import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import { CursorPage } from "@components/commons/CursorPagination";
@@ -14,14 +14,14 @@ import {
 import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import { FiInfo } from "react-icons/fi";
-import { MdEdit } from "react-icons/md";
-import { TextTruncate } from "@components/commons/text/TextTruncate";
+import { MdEdit, MdClose } from "react-icons/md";
 import classNames from "classnames";
 import { Link } from "@components/commons/link/Link";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
 import { useWindowDimensions } from "./shared/useWindowDimensions";
+import { Tooltip } from "./_components/Tooltip";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -40,9 +40,10 @@ interface OCGProps {
 export default function OnChainGovernancePage(props) {
   const router = useRouter();
   const connection = useNetwork().connection;
-  const windowSize = useWindowDimensions().width;
+  const [isSetMasterNodeInputFocus, setIsMasterNodeInputFocus] =
+    useState(false);
 
-  const userQueryProposalStatus = router.query.proposalStatus;
+  let userQueryProposalStatus = true;
   let userQueryProposalType = ListProposalsType.ALL;
   switch (router.query.proposalType) {
     case ListProposalsType.CFP:
@@ -56,23 +57,31 @@ export default function OnChainGovernancePage(props) {
       userQueryProposalType = ListProposalsType.ALL;
   }
 
+  switch (router.query.proposalStatus) {
+    case "close":
+      userQueryProposalStatus = false;
+      break;
+    case "open":
+    default:
+      userQueryProposalStatus = true;
+  }
+
+  const isOpenProposalsClicked = userQueryProposalStatus;
   const [isMasterNodeClicked, setIsMasterNodeClicked] = useState(false);
   const [masterNodeID, setMasterNodeID] = useState(
     localStorage.getItem("masternodeID") ?? ""
   );
   const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
-  const proposalType = userQueryProposalType;
-
-  const [isOpenProposalsClicked, setIsOpenProposalsClicked] = useState(
-    userQueryProposalStatus !== "close"
-  );
 
   const { allProposalsDetails, proposals } = {
     allProposalsDetails: props.allProposalsDetails,
     proposals: props.proposals,
   };
 
-  console.log(proposals);
+  const currentTime = new Date();
+  const currentYear = currentTime.getFullYear();
+  const currentMonth = currentTime.toLocaleString("en-US", { month: "long" });
+
   // TODO remove this before release to prod
   async function createDummyProposals(): Promise<void> {
     const playgroundRPC = new PlaygroundRpcClient(
@@ -83,7 +92,7 @@ export default function OnChainGovernancePage(props) {
       const proposalType =
         governanceType[Math.floor(Math.random() * governanceType.length)]; // get random governance type
       const data = {
-        title: `Long proposal title testing proposal ${new Date().getTime()}`,
+        title: `Title testing proposal ${new Date().getTime()}`,
         amount: "100000000",
         context: "https://github.com/WavesHQ/scan",
         payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
@@ -102,6 +111,20 @@ export default function OnChainGovernancePage(props) {
 
   return (
     <div>
+      <div className="py-4 bg-gray-50 w-screen">
+        <Container>
+          <span className="text-gray-900 tracking-[0.0044em]">
+            Announcement: {currentMonth} {currentYear} voting round is now
+            ongoing.&nbsp;
+            <a
+              className="text-[#4A72DA] underline"
+              href="https://github.com/DeFiCh/dfips/issues/222"
+            >
+              Read here for more details
+            </a>
+          </span>
+        </Container>
+      </div>
       {isPlayground(connection) && (
         <Button
           testId="dummy-proposal"
@@ -110,16 +133,6 @@ export default function OnChainGovernancePage(props) {
           customStyle="hover:bg-gray-50"
         />
       )}
-      <div className="py-4 bg-gray-50 w-screen">
-        <Container>
-          <span className="text-gray-900 tracking-[0.0044em]">
-            Announcement: November 2022 voting round is now ongoing.&nbsp;
-            <a className="text-[#4A72DA] underline" href="/">
-              Read here for more details
-            </a>
-          </span>
-        </Container>
-      </div>
 
       <Container className="md:pt-11 pt-10 pb-20">
         <div className="flex md:flex-row flex-col">
@@ -141,15 +154,40 @@ export default function OnChainGovernancePage(props) {
             {isMasterNodeClicked ? (
               <>
                 <div className="flex flex-row items-center gap-x-[10px] mt-2">
-                  <input
-                    onChange={(v) => setMasterNodeID(v.target.value)}
-                    value={masterNodeID}
-                    className="rounded border py-2 px-4 text-sm"
-                    placeholder="Set your masternode"
-                  />
+                  <div
+                    onBlur={() => {
+                      setIsMasterNodeInputFocus(false);
+                    }}
+                    onFocus={() => {
+                      setIsMasterNodeInputFocus(true);
+                    }}
+                    className={classNames(
+                      "flex flex-row rounded border py-2 px-4 lg:w-[385px] md:w-[190px] dark:bg-gray-800",
+                      { "border-primary-300": isSetMasterNodeInputFocus },
+                      { "border-red-200": masterNodeErrorMsg !== "" }
+                    )}
+                  >
+                    <input
+                      onChange={(v) => setMasterNodeID(v.target.value)}
+                      value={masterNodeID}
+                      className="w-2/3 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900"
+                      placeholder="Set your masternode"
+                    />
+                    {(masterNodeID !== "" || isSetMasterNodeInputFocus) && (
+                      <MdClose
+                        onClick={() => {
+                          setMasterNodeID("");
+                        }}
+                        size={15}
+                        className="text-gray-500 self-center cursor-pointer m-auto"
+                      />
+                    )}
+                  </div>
+
                   <Button
                     label="SAVE"
                     testId="OnChainGovernance.SaveMasterNodeID"
+                    disabled={masterNodeID === ""}
                     onClick={() => {
                       if (
                         masterNodeID.length < 64 ||
@@ -163,7 +201,7 @@ export default function OnChainGovernancePage(props) {
                       }
                     }}
                   />
-                  <FiInfo role="button" size={20} className="text-blue-500" />
+                  <InfoIconToolTip />
                 </div>
                 <div className="text-red-600 text-xs px-4 mt-1">
                   {masterNodeErrorMsg}
@@ -175,15 +213,17 @@ export default function OnChainGovernancePage(props) {
                 masterNodeID !== "" &&
                 masterNodeErrorMsg === "" ? (
                   <div className="flex flex-row gap-x-[10px] items-center mt-[14px]">
-                    Masternode:
-                    <TextTruncate width="w-60" text={` ${masterNodeID}`} />
+                    {/* <TextTruncate width="w-60" text={` ${masterNodeID}`} /> */}
+                    <div className="lg:w-[385px] md:w-[185px] break-all">
+                      Masternode: {masterNodeID}
+                    </div>
                     <MdEdit
                       role="button"
-                      size={15}
+                      size={18}
                       onClick={() => setIsMasterNodeClicked(true)}
                       className="text-primary-500"
                     />
-                    <FiInfo role="button" size={20} className="text-blue-500" />
+                    <InfoIconToolTip />
                   </div>
                 ) : (
                   <div className="flex flex-row items-center gap-x-[10px] mt-[14px]">
@@ -193,36 +233,50 @@ export default function OnChainGovernancePage(props) {
                       testId="OnChainGovernance.SetMasterNode"
                       onClick={() => setIsMasterNodeClicked(true)}
                     />
-                    <FiInfo role="button" size={20} className="text-blue-500" />
+                    <InfoIconToolTip />
                   </div>
                 )}
               </>
             )}
           </div>
+          <div className="flex flex-col md:mt-0 mt-[46px]">
+            <div className="justify-self-center border border-gray-200 rounded-lg flex flex-row items-center px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
+              <div className="flex-col grow lg:px-[28px] dark:text-dark-gray-900">
+                <div className="md:text-2xl text-lg font-semibold text-center">
+                  {allProposalsDetails.proposalsSubmitted}
+                </div>
+                <div className="md:text-base text-sm text-center">Total</div>
+              </div>
+              <div className="flex-col grow border-r border-l lg:px-[28px] dark:text-dark-gray-900">
+                <div className="md:text-2xl text-lg font-semibold text-center">
+                  {allProposalsDetails.openProposals}
+                </div>
+                <div className="md:text-base text-sm text-center">Open</div>
+              </div>
+              <div className="flex-col grow lg:border-r lg:px-[28px] dark:text-dark-gray-900">
+                <div className="md:text-2xl text-lg font-semibold text-center">
+                  {allProposalsDetails.closedProposals}
+                </div>
+                <div className="md:text-base text-sm text-center">Closed</div>
+              </div>
+              <div className="px-[28px] lg:block hidden">
+                <button
+                  type="button"
+                  className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded"
+                >
+                  <Link href={{ pathname: "on-chain-governance/create" }}>
+                    <span className="text-sm font-medium text-primary-500">
+                      CREATE PROPOSAL
+                    </span>
+                  </Link>
+                </button>
+              </div>
+            </div>
 
-          <div className="justify-self-center border border-gray-200 rounded-lg flex flex-row items-center px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly md:mt-0 mt-[46px]">
-            <div className="flex-col grow lg:px-[28px]">
-              <div className="lg:text-2xl text-lg font-semibold text-center">
-                {allProposalsDetails.proposalsSubmitted}
-              </div>
-              <div className="lg:text-base text-sm text-center">Total</div>
-            </div>
-            <div className="flex-col grow border-r border-l lg:px-[28px]">
-              <div className="lg:text-2xl text-lg font-semibold text-center">
-                {allProposalsDetails.openProposals}
-              </div>
-              <div className="lg:text-base text-sm text-center">Open</div>
-            </div>
-            <div className="flex-col grow lg:border-r lg:px-[28px]">
-              <div className="lg:text-2xl text-lg font-semibold text-center">
-                {allProposalsDetails.closedProposals}
-              </div>
-              <div className="lg:text-base text-sm text-center">Closed</div>
-            </div>
-            <div className="px-[28px] lg:block hidden">
+            <div className="lg:hidden flex w-full md:justify-end mt-4">
               <button
                 type="button"
-                className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded"
+                className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded md:w-fit w-full"
               >
                 <Link href={{ pathname: "on-chain-governance/create" }}>
                   <span className="text-sm font-medium text-primary-500">
@@ -234,182 +288,14 @@ export default function OnChainGovernancePage(props) {
           </div>
         </div>
 
-        <div className="lg:hidden flex w-full md:justify-end mt-4">
-          <button
-            type="button"
-            className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded md:w-fit w-full"
-          >
-            <Link href={{ pathname: "on-chain-governance/create" }}>
-              <span className="text-sm font-medium text-primary-500">
-                CREATE PROPOSAL
-              </span>
-            </Link>
-          </button>
-        </div>
-
-        <div className="mt-[30px] flex flex-row">
-          <div className="flex flex-row w-fit grow">
-            <button
-              onClick={() => {
-                router
-                  .replace(
-                    {
-                      pathname: router.pathname,
-                      query: getEnvironment().isDefaultConnection(connection)
-                        ? {}
-                        : {
-                            proposalStatus: isOpenProposalsClicked
-                              ? "open"
-                              : "close",
-                            proposalType: ListProposalsType.ALL,
-                            network: connection,
-                          },
-                    },
-                    undefined,
-                    { shallow: true }
-                  )
-                  .then(() => router.reload());
-                // setProposalType(ListProposalsType.ALL)
-              }}
-              type="button"
-              data-testid="OnChainGovernance.AllProposalsButton"
-              className={classNames(
-                "rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500 border-gray-200",
-                {
-                  "border-0 bg-primary-500 text-white":
-                    proposalType === ListProposalsType.ALL,
-                }
-              )}
-            >
-              All
-            </button>
-
-            <button
-              onClick={() => {
-                router
-                  .replace(
-                    {
-                      pathname: router.pathname,
-                      query: getEnvironment().isDefaultConnection(connection)
-                        ? {}
-                        : {
-                            proposalStatus: isOpenProposalsClicked
-                              ? "open"
-                              : "close",
-                            proposalType: ListProposalsType.CFP,
-                            network: connection,
-                          },
-                    },
-                    undefined,
-                    { shallow: true }
-                  )
-                  .then(() => router.reload());
-                // setProposalType(ListProposalsType.CFP)
-              }}
-              type="button"
-              data-testid="OnChainGovernance.CfpProposalsButton"
-              className={classNames(
-                "border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
-                {
-                  "border-0 bg-primary-500 text-white":
-                    proposalType === ListProposalsType.CFP,
-                }
-              )}
-            >
-              CFP
-            </button>
-
-            <button
-              onClick={() => {
-                router
-                  .replace(
-                    {
-                      pathname: router.pathname,
-                      query: getEnvironment().isDefaultConnection(connection)
-                        ? {}
-                        : {
-                            proposalStatus: isOpenProposalsClicked
-                              ? "open"
-                              : "close",
-                            proposalType: ListProposalsType.VOC,
-                            network: connection,
-                          },
-                    },
-                    undefined,
-                    { shallow: true }
-                  )
-                  .then(() => router.reload());
-                // setProposalType(ListProposalsType.VOC)
-              }}
-              type="button"
-              data-testid="OnChainGovernance.CfpProposalsButton"
-              className={classNames(
-                "border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
-                {
-                  "border-0 bg-primary-500 text-white":
-                    proposalType === ListProposalsType.VOC,
-                }
-              )}
-            >
-              DFIP
-            </button>
-          </div>
-
-          <div className="flex flex-row w-fit">
-            <button
-              onClick={() => {
-                setIsOpenProposalsClicked(true);
-                router.push({
-                  pathname: router.pathname,
-                  query: getEnvironment().isDefaultConnection(connection)
-                    ? {}
-                    : {
-                        proposalType: userQueryProposalType,
-                        proposalStatus: "open",
-                        network: connection,
-                      },
-                });
-              }}
-              type="button"
-              data-testid="OnChainGovernance.AllProposalsButton"
-              className={classNames(
-                "rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500 border-gray-200",
-                { "border-0 bg-primary-500 text-white": isOpenProposalsClicked }
-              )}
-            >
-              {windowSize <= 420 ? "Open" : "Open proposals"}
-            </button>
-            <button
-              onClick={() => {
-                router.push({
-                  pathname: router.pathname,
-                  query: getEnvironment().isDefaultConnection(connection)
-                    ? {}
-                    : {
-                        proposalType: userQueryProposalType,
-                        proposalStatus: "close",
-                        network: connection,
-                      },
-                });
-                setIsOpenProposalsClicked(false);
-              }}
-              type="button"
-              data-testid="OnChainGovernance.CfpProposalsButton"
-              className={classNames(
-                "border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
-                {
-                  "border-0 bg-primary-500 text-white": !isOpenProposalsClicked,
-                }
-              )}
-            >
-              {windowSize <= 420 ? "Closed" : "Closed proposals"}
-            </button>
-          </div>
-        </div>
+        <UserQueryButtonRow
+          isOpenProposalsClicked={isOpenProposalsClicked}
+          userQueryProposalType={userQueryProposalType}
+        />
 
         <div className="hidden md:block mt-8">
           <ProposalTable
-            data-testid="OnChainGovernance.CurrentProposalListTable"
+            data-testid="OnChainGovernance.ProposalListTable"
             proposals={proposals.queryProposals}
             currentBlockHeight={allProposalsDetails.currentBlockCount}
             currentBlockMedianTime={allProposalsDetails.currentBlockMedianTime}
@@ -418,7 +304,7 @@ export default function OnChainGovernancePage(props) {
         </div>
         <div className="md:hidden block mt-[62px]">
           <ProposalCards
-            data-testid="OnChainGovernance.CurrentProposalListCard"
+            data-testid="OnChainGovernance.ProposalListCard"
             currentBlockHeight={allProposalsDetails.currentBlockCount}
             currentBlockMedianTime={allProposalsDetails.currentBlockMedianTime}
             isOpenProposalsClicked={isOpenProposalsClicked}
@@ -429,6 +315,142 @@ export default function OnChainGovernancePage(props) {
           <CursorPagination pages={proposals.pages} path="/on-chain-governance" />
         </div> */}
       </Container>
+    </div>
+  );
+}
+
+function InfoIconToolTip() {
+  return (
+    <Tooltip active text="Set your masternode to vote on proposals">
+      <FiInfo role="button" size={20} className="text-blue-500" />
+    </Tooltip>
+  );
+}
+
+function UserQueryButtonRow({
+  isOpenProposalsClicked,
+  userQueryProposalType,
+}: {
+  isOpenProposalsClicked: boolean;
+  userQueryProposalType: ListProposalsType;
+}) {
+  const windowSize = useWindowDimensions().width;
+  return (
+    <div className="mt-[30px] flex flex-row">
+      <div className="flex flex-row w-fit grow">
+        <Link
+          href={{
+            pathname: "on-chain-governance/",
+            query: {
+              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalType: ListProposalsType.ALL,
+            },
+          }}
+        >
+          <a
+            data-testid="OnChainGovernance.AllProposalsButton"
+            className={classNames(
+              "rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500 border-gray-200",
+              {
+                "border-0 bg-primary-500 text-white":
+                  userQueryProposalType === ListProposalsType.ALL,
+              }
+            )}
+          >
+            All
+          </a>
+        </Link>
+
+        <Link
+          href={{
+            pathname: "on-chain-governance/",
+            query: {
+              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalType: ListProposalsType.CFP,
+            },
+          }}
+        >
+          <a
+            data-testid="OnChainGovernance.CfpProposalsButton"
+            className={classNames(
+              "border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
+              {
+                "border-0 bg-primary-500 text-white":
+                  userQueryProposalType === ListProposalsType.CFP,
+              }
+            )}
+          >
+            CFP
+          </a>
+        </Link>
+
+        <Link
+          href={{
+            pathname: "on-chain-governance/",
+            query: {
+              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalType: ListProposalsType.VOC,
+            },
+          }}
+        >
+          <a
+            data-testid="OnChainGovernance.DfipProposalsButton"
+            className={classNames(
+              "border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
+              {
+                "border-0 bg-primary-500 text-white":
+                  userQueryProposalType === ListProposalsType.VOC,
+              }
+            )}
+          >
+            DFIP
+          </a>
+        </Link>
+      </div>
+
+      <div className="flex flex-row w-fit">
+        <Link
+          href={{
+            pathname: "on-chain-governance/",
+            query: {
+              proposalType: userQueryProposalType,
+              proposalStatus: "open",
+            },
+          }}
+        >
+          <a
+            data-testid="OnChainGovernance.OpenProposalsButton"
+            className={classNames(
+              "rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500 border-gray-200",
+              { "border-0 bg-primary-500 text-white": isOpenProposalsClicked }
+            )}
+          >
+            <div>{windowSize <= 640 ? "Open" : "Open proposals"}</div>
+          </a>
+        </Link>
+
+        <Link
+          href={{
+            pathname: "on-chain-governance/",
+            query: {
+              proposalType: userQueryProposalType,
+              proposalStatus: "close",
+            },
+          }}
+        >
+          <a
+            data-testid="OnChainGovernance.ClosedProposalsButton"
+            className={classNames(
+              "border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
+              {
+                "border-0 bg-primary-500 text-white": !isOpenProposalsClicked,
+              }
+            )}
+          >
+            <div>{windowSize <= 640 ? "Closed" : "Closed proposals"}</div>
+          </a>
+        </Link>
+      </div>
     </div>
   );
 }
