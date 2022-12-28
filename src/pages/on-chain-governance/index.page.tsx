@@ -40,8 +40,7 @@ interface OCGProps {
 export default function OnChainGovernancePage(props) {
   const router = useRouter();
   const connection = useNetwork().connection;
-  const [isSetMasterNodeInputFocus, setIsMasterNodeInputFocus] =
-    useState(false);
+  const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
 
   let userQueryProposalStatus = true;
   let userQueryProposalType = ListProposalsType.ALL;
@@ -164,7 +163,7 @@ export default function OnChainGovernancePage(props) {
                     }}
                     className={classNames(
                       "flex flex-row rounded border py-2 px-4 lg:w-[385px] md:w-[190px] dark:bg-gray-800",
-                      { "border-primary-300": isSetMasterNodeInputFocus },
+                      { "border-primary-300": isMasterNodeInputFocus },
                       { "border-red-200": masterNodeErrorMsg !== "" }
                     )}
                   >
@@ -174,7 +173,7 @@ export default function OnChainGovernancePage(props) {
                       className="w-2/3 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900"
                       placeholder="Set your masternode"
                     />
-                    {(masterNodeID !== "" || isSetMasterNodeInputFocus) && (
+                    {(masterNodeID !== "" || isMasterNodeInputFocus) && (
                       <MdClose
                         onClick={() => {
                           setMasterNodeID("");
