@@ -12,7 +12,7 @@ import {
 import { Link } from "@components/commons/link/Link";
 import { useNetwork } from "@contexts/NetworkContext";
 import { getCycleEndTime } from "../shared/getCycleEndTime";
-import { OnChainGovernanceTitles } from "../enum/OnChainGovernanceTitles";
+import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 
 export function ProposalCards({
   proposals,

@@ -13,7 +13,7 @@ import { Link } from "@components/commons/link/Link";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { getCycleEndTime } from "../shared/getCycleEndTime";
-import { OnChainGovernanceTitles } from "../enum/OnChainGovernanceTitles";
+import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 
 export function ProposalTable({
   proposals,
@@ -142,7 +142,7 @@ function ProposalRow({
               {`Block ${proposal.cycleEndHeight}`}
             </a>
           </Link>
-          <div className="text-gray-900">{`~ ${cycleEndTime}`}</div>
+          <div className="text-gray-900 dark:text-gray-100">{`~ ${cycleEndTime}`}</div>
         </div>
       </OverflowTable.Cell>
 
@@ -153,7 +153,7 @@ function ProposalRow({
             e.stopPropagation();
           }}
         >
-          <div className="text-gray-900 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+          <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
             <AiFillGithub size={24} />
             {OnChainGovernanceTitles.Github}
           </div>

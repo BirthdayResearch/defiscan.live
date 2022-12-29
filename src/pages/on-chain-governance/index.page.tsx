@@ -350,7 +350,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.CfpProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
               {
                 "border-0 bg-primary-500 text-white":
                   userQueryProposalType === ListProposalsType.CFP,
@@ -373,7 +373,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.DfipProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
               {
                 "border-0 bg-primary-500 text-white":
                   userQueryProposalType === ListProposalsType.VOC,
@@ -398,7 +398,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.OpenProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200",
+              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 dark:text-gray-100",
               { "border-0 bg-primary-500 text-white": isOpenProposalsClicked }
             )}
           >
@@ -418,7 +418,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.ClosedProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
               {
                 "border-0 bg-primary-500 text-white": !isOpenProposalsClicked,
               }
