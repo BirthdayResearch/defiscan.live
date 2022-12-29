@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { AiFillGithub } from "react-icons/ai";
-import { useRouter } from "next/router";
-import { IoChevronUpSharp } from "react-icons/io5";
+import {
+  MdOutlineKeyboardArrowUp,
+  MdOutlineKeyboardArrowDown,
+} from "react-icons/md";
 import {
   ProposalInfo,
   ProposalStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
-import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
 import { format, fromUnixTime } from "date-fns";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
-import { Button } from "./Button";
 
 export function ProposalCards({
   proposals,
@@ -25,32 +25,16 @@ export function ProposalCards({
   currentBlockMedianTime: number;
   isOpenProposalsClicked: boolean;
 }) {
-  const router = useRouter();
-  const { connection } = useNetwork();
-
   return (
     <>
       {proposals.map((proposal: ProposalInfo, index) => (
         <React.Fragment key={index}>
-          <div
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              router.push({
-                pathname: `/on-chain-governance/${proposal.proposalId}`,
-                query: getEnvironment().isDefaultConnection(connection)
-                  ? {}
-                  : { network: connection },
-              });
-            }}
-          >
-            <ProposalCard
-              proposal={proposal}
-              currentBlockHeight={currentBlockHeight}
-              currentBlockMedianTime={currentBlockMedianTime}
-              isOpenProposalsClicked={isOpenProposalsClicked}
-            />
-          </div>
+          <ProposalCard
+            proposal={proposal}
+            currentBlockHeight={currentBlockHeight}
+            currentBlockMedianTime={currentBlockMedianTime}
+            isOpenProposalsClicked={isOpenProposalsClicked}
+          />
         </React.Fragment>
       ))}
       {(proposals === null || proposals.length === 0) && (
@@ -79,6 +63,7 @@ function ProposalCard({
   isOpenProposalsClicked: boolean;
 }) {
   const [isViewClicked, setIsViewClicked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { connection } = useNetwork();
   const timeDifferenceInBlocks = proposal.cycleEndHeight - currentBlockHeight;
   let blockSeconds = 30;
@@ -108,45 +93,54 @@ function ProposalCard({
   return (
     <div
       className={classNames(
-        "border rounded-lg mt-2 border-gray-200 text-gray-500 dark:border-gray-700 dark:bg-gray-800",
-        isViewClicked ? "h-full" : "h-[70px] overflow-hidden"
+        "border rounded-xl mt-2 border-gray-200 text-gray-500 dark:border-gray-700 dark:bg-gray-800",
+        isOpen ? "h-full" : "h-[70px] overflow-hidden"
       )}
     >
       {/* mobile */}
-      <div className="group md:hidden block hover:bg-primary-50 dark:hover:bg-gray-600">
+      <div className="group md:hidden block ">
         <div className={classNames("grid py-4 px-4 gap-y-3")}>
-          <div className="flex flex-row align-middle w-full">
+          <div className="flex flex-row align-middle w-full gap-x-2">
             <div className="grow">
               <div
                 className={classNames(
-                  "w-[125px] font-semibold text-gray-900 text-sm dark:text-dark-gray-900",
+                  "font-semibold text-gray-900 text-sm dark:text-dark-gray-900",
                   { "line-clamp-2": !isViewClicked }
                 )}
               >
                 {proposal.title}
               </div>
             </div>
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsViewClicked(!isViewClicked);
-              }}
-              className="group flex flex-row gap-x-2"
-            >
-              <Button
-                customStyle="border border-primary-300 p-2 rounded-sm text-primary-500"
-                label="VIEW"
-                testId="OnChainGovernance.Mobile.ViewProposal"
-              />
-              <button
-                type="button"
-                className={classNames(
-                  "border border-primary-300 rounded-sm h-fit w-fit px-[10px] py-3 text-primary-500",
-                  { "rotate-180": isViewClicked }
-                )}
+            <div className="flex flex-row gap-x-2">
+              <Link
+                href={{
+                  pathname: `/on-chain-governance/${proposal.proposalId}`,
+                }}
               >
-                <IoChevronUpSharp size={12} />
-              </button>
+                <a className="contents">
+                  <div
+                    data-testid="CardList.Header.ViewButton"
+                    onClick={() => setIsViewClicked(!isViewClicked)}
+                    className={classNames(
+                      "border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 p-2 text-sm h-min",
+                      { "bg-primary-100": isViewClicked }
+                    )}
+                  >
+                    VIEW
+                  </div>
+                </a>
+              </Link>
+              <div
+                className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 border border-primary-300 p-1 rounded h-min"
+                onClick={() => setIsOpen(!isOpen)}
+                data-testid="CardList.Header.Toggle"
+              >
+                {!isOpen ? (
+                  <MdOutlineKeyboardArrowDown size={28} />
+                ) : (
+                  <MdOutlineKeyboardArrowUp size={28} />
+                )}
+              </div>
             </div>
           </div>
 

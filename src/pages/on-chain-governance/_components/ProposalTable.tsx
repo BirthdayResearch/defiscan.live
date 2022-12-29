@@ -134,7 +134,7 @@ function ProposalRow({
         <TextTruncate text={proposal.proposalId} width="w-60" />
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        <div className="flex flex-col">
+        <div className="flex flex-col w-max">
           <Link
             href={{
               pathname: isOpenProposalsClicked

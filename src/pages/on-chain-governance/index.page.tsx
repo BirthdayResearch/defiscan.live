@@ -90,7 +90,7 @@ export default function OnChainGovernancePage(props) {
       const proposalType =
         governanceType[Math.floor(Math.random() * governanceType.length)]; // get random governance type
       const data = {
-        title: `Title testing proposal ${new Date().getTime()}`,
+        title: `Very Very Very Long Title testing proposal ${new Date().getTime()}`,
         amount: "100000000",
         context: "https://github.com/WavesHQ/scan",
         payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
@@ -210,7 +210,7 @@ export default function OnChainGovernancePage(props) {
                 masterNodeID !== "" &&
                 masterNodeErrorMsg === "" ? (
                   <div className="flex flex-row gap-x-[10px] items-center mt-[14px]">
-                    <div className="lg:w-[385px] md:w-[185px] break-all">
+                    <div className="lg:w-[385px] md:w-[185px] w-5/6 break-all">
                       Masternode: {masterNodeID}
                     </div>
                     <MdEdit
@@ -238,7 +238,7 @@ export default function OnChainGovernancePage(props) {
 
           {/* Proposal Info Table */}
           <div className="flex flex-col md:mt-0 mt-[46px]">
-            <div className="justify-self-center border border-gray-200 rounded-lg flex flex-row items-center px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
+            <div className="justify-self-center border border-gray-200 rounded-lg flex flex-row items-center lg:px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
               <div className="flex-col grow lg:px-7 dark:text-dark-gray-900">
                 <div className="md:text-2xl text-lg font-semibold text-center">
                   {allProposalsDetails.proposalsSubmitted}
@@ -257,7 +257,7 @@ export default function OnChainGovernancePage(props) {
                 </div>
                 <div className="md:text-base text-sm text-center">Closed</div>
               </div>
-              <div className="px-7 lg:block hidden">
+              <div className="pl-7 pr-1 lg:block hidden">
                 <button
                   type="button"
                   className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded"
@@ -350,7 +350,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.AllProposalsButton"
             className={classNames(
-              "rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500 border-gray-200",
+              "rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200",
               {
                 "border-0 bg-primary-500 text-white":
                   userQueryProposalType === ListProposalsType.ALL,
@@ -373,7 +373,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.CfpProposalsButton"
             className={classNames(
-              "border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
+              "border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
               {
                 "border-0 bg-primary-500 text-white":
                   userQueryProposalType === ListProposalsType.CFP,
@@ -396,7 +396,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.DfipProposalsButton"
             className={classNames(
-              "border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
+              "border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
               {
                 "border-0 bg-primary-500 text-white":
                   userQueryProposalType === ListProposalsType.VOC,
@@ -421,7 +421,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.OpenProposalsButton"
             className={classNames(
-              "rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500 border-gray-200",
+              "rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200",
               { "border-0 bg-primary-500 text-white": isOpenProposalsClicked }
             )}
           >
@@ -441,7 +441,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.ClosedProposalsButton"
             className={classNames(
-              "border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-primary-500",
+              "border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
               {
                 "border-0 bg-primary-500 text-white": !isOpenProposalsClicked,
               }
