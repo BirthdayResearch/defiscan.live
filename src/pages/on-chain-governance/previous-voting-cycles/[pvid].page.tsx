@@ -1,7 +1,7 @@
 import { Container } from "@components/commons/Container";
 import { useRouter } from "next/router";
 import { NumericFormat } from "react-number-format";
-import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { OnChainGovernanceTitles } from "../enum/OnChainGovernanceTitles";
 import { Button } from "../_components/Button";
 import { getDuration } from "../shared/durationHelper";
 import { PreviousVotingCycleProposalsTable } from "../_components/PreviousVotingCycleProposalsTable";

@@ -10,10 +10,10 @@ import {
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
-import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { getCycleEndTime } from "../shared/getCycleEndTime";
+import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 
 export function ProposalTable({
   proposals,
@@ -36,14 +36,14 @@ export function ProposalTable({
       >
         <OverflowTable.Header>
           <OverflowTable.Head
-            title={OnChainGovernanceTitles.nameOfProposalTitle}
+            title={OnChainGovernanceTitles.NameOfProposalTitle}
           />
-          <OverflowTable.Head title={OnChainGovernanceTitles.typeTitle} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.proposerId} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.endOfVoting} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.discussions} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.TypeTitle} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.ProposerId} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
           {!isOpenProposalsClicked && (
-            <OverflowTable.Head title={OnChainGovernanceTitles.result} />
+            <OverflowTable.Head title={OnChainGovernanceTitles.Result} />
           )}
         </OverflowTable.Header>
 
@@ -68,7 +68,7 @@ export function ProposalTable({
       </OverflowTable>
       {(proposals === null || proposals.length === 0) && (
         <div className="relative overflow-x-auto rounded-lg rounded-t-none border border-t-0 border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-gray-100 text-gray-900 font-semibold text-2xl whitespace-nowrap">
-          {OnChainGovernanceTitles.noProposals}
+          {OnChainGovernanceTitles.NoProposals}
         </div>
       )}
     </div>
@@ -155,7 +155,7 @@ function ProposalRow({
         >
           <div className="text-gray-900 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
             <AiFillGithub size={24} />
-            {OnChainGovernanceTitles.github}
+            {OnChainGovernanceTitles.Github}
           </div>
         </a>
       </OverflowTable.Cell>

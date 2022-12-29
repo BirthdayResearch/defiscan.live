@@ -2,7 +2,7 @@ import { Container } from "@components/commons/Container";
 import { useRouter } from "next/router";
 import { CursorPagination } from "@components/commons/CursorPagination";
 import { NumericFormat } from "react-number-format";
-import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { OnChainGovernanceTitles } from "../enum/OnChainGovernanceTitles";
 import { Button } from "../_components/Button";
 import { votingStages } from "../enum/votingStages";
 import { PreviousVotingCycleTable } from "../_components/PreviousVotingCyclesTable";

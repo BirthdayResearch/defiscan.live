@@ -21,7 +21,7 @@ import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
 import { getCurrentYearMonth } from "./shared/dateHelper";
-import { proposalStatus } from "./enum/proposalStatus";
+import { UserQueryProposalStatus } from "./enum/UserQueryProposalStatus";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -31,7 +31,7 @@ interface OCGProps {
     currentBlockCount: number;
     currentBlockMedianTime: number;
     userQueryProposalType: ListProposalsType;
-    userQueryProposalStatus: proposalStatus;
+    userQueryProposalStatus: UserQueryProposalStatus;
   };
   proposals: {
     allProposals: ProposalInfo[];
@@ -67,7 +67,7 @@ export default function OnChainGovernancePage({
       const proposalType =
         governanceType[Math.floor(Math.random() * governanceType.length)]; // get random governance type
       const data = {
-        title: `Very Very Very Long Title testing proposal ${new Date().getTime()}`,
+        title: `Title testing proposal ${new Date().getTime()}`,
         amount: "100000000",
         context: "https://github.com/WavesHQ/scan",
         payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
@@ -436,14 +436,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const rpc = getWhaleRpcClient(context);
 
   let userQueryProposalType = ListProposalsType.ALL;
-  let userQueryProposalStatus = proposalStatus.open;
+  let userQueryProposalStatus = UserQueryProposalStatus.Open;
   switch (context.query.proposalStatus) {
-    case proposalStatus.close:
-      userQueryProposalStatus = proposalStatus.close;
+    case UserQueryProposalStatus.Close:
+      userQueryProposalStatus = UserQueryProposalStatus.Close;
       break;
-    case proposalStatus.open:
+    case UserQueryProposalStatus.Open:
     default:
-      userQueryProposalStatus = proposalStatus.open;
+      userQueryProposalStatus = UserQueryProposalStatus.Open;
   }
 
   switch (context.query.proposalType) {
@@ -506,7 +506,7 @@ function getOCGData(
   currentBlockCount: number,
   currentBlockMedianTime: number,
   userQueryProposalType: ListProposalsType,
-  userQueryProposalStatus: proposalStatus
+  userQueryProposalStatus: UserQueryProposalStatus
 ): OCGProps {
   return {
     allProposalsDetails: {
