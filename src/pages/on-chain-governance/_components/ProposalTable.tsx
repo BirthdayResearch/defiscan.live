@@ -30,7 +30,11 @@ export function ProposalTable({
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
   return (
     <div>
-      <OverflowTable>
+      <OverflowTable
+        className={classNames({
+          "rounded-b-none": proposals === null || proposals.length === 0,
+        })}
+      >
         <OverflowTable.Header>
           <OverflowTable.Head
             title={OnChainGovernanceTitles.nameOfProposalTitle}
@@ -64,7 +68,7 @@ export function ProposalTable({
         ))}
       </OverflowTable>
       {(proposals === null || proposals.length === 0) && (
-        <div className="relative overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-gray-100 text-gray-900 font-semibold text-2xl whitespace-nowrap">
+        <div className="relative overflow-x-auto rounded-lg rounded-t-none border border-t-0 border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-gray-100 text-gray-900 font-semibold text-2xl whitespace-nowrap">
           {OnChainGovernanceTitles.noProposals}
         </div>
       )}
@@ -124,13 +128,13 @@ function ProposalRow({
         "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer"
       )}
     >
-      <OverflowTable.Cell className="align-middle font-semibold dark:text-gray-100 w-[320px]">
+      <OverflowTable.Cell className="align-middle font-semibold text-gray-900 dark:text-gray-100 w-[320px]">
         {proposal.title}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="align-middle dark:text-gray-100">
+      <OverflowTable.Cell className="align-middle dark:text-gray-100 text-gray-900">
         {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="align-middle break-all dark:text-gray-100">
+      <OverflowTable.Cell className="align-middle break-all dark:text-gray-100 text-gray-900">
         <TextTruncate text={proposal.proposalId} width="w-60" />
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
@@ -157,7 +161,7 @@ function ProposalRow({
               {`Block ${proposal.cycleEndHeight}`}
             </a>
           </Link>
-          <div>{`~ ${cycleEndTime}`}</div>
+          <div className="text-gray-900">{`~ ${cycleEndTime}`}</div>
         </div>
       </OverflowTable.Cell>
 
@@ -168,8 +172,8 @@ function ProposalRow({
             e.stopPropagation();
           }}
         >
-          <div className="text-gray-600 flex flex-row items-center gap-x-1 px-2 py-[6px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
-            <AiFillGithub className="text-gray-900" size={24} />
+          <div className="text-gray-900 flex flex-row items-center gap-x-1 px-1 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+            <AiFillGithub size={24} />
             {OnChainGovernanceTitles.github}
           </div>
         </a>

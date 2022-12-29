@@ -111,7 +111,7 @@ function ProposalCard({
                 {proposal.title}
               </div>
             </div>
-            <div className="flex flex-row gap-x-2">
+            <div className="flex flex-row gap-x-2 self-center">
               <Link
                 href={{
                   pathname: `/on-chain-governance/${proposal.proposalId}`,
@@ -119,10 +119,10 @@ function ProposalCard({
               >
                 <a className="contents">
                   <div
-                    data-testid="CardList.Header.ViewButton"
+                    data-testid="OnChainGovernance.CardView.ViewButton"
                     onClick={() => setIsViewClicked(!isViewClicked)}
                     className={classNames(
-                      "border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 p-2 text-sm h-min",
+                      "border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min",
                       { "bg-primary-100": isViewClicked }
                     )}
                   >
@@ -131,9 +131,9 @@ function ProposalCard({
                 </a>
               </Link>
               <div
-                className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 border border-primary-300 p-1 rounded h-min"
+                className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 border border-primary-300 rounded h-min"
                 onClick={() => setIsOpen(!isOpen)}
-                data-testid="CardList.Header.Toggle"
+                data-testid="OnChainGovernance.CardView.Toggle"
               >
                 {!isOpen ? (
                   <MdOutlineKeyboardArrowDown size={28} />
