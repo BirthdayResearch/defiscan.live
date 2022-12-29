@@ -13,7 +13,7 @@ import { Link } from "@components/commons/link/Link";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { getCycleEndTime } from "../shared/getCycleEndTime";
-import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { OnChainGovernanceTitles } from "../enum/OnChainGovernanceTitles";
 
 export function ProposalTable({
   proposals,
