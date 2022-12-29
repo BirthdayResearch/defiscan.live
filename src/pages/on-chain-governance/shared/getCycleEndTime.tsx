@@ -13,8 +13,6 @@ export function getCycleEndTime(
       blockSeconds = 3;
       break;
     case "TestNet":
-      blockSeconds = 3;
-      break;
     case "MainNet":
     default:
       blockSeconds = 30;
