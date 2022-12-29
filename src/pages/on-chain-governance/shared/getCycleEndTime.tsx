@@ -1,25 +1,26 @@
+import { NetworkConnection } from "@contexts/NetworkContext";
 import { format, fromUnixTime } from "date-fns";
 
 export function getCycleEndTime(
   cycleEndHeight: number,
   currentBlockHeight: number,
   currentBlockMedianTime: number,
-  connection: string
+  connection: NetworkConnection
 ) {
   const timeDifferenceInBlocks = cycleEndHeight - currentBlockHeight;
   let blockSeconds = 30;
   switch (connection) {
-    case "Playground":
+    case NetworkConnection.RemotePlayground:
+    case NetworkConnection.LocalPlayground:
       blockSeconds = 3;
       break;
-    case "TestNet":
-    case "MainNet":
+    case NetworkConnection.TestNet:
+    case NetworkConnection.MainNet:
     default:
       blockSeconds = 30;
   }
 
-  let cycleEndMedianTime = 0;
-  cycleEndMedianTime =
+  const cycleEndMedianTime =
     currentBlockMedianTime + timeDifferenceInBlocks * blockSeconds;
   const cycleEndTime = format(fromUnixTime(cycleEndMedianTime), "MM/dd/yyyy");
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { isPlayground } from "@contexts/Environment";
-import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import { CursorPage } from "@components/commons/CursorPagination";
 import { getWhaleRpcClient, newPlaygroundClient } from "@contexts/WhaleContext";
@@ -21,6 +20,7 @@ import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
+import { getCurrentYearMonth } from "./shared/dateHelper";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -29,6 +29,8 @@ interface OCGProps {
     closedProposals: number;
     currentBlockCount: number;
     currentBlockMedianTime: number;
+    userQueryProposalType: ListProposalsType;
+    userQueryProposalStatus: string | string[];
   };
   proposals: {
     allProposals: ProposalInfo[];
@@ -36,49 +38,23 @@ interface OCGProps {
     pages: CursorPage[];
   };
 }
-export default function OnChainGovernancePage(props) {
-  const router = useRouter();
+export default function OnChainGovernancePage({
+  allProposalsDetails,
+  proposals,
+}) {
   const connection = useNetwork().connection;
-  const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
 
-  let userQueryProposalStatus = true;
-  let userQueryProposalType = ListProposalsType.ALL;
-  switch (router.query.proposalType) {
-    case ListProposalsType.CFP:
-      userQueryProposalType = ListProposalsType.CFP;
-      break;
-    case ListProposalsType.VOC:
-      userQueryProposalType = ListProposalsType.VOC;
-      break;
-    case ListProposalsType.ALL:
-    default:
-      userQueryProposalType = ListProposalsType.ALL;
-  }
+  const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
+  const userQueryProposalType = allProposalsDetails.userQueryProposalType;
 
-  switch (router.query.proposalStatus) {
-    case "close":
-      userQueryProposalStatus = false;
-      break;
-    case "open":
-    default:
-      userQueryProposalStatus = true;
-  }
-
-  const isOpenProposalsClicked = userQueryProposalStatus;
+  const isOpenProposalsClicked = userQueryProposalStatus === "open";
   const [isMasterNodeClicked, setIsMasterNodeClicked] = useState(false);
   const [masterNodeID, setMasterNodeID] = useState(
     localStorage.getItem("masternodeID") ?? ""
   );
   const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
-
-  const { allProposalsDetails, proposals } = {
-    allProposalsDetails: props.allProposalsDetails,
-    proposals: props.proposals,
-  };
-
-  const currentTime = new Date();
-  const currentYear = currentTime.getFullYear();
-  const currentMonth = currentTime.toLocaleString("en-US", { month: "long" });
+  const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
+  const { currentYear, currentMonth } = getCurrentYearMonth();
 
   // TODO remove this before release to prod
   async function createDummyProposals(): Promise<void> {
@@ -508,7 +484,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       JSON.parse(JSON.stringify(allProposals)),
       JSON.parse(JSON.stringify(queryProposals)),
       currentBlockCount,
-      currentBlockMedianTime
+      currentBlockMedianTime,
+      userQueryProposalType,
+      userQueryProposalStatus
     ),
   };
 }
@@ -517,7 +495,9 @@ function getOCGData(
   allProposals: ProposalInfo[],
   queryProposals: ProposalInfo[],
   currentBlockCount: number,
-  currentBlockMedianTime: number
+  currentBlockMedianTime: number,
+  userQueryProposalType: ListProposalsType,
+  userQueryProposalStatus: string | string[]
 ): OCGProps {
   return {
     allProposalsDetails: {
@@ -530,6 +510,8 @@ function getOCGData(
       ).length,
       currentBlockCount: currentBlockCount,
       currentBlockMedianTime: currentBlockMedianTime,
+      userQueryProposalType: userQueryProposalType,
+      userQueryProposalStatus: userQueryProposalStatus,
     },
     proposals: {
       allProposals,
