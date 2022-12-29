@@ -497,6 +497,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         }
       });
       return proposals;
+    })
+    .catch((error) => {
+      console.error(error);
+      return [];
     });
 
   return {
