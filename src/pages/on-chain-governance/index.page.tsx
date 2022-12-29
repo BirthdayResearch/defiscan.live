@@ -238,7 +238,7 @@ export default function OnChainGovernancePage(props) {
 
           {/* Proposal Info Table */}
           <div className="flex flex-col md:mt-0 mt-[46px]">
-            <div className="justify-self-center border border-gray-200 rounded-lg flex flex-row items-center lg:px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
+            <div className="justify-self-center border border-gray-200 rounded-[10px] flex flex-row items-center lg:px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
               <div className="flex-col grow lg:px-7 dark:text-dark-gray-900">
                 <div className="md:text-2xl text-lg font-semibold text-center">
                   {allProposalsDetails.proposalsSubmitted}
