@@ -82,7 +82,7 @@ function ProposalCard({
       <div className="group md:hidden block ">
         <div className={classNames("grid py-4 px-4 gap-y-3")}>
           <div className="flex flex-row align-middle w-full gap-x-2">
-            <div className="self-center grow">
+            <div className="grow">
               <div
                 className={classNames(
                   "font-semibold text-gray-900 text-sm dark:text-dark-gray-900",
@@ -92,7 +92,7 @@ function ProposalCard({
                 {proposal.title}
               </div>
             </div>
-            <div className="flex flex-row gap-x-2 self-center">
+            <div className="flex flex-row gap-x-2">
               <Link
                 href={{
                   pathname: `/on-chain-governance/${proposal.proposalId}`,
