@@ -9,11 +9,11 @@ import {
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
-import { format, fromUnixTime } from "date-fns";
 import { Link } from "@components/commons/link/Link";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
+import { getCycleEndTime } from "../shared/getCycleEndTime";
 
 export function ProposalTable({
   proposals,
@@ -88,30 +88,12 @@ function ProposalRow({
 }) {
   const router = useRouter();
   const { connection } = useNetwork();
-  const timeDifferenceInBlocks = proposal.cycleEndHeight - currentBlockHeight;
-  let blockSeconds = 30;
-  switch (connection) {
-    case "Playground":
-      blockSeconds = 3;
-      break;
-    case "TestNet":
-      blockSeconds = 3;
-      break;
-    case "MainNet":
-    default:
-      blockSeconds = 30;
-  }
-
-  let cycleEndMedianTime = 0;
-  if (timeDifferenceInBlocks < 0) {
-    cycleEndMedianTime =
-      currentBlockMedianTime - Math.abs(timeDifferenceInBlocks) * blockSeconds;
-  } else {
-    cycleEndMedianTime =
-      currentBlockMedianTime + timeDifferenceInBlocks * blockSeconds;
-  }
-
-  const cycleEndTime = format(fromUnixTime(cycleEndMedianTime), "MM/dd/yyyy");
+  const cycleEndTime = getCycleEndTime(
+    proposal.cycleEndHeight,
+    currentBlockHeight,
+    currentBlockMedianTime,
+    connection
+  );
 
   return (
     <OverflowTable.Row

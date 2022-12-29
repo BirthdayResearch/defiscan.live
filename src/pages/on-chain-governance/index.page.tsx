@@ -483,18 +483,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     status: ListProposalsStatus.ALL,
   });
 
-  let queryProposals = await rpc.governance.listGovProposals({
-    type: userQueryProposalType,
-    status: ListProposalsStatus.ALL,
-  });
-
-  queryProposals = queryProposals.filter((proposal) => {
-    if (userQueryProposalStatus === "open") {
-      return proposal.status === ProposalStatus.VOTING;
-    } else {
-      return proposal.status !== ProposalStatus.VOTING;
-    }
-  });
+  const queryProposals = await rpc.governance
+    .listGovProposals({
+      type: userQueryProposalType,
+      status: ListProposalsStatus.ALL,
+    })
+    .then((proposals) => {
+      proposals = proposals.filter((proposal) => {
+        if (userQueryProposalStatus === "open") {
+          return proposal.status === ProposalStatus.VOTING;
+        } else {
+          return proposal.status !== ProposalStatus.VOTING;
+        }
+      });
+      return proposals;
+    });
 
   return {
     props: getOCGData(

@@ -9,10 +9,10 @@ import {
   ProposalInfo,
   ProposalStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
-import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
-import { format, fromUnixTime } from "date-fns";
+import { useNetwork } from "@contexts/NetworkContext";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { getCycleEndTime } from "../shared/getCycleEndTime";
 
 export function ProposalCards({
   proposals,
@@ -65,30 +65,12 @@ function ProposalCard({
   const [isViewClicked, setIsViewClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { connection } = useNetwork();
-  const timeDifferenceInBlocks = proposal.cycleEndHeight - currentBlockHeight;
-  let blockSeconds = 30;
-  switch (connection) {
-    case "Playground":
-      blockSeconds = 3;
-      break;
-    case "TestNet":
-      blockSeconds = 3;
-      break;
-    case "MainNet":
-    default:
-      blockSeconds = 30;
-  }
-
-  let cycleEndMedianTime = 0;
-  if (timeDifferenceInBlocks < 0) {
-    cycleEndMedianTime =
-      currentBlockMedianTime - Math.abs(timeDifferenceInBlocks) * blockSeconds;
-  } else {
-    cycleEndMedianTime =
-      currentBlockMedianTime + timeDifferenceInBlocks * blockSeconds;
-  }
-
-  const cycleEndTime = format(fromUnixTime(cycleEndMedianTime), "MM/dd/yyyy");
+  const cycleEndTime = getCycleEndTime(
+    proposal.cycleEndHeight,
+    currentBlockHeight,
+    currentBlockMedianTime,
+    connection
+  );
 
   return (
     <div
