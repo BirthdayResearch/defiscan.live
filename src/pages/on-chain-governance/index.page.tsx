@@ -21,6 +21,7 @@ import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
 import { getCurrentYearMonth } from "./shared/dateHelper";
+import { proposalStatus } from "./enum/proposalStatus";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -30,7 +31,7 @@ interface OCGProps {
     currentBlockCount: number;
     currentBlockMedianTime: number;
     userQueryProposalType: ListProposalsType;
-    userQueryProposalStatus: string | string[];
+    userQueryProposalStatus: proposalStatus;
   };
   proposals: {
     allProposals: ProposalInfo[];
@@ -41,7 +42,7 @@ interface OCGProps {
 export default function OnChainGovernancePage({
   allProposalsDetails,
   proposals,
-}) {
+}: OCGProps) {
   const connection = useNetwork().connection;
 
   const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
@@ -435,7 +436,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const rpc = getWhaleRpcClient(context);
 
   let userQueryProposalType = ListProposalsType.ALL;
-  const userQueryProposalStatus = context.query.proposalStatus ?? "open";
+  let userQueryProposalStatus = proposalStatus.open;
+  switch (context.query.proposalStatus) {
+    case proposalStatus.close:
+      userQueryProposalStatus = proposalStatus.close;
+      break;
+    case proposalStatus.open:
+    default:
+      userQueryProposalStatus = proposalStatus.open;
+  }
 
   switch (context.query.proposalType) {
     case ListProposalsType.CFP:
@@ -497,7 +506,7 @@ function getOCGData(
   currentBlockCount: number,
   currentBlockMedianTime: number,
   userQueryProposalType: ListProposalsType,
-  userQueryProposalStatus: string | string[]
+  userQueryProposalStatus: proposalStatus
 ): OCGProps {
   return {
     allProposalsDetails: {
