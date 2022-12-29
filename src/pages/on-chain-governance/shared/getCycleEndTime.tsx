@@ -19,14 +19,8 @@ export function getCycleEndTime(
   }
 
   let cycleEndMedianTime = 0;
-  if (timeDifferenceInBlocks < 0) {
-    cycleEndMedianTime =
-      currentBlockMedianTime - Math.abs(timeDifferenceInBlocks) * blockSeconds;
-  } else {
-    cycleEndMedianTime =
-      currentBlockMedianTime + timeDifferenceInBlocks * blockSeconds;
-  }
-
+  cycleEndMedianTime =
+    currentBlockMedianTime + timeDifferenceInBlocks * blockSeconds;
   const cycleEndTime = format(fromUnixTime(cycleEndMedianTime), "MM/dd/yyyy");
 
   return cycleEndTime;
