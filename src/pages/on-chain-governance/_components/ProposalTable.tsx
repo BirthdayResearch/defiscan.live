@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { AiFillGithub } from "react-icons/ai";
 import classNames from "classnames";
-import { TextTruncate } from "@components/commons/text/TextTruncate";
 import {
   ProposalInfo,
   ProposalStatus,
@@ -129,13 +128,13 @@ function ProposalRow({
       )}
     >
       <OverflowTable.Cell className="align-middle font-semibold text-gray-900 dark:text-gray-100 w-[320px]">
-        {proposal.title}
+        <div className="line-clamp-2">{proposal.title}</div>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle dark:text-gray-100 text-gray-900">
         {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle break-all dark:text-gray-100 text-gray-900">
-        <TextTruncate text={proposal.proposalId} width="w-60" />
+        <div className="line-clamp-2">{proposal.proposalId}</div>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
         <div className="flex flex-col w-max">
