@@ -301,7 +301,7 @@ export default function OnChainGovernancePage(props) {
             isOpenProposalsClicked={isOpenProposalsClicked}
           />
         </div>
-        <div className="md:hidden block mt-[62px]">
+        <div className="md:hidden block mt-4">
           <ProposalCards
             data-testid="OnChainGovernance.ProposalListCard"
             currentBlockHeight={allProposalsDetails.currentBlockCount}

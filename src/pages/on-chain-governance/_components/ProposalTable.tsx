@@ -168,8 +168,8 @@ function ProposalRow({
             e.stopPropagation();
           }}
         >
-          <div className="flex flex-row items-center gap-x-2 px-2 py-[6px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
-            <AiFillGithub size={20} />
+          <div className="text-gray-600 flex flex-row items-center gap-x-1 px-2 py-[6px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+            <AiFillGithub className="text-gray-900" size={24} />
             {OnChainGovernanceTitles.github}
           </div>
         </a>
