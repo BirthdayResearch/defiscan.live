@@ -44,7 +44,6 @@ export default function OnChainGovernancePage({
   proposals,
 }: OCGProps) {
   const connection = useNetwork().connection;
-
   const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
   const userQueryProposalType = allProposalsDetails.userQueryProposalType;
 
@@ -101,12 +100,14 @@ export default function OnChainGovernancePage({
         </Container>
       </div>
       {isPlayground(connection) && (
-        <Button
-          testId="dummy-proposal"
-          label="Create dummy proposal"
-          onClick={createDummyProposals}
-          customStyle="hover:bg-gray-50"
-        />
+        <div className="text-center">
+          <Button
+            testId="dummy-proposal"
+            label="Create dummy proposal"
+            onClick={createDummyProposals}
+            customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
+          />
+        </div>
       )}
 
       <Container className="md:pt-11 pt-10 pb-20">
@@ -276,6 +277,7 @@ export default function OnChainGovernancePage({
             currentBlockHeight={allProposalsDetails.currentBlockCount}
             currentBlockMedianTime={allProposalsDetails.currentBlockMedianTime}
             isOpenProposalsClicked={isOpenProposalsClicked}
+            masternodeId={masterNodeID}
           />
         </div>
         <div className="md:hidden block mt-4">
