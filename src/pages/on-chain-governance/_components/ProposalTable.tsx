@@ -7,9 +7,11 @@ import {
   ProposalInfo,
   ProposalStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
-import { getEnvironment } from "@contexts/Environment";
+import { getEnvironment, isPlayground } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
+import { PlaygroundRpcClient } from "@defichain/playground-api-client";
+import { newPlaygroundClient } from "@contexts/WhaleContext";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { getCycleEndTime } from "../shared/getCycleEndTime";
@@ -20,13 +22,35 @@ export function ProposalTable({
   currentBlockHeight,
   currentBlockMedianTime,
   isOpenProposalsClicked,
+  masternodeId,
 }: {
   proposals: ProposalInfo[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   isOpenProposalsClicked: boolean;
+  masternodeId: string;
 }) {
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
+
+  // TODO: remove testing code
+  const connection = useNetwork().connection;
+  async function voteDummyProposals(
+    proposalId: string,
+    masternodeId: string,
+    vote: string
+  ): Promise<void> {
+    const playgroundRPC = new PlaygroundRpcClient(
+      newPlaygroundClient(connection)
+    );
+    console.log(
+      `Voted proposal: ${proposalId} with ${vote}, tx hash:`,
+      await playgroundRPC.call(
+        "votegov",
+        [proposalId, masternodeId, vote],
+        "number"
+      )
+    );
+  }
   return (
     <div>
       <OverflowTable
@@ -54,6 +78,9 @@ export function ProposalTable({
               currentBlockHeight={currentBlockHeight}
               currentBlockMedianTime={currentBlockMedianTime}
               isOpenProposalsClicked={isOpenProposalsClicked}
+              onDummyVote={(vote: string) =>
+                voteDummyProposals(proposal.proposalId, masternodeId, vote)
+              }
             />
             {displayVoteModal && (
               <VoteModal
@@ -80,11 +107,13 @@ function ProposalRow({
   currentBlockHeight,
   currentBlockMedianTime,
   isOpenProposalsClicked,
+  onDummyVote,
 }: {
   proposal: ProposalInfo;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   isOpenProposalsClicked: boolean;
+  onDummyVote: (vote: string) => void;
 }) {
   const router = useRouter();
   const { connection } = useNetwork();
@@ -174,6 +203,44 @@ function ProposalRow({
               ? "Approved"
               : proposal.status}
           </div>
+        </OverflowTable.Cell>
+      )}
+
+      {isPlayground(connection) && (
+        <OverflowTable.Cell className="align-middle dark:text-gray-100">
+          <button
+            type="button"
+            onClick={(e) => {
+              onDummyVote("yes");
+              e.stopPropagation();
+            }}
+          >
+            <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+              Yes
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              onDummyVote("no");
+              e.stopPropagation();
+            }}
+          >
+            <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+              No
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              onDummyVote("neutral");
+              e.stopPropagation();
+            }}
+          >
+            <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+              Neutral
+            </div>
+          </button>
         </OverflowTable.Cell>
       )}
     </OverflowTable.Row>
