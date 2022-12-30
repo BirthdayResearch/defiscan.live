@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "@components/commons/Container";
 import { getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext } from "next";
@@ -8,6 +8,7 @@ import { Breadcrumb } from "@components/commons/Breadcrumb";
 import { NetworkConnection } from "@contexts/NetworkContext";
 import { getEnvironment } from "@contexts/Environment";
 import BigNumber from "bignumber.js";
+import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingDetail } from "../_components/VotingDetail";
@@ -22,6 +23,23 @@ export default function ProposalDetailPage({
 }) {
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [hasUserSelectedVote, setHasUserSelectedVote] = useState(false);
+  const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
+  const [voteCommand, setVoteCommand] = useState("");
+  const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
+  const [isMasterNodeConfirmClicked, setIsMasterNodeConfirmClicked] =
+    useState(false);
+  const [isConfirmDetailsClicked, setIsConfirmDetailsClicked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (isChangeVoteClicked) {
+      setIsMasterNodeConfirmClicked(false);
+      setIsConfirmDetailsClicked(false);
+      setIsChangeVoteClicked(false);
+      setHasUserSelectedVote(false);
+    }
+  }, [isChangeVoteClicked]);
 
   return (
     <>
@@ -54,6 +72,9 @@ export default function ProposalDetailPage({
           </div>
           <div className="w-full md:w-4/12">
             <VotingDetail
+              setIsChangeVoteClicked={setIsChangeVoteClicked}
+              voteCommand={voteCommand}
+              userSelectedVote={userSelectedVote}
               yes={yes}
               no={no}
               status={proposal.status}
@@ -77,8 +98,21 @@ export default function ProposalDetailPage({
         </div>
       </Container>
       <ConfirmVoteDialog
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        hasUserSelectedVote={hasUserSelectedVote}
+        setHasUserSelectedVote={setHasUserSelectedVote}
+        isConfirmDetailsClicked={isConfirmDetailsClicked}
+        setIsConfirmDetailsClicked={setIsConfirmDetailsClicked}
+        setIsMasterNodeConfirmClicked={setIsMasterNodeConfirmClicked}
+        isMasterNodeConfirmClicked={isMasterNodeConfirmClicked}
+        isChangeVoteClicked={isChangeVoteClicked}
+        setVoteCommand={setVoteCommand}
+        userSelectedVote={userSelectedVote}
+        setUserSelectedVote={setUserSelectedVote}
+        proposalId={proposal.proposalId}
         isOpen={isDialogOpen}
-        onConfirm={() => setIsDialogOpen(false)}
+        voteCommand={voteCommand}
         onClose={() => setIsDialogOpen(false)}
       />
     </>

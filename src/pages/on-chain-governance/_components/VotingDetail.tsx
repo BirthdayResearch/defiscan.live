@@ -1,8 +1,14 @@
+import { Dispatch, SetStateAction } from "react";
 import BigNumber from "bignumber.js";
+import { MdContentCopy } from "react-icons/md";
 import classNames from "classnames";
 import { NumericFormat } from "react-number-format";
-import { ProposalStatus } from "@defichain/jellyfish-api-core/dist/category/governance";
+import {
+  ProposalStatus,
+  VoteDecision,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
 import { getVotePercentage } from "../shared/getTotalVotes";
+import { EditVoteIcon } from "./EditVoteIcon";
 
 export function VotingDetail({
   yes,
@@ -10,12 +16,18 @@ export function VotingDetail({
   neutral,
   status,
   onSubmitVote,
+  voteCommand,
+  userSelectedVote,
+  setIsChangeVoteClicked,
 }: {
   yes: number;
   no: number;
   neutral: number;
   status: ProposalStatus;
   onSubmitVote: () => void;
+  voteCommand: string;
+  userSelectedVote: VoteDecision | undefined;
+  setIsChangeVoteClicked: Dispatch<SetStateAction<boolean>>;
 }) {
   const { percYes, percNo } = getVotePercentage(yes, no, neutral);
   const total = new BigNumber(yes).plus(no).plus(neutral);
@@ -126,21 +138,63 @@ export function VotingDetail({
             />
           </div>
           {status === ProposalStatus.VOTING && (
-            <div className="mt-2">
-              <button
-                type="button"
-                onClick={onSubmitVote}
-                className={classNames(
-                  "w-full py-4 rounded-sm font-medium text-base text-primary-500 bg-primary-25 hover:bg-primary-50 mb-2"
-                )}
-              >
-                SUBMIT VOTE
-              </button>
-              <span className="text-xs text-center flex text-gray-600">
-                Submitting your vote will generate a defi-cli command that needs
-                to be used to record your vote on-chain
-              </span>
-            </div>
+            <>
+              {voteCommand === "" ? (
+                <div className="mt-2">
+                  <button
+                    type="button"
+                    onClick={onSubmitVote}
+                    className={classNames(
+                      "w-full py-4 rounded-sm font-medium text-base text-primary-500 bg-primary-25 hover:bg-primary-50 mb-2"
+                    )}
+                  >
+                    SUBMIT VOTE
+                  </button>
+                  <span className="text-xs text-center flex text-gray-600">
+                    Submitting your vote will generate a defi-cli command that
+                    needs to be used to record your vote on-chain
+                  </span>
+                </div>
+              ) : (
+                <>
+                  <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4 mt-12">
+                    <div className="flex flex-row">
+                      <div className="break-all">{voteCommand}</div>
+                      <button
+                        type="button"
+                        className="flex flex-row ml-[18px] self-center align-middle gap-x-1"
+                      >
+                        <MdContentCopy size={18} className="text-primary-500" />
+                        <div className="text-primary-500 text-sm">COPY</div>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex flex-row mt-4 items-center">
+                    <div className=" grow">
+                      <span className="text-gray-500 ">You have voted</span>
+                      <span className="text-gray-900 capitalize font-medium">
+                        &nbsp;{userSelectedVote}
+                      </span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsChangeVoteClicked(true);
+                        onSubmitVote();
+                      }}
+                    >
+                      <div className="flex flex-row border border-gray-200 rounded-sm p-2 gap-x-[5px] items-center hover:border-primary-200">
+                        <EditVoteIcon fillColor="#FF00AF" />
+                        <span className="text-primary-500 text-sm font-medium">
+                          CHANGE VOTE
+                        </span>
+                      </div>
+                    </button>
+                  </div>
+                </>
+              )}
+            </>
           )}
         </div>
       </div>
