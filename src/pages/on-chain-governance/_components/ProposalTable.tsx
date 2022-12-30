@@ -1,53 +1,59 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
-import { IoMdOpen } from "react-icons/io";
+import { AiFillGithub } from "react-icons/ai";
 import classNames from "classnames";
-import { TextTruncate } from "@components/commons/text/TextTruncate";
-import { ProposalInfo } from "@defichain/jellyfish-api-core/dist/category/governance";
+import {
+  ProposalInfo,
+  ProposalStatus,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
-import { votingStages } from "../enum/votingStages";
-import { Button } from "./Button";
-import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { Link } from "@components/commons/link/Link";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
+import { getCycleEndTime } from "../shared/getCycleEndTime";
+import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 
 export function ProposalTable({
   proposals,
-  currentStage,
+  currentBlockHeight,
+  currentBlockMedianTime,
+  isOpenProposalsClicked,
 }: {
   proposals: ProposalInfo[];
-  currentStage: votingStages;
+  currentBlockHeight: number;
+  currentBlockMedianTime: number;
+  isOpenProposalsClicked: boolean;
 }) {
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
   return (
     <div>
-      <OverflowTable>
+      <OverflowTable
+        className={classNames({
+          "rounded-b-none": proposals === null || proposals.length === 0,
+        })}
+      >
         <OverflowTable.Header>
           <OverflowTable.Head
-            title={OnChainGovernanceTitles.nameOfProposalTitle}
+            title={OnChainGovernanceTitles.NameOfProposalTitle}
           />
-          <OverflowTable.Head title={OnChainGovernanceTitles.typeTitle} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.proposerId} />
-          {currentStage === votingStages.vote ? (
-            <>
-              <OverflowTable.Head title="Community discussions" />
-              <OverflowTable.Head title="Vote Breakdown" />
-              <OverflowTable.Head title="Action" alignRight />
-            </>
-          ) : (
-            <OverflowTable.Head title="Community discussions" alignRight />
+          <OverflowTable.Head title={OnChainGovernanceTitles.TypeTitle} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.ProposerId} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
+          {!isOpenProposalsClicked && (
+            <OverflowTable.Head title={OnChainGovernanceTitles.Result} />
           )}
         </OverflowTable.Header>
 
         {proposals.map((proposal: ProposalInfo, index) => (
           <React.Fragment key={index}>
             <ProposalRow
-              currentStage={currentStage}
               proposal={proposal}
-              displayVoteModal={displayVoteModal}
-              setDisplayVoteModal={setDisplayVoteModal}
+              currentBlockHeight={currentBlockHeight}
+              currentBlockMedianTime={currentBlockMedianTime}
+              isOpenProposalsClicked={isOpenProposalsClicked}
             />
             {displayVoteModal && (
               <VoteModal
@@ -61,8 +67,8 @@ export function ProposalTable({
         ))}
       </OverflowTable>
       {(proposals === null || proposals.length === 0) && (
-        <div className="relative overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-gray-100 text-gray-900 font-semibold text-2xl whitespace-nowrap">
-          {OnChainGovernanceTitles.noProposals}
+        <div className="relative overflow-x-auto rounded-lg rounded-t-none border border-t-0 border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-gray-100 text-gray-900 font-semibold text-2xl whitespace-nowrap">
+          {OnChainGovernanceTitles.NoProposals}
         </div>
       )}
     </div>
@@ -71,17 +77,24 @@ export function ProposalTable({
 
 function ProposalRow({
   proposal,
-  currentStage,
-  displayVoteModal,
-  setDisplayVoteModal,
+  currentBlockHeight,
+  currentBlockMedianTime,
+  isOpenProposalsClicked,
 }: {
   proposal: ProposalInfo;
-  currentStage: votingStages;
-  displayVoteModal: boolean;
-  setDisplayVoteModal: Dispatch<SetStateAction<boolean>>;
+  currentBlockHeight: number;
+  currentBlockMedianTime: number;
+  isOpenProposalsClicked: boolean;
 }) {
   const router = useRouter();
   const { connection } = useNetwork();
+  const cycleEndTime = getCycleEndTime(
+    proposal.cycleEndHeight,
+    currentBlockHeight,
+    currentBlockMedianTime,
+    connection
+  );
+
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -93,90 +106,76 @@ function ProposalRow({
         });
       }}
       className={classNames(
-        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer",
-        { "pointer-events-none": displayVoteModal }
+        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer"
       )}
     >
-      <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        {proposal.title}
+      <OverflowTable.Cell className="align-middle font-semibold text-gray-900 dark:text-gray-100 w-[320px]">
+        <div className="line-clamp-2">{proposal.title}</div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="align-middle dark:text-gray-100">
+      <OverflowTable.Cell className="align-middle dark:text-gray-100 text-gray-900">
         {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        <TextTruncate text={proposal.proposalId} width="w-full" />
+      <OverflowTable.Cell className="align-middle break-all dark:text-gray-100 text-gray-900">
+        <div className="line-clamp-2">{proposal.proposalId}</div>
       </OverflowTable.Cell>
-      {currentStage === votingStages.vote ? (
-        <>
-          <OverflowTable.Cell className="align-middle">
+      <OverflowTable.Cell className="align-middle dark:text-gray-100">
+        <div className="flex flex-col w-max">
+          <Link
+            href={{
+              pathname: isOpenProposalsClicked
+                ? "/blocks"
+                : `/blocks/${proposal.cycleEndHeight}`,
+            }}
+            passHref
+          >
             <a
               className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline"
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              href={proposal.context}
+              href={
+                isOpenProposalsClicked
+                  ? "/blocks"
+                  : `/blocks/${proposal.cycleEndHeight}`
+              }
             >
-              {OnChainGovernanceTitles.github}
-              <IoMdOpen size={24} />
+              {`Block ${proposal.cycleEndHeight}`}
             </a>
-          </OverflowTable.Cell>
-          <OverflowTable.Cell className="align-middle">
-            <div className="flex flex-row gap-x-5">
-              <VotingResultPercentage
-                value="78% Yes"
-                customStyle="font-semibold group-hover:text-primary-500"
-              />
-              <VotingResultPercentage
-                value="16% No"
-                customStyle="group-hover:text-primary-500"
-              />
-              <VotingResultPercentage
-                value="6% Neutral"
-                customStyle="group-hover:text-primary-500"
-              />
-            </div>
-          </OverflowTable.Cell>
+          </Link>
+          <div className="text-gray-900 dark:text-gray-100">{`~ ${cycleEndTime}`}</div>
+        </div>
+      </OverflowTable.Cell>
 
-          <OverflowTable.Cell>
-            <Button
-              label={`vote`.toUpperCase()}
-              testId="OnChainGovernance.SubmitProposalButton"
-              onClick={(e) => {
-                e.stopPropagation();
-                setDisplayVoteModal(true);
-              }}
-              customStyle="px-5 py-1 rounded-sm text-base w-full border bg-white hover:border-primary-200 active:border-primary-400"
-            />
-          </OverflowTable.Cell>
-        </>
-      ) : (
-        <OverflowTable.Cell>
-          <a
-            className="justify-end flex flex-row items-center gap-x-[11px] text-[#4A72DA] hover:underline cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            href={proposal.context}
+      <OverflowTable.Cell className="align-middle dark:text-gray-100">
+        <a
+          href={proposal.context}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+            <AiFillGithub size={24} />
+            {OnChainGovernanceTitles.Github}
+          </div>
+        </a>
+      </OverflowTable.Cell>
+
+      {!isOpenProposalsClicked && (
+        <OverflowTable.Cell className="align-middle">
+          <div
+            className={classNames(
+              "py-1 px-3 rounded-[32px] w-fit",
+              proposal.status === ProposalStatus.COMPLETED
+                ? "bg-green-100 text-green-600"
+                : "bg-red-100 text-red-600"
+            )}
           >
-            {OnChainGovernanceTitles.github}
-            <IoMdOpen size={24} />
-          </a>
+            {proposal.status === ProposalStatus.COMPLETED
+              ? "Approved"
+              : proposal.status}
+          </div>
         </OverflowTable.Cell>
       )}
     </OverflowTable.Row>
-  );
-}
-
-function VotingResultPercentage({
-  value,
-  customStyle,
-}: {
-  value: string;
-  customStyle?: string;
-}) {
-  return (
-    <span className={`tracking-[0.0044em] text-gray-900 ${customStyle ?? ""}`}>
-      {value}
-    </span>
   );
 }
