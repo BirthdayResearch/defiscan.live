@@ -103,7 +103,11 @@ export function ProposalDetail({
               </div>
               <div className="w-1/2 md:w-full flex">
                 <span className="text-gray-900 dark:text-gray-100 text-sm md:text-lg text-right md:text-left w-full">
-                  {proposal.totalCycles} cycle
+                  {`${
+                    proposal.totalCycles > 1
+                      ? `${proposal.currentCycle} of ${proposal.totalCycles} cycles`
+                      : `${proposal.totalCycles} cycles`
+                  }`}
                 </span>
               </div>
             </div>

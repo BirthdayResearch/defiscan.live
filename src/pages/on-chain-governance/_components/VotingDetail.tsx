@@ -158,7 +158,7 @@ export function VotingDetail({
                     >
                       SUBMIT VOTE
                     </button>
-                    <span className="text-xs lg:text-center md:text-left text-center flex text-gray-600">
+                    <span className="text-xs lg:text-center md:text-left text-center flex text-gray-600 dark:text-dark-gray-500">
                       Submitting your vote will generate a defi-cli command that
                       needs to be used to record your vote on-chain
                     </span>
