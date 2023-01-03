@@ -48,6 +48,17 @@ export function ConfirmVoteDialog({
   );
   const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
+  function closeState() {
+    if (!isConfirmDetailsClicked && !isChangeVoteClicked) {
+      setIsMasterNodeConfirmClicked(false);
+      setHasUserSelectedVote(false);
+      setIsLoading(false);
+    }
+    if (!isMasterNodeConfirmClicked) {
+      setMasterNodeID(localStorage.getItem("masternodeID") ?? "");
+    }
+  }
+
   return (
     <Transition appear show={isOpen} as="div">
       <Dialog
@@ -55,14 +66,7 @@ export function ConfirmVoteDialog({
         className="relative z-[60]"
         onClose={() => {
           onClose();
-          if (!isConfirmDetailsClicked && !isChangeVoteClicked) {
-            setIsMasterNodeConfirmClicked(false);
-            setHasUserSelectedVote(false);
-            setIsLoading(false);
-          }
-          if (!isMasterNodeConfirmClicked) {
-            setMasterNodeID(localStorage.getItem("masternodeID") ?? "");
-          }
+          closeState();
         }}
       >
         <Transition.Child as="div">
@@ -169,7 +173,7 @@ export function ConfirmVoteDialog({
                         setIsMasterNodeConfirmClicked={
                           setIsMasterNodeConfirmClicked
                         }
-                        isMasterNodeConfirmClicked={isMasterNodeConfirmClicked}
+                        closeState={closeState}
                       />
                     )}
                   </>
@@ -188,13 +192,13 @@ function ConfirmMasterNode({
   masterNodeID,
   onClose,
   setIsMasterNodeConfirmClicked,
-  isMasterNodeConfirmClicked,
+  closeState,
 }: {
   setMasterNodeID: Dispatch<SetStateAction<string>>;
   masterNodeID: string;
   onClose: () => void;
   setIsMasterNodeConfirmClicked: Dispatch<SetStateAction<boolean>>;
-  isMasterNodeConfirmClicked: boolean;
+  closeState: () => void;
 }) {
   const [isMasterNodeEditClicked, setIsMasterNodeEditClicked] = useState(false);
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
@@ -280,9 +284,7 @@ function ConfirmMasterNode({
       <div className="flex flex-row space-x-2">
         <button
           onClick={() => {
-            if (!isMasterNodeConfirmClicked) {
-              setMasterNodeID(localStorage.getItem("masternodeID") ?? "");
-            }
+            closeState();
             onClose();
           }}
           type="button"
@@ -460,7 +462,7 @@ function ReadyVoteID({
 
           <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 p-4">
             <div className="flex flex-row">
-              <div className="break-all md:line-clamp-none line-clamp-3">
+              <div className="break-all md:line-clamp-none line-clamp-2">
                 {voteCommand}
               </div>
               <div className="flex flex-row ml-[18px] self-center align-middle gap-x-1">
