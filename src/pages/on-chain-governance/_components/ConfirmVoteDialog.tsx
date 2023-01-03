@@ -96,7 +96,7 @@ export function ConfirmVoteDialog({
                         type="button"
                         onClick={() => setHasUserSelectedVote(false)}
                       >
-                        <div className="flex flex-row gap-x-[7px] text-[#4A72DA] font-medium hover:underline">
+                        <div className="flex flex-row gap-x-[7px] text-[#4A72DA] font-medium hover:underline mb-1">
                           <AiOutlineArrowLeft
                             size={15}
                             className="self-center"
@@ -379,12 +379,14 @@ function UserReviewVote({
       <div className="grid grid-rows-[20px_minmax(100px,_1fr)] grid-cols-2 gap-y-3 mt-6">
         <div className="text-gray-600">Vote</div>
 
-        <div className="text-right capitalize font-medium">
+        <div className="text-gray-900 text-right capitalize font-medium">
           {userSelectedVote}
         </div>
 
         <div className="text-gray-600">Masternode</div>
-        <div className="break-all font-medium">{masternodeID}</div>
+        <div className="text-gray-900 break-all font-medium text-right">
+          {masternodeID}
+        </div>
       </div>
 
       <div className="flex flex-col mt-12">
@@ -434,14 +436,14 @@ function ReadyVoteID({
             as="h3"
             className="font-semibold text-center text-2xl text-gray-900 dark:text-gray-100 mt-6"
           >
-            Your Vote is getting ready
+            Your vote is getting ready
           </Dialog.Title>
-          <div className="flex flex-row mt-3 text-center">
-            <span className="text-xs text-gray-500">You have voted &nbsp;</span>
-            <span className="capitalize text-xs text-gray-500">
+          <div className="flex flex-row mt-2 text-center">
+            <span className="text-xs text-gray-600">You have voted &nbsp;</span>
+            <span className="capitalize text-xs text-gray-600">
               {`'${userSelectedVote}'`}
             </span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-600">
               &nbsp; for this proposal.
             </span>
           </div>
@@ -455,14 +457,14 @@ function ReadyVoteID({
           >
             Vote ID is now ready
           </Dialog.Title>
-          <span className="text-lg mt-3 text-center flex text-gray-500 mb-8">
+          <span className="text-lg mt-3 text-center flex text-gray-600 mb-8">
             Use the provided command line to submit this on-chain through your
             full node wallet CLI.
           </span>
 
           <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 p-4">
             <div className="flex flex-row">
-              <div className="break-all md:line-clamp-none line-clamp-2">
+              <div className="text-gray-900 break-all md:line-clamp-none line-clamp-2">
                 {voteCommand}
               </div>
               <div className="flex flex-row ml-[18px] self-center align-middle gap-x-1">
