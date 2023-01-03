@@ -9,7 +9,6 @@ import {
   ProposalStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { Link } from "@components/commons/link/Link";
-import { AddressLink } from "@components/commons/link/AddressLink";
 import { ProposalDisplayName } from "./ProposalCard";
 
 export function ProposalDetail({
@@ -28,12 +27,17 @@ export function ProposalDetail({
     dateFormat
   );
 
+  const blockPage =
+    proposal.status === ProposalStatus.VOTING
+      ? "/blocks"
+      : `/blocks/${proposal.cycleEndHeight}`;
+
   return (
-    <div className="border border-gray-200 rounded-lg p-6">
+    <div className="md:border md:p-6 border-gray-200 rounded-lg">
       <div className="flex mb-2">
         <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded">
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-            {ProposalDisplayName[ProposalType.COMMUNITY_FUND_PROPOSAL]}
+          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 tracking-[0.015em]">
+            {ProposalDisplayName[proposal.type]}
           </span>
         </div>
       </div>
@@ -49,18 +53,21 @@ export function ProposalDetail({
             <span className="text-sm md:text-lg text-gray-900 dark:text-gray-100 font-semibold">
               {endDate}&nbsp;
             </span>
-            <Link href={{ pathname: `/blocks/${proposal.cycleEndHeight}` }}>
-              <span className="text-sm md:text-lg hover:underline text-blue-500 cursor-pointer">
+            <Link href={{ pathname: blockPage }}>
+              <a className="text-sm md:text-lg hover:underline text-blue-500 cursor-pointer">
                 ({proposal.cycleEndHeight})
-              </span>
+              </a>
             </Link>
           </div>
         )}
       </div>
       <div
-        className={classNames("grid md:grid-cols-3 gap-y-3 md:gap-y-1", {
-          "md:grid-cols-4": proposal.status !== ProposalStatus.VOTING,
-        })}
+        className={classNames(
+          "grid md:grid-cols-3 gap-y-3 md:gap-y-8 md:gap-x-8",
+          {
+            "md:grid-cols-3": proposal.status !== ProposalStatus.VOTING,
+          }
+        )}
       >
         <div className="flex flex-row md:flex-col">
           <div className="w-1/2 md:w-full mb-0 md:mb-2">
@@ -77,8 +84,12 @@ export function ProposalDetail({
             <div className="w-1/2 md:w-full mb-0 md:mb-2">
               <DetailSectionTitle label="Ended on" />
             </div>
-            <div className="w-1/2 md:w-full flex">
-              <span className="text-gray-900 dark:text-gray-100 text-sm md:text-lg text-right md:text-left w-full">
+            <div className="w-1/2 md:w-full flex flex-col">
+              <span className="md:text-lg text-sm text-gray-900 dark:text-gray-100 text-right md:text-left">
+                Block {proposal.cycleEndHeight}
+              </span>
+
+              <span className="text-gray-600 dark:text-gray-100 text-sm text-right md:text-left w-full">
                 {endDate}
               </span>
             </div>
@@ -96,22 +107,17 @@ export function ProposalDetail({
                 </span>
               </div>
             </div>
-            <div className="flex flex-row md:flex-col">
+            <div className="flex flex-row md:flex-col md:row-start-2">
               <div className="w-1/2 md:w-full mb-0 md:mb-2">
                 <DetailSectionTitle label="Receiving address" />
               </div>
               <div className="w-1/2 md:w-full flex">
-                <AddressLink
-                  address={proposal.payoutAddress ?? ""}
-                  className="text-right md:text-left w-full break-all"
-                >
-                  <span className="text-sm md:text-lg text-right md:text-left w-full break-all">
-                    {proposal.payoutAddress}
-                  </span>
-                </AddressLink>
+                <span className="text-sm md:text-lg text-right md:text-left w-full break-all text-gray-900">
+                  {proposal.payoutAddress}
+                </span>
               </div>
             </div>
-            <div className="flex flex-row md:flex-col">
+            <div className="flex flex-row md:flex-col md:row-start-2">
               <div className="w-1/2 md:w-full mb-0 md:mb-2">
                 <DetailSectionTitle label="Amount requested" />
               </div>
@@ -128,18 +134,23 @@ export function ProposalDetail({
             </div>
           </>
         )}
-        <div className="flex flex-row md:flex-col">
+        <div
+          className={classNames("flex flex-row md:flex-col", {
+            "md:row-start-2":
+              proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL,
+          })}
+        >
           <div className="w-1/2 md:w-full mb-0 md:mb-1">
             <DetailSectionTitle label="Discussions" />
           </div>
-          <div className="w-1/2 md:w-full flex">
+          <div className="w-1/2 md:w-fit flex">
             <a
               href={proposal.context}
               className="text-right md:text-left w-full"
             >
-              <div className="flex flex-row justify-end items-center gap-x-1 md:gap-x-2 md:px-2 md:py-1.5 md:border rounded-[30px] md:w-fit">
+              <div className="flex flex-row justify-end items-center gap-x-1 md:gap-x-1 md:px-2 md:py-1 md:border rounded-[30px] hover:border-primary-200 md:w-fit">
                 <AiFillGithub
-                  size={20}
+                  size={24}
                   className="text-gray-900 dark:text-gray-100"
                 />
                 <span className="text-gray-600 dark:text-gray-100 text-sm font-medium">

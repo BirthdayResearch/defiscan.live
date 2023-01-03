@@ -23,13 +23,14 @@ export default function ProposalDetailPage({
 }) {
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [hasUserSelectedVote, setHasUserSelectedVote] = useState(false);
-  const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
-  const [voteCommand, setVoteCommand] = useState("");
   const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
   const [isMasterNodeConfirmClicked, setIsMasterNodeConfirmClicked] =
     useState(false);
+  const [hasUserSelectedVote, setHasUserSelectedVote] = useState(false);
+  const [userConfirmedSelectedVote, setUserConfirmedSelectedVote] =
+    useState<VoteDecision>();
   const [isConfirmDetailsClicked, setIsConfirmDetailsClicked] = useState(false);
+  const [voteCommand, setVoteCommand] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -39,6 +40,7 @@ export default function ProposalDetailPage({
       setIsChangeVoteClicked(false);
       setHasUserSelectedVote(false);
     }
+    setIsLoading(true);
   }, [isChangeVoteClicked]);
 
   return (
@@ -59,28 +61,32 @@ export default function ProposalDetailPage({
             },
           ]}
         />
-        <div className="flex flex-col mt-6 md:flex-row space-y-6 md:space-y-0 space-x-0 md:space-x-6">
-          <div className="w-full md:w-8/12">
+        <div className="flex flex-col lg:mt-6 md:mt-4 mt-2 lg:flex-row space-y-6 lg:space-y-0 space-x-0 lg:space-x-6">
+          <div className="w-full lg:w-8/12">
             <ProposalDetail
               proposal={proposal}
               proposalCreationMedianTime={proposalCreationMedianTime}
               proposalEndMedianTime={proposalEndMedianTime}
             />
-            <div className="hidden md:block mt-6">
+            <div className="hidden lg:block mt-6">
               <VotesTable votes={proposalVotes} />
             </div>
           </div>
-          <div className="w-full md:w-4/12">
+          <div className="w-full lg:w-4/12">
             <VotingDetail
-              setIsChangeVoteClicked={setIsChangeVoteClicked}
+              userSelectedVote={userConfirmedSelectedVote}
               voteCommand={voteCommand}
-              userSelectedVote={userSelectedVote}
+              isLoading={isLoading}
+              setIsChangeVoteClicked={setIsChangeVoteClicked}
               yes={yes}
               no={no}
               status={proposal.status}
               neutral={neutral}
               onSubmitVote={() => setIsDialogOpen(true)}
             />
+          </div>
+          <div className="lg:hidden md:block hidden w-full mt-6">
+            <VotesTable votes={proposalVotes} />
           </div>
           {proposalVotes.length > 0 && (
             <div className="md:hidden mt-7 items-center">
@@ -98,21 +104,20 @@ export default function ProposalDetailPage({
         </div>
       </Container>
       <ConfirmVoteDialog
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        hasUserSelectedVote={hasUserSelectedVote}
-        setHasUserSelectedVote={setHasUserSelectedVote}
-        isConfirmDetailsClicked={isConfirmDetailsClicked}
-        setIsConfirmDetailsClicked={setIsConfirmDetailsClicked}
         setIsMasterNodeConfirmClicked={setIsMasterNodeConfirmClicked}
         isMasterNodeConfirmClicked={isMasterNodeConfirmClicked}
-        isChangeVoteClicked={isChangeVoteClicked}
+        hasUserSelectedVote={hasUserSelectedVote}
+        setHasUserSelectedVote={setHasUserSelectedVote}
+        setUserConfirmedSelectedVote={setUserConfirmedSelectedVote}
+        isConfirmDetailsClicked={isConfirmDetailsClicked}
+        setIsConfirmDetailsClicked={setIsConfirmDetailsClicked}
         setVoteCommand={setVoteCommand}
-        userSelectedVote={userSelectedVote}
-        setUserSelectedVote={setUserSelectedVote}
+        voteCommand={voteCommand}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        isChangeVoteClicked={isChangeVoteClicked}
         proposalId={proposal.proposalId}
         isOpen={isDialogOpen}
-        voteCommand={voteCommand}
         onClose={() => setIsDialogOpen(false)}
       />
     </>

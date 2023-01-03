@@ -1,11 +1,12 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { MdClear, MdEdit, MdContentCopy } from "react-icons/md";
+import { MdClear, MdEdit } from "react-icons/md";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { TbLoaderQuarter } from "react-icons/tb";
 import classNames from "classnames";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { debounce } from "lodash";
+import { CopyButton } from "@components/commons/CopyButton";
 import { Button } from "./Button";
 import { CircularCheckIcon } from "./CircularCheckIcon";
 
@@ -20,16 +21,32 @@ export function ConfirmVoteDialog({
   setIsMasterNodeConfirmClicked,
   isChangeVoteClicked,
   setVoteCommand,
-  userSelectedVote,
-  setUserSelectedVote,
+  setUserConfirmedSelectedVote,
   proposalId,
   isOpen,
   voteCommand,
   onClose,
+}: {
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  hasUserSelectedVote: boolean;
+  setHasUserSelectedVote: Dispatch<SetStateAction<boolean>>;
+  isConfirmDetailsClicked: boolean;
+  setIsConfirmDetailsClicked: Dispatch<SetStateAction<boolean>>;
+  isMasterNodeConfirmClicked: boolean;
+  setIsMasterNodeConfirmClicked: Dispatch<SetStateAction<boolean>>;
+  isChangeVoteClicked: boolean;
+  setVoteCommand: Dispatch<SetStateAction<string>>;
+  setUserConfirmedSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
+  proposalId: string;
+  isOpen: boolean;
+  voteCommand: string;
+  onClose: () => void;
 }) {
   const [masterNodeID, setMasterNodeID] = useState(
     localStorage.getItem("masternodeID") ?? ""
   );
+  const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
   return (
     <Transition appear show={isOpen} as="div">
@@ -41,6 +58,10 @@ export function ConfirmVoteDialog({
           if (!isConfirmDetailsClicked && !isChangeVoteClicked) {
             setIsMasterNodeConfirmClicked(false);
             setHasUserSelectedVote(false);
+            setIsLoading(false);
+          }
+          if (!isMasterNodeConfirmClicked) {
+            setMasterNodeID(localStorage.getItem("masternodeID") ?? "");
           }
         }}
       >
@@ -55,7 +76,6 @@ export function ConfirmVoteDialog({
                   <>
                     <ReadyVoteID
                       onClose={onClose}
-                      masterNodeID={masterNodeID}
                       isLoading={isLoading}
                       setIsLoading={setIsLoading}
                       userSelectedVote={userSelectedVote}
@@ -64,9 +84,10 @@ export function ConfirmVoteDialog({
                   </>
                 ) : (
                   <>
-                    {hasUserSelectedVote &&
-                    !isConfirmDetailsClicked &&
-                    isMasterNodeConfirmClicked ? (
+                    {/* back to voting or close button */}
+                    {isMasterNodeConfirmClicked &&
+                    hasUserSelectedVote &&
+                    !isConfirmDetailsClicked ? (
                       <button
                         type="button"
                         onClick={() => setHasUserSelectedVote(false)}
@@ -81,7 +102,25 @@ export function ConfirmVoteDialog({
                       </button>
                     ) : (
                       <div className="flex justify-end">
-                        <button type="button" onClick={onClose}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            if (
+                              !isConfirmDetailsClicked &&
+                              !isChangeVoteClicked
+                            ) {
+                              setIsMasterNodeConfirmClicked(false);
+                              setHasUserSelectedVote(false);
+                              setIsLoading(false);
+                            }
+                            if (!isMasterNodeConfirmClicked) {
+                              setMasterNodeID(
+                                localStorage.getItem("masternodeID") ?? ""
+                              );
+                            }
+                          }}
+                        >
                           <MdClear size={24} className="text-gray-600" />
                         </button>
                       </div>
@@ -91,12 +130,13 @@ export function ConfirmVoteDialog({
                       as="h3"
                       className="font-semibold text-2xl text-gray-900 dark:text-gray-100"
                     >
-                      {userSelectedVote === undefined
+                      {!hasUserSelectedVote
                         ? "Confirm your vote"
                         : "Review your vote"}
                     </Dialog.Title>
 
                     {isMasterNodeConfirmClicked ? (
+                      // If masternode is confirmed check if voting page or review detail page
                       <>
                         {!hasUserSelectedVote ? (
                           <UserSelectVote
@@ -113,11 +153,15 @@ export function ConfirmVoteDialog({
                               setIsConfirmDetailsClicked={
                                 setIsConfirmDetailsClicked
                               }
+                              setUserConfirmedSelectedVote={
+                                setUserConfirmedSelectedVote
+                              }
                             />
                           </>
                         )}
                       </>
                     ) : (
+                      // If masternode is not confirm show masternode confirm page
                       <ConfirmMasterNode
                         setMasterNodeID={setMasterNodeID}
                         masterNodeID={masterNodeID}
@@ -125,6 +169,7 @@ export function ConfirmVoteDialog({
                         setIsMasterNodeConfirmClicked={
                           setIsMasterNodeConfirmClicked
                         }
+                        isMasterNodeConfirmClicked={isMasterNodeConfirmClicked}
                       />
                     )}
                   </>
@@ -143,11 +188,13 @@ function ConfirmMasterNode({
   masterNodeID,
   onClose,
   setIsMasterNodeConfirmClicked,
+  isMasterNodeConfirmClicked,
 }: {
   setMasterNodeID: Dispatch<SetStateAction<string>>;
   masterNodeID: string;
-  onClose: () => {};
+  onClose: () => void;
   setIsMasterNodeConfirmClicked: Dispatch<SetStateAction<boolean>>;
+  isMasterNodeConfirmClicked: boolean;
 }) {
   const [isMasterNodeEditClicked, setIsMasterNodeEditClicked] = useState(false);
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
@@ -159,11 +206,11 @@ function ConfirmMasterNode({
           Confirm your masternode and vote on the proposal
         </span>
       </div>
-      <div className="mt-2 mb-4">
+      <div className="mb-4">
         <span className="text-gray-600 dark:text-gray-100 font-semibold text-sm">
           Masternode
         </span>
-        <div className="flex flex-row items-center gap-x-[10px]">
+        <div className="flex flex-row items-center gap-x-2 mt-1">
           <div
             onBlur={() => {
               setIsMasterNodeInputFocus(false);
@@ -172,15 +219,15 @@ function ConfirmMasterNode({
               setIsMasterNodeInputFocus(true);
             }}
             className={classNames(
-              "flex flex-row rounded border py-2 px-4 lg:w-[385px] md:w-[190px] dark:bg-gray-800",
+              "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800",
               { "border-primary-300": isMasterNodeInputFocus },
-              { "border-red-200": masterNodeErrorMsg !== "" }
+              { "border-red-600": masterNodeErrorMsg !== "" }
             )}
           >
-            <input
+            <textarea
               onChange={(v) => {
                 if (v.target.value.length !== 64) {
-                  setMasterNodeErrorMsg("Invalid masternode address");
+                  setMasterNodeErrorMsg("Enter a valid masternode ID");
                 } else {
                   setMasterNodeErrorMsg("");
                 }
@@ -188,9 +235,10 @@ function ConfirmMasterNode({
               }}
               disabled={!isMasterNodeEditClicked}
               value={masterNodeID}
-              className="w-2/3 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800"
+              className=" overflow-hidden resize-none md:h-5 h-10 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800"
               placeholder="Set your masternode"
             />
+
             {(masterNodeID !== "" || isMasterNodeInputFocus) &&
               isMasterNodeEditClicked && (
                 <MdClear
@@ -198,41 +246,45 @@ function ConfirmMasterNode({
                     setMasterNodeID("");
                   }}
                   size={15}
-                  className="text-gray-500 self-center cursor-pointer m-auto"
+                  className="text-gray-500 self-center cursor-pointer ml-[6px]"
                 />
               )}
+            {!isMasterNodeEditClicked && (
+              <MdEdit
+                role="button"
+                size={18}
+                onClick={() => setIsMasterNodeEditClicked(true)}
+                className="text-primary-500 ml-[6px] self-center"
+              />
+            )}
           </div>
 
-          {isMasterNodeEditClicked ? (
+          {isMasterNodeEditClicked && (
             <>
               <Button
                 label="SAVE"
                 testId="OnChainGovernance.SaveMasterNodeID"
-                disabled={masterNodeID === ""}
+                disabled={masterNodeID === "" || masterNodeErrorMsg !== ""}
                 onClick={() => {
                   setIsMasterNodeEditClicked(false);
                   localStorage.setItem("masternodeID", masterNodeID);
                 }}
               />
             </>
-          ) : (
-            <MdEdit
-              role="button"
-              size={18}
-              onClick={() => setIsMasterNodeEditClicked(true)}
-              className="text-primary-500"
-            />
           )}
         </div>
         {masterNodeErrorMsg !== "" && (
-          <div className="text-red-600 text-xs px-4 mt-1">
-            {masterNodeErrorMsg}
-          </div>
+          <div className="text-red-600 text-xs mt-1">{masterNodeErrorMsg}</div>
         )}
       </div>
       <div className="flex flex-row space-x-2">
         <button
-          onClick={onClose}
+          onClick={() => {
+            if (!isMasterNodeConfirmClicked) {
+              setMasterNodeID(localStorage.getItem("masternodeID") ?? "");
+            }
+            onClose();
+          }}
           type="button"
           className="text-sm w-1/2 py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
         >
@@ -240,8 +292,9 @@ function ConfirmMasterNode({
         </button>
         <button
           type="button"
+          disabled={isMasterNodeEditClicked}
           onClick={() => setIsMasterNodeConfirmClicked(true)}
-          className="text-sm w-1/2 py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
+          className="text-sm w-1/2 py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
         >
           CONFIRM
         </button>
@@ -265,14 +318,14 @@ function UserSelectVote({
         </span>
       </div>
 
-      <div className="flex flex-row gap-x-1 justify-evenly">
+      <div className="flex flex-row gap-x-2 justify-evenly">
         <button
           onClick={() => {
             setUserSelectedVote(VoteDecision.YES);
             setHasUserSelectedVote(true);
           }}
           type="button"
-          className="grow md:w-[165px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
+          className="grow md:w-[144px] w-[85px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
         >
           YES
         </button>
@@ -282,7 +335,7 @@ function UserSelectVote({
             setHasUserSelectedVote(true);
           }}
           type="button"
-          className="grow md:w-[165px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
+          className="grow md:w-[144px] w-[85px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
         >
           NEUTRAL
         </button>
@@ -292,7 +345,7 @@ function UserSelectVote({
             setHasUserSelectedVote(true);
           }}
           type="button"
-          className="grow md:w-[165px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
+          className="grow md:w-[144px] w-[85px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
         >
           NO
         </button>
@@ -307,12 +360,16 @@ function UserReviewVote({
   userSelectedVote,
   proposalId,
   setIsConfirmDetailsClicked,
+  setUserConfirmedSelectedVote,
 }: {
   setVoteCommand: Dispatch<SetStateAction<string>>;
   masternodeID: string;
-  userSelectedVote: VoteDecision;
+  userSelectedVote: VoteDecision | undefined;
   setIsConfirmDetailsClicked: Dispatch<SetStateAction<boolean>>;
   proposalId: string;
+  setUserConfirmedSelectedVote: Dispatch<
+    SetStateAction<VoteDecision | undefined>
+  >;
 }) {
   const voteCommand = `defi-cli votegov ${proposalId} ${masternodeID} ${userSelectedVote}`;
   return (
@@ -332,6 +389,7 @@ function UserReviewVote({
         <button
           type="button"
           onClick={() => {
+            setUserConfirmedSelectedVote(userSelectedVote);
             setIsConfirmDetailsClicked(true);
             setVoteCommand(voteCommand);
           }}
@@ -339,7 +397,7 @@ function UserReviewVote({
         >
           CONFIRM DETAILS
         </button>
-        <span className="text-xs self-center mt-3 flex text-gray-500">
+        <span className="text-xs self-center text-center mt-3 flex text-gray-500">
           A command line will be generated once all details are confirmed
         </span>
       </div>
@@ -355,11 +413,10 @@ function ReadyVoteID({
   voteCommand,
 }: {
   voteCommand: string;
-  masterNodeID: string;
   userSelectedVote: VoteDecision | undefined;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  onClose: () => {};
+  onClose: () => void;
 }) {
   const debounceSetSearchList = debounce(() => {
     setIsLoading(false);
@@ -373,49 +430,57 @@ function ReadyVoteID({
           <TbLoaderQuarter size={48} className="animate-spin text-blue-500" />
           <Dialog.Title
             as="h3"
-            className="font-semibold text-2xl text-gray-900 dark:text-gray-100 mt-6"
+            className="font-semibold text-center text-2xl text-gray-900 dark:text-gray-100 mt-6"
           >
             Your Vote is getting ready
           </Dialog.Title>
-          <span className="text-xs mt-3 flex text-gray-500">
-            You have voted {`'${userSelectedVote}'`} for this proposal.
-          </span>
+          <div className="flex flex-row mt-3 text-center">
+            <span className="text-xs text-gray-500">You have voted &nbsp;</span>
+            <span className="capitalize text-xs text-gray-500">
+              {`'${userSelectedVote}'`}
+            </span>
+            <span className="text-xs text-gray-500">
+              &nbsp; for this proposal.
+            </span>
+          </div>
         </div>
       ) : (
         <div className="flex flex-col items-center">
           <CircularCheckIcon />
           <Dialog.Title
             as="h3"
-            className="font-semibold text-2xl text-gray-900 dark:text-gray-100 mt-6"
+            className="font-semibold text-center text-2xl text-gray-900 dark:text-gray-100 mt-6"
           >
             Vote ID is now ready
           </Dialog.Title>
-          <span className="text-xs mt-3 flex text-gray-500">
+          <span className="text-lg mt-3 text-center flex text-gray-500 mb-8">
             Use the provided command line to submit this on-chain through your
             full node wallet CLI.
           </span>
 
-          <div className="rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+          <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 p-4">
             <div className="flex flex-row">
-              <div className="break-all">{voteCommand}</div>
-              <button
-                type="button"
-                className="flex flex-row ml-[18px] self-center align-middle gap-x-1"
-              >
-                <MdContentCopy size={18} className="text-primary-500" />
-                <div className="text-primary-500 text-sm">COPY</div>
-              </button>
+              <div className="break-all md:line-clamp-none line-clamp-3">
+                {voteCommand}
+              </div>
+              <div className="flex flex-row ml-[18px] self-center align-middle gap-x-1">
+                <CopyButton
+                  withCopyText
+                  buttonClass="border-0"
+                  iconsClass="text-primary-500 self-center mr-[6px]"
+                  content={voteCommand}
+                />
+              </div>
             </div>
           </div>
 
-          <span className="text-xs flex text-gray-500 mt-2">
+          <span className="text-xs text-center flex text-gray-500 mt-2 mb-8">
             Copy and paste this to your full-node wallet CLI.
           </span>
 
           <button
             type="button"
             onClick={() => {
-              setIsLoading(true);
               onClose();
             }}
             className="text-sm w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
