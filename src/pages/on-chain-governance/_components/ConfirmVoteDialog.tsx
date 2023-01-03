@@ -1,7 +1,6 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { MdClear, MdEdit } from "react-icons/md";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { MdClear, MdEdit, MdArrowBack } from "react-icons/md";
 import { TbLoaderQuarter } from "react-icons/tb";
 import classNames from "classnames";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
@@ -96,11 +95,8 @@ export function ConfirmVoteDialog({
                         type="button"
                         onClick={() => setHasUserSelectedVote(false)}
                       >
-                        <div className="flex flex-row gap-x-[7px] text-[#4A72DA] font-medium hover:underline mb-1">
-                          <AiOutlineArrowLeft
-                            size={15}
-                            className="self-center"
-                          />
+                        <div className="flex flex-row gap-x-[5px] text-[#4A72DA] font-medium hover:underline mb-1">
+                          <MdArrowBack size={24} className="self-center" />
                           Back to voting
                         </div>
                       </button>
