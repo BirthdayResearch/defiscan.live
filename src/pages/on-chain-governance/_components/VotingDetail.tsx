@@ -201,7 +201,7 @@ export function VotingDetail({
                         </div>
 
                         <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 p-4 mt-4">
-                          <div className="flex flex-row">
+                          <div className="flex flex-row gap-x-[18px]">
                             <div className="break-all line-clamp-1">
                               {voteCommand}
                             </div>
