@@ -106,7 +106,7 @@ export function ProposalDetail({
                   {`${
                     proposal.totalCycles > 1
                       ? `${proposal.currentCycle} of ${proposal.totalCycles} cycles`
-                      : `${proposal.totalCycles} cycles`
+                      : `${proposal.totalCycles} cycle`
                   }`}
                 </span>
               </div>
