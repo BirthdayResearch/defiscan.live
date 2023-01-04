@@ -149,8 +149,10 @@ export function ProposalDetail({
           </div>
           <div className="w-1/2 md:w-fit flex">
             <a
+              target="_blank"
               href={proposal.context}
               className="text-right md:text-left w-full"
+              rel="noreferrer"
             >
               <div className="flex flex-row justify-end items-center gap-x-1 md:gap-x-1 md:px-2 md:py-1 md:border rounded-[30px] hover:border-primary-200 md:w-fit">
                 <AiFillGithub

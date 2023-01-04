@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import { getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext } from "next";
@@ -32,6 +33,8 @@ export default function ProposalDetailPage({
   const [isConfirmDetailsClicked, setIsConfirmDetailsClicked] = useState(false);
   const [voteCommand, setVoteCommand] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  console.log(router.asPath);
 
   useEffect(() => {
     if (isChangeVoteClicked) {
@@ -54,7 +57,7 @@ export default function ProposalDetailPage({
               name: "Proposal",
             },
             {
-              path: `/on-chain-governance/create`,
+              path: `/on-chain-governance/${proposal.proposalId}`,
               name: "Proposal Details",
               canonical: true,
               isCurrentPath: true,
