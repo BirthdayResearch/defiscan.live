@@ -20,7 +20,7 @@ export function ProposalDetail({
   proposalEndMedianTime: number;
   proposalCreationMedianTime: number;
 }) {
-  const dateFormat = "dd/MM/yy";
+  const dateFormat = "MM/dd/yyyy";
   const endDate = format(fromUnixTime(proposalEndMedianTime), dateFormat);
   const startDate = format(
     fromUnixTime(proposalCreationMedianTime),
