@@ -32,13 +32,13 @@ export function VotesTable({ votes }: { votes }): JSX.Element {
 
 function getVotesStyle(vote) {
   if (vote === "NO") {
-    return "bg-red-50 text-red-600";
+    return "md:bg-red-50 text-red-600";
   }
   if (vote === "YES") {
-    return "bg-green-50 text-green-600";
+    return "md:bg-green-50 text-green-600";
   }
   if (vote === "NEUTRAL") {
-    return "bg-gray-50 text-gray-600";
+    return "md:bg-gray-50 text-gray-600";
   }
 }
 
@@ -70,6 +70,12 @@ export function VoteCards({
 }: {
   votes: ListVotesResult[];
 }): JSX.Element {
+  if (votes.length === 0) {
+    return (
+      <span className="ml-4 text-gray-900 text-sm">No votes posted yet</span>
+    );
+  }
+
   return (
     <div className="space-y-2">
       {votes.map((item) => (

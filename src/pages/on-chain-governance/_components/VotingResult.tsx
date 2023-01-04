@@ -11,7 +11,7 @@ import { CopyButton } from "@components/commons/CopyButton";
 import { getVotePercentage } from "../shared/getTotalVotes";
 import { EditVoteIcon } from "./EditVoteIcon";
 
-export function VotingDetail({
+export function VotingResult({
   yes,
   no,
   neutral,
@@ -56,7 +56,7 @@ export function VotingDetail({
           </div>
         )}
         <div className="px-6">
-          <span className="font-semibold text-base md:text-xl text-gray-900 dark:text-gray-100">
+          <span className="font-semibold text-xl text-gray-900 dark:text-gray-100">
             {status === ProposalStatus.VOTING
               ? "Current results"
               : "Voting results"}

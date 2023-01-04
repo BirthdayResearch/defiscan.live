@@ -61,14 +61,7 @@ export function ProposalDetail({
           </div>
         )}
       </div>
-      <div
-        className={classNames(
-          "grid md:grid-cols-3 gap-y-3 md:gap-y-8 md:gap-x-8",
-          {
-            "md:grid-cols-3": proposal.status !== ProposalStatus.VOTING,
-          }
-        )}
-      >
+      <div className="grid md:grid-cols-3 gap-y-3 md:gap-y-8 md:gap-x-8">
         <div className="flex flex-row md:flex-col">
           <div className="w-1/2 md:w-full mb-0 md:mb-2">
             <DetailSectionTitle label="Date posted" />

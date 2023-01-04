@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { Container } from "@components/commons/Container";
 import { getWhaleRpcClient } from "@contexts/WhaleContext";
-import { GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
@@ -10,9 +9,10 @@ import { NetworkConnection } from "@contexts/NetworkContext";
 import { getEnvironment } from "@contexts/Environment";
 import BigNumber from "bignumber.js";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
+import classNames from "classnames";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
-import { VotingDetail } from "../_components/VotingDetail";
+import { VotingResult } from "../_components/VotingResult";
 import { ProposalDetail } from "../_components/ProposalDetail";
 import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
 
@@ -21,7 +21,7 @@ export default function ProposalDetailPage({
   proposalVotes,
   proposalCreationMedianTime,
   proposalEndMedianTime,
-}) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
@@ -33,8 +33,6 @@ export default function ProposalDetailPage({
   const [isConfirmDetailsClicked, setIsConfirmDetailsClicked] = useState(false);
   const [voteCommand, setVoteCommand] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-  console.log(router.asPath);
 
   useEffect(() => {
     if (isChangeVoteClicked) {
@@ -76,7 +74,7 @@ export default function ProposalDetailPage({
             </div>
           </div>
           <div className="w-full lg:w-4/12">
-            <VotingDetail
+            <VotingResult
               userSelectedVote={userConfirmedSelectedVote}
               voteCommand={voteCommand}
               isLoading={isLoading}
@@ -94,19 +92,24 @@ export default function ProposalDetailPage({
           <div className="lg:hidden md:block hidden w-full mt-6">
             <VotesTable votes={proposalVotes} />
           </div>
-          {proposalVotes.length > 0 && (
-            <div className="md:hidden mt-7 items-center">
-              <div className="mb-2 ml-4">
-                <span className="text-gray-900 dark:text-gray-100 font-semibold">
-                  Votes
-                </span>
-                <span className="text-gray-900 dark:text-gray-100 text-xs ml-1">
-                  ({proposalVotes.length} total)
-                </span>
-              </div>
-              <VoteCards votes={proposalVotes} />
+
+          <div className="md:hidden mt-7 items-center">
+            <div
+              className={classNames("mb-2 ml-4", {
+                "mb-4": proposalVotes.length === 0,
+              })}
+            >
+              <span className="text-gray-900 dark:text-gray-100 font-semibold">
+                Votes
+              </span>
+              <span className="text-gray-900 dark:text-gray-100 text-xs ml-1">
+                {proposalVotes.length > 0
+                  ? `(${proposalVotes.length} total)`
+                  : ""}
+              </span>
             </div>
-          )}
+            <VoteCards votes={proposalVotes} />
+          </div>
         </div>
       </Container>
       <ConfirmVoteDialog
@@ -159,7 +162,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         ? 30
         : 3;
 
-    let proposalEndMedianTime;
+    let proposalEndMedianTime: number;
     if (new BigNumber(currentBlockCount).gt(proposal.cycleEndHeight)) {
       const endBlockInfo = await rpc.blockchain.getBlockStats(
         proposal.cycleEndHeight
