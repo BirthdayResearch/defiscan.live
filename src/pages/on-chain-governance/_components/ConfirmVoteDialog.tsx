@@ -290,7 +290,7 @@ function ConfirmMasterNode({
         </button>
         <button
           type="button"
-          disabled={isMasterNodeEditClicked}
+          disabled={isMasterNodeEditClicked || masterNodeID === ""}
           onClick={() => setIsMasterNodeConfirmClicked(true)}
           className="text-sm w-1/2 py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
         >
