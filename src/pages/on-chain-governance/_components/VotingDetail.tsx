@@ -153,7 +153,7 @@ export function VotingDetail({
                       type="button"
                       onClick={onSubmitVote}
                       className={classNames(
-                        "w-full py-4 rounded-sm font-medium text-base text-primary-500 bg-primary-50 hover:bg-primary-100 mb-2"
+                        "w-full py-4 rounded font-medium text-base text-primary-500 bg-primary-50 hover:bg-primary-100 mb-2"
                       )}
                     >
                       SUBMIT VOTE
