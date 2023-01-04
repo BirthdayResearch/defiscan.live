@@ -118,7 +118,6 @@ export default function ProposalDetailPage({
         voteCommand={voteCommand}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
-        isChangeVoteClicked={isChangeVoteClicked}
         proposalId={proposal.proposalId}
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}

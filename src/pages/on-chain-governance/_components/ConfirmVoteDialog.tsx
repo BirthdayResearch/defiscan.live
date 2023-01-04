@@ -18,7 +18,6 @@ export function ConfirmVoteDialog({
   setIsConfirmDetailsClicked,
   isMasterNodeConfirmClicked,
   setIsMasterNodeConfirmClicked,
-  isChangeVoteClicked,
   setVoteCommand,
   setUserConfirmedSelectedVote,
   proposalId,
@@ -34,7 +33,6 @@ export function ConfirmVoteDialog({
   setIsConfirmDetailsClicked: Dispatch<SetStateAction<boolean>>;
   isMasterNodeConfirmClicked: boolean;
   setIsMasterNodeConfirmClicked: Dispatch<SetStateAction<boolean>>;
-  isChangeVoteClicked: boolean;
   setVoteCommand: Dispatch<SetStateAction<string>>;
   setUserConfirmedSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
   proposalId: string;
@@ -48,7 +46,7 @@ export function ConfirmVoteDialog({
   const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
   function closeStates() {
-    if (!isConfirmDetailsClicked && !isChangeVoteClicked) {
+    if (!isConfirmDetailsClicked) {
       setIsMasterNodeConfirmClicked(false);
       setHasUserSelectedVote(false);
       setIsLoading(false);
