@@ -36,9 +36,9 @@ export function ProposalDetail({
     <div className="md:border md:p-6 border-gray-200 rounded-lg">
       <div className="flex mb-2">
         <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded">
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 tracking-[0.015em]">
+          <div className="text-sm font-medium text-gray-900 dark:text-gray-100 tracking-[0.015em]">
             {ProposalDisplayName[proposal.type]}
-          </span>
+          </div>
         </div>
       </div>
       <div className="text-gray-900 dark:text-gray-100 text-2xl font-semibold md:text-4xl">
