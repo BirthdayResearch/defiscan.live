@@ -9,7 +9,7 @@ export function VotesTable({ votes }: { votes }): JSX.Element {
   return (
     <OverflowTable>
       <OverflowTable.Header>
-        <OverflowTable.Head title="Masternode" sticky className="font-medium" />
+        <OverflowTable.Head title="Masternode" className="font-medium" />
         <OverflowTable.Head title="Result" className="font-medium" />
       </OverflowTable.Header>
 
@@ -46,7 +46,7 @@ function VoteRow({ item }: { item: ListVotesResult }): JSX.Element {
   const voteStyle = getVotesStyle(item.vote);
   return (
     <OverflowTable.Row>
-      <OverflowTable.Cell sticky>
+      <OverflowTable.Cell>
         <span className="text-gray-900 dark:text-gray-100">
           {item.masternodeId}
         </span>
