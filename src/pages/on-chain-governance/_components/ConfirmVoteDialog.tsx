@@ -235,7 +235,7 @@ function ConfirmMasterNode({
               }}
               disabled={!isMasterNodeEditClicked}
               value={masterNodeID}
-              className=" overflow-hidden resize-none md:h-5 h-10 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800"
+              className="overflow-hidden resize-none md:h-5 h-10 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800"
               placeholder="Set your masternode"
             />
 
@@ -437,7 +437,7 @@ function ReadyVoteID({
           <div className="flex flex-row mt-2 text-center">
             <span className="text-xs text-gray-600">You have voted &nbsp;</span>
             <span className="capitalize text-xs text-gray-600">
-              {`'${userSelectedVote}'`}
+              &lsquo;{userSelectedVote}&rsquo;
             </span>
             <span className="text-xs text-gray-600">
               &nbsp; for this proposal.
