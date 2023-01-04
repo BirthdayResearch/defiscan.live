@@ -82,7 +82,10 @@ export default function ProposalDetailPage({
               no={no}
               status={proposal.status}
               neutral={neutral}
-              onSubmitVote={() => setIsDialogOpen(true)}
+              onSubmitVote={() => {
+                setIsLoading(true);
+                setIsDialogOpen(true);
+              }}
             />
           </div>
           <div className="lg:hidden md:block hidden w-full mt-6">
