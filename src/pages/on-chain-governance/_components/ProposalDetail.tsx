@@ -2,7 +2,6 @@ import BigNumber from "bignumber.js";
 import classNames from "classnames";
 import { AiFillGithub } from "react-icons/ai";
 import { NumericFormat } from "react-number-format";
-import { format, fromUnixTime } from "date-fns";
 import {
   ProposalInfo,
   ProposalType,
@@ -13,20 +12,13 @@ import { ProposalDisplayName } from "./ProposalCard";
 
 export function ProposalDetail({
   proposal,
-  proposalEndMedianTime,
-  proposalCreationMedianTime,
+  proposalCreationDate,
+  proposalEndDate,
 }: {
   proposal: ProposalInfo;
-  proposalEndMedianTime: number;
-  proposalCreationMedianTime: number;
+  proposalCreationDate: string;
+  proposalEndDate: string;
 }) {
-  const dateFormat = "MM/dd/yyyy";
-  const endDate = format(fromUnixTime(proposalEndMedianTime), dateFormat);
-  const startDate = format(
-    fromUnixTime(proposalCreationMedianTime),
-    dateFormat
-  );
-
   const blockPage =
     proposal.status === ProposalStatus.VOTING
       ? "/blocks"
@@ -51,7 +43,7 @@ export function ProposalDetail({
               Voting stops at&nbsp;
             </span>
             <span className="text-sm md:text-lg text-gray-900 dark:text-gray-100 font-semibold">
-              {endDate}&nbsp;
+              {proposalEndDate}&nbsp;
             </span>
             <Link href={{ pathname: blockPage }}>
               <a className="text-sm md:text-lg hover:underline text-blue-500 cursor-pointer">
@@ -68,7 +60,7 @@ export function ProposalDetail({
           </div>
           <div className="w-1/2 md:w-full flex">
             <span className="text-gray-900 dark:text-gray-100 text-sm md:text-lg text-right md:text-left w-full">
-              {startDate}
+              {proposalCreationDate}
             </span>
           </div>
         </div>
@@ -83,7 +75,7 @@ export function ProposalDetail({
               </span>
 
               <span className="text-gray-600 dark:text-gray-100 text-sm text-right md:text-left w-full">
-                {endDate}
+                {proposalEndDate}
               </span>
             </div>
           </div>

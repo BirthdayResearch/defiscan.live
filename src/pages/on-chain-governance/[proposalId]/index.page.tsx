@@ -14,13 +14,15 @@ import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
 import { ProposalDetail } from "../_components/ProposalDetail";
 import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
-import { getProposalEndMedianTime } from "../shared/getCycleEndTime";
+import { getCycleEndDate } from "../shared/getCycleEndTime";
+import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
+import { formatUnixTime } from "../shared/dateHelper";
 
 export default function ProposalDetailPage({
   proposal,
   proposalVotes,
-  proposalCreationMedianTime,
-  proposalEndMedianTime,
+  proposalCreationDate,
+  proposalEndDate,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -66,8 +68,8 @@ export default function ProposalDetailPage({
           <div className="w-full lg:w-8/12">
             <ProposalDetail
               proposal={proposal}
-              proposalCreationMedianTime={proposalCreationMedianTime}
-              proposalEndMedianTime={proposalEndMedianTime}
+              proposalCreationDate={proposalCreationDate}
+              proposalEndDate={proposalEndDate}
             />
             <div className="hidden lg:block mt-6">
               <VotesTable votes={proposalVotes} />
@@ -148,33 +150,39 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       );
     }
     const proposalVotes = await rpc.governance.listGovProposalVotes(proposalId);
-    const currentBlockCount = await rpc.blockchain.getBlockCount();
-    const proposalCreationBlockInfo = await rpc.blockchain.getBlockStats(
-      proposal.creationHeight
-    );
-    const proposalCreationMedianTime = proposalCreationBlockInfo.mediantime;
+    const currentBlockHeight = await rpc.blockchain.getBlockCount();
+    const currentBlockMedianTime = await rpc.blockchain
+      .getBlockStats(currentBlockHeight)
+      .then((block) => block.mediantime);
+    const proposalCreationDate = await rpc.blockchain
+      .getBlockStats(proposal.creationHeight)
+      .then((block) => formatUnixTime(block.mediantime));
 
     const network =
-      context.query.network?.toString() ?? getEnvironment().networks[0];
-    const secondsPerBlock =
-      network === NetworkConnection.MainNet ||
-      network === NetworkConnection.TestNet
-        ? 30
-        : 3;
+      (context.query.network?.toString() as NetworkConnection) ??
+      getEnvironment().networks[0];
+    const secondsPerBlock = getSecondsPerBlock(network);
 
-    const proposalEndMedianTime = await getProposalEndMedianTime(
-      currentBlockCount,
-      proposal.cycleEndHeight,
-      rpc,
-      secondsPerBlock
-    );
+    let proposalEndDate: string;
+    if (currentBlockHeight > proposal.cycleEndHeight) {
+      proposalEndDate = await rpc.blockchain
+        .getBlockStats(proposal.cycleEndHeight)
+        .then((block) => formatUnixTime(block.mediantime));
+    } else {
+      proposalEndDate = getCycleEndDate(
+        proposal.cycleEndHeight,
+        currentBlockHeight,
+        currentBlockMedianTime,
+        secondsPerBlock
+      );
+    }
 
     return {
       props: {
         proposal,
         proposalVotes,
-        proposalCreationMedianTime,
-        proposalEndMedianTime,
+        proposalCreationDate,
+        proposalEndDate,
       },
     };
   } catch {
