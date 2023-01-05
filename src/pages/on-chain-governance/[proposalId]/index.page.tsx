@@ -7,7 +7,6 @@ import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
 import { NetworkConnection } from "@contexts/NetworkContext";
 import { getEnvironment } from "@contexts/Environment";
-import BigNumber from "bignumber.js";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import classNames from "classnames";
 import { getVoteCount } from "../shared/getVoteCount";
@@ -15,6 +14,7 @@ import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
 import { ProposalDetail } from "../_components/ProposalDetail";
 import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
+import { getProposalEndMedianTime } from "../shared/getCycleEndTime";
 
 export default function ProposalDetailPage({
   proposal,
@@ -162,22 +162,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         ? 30
         : 3;
 
-    let proposalEndMedianTime: number;
-    if (new BigNumber(currentBlockCount).gt(proposal.cycleEndHeight)) {
-      const endBlockInfo = await rpc.blockchain.getBlockStats(
-        proposal.cycleEndHeight
-      );
-      proposalEndMedianTime = endBlockInfo.mediantime;
-    } else {
-      const currentBlockInfo = await rpc.blockchain.getBlockStats(
-        currentBlockCount
-      );
-      const votingTimeLeftInSec = new BigNumber(proposal.cycleEndHeight)
-        .minus(currentBlockCount)
-        .multipliedBy(secondsPerBlock)
-        .toNumber();
-      proposalEndMedianTime = currentBlockInfo.mediantime + votingTimeLeftInSec;
-    }
+    const proposalEndMedianTime = await getProposalEndMedianTime(
+      currentBlockCount,
+      proposal.cycleEndHeight,
+      rpc,
+      secondsPerBlock
+    );
 
     return {
       props: {
