@@ -1,28 +1,20 @@
-import { NetworkConnection } from "@contexts/NetworkContext";
-import { format, fromUnixTime } from "date-fns";
+import BigNumber from "bignumber.js";
+import { formatUnixTime } from "./dateHelper";
 
-export function getCycleEndTime(
+/**
+ * Return an estimated end date for a proposal cycle
+ */
+export function getCycleEndDate(
   cycleEndHeight: number,
   currentBlockHeight: number,
   currentBlockMedianTime: number,
-  connection: NetworkConnection
+  secondsPerBlock: number
 ) {
-  const timeDifferenceInBlocks = cycleEndHeight - currentBlockHeight;
-  let blockSeconds = 30;
-  switch (connection) {
-    case NetworkConnection.RemotePlayground:
-    case NetworkConnection.LocalPlayground:
-      blockSeconds = 3;
-      break;
-    case NetworkConnection.TestNet:
-    case NetworkConnection.MainNet:
-    default:
-      blockSeconds = 30;
-  }
-
-  const cycleEndMedianTime =
-    currentBlockMedianTime + timeDifferenceInBlocks * blockSeconds;
-  const cycleEndTime = format(fromUnixTime(cycleEndMedianTime), "MM/dd/yyyy");
-
-  return cycleEndTime;
+  const timeDifferenceInBlocks = new BigNumber(cycleEndHeight).minus(
+    currentBlockHeight
+  );
+  const cycleEndMedianTime = timeDifferenceInBlocks
+    .multipliedBy(secondsPerBlock)
+    .plus(currentBlockMedianTime);
+  return formatUnixTime(BigNumber.max(cycleEndMedianTime, 0).toNumber());
 }

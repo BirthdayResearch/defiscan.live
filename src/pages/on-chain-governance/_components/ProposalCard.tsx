@@ -11,8 +11,9 @@ import {
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { Link } from "@components/commons/link/Link";
 import { useNetwork } from "@contexts/NetworkContext";
-import { getCycleEndTime } from "../shared/getCycleEndTime";
+import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 
 export function ProposalCards({
   proposals,
@@ -65,11 +66,12 @@ function ProposalCard({
   const [isViewClicked, setIsViewClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { connection } = useNetwork();
-  const cycleEndTime = getCycleEndTime(
+  const secondsPerBlock = getSecondsPerBlock(connection);
+  const cycleEndDate = getCycleEndDate(
     proposal.cycleEndHeight,
     currentBlockHeight,
     currentBlockMedianTime,
-    connection
+    secondsPerBlock
   );
 
   return (
@@ -174,7 +176,7 @@ function ProposalCard({
                   </Link>
                   <div>
                     <div className="text-gray-900 font-semibold text-sm text-right dark:text-dark-gray-900">
-                      {`~ ${cycleEndTime}`}
+                      {`~ ${cycleEndDate}`}
                     </div>
                   </div>
                 </div>

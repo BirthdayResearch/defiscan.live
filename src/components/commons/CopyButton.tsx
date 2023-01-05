@@ -8,6 +8,7 @@ interface CopyButtonProps {
   className?: string;
   buttonClass?: string;
   iconsClass?: string;
+  withCopyText?: boolean;
 }
 
 export function CopyButton(props: CopyButtonProps): JSX.Element {
@@ -43,12 +44,17 @@ export function CopyButton(props: CopyButtonProps): JSX.Element {
         }
         onClick={copy}
       >
-        <MdContentCopy
-          className={
-            props.iconsClass ??
-            "h-5 w-5 text-gray-600 dark:text-dark-primary-500"
-          }
-        />
+        <div className="flex flex-row">
+          <MdContentCopy
+            className={
+              props.iconsClass ??
+              "h-5 w-5 text-gray-600 dark:text-dark-primary-500"
+            }
+          />
+          {props.withCopyText && (
+            <div className="text-primary-500 font-medium text-sm">COPY</div>
+          )}
+        </div>
       </button>
       {open && (
         <div

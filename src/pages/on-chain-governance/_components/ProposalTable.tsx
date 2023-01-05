@@ -14,8 +14,9 @@ import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import { newPlaygroundClient } from "@contexts/WhaleContext";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
-import { getCycleEndTime } from "../shared/getCycleEndTime";
+import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 
 export function ProposalTable({
   proposals,
@@ -117,11 +118,12 @@ function ProposalRow({
 }) {
   const router = useRouter();
   const { connection } = useNetwork();
-  const cycleEndTime = getCycleEndTime(
+  const secondsPerBlock = getSecondsPerBlock(connection);
+  const cycleEndDate = getCycleEndDate(
     proposal.cycleEndHeight,
     currentBlockHeight,
     currentBlockMedianTime,
-    connection
+    secondsPerBlock
   );
 
   return (
@@ -171,7 +173,7 @@ function ProposalRow({
               {`Block ${proposal.cycleEndHeight}`}
             </a>
           </Link>
-          <div className="text-gray-900 dark:text-gray-100">{`~ ${cycleEndTime}`}</div>
+          <div className="text-gray-900 dark:text-gray-100">{`~ ${cycleEndDate}`}</div>
         </div>
       </OverflowTable.Cell>
 

@@ -70,7 +70,7 @@ export default function OnChainGovernancePage({
         amount: "100000000",
         context: "https://github.com/WavesHQ/scan",
         payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
-        cycles: 1,
+        cycles: i + 1,
       };
       const proposal = await playgroundRPC.call(
         proposalType,

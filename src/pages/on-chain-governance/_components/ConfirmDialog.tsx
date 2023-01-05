@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 export function ConfirmDialog({ isOpen, onConfirm, onClose }) {
   return (
     <Transition appear show={isOpen} as="div">
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" className="relative z-[60]" onClose={onClose}>
         <Transition.Child as="div">
           <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-[2.5px]" />
         </Transition.Child>
