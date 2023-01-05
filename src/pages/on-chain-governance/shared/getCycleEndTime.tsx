@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import { formatUnixTime } from "./dateHelper";
 
 /**
@@ -9,8 +10,11 @@ export function getCycleEndDate(
   currentBlockMedianTime: number,
   secondsPerBlock: number
 ) {
-  const timeDifferenceInBlocks = cycleEndHeight - currentBlockHeight;
-  const cycleEndMedianTime =
-    currentBlockMedianTime + timeDifferenceInBlocks * secondsPerBlock;
-  return formatUnixTime(cycleEndMedianTime);
+  const timeDifferenceInBlocks = new BigNumber(cycleEndHeight).minus(
+    currentBlockHeight
+  );
+  const cycleEndMedianTime = timeDifferenceInBlocks
+    .multipliedBy(secondsPerBlock)
+    .plus(currentBlockMedianTime);
+  return formatUnixTime(BigNumber.max(cycleEndMedianTime, 0).toNumber());
 }

@@ -9,6 +9,7 @@ import { NetworkConnection } from "@contexts/NetworkContext";
 import { getEnvironment } from "@contexts/Environment";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import classNames from "classnames";
+import BigNumber from "bignumber.js";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -164,7 +165,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const secondsPerBlock = getSecondsPerBlock(network);
 
     let proposalEndDate: string;
-    if (currentBlockHeight > proposal.cycleEndHeight) {
+    if (
+      new BigNumber(currentBlockHeight).isGreaterThan(proposal.cycleEndHeight)
+    ) {
       proposalEndDate = await rpc.blockchain
         .getBlockStats(proposal.cycleEndHeight)
         .then((block) => formatUnixTime(block.mediantime));
