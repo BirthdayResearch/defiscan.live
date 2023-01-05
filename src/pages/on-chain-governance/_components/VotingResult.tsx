@@ -173,7 +173,7 @@ export function VotingResult({
                         />
                       </div>
                     ) : (
-                      <div className="lg:w-full w-full md:w-1/2 lg:mt-12 mt-12 md:mt-0">
+                      <div className="lg:w-full w-full md:w-1/2 lg:mt-6 md:mt-0 mt-6">
                         <div className="flex flex-row items-center ">
                           <div className=" grow">
                             <span className="text-gray-500 ">
