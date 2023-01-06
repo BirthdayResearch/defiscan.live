@@ -12,11 +12,9 @@ import {
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
-import { MdEdit, MdClose } from "react-icons/md";
 import classNames from "classnames";
 import { Link } from "@components/commons/link/Link";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
@@ -46,14 +44,11 @@ export default function OnChainGovernancePage({
   const connection = useNetwork().connection;
   const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
   const userQueryProposalType = allProposalsDetails.userQueryProposalType;
-
   const isOpenProposalsClicked = userQueryProposalStatus === "open";
-  const [isMasterNodeClicked, setIsMasterNodeClicked] = useState(false);
   const [masterNodeID, setMasterNodeID] = useState(
     localStorage.getItem("masternodeID") ?? ""
   );
-  const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
-  const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
+
   const { currentYear, currentMonth } = getCurrentYearMonth();
 
   // TODO remove this before release to prod
@@ -107,12 +102,28 @@ export default function OnChainGovernancePage({
             onClick={createDummyProposals}
             customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
           />
+          <input
+            className="border"
+            placeholder="set masternode here"
+            value={masterNodeID}
+            onChange={(v) => {
+              setMasterNodeID(v.target.value);
+            }}
+          />
+          <Button
+            label="set masternode"
+            testId="dummy-submit"
+            customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
+            onClick={() => {
+              localStorage.setItem("masternodeID", masterNodeID);
+            }}
+          />
         </div>
       )}
 
       <Container className="md:pt-11 pt-10 pb-20">
         <div className="flex md:flex-row flex-col">
-          <div className="flex flex-col grow">
+          <div className="flex flex-col grow md:justify-center">
             {/* main title */}
             <div
               data-testid="OnChainGovernance.Title"
@@ -126,96 +137,10 @@ export default function OnChainGovernancePage({
             >
               Proposals
             </div>
-
-            {/* Set Masternode */}
-            {isMasterNodeClicked ? (
-              <>
-                <div className="flex flex-row items-center gap-x-[10px] mt-2">
-                  <div
-                    onBlur={() => {
-                      setIsMasterNodeInputFocus(false);
-                    }}
-                    onFocus={() => {
-                      setIsMasterNodeInputFocus(true);
-                    }}
-                    className={classNames(
-                      "flex flex-row rounded border py-2 px-4 lg:w-[385px] md:w-[190px] dark:bg-gray-800",
-                      { "border-primary-300": isMasterNodeInputFocus },
-                      { "border-red-200": masterNodeErrorMsg !== "" }
-                    )}
-                  >
-                    <input
-                      onChange={(v) => {
-                        if (v.target.value.length !== 64) {
-                          setMasterNodeErrorMsg("Invalid masternode address");
-                        } else {
-                          setMasterNodeErrorMsg("");
-                        }
-                        setMasterNodeID(v.target.value);
-                      }}
-                      value={masterNodeID}
-                      className="w-2/3 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900"
-                      placeholder="Set your masternode"
-                    />
-                    {(masterNodeID !== "" || isMasterNodeInputFocus) && (
-                      <MdClose
-                        onClick={() => {
-                          setMasterNodeID("");
-                        }}
-                        size={15}
-                        className="text-gray-500 self-center cursor-pointer m-auto"
-                      />
-                    )}
-                  </div>
-                  <Button
-                    label="SAVE"
-                    testId="OnChainGovernance.SaveMasterNodeID"
-                    disabled={masterNodeID === "" || masterNodeErrorMsg !== ""}
-                    onClick={() => {
-                      setIsMasterNodeClicked(false);
-                      localStorage.setItem("masternodeID", masterNodeID);
-                    }}
-                  />
-                  <InfoIconToolTip />
-                </div>
-                <div className="text-red-600 text-xs px-4 mt-1">
-                  {masterNodeErrorMsg}
-                </div>
-              </>
-            ) : (
-              <>
-                {!isMasterNodeClicked &&
-                masterNodeID !== "" &&
-                masterNodeErrorMsg === "" ? (
-                  <div className="flex flex-row gap-x-[10px] items-center mt-[14px]">
-                    <div className="lg:w-[385px] md:w-[185px] w-5/6 break-all">
-                      Masternode: {masterNodeID}
-                    </div>
-                    <MdEdit
-                      role="button"
-                      size={18}
-                      onClick={() => setIsMasterNodeClicked(true)}
-                      className="text-primary-500"
-                    />
-                    <InfoIconToolTip />
-                  </div>
-                ) : (
-                  <div className="flex flex-row items-center gap-x-[10px] mt-[14px]">
-                    <Button
-                      customStyle="px-0 text-[#4A72DA] py-[6px] hover:underline"
-                      label="Set Masternode"
-                      testId="OnChainGovernance.SetMasterNode"
-                      onClick={() => setIsMasterNodeClicked(true)}
-                    />
-                    <InfoIconToolTip />
-                  </div>
-                )}
-              </>
-            )}
           </div>
 
           {/* Proposal Info Table */}
-          <div className="flex flex-col md:mt-0 mt-[46px]">
+          <div className="flex flex-col md:mt-0 mt-8">
             <div className="justify-self-center border border-gray-200 rounded-[10px] flex flex-row items-center lg:px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
               <div className="flex-col grow lg:px-7 dark:text-dark-gray-900">
                 <div className="md:text-2xl text-lg font-semibold text-center">
@@ -294,15 +219,6 @@ export default function OnChainGovernancePage({
         </div> */}
       </Container>
     </div>
-  );
-}
-
-function InfoIconToolTip() {
-  return (
-    <InfoHoverPopover
-      className="ml-1"
-      description="Set your masternode to vote on proposals"
-    />
   );
 }
 

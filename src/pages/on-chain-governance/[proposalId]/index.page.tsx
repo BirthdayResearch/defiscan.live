@@ -18,6 +18,7 @@ import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { formatUnixTime } from "../shared/dateHelper";
+import { VoteStages } from "../enum/VoteStages";
 
 export default function ProposalDetailPage({
   proposal,
@@ -28,21 +29,18 @@ export default function ProposalDetailPage({
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
-  const [isMasterNodeConfirmClicked, setIsMasterNodeConfirmClicked] =
-    useState(false);
-  const [hasUserSelectedVote, setHasUserSelectedVote] = useState(false);
   const [userConfirmedSelectedVote, setUserConfirmedSelectedVote] =
     useState<VoteDecision>();
-  const [isConfirmDetailsClicked, setIsConfirmDetailsClicked] = useState(false);
   const [voteCommand, setVoteCommand] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [voteStage, setVoteStage] = useState<VoteStages>(
+    VoteStages.VoteProposal
+  );
 
   useEffect(() => {
     if (isChangeVoteClicked) {
-      setIsMasterNodeConfirmClicked(false);
-      setIsConfirmDetailsClicked(false);
       setIsChangeVoteClicked(false);
-      setHasUserSelectedVote(false);
+      setVoteStage(VoteStages.VoteProposal);
     }
     setIsLoading(true);
   }, [isChangeVoteClicked]);
@@ -116,13 +114,10 @@ export default function ProposalDetailPage({
         </div>
       </Container>
       <ConfirmVoteDialog
-        setIsMasterNodeConfirmClicked={setIsMasterNodeConfirmClicked}
-        isMasterNodeConfirmClicked={isMasterNodeConfirmClicked}
-        hasUserSelectedVote={hasUserSelectedVote}
-        setHasUserSelectedVote={setHasUserSelectedVote}
+        voteStage={voteStage}
+        setVoteStage={setVoteStage}
         setUserConfirmedSelectedVote={setUserConfirmedSelectedVote}
-        isConfirmDetailsClicked={isConfirmDetailsClicked}
-        setIsConfirmDetailsClicked={setIsConfirmDetailsClicked}
+        userConfirmedSelectedVote={userConfirmedSelectedVote}
         setVoteCommand={setVoteCommand}
         voteCommand={voteCommand}
         isLoading={isLoading}
