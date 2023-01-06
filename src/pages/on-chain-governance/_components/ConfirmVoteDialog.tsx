@@ -196,7 +196,7 @@ function VoteForProposal({
 
       <span
         data-testid="OnChainGovernance.VotingFlow.VoteForProposal.Masternode"
-        className="text-gray-600 dark:text-gray-100 font-semibold text-sm"
+        className="text-gray-600 dark:text-gray-100 font-semibold text-sm tracking-[0.0025em]"
       >
         Masternode
       </span>
@@ -211,7 +211,7 @@ function VoteForProposal({
             setIsMasterNodeInputFocus(true);
           }}
           className={classNames(
-            "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800",
+            "flex flex-row rounded border border-gray-300 py-3 px-4 w-full dark:bg-gray-800",
             { "border-primary-300": isMasterNodeInputFocus },
             { "border-red-500": masterNodeErrorMsg !== "" }
           )}
@@ -227,8 +227,8 @@ function VoteForProposal({
               setMasterNodeID(v.target.value);
             }}
             value={masterNodeID}
-            className="overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 grow tracking-[0.0025em]"
-            placeholder="Set your masternode"
+            className="overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400 grow tracking-[0.0025em]"
+            placeholder="Masternode ID"
           />
 
           {isMasterNodeInputFocus && (
@@ -270,7 +270,9 @@ function VoteForProposal({
           }}
           checked={rememberMasterNodeId === "yes"}
         />
-        <div className="text-gray-600 text-sm">Remember Masternode ID</div>
+        <div className="text-gray-600 text-sm tracking-[0.0025em]">
+          Remember Masternode ID
+        </div>
       </div>
 
       <UserVote
@@ -327,7 +329,7 @@ function UserVote({
 
   return (
     <>
-      <div className="text-gray-600 dark:text-gray-100 font-semibold text-sm">
+      <div className="text-gray-600 dark:text-gray-100 font-semibold text-sm  tracking-[0.0025em]">
         Vote
       </div>
 
@@ -337,7 +339,7 @@ function UserVote({
           disabled={isVoteSelectionDisabled}
           data-testid="OnChainGovernance.VotingFlow.NoVote"
           className={classNames(
-            "grow md:w-[150px] w-[91px] rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
+            "grow md:w-[150px] w-[91px] rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
             userSelectedVote === VoteDecision.NO
               ? "text-white border-0 bg-red-600"
               : "text-red-600"
@@ -354,7 +356,7 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.NeutralVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow md:w-[150px] w-[91px] border py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
+            "grow md:w-[150px] w-[91px] border py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
             userSelectedVote === VoteDecision.NEUTRAL
               ? "text-white border-0 bg-gray-600"
               : "text-gray-600"
@@ -371,7 +373,7 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.YesVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow md:w-[150px] w-[91px] border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
+            "grow md:w-[150px] w-[91px] border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
             userSelectedVote === VoteDecision.YES
               ? "text-white border-0 bg-green-600"
               : "text-green-600"
@@ -410,7 +412,7 @@ function UserReviewVote({
       <div className="grid grid-rows-[20px_minmax(70px,_1fr)] grid-cols-2 gap-y-3 mt-6">
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.Vote"
-          className="text-gray-600"
+          className="text-gray-600 tracking-[0.0044em]"
         >
           Vote
         </div>
@@ -418,7 +420,7 @@ function UserReviewVote({
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserSelectedVote"
           className={classNames(
-            "text-right capitalize font-medium",
+            "text-right capitalize font-medium tracking-[0.0044em]",
             getVotesStyle(userSelectedVote)
           )}
         >
@@ -427,13 +429,13 @@ function UserReviewVote({
 
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.Masternode"
-          className="text-gray-600"
+          className="text-gray-600 tracking-[0.0044em]"
         >
           Masternode
         </div>
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserMasternodeID"
-          className="text-gray-900 break-all font-medium text-right"
+          className="text-gray-900 break-all font-medium text-right tracking-[0.0044em]"
         >
           {masternodeID}
         </div>
@@ -448,7 +450,7 @@ function UserReviewVote({
             setVoteStage(VoteStages.ReadyVoteId);
             setVoteCommand(voteCommand);
           }}
-          className="w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
+          className="w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 tracking-[0.0086em]"
         >
           CONFIRM DETAILS
         </button>
@@ -478,6 +480,10 @@ function ReadyVoteID({
   }, 1000);
   debounceSetSearchList();
 
+  const transformUserSelectVote =
+    userSelectedVote?.charAt(0).toLocaleUpperCase() +
+    userSelectedVote!.slice(1);
+
   return (
     <>
       {isLoading ? (
@@ -491,13 +497,13 @@ function ReadyVoteID({
             Your vote is getting ready
           </Dialog.Title>
           <div className="flex flex-row mt-2 text-center">
-            <span className="text-xs text-gray-600">You have voted &nbsp;</span>
-            <span className="capitalize text-xs text-gray-600">
-              &lsquo;{userSelectedVote}&rsquo;
-            </span>
-            <span className="text-xs text-gray-600">
-              &nbsp; for this proposal.
-            </span>
+            <div
+              data-selected={userSelectedVote}
+              className="text-lg text-gray-600"
+            >
+              You have voted &lsquo;{transformUserSelectVote}&rsquo; for this
+              proposal.
+            </div>
           </div>
         </div>
       ) : (
@@ -512,7 +518,7 @@ function ReadyVoteID({
           </Dialog.Title>
           <span
             data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.SubTitle"
-            className="text-lg mt-3 text-center flex text-gray-600 mb-8"
+            className="text-lg mt-2 text-center flex text-gray-600 mb-8"
           >
             Use the provided command line to submit this on-chain through your
             full node wallet CLI.
