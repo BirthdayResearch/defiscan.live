@@ -200,7 +200,7 @@ export function VotingResult({
                           </button>
                         </div>
 
-                        <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 p-4 mt-4">
+                        <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 px-4 py-[22px] mt-4">
                           <div className="flex flex-row gap-x-[18px]">
                             <div className="break-all line-clamp-1">
                               {voteCommand}
@@ -208,7 +208,7 @@ export function VotingResult({
                             <CopyButton
                               withCopyText
                               buttonClass="border-0"
-                              iconsClass="text-primary-500 self-center mr-[6px]"
+                              iconsClass="text-primary-500 self-center mr-[6px] w-[18px] h-[18px]"
                               content={voteCommand}
                             />
                           </div>

@@ -539,7 +539,7 @@ function ReadyVoteID({
                 <CopyButton
                   withCopyText
                   buttonClass="border-0"
-                  iconsClass="text-primary-500 self-center mr-[6px]"
+                  iconsClass="text-primary-500 self-center mr-[6px] w-[18px] h-[18px]"
                   content={voteCommand}
                 />
               </div>
