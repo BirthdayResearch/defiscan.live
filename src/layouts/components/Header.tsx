@@ -69,7 +69,10 @@ export function Header(): JSX.Element {
             <div className="flex items-center justify-between">
               {isSearchIconClicked ? (
                 <div className="flex flex-row items-center w-full m-2 h-9">
-                  <div className="flex grow">
+                  <div
+                    data-testid="Mobile.HeaderSearchBar"
+                    className="flex grow"
+                  >
                     <SearchBar atHeader />
                   </div>
                   <MdClose
@@ -89,7 +92,10 @@ export function Header(): JSX.Element {
                     <DesktopNavbar />
                   </div>
                   <div className="lg:hidden flex flex-row items-center md:gap-x-6 gap-x-5">
-                    <div className="md:block hidden w-[275px]">
+                    <div
+                      data-testid="Tablet.HeaderSearchBar"
+                      className="md:block hidden w-[275px]"
+                    >
                       <SearchBar atHeader />
                     </div>
                     <div className="md:hidden">
@@ -98,6 +104,7 @@ export function Header(): JSX.Element {
                         className="text-gray-600"
                         role="button"
                         onClick={() => setIsSearchIconClicked(true)}
+                        data-testid="Header.Mobile.SearchIcon"
                       />
                     </div>
 
@@ -264,7 +271,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
           role="button"
           className="h-6 w-6 text-primary-500"
           onClick={() => toggleMenu()}
-          data-testid="Header.CloseMenu"
+          data-testid="Header.Mobile.CloseMenu"
         />
       </div>
       <div className="flex flex-wrap bg-primary-700 p-4 dark:bg-gray-900 md:p-0">
@@ -361,6 +368,7 @@ function MoreDropdown(): JSX.Element {
       {({ open, close }) => (
         <>
           <Menu.Button
+            data-testid="Desktop.HeaderLink.More"
             className={classNames(
               "flex flex-row items-center mx-4 dark:hover:text-dark-50 cursor-pointer text-lg hover:text-primary-500",
               {
@@ -383,7 +391,10 @@ function MoreDropdown(): JSX.Element {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Menu.Items className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700">
+            <Menu.Items
+              data-testid="Desktop.HeaderLink.More.Items"
+              className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700"
+            >
               {dropDownLinks.map((item, index) => {
                 return (
                   <Menu.Item key={index}>
@@ -418,6 +429,7 @@ const DropDownLink = React.forwardRef<HTMLAnchorElement, DropDownLinkProps>(
     return (
       <Link href={{ pathname: item.link }} passHref legacyBehavior>
         <a
+          data-testid={`Desktop.HeaderLink.More.Items.${item.rootPathName}`}
           ref={ref}
           href={item.link}
           onClick={close}
