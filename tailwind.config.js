@@ -14,6 +14,7 @@ module.exports = {
       black: '#000000',
       white: '#FFFFFF',
       primary: {
+        25: "#FFF0FA",
         50: "#FFE5F7",
         100: "#FFCCEF",
         200: "#FF99DF",
@@ -134,6 +135,7 @@ module.exports = {
         500: "#5AA9E6",
         600: "#5198CF",
         700: "#3A6C92",
+        800: "#2048AE"
       },
       "dark-blue": {
         50: "#0B1C26",
