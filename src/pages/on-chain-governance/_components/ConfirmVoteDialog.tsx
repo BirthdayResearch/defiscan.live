@@ -77,7 +77,11 @@ export function ConfirmVoteDialog({
                 )}
               >
                 {voteStage !== VoteStages.ReadyVoteId && (
-                  <div className="flex flex-row mb-1 justify-end">
+                  <div
+                    className={classNames("flex flex-row justify-end", {
+                      "mb-1": voteStage === VoteStages.ReviewVote,
+                    })}
+                  >
                     {voteStage === VoteStages.ReviewVote && (
                       <button
                         data-testid="OnChainGovernance.VotingFlow.BackToVoting"
