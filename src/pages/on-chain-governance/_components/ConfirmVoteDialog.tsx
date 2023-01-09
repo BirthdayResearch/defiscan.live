@@ -244,36 +244,36 @@ function VoteForProposal({
         </div>
       </div>
 
-      {masterNodeErrorMsg !== "" && (
+      {masterNodeErrorMsg !== "" ? (
         <div
           data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeErrorMsg"
-          className="text-red-500 text-xs mt-1"
+          className="text-red-500 text-xs mt-2 md:mb-4 mb-6"
         >
           {masterNodeErrorMsg}
         </div>
-      )}
-
-      <div
-        className={classNames(
-          "flex flex-row gap-x-[6px] items-center mt-2 md:mb-4 mb-6 accent-blue-600"
-        )}
-      >
-        <input
-          data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeCheckBox"
-          type="checkbox"
-          onChange={(value) => {
-            if (value.target.checked) {
-              setRememberMasterNodeId("yes");
-            } else {
-              setRememberMasterNodeId("no");
-            }
-          }}
-          checked={rememberMasterNodeId === "yes"}
-        />
-        <div className="text-gray-600 text-sm tracking-[0.0025em]">
-          Remember Masternode ID
+      ) : (
+        <div
+          className={classNames(
+            "flex flex-row gap-x-[6px] items-center mt-2 md:mb-4 mb-6 accent-blue-600"
+          )}
+        >
+          <input
+            data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeCheckBox"
+            type="checkbox"
+            onChange={(value) => {
+              if (value.target.checked) {
+                setRememberMasterNodeId("yes");
+              } else {
+                setRememberMasterNodeId("no");
+              }
+            }}
+            checked={rememberMasterNodeId === "yes"}
+          />
+          <div className="text-gray-600 text-sm tracking-[0.0025em]">
+            Remember Masternode ID
+          </div>
         </div>
-      </div>
+      )}
 
       <UserVote
         masterNodeID={masterNodeID}
