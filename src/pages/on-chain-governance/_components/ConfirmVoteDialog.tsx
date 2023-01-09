@@ -6,8 +6,8 @@ import React, {
   useEffect,
 } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { MdClear, MdArrowBack } from "react-icons/md";
-import { TbLoaderQuarter } from "react-icons/tb";
+import { MdClose, MdClear, MdArrowBack } from "react-icons/md";
+import { CgSpinner } from "react-icons/cg";
 import classNames from "classnames";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { debounce } from "lodash";
@@ -15,6 +15,7 @@ import { CopyButton } from "@components/commons/CopyButton";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { CircularCheckIcon } from "./CircularCheckIcon";
 import { VoteStages } from "../enum/VoteStages";
+import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
 
 export function ConfirmVoteDialog({
   isLoading,
@@ -71,7 +72,7 @@ export function ConfirmVoteDialog({
             <Transition.Child as="div">
               <Dialog.Panel
                 className={classNames(
-                  "w-full max-w-[512px] transform overflow-hidden rounded-[10px] bg-white md:p-8 p-5 pt-6 text-left align-middle shadow-xl transition-all",
+                  "w-full max-w-[512px] transform overflow-hidden rounded-[10px] bg-white p-5 md:p-8 text-left align-middle shadow-xl transition-all",
                   { "max-w-[436px]": voteStage === VoteStages.ReadyVoteId }
                 )}
               >
@@ -84,7 +85,7 @@ export function ConfirmVoteDialog({
                         onClick={() => setVoteStage(VoteStages.VoteProposal)}
                         className="grow"
                       >
-                        <div className="flex flex-row gap-x-[5px] text-[#4A72DA] font-medium hover:underline">
+                        <div className="flex flex-row gap-x-1 text-[#4A72DA] font-medium hover:underline">
                           <MdArrowBack size={24} className="self-center" />
                           Back to voting
                         </div>
@@ -128,6 +129,7 @@ export function ConfirmVoteDialog({
                     masternodeID={masterNodeID}
                     userSelectedVote={userSelectedVote}
                     setVoteStage={setVoteStage}
+                    setIsLoading={setIsLoading}
                     setUserConfirmedSelectedVote={setUserConfirmedSelectedVote}
                   />
                 )}
@@ -211,8 +213,8 @@ function VoteForProposal({
             setIsMasterNodeInputFocus(true);
           }}
           className={classNames(
-            "flex flex-row rounded border border-gray-300 py-3 px-4 w-full dark:bg-gray-800",
-            { "border-primary-300": isMasterNodeInputFocus },
+            "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800",
+            isMasterNodeInputFocus ? "border-primary-300" : "border-gray-300 ",
             { "border-red-500": masterNodeErrorMsg !== "" }
           )}
         >
@@ -227,19 +229,24 @@ function VoteForProposal({
               setMasterNodeID(v.target.value);
             }}
             value={masterNodeID}
-            className="overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400 grow tracking-[0.0025em]"
+            className="overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400 grow tracking-[0.0025em]"
             placeholder="Masternode ID"
           />
 
           {isMasterNodeInputFocus && (
-            <MdClear
+            <button
               data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeClearInput"
+              type="button"
+              className="rounded-full h-4 w-4 bg-gray-100 self-center cursor-pointer text-center"
               onMouseDown={() => {
                 setMasterNodeID("");
               }}
-              size={15}
-              className="text-gray-500 self-center cursor-pointer ml-[6px]"
-            />
+            >
+              <MdClose
+                size={12}
+                className="text-gray-500 self-center cursor-pointer m-auto"
+              />
+            </button>
           )}
         </div>
       </div>
@@ -252,7 +259,15 @@ function VoteForProposal({
           {masterNodeErrorMsg}
         </div>
       ) : (
-        <div
+        <button
+          type="button"
+          onClick={() => {
+            if (rememberMasterNodeId === RememberMasterNodeId.Yes) {
+              setRememberMasterNodeId(RememberMasterNodeId.No);
+            } else {
+              setRememberMasterNodeId(RememberMasterNodeId.Yes);
+            }
+          }}
           className={classNames(
             "flex flex-row gap-x-[6px] items-center mt-2 md:mb-4 mb-6 accent-blue-600"
           )}
@@ -262,17 +277,17 @@ function VoteForProposal({
             type="checkbox"
             onChange={(value) => {
               if (value.target.checked) {
-                setRememberMasterNodeId("yes");
+                setRememberMasterNodeId(RememberMasterNodeId.Yes);
               } else {
-                setRememberMasterNodeId("no");
+                setRememberMasterNodeId(RememberMasterNodeId.No);
               }
             }}
-            checked={rememberMasterNodeId === "yes"}
+            checked={rememberMasterNodeId === RememberMasterNodeId.Yes}
           />
           <div className="text-gray-600 text-sm tracking-[0.0025em]">
             Remember Masternode ID
           </div>
-        </div>
+        </button>
       )}
 
       <UserVote
@@ -339,7 +354,7 @@ function UserVote({
           disabled={isVoteSelectionDisabled}
           data-testid="OnChainGovernance.VotingFlow.NoVote"
           className={classNames(
-            "grow md:w-[150px] w-[91px] rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
             userSelectedVote === VoteDecision.NO
               ? "text-white border-0 bg-red-600"
               : "text-red-600"
@@ -356,7 +371,7 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.NeutralVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow md:w-[150px] w-[91px] border py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
             userSelectedVote === VoteDecision.NEUTRAL
               ? "text-white border-0 bg-gray-600"
               : "text-gray-600"
@@ -373,7 +388,7 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.YesVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow md:w-[150px] w-[91px] border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
             userSelectedVote === VoteDecision.YES
               ? "text-white border-0 bg-green-600"
               : "text-green-600"
@@ -396,6 +411,7 @@ function UserReviewVote({
   proposalId,
   setUserConfirmedSelectedVote,
   setVoteStage,
+  setIsLoading,
 }: {
   setVoteCommand: Dispatch<SetStateAction<string>>;
   masternodeID: string;
@@ -405,6 +421,7 @@ function UserReviewVote({
     SetStateAction<VoteDecision | undefined>
   >;
   setVoteStage: Dispatch<SetStateAction<VoteStages>>;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }) {
   const voteCommand = `defi-cli votegov ${proposalId} ${masternodeID} ${userSelectedVote}`;
   return (
@@ -449,6 +466,7 @@ function UserReviewVote({
             setUserConfirmedSelectedVote(userSelectedVote);
             setVoteStage(VoteStages.ReadyVoteId);
             setVoteCommand(voteCommand);
+            setIsLoading(true);
           }}
           className="w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 tracking-[0.0086em]"
         >
@@ -488,7 +506,7 @@ function ReadyVoteID({
     <>
       {isLoading ? (
         <div className="flex flex-col items-center">
-          <TbLoaderQuarter size={48} className="animate-spin text-blue-500" />
+          <CgSpinner size={48} className="animate-spin text-blue-500" />
           <Dialog.Title
             data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.LoadingTitle"
             as="h3"

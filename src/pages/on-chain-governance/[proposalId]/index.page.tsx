@@ -42,7 +42,6 @@ export default function ProposalDetailPage({
       setIsChangeVoteClicked(false);
       setVoteStage(VoteStages.VoteProposal);
     }
-    setIsLoading(true);
   }, [isChangeVoteClicked]);
 
   return (
@@ -85,7 +84,6 @@ export default function ProposalDetailPage({
               status={proposal.status}
               neutral={neutral}
               onSubmitVote={() => {
-                setIsLoading(true);
                 setIsDialogOpen(true);
               }}
             />

@@ -1,5 +1,5 @@
 export enum VoteStages {
-  VoteProposal = "Vote For Proposal",
-  ReviewVote = "Review Your Vote",
+  VoteProposal = "Vote for proposal",
+  ReviewVote = "Review your vote",
   ReadyVoteId = "Vote ID is now ready",
 }
