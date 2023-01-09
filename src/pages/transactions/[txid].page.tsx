@@ -70,7 +70,9 @@ export default function TransactionPage(
   const dftx: DfTx<any> | undefined = getDfTx(props.vouts);
   const isDeFiTransaction = dftx !== undefined;
   const fee = getTransactionFee(props.transaction, props.vins, dftx);
-  const feeRate = fee.multipliedBy(100000000).dividedBy(props.transaction.size);
+  const feeRate = fee
+    .multipliedBy(100000000)
+    .dividedBy(props.transaction.vSize);
 
   return (
     <>

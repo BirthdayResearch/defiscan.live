@@ -128,6 +128,9 @@ function SummaryTableListRight(props: {
       <AdaptiveList.Row name="Size" testId="transaction-detail-size">
         {props.transaction.size} bytes
       </AdaptiveList.Row>
+      <AdaptiveList.Row name="vSize" testId="transaction-detail-vsize">
+        {props.transaction.vSize} bytes
+      </AdaptiveList.Row>
       <AdaptiveList.Row
         name="Received Time"
         testId="transaction-detail-received-time"
