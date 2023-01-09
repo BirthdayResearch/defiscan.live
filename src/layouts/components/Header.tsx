@@ -1,17 +1,22 @@
 import { Link } from "@components/commons/link/Link";
+import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { DeFiChainLogo } from "@components/icons/DeFiChainLogo";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { MdClose, MdMenu } from "react-icons/md";
+import { BiSearchAlt2 } from "react-icons/bi";
 import { Container } from "@components/commons/Container";
 import { SearchBar } from "@components/commons/searchbar/SearchBar";
+import { Menu, Transition } from "@headlessui/react";
+import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { HeaderCountBar } from "./HeaderCountBar";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 
 export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
   const [atTop, setAtTop] = useState(true);
+  const [isSearchIconClicked, setIsSearchIconClicked] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -34,6 +39,14 @@ export function Header(): JSX.Element {
     };
   }, []);
 
+  useEffect(() => {
+    if (menu) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "auto";
+    }
+  }, [menu]);
+
   return (
     <>
       <header
@@ -54,45 +67,78 @@ export function Header(): JSX.Element {
         <div className="border-b border-gray-100 dark:border-gray-800 dark:bg-gray-900">
           <Container className="py-4 md:py-8">
             <div className="flex items-center justify-between">
-              <div className="flex w-full">
-                <Link href={{ pathname: "/" }} passHref>
-                  <a className="flex cursor-pointer items-center hover:text-primary-500">
-                    <DeFiChainLogo className="h-full w-32 sm:hidden md:block lg:w-40" />
-                  </a>
-                </Link>
-                <DesktopNavbar />
-              </div>
-              <div className="lg:hidden">
-                {menu ? (
+              {isSearchIconClicked ? (
+                <div className="flex flex-row items-center w-full m-2 h-9">
+                  <div
+                    data-testid="Mobile.HeaderSearchBar"
+                    className="flex grow"
+                  >
+                    <SearchBar atHeader />
+                  </div>
                   <MdClose
-                    className="h-6 w-6 text-primary-500"
-                    onClick={() => setMenu(false)}
-                    data-testid="Header.CloseMenu"
+                    role="button"
+                    onClick={() => setIsSearchIconClicked(false)}
+                    className="h-6 w-6 text-primary-500 ml-4"
                   />
-                ) : (
-                  <MdMenu
-                    className="h-6 w-6 text-primary-500"
-                    onClick={() => setMenu(true)}
-                    data-testid="Header.OpenMenu"
-                  />
-                )}
-              </div>
+                </div>
+              ) : (
+                <>
+                  <div className="flex w-full">
+                    <Link href={{ pathname: "/" }} passHref>
+                      <a className="flex cursor-pointer items-center hover:text-primary-500">
+                        <DeFiChainLogo className="h-full w-36 lg:w-40 md:m-0 m-2" />
+                      </a>
+                    </Link>
+                    <DesktopNavbar />
+                  </div>
+                  <div className="lg:hidden flex flex-row items-center md:gap-x-6 gap-x-5">
+                    <div
+                      data-testid="Tablet.HeaderSearchBar"
+                      className="md:block hidden w-[275px]"
+                    >
+                      <SearchBar atHeader />
+                    </div>
+                    <div className="md:hidden">
+                      <BiSearchAlt2
+                        size={24}
+                        className="text-gray-600"
+                        role="button"
+                        onClick={() => setIsSearchIconClicked(true)}
+                        data-testid="Header.Mobile.SearchIcon"
+                      />
+                    </div>
+
+                    {menu ? (
+                      <MdClose
+                        className="h-6 w-6 text-primary-500"
+                        onClick={() => setMenu(false)}
+                        data-testid="Header.CloseMenu"
+                      />
+                    ) : (
+                      <MdMenu
+                        role="button"
+                        className="h-6 w-6 text-primary-500"
+                        onClick={() => setMenu(true)}
+                        data-testid="Header.OpenMenu"
+                      />
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </Container>
         </div>
       </header>
-      <>
-        {menu && (
-          <>
-            <div className="fixed z-50 md:hidden">
-              <MobileMenu toggleMenu={() => setMenu(false)} />
-            </div>
-            <div className="w-full hidden md:block md:fixed md:z-50">
-              <TabletMenu toggleMenu={() => setMenu(false)} />
-            </div>
-          </>
-        )}
-      </>
+      {menu && (
+        <>
+          <div className="fixed z-50 md:hidden">
+            <MobileMenu toggleMenu={() => setMenu(false)} />
+          </div>
+          <div className="w-full hidden md:block md:fixed md:z-50">
+            <TabletMenu toggleMenu={() => setMenu(false)} />
+          </div>
+        </>
+      )}
     </>
   );
 }
@@ -102,53 +148,48 @@ function DesktopNavbar(): JSX.Element {
     <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
       <div className="hidden md:flex">
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="DEX"
           pathname="/dex"
           testId="Desktop.HeaderLink.DEX"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Blocks"
           pathname="/blocks"
           testId="Desktop.HeaderLink.Blocks"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Vaults"
           pathname="/vaults"
           testId="Desktop.HeaderLink.Vaults"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Auctions"
           pathname="/auctions"
           testId="Desktop.HeaderLink.Auctions"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Oracles"
           pathname="/oracles"
           testId="Desktop.HeaderLink.Oracles"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Tokens"
           pathname="/tokens"
           testId="Desktop.HeaderLink.Tokens"
         />
         <HeaderLink
-          className="ml-1 lg:ml-4"
+          className="ml-1 lg:ml-2"
           text="Masternodes"
           pathname="/masternodes"
           testId="Desktop.HeaderLink.Masternodes"
         />
-        <HeaderLink
-          className="ml-1 lg:ml-4"
-          text="Consortium"
-          pathname="/consortium/asset_breakdown"
-          testId="Desktop.HeaderLink.Consortium"
-        />
+        <MoreDropdown />
       </div>
       <div
         className="hidden w-1/4 md:block"
@@ -163,29 +204,40 @@ function DesktopNavbar(): JSX.Element {
 function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   return (
     <div
-      className="flex flex-col float-right h-screen w-5/12 bg-white dark:bg-gray-900 lg:hidden"
-      data-testid="TabletMenu"
+      onClick={() => {
+        toggleMenu();
+      }}
+      className="h-screen w-screen backdrop-blur-[2px] backdrop-brightness-50"
     >
-      <div className="flex flex-row justify-between m-4">
-        <Link href={{ pathname: "/" }} passHref>
-          <a className="hover:text-primary-500">
-            <DeFiChainLogo className="h-full w-32" />
-          </a>
-        </Link>
-        <MdClose
-          className="h-6 w-6 text-primary-500"
-          onClick={() => toggleMenu()}
-          data-testid="Header.CloseMenu"
-        />
-      </div>
-      <div className="flex h-full flex-col justify-between">
-        <Container className="pt-2 pb-4 text-gray-600 dark:text-dark-gray-900">
-          <MenuItems viewPort="Tablet" />
-        </Container>
-        <div className="flex flex-wrap bg-primary-700 p-4 dark:bg-gray-900">
-          <HeaderCountBar className="flex w-full flex-wrap" />
-          <div className="mt-4 w-full">
-            <HeaderNetworkMenu />
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="flex flex-col float-right h-screen w-5/12 bg-white dark:bg-gray-900 lg:hidden"
+        data-testid="TabletMenu"
+      >
+        <div className="flex flex-row justify-between p-6 items-center">
+          <Link href={{ pathname: "/" }} passHref>
+            <a className="hover:text-primary-500">
+              <DeFiChainLogo className="h-full w-36" />
+            </a>
+          </Link>
+          <MdClose
+            role="button"
+            className="h-6 w-6 text-primary-500"
+            onClick={() => toggleMenu()}
+            data-testid="Header.CloseMenu"
+          />
+        </div>
+        <div className="flex h-full flex-col ">
+          <div className="flex flex-wrap bg-primary-700 p-4 dark:bg-gray-900">
+            <HeaderCountBar className="flex w-full flex-wrap" />
+            <div className="mt-4 w-full">
+              <HeaderNetworkMenu />
+            </div>
+          </div>
+          <div className="mt-2">
+            <MenuItems viewPort="Tablet" />
           </div>
         </div>
       </div>
@@ -194,36 +246,47 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
 }
 
 function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
+  const ref = useRef<HTMLDivElement>(null);
+  const dimension = useWindowDimensions();
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.style.height = `${
+        dimension.height - ref.current.offsetTop
+      }px`;
+    }
+  }, [ref, dimension]);
+
   return (
     <div
       className="bg-white dark:bg-gray-900 md:hidden"
       data-testid="MobileMenu"
     >
-      <div className="flex flex-row justify-between m-4">
+      <div className="flex flex-row justify-between m-6 items-center">
         <Link href={{ pathname: "/" }} passHref>
           <a className="hover:text-primary-500">
-            <DeFiChainLogo className="h-full w-32" />
+            <DeFiChainLogo className="h-full w-36" />
           </a>
         </Link>
         <MdClose
+          role="button"
           className="h-6 w-6 text-primary-500"
           onClick={() => toggleMenu()}
-          data-testid="Header.CloseMenu"
+          data-testid="Header.Mobile.CloseMenu"
         />
       </div>
-
-      <Container className="border-b border-gray-100 pt-2 pb-4 text-gray-600 shadow-sm dark:text-dark-gray-900">
-        <MenuItems viewPort="Mobile" />
-        <div className="mt-4" data-testid="Mobile.HeaderSearchBar">
-          <SearchBar atHeader={false} />
-        </div>
-      </Container>
-
       <div className="flex flex-wrap bg-primary-700 p-4 dark:bg-gray-900 md:p-0">
         <HeaderCountBar className="flex w-full flex-wrap" />
         <div className="mt-4 w-full">
           <HeaderNetworkMenu />
         </div>
+      </div>
+      <div
+        ref={ref}
+        className={classNames(
+          "text-gray-600 dark:text-dark-gray-900 overflow-auto"
+        )}
+      >
+        <MenuItems viewPort="Mobile" />
       </div>
     </div>
   );
@@ -254,7 +317,7 @@ export function HeaderLink(props: {
       >
         <div
           className={classNames(
-            "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg  hover:text-primary-500",
+            "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
             {
               "dark:border-dark-50 border-b-2 border-primary-500":
                 router.pathname === props.pathname,
@@ -271,54 +334,169 @@ export function HeaderLink(props: {
 function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
   return (
     <div className="flex flex-col">
-      <HeaderLink
-        className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
-        text="DEX"
-        pathname="/dex"
-        testId={`${viewPort}.HeaderLink.DEX`}
-      />
-      <HeaderLink
-        className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
-        text="Blocks"
-        pathname="/blocks"
-        testId={`${viewPort}.HeaderLink.Blocks`}
-      />
-      <HeaderLink
-        className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
-        text="Vaults"
-        pathname="/vaults"
-        testId={`${viewPort}.HeaderLink.Vaults`}
-      />
-      <HeaderLink
-        className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
-        text="Auctions"
-        pathname="/auctions"
-        testId={`${viewPort}.HeaderLink.Auctions`}
-      />
-      <HeaderLink
-        className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
-        text="Oracles"
-        pathname="/oracles"
-        testId={`${viewPort}.HeaderLink.Oracles`}
-      />
-      <HeaderLink
-        className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
-        text="Tokens"
-        pathname="/tokens"
-        testId={`${viewPort}.HeaderLink.Tokens`}
-      />
-      <HeaderLink
-        className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
-        text="Masternodes"
-        pathname="/masternodes"
-        testId={`${viewPort}.HeaderLink.Masternodes`}
-      />
-      <HeaderLink
-        className="flex justify-center border-b border-gray-100 dark:border-gray-700 md:p-1.5"
-        text="Consortium"
-        pathname="/consortium/asset_breakdown"
-        testId={`${viewPort}.HeaderLink.Consortium`}
-      />
+      {drawerMenuItemLinks.map((item, index) => {
+        return (
+          <HeaderLink
+            key={index}
+            className={classNames(
+              "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 p-1.5",
+              { "md:pt-0": index === 0 }
+            )}
+            text={item.text}
+            pathname={item.pathname}
+            testId={`${viewPort}.HeaderLink.${item.text.replace(" ", "")}`}
+          />
+        );
+      })}
     </div>
   );
 }
+
+function MoreDropdown(): JSX.Element {
+  const [isItemClicked, setIsItemClicked] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    setIsItemClicked(
+      dropDownLinks.some((ddl) =>
+        router.pathname.includes(ddl.rootPathName.toLowerCase())
+      )
+    );
+  }, [router.pathname]);
+
+  return (
+    <Menu as="div" className="relative">
+      {({ open, close }) => (
+        <>
+          <Menu.Button
+            data-testid="Desktop.HeaderLink.More"
+            className={classNames(
+              "flex flex-row items-center mx-4 dark:hover:text-dark-50 cursor-pointer text-lg hover:text-primary-500",
+              {
+                "dark:text-dark-50 text-primary-500": isItemClicked,
+              }
+            )}
+          >
+            More
+            {open ? (
+              <IoChevronUp className="ml-2" size={20} />
+            ) : (
+              <IoChevronDown className="ml-2" size={20} />
+            )}
+          </Menu.Button>
+          <Transition
+            enter="transition duration-100 ease-out"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0"
+          >
+            <Menu.Items
+              data-testid="Desktop.HeaderLink.More.Items"
+              className="absolute m-4 min-w-max flex flex-col divide-y bg-white border rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-700"
+            >
+              {dropDownLinks.map((item, index) => {
+                return (
+                  <Menu.Item key={index}>
+                    <DropDownLink
+                      routerPathName={router.pathname}
+                      item={item}
+                      close={close}
+                    />
+                  </Menu.Item>
+                );
+              })}
+            </Menu.Items>
+          </Transition>
+        </>
+      )}
+    </Menu>
+  );
+}
+
+interface DropDownLinkProps {
+  routerPathName: string;
+  item: {
+    name: string;
+    rootPathName: string;
+    link: string;
+  };
+  close: () => void;
+}
+
+const DropDownLink = React.forwardRef<HTMLAnchorElement, DropDownLinkProps>(
+  ({ routerPathName, item, close }, ref) => {
+    return (
+      <Link href={{ pathname: item.link }} passHref legacyBehavior>
+        <a
+          data-testid={`Desktop.HeaderLink.More.Items.${item.rootPathName}`}
+          ref={ref}
+          href={item.link}
+          onClick={close}
+          className={classNames(
+            "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
+            {
+              "dark:text-dark-50 text-primary-500": routerPathName.includes(
+                item.rootPathName
+              ),
+            }
+          )}
+        >
+          {item.name}
+        </a>
+      </Link>
+    );
+  }
+);
+
+const dropDownLinks = [
+  {
+    name: "Consortium",
+    link: "/consortium/asset_breakdown",
+    rootPathName: "consortium",
+  },
+  // {
+  //   name: "On-Chain Governance",
+  //   link: "/on-chain-governance",
+  //   rootPathName: "on-chain-governance",
+  // },
+];
+
+const drawerMenuItemLinks = [
+  {
+    text: "Dex",
+    pathname: "/dex",
+  },
+  {
+    text: "Blocks",
+    pathname: "/blocks",
+  },
+  {
+    text: "Vaults",
+    pathname: "/vaults",
+  },
+  {
+    text: "Auctions",
+    pathname: "/auctions",
+  },
+  {
+    text: "Oracles",
+    pathname: "/oracles",
+  },
+  {
+    text: "Tokens",
+    pathname: "/tokens",
+  },
+  {
+    text: "Masternodes",
+    pathname: "/masternodes",
+  },
+  {
+    text: "Consortium",
+    pathname: "/consortium/asset_breakdown",
+  },
+  // {
+  //   text: "On-Chain Governance",
+  //   pathname: "/on-chain-governance",
+  // },
+];
