@@ -60,16 +60,20 @@ export default function OnChainGovernancePage({
       const governanceType = ["creategovvoc", "creategovcfp"];
       const proposalType =
         governanceType[Math.floor(Math.random() * governanceType.length)]; // get random governance type
-      const data = {
+      const cfpData = {
         title: `Title testing proposal ${new Date().getTime()}`,
         amount: "100000000",
         context: "https://github.com/WavesHQ/scan",
         payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
         cycles: i + 1,
       };
+      const vocData = {
+        title: `Title testing proposal ${new Date().getTime()}`,
+        context: "https://github.com/WavesHQ/scan",
+      };
       const proposal = await playgroundRPC.call(
         proposalType,
-        [data, []],
+        [proposalType === "creategovvoc" ? vocData : cfpData, []],
         "number"
       );
       console.log(
