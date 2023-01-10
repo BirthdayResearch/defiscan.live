@@ -17,6 +17,10 @@ import { useNetwork } from "@contexts/NetworkContext";
 import { CircularCheckIcon } from "./CircularCheckIcon";
 import { VoteStages } from "../enum/VoteStages";
 import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
+import {
+  getLocalStorageItem,
+  setLocalStorage,
+} from "../shared/localStorageHelper";
 
 export function ConfirmVoteDialog({
   isLoading,
@@ -44,30 +48,24 @@ export function ConfirmVoteDialog({
   onClose: () => void;
 }) {
   const { connection } = useNetwork();
-  let localStorageMasterNodeId = "";
-  if (localStorage.getItem("masternodeID")) {
-    localStorageMasterNodeId = JSON.parse(
-      localStorage.getItem("masternodeID")!
-    )[connection];
-  }
 
-  const [masterNodeID, setMasterNodeID] = useState(
-    localStorageMasterNodeId ?? ""
-  );
+  const localStorageMasterNodeId =
+    connection in getLocalStorageItem("masternodeID")
+      ? getLocalStorageItem("masternodeID")[connection]
+      : "";
+  const [masterNodeID, setMasterNodeID] = useState(localStorageMasterNodeId);
   const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
   function closeStates() {
-    let localStorageMasterNodeId = "";
-    if (localStorage.getItem("masternodeID")) {
-      localStorageMasterNodeId = JSON.parse(
-        localStorage.getItem("masternodeID")!
-      )[connection];
-    }
+    const localStorageMasterNodeId =
+      connection in getLocalStorageItem("masternodeID")
+        ? getLocalStorageItem("masternodeID")[connection]
+        : "";
 
     setVoteStage(VoteStages.VoteProposal);
     setUserSelectedVote(userConfirmedSelectedVote);
     setIsLoading(false);
-    setMasterNodeID(localStorageMasterNodeId ?? "");
+    setMasterNodeID(localStorageMasterNodeId);
   }
 
   return (
@@ -192,15 +190,13 @@ function VoteForProposal({
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
   const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
 
-  let localStorageRememberMasterNodeId = RememberMasterNodeId.Yes;
-  if (localStorage.getItem("rememberMasterNodeId")) {
-    localStorageRememberMasterNodeId = JSON.parse(
-      localStorage.getItem("rememberMasterNodeId")!
-    )[connection];
-  }
+  const localStorageRememberMasterNodeId =
+    connection in getLocalStorageItem("rememberMasterNodeId")
+      ? getLocalStorageItem("rememberMasterNodeId")[connection]
+      : RememberMasterNodeId.Yes;
 
   const [rememberMasterNodeId, setRememberMasterNodeId] = useState(
-    localStorageRememberMasterNodeId ?? RememberMasterNodeId.Yes
+    localStorageRememberMasterNodeId
   );
   const ref = useRef<HTMLTextAreaElement>(null);
   const dimension = useWindowDimensions();
@@ -334,37 +330,22 @@ function VoteForProposal({
           userSelectedVote === undefined
         }
         onClick={() => {
-          let rememberMasterNodeObj = {};
-          if (localStorage.getItem("rememberMasterNodeId")) {
-            rememberMasterNodeObj = JSON.parse(
-              localStorage.getItem("rememberMasterNodeId")!
-            );
-          }
+          const rememberMasterNodeObj = getLocalStorageItem(
+            "rememberMasterNodeId"
+          );
           rememberMasterNodeObj[connection] = rememberMasterNodeId;
 
-          let masterNodeIdObj = {};
-          if (localStorage.getItem("masternodeID")) {
-            masterNodeIdObj = JSON.parse(localStorage.getItem("masternodeID")!);
-          }
+          const masterNodeIdObj = getLocalStorageItem("masternodeID");
           masterNodeIdObj[connection] = masterNodeID;
 
-          localStorage.setItem(
-            `rememberMasterNodeId`,
-            JSON.stringify(rememberMasterNodeObj)
-          );
+          setLocalStorage(`rememberMasterNodeId`, rememberMasterNodeObj);
 
           setVoteStage(VoteStages.ReviewVote);
           if (rememberMasterNodeId === RememberMasterNodeId.Yes) {
-            localStorage.setItem(
-              `masternodeID`,
-              JSON.stringify(masterNodeIdObj)
-            );
+            setLocalStorage(`masternodeID`, masterNodeIdObj);
           } else {
             masterNodeIdObj[connection] = "";
-            localStorage.setItem(
-              `masternodeID`,
-              JSON.stringify(masterNodeIdObj)
-            );
+            setLocalStorage(`masternodeID`, masterNodeIdObj);
           }
         }}
         className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
