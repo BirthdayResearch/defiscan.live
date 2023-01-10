@@ -178,7 +178,8 @@ function VoteForProposal({
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
   const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
   const [rememberMasterNodeId, setRememberMasterNodeId] = useState(
-    localStorage.getItem(`${connection}rememberMasternodeID`) ?? "yes"
+    localStorage.getItem(`${connection}rememberMasternodeID`) ??
+      RememberMasterNodeId.Yes
   );
   const ref = useRef<HTMLTextAreaElement>(null);
   const dimension = useWindowDimensions();
@@ -317,7 +318,7 @@ function VoteForProposal({
             rememberMasterNodeId
           );
           setVoteStage(VoteStages.ReviewVote);
-          if (rememberMasterNodeId === "yes") {
+          if (rememberMasterNodeId === RememberMasterNodeId.Yes) {
             localStorage.setItem(`${connection}masternodeID`, masterNodeID);
           } else {
             localStorage.removeItem(`${connection}masternodeID`);
