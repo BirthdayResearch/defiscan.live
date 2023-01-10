@@ -13,6 +13,7 @@ import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/govern
 import { debounce } from "lodash";
 import { CopyButton } from "@components/commons/CopyButton";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { useNetwork } from "@contexts/NetworkContext";
 import { CircularCheckIcon } from "./CircularCheckIcon";
 import { VoteStages } from "../enum/VoteStages";
 import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
@@ -42,8 +43,9 @@ export function ConfirmVoteDialog({
   voteCommand: string;
   onClose: () => void;
 }) {
+  const { connection } = useNetwork();
   const [masterNodeID, setMasterNodeID] = useState(
-    localStorage.getItem("masternodeID") ?? ""
+    localStorage.getItem(`${connection}masternodeID`) ?? ""
   );
   const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
@@ -51,7 +53,7 @@ export function ConfirmVoteDialog({
     setVoteStage(VoteStages.VoteProposal);
     setUserSelectedVote(userConfirmedSelectedVote);
     setIsLoading(false);
-    setMasterNodeID(localStorage.getItem("masternodeID") ?? "");
+    setMasterNodeID(localStorage.getItem(`${connection}masternodeID`) ?? "");
   }
 
   return (
@@ -172,14 +174,14 @@ function VoteForProposal({
   userSelectedVote: VoteDecision | undefined;
   setVoteStage: Dispatch<SetStateAction<VoteStages>>;
 }) {
+  const { connection } = useNetwork();
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
   const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
   const [rememberMasterNodeId, setRememberMasterNodeId] = useState(
-    localStorage.getItem("rememberMasternodeID") ?? "yes"
+    localStorage.getItem(`${connection}rememberMasternodeID`) ?? "yes"
   );
   const ref = useRef<HTMLTextAreaElement>(null);
   const dimension = useWindowDimensions();
-
   useEffect(() => {
     if (ref.current) {
       ref.current.style.height = `${ref.current.scrollHeight}px`;
@@ -217,7 +219,7 @@ function VoteForProposal({
             setIsMasterNodeInputFocus(true);
           }}
           className={classNames(
-            "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800",
+            "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800 justify-between",
             isMasterNodeInputFocus ? "border-primary-300" : "border-gray-300 ",
             { "border-red-500": masterNodeErrorMsg !== "" }
           )}
@@ -233,7 +235,7 @@ function VoteForProposal({
               setMasterNodeID(v.target.value);
             }}
             value={masterNodeID}
-            className="overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400 grow tracking-[0.0025em]"
+            className="w-11/12 overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400 tracking-[0.0025em]"
             placeholder="Masternode ID"
           />
 
@@ -310,12 +312,15 @@ function VoteForProposal({
           userSelectedVote === undefined
         }
         onClick={() => {
-          localStorage.setItem("rememberMasternodeID", rememberMasterNodeId);
+          localStorage.setItem(
+            `${connection}rememberMasternodeID`,
+            rememberMasterNodeId
+          );
           setVoteStage(VoteStages.ReviewVote);
           if (rememberMasterNodeId === "yes") {
-            localStorage.setItem("masternodeID", masterNodeID);
+            localStorage.setItem(`${connection}masternodeID`, masterNodeID);
           } else {
-            localStorage.removeItem("masternodeID");
+            localStorage.removeItem(`${connection}masternodeID`);
           }
         }}
         className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
@@ -427,7 +432,7 @@ function UserReviewVote({
   setVoteStage: Dispatch<SetStateAction<VoteStages>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }) {
-  const voteCommand = `defi-cli votegov ${proposalId} ${masternodeID} ${userSelectedVote}`;
+  const voteCommand = `votegov ${proposalId} ${masternodeID} ${userSelectedVote}`;
   return (
     <>
       <div className="grid grid-rows-[20px_minmax(70px,_1fr)] grid-cols-2 gap-y-3 mt-6">
