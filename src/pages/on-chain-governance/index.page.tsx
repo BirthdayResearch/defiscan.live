@@ -46,7 +46,7 @@ export default function OnChainGovernancePage({
   const userQueryProposalType = allProposalsDetails.userQueryProposalType;
   const isOpenProposalsClicked = userQueryProposalStatus === "open";
   const [masterNodeID, setMasterNodeID] = useState(
-    localStorage.getItem("masternodeID") ?? ""
+    localStorage.getItem("dummyMasternodeID") ?? ""
   );
 
   const { currentYear, currentMonth } = getCurrentYearMonth();
@@ -119,7 +119,7 @@ export default function OnChainGovernancePage({
             testId="dummy-submit"
             customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
             onClick={() => {
-              localStorage.setItem("masternodeID", masterNodeID);
+              localStorage.setItem("dummyMasternodeID", masterNodeID);
             }}
           />
         </div>

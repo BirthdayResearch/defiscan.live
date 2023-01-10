@@ -44,16 +44,30 @@ export function ConfirmVoteDialog({
   onClose: () => void;
 }) {
   const { connection } = useNetwork();
+  let localStorageMasterNodeId = "";
+  if (localStorage.getItem("masternodeID")) {
+    localStorageMasterNodeId = JSON.parse(
+      localStorage.getItem("masternodeID")!
+    )[connection];
+  }
+
   const [masterNodeID, setMasterNodeID] = useState(
-    localStorage.getItem(`${connection}masternodeID`) ?? ""
+    localStorageMasterNodeId ?? ""
   );
   const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
   function closeStates() {
+    let localStorageMasterNodeId = "";
+    if (localStorage.getItem("masternodeID")) {
+      localStorageMasterNodeId = JSON.parse(
+        localStorage.getItem("masternodeID")!
+      )[connection];
+    }
+
     setVoteStage(VoteStages.VoteProposal);
     setUserSelectedVote(userConfirmedSelectedVote);
     setIsLoading(false);
-    setMasterNodeID(localStorage.getItem(`${connection}masternodeID`) ?? "");
+    setMasterNodeID(localStorageMasterNodeId ?? "");
   }
 
   return (
@@ -177,9 +191,16 @@ function VoteForProposal({
   const { connection } = useNetwork();
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
   const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
+
+  let localStorageRememberMasterNodeId = RememberMasterNodeId.Yes;
+  if (localStorage.getItem("rememberMasterNodeId")) {
+    localStorageRememberMasterNodeId = JSON.parse(
+      localStorage.getItem("rememberMasterNodeId")!
+    )[connection];
+  }
+
   const [rememberMasterNodeId, setRememberMasterNodeId] = useState(
-    localStorage.getItem(`${connection}rememberMasternodeID`) ??
-      RememberMasterNodeId.Yes
+    localStorageRememberMasterNodeId ?? RememberMasterNodeId.Yes
   );
   const ref = useRef<HTMLTextAreaElement>(null);
   const dimension = useWindowDimensions();
@@ -313,15 +334,37 @@ function VoteForProposal({
           userSelectedVote === undefined
         }
         onClick={() => {
+          let rememberMasterNodeObj = {};
+          if (localStorage.getItem("rememberMasterNodeId")) {
+            rememberMasterNodeObj = JSON.parse(
+              localStorage.getItem("rememberMasterNodeId")!
+            );
+          }
+          rememberMasterNodeObj[connection] = rememberMasterNodeId;
+
+          let masterNodeIdObj = {};
+          if (localStorage.getItem("masternodeID")) {
+            masterNodeIdObj = JSON.parse(localStorage.getItem("masternodeID")!);
+          }
+          masterNodeIdObj[connection] = masterNodeID;
+
           localStorage.setItem(
-            `${connection}rememberMasternodeID`,
-            rememberMasterNodeId
+            `rememberMasterNodeId`,
+            JSON.stringify(rememberMasterNodeObj)
           );
+
           setVoteStage(VoteStages.ReviewVote);
           if (rememberMasterNodeId === RememberMasterNodeId.Yes) {
-            localStorage.setItem(`${connection}masternodeID`, masterNodeID);
+            localStorage.setItem(
+              `masternodeID`,
+              JSON.stringify(masterNodeIdObj)
+            );
           } else {
-            localStorage.removeItem(`${connection}masternodeID`);
+            masterNodeIdObj[connection] = "";
+            localStorage.setItem(
+              `masternodeID`,
+              JSON.stringify(masterNodeIdObj)
+            );
           }
         }}
         className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
