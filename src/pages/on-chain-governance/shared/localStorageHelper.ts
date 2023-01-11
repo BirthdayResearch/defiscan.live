@@ -6,7 +6,7 @@ import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
  * @param key
  * @param connection
  * @returns
- * - Function returns undefined when key is not found
+ * - returns undefined when key is not found
  * - If connection is provided function would check for undefined and return object value based on connection
  *
  */
