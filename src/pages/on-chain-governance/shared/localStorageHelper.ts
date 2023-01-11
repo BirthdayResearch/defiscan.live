@@ -3,7 +3,7 @@ import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
 
 // Function returns undefined when key is not found
 // when connection is provided function would check for undefined
-// and return value object from localStore
+// and return object value based on connection from localStore
 
 export function getLocalStorageItem(
   key: string,
