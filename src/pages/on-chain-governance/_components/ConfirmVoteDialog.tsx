@@ -58,11 +58,6 @@ export function ConfirmVoteDialog({
   const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
   function closeStates() {
-    const localStorageMasterNodeId = getLocalStorageItem(
-      "masternodeId",
-      connection
-    );
-
     setVoteStage(VoteStages.VoteProposal);
     setUserSelectedVote(userConfirmedSelectedVote);
     setIsLoading(false);
