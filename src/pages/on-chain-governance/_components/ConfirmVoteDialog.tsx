@@ -615,15 +615,7 @@ function getVotesStyle(vote: VoteDecision | undefined) {
 }
 
 /**
- *
- * @param connection
- * @param rememberMasternodeId
- * @param masternodeId
- * @param setVoteStage
- *
- * - Function will get the masternode options that are currently stored in localStorage and
- * - sets the masternodeId,rememberMasternodeId options back into localStorage
- * - when user clicks on `Continue` button when voting for proposal
+ * Update `masternodeId` and `rememberMasternodeId` in localStorage for current network without overwriting others
  */
 function onContinueVoteButtonClick(
   connection: NetworkConnection,
