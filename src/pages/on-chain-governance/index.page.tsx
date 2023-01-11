@@ -20,6 +20,10 @@ import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
 import { getCurrentYearMonth } from "./shared/dateHelper";
 import { UserQueryProposalStatus } from "./enum/UserQueryProposalStatus";
+import {
+  getLocalStorageItem,
+  setLocalStorage,
+} from "./shared/localStorageHelper";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -45,8 +49,8 @@ export default function OnChainGovernancePage({
   const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
   const userQueryProposalType = allProposalsDetails.userQueryProposalType;
   const isOpenProposalsClicked = userQueryProposalStatus === "open";
-  const [masterNodeID, setMasterNodeID] = useState(
-    localStorage.getItem("dummyMasternodeID") ?? ""
+  const [masternodeId, setMasterNodeID] = useState(
+    getLocalStorageItem("dummyMasternodeID") ?? ""
   );
 
   const { currentYear, currentMonth } = getCurrentYearMonth();
@@ -109,7 +113,7 @@ export default function OnChainGovernancePage({
           <input
             className="border"
             placeholder="set masternode here"
-            value={masterNodeID}
+            value={masternodeId}
             onChange={(v) => {
               setMasterNodeID(v.target.value);
             }}
@@ -119,7 +123,7 @@ export default function OnChainGovernancePage({
             testId="dummy-submit"
             customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
             onClick={() => {
-              localStorage.setItem("dummyMasternodeID", masterNodeID);
+              setLocalStorage("dummyMasternodeID", masternodeId);
             }}
           />
         </div>
@@ -206,7 +210,7 @@ export default function OnChainGovernancePage({
             currentBlockHeight={allProposalsDetails.currentBlockCount}
             currentBlockMedianTime={allProposalsDetails.currentBlockMedianTime}
             isOpenProposalsClicked={isOpenProposalsClicked}
-            masternodeId={masterNodeID}
+            masternodeId={masternodeId}
           />
         </div>
         <div className="md:hidden block mt-4">

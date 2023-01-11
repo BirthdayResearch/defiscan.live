@@ -49,23 +49,24 @@ export function ConfirmVoteDialog({
 }) {
   const { connection } = useNetwork();
 
-  const localStorageMasterNodeId =
-    connection in getLocalStorageItem("masternodeID")
-      ? getLocalStorageItem("masternodeID")[connection]
-      : "";
-  const [masterNodeID, setMasterNodeID] = useState(localStorageMasterNodeId);
+  const localStorageMasterNodeId = getLocalStorageItem(
+    "masternodeId",
+    connection
+  );
+
+  const [masternodeId, setMasternodeId] = useState(localStorageMasterNodeId);
   const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
   function closeStates() {
-    const localStorageMasterNodeId =
-      connection in getLocalStorageItem("masternodeID")
-        ? getLocalStorageItem("masternodeID")[connection]
-        : "";
+    const localStorageMasterNodeId = getLocalStorageItem(
+      "masternodeId",
+      connection
+    );
 
     setVoteStage(VoteStages.VoteProposal);
     setUserSelectedVote(userConfirmedSelectedVote);
     setIsLoading(false);
-    setMasterNodeID(localStorageMasterNodeId);
+    setMasternodeId(localStorageMasterNodeId);
   }
 
   return (
@@ -132,8 +133,8 @@ export function ConfirmVoteDialog({
 
                 {voteStage === VoteStages.VoteProposal && (
                   <VoteForProposal
-                    setMasterNodeID={setMasterNodeID}
-                    masterNodeID={masterNodeID}
+                    setMasternodeId={setMasternodeId}
+                    masternodeId={masternodeId}
                     setUserSelectedVote={setUserSelectedVote}
                     userSelectedVote={userSelectedVote}
                     setVoteStage={setVoteStage}
@@ -144,7 +145,7 @@ export function ConfirmVoteDialog({
                   <UserReviewVote
                     proposalId={proposalId}
                     setVoteCommand={setVoteCommand}
-                    masternodeID={masterNodeID}
+                    masternodeId={masternodeId}
                     userSelectedVote={userSelectedVote}
                     setVoteStage={setVoteStage}
                     setIsLoading={setIsLoading}
@@ -174,14 +175,14 @@ export function ConfirmVoteDialog({
 }
 
 function VoteForProposal({
-  setMasterNodeID,
-  masterNodeID,
+  setMasternodeId,
+  masternodeId,
   setUserSelectedVote,
   userSelectedVote,
   setVoteStage,
 }: {
-  setMasterNodeID: Dispatch<SetStateAction<string>>;
-  masterNodeID: string;
+  setMasternodeId: Dispatch<SetStateAction<string>>;
+  masternodeId: string;
   setUserSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
   userSelectedVote: VoteDecision | undefined;
   setVoteStage: Dispatch<SetStateAction<VoteStages>>;
@@ -190,12 +191,15 @@ function VoteForProposal({
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
   const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
 
-  const localStorageRememberMasterNodeId =
-    connection in getLocalStorageItem("rememberMasterNodeId")
-      ? getLocalStorageItem("rememberMasterNodeId")[connection]
-      : RememberMasterNodeId.Yes;
+  const localStorageRememberMasterNodeId = getLocalStorageItem(
+    "rememberMasternodeId",
+    connection
+  );
+  // connection in getLocalStorageItem("rememberMasternodeId")
+  //   ? getLocalStorageItem("rememberMasternodeId")[connection]
+  //   : RememberMasterNodeId.Yes;
 
-  const [rememberMasterNodeId, setRememberMasterNodeId] = useState(
+  const [rememberMasternodeId, setRememberMasternodeId] = useState(
     localStorageRememberMasterNodeId
   );
   const ref = useRef<HTMLTextAreaElement>(null);
@@ -203,11 +207,11 @@ function VoteForProposal({
   useEffect(() => {
     if (ref.current) {
       ref.current.style.height = `${ref.current.scrollHeight}px`;
-      if (masterNodeID === "") {
+      if (masternodeId === "") {
         ref.current.style.height = "20px";
       }
     }
-  }, [ref, masterNodeID, dimension]);
+  }, [ref, masternodeId, dimension]);
 
   return (
     <>
@@ -250,9 +254,9 @@ function VoteForProposal({
               } else {
                 setMasterNodeErrorMsg("");
               }
-              setMasterNodeID(v.target.value);
+              setMasternodeId(v.target.value);
             }}
-            value={masterNodeID}
+            value={masternodeId}
             className="w-11/12 overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400 tracking-[0.0025em]"
             placeholder="Masternode ID"
           />
@@ -263,7 +267,7 @@ function VoteForProposal({
               type="button"
               className="rounded-full h-4 w-4 bg-gray-100 self-center cursor-pointer text-center"
               onMouseDown={() => {
-                setMasterNodeID("");
+                setMasternodeId("");
               }}
             >
               <MdClose
@@ -286,10 +290,10 @@ function VoteForProposal({
         <button
           type="button"
           onClick={() => {
-            if (rememberMasterNodeId === RememberMasterNodeId.Yes) {
-              setRememberMasterNodeId(RememberMasterNodeId.No);
+            if (rememberMasternodeId === RememberMasterNodeId.Yes) {
+              setRememberMasternodeId(RememberMasterNodeId.No);
             } else {
-              setRememberMasterNodeId(RememberMasterNodeId.Yes);
+              setRememberMasternodeId(RememberMasterNodeId.Yes);
             }
           }}
           className={classNames(
@@ -301,12 +305,12 @@ function VoteForProposal({
             type="checkbox"
             onChange={(value) => {
               if (value.target.checked) {
-                setRememberMasterNodeId(RememberMasterNodeId.Yes);
+                setRememberMasternodeId(RememberMasterNodeId.Yes);
               } else {
-                setRememberMasterNodeId(RememberMasterNodeId.No);
+                setRememberMasternodeId(RememberMasterNodeId.No);
               }
             }}
-            checked={rememberMasterNodeId === RememberMasterNodeId.Yes}
+            checked={rememberMasternodeId === RememberMasterNodeId.Yes}
           />
           <div className="text-gray-600 text-sm tracking-[0.0025em]">
             Remember Masternode ID
@@ -315,7 +319,7 @@ function VoteForProposal({
       )}
 
       <UserVote
-        masterNodeID={masterNodeID}
+        masternodeId={masternodeId}
         masterNodeErrorMsg={masterNodeErrorMsg}
         userSelectedVote={userSelectedVote}
         setUserSelectedVote={setUserSelectedVote}
@@ -326,26 +330,25 @@ function VoteForProposal({
         type="button"
         disabled={
           masterNodeErrorMsg !== "" ||
-          masterNodeID === "" ||
+          masternodeId === "" ||
           userSelectedVote === undefined
         }
         onClick={() => {
-          const rememberMasterNodeObj = getLocalStorageItem(
-            "rememberMasterNodeId"
-          );
-          rememberMasterNodeObj[connection] = rememberMasterNodeId;
+          const rememberMasternodeObj =
+            getLocalStorageItem("rememberMasternodeId") ?? {};
+          rememberMasternodeObj[connection] = rememberMasternodeId;
 
-          const masterNodeIdObj = getLocalStorageItem("masternodeID");
-          masterNodeIdObj[connection] = masterNodeID;
+          const masternodeIdObj = getLocalStorageItem("masternodeId") ?? {};
+          masternodeIdObj[connection] = masternodeId;
 
-          setLocalStorage(`rememberMasterNodeId`, rememberMasterNodeObj);
+          setLocalStorage(`rememberMasternodeId`, rememberMasternodeObj);
 
           setVoteStage(VoteStages.ReviewVote);
-          if (rememberMasterNodeId === RememberMasterNodeId.Yes) {
-            setLocalStorage(`masternodeID`, masterNodeIdObj);
+          if (rememberMasternodeId === RememberMasterNodeId.Yes) {
+            setLocalStorage(`masternodeId`, masternodeIdObj);
           } else {
-            masterNodeIdObj[connection] = "";
-            setLocalStorage(`masternodeID`, masterNodeIdObj);
+            masternodeIdObj[connection] = "";
+            setLocalStorage(`masternodeId`, masternodeIdObj);
           }
         }}
         className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
@@ -357,24 +360,24 @@ function VoteForProposal({
 }
 
 function UserVote({
-  masterNodeID,
+  masternodeId,
   masterNodeErrorMsg,
   userSelectedVote,
   setUserSelectedVote,
 }: {
-  masterNodeID: string;
+  masternodeId: string;
   masterNodeErrorMsg: string;
   userSelectedVote: VoteDecision | undefined;
   setUserSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
 }) {
   const [isVoteSelectionDisabled, setIsVoteSelectionDisabled] = useState(
-    masterNodeID === "" || masterNodeErrorMsg !== ""
+    masternodeId === "" || masterNodeErrorMsg !== ""
   );
   useEffect(() => {
     setIsVoteSelectionDisabled(
-      masterNodeID === "" || masterNodeErrorMsg !== ""
+      masternodeId === "" || masterNodeErrorMsg !== ""
     );
-  }, [masterNodeID, masterNodeErrorMsg]);
+  }, [masternodeId, masterNodeErrorMsg]);
 
   return (
     <>
@@ -440,7 +443,7 @@ function UserVote({
 
 function UserReviewVote({
   setVoteCommand,
-  masternodeID,
+  masternodeId,
   userSelectedVote,
   proposalId,
   setUserConfirmedSelectedVote,
@@ -448,7 +451,7 @@ function UserReviewVote({
   setIsLoading,
 }: {
   setVoteCommand: Dispatch<SetStateAction<string>>;
-  masternodeID: string;
+  masternodeId: string;
   userSelectedVote: VoteDecision | undefined;
   proposalId: string;
   setUserConfirmedSelectedVote: Dispatch<
@@ -457,7 +460,7 @@ function UserReviewVote({
   setVoteStage: Dispatch<SetStateAction<VoteStages>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }) {
-  const voteCommand = `votegov ${proposalId} ${masternodeID} ${userSelectedVote}`;
+  const voteCommand = `votegov ${proposalId} ${masternodeId} ${userSelectedVote}`;
   return (
     <>
       <div className="grid grid-rows-[20px_minmax(70px,_1fr)] grid-cols-2 gap-y-3 mt-6">
@@ -488,7 +491,7 @@ function UserReviewVote({
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserMasternodeID"
           className="text-gray-900 break-all font-medium text-right tracking-[0.0044em]"
         >
-          {masternodeID}
+          {masternodeId}
         </div>
       </div>
 
