@@ -5,6 +5,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import {
   ProposalType,
   VoteDecision,
+  ListVotesResult,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
@@ -23,8 +24,8 @@ import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { formatUnixTime } from "../shared/dateHelper";
 import { VoteStages } from "../enum/VoteStages";
-import { getAllCycleVotes } from "../shared/getAllCycleVotes";
 import { TotalVotesCards } from "../_components/TotalVotesCards";
+import { CfpVotingResultCycleTab } from "../enum/CfpVotingResultCycleTab";
 
 export default function ProposalDetailPage({
   proposal,
@@ -44,7 +45,9 @@ export default function ProposalDetailPage({
     VoteStages.VoteProposal
   );
 
-  const [isCurrentCycleClicked, setIsCurrentCycleClicked] = useState(true);
+  const [cfpVotingResultTabChoice, setCfpVotingResultTabChoice] = useState(
+    CfpVotingResultCycleTab.Current
+  );
 
   useEffect(() => {
     if (isChangeVoteClicked) {
@@ -80,15 +83,16 @@ export default function ProposalDetailPage({
             />
             {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
               <div className="hidden lg:block mt-6">
-                <UserQueryButtonRow
-                  isCurrentCycleClicked={isCurrentCycleClicked}
-                  setIsCurrentCycleClicked={setIsCurrentCycleClicked}
+                <CfpVotingResultButtonRow
+                  cfpVotingResultTabChoice={cfpVotingResultTabChoice}
+                  setCfpVotingResultTabChoice={setCfpVotingResultTabChoice}
                   currenCycle={proposal.currentCycle}
                 />
               </div>
             )}
 
-            {isCurrentCycleClicked ? (
+            {cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current ||
+            proposal.type === ProposalType.VOTE_OF_CONFIDENCE ? (
               <div
                 className={classNames(
                   "hidden lg:block",
@@ -135,15 +139,16 @@ export default function ProposalDetailPage({
 
               {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
                 <div className="block lg:hidden">
-                  <UserQueryButtonRow
-                    isCurrentCycleClicked={isCurrentCycleClicked}
-                    setIsCurrentCycleClicked={setIsCurrentCycleClicked}
+                  <CfpVotingResultButtonRow
+                    cfpVotingResultTabChoice={cfpVotingResultTabChoice}
+                    setCfpVotingResultTabChoice={setCfpVotingResultTabChoice}
                     currenCycle={proposal.currentCycle}
                   />
                 </div>
               )}
             </div>
-            {isCurrentCycleClicked ? (
+            {cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current ||
+            proposal.type === ProposalType.VOTE_OF_CONFIDENCE ? (
               <>
                 <div className="lg:hidden md:block hidden w-full">
                   <VotesTable votes={proposalVotes} />
@@ -178,13 +183,15 @@ export default function ProposalDetailPage({
   );
 }
 
-function UserQueryButtonRow({
-  setIsCurrentCycleClicked,
-  isCurrentCycleClicked,
+function CfpVotingResultButtonRow({
+  setCfpVotingResultTabChoice,
+  cfpVotingResultTabChoice,
   currenCycle,
 }: {
-  setIsCurrentCycleClicked: Dispatch<SetStateAction<boolean>>;
-  isCurrentCycleClicked: boolean;
+  setCfpVotingResultTabChoice: Dispatch<
+    SetStateAction<CfpVotingResultCycleTab>
+  >;
+  cfpVotingResultTabChoice: CfpVotingResultCycleTab;
   currenCycle: number;
 }) {
   const windowDimension = useWindowDimensions();
@@ -195,10 +202,13 @@ function UserQueryButtonRow({
         data-testid="OnChainGovernance.VotingFlow.NoVote"
         className={classNames(
           "md:px-5 rounded-l border px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500  tracking-[0.0025em]",
-          { "bg-primary-500 text-white border-0": isCurrentCycleClicked }
+          {
+            "bg-primary-500 text-white border-0":
+              cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current,
+          }
         )}
         onClick={() => {
-          setIsCurrentCycleClicked(true);
+          setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Current);
         }}
       >
         {windowDimension.width <= 767 ? "Current" : "Current cycle"}
@@ -209,16 +219,33 @@ function UserQueryButtonRow({
         disabled={currenCycle === 1}
         className={classNames(
           "md:px-5 border border-l-0 rounded-r px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
-          { "bg-primary-500 text-white border-0": !isCurrentCycleClicked }
+          {
+            "bg-primary-500 text-white border-0":
+              cfpVotingResultTabChoice === CfpVotingResultCycleTab.Previous,
+          }
         )}
         onClick={() => {
-          setIsCurrentCycleClicked(false);
+          setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Previous);
         }}
       >
         {windowDimension.width <= 767 ? "Previous" : "Previous cycle"}
       </button>
     </div>
   );
+}
+
+function getAllCycleVotes(allCycleProposalVotes: ListVotesResult[]): {} {
+  const totalVotes = {};
+  for (let i = 0; i < allCycleProposalVotes.length; i += 1) {
+    const vote = allCycleProposalVotes[i];
+    const voteCycle = vote.cycle;
+    if (voteCycle in totalVotes) {
+      totalVotes[voteCycle] += 1;
+    } else {
+      totalVotes[voteCycle] = 1;
+    }
+  }
+  return totalVotes;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
