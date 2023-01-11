@@ -13,7 +13,7 @@ import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/govern
 import { debounce } from "lodash";
 import { CopyButton } from "@components/commons/CopyButton";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import { useNetwork } from "@contexts/NetworkContext";
+import { NetworkConnection, useNetwork } from "@contexts/NetworkContext";
 import { CircularCheckIcon } from "./CircularCheckIcon";
 import { VoteStages } from "../enum/VoteStages";
 import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
@@ -195,9 +195,6 @@ function VoteForProposal({
     "rememberMasternodeId",
     connection
   );
-  // connection in getLocalStorageItem("rememberMasternodeId")
-  //   ? getLocalStorageItem("rememberMasternodeId")[connection]
-  //   : RememberMasterNodeId.Yes;
 
   const [rememberMasternodeId, setRememberMasternodeId] = useState(
     localStorageRememberMasterNodeId
@@ -334,22 +331,12 @@ function VoteForProposal({
           userSelectedVote === undefined
         }
         onClick={() => {
-          const rememberMasternodeObj =
-            getLocalStorageItem("rememberMasternodeId") ?? {};
-          rememberMasternodeObj[connection] = rememberMasternodeId;
-
-          const masternodeIdObj = getLocalStorageItem("masternodeId") ?? {};
-          masternodeIdObj[connection] = masternodeId;
-
-          setLocalStorage(`rememberMasternodeId`, rememberMasternodeObj);
-
-          setVoteStage(VoteStages.ReviewVote);
-          if (rememberMasternodeId === RememberMasterNodeId.Yes) {
-            setLocalStorage(`masternodeId`, masternodeIdObj);
-          } else {
-            masternodeIdObj[connection] = "";
-            setLocalStorage(`masternodeId`, masternodeIdObj);
-          }
+          setMasternodeOptions(
+            connection,
+            rememberMasternodeId,
+            masternodeId,
+            setVoteStage
+          );
         }}
         className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
       >
@@ -629,5 +616,32 @@ function getVotesStyle(vote: VoteDecision | undefined) {
   }
   if (vote === VoteDecision.NEUTRAL) {
     return "text-gray-600";
+  }
+}
+
+function setMasternodeOptions(
+  connection: NetworkConnection,
+  rememberMasternodeId: RememberMasterNodeId,
+  masternodeId: string,
+  setVoteStage: Dispatch<SetStateAction<VoteStages>>
+) {
+  // retrieve object that is stored in localStore
+  // add new key,value options into object based on connection and set it back into local store
+
+  const rememberMasternodeObj =
+    getLocalStorageItem("rememberMasternodeId") ?? {};
+  rememberMasternodeObj[connection] = rememberMasternodeId;
+
+  const masternodeIdObj = getLocalStorageItem("masternodeId") ?? {};
+  masternodeIdObj[connection] = masternodeId;
+
+  setLocalStorage(`rememberMasternodeId`, rememberMasternodeObj);
+
+  setVoteStage(VoteStages.ReviewVote);
+  if (rememberMasternodeId === RememberMasterNodeId.Yes) {
+    setLocalStorage(`masternodeId`, masternodeIdObj);
+  } else {
+    masternodeIdObj[connection] = "";
+    setLocalStorage(`masternodeId`, masternodeIdObj);
   }
 }
