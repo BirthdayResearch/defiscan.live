@@ -1,15 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { Container } from "@components/commons/Container";
 import { getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import {
+  ProposalType,
+  VoteDecision,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
 import { NetworkConnection } from "@contexts/NetworkContext";
 import { getEnvironment } from "@contexts/Environment";
-import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
+import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -19,12 +23,15 @@ import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { formatUnixTime } from "../shared/dateHelper";
 import { VoteStages } from "../enum/VoteStages";
+import { getAllCycleVotes } from "../shared/getAllCycleVotes";
+import { TotalVotesCards } from "../_components/TotalVotesCards";
 
 export default function ProposalDetailPage({
   proposal,
   proposalVotes,
   proposalCreationDate,
   proposalEndDate,
+  totalVotes,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -36,6 +43,8 @@ export default function ProposalDetailPage({
   const [voteStage, setVoteStage] = useState<VoteStages>(
     VoteStages.VoteProposal
   );
+
+  const [isCurrentCycleClicked, setIsCurrentCycleClicked] = useState(true);
 
   useEffect(() => {
     if (isChangeVoteClicked) {
@@ -69,9 +78,32 @@ export default function ProposalDetailPage({
               proposalCreationDate={proposalCreationDate}
               proposalEndDate={proposalEndDate}
             />
-            <div className="hidden lg:block mt-6">
-              <VotesTable votes={proposalVotes} />
-            </div>
+            {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
+              <div className="hidden lg:block mt-6">
+                <UserQueryButtonRow
+                  isCurrentCycleClicked={isCurrentCycleClicked}
+                  setIsCurrentCycleClicked={setIsCurrentCycleClicked}
+                  currenCycle={proposal.currentCycle}
+                />
+              </div>
+            )}
+
+            {isCurrentCycleClicked ? (
+              <div
+                className={classNames(
+                  "hidden lg:block",
+                  proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL
+                    ? "mt-4"
+                    : "mt-6"
+                )}
+              >
+                <VotesTable votes={proposalVotes} />
+              </div>
+            ) : (
+              <div className="hidden lg:block mt-4">
+                <TotalVotesCards totalVotes={totalVotes} proposal={proposal} />
+              </div>
+            )}
           </div>
           <div className="w-full lg:w-4/12">
             <VotingResult
@@ -88,26 +120,49 @@ export default function ProposalDetailPage({
               }}
             />
           </div>
-          <div className="lg:hidden md:block hidden w-full mt-6">
-            <VotesTable votes={proposalVotes} />
-          </div>
 
-          <div className="md:hidden mt-7 items-center">
+          <div className="space-y-0">
             <div
-              className={classNames("mb-2 ml-4", {
-                "mb-4": proposalVotes.length === 0,
+              className={classNames("flex flex-row mb-2 md:mb-4 items-center", {
+                "md:mb-0": proposal.type === ProposalType.VOTE_OF_CONFIDENCE,
               })}
             >
-              <span className="text-gray-900 dark:text-gray-100 font-semibold">
-                Votes
-              </span>
-              <span className="text-gray-900 dark:text-gray-100 text-xs ml-1">
-                {proposalVotes.length > 0
-                  ? `(${proposalVotes.length} total)`
-                  : ""}
-              </span>
+              <div className="grow md:hidden ml-4 ">
+                <span className="text-gray-900 dark:text-gray-100 font-semibold">
+                  Votes
+                </span>
+                <span className="text-gray-900 dark:text-gray-100 text-xs ml-1">
+                  {proposalVotes.length > 0
+                    ? `(${proposalVotes.length} total)`
+                    : ""}
+                </span>
+              </div>
+
+              {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
+                <div className="block lg:hidden">
+                  <UserQueryButtonRow
+                    isCurrentCycleClicked={isCurrentCycleClicked}
+                    setIsCurrentCycleClicked={setIsCurrentCycleClicked}
+                    currenCycle={proposal.currentCycle}
+                  />
+                </div>
+              )}
             </div>
-            <VoteCards votes={proposalVotes} />
+            {isCurrentCycleClicked ? (
+              <>
+                <div className="lg:hidden md:block hidden w-full">
+                  <VotesTable votes={proposalVotes} />
+                </div>
+
+                <div className="md:hidden items-center">
+                  <VoteCards votes={proposalVotes} />
+                </div>
+              </>
+            ) : (
+              <div className="lg:hidden items-center">
+                <TotalVotesCards totalVotes={totalVotes} proposal={proposal} />
+              </div>
+            )}
           </div>
         </div>
       </Container>
@@ -128,14 +183,52 @@ export default function ProposalDetailPage({
   );
 }
 
+function UserQueryButtonRow({
+  setIsCurrentCycleClicked,
+  isCurrentCycleClicked,
+  currenCycle,
+}: {
+  setIsCurrentCycleClicked: Dispatch<SetStateAction<boolean>>;
+  isCurrentCycleClicked: boolean;
+  currenCycle: number;
+}) {
+  const windowDimension = useWindowDimensions();
+  return (
+    <div className="flex flex-row">
+      <button
+        type="button"
+        data-testid="OnChainGovernance.VotingFlow.NoVote"
+        className={classNames(
+          "md:px-5 rounded-l border px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500  tracking-[0.0025em]",
+          { "bg-primary-500 text-white border-0": isCurrentCycleClicked }
+        )}
+        onClick={() => {
+          setIsCurrentCycleClicked(true);
+        }}
+      >
+        {windowDimension.width <= 767 ? "Current" : "Current cycle"}
+      </button>
+      <button
+        type="button"
+        data-testid="OnChainGovernance.VotingFlow.YesVote"
+        disabled={currenCycle === 1}
+        className={classNames(
+          "md:px-5 border border-l-0 rounded-r px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
+          { "bg-primary-500 text-white border-0": !isCurrentCycleClicked }
+        )}
+        onClick={() => {
+          setIsCurrentCycleClicked(false);
+        }}
+      >
+        {windowDimension.width <= 767 ? "Previous" : "Previous cycle"}
+      </button>
+    </div>
+  );
+}
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const proposalId = context.params?.proposalId?.toString().trim() as string;
   const rpc = getWhaleRpcClient(context);
-  // const prpc = newPlaygroundRpcClient(context)
-  // await prpc.call('votegov',
-  //   [proposalId, "e86c027861cc0af423313f4152a44a83296a388eb51bf1a6dde9bd75bed55fb4", 'neutral', []],
-  //   'number'
-  // )
   try {
     const proposal = await rpc.governance.getGovProposal(proposalId);
     if (proposal.amount) {
@@ -173,12 +266,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       );
     }
 
+    const allCycleProposalVotes = await rpc.governance.listGovProposalVotes(
+      proposalId,
+      undefined,
+      -1
+    );
+    const totalVotes = getAllCycleVotes(allCycleProposalVotes);
+
     return {
       props: {
         proposal,
         proposalVotes,
         proposalCreationDate,
         proposalEndDate,
+        totalVotes,
       },
     };
   } catch {

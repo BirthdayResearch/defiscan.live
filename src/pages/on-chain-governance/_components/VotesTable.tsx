@@ -72,7 +72,7 @@ export function VoteCards({
 }): JSX.Element {
   if (votes.length === 0) {
     return (
-      <span className="ml-4 text-gray-900 text-sm">No votes posted yet</span>
+      <div className="ml-4 text-gray-900 text-sm mt-4">No votes posted yet</div>
     );
   }
 
