@@ -8,6 +8,7 @@ export function TotalVotesCards({
   totalVotes: {};
   proposal: ProposalInfo;
 }) {
+  // creates an Array that contains cycle 1 to 1 before cycle current [1....currentCycle - 1]
   const cycleArray = Array.from(Array(proposal.currentCycle - 1).keys()).map(
     (num) => num + 1
   );
