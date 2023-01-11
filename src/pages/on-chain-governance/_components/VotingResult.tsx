@@ -6,7 +6,7 @@ import {
   ProposalStatus,
   VoteDecision,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
-import { TbLoaderQuarter } from "react-icons/tb";
+import { CgSpinner } from "react-icons/cg";
 import { CopyButton } from "@components/commons/CopyButton";
 import { getVotePercentage } from "../shared/getTotalVotes";
 import { EditVoteIcon } from "./EditVoteIcon";
@@ -151,7 +151,9 @@ export function VotingResult({
                   <div className="mt-2 lg:w-full w-full md:w-1/2">
                     <button
                       type="button"
-                      onClick={onSubmitVote}
+                      onClick={() => {
+                        onSubmitVote();
+                      }}
                       className={classNames(
                         "w-full py-4 rounded font-medium text-base text-primary-500 bg-primary-50 hover:bg-primary-100 mb-2"
                       )}
@@ -165,16 +167,15 @@ export function VotingResult({
                   </div>
                 ) : (
                   <>
-                    {isLoading ? (
-                      <div className="flex lg:w-full w-full md:w-1/2 justify-center self-center align-middle">
-                        <TbLoaderQuarter
-                          size={48}
-                          className="animate-spin text-blue-500"
-                        />
-                      </div>
-                    ) : (
-                      <div className="lg:w-full w-full md:w-1/2 lg:mt-6 md:mt-0 mt-6">
-                        <div className="flex flex-row items-center ">
+                    <div className="lg:w-full w-full md:w-1/2 lg:mt-6 md:mt-0 mt-6">
+                      <div className="flex flex-row items-center ">
+                        {isLoading ? (
+                          <div className="grow">
+                            <span className="text-gray-500 ">
+                              Generating vote ID
+                            </span>
+                          </div>
+                        ) : (
                           <div className=" grow">
                             <span className="text-gray-500 ">
                               You have voted
@@ -183,24 +184,48 @@ export function VotingResult({
                               &nbsp;{userSelectedVote}
                             </span>
                           </div>
+                        )}
 
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setIsChangeVoteClicked(true);
-                              onSubmitVote();
-                            }}
+                        <button
+                          type="button"
+                          disabled={isLoading}
+                          onClick={() => {
+                            setIsChangeVoteClicked(isLoading);
+                            onSubmitVote();
+                          }}
+                        >
+                          <div
+                            className={classNames(
+                              "flex flex-row border border-gray-200 rounded-sm p-2 gap-x-[5px] items-center hover:border-primary-200",
+                              {
+                                "hover:border-gray-100 border-gray-100":
+                                  isLoading,
+                              }
+                            )}
                           >
-                            <div className="flex flex-row border border-gray-200 rounded-sm p-2 gap-x-[5px] items-center hover:border-primary-200">
-                              <EditVoteIcon fillColor="#FF00AF" />
-                              <span className="text-primary-500 text-sm font-medium whitespace-nowrap">
-                                CHANGE VOTE
-                              </span>
-                            </div>
-                          </button>
-                        </div>
-
-                        <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 p-4 mt-4">
+                            <EditVoteIcon
+                              fillColor={isLoading ? "#E5E5E5" : "#FF00AF"}
+                            />
+                            <span
+                              className={classNames(
+                                "text-primary-500 text-sm font-medium whitespace-nowrap",
+                                { "text-gray-300": isLoading }
+                              )}
+                            >
+                              CHANGE VOTE
+                            </span>
+                          </div>
+                        </button>
+                      </div>
+                      <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 px-4 py-[22px] mt-4">
+                        {isLoading ? (
+                          <div className="flex justify-center">
+                            <CgSpinner
+                              size={16}
+                              className="animate-spin text-blue-500"
+                            />
+                          </div>
+                        ) : (
                           <div className="flex flex-row gap-x-[18px]">
                             <div className="break-all line-clamp-1">
                               {voteCommand}
@@ -208,13 +233,13 @@ export function VotingResult({
                             <CopyButton
                               withCopyText
                               buttonClass="border-0"
-                              iconsClass="text-primary-500 self-center mr-[6px]"
+                              iconsClass="text-primary-500 self-center mr-[6px] w-[18px] h-[18px]"
                               content={voteCommand}
                             />
                           </div>
-                        </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </>
                 )}
               </>

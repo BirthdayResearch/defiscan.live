@@ -1,24 +1,34 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, {
+  useState,
+  Dispatch,
+  SetStateAction,
+  useRef,
+  useEffect,
+} from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { MdClear, MdEdit, MdArrowBack } from "react-icons/md";
-import { TbLoaderQuarter } from "react-icons/tb";
+import { MdClose, MdClear, MdArrowBack } from "react-icons/md";
+import { CgSpinner } from "react-icons/cg";
 import classNames from "classnames";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { debounce } from "lodash";
 import { CopyButton } from "@components/commons/CopyButton";
-import { Button } from "./Button";
+import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { NetworkConnection, useNetwork } from "@contexts/NetworkContext";
 import { CircularCheckIcon } from "./CircularCheckIcon";
+import { VoteStages } from "../enum/VoteStages";
+import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
+import {
+  getLocalStorageItem,
+  setLocalStorage,
+} from "../shared/localStorageHelper";
 
 export function ConfirmVoteDialog({
   isLoading,
   setIsLoading,
-  hasUserSelectedVote,
-  setHasUserSelectedVote,
-  isConfirmDetailsClicked,
-  setIsConfirmDetailsClicked,
-  isMasterNodeConfirmClicked,
-  setIsMasterNodeConfirmClicked,
+  voteStage,
+  setVoteStage,
   setVoteCommand,
+  userConfirmedSelectedVote,
   setUserConfirmedSelectedVote,
   proposalId,
   isOpen,
@@ -27,33 +37,31 @@ export function ConfirmVoteDialog({
 }: {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  hasUserSelectedVote: boolean;
-  setHasUserSelectedVote: Dispatch<SetStateAction<boolean>>;
-  isConfirmDetailsClicked: boolean;
-  setIsConfirmDetailsClicked: Dispatch<SetStateAction<boolean>>;
-  isMasterNodeConfirmClicked: boolean;
-  setIsMasterNodeConfirmClicked: Dispatch<SetStateAction<boolean>>;
+  voteStage: VoteStages;
+  setVoteStage: Dispatch<SetStateAction<VoteStages>>;
   setVoteCommand: Dispatch<SetStateAction<string>>;
+  userConfirmedSelectedVote: VoteDecision | undefined;
   setUserConfirmedSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
   proposalId: string;
   isOpen: boolean;
   voteCommand: string;
   onClose: () => void;
 }) {
-  const [masterNodeID, setMasterNodeID] = useState(
-    localStorage.getItem("masternodeID") ?? ""
+  const { connection } = useNetwork();
+
+  const localStorageMasterNodeId = getLocalStorageItem(
+    "masternodeId",
+    connection
   );
+
+  const [masternodeId, setMasternodeId] = useState(localStorageMasterNodeId);
   const [userSelectedVote, setUserSelectedVote] = useState<VoteDecision>();
 
   function closeStates() {
-    if (!isConfirmDetailsClicked) {
-      setIsMasterNodeConfirmClicked(false);
-      setHasUserSelectedVote(false);
-      setIsLoading(false);
-    }
-    if (!isMasterNodeConfirmClicked) {
-      setMasterNodeID(localStorage.getItem("masternodeID") ?? "");
-    }
+    setVoteStage(VoteStages.VoteProposal);
+    setUserSelectedVote(userConfirmedSelectedVote);
+    setIsLoading(false);
+    setMasternodeId(localStorageMasterNodeId);
   }
 
   return (
@@ -72,95 +80,85 @@ export function ConfirmVoteDialog({
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-8 text-center">
             <Transition.Child as="div">
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-[10px] bg-white p-8 pt-6 text-left align-middle shadow-xl transition-all">
-                {isConfirmDetailsClicked ? (
-                  <>
-                    <ReadyVoteID
-                      onClose={onClose}
-                      isLoading={isLoading}
-                      setIsLoading={setIsLoading}
-                      userSelectedVote={userSelectedVote}
-                      voteCommand={voteCommand}
-                    />
-                  </>
-                ) : (
-                  <>
-                    {/* back to voting or close button */}
-                    {isMasterNodeConfirmClicked &&
-                    hasUserSelectedVote &&
-                    !isConfirmDetailsClicked ? (
+              <Dialog.Panel
+                className={classNames(
+                  "w-full max-w-[512px] transform overflow-hidden rounded-[10px] bg-white p-5 md:p-8 text-left align-middle shadow-xl transition-all",
+                  { "max-w-[436px]": voteStage === VoteStages.ReadyVoteId }
+                )}
+              >
+                {voteStage !== VoteStages.ReadyVoteId && (
+                  <div
+                    className={classNames("flex flex-row justify-end", {
+                      "mb-1": voteStage === VoteStages.ReviewVote,
+                    })}
+                  >
+                    {voteStage === VoteStages.ReviewVote && (
                       <button
+                        data-testid="OnChainGovernance.VotingFlow.BackToVoting"
                         type="button"
-                        onClick={() => setHasUserSelectedVote(false)}
+                        onClick={() => setVoteStage(VoteStages.VoteProposal)}
+                        className="grow"
                       >
-                        <div className="flex flex-row gap-x-[5px] text-[#4A72DA] font-medium hover:underline mb-1">
+                        <div className="flex flex-row gap-x-1 text-[#4A72DA] font-medium hover:underline">
                           <MdArrowBack size={24} className="self-center" />
                           Back to voting
                         </div>
                       </button>
-                    ) : (
-                      <div className="flex justify-end">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            onClose();
-                            closeStates();
-                          }}
-                        >
-                          <MdClear size={24} className="text-gray-600" />
-                        </button>
-                      </div>
                     )}
-
-                    <Dialog.Title
-                      as="h3"
-                      className="font-semibold text-2xl text-gray-900 dark:text-gray-100"
+                    <button
+                      type="button"
+                      data-testid="OnChainGovernance.VotingFlow.CloseModal"
+                      onClick={() => {
+                        onClose();
+                        closeStates();
+                      }}
                     >
-                      {!hasUserSelectedVote
-                        ? "Confirm your vote"
-                        : "Review your vote"}
-                    </Dialog.Title>
+                      <MdClear size={24} className="text-gray-600" />
+                    </button>
+                  </div>
+                )}
 
-                    {isMasterNodeConfirmClicked ? (
-                      // If masternode is confirmed check if voting page or review detail page
-                      <>
-                        {!hasUserSelectedVote ? (
-                          <UserSelectVote
-                            setHasUserSelectedVote={setHasUserSelectedVote}
-                            setUserSelectedVote={setUserSelectedVote}
-                          />
-                        ) : (
-                          <>
-                            <UserReviewVote
-                              proposalId={proposalId}
-                              setVoteCommand={setVoteCommand}
-                              masternodeID={masterNodeID}
-                              userSelectedVote={userSelectedVote}
-                              setIsConfirmDetailsClicked={
-                                setIsConfirmDetailsClicked
-                              }
-                              setUserConfirmedSelectedVote={
-                                setUserConfirmedSelectedVote
-                              }
-                            />
-                          </>
-                        )}
-                      </>
-                    ) : (
-                      // If masternode is not confirm show masternode confirm page
-                      <ConfirmMasterNode
-                        setMasterNodeID={setMasterNodeID}
-                        masterNodeID={masterNodeID}
-                        onClose={() => {
-                          onClose();
-                          closeStates();
-                        }}
-                        setIsMasterNodeConfirmClicked={
-                          setIsMasterNodeConfirmClicked
-                        }
-                      />
-                    )}
-                  </>
+                <Dialog.Title
+                  data-testid="OnChainGovernance.VotingFlow.ModalTitle"
+                  as="h3"
+                  className="font-semibold text-2xl text-gray-900 dark:text-gray-100"
+                >
+                  {voteStage !== VoteStages.ReadyVoteId && voteStage}
+                </Dialog.Title>
+
+                {voteStage === VoteStages.VoteProposal && (
+                  <VoteForProposal
+                    setMasternodeId={setMasternodeId}
+                    masternodeId={masternodeId}
+                    setUserSelectedVote={setUserSelectedVote}
+                    userSelectedVote={userSelectedVote}
+                    setVoteStage={setVoteStage}
+                  />
+                )}
+
+                {voteStage === VoteStages.ReviewVote && (
+                  <UserReviewVote
+                    proposalId={proposalId}
+                    setVoteCommand={setVoteCommand}
+                    masternodeId={masternodeId}
+                    userSelectedVote={userSelectedVote}
+                    setVoteStage={setVoteStage}
+                    setIsLoading={setIsLoading}
+                    setUserConfirmedSelectedVote={setUserConfirmedSelectedVote}
+                  />
+                )}
+
+                {voteStage === VoteStages.ReadyVoteId && (
+                  <ReadyVoteID
+                    onClose={() => {
+                      onClose();
+                      closeStates();
+                    }}
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                    userSelectedVote={userSelectedVote}
+                    voteCommand={voteCommand}
+                  />
                 )}
               </Dialog.Panel>
             </Transition.Child>
@@ -171,166 +169,254 @@ export function ConfirmVoteDialog({
   );
 }
 
-function ConfirmMasterNode({
-  setMasterNodeID,
-  masterNodeID,
-  onClose,
-  setIsMasterNodeConfirmClicked,
+function VoteForProposal({
+  setMasternodeId,
+  masternodeId,
+  setUserSelectedVote,
+  userSelectedVote,
+  setVoteStage,
 }: {
-  setMasterNodeID: Dispatch<SetStateAction<string>>;
-  masterNodeID: string;
-  onClose: () => void;
-  setIsMasterNodeConfirmClicked: Dispatch<SetStateAction<boolean>>;
+  setMasternodeId: Dispatch<SetStateAction<string>>;
+  masternodeId: string;
+  setUserSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
+  userSelectedVote: VoteDecision | undefined;
+  setVoteStage: Dispatch<SetStateAction<VoteStages>>;
 }) {
-  const [isMasterNodeEditClicked, setIsMasterNodeEditClicked] = useState(false);
+  const { connection } = useNetwork();
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
-  const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
+  const [masternodeErrorMsg, setMasterNodeErrorMsg] = useState("");
+
+  const localStorageRememberMasterNodeId = getLocalStorageItem(
+    "rememberMasternodeId",
+    connection
+  );
+
+  const [rememberMasternodeId, setRememberMasternodeId] = useState(
+    localStorageRememberMasterNodeId
+  );
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const dimension = useWindowDimensions();
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.style.height = `${ref.current.scrollHeight}px`;
+      if (masternodeId === "") {
+        ref.current.style.height = "20px";
+      }
+    }
+  }, [ref, masternodeId, dimension]);
+
   return (
     <>
       <div className="mt-2 mb-6">
-        <span className="text-lg text-gray-600 dark:text-gray-100">
+        <span
+          data-testid="OnChainGovernance.VotingFlow.VoteForProposal.SubTitle"
+          className="text-lg text-gray-600 dark:text-gray-100"
+        >
           Confirm your masternode and vote on the proposal
         </span>
       </div>
-      <div className="mb-4">
-        <span className="text-gray-600 dark:text-gray-100 font-semibold text-sm">
-          Masternode
-        </span>
-        <div className="flex flex-row items-center gap-x-2 mt-1">
-          <div
-            onBlur={() => {
-              setIsMasterNodeInputFocus(false);
+
+      <span
+        data-testid="OnChainGovernance.VotingFlow.VoteForProposal.Masternode"
+        className="text-gray-600 dark:text-gray-100 font-semibold text-sm tracking-[0.0025em]"
+      >
+        Masternode
+      </span>
+
+      <div className="flex flex-row items-center gap-x-2 mt-1">
+        <div
+          data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeInput"
+          onBlur={() => {
+            setIsMasterNodeInputFocus(false);
+          }}
+          onFocus={() => {
+            setIsMasterNodeInputFocus(true);
+          }}
+          className={classNames(
+            "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800 justify-between",
+            isMasterNodeInputFocus ? "border-primary-300" : "border-gray-300 ",
+            { "border-red-500": masternodeErrorMsg !== "" }
+          )}
+        >
+          <textarea
+            ref={ref}
+            onChange={(v) => {
+              if (v.target.value.length !== 64) {
+                setMasterNodeErrorMsg("Please enter a valid masternode ID");
+              } else {
+                setMasterNodeErrorMsg("");
+              }
+              setMasternodeId(v.target.value);
             }}
-            onFocus={() => {
-              setIsMasterNodeInputFocus(true);
-            }}
-            className={classNames(
-              "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800",
-              { "border-primary-300": isMasterNodeInputFocus },
-              { "border-red-600": masterNodeErrorMsg !== "" }
-            )}
-          >
-            <textarea
-              onChange={(v) => {
-                if (v.target.value.length !== 64) {
-                  setMasterNodeErrorMsg("Enter a valid masternode ID");
-                } else {
-                  setMasterNodeErrorMsg("");
-                }
-                setMasterNodeID(v.target.value);
+            value={masternodeId}
+            className="w-11/12 overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400 tracking-[0.0025em]"
+            placeholder="Masternode ID"
+          />
+
+          {isMasterNodeInputFocus && (
+            <button
+              data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeClearInput"
+              type="button"
+              className="rounded-full h-4 w-4 bg-gray-100 self-center cursor-pointer text-center"
+              onMouseDown={() => {
+                setMasternodeId("");
               }}
-              disabled={!isMasterNodeEditClicked}
-              value={masterNodeID}
-              className="overflow-hidden resize-none md:h-5 h-10 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800"
-              placeholder="Set your masternode"
-            />
-
-            {(masterNodeID !== "" || isMasterNodeInputFocus) &&
-              isMasterNodeEditClicked && (
-                <MdClear
-                  onClick={() => {
-                    setMasterNodeID("");
-                  }}
-                  size={15}
-                  className="text-gray-500 self-center cursor-pointer ml-[6px]"
-                />
-              )}
-            {!isMasterNodeEditClicked && (
-              <MdEdit
-                role="button"
-                size={18}
-                onClick={() => setIsMasterNodeEditClicked(true)}
-                className="text-primary-500 ml-[6px] self-center"
+            >
+              <MdClose
+                size={12}
+                className="text-gray-500 self-center cursor-pointer m-auto"
               />
-            )}
-          </div>
-
-          {isMasterNodeEditClicked && (
-            <>
-              <Button
-                label="SAVE"
-                testId="OnChainGovernance.SaveMasterNodeID"
-                disabled={masterNodeID === "" || masterNodeErrorMsg !== ""}
-                onClick={() => {
-                  setIsMasterNodeEditClicked(false);
-                  localStorage.setItem("masternodeID", masterNodeID);
-                }}
-              />
-            </>
+            </button>
           )}
         </div>
-        {masterNodeErrorMsg !== "" && (
-          <div className="text-red-600 text-xs mt-1">{masterNodeErrorMsg}</div>
-        )}
       </div>
-      <div className="flex flex-row space-x-2">
+
+      {masternodeErrorMsg !== "" ? (
+        <div
+          data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeErrorMsg"
+          className="text-red-500 text-xs mt-2 md:mb-4 mb-6"
+        >
+          {masternodeErrorMsg}
+        </div>
+      ) : (
         <button
+          type="button"
           onClick={() => {
-            onClose();
+            if (rememberMasternodeId === RememberMasterNodeId.Yes) {
+              setRememberMasternodeId(RememberMasterNodeId.No);
+            } else {
+              setRememberMasternodeId(RememberMasterNodeId.Yes);
+            }
           }}
-          type="button"
-          className="text-sm w-1/2 py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
+          className={classNames(
+            "flex flex-row gap-x-[6px] items-center mt-2 md:mb-4 mb-6 accent-blue-600"
+          )}
         >
-          CANCEL
+          <input
+            data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeCheckBox"
+            type="checkbox"
+            onChange={(value) => {
+              if (value.target.checked) {
+                setRememberMasternodeId(RememberMasterNodeId.Yes);
+              } else {
+                setRememberMasternodeId(RememberMasterNodeId.No);
+              }
+            }}
+            checked={rememberMasternodeId === RememberMasterNodeId.Yes}
+          />
+          <div className="text-gray-600 text-sm tracking-[0.0025em]">
+            Remember Masternode ID
+          </div>
         </button>
-        <button
-          type="button"
-          disabled={isMasterNodeEditClicked || masterNodeID === ""}
-          onClick={() => setIsMasterNodeConfirmClicked(true)}
-          className="text-sm w-1/2 py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
-        >
-          CONFIRM
-        </button>
-      </div>
+      )}
+
+      <UserVote
+        masternodeId={masternodeId}
+        masternodeErrorMsg={masternodeErrorMsg}
+        userSelectedVote={userSelectedVote}
+        setUserSelectedVote={setUserSelectedVote}
+      />
+
+      <button
+        data-testid="OnChainGovernance.VotingFlow.VoteForProposal.ContinueButton"
+        type="button"
+        disabled={
+          masternodeErrorMsg !== "" ||
+          masternodeId === "" ||
+          userSelectedVote === undefined
+        }
+        onClick={() => {
+          onContinueVoteButtonClick(
+            connection,
+            rememberMasternodeId,
+            masternodeId,
+            setVoteStage
+          );
+        }}
+        className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
+      >
+        CONTINUE
+      </button>
     </>
   );
 }
 
-function UserSelectVote({
+function UserVote({
+  masternodeId,
+  masternodeErrorMsg,
+  userSelectedVote,
   setUserSelectedVote,
-  setHasUserSelectedVote,
 }: {
+  masternodeId: string;
+  masternodeErrorMsg: string;
+  userSelectedVote: VoteDecision | undefined;
   setUserSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
-  setHasUserSelectedVote: Dispatch<SetStateAction<boolean>>;
 }) {
+  const [isVoteSelectionDisabled, setIsVoteSelectionDisabled] = useState(
+    masternodeId === "" || masternodeErrorMsg !== ""
+  );
+  useEffect(() => {
+    setIsVoteSelectionDisabled(
+      masternodeId === "" || masternodeErrorMsg !== ""
+    );
+  }, [masternodeId, masternodeErrorMsg]);
+
   return (
     <>
-      <div className="mt-2 mb-6">
-        <span className="text-lg text-gray-600 dark:text-gray-100">
-          Select your vote carefully
-        </span>
+      <div className="text-gray-600 dark:text-gray-100 font-semibold text-sm  tracking-[0.0025em]">
+        Vote
       </div>
 
-      <div className="flex flex-row gap-x-2 justify-evenly">
+      <div className="flex flex-row mb-12 mt-1">
         <button
-          onClick={() => {
-            setUserSelectedVote(VoteDecision.YES);
-            setHasUserSelectedVote(true);
-          }}
           type="button"
-          className="grow md:w-[144px] w-[85px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
+          disabled={isVoteSelectionDisabled}
+          data-testid="OnChainGovernance.VotingFlow.NoVote"
+          className={classNames(
+            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            userSelectedVote === VoteDecision.NO
+              ? "text-white border-0 bg-red-600"
+              : "text-red-600"
+          )}
+          onClick={() => {
+            setUserSelectedVote(VoteDecision.NO);
+          }}
         >
-          YES
+          NO
         </button>
+
         <button
+          type="button"
+          data-testid="OnChainGovernance.VotingFlow.NeutralVote"
+          disabled={isVoteSelectionDisabled}
+          className={classNames(
+            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            userSelectedVote === VoteDecision.NEUTRAL
+              ? "text-white border-0 bg-gray-600"
+              : "text-gray-600"
+          )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NEUTRAL);
-            setHasUserSelectedVote(true);
           }}
-          type="button"
-          className="grow md:w-[144px] w-[85px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
         >
           NEUTRAL
         </button>
+
         <button
-          onClick={() => {
-            setUserSelectedVote(VoteDecision.NO);
-            setHasUserSelectedVote(true);
-          }}
           type="button"
-          className="grow md:w-[144px] w-[85px] text-sm py-4 border rounded-sm font-medium border-gray-300 text-primary-500 hover:border-primary-200"
+          data-testid="OnChainGovernance.VotingFlow.YesVote"
+          disabled={isVoteSelectionDisabled}
+          className={classNames(
+            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            userSelectedVote === VoteDecision.YES
+              ? "text-white border-0 bg-green-600"
+              : "text-green-600"
+          )}
+          onClick={() => {
+            setUserSelectedVote(VoteDecision.YES);
+          }}
         >
-          NO
+          YES
         </button>
       </div>
     </>
@@ -339,46 +425,69 @@ function UserSelectVote({
 
 function UserReviewVote({
   setVoteCommand,
-  masternodeID,
+  masternodeId,
   userSelectedVote,
   proposalId,
-  setIsConfirmDetailsClicked,
   setUserConfirmedSelectedVote,
+  setVoteStage,
+  setIsLoading,
 }: {
   setVoteCommand: Dispatch<SetStateAction<string>>;
-  masternodeID: string;
+  masternodeId: string;
   userSelectedVote: VoteDecision | undefined;
-  setIsConfirmDetailsClicked: Dispatch<SetStateAction<boolean>>;
   proposalId: string;
   setUserConfirmedSelectedVote: Dispatch<
     SetStateAction<VoteDecision | undefined>
   >;
+  setVoteStage: Dispatch<SetStateAction<VoteStages>>;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }) {
-  const voteCommand = `defi-cli votegov ${proposalId} ${masternodeID} ${userSelectedVote}`;
+  const voteCommand = `votegov ${proposalId} ${masternodeId} ${userSelectedVote}`;
   return (
     <>
-      <div className="grid grid-rows-[20px_minmax(100px,_1fr)] grid-cols-2 gap-y-3 mt-6">
-        <div className="text-gray-600">Vote</div>
+      <div className="grid grid-rows-[20px_minmax(70px,_1fr)] grid-cols-2 gap-y-3 mt-6">
+        <div
+          data-testid="OnChainGovernance.VotingFlow.UserReviewVote.Vote"
+          className="text-gray-600 tracking-[0.0044em]"
+        >
+          Vote
+        </div>
 
-        <div className="text-gray-900 text-right capitalize font-medium">
+        <div
+          data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserSelectedVote"
+          className={classNames(
+            "text-right capitalize font-medium tracking-[0.0044em]",
+            getVotesStyle(userSelectedVote)
+          )}
+        >
           {userSelectedVote}
         </div>
 
-        <div className="text-gray-600">Masternode</div>
-        <div className="text-gray-900 break-all font-medium text-right">
-          {masternodeID}
+        <div
+          data-testid="OnChainGovernance.VotingFlow.UserReviewVote.Masternode"
+          className="text-gray-600 tracking-[0.0044em]"
+        >
+          Masternode
+        </div>
+        <div
+          data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserMasternodeID"
+          className="text-gray-900 break-all font-medium text-right tracking-[0.0044em]"
+        >
+          {masternodeId}
         </div>
       </div>
 
       <div className="flex flex-col mt-12">
         <button
+          data-testid="OnChainGovernance.VotingFlow.UserReviewVote.ConfirmDetailsButton"
           type="button"
           onClick={() => {
             setUserConfirmedSelectedVote(userSelectedVote);
-            setIsConfirmDetailsClicked(true);
+            setVoteStage(VoteStages.ReadyVoteId);
             setVoteCommand(voteCommand);
+            setIsLoading(true);
           }}
-          className="text-sm w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
+          className="w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 tracking-[0.0086em]"
         >
           CONFIRM DETAILS
         </button>
@@ -408,51 +517,66 @@ function ReadyVoteID({
   }, 1000);
   debounceSetSearchList();
 
+  const transformUserSelectVote =
+    userSelectedVote?.charAt(0).toLocaleUpperCase() +
+    userSelectedVote!.slice(1);
+
   return (
     <>
       {isLoading ? (
         <div className="flex flex-col items-center">
-          <TbLoaderQuarter size={48} className="animate-spin text-blue-500" />
+          <CgSpinner size={48} className="animate-spin text-blue-500" />
           <Dialog.Title
+            data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.LoadingTitle"
             as="h3"
             className="font-semibold text-center text-2xl text-gray-900 dark:text-gray-100 mt-6"
           >
             Your vote is getting ready
           </Dialog.Title>
           <div className="flex flex-row mt-2 text-center">
-            <span className="text-xs text-gray-600">You have voted &nbsp;</span>
-            <span className="capitalize text-xs text-gray-600">
-              &lsquo;{userSelectedVote}&rsquo;
-            </span>
-            <span className="text-xs text-gray-600">
-              &nbsp; for this proposal.
-            </span>
+            <div
+              data-selected={userSelectedVote}
+              className="text-lg text-gray-600"
+            >
+              You have voted &lsquo;{transformUserSelectVote}&rsquo; for this
+              proposal.
+            </div>
           </div>
         </div>
       ) : (
         <div className="flex flex-col items-center">
           <CircularCheckIcon />
           <Dialog.Title
+            data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.Title"
             as="h3"
             className="font-semibold text-center text-2xl text-gray-900 dark:text-gray-100 mt-6"
           >
             Vote ID is now ready
           </Dialog.Title>
-          <span className="text-lg mt-3 text-center flex text-gray-600 mb-8">
+          <span
+            data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.SubTitle"
+            className="text-lg mt-2 text-center flex text-gray-600 mb-8"
+          >
             Use the provided command line to submit this on-chain through your
             full node wallet CLI.
           </span>
 
           <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 p-4">
             <div className="flex flex-row">
-              <div className="text-gray-900 break-all md:line-clamp-none line-clamp-2">
+              <div
+                data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.VoteCommand"
+                className="text-gray-900 break-all md:line-clamp-none line-clamp-2"
+              >
                 {voteCommand}
               </div>
-              <div className="flex flex-row ml-[18px] self-center align-middle gap-x-1">
+              <div
+                data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.CopyVoteCommand"
+                className="flex flex-row ml-[18px] self-center align-middle gap-x-1"
+              >
                 <CopyButton
                   withCopyText
                   buttonClass="border-0"
-                  iconsClass="text-primary-500 self-center mr-[6px]"
+                  iconsClass="text-primary-500 self-center mr-[6px] w-[18px] h-[18px]"
                   content={voteCommand}
                 />
               </div>
@@ -468,7 +592,7 @@ function ReadyVoteID({
             onClick={() => {
               onClose();
             }}
-            className="text-sm w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
+            className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
           >
             CLOSE
           </button>
@@ -476,4 +600,43 @@ function ReadyVoteID({
       )}
     </>
   );
+}
+
+function getVotesStyle(vote: VoteDecision | undefined) {
+  if (vote === VoteDecision.NO) {
+    return "text-red-600";
+  }
+  if (vote === VoteDecision.YES) {
+    return "text-green-600";
+  }
+  if (vote === VoteDecision.NEUTRAL) {
+    return "text-gray-600";
+  }
+}
+
+/**
+ * Update `masternodeId` and `rememberMasternodeId` in localStorage for current network without overwriting others
+ */
+function onContinueVoteButtonClick(
+  connection: NetworkConnection,
+  rememberMasternodeId: RememberMasterNodeId,
+  masternodeId: string,
+  setVoteStage: Dispatch<SetStateAction<VoteStages>>
+) {
+  const rememberMasternodeObj =
+    getLocalStorageItem("rememberMasternodeId") ?? {};
+  rememberMasternodeObj[connection] = rememberMasternodeId;
+
+  const masternodeIdObj = getLocalStorageItem("masternodeId") ?? {};
+  masternodeIdObj[connection] = masternodeId;
+
+  setLocalStorage(`rememberMasternodeId`, rememberMasternodeObj);
+
+  setVoteStage(VoteStages.ReviewVote);
+  if (rememberMasternodeId === RememberMasterNodeId.Yes) {
+    setLocalStorage(`masternodeId`, masternodeIdObj);
+  } else {
+    masternodeIdObj[connection] = "";
+    setLocalStorage(`masternodeId`, masternodeIdObj);
+  }
 }
