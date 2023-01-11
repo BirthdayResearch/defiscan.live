@@ -326,7 +326,7 @@ function VoteForProposal({
           userSelectedVote === undefined
         }
         onClick={() => {
-          setMasternodeOptions(
+          onContinueVoteButtonClick(
             connection,
             rememberMasternodeId,
             masternodeId,
@@ -625,7 +625,7 @@ function getVotesStyle(vote: VoteDecision | undefined) {
  * - sets the masternodeId,rememberMasternodeId options back into localStorage
  * - when user clicks on `Continue` button when voting for proposal
  */
-function setMasternodeOptions(
+function onContinueVoteButtonClick(
   connection: NetworkConnection,
   rememberMasternodeId: RememberMasterNodeId,
   masternodeId: string,
