@@ -1,9 +1,15 @@
 import { NetworkConnection } from "@contexts/NetworkContext";
 import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
 
-// Function returns undefined when key is not found
-// when connection is provided function would check for undefined
-// and return object value based on connection from localStore
+/**
+ *
+ * @param key
+ * @param connection
+ * @returns
+ * - Function returns undefined when key is not found
+ * - when connection is provided function would check for undefined
+ * - and return object value based on connection from localStore
+ */
 
 export function getLocalStorageItem(
   key: string,

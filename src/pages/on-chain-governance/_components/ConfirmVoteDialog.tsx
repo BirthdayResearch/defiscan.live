@@ -184,7 +184,7 @@ function VoteForProposal({
 }) {
   const { connection } = useNetwork();
   const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
-  const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
+  const [masternodeErrorMsg, setMasterNodeErrorMsg] = useState("");
 
   const localStorageRememberMasterNodeId = getLocalStorageItem(
     "rememberMasternodeId",
@@ -235,7 +235,7 @@ function VoteForProposal({
           className={classNames(
             "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800 justify-between",
             isMasterNodeInputFocus ? "border-primary-300" : "border-gray-300 ",
-            { "border-red-500": masterNodeErrorMsg !== "" }
+            { "border-red-500": masternodeErrorMsg !== "" }
           )}
         >
           <textarea
@@ -271,12 +271,12 @@ function VoteForProposal({
         </div>
       </div>
 
-      {masterNodeErrorMsg !== "" ? (
+      {masternodeErrorMsg !== "" ? (
         <div
           data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeErrorMsg"
           className="text-red-500 text-xs mt-2 md:mb-4 mb-6"
         >
-          {masterNodeErrorMsg}
+          {masternodeErrorMsg}
         </div>
       ) : (
         <button
@@ -312,7 +312,7 @@ function VoteForProposal({
 
       <UserVote
         masternodeId={masternodeId}
-        masterNodeErrorMsg={masterNodeErrorMsg}
+        masternodeErrorMsg={masternodeErrorMsg}
         userSelectedVote={userSelectedVote}
         setUserSelectedVote={setUserSelectedVote}
       />
@@ -321,7 +321,7 @@ function VoteForProposal({
         data-testid="OnChainGovernance.VotingFlow.VoteForProposal.ContinueButton"
         type="button"
         disabled={
-          masterNodeErrorMsg !== "" ||
+          masternodeErrorMsg !== "" ||
           masternodeId === "" ||
           userSelectedVote === undefined
         }
@@ -343,23 +343,23 @@ function VoteForProposal({
 
 function UserVote({
   masternodeId,
-  masterNodeErrorMsg,
+  masternodeErrorMsg,
   userSelectedVote,
   setUserSelectedVote,
 }: {
   masternodeId: string;
-  masterNodeErrorMsg: string;
+  masternodeErrorMsg: string;
   userSelectedVote: VoteDecision | undefined;
   setUserSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
 }) {
   const [isVoteSelectionDisabled, setIsVoteSelectionDisabled] = useState(
-    masternodeId === "" || masterNodeErrorMsg !== ""
+    masternodeId === "" || masternodeErrorMsg !== ""
   );
   useEffect(() => {
     setIsVoteSelectionDisabled(
-      masternodeId === "" || masterNodeErrorMsg !== ""
+      masternodeId === "" || masternodeErrorMsg !== ""
     );
-  }, [masternodeId, masterNodeErrorMsg]);
+  }, [masternodeId, masternodeErrorMsg]);
 
   return (
     <>
@@ -614,15 +614,23 @@ function getVotesStyle(vote: VoteDecision | undefined) {
   }
 }
 
+/**
+ *
+ * @param connection
+ * @param rememberMasternodeId
+ * @param masternodeId
+ * @param setVoteStage
+ *
+ * - Function will get the masternode options that are currently stored in localStorage and
+ * - sets the masternodeId,rememberMasternodeId options back into localStorage
+ * - when user clicks on `Continue` button when voting for proposal
+ */
 function setMasternodeOptions(
   connection: NetworkConnection,
   rememberMasternodeId: RememberMasterNodeId,
   masternodeId: string,
   setVoteStage: Dispatch<SetStateAction<VoteStages>>
 ) {
-  // retrieve object that is stored in localStore
-  // add new key,value options into object based on connection and set it back into local store
-
   const rememberMasternodeObj =
     getLocalStorageItem("rememberMasternodeId") ?? {};
   rememberMasternodeObj[connection] = rememberMasternodeId;
