@@ -4,7 +4,7 @@ import { MdInfo } from "react-icons/md";
 export function GettingStartedInfo(): JSX.Element {
   const link = "https://github.com/DeFiCh/dfips/issues";
   return (
-    <div className="bg-blue-50 dark:bg-dark-blue-50 py-6 px-6 md:px-10 rounded-lg mb-4">
+    <div className="bg-blue-50 dark:bg-dark-blue-50 py-6 px-6 md:px-10 rounded-lg mb-4 border border-blue-50 dark:border-dark-blue-500/[.25]">
       <div className="flex flex-row">
         <MdInfo size={24} className="mr-2 text-[#4A72DA]" />
         <span className="font-semibold text-base text-[#4A72DA]">
@@ -12,7 +12,7 @@ export function GettingStartedInfo(): JSX.Element {
         </span>
       </div>
       <div className="mt-2">
-        <span className="text-sm md:text-base text-gray-600">
+        <span className="text-sm md:text-base text-gray-600 dark:text-dark-gray-600">
           Before creating an On-chain proposal here, the proposal should have an
           active discussion&nbsp;
         </span>
@@ -24,7 +24,7 @@ export function GettingStartedInfo(): JSX.Element {
         >
           in Github
         </a>
-        <span className="text-sm md:text-base text-gray-600">
+        <span className="text-sm md:text-base text-gray-600 dark:text-dark-gray-600">
           . Discuss with the community why this proposal should be approved.
         </span>
       </div>

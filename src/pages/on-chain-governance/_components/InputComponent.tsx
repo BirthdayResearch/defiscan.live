@@ -29,7 +29,7 @@ export function InputComponent({
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row w-full">
-        <span className="text-xs font-medium text-gray-900 dark:text-gray-100">
+        <span className="text-xs font-medium text-gray-900 dark:text-dark-gray-900">
           {label}
         </span>
         {infoDesc !== undefined && (
@@ -43,7 +43,7 @@ export function InputComponent({
       <div className="mt-1">
         <div
           className={classNames(
-            "flex flex-row py-3 px-4 bg-white dark:bg-gray-800 border rounded",
+            "flex flex-row py-3 px-4 bg-white dark:bg-dark-gray-100 border rounded",
             isVisited && error !== ""
               ? "border-red-500"
               : "border-gray-300 dark:border-dark-gray-300"
@@ -55,7 +55,7 @@ export function InputComponent({
             placeholder={placeholder}
             onBlur={onBlur}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full mr-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none text-base placeholder:text-gray-400"
+            className="w-full mr-2 bg-white dark:bg-dark-gray-100 text-gray-900 dark:text-dark-gray-900 focus:outline-none text-base placeholder:text-gray-400 placeholder:dark:text-dark-gray-400"
           />
           {value !== "" && (
             <button
@@ -72,11 +72,13 @@ export function InputComponent({
         </div>
         <div className="mt-1">
           {isVisited && error !== "" ? (
-            <span className="text-xs text-red-500">{error}</span>
+            <span className="text-xs text-red-500 dark:text-dark-red-500">
+              {error}
+            </span>
           ) : (
             <>
               {note !== undefined && (
-                <span className="text-xs text-gray-600 dark:text-gray-100">
+                <span className="text-xs text-gray-600 dark:text-dark-gray-600">
                   {note}
                 </span>
               )}
