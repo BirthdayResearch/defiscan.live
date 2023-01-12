@@ -101,11 +101,6 @@ export default function ProposalDetailPage({
               <span className="text-gray-900 dark:text-gray-100 font-semibold">
                 Votes
               </span>
-              <span className="text-gray-900 dark:text-gray-100 text-xs ml-1">
-                {proposalVotes.length > 0
-                  ? `(${proposalVotes.length} total)`
-                  : ""}
-              </span>
             </div>
             <VoteCards votes={proposalVotes} />
           </div>

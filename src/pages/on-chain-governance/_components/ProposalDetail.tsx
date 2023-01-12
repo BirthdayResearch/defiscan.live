@@ -33,7 +33,7 @@ export function ProposalDetail({
           </div>
         </div>
       </div>
-      <div className="text-gray-900 dark:text-gray-100 text-2xl font-semibold md:text-4xl">
+      <div className="text-gray-900 dark:text-gray-100 text-2xl font-semibold md:text-4xl break-words">
         {proposal.title}
       </div>
       <div className="mb-6 md:mb-10">
