@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@babel/types': ^7.20.7
   '@cypress/code-coverage': ^3.10.0
-  '@floating-ui/react-dom': ^1.0.1
+  '@floating-ui/react-dom': ^1.2.0
   '@headlessui/react': ^1.7.7
   '@netlify/plugin-lighthouse': ^4.0.3
   '@netlify/plugin-nextjs': ^4.29.4
@@ -41,7 +41,7 @@ specifiers:
 
 dependencies:
   '@babel/types': 7.20.7
-  '@floating-ui/react-dom': 1.0.1_biqbaboplfbrettd7655fr4n2y
+  '@floating-ui/react-dom': 1.2.0_biqbaboplfbrettd7655fr4n2y
   '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
   '@prismicio/client': 6.7.3
   '@prismicio/types': 0.2.7
@@ -1526,23 +1526,23 @@ packages:
       - supports-color
     dev: true
 
-  /@floating-ui/core/1.0.4:
-    resolution: {integrity: sha512-FPFLbg2b06MIw1dqk2SOEMAMX3xlrreGjcui5OTxfBDtaKTmh0kioOVjT8gcfl58juawL/yF+S+gnq8aUYQx/Q==}
+  /@floating-ui/core/1.1.0:
+    resolution: {integrity: sha512-zbsLwtnHo84w1Kc8rScAo5GMk1GdecSlrflIbfnEBJwvTSj1SL6kkOYV+nHraMCPEy+RNZZUaZyL8JosDGCtGQ==}
     dev: false
 
-  /@floating-ui/dom/1.0.10:
-    resolution: {integrity: sha512-ZRe5ZmtGYCd82zrjWnnMW8hN5H1otedLh0Ur6rRo6f0exbEe6IlkVvo1RO7tgiMvbF0Df8hkhdm50VcVYqwP6g==}
+  /@floating-ui/dom/1.1.0:
+    resolution: {integrity: sha512-TSogMPVxbRe77QCj1dt8NmRiJasPvuc+eT5jnJ6YpLqgOD2zXc5UA3S1qwybN+GVCDNdKfpKy1oj8RpzLJvh6A==}
     dependencies:
-      '@floating-ui/core': 1.0.4
+      '@floating-ui/core': 1.1.0
     dev: false
 
-  /@floating-ui/react-dom/1.0.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-UW0t1Gi8ikbDRr8cQPVcqIDMBwUEENe5V4wlHWdrJ5egFnRQFBV9JirauTBFI6S8sM1qFUC1i+qa3g87E6CLTw==}
+  /@floating-ui/react-dom/1.2.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-o1uQ9gPhgBajY/9T0boFNOw9MoxcuHOnVortmdlGCViM7I/aONbY+G1wejbqydHQ7+9j3p7hIsAUMrr3huV/JQ==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@floating-ui/dom': 1.0.10
+      '@floating-ui/dom': 1.1.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
