@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import classNames from "classnames";
+import { useWindowDimensions } from "hooks/useWindowDimensions";
 
 interface InputComponentProps {
   label: string;
@@ -26,6 +27,15 @@ export function InputComponent({
   isVisited,
   error,
 }: InputComponentProps): JSX.Element {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const dimension = useWindowDimensions();
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.style.height = "24px";
+      ref.current.style.height = `${ref.current.scrollHeight}px`;
+    }
+  }, [ref, value, dimension]);
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row w-full">
@@ -49,13 +59,14 @@ export function InputComponent({
               : "border-gray-300 dark:border-dark-gray-300"
           )}
         >
-          <input
+          <textarea
+            ref={ref}
             value={value}
             spellCheck={false}
             placeholder={placeholder}
             onBlur={onBlur}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full mr-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none text-base placeholder:text-gray-400"
+            className="w-full mr-2 resize-none h-6 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none text-base placeholder:text-gray-400"
           />
           {value !== "" && (
             <button
