@@ -58,7 +58,7 @@ export function ReviewProposal({
               Github discussion
             </span>
           </div>
-          <div>
+          <div className="text-right">
             <a
               className="text-[#4A72DA] text-base font-medium break-all"
               href={context}
@@ -112,7 +112,7 @@ export function ReviewProposal({
                   textLength={11}
                   className="md:hidden text-gray-900 dark:text-gray-100 text-base font-medium"
                 />
-                <span className="hidden md:block text-gray-900 dark:text-gray-100 text-base font-medium">
+                <span className="hidden md:block text-gray-900 dark:text-gray-100 text-base font-medium break-all text-right">
                   {payoutAddress}
                 </span>
               </div>
