@@ -188,8 +188,11 @@ function ProposalRow({
             e.stopPropagation();
           }}
         >
-          <div className="text-gray-900 dark:text-dark-gray-600 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border-[0.5px] border-gray-200 dark:border-dark-gray-200 hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
-            <AiFillGithub size={24} className="dark:text-dark-gray-900" />
+          <div className="text-gray-600 dark:text-dark-gray-600 text-sm font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border-[0.5px] border-gray-200 dark:border-dark-gray-200 hover:border-primary-200 hover:dark:border-dark-primary-200 focus:border-primary-400 focus:dark:border-dark-primary-400 rounded-[30px] w-fit">
+            <AiFillGithub
+              size={24}
+              className="text-gray-900 dark:text-dark-gray-900"
+            />
             {OnChainGovernanceTitles.Github}
           </div>
         </a>

@@ -21,7 +21,7 @@ export function VotesTable({ votes }: { votes }): JSX.Element {
         </>
       ) : (
         <div className="my-5 mx-6">
-          <span className="text-gray-900 dark:text-gray-100">
+          <span className="text-gray-900 dark:text-dark-gray-900">
             No votes posted yet
           </span>
         </div>
@@ -32,13 +32,13 @@ export function VotesTable({ votes }: { votes }): JSX.Element {
 
 function getVotesStyle(vote) {
   if (vote === "NO") {
-    return "md:bg-red-50 text-red-600";
+    return "md:bg-red-50 md:dark:bg-dark-red-50 text-red-600 dark:text-dark-red-600";
   }
   if (vote === "YES") {
-    return "md:bg-green-50 text-green-600";
+    return "md:bg-green-50 md:dark:bg-dark-green-50 text-green-600 dark:text-dark-green-600";
   }
   if (vote === "NEUTRAL") {
-    return "md:bg-gray-50 text-gray-600";
+    return "md:bg-gray-50 md:dark:bg-dark-gray-50 text-gray-600 dark:text-dark-gray-600";
   }
 }
 
@@ -47,7 +47,7 @@ function VoteRow({ item }: { item: ListVotesResult }): JSX.Element {
   return (
     <OverflowTable.Row>
       <OverflowTable.Cell>
-        <span className="text-gray-900 dark:text-gray-100">
+        <span className="text-gray-900 dark:text-dark-gray-900">
           {item.masternodeId}
         </span>
       </OverflowTable.Cell>
@@ -72,7 +72,9 @@ export function VoteCards({
 }): JSX.Element {
   if (votes.length === 0) {
     return (
-      <span className="ml-4 text-gray-900 text-sm">No votes posted yet</span>
+      <span className="ml-4 text-gray-900 dark:text-dark-gray-900 text-sm">
+        No votes posted yet
+      </span>
     );
   }
 
@@ -80,7 +82,7 @@ export function VoteCards({
     <div className="space-y-2">
       {votes.map((item) => (
         <div
-          className="flex flex-row border-[0.5px] border-gray-300 p-4 justify-between items-center space-x-3 rounded-xl"
+          className="flex flex-row border-[0.5px] border-gray-300 dark:border-dark-gray-300 p-4 justify-between items-center space-x-3 rounded-xl"
           key={item.masternodeId}
         >
           <div className="flex flex-col scale-y-1 w-8/12">
@@ -90,7 +92,7 @@ export function VoteCards({
               </span>
             </div>
             <div className="break-all mt-1">
-              <span className="text-sm text-gray-900 dark:text-gray-100">
+              <span className="text-sm text-gray-900 dark:text-dark-gray-900">
                 {item.masternodeId}
               </span>
             </div>

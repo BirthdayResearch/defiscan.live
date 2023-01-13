@@ -82,7 +82,7 @@ export function ConfirmVoteDialog({
             <Transition.Child as="div">
               <Dialog.Panel
                 className={classNames(
-                  "w-full max-w-[512px] transform overflow-hidden rounded-[10px] bg-white p-5 md:p-8 text-left align-middle shadow-xl transition-all",
+                  "w-full max-w-[512px] transform overflow-hidden rounded-[10px] bg-white dark:bg-dark-gray-100 p-5 md:p-8 text-left align-middle shadow-xl transition-all",
                   { "max-w-[436px]": voteStage === VoteStages.ReadyVoteId }
                 )}
               >
@@ -113,7 +113,10 @@ export function ConfirmVoteDialog({
                         closeStates();
                       }}
                     >
-                      <MdClear size={24} className="text-gray-600" />
+                      <MdClear
+                        size={24}
+                        className="text-gray-600 dark:text-dark-gray-600"
+                      />
                     </button>
                   </div>
                 )}
@@ -121,7 +124,7 @@ export function ConfirmVoteDialog({
                 <Dialog.Title
                   data-testid="OnChainGovernance.VotingFlow.ModalTitle"
                   as="h3"
-                  className="font-semibold text-2xl text-gray-900 dark:text-gray-100"
+                  className="font-semibold text-2xl text-gray-900 dark:text-dark-gray-900"
                 >
                   {voteStage !== VoteStages.ReadyVoteId && voteStage}
                 </Dialog.Title>
@@ -210,7 +213,7 @@ function VoteForProposal({
       <div className="mt-2 mb-6">
         <span
           data-testid="OnChainGovernance.VotingFlow.VoteForProposal.SubTitle"
-          className="text-lg text-gray-600 dark:text-gray-100"
+          className="text-lg text-gray-600 dark:text-dark-gray-600"
         >
           Confirm your masternode and vote on the proposal
         </span>
@@ -218,7 +221,7 @@ function VoteForProposal({
 
       <span
         data-testid="OnChainGovernance.VotingFlow.VoteForProposal.Masternode"
-        className="text-gray-600 dark:text-gray-100 font-semibold text-sm"
+        className="text-gray-600 dark:text-dark-gray-600 font-semibold text-sm"
       >
         Masternode
       </span>
@@ -233,9 +236,14 @@ function VoteForProposal({
             setIsMasterNodeInputFocus(true);
           }}
           className={classNames(
-            "flex flex-row rounded border py-3 px-4 w-full dark:bg-gray-800 justify-between",
-            isMasterNodeInputFocus ? "border-primary-300" : "border-gray-300 ",
-            { "border-red-500": masternodeErrorMsg !== "" }
+            "flex flex-row rounded border py-3 px-4 w-full dark:bg-dark-gray-0 justify-between",
+            isMasterNodeInputFocus
+              ? "border-primary-300 dark:border-dark-primary-300"
+              : "border-gray-300 dark:border-dark-gray-300",
+            {
+              "border-red-500 dark:border-dark-red-500":
+                masternodeErrorMsg !== "",
+            }
           )}
         >
           <textarea
@@ -249,7 +257,7 @@ function VoteForProposal({
               setMasternodeId(v.target.value);
             }}
             value={masternodeId}
-            className="w-11/12 overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400"
+            className="w-11/12 overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-dark-gray-0 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400"
             placeholder="Masternode ID"
           />
 
@@ -274,7 +282,7 @@ function VoteForProposal({
       {masternodeErrorMsg !== "" ? (
         <div
           data-testid="OnChainGovernance.VotingFlow.VoteForProposal.MasternodeErrorMsg"
-          className="text-red-500 text-xs mt-2 md:mb-4 mb-6"
+          className="text-red-500 dark:text-dark-red-500 text-xs mt-2 md:mb-4 mb-6"
         >
           {masternodeErrorMsg}
         </div>
@@ -289,7 +297,7 @@ function VoteForProposal({
             }
           }}
           className={classNames(
-            "flex flex-row gap-x-[6px] items-center mt-2 md:mb-4 mb-6 accent-blue-600"
+            "flex flex-row gap-x-[6px] items-center mt-2 md:mb-4 mb-6 accent-blue-600 dark:accent-dark-blue-600"
           )}
         >
           <input
@@ -304,7 +312,9 @@ function VoteForProposal({
             }}
             checked={rememberMasternodeId === RememberMasterNodeId.Yes}
           />
-          <div className="text-gray-600 text-sm">Remember Masternode ID</div>
+          <div className="text-gray-600 dark:text-dark-gray-600 text-sm">
+            Remember Masternode ID
+          </div>
         </button>
       )}
 
@@ -331,7 +341,7 @@ function VoteForProposal({
             setVoteStage
           );
         }}
-        className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 disabled:bg-gray-50 disabled:border-0 disabled:text-gray-300"
+        className="w-full py-3 rounded-sm font-medium border border-primary-50 dark:border-dark-primary-50 text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 hover:border-primary-100 hover:dark:border-dark-primary-100 disabled:bg-gray-50 disabled:dark:bg-dark-gray-50 disabled:border-0 disabled:text-gray-300 disabled:dark:text-dark-gray-300"
       >
         CONTINUE
       </button>
@@ -361,7 +371,7 @@ function UserVote({
 
   return (
     <>
-      <div className="text-gray-600 dark:text-gray-100 font-semibold text-sm ">
+      <div className="text-gray-600 dark:text-dark-gray-600 font-semibold text-sm ">
         Vote
       </div>
 
@@ -371,10 +381,10 @@ function UserVote({
           disabled={isVoteSelectionDisabled}
           data-testid="OnChainGovernance.VotingFlow.NoVote"
           className={classNames(
-            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
+            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NO
-              ? "text-white border-0 bg-red-600"
-              : "text-red-600"
+              ? "text-white dark:text-dark-gray-0 border-0 bg-red-600 dark:bg-dark-red-600"
+              : "text-red-600 dark:text-dark-red-600"
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NO);
@@ -388,10 +398,10 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.NeutralVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
+            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NEUTRAL
-              ? "text-white border-0 bg-gray-600"
-              : "text-gray-600"
+              ? "text-white dark:text-dark-gray-0 border-0 bg-gray-600 dark:bg-dark-gray-600"
+              : "text-gray-600 dark:text-dark-gray-600"
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NEUTRAL);
@@ -405,10 +415,10 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.YesVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
+            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.YES
-              ? "text-white border-0 bg-green-600"
-              : "text-green-600"
+              ? "text-white dark:text-dark-gray-0 border-0 bg-green-600 dark:bg-dark-green-600"
+              : "text-green-600 dark:text-dark-green-600"
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.YES);
@@ -446,7 +456,7 @@ function UserReviewVote({
       <div className="grid grid-rows-[20px_minmax(70px,_1fr)] grid-cols-2 gap-y-3 mt-6">
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.Vote"
-          className="text-gray-600"
+          className="text-gray-600 dark:text-dark-gray-600"
         >
           Vote
         </div>
@@ -463,13 +473,13 @@ function UserReviewVote({
 
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.Masternode"
-          className="text-gray-600"
+          className="text-gray-600 dark:text-dark-gray-600"
         >
           Masternode
         </div>
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserMasternodeID"
-          className="text-gray-900 break-all font-medium text-right"
+          className="text-gray-900 dark:text-dark-gray-900 break-all font-medium text-right"
         >
           {masternodeId}
         </div>
@@ -485,11 +495,11 @@ function UserReviewVote({
             setVoteCommand(voteCommand);
             setIsLoading(true);
           }}
-          className="w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
+          className="w-full py-4 rounded-sm font-medium border border-primary-50 dark:border-dark-primary-50 text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 hover:border-primary-100 hover:dark:border-dark-primary-100"
         >
           CONFIRM DETAILS
         </button>
-        <span className="text-xs self-center text-center mt-3 flex text-gray-500">
+        <span className="text-xs self-center text-center mt-3 flex text-gray-500 dark:text-dark-gray-500">
           A command line will be generated once all details are confirmed
         </span>
       </div>
@@ -523,18 +533,21 @@ function ReadyVoteID({
     <>
       {isLoading ? (
         <div className="flex flex-col items-center">
-          <CgSpinner size={48} className="animate-spin text-blue-500" />
+          <CgSpinner
+            size={48}
+            className="animate-spin text-blue-500 dark:text-dark-blue-500"
+          />
           <Dialog.Title
             data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.LoadingTitle"
             as="h3"
-            className="font-semibold text-center text-2xl text-gray-900 dark:text-gray-100 mt-6"
+            className="font-semibold text-center text-2xl text-gray-900 dark:text-dark-gray-900 mt-6"
           >
             Your vote is getting ready
           </Dialog.Title>
           <div className="flex flex-row mt-2 text-center">
             <div
               data-selected={userSelectedVote}
-              className="text-lg text-gray-600"
+              className="text-lg text-gray-600 dark:text-dark-gray-600"
             >
               You have voted &lsquo;{transformUserSelectVote}&rsquo; for this
               proposal.
@@ -543,27 +556,27 @@ function ReadyVoteID({
         </div>
       ) : (
         <div className="flex flex-col items-center">
-          <CircularCheckIcon />
+          <CircularCheckIcon className="fill-green-600 dark:fill-dark-green-600" />
           <Dialog.Title
             data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.Title"
             as="h3"
-            className="font-semibold text-center text-2xl text-gray-900 dark:text-gray-100 mt-6"
+            className="font-semibold text-center text-2xl text-gray-900 dark:text-dark-gray-900 mt-6"
           >
             Vote ID is now ready
           </Dialog.Title>
           <span
             data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.SubTitle"
-            className="text-lg mt-2 text-center flex text-gray-600 mb-8"
+            className="text-lg mt-2 text-center flex text-gray-600 dark:text-dark-gray-600 mb-8"
           >
             Use the provided command line to submit this on-chain through your
             full node wallet CLI.
           </span>
 
-          <div className="rounded-[10px] border border-gray-200 dark:border-gray-700 p-4">
+          <div className="rounded-[10px] border border-gray-200 dark:border-dark-gray-300 p-4">
             <div className="flex flex-row">
               <div
                 data-testid="OnChainGovernance.VotingFlow.ReadyVoteID.VoteCommand"
-                className="text-gray-900 break-all md:line-clamp-none line-clamp-2"
+                className="text-gray-900 dark:text-dark-gray-900 break-all md:line-clamp-none line-clamp-2"
               >
                 {voteCommand}
               </div>
@@ -574,14 +587,14 @@ function ReadyVoteID({
                 <CopyButton
                   withCopyText
                   buttonClass="border-0"
-                  iconsClass="text-primary-500 self-center mr-[6px] w-[18px] h-[18px]"
+                  iconsClass="text-primary-500 dark:text-dark-primary-500 self-center mr-[6px] w-[18px] h-[18px]"
                   content={voteCommand}
                 />
               </div>
             </div>
           </div>
 
-          <span className="text-xs text-center flex text-gray-500 mt-2 mb-8">
+          <span className="text-xs text-center flex text-gray-500 dark:text-dark-gray-500 mt-2 mb-8">
             Copy and paste this to your full-node wallet CLI.
           </span>
 
@@ -590,7 +603,7 @@ function ReadyVoteID({
             onClick={() => {
               onClose();
             }}
-            className="w-full py-3 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
+            className="w-full py-3 rounded-sm font-medium border border-primary-50 dark:border-dark-primary-50 text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 hover:border-primary-100 hover:dark:border-dark-primary-100"
           >
             CLOSE
           </button>
@@ -602,13 +615,13 @@ function ReadyVoteID({
 
 function getVotesStyle(vote: VoteDecision | undefined) {
   if (vote === VoteDecision.NO) {
-    return "text-red-600";
+    return "text-red-600 dark:text-dark-red-600";
   }
   if (vote === VoteDecision.YES) {
-    return "text-green-600";
+    return "text-green-600 dark:text-dark-green-600";
   }
   if (vote === VoteDecision.NEUTRAL) {
-    return "text-gray-600";
+    return "text-gray-600 dark:text-dark-gray-600";
   }
 }
 
