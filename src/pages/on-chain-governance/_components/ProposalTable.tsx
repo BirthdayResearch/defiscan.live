@@ -95,7 +95,7 @@ export function ProposalTable({
         ))}
       </OverflowTable>
       {(proposals === null || proposals.length === 0) && (
-        <div className="relative overflow-x-auto rounded-lg rounded-t-none border border-t-0 border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-gray-100 text-gray-900 font-semibold text-2xl whitespace-nowrap">
+        <div className="relative overflow-x-auto rounded-lg rounded-t-none border border-t-0 border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-dark-gray-900 text-gray-900 font-semibold text-2xl whitespace-nowrap">
           {OnChainGovernanceTitles.NoProposals}
         </div>
       )}
@@ -141,15 +141,19 @@ function ProposalRow({
       )}
     >
       <OverflowTable.Cell className="align-middle font-semibold text-gray-900 dark:text-gray-100 w-[320px]">
-        <div className="line-clamp-2">{proposal.title}</div>
+        <div className="line-clamp-2 text-gray-900 dark:text-dark-gray-900">
+          {proposal.title}
+        </div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="align-middle dark:text-gray-100 text-gray-900">
+      <OverflowTable.Cell className="align-middle text-gray-900 dark:text-dark-gray-900">
         {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="align-middle break-all dark:text-gray-100 text-gray-900">
-        <div className="line-clamp-2">{proposal.proposalId}</div>
+      <OverflowTable.Cell className="align-middle break-all">
+        <div className="line-clamp-2 dark:text-dark-gray-900 text-gray-900">
+          {proposal.proposalId}
+        </div>
       </OverflowTable.Cell>
-      <OverflowTable.Cell className="align-middle dark:text-gray-100">
+      <OverflowTable.Cell className="align-middle">
         <div className="flex flex-col w-max">
           <Link
             href={{
@@ -173,7 +177,7 @@ function ProposalRow({
               {`Block ${proposal.cycleEndHeight}`}
             </a>
           </Link>
-          <div className="text-gray-900 dark:text-gray-100">{`~ ${cycleEndDate}`}</div>
+          <div className="text-gray-900 dark:text-dark-gray-900 text-sm">{`~ ${cycleEndDate}`}</div>
         </div>
       </OverflowTable.Cell>
 
@@ -184,8 +188,8 @@ function ProposalRow({
             e.stopPropagation();
           }}
         >
-          <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
-            <AiFillGithub size={24} />
+          <div className="text-gray-900 dark:text-dark-gray-600 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border-[0.5px] border-gray-200 dark:border-dark-gray-200 hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+            <AiFillGithub size={24} className="dark:text-dark-gray-900" />
             {OnChainGovernanceTitles.Github}
           </div>
         </a>
@@ -197,8 +201,8 @@ function ProposalRow({
             className={classNames(
               "py-1 px-3 rounded-[32px] w-fit",
               proposal.status === ProposalStatus.COMPLETED
-                ? "bg-green-100 text-green-600"
-                : "bg-red-100 text-red-600"
+                ? "bg-green-100 dark:bg-dark-green-100 text-green-600 dark:text-dark-green-600"
+                : "bg-red-100 dark:bg-dark-red-100 text-red-600 dark:text-dark-red-600"
             )}
           >
             {proposal.status === ProposalStatus.COMPLETED

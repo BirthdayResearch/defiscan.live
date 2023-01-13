@@ -88,9 +88,9 @@ export default function OnChainGovernancePage({
 
   return (
     <div>
-      <div className="py-4 bg-gray-50 w-screen">
+      <div className="py-4 bg-gray-50 dark:bg-dark-gray-100 w-screen">
         <Container>
-          <span className="text-gray-900 tracking-[0.0044em]">
+          <span className="text-gray-900 dark:text-dark-gray-900 tracking-[0.0044em]">
             Announcement: {currentMonth} {currentYear} voting round is now
             ongoing.&nbsp;
             <a
@@ -135,7 +135,7 @@ export default function OnChainGovernancePage({
             {/* main title */}
             <div
               data-testid="OnChainGovernance.Title"
-              className="text-[10px] tracking-[0.0015em] font-medium text-gray-500 dark:text-dark-gray-900"
+              className="text-[10px] tracking-[0.0015em] font-medium text-gray-500 dark:text-dark-gray-500"
             >
               ON-CHAIN GOVERNANCE
             </div>
@@ -149,32 +149,38 @@ export default function OnChainGovernancePage({
 
           {/* Proposal Info Table */}
           <div className="flex flex-col md:mt-0 mt-8">
-            <div className="justify-self-center border border-gray-200 rounded-[10px] flex flex-row items-center lg:px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
-              <div className="flex-col grow lg:px-7 dark:text-dark-gray-900">
-                <div className="md:text-2xl text-lg font-semibold text-center">
+            <div className="justify-self-center border border-gray-200 dark:border-dark-gray-300 rounded-[10px] flex flex-row items-center lg:px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
+              <div className="flex-col grow lg:px-7">
+                <div className="md:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
                   {allProposalsDetails.proposalsSubmitted}
                 </div>
-                <div className="md:text-base text-sm text-center">Total</div>
+                <div className="md:text-base text-sm text-center text-gray-900 dark:text-dark-gray-900">
+                  Total
+                </div>
               </div>
-              <div className="flex-col grow border-r border-l lg:px-7 dark:text-dark-gray-900">
-                <div className="md:text-2xl text-lg font-semibold text-center">
+              <div className="flex-col grow border-r border-l border-gray-200 dark:border-dark-gray-300 lg:px-7">
+                <div className="md:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
                   {allProposalsDetails.openProposals}
                 </div>
-                <div className="md:text-base text-sm text-center">Open</div>
+                <div className="md:text-base text-sm text-center text-gray-900 dark:text-dark-gray-900">
+                  Open
+                </div>
               </div>
-              <div className="flex-col grow lg:border-r lg:px-7 dark:text-dark-gray-900">
-                <div className="md:text-2xl text-lg font-semibold text-center">
+              <div className="flex-col grow lg:border-r border-gray-200 dark:border-dark-gray-300 lg:px-7">
+                <div className="md:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
                   {allProposalsDetails.closedProposals}
                 </div>
-                <div className="md:text-base text-sm text-center">Closed</div>
+                <div className="md:text-base text-sm text-center text-gray-900 dark:text-dark-gray-900">
+                  Closed
+                </div>
               </div>
               <div className="pl-7 pr-1 lg:block hidden">
                 <button
                   type="button"
-                  className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded"
+                  className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded"
                 >
                   <Link href={{ pathname: "on-chain-governance/create" }}>
-                    <span className="text-sm font-medium text-primary-500">
+                    <span className="text-sm font-medium text-primary-500 dark:text-dark-primary-500">
                       CREATE PROPOSAL
                     </span>
                   </Link>
@@ -186,10 +192,10 @@ export default function OnChainGovernancePage({
             <div className="lg:hidden flex w-full md:justify-end mt-4">
               <button
                 type="button"
-                className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded md:w-fit w-full"
+                className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded md:w-fit w-full"
               >
                 <Link href={{ pathname: "on-chain-governance/create" }}>
-                  <span className="text-sm font-medium text-primary-500">
+                  <span className="text-sm font-medium text-primary-500 dark:text-dark-primary-500">
                     CREATE PROPOSAL
                   </span>
                 </Link>
@@ -253,9 +259,9 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.AllProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200",
+              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-dark-gray-900 border-gray-200 dark:border-dark-gray-200",
               {
-                "border-0 bg-primary-500 text-white":
+                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
                   userQueryProposalType === ListProposalsType.ALL,
               }
             )}
@@ -276,9 +282,9 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.CfpProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
+              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-dark-gray-900 dark:border-dark-gray-200",
               {
-                "border-0 bg-primary-500 text-white":
+                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
                   userQueryProposalType === ListProposalsType.CFP,
               }
             )}
@@ -299,9 +305,9 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.DfipProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-dark-gray-900 dark:border-dark-gray-200",
               {
-                "border-0 bg-primary-500 text-white":
+                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
                   userQueryProposalType === ListProposalsType.VOC,
               }
             )}
@@ -324,11 +330,14 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.OpenProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 dark:text-gray-100",
-              { "border-0 bg-primary-500 text-white": isOpenProposalsClicked }
+              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 dark:border-dark-gray-200 dark:text-dark-gray-900",
+              {
+                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
+                  isOpenProposalsClicked,
+              }
             )}
           >
-            <div>{windowSize <= 640 ? "Open" : "Open proposals"}</div>
+            {windowSize <= 640 ? "Open" : "Open proposals"}
           </a>
         </Link>
 
@@ -344,13 +353,14 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.ClosedProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:border-dark-gray-200 dark:text-dark-gray-900",
               {
-                "border-0 bg-primary-500 text-white": !isOpenProposalsClicked,
+                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
+                  !isOpenProposalsClicked,
               }
             )}
           >
-            <div>{windowSize <= 640 ? "Closed" : "Closed proposals"}</div>
+            {windowSize <= 640 ? "Closed" : "Closed proposals"}
           </a>
         </Link>
       </div>

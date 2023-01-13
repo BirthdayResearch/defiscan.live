@@ -39,7 +39,7 @@ export function ProposalCards({
         </React.Fragment>
       ))}
       {(proposals === null || proposals.length === 0) && (
-        <div className="relative overflow-x-auto border rounded-lg border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-gray-100 text-gray-900 font-semibold text-2xl whitespace-nowrap">
+        <div className="relative overflow-x-auto border rounded-lg border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-dark-gray-900 text-gray-900 font-semibold text-2xl whitespace-nowrap">
           {OnChainGovernanceTitles.NoProposals}
         </div>
       )}
@@ -81,9 +81,9 @@ function ProposalCard({
       )}
     >
       {/* mobile */}
-      <div className="group md:hidden block ">
+      <div className="group md:hidden block">
         <div className={classNames("grid py-4 px-4 gap-y-3")}>
-          <div className="flex flex-row align-middle w-full gap-x-2">
+          <div className="flex flex-row items-center align-middle w-full gap-x-2">
             <div className="grow">
               <div
                 className={classNames(
@@ -105,8 +105,11 @@ function ProposalCard({
                     data-testid="OnChainGovernance.CardView.ViewButton"
                     onClick={() => setIsViewClicked(!isViewClicked)}
                     className={classNames(
-                      "border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min",
-                      { "bg-primary-100": isViewClicked }
+                      "border-[0.5px] border-primary-300 rounded text-primary-500 dark:text-dark-primary-500 dark:bg-gray-900 border-primary-300 dark:border-dark-primary-300 px-1.5 py-1 text-sm h-min",
+                      {
+                        "bg-primary-100 dark:bg-dark-primary-100":
+                          isViewClicked,
+                      }
                     )}
                   >
                     VIEW
@@ -114,7 +117,7 @@ function ProposalCard({
                 </a>
               </Link>
               <div
-                className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 border border-primary-300 rounded h-min"
+                className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:text-dark-primary-500 border-[0.5px] border-primary-300 dark:border-dark-primary-300 rounded h-min"
                 onClick={() => setIsOpen(!isOpen)}
                 data-testid="OnChainGovernance.CardView.Toggle"
               >
@@ -208,8 +211,8 @@ function ProposalCard({
                     className={classNames(
                       "text-sm",
                       proposal.status === ProposalStatus.COMPLETED
-                        ? "text-green-600"
-                        : "text-red-600"
+                        ? "text-green-600 dark:text-dark-green-600"
+                        : "text-red-600 dark:text-dark-red-600"
                     )}
                   >
                     {proposal.status === ProposalStatus.COMPLETED
