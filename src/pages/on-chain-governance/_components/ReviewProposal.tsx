@@ -58,7 +58,7 @@ export function ReviewProposal({
               Github discussion
             </span>
           </div>
-          <div className="text-right">
+          <div className="md:text-right">
             <a
               className="text-[#4A72DA] text-base font-medium break-all"
               href={context}
