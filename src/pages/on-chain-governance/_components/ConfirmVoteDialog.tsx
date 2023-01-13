@@ -218,7 +218,7 @@ function VoteForProposal({
 
       <span
         data-testid="OnChainGovernance.VotingFlow.VoteForProposal.Masternode"
-        className="text-gray-600 dark:text-gray-100 font-semibold text-sm tracking-[0.0025em]"
+        className="text-gray-600 dark:text-gray-100 font-semibold text-sm"
       >
         Masternode
       </span>
@@ -249,7 +249,7 @@ function VoteForProposal({
               setMasternodeId(v.target.value);
             }}
             value={masternodeId}
-            className="w-11/12 overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400 tracking-[0.0025em]"
+            className="w-11/12 overflow-visible resize-none text-sm focus:outline-none focus:caret-[#007AFF] dark:bg-gray-800 text-gray-900 dark:text-dark-gray-900 disabled:bg-white dark:disabled:bg-gray-800 placeholder:text-gray-400"
             placeholder="Masternode ID"
           />
 
@@ -304,9 +304,7 @@ function VoteForProposal({
             }}
             checked={rememberMasternodeId === RememberMasterNodeId.Yes}
           />
-          <div className="text-gray-600 text-sm tracking-[0.0025em]">
-            Remember Masternode ID
-          </div>
+          <div className="text-gray-600 text-sm">Remember Masternode ID</div>
         </button>
       )}
 
@@ -363,7 +361,7 @@ function UserVote({
 
   return (
     <>
-      <div className="text-gray-600 dark:text-gray-100 font-semibold text-sm  tracking-[0.0025em]">
+      <div className="text-gray-600 dark:text-gray-100 font-semibold text-sm ">
         Vote
       </div>
 
@@ -373,7 +371,7 @@ function UserVote({
           disabled={isVoteSelectionDisabled}
           data-testid="OnChainGovernance.VotingFlow.NoVote"
           className={classNames(
-            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NO
               ? "text-white border-0 bg-red-600"
               : "text-red-600"
@@ -390,7 +388,7 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.NeutralVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NEUTRAL
               ? "text-white border-0 bg-gray-600"
               : "text-gray-600"
@@ -407,7 +405,7 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.YesVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 disabled:opacity-30 tracking-[0.015em]",
+            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.YES
               ? "text-white border-0 bg-green-600"
               : "text-green-600"
@@ -448,7 +446,7 @@ function UserReviewVote({
       <div className="grid grid-rows-[20px_minmax(70px,_1fr)] grid-cols-2 gap-y-3 mt-6">
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.Vote"
-          className="text-gray-600 tracking-[0.0044em]"
+          className="text-gray-600"
         >
           Vote
         </div>
@@ -456,7 +454,7 @@ function UserReviewVote({
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserSelectedVote"
           className={classNames(
-            "text-right capitalize font-medium tracking-[0.0044em]",
+            "text-right capitalize font-medium",
             getVotesStyle(userSelectedVote)
           )}
         >
@@ -465,13 +463,13 @@ function UserReviewVote({
 
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.Masternode"
-          className="text-gray-600 tracking-[0.0044em]"
+          className="text-gray-600"
         >
           Masternode
         </div>
         <div
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserMasternodeID"
-          className="text-gray-900 break-all font-medium text-right tracking-[0.0044em]"
+          className="text-gray-900 break-all font-medium text-right"
         >
           {masternodeId}
         </div>
@@ -487,7 +485,7 @@ function UserReviewVote({
             setVoteCommand(voteCommand);
             setIsLoading(true);
           }}
-          className="w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100 tracking-[0.0086em]"
+          className="w-full py-4 rounded-sm font-medium border border-primary-50 text-primary-500 bg-primary-50 hover:bg-primary-100 hover:border-primary-100"
         >
           CONFIRM DETAILS
         </button>

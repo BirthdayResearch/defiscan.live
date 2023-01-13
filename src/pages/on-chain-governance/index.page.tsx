@@ -90,7 +90,7 @@ export default function OnChainGovernancePage({
     <div>
       <div className="py-4 bg-gray-50 dark:bg-dark-gray-100 w-screen">
         <Container>
-          <span className="text-gray-900 dark:text-dark-gray-900 tracking-[0.0044em]">
+          <span className="text-gray-900 dark:text-dark-gray-900">
             Announcement: {currentMonth} {currentYear} voting round is now
             ongoing.&nbsp;
             <a
@@ -135,13 +135,13 @@ export default function OnChainGovernancePage({
             {/* main title */}
             <div
               data-testid="OnChainGovernance.Title"
-              className="text-[10px] tracking-[0.0015em] font-medium text-gray-500 dark:text-dark-gray-500"
+              className="text-[10px] font-medium text-gray-500 dark:text-dark-gray-500"
             >
               ON-CHAIN GOVERNANCE
             </div>
             <div
               data-testid="OnChainGovernance.Proposals.Title"
-              className="text-4xl leading-[48px] tracking-[0.0015em] font-semibold dark:text-dark-gray-900"
+              className="text-4xl leading-[48px] font-semibold dark:text-dark-gray-900"
             >
               Proposals
             </div>
