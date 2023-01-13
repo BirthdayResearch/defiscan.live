@@ -34,7 +34,7 @@ export function ReviewProposal({
               Name of proposal
             </span>
           </div>
-          <div>
+          <div className="md:text-right">
             <span className="text-gray-900 dark:text-gray-100 text-base font-medium break-all">
               {title}
             </span>
