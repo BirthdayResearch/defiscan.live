@@ -31,7 +31,7 @@ specifiers:
   postcss: ^8.4.20
   qrcode.react: ^3.1.0
   randomcolor: ^0.6.2
-  react-number-format: ^5.1.2
+  react-number-format: ^5.1.3
   react-redux: ^8.0.5
   react-schemaorg: ^2.0.0
   recharts: 2.3.2
@@ -57,7 +57,7 @@ dependencies:
   lodash: 4.17.21
   qrcode.react: 3.1.0_react@18.2.0
   randomcolor: 0.6.2
-  react-number-format: 5.1.2_biqbaboplfbrettd7655fr4n2y
+  react-number-format: 5.1.3_biqbaboplfbrettd7655fr4n2y
   react-redux: 8.0.5_e42enmjmqb4imi3q3iaq2rrebm
   react-schemaorg: 2.0.0_rjebligfvfzam422hdjp2um35a
   recharts: 2.3.2_v2m5e27vhdewzwhryxwfaorcca
@@ -7361,8 +7361,8 @@ packages:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
     dev: false
 
-  /react-number-format/5.1.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-NXm/MvZVjmPqrFbjAut/prCyBZ+pA+O+C12rDkWZrwS3JXz1J42RC1kpclkdnkx2KDjRCNFLb21FlwGcNBZddw==}
+  /react-number-format/5.1.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-N4XVBXDEIu9qVZIIwKTfCwhPh1fWx/i50I6XnMLsckj7OHi7A85+AMCzUmMCpx05usVVee14Rr/P7MUY0Pp2Kg==}
     peerDependencies:
       react: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^18.0.0
       react-dom: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^18.0.0
