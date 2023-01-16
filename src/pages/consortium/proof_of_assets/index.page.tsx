@@ -103,7 +103,7 @@ export async function getServerSideProps(
   }>
 > {
   const api = getWhaleApiClient(context);
-  items =
+  let items =
     (await api.consortium.getAssetBreakdown().catch(() => undefined)) ?? [];
 
   /* Hardcode data for testing */
