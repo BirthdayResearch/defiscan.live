@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@babel/types': ^7.20.7
   '@cypress/code-coverage': ^3.10.0
-  '@floating-ui/react-dom': ^1.2.0
+  '@floating-ui/react-dom': ^1.2.1
   '@headlessui/react': ^1.7.7
   '@netlify/plugin-lighthouse': ^4.0.3
   '@netlify/plugin-nextjs': ^4.30.0
@@ -41,7 +41,7 @@ specifiers:
 
 dependencies:
   '@babel/types': 7.20.7
-  '@floating-ui/react-dom': 1.2.0_biqbaboplfbrettd7655fr4n2y
+  '@floating-ui/react-dom': 1.2.1_biqbaboplfbrettd7655fr4n2y
   '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
   '@prismicio/client': 6.7.3
   '@prismicio/types': 0.2.7
@@ -1535,8 +1535,8 @@ packages:
       '@floating-ui/core': 1.1.0
     dev: false
 
-  /@floating-ui/react-dom/1.2.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-o1uQ9gPhgBajY/9T0boFNOw9MoxcuHOnVortmdlGCViM7I/aONbY+G1wejbqydHQ7+9j3p7hIsAUMrr3huV/JQ==}
+  /@floating-ui/react-dom/1.2.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-YCLlqibZtgUhxUpxkSp1oekvYgH/jI4KdZEJv85E62twlZHN43xdlQNe6JcF4ROD3/Zu6juNHN+aOygN+6yZjg==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
