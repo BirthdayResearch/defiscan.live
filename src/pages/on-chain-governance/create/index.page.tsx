@@ -278,7 +278,7 @@ export default function ProposalDetailPage() {
                       <InputComponent
                         label="Cycles"
                         placeholder=""
-                        infoDesc="Cycles determine the duration for which a proposal can accept votes. Each voting cycle lasts ~130,000 blocks."
+                        infoDesc="Cycles determine the duration for which a proposal can accept votes."
                         error={isValidCycle()}
                         value={cycle}
                         isVisited={visited.cycle}
