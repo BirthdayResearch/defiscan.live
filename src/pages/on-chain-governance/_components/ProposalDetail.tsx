@@ -25,7 +25,7 @@ export function ProposalDetail({
       : `/blocks/${proposal.cycleEndHeight}`;
 
   return (
-    <div className="md:border md:p-6 border-gray-200 dark:border-dark-gray-200 rounded-lg">
+    <div className="md:border md:p-6 border-gray-200 dark:border-dark-gray-200 rounded-lg md:dark:bg-dark-gray-100">
       <div className="flex mb-2">
         <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded">
           <div className="text-sm font-medium text-gray-900 dark:text-dark-gray-900 leading-4">

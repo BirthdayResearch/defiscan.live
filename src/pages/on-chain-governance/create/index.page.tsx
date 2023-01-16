@@ -74,7 +74,7 @@ export default function ProposalDetailPage() {
   }
 
   function isValidGithubUrl() {
-    const regex = /https?:\/\/github\.com\/(?:[^/\s]+\/)+(?:issues\/\d+)$/gm;
+    const regex = /https?:\/\/github\.com\/defich\/dfips\/issues\/\d+$/gim;
     if (regex.test(context)) {
       return "";
     }

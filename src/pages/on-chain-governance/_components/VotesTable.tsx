@@ -12,20 +12,9 @@ export function VotesTable({ votes }: { votes }): JSX.Element {
         <OverflowTable.Head title="Masternode" className="font-medium" />
         <OverflowTable.Head title="Result" className="font-medium" />
       </OverflowTable.Header>
-
-      {votes.length > 0 ? (
-        <>
-          {votes.map((vote) => (
-            <VoteRow item={vote} key={vote.masternodeId} />
-          ))}
-        </>
-      ) : (
-        <div className="my-5 mx-6">
-          <span className="text-gray-900 dark:text-dark-gray-900">
-            No votes posted yet
-          </span>
-        </div>
-      )}
+      {votes.map((vote) => (
+        <VoteRow item={vote} key={vote.masternodeId} />
+      ))}
     </OverflowTable>
   );
 }
@@ -70,14 +59,6 @@ export function VoteCards({
 }: {
   votes: ListVotesResult[];
 }): JSX.Element {
-  if (votes.length === 0) {
-    return (
-      <span className="ml-4 text-gray-900 dark:text-dark-gray-900 text-sm">
-        No votes posted yet
-      </span>
-    );
-  }
-
   return (
     <div className="space-y-2">
       {votes.map((item) => (

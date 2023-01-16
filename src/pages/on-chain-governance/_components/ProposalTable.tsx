@@ -94,11 +94,6 @@ export function ProposalTable({
           </React.Fragment>
         ))}
       </OverflowTable>
-      {(proposals === null || proposals.length === 0) && (
-        <div className="relative overflow-x-auto rounded-lg rounded-t-none border border-t-0 border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-dark-gray-900 text-gray-900 font-semibold text-2xl whitespace-nowrap">
-          {OnChainGovernanceTitles.NoProposals}
-        </div>
-      )}
     </div>
   );
 }

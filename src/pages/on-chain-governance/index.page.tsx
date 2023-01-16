@@ -15,6 +15,7 @@ import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import classNames from "classnames";
 import { Link } from "@components/commons/link/Link";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { EmptySection } from "@components/commons/sections/EmptySection";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
@@ -24,6 +25,7 @@ import {
   getLocalStorageItem,
   setLocalStorage,
 } from "./shared/localStorageHelper";
+import { OnChainGovernanceTitles } from "./enum/onChainGovernanceTitles";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -208,26 +210,38 @@ export default function OnChainGovernancePage({
           isOpenProposalsClicked={isOpenProposalsClicked}
           userQueryProposalType={userQueryProposalType}
         />
-
-        <div className="hidden md:block mt-8">
-          <ProposalTable
-            data-testid="OnChainGovernance.ProposalListTable"
-            proposals={proposals.queryProposals}
-            currentBlockHeight={allProposalsDetails.currentBlockCount}
-            currentBlockMedianTime={allProposalsDetails.currentBlockMedianTime}
-            isOpenProposalsClicked={isOpenProposalsClicked}
-            masternodeId={masternodeId}
+        {proposals.queryProposals.length === 0 ? (
+          <EmptySection
+            message={OnChainGovernanceTitles.NoProposals}
+            className="mt-4 md:mt-8"
           />
-        </div>
-        <div className="md:hidden block mt-4">
-          <ProposalCards
-            data-testid="OnChainGovernance.ProposalListCard"
-            currentBlockHeight={allProposalsDetails.currentBlockCount}
-            currentBlockMedianTime={allProposalsDetails.currentBlockMedianTime}
-            isOpenProposalsClicked={isOpenProposalsClicked}
-            proposals={proposals.queryProposals}
-          />
-        </div>
+        ) : (
+          <>
+            <div className="hidden md:block mt-8">
+              <ProposalTable
+                data-testid="OnChainGovernance.ProposalListTable"
+                proposals={proposals.queryProposals}
+                currentBlockHeight={allProposalsDetails.currentBlockCount}
+                currentBlockMedianTime={
+                  allProposalsDetails.currentBlockMedianTime
+                }
+                isOpenProposalsClicked={isOpenProposalsClicked}
+                masternodeId={masternodeId}
+              />
+            </div>
+            <div className="md:hidden block mt-4">
+              <ProposalCards
+                data-testid="OnChainGovernance.ProposalListCard"
+                currentBlockHeight={allProposalsDetails.currentBlockCount}
+                currentBlockMedianTime={
+                  allProposalsDetails.currentBlockMedianTime
+                }
+                isOpenProposalsClicked={isOpenProposalsClicked}
+                proposals={proposals.queryProposals}
+              />
+            </div>
+          </>
+        )}
         {/* <div className="flex justify-end mt-8">
           <CursorPagination pages={proposals.pages} path="/on-chain-governance" />
         </div> */}

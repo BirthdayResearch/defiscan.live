@@ -10,6 +10,7 @@ import { getEnvironment } from "@contexts/Environment";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
+import { EmptySection } from "@components/commons/sections/EmptySection";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -70,7 +71,11 @@ export default function ProposalDetailPage({
               proposalEndDate={proposalEndDate}
             />
             <div className="hidden lg:block mt-6">
-              <VotesTable votes={proposalVotes} />
+              {proposalVotes.length === 0 ? (
+                <EmptySection message="No votes posted yet" className="mt-0" />
+              ) : (
+                <VotesTable votes={proposalVotes} />
+              )}
             </div>
           </div>
           <div className="w-full lg:w-4/12">
@@ -102,7 +107,11 @@ export default function ProposalDetailPage({
                 Votes
               </span>
             </div>
-            <VoteCards votes={proposalVotes} />
+            {proposalVotes.length === 0 ? (
+              <EmptySection message="No votes posted yet" className="mt-0" />
+            ) : (
+              <VoteCards votes={proposalVotes} />
+            )}
           </div>
         </div>
       </Container>

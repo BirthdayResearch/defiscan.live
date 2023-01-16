@@ -37,7 +37,7 @@ export function VotingResult({
   return (
     <div
       className={classNames(
-        "border border-gray-200 dark:border-dark-gray-200 rounded-lg pb-6",
+        "border border-gray-200 dark:border-dark-gray-200 rounded-lg pb-6 dark:bg-dark-gray-100",
         {
           "pt-6": status === ProposalStatus.VOTING,
         }
