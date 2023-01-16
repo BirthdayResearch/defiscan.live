@@ -94,7 +94,11 @@ export default function ProposalDetailPage({
             />
           </div>
           <div className="lg:hidden md:block hidden w-full mt-6">
-            <VotesTable votes={proposalVotes} />
+            {proposalVotes.length === 0 ? (
+              <EmptySection message="No votes posted yet" className="mt-0" />
+            ) : (
+              <VotesTable votes={proposalVotes} />
+            )}
           </div>
 
           <div className="md:hidden mt-7 items-center">
