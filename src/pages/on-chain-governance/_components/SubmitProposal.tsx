@@ -12,7 +12,7 @@ export function SubmitProposal({ command }: SubmitProposalProps): JSX.Element {
         and paste it in the CLI located in your full node wallet. If you have
         not downloaded a full node wallet,&nbsp;
         <a
-          className="text-[#4A72DA] underline"
+          className="text-blue-500 dark:text-blue-500 underline"
           href="https://defichain.com/downloads"
           target="_blank"
           rel="noreferrer"
@@ -27,7 +27,7 @@ export function SubmitProposal({ command }: SubmitProposalProps): JSX.Element {
         <CopyButton
           className="ml-2"
           content={command}
-          iconsClass="text-[#4A72DA] dark:text-blue-600 h-6 w-6"
+          iconsClass="text-[#4A72DA] dark:text-[#9ED6FA] h-6 w-6"
           buttonClass="cursor-pointer outline-none bg-transparent dark:bg-transparent border-none"
         />
       </div>

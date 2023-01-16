@@ -46,7 +46,7 @@ export function ProposalDetail({
               {proposalEndDate}&nbsp;
             </span>
             <Link href={{ pathname: blockPage }}>
-              <a className="text-sm md:text-lg hover:underline text-blue-500 dark:text-dark-blue-500 cursor-pointer">
+              <a className="text-sm md:text-lg hover:underline text-blue-500 dark:text-blue-500 cursor-pointer">
                 ({proposal.cycleEndHeight})
               </a>
             </Link>

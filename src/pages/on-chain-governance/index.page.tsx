@@ -50,7 +50,6 @@ export default function OnChainGovernancePage({
   const connection = useNetwork().connection;
   const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
   const userQueryProposalType = allProposalsDetails.userQueryProposalType;
-  const isOpenProposalsClicked = userQueryProposalStatus === "open";
   const [masternodeId, setMasterNodeID] = useState(
     getLocalStorageItem("dummyMasternodeID") ?? ""
   );
@@ -96,7 +95,7 @@ export default function OnChainGovernancePage({
             Announcement: {currentMonth} {currentYear} voting round is now
             ongoing.&nbsp;
             <a
-              className="text-[#4A72DA] underline"
+              className="text-blue-500 dark:text-blue-500 underline"
               href="https://github.com/DeFiCh/dfips/issues/222"
             >
               Read here for more details
@@ -207,7 +206,7 @@ export default function OnChainGovernancePage({
         </div>
 
         <UserQueryButtonRow
-          isOpenProposalsClicked={isOpenProposalsClicked}
+          userQueryProposalStatus={userQueryProposalStatus}
           userQueryProposalType={userQueryProposalType}
         />
         {proposals.queryProposals.length === 0 ? (
@@ -225,7 +224,7 @@ export default function OnChainGovernancePage({
                 currentBlockMedianTime={
                   allProposalsDetails.currentBlockMedianTime
                 }
-                isOpenProposalsClicked={isOpenProposalsClicked}
+                userQueryProposalStatus={userQueryProposalStatus}
                 masternodeId={masternodeId}
               />
             </div>
@@ -236,7 +235,7 @@ export default function OnChainGovernancePage({
                 currentBlockMedianTime={
                   allProposalsDetails.currentBlockMedianTime
                 }
-                isOpenProposalsClicked={isOpenProposalsClicked}
+                userQueryProposalStatus={userQueryProposalStatus}
                 proposals={proposals.queryProposals}
               />
             </div>
@@ -251,10 +250,10 @@ export default function OnChainGovernancePage({
 }
 
 function UserQueryButtonRow({
-  isOpenProposalsClicked,
+  userQueryProposalStatus,
   userQueryProposalType,
 }: {
-  isOpenProposalsClicked: boolean;
+  userQueryProposalStatus: UserQueryProposalStatus;
   userQueryProposalType: ListProposalsType;
 }) {
   const windowSize = useWindowDimensions().width;
@@ -265,7 +264,7 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalStatus: userQueryProposalStatus,
               proposalType: ListProposalsType.ALL,
             },
           }}
@@ -273,11 +272,14 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.AllProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-dark-gray-900 border-gray-200 dark:border-dark-gray-200",
-              {
-                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
-                  userQueryProposalType === ListProposalsType.ALL,
-              }
+              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 ",
+              userQueryProposalType === ListProposalsType.ALL
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
+              // {
+              //   "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
+              //     userQueryProposalType === ListProposalsType.ALL,
+              // }
             )}
           >
             All
@@ -288,7 +290,7 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalStatus: userQueryProposalStatus,
               proposalType: ListProposalsType.CFP,
             },
           }}
@@ -296,11 +298,10 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.CfpProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-dark-gray-900 dark:border-dark-gray-200",
-              {
-                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
-                  userQueryProposalType === ListProposalsType.CFP,
-              }
+              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              userQueryProposalType === ListProposalsType.CFP
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             CFP
@@ -311,7 +312,7 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalStatus: userQueryProposalStatus,
               proposalType: ListProposalsType.VOC,
             },
           }}
@@ -319,11 +320,10 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.DfipProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-dark-gray-900 dark:border-dark-gray-200",
-              {
-                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
-                  userQueryProposalType === ListProposalsType.VOC,
-              }
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              userQueryProposalType === ListProposalsType.VOC
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             DFIP
@@ -344,11 +344,10 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.OpenProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 dark:border-dark-gray-200 dark:text-dark-gray-900",
-              {
-                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
-                  isOpenProposalsClicked,
-              }
+              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 ",
+              userQueryProposalStatus === UserQueryProposalStatus.Open
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             {windowSize <= 640 ? "Open" : "Open proposals"}
@@ -367,11 +366,10 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.ClosedProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:border-dark-gray-200 dark:text-dark-gray-900",
-              {
-                "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
-                  !isOpenProposalsClicked,
-              }
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              userQueryProposalStatus === UserQueryProposalStatus.Close
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             {windowSize <= 640 ? "Closed" : "Closed proposals"}

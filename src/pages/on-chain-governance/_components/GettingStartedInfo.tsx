@@ -17,7 +17,7 @@ export function GettingStartedInfo(): JSX.Element {
           active discussion&nbsp;
         </span>
         <a
-          className="text-sm md:text-base text-[#4A72DA] underline"
+          className="text-sm md:text-base text-blue-500 dark:text-blue-500 underline"
           href={link}
           target="_blank"
           rel="noreferrer"

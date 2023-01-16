@@ -43,7 +43,7 @@ export function InputComponent({
       <div className="mt-1">
         <div
           className={classNames(
-            "flex flex-row py-3 px-4 bg-white dark:bg-dark-gray-100 border rounded",
+            "flex flex-row py-3 px-4 bg-white dark:bg-dark-gray-50 border rounded",
             isVisited && error !== ""
               ? "border-red-500"
               : "border-gray-300 dark:border-dark-gray-300"
@@ -55,7 +55,7 @@ export function InputComponent({
             placeholder={placeholder}
             onBlur={onBlur}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full mr-2 bg-white dark:bg-dark-gray-100 text-gray-900 dark:text-dark-gray-900 focus:outline-none text-base placeholder:text-gray-400 placeholder:dark:text-dark-gray-400"
+            className="w-full mr-2 bg-white dark:bg-dark-gray-50 text-gray-900 dark:text-dark-gray-900 focus:outline-none text-base placeholder:text-gray-400 placeholder:dark:text-dark-gray-400"
           />
           {value !== "" && (
             <button

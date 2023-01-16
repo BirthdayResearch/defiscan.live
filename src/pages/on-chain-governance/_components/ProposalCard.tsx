@@ -14,17 +14,18 @@ import { useNetwork } from "@contexts/NetworkContext";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
+import { UserQueryProposalStatus } from "../enum/UserQueryProposalStatus";
 
 export function ProposalCards({
   proposals,
   currentBlockHeight,
   currentBlockMedianTime,
-  isOpenProposalsClicked,
+  userQueryProposalStatus,
 }: {
   proposals: ProposalInfo[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  isOpenProposalsClicked: boolean;
+  userQueryProposalStatus: UserQueryProposalStatus;
 }) {
   return (
     <>
@@ -34,7 +35,7 @@ export function ProposalCards({
             proposal={proposal}
             currentBlockHeight={currentBlockHeight}
             currentBlockMedianTime={currentBlockMedianTime}
-            isOpenProposalsClicked={isOpenProposalsClicked}
+            userQueryProposalStatus={userQueryProposalStatus}
           />
         </React.Fragment>
       ))}
@@ -51,12 +52,12 @@ function ProposalCard({
   proposal,
   currentBlockHeight,
   currentBlockMedianTime,
-  isOpenProposalsClicked,
+  userQueryProposalStatus,
 }: {
   proposal: ProposalInfo;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  isOpenProposalsClicked: boolean;
+  userQueryProposalStatus: UserQueryProposalStatus;
 }) {
   const [isViewClicked, setIsViewClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -100,7 +101,7 @@ function ProposalCard({
                     data-testid="OnChainGovernance.CardView.ViewButton"
                     onClick={() => setIsViewClicked(!isViewClicked)}
                     className={classNames(
-                      "border-[0.5px] border-primary-300 rounded text-primary-500 dark:text-dark-primary-500 dark:bg-gray-900 border-primary-300 dark:border-dark-primary-300 px-1.5 py-1 text-sm h-min",
+                      "border-[0.5px] border-primary-300 rounded text-primary-500 dark:text-dark-primary-500 dark:bg-gray-900 dark:border-dark-primary-300 px-1.5 py-1 text-sm h-min",
                       {
                         "bg-primary-100 dark:bg-dark-primary-100":
                           isViewClicked,
@@ -152,19 +153,20 @@ function ProposalCard({
                 <div className="flex flex-col">
                   <Link
                     href={{
-                      pathname: isOpenProposalsClicked
-                        ? "/blocks"
-                        : `/blocks/${proposal.cycleEndHeight}`,
+                      pathname:
+                        userQueryProposalStatus === UserQueryProposalStatus.Open
+                          ? "/blocks"
+                          : `/blocks/${proposal.cycleEndHeight}`,
                     }}
                     passHref
                   >
                     <a
-                      className="flex flex-row items-center text-[#4A72DA] hover:underline text-sm w-full justify-end"
+                      className="flex flex-row items-center text-blue-500 dark:text-blue-500 hover:underline text-sm w-full justify-end"
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
                       href={
-                        isOpenProposalsClicked
+                        userQueryProposalStatus === UserQueryProposalStatus.Open
                           ? "/blocks"
                           : `/blocks/${proposal.cycleEndHeight}`
                       }
@@ -197,7 +199,7 @@ function ProposalCard({
                 </a>
               </div>
 
-              {!isOpenProposalsClicked && (
+              {userQueryProposalStatus === UserQueryProposalStatus.Close && (
                 <div className="flex flex-row align-middle">
                   <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
                     {OnChainGovernanceTitles.Result}

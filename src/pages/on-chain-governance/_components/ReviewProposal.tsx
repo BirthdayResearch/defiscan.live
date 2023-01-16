@@ -60,7 +60,7 @@ export function ReviewProposal({
           </div>
           <div>
             <a
-              className="text-[#4A72DA] text-base font-medium break-all"
+              className="text-blue-500 dark:text-blue-500 text-base font-medium break-all hover:underline"
               href={context}
               target="_blank"
               rel="noreferrer"

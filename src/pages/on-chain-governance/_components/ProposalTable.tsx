@@ -17,18 +17,19 @@ import { VoteModal } from "./VoteModal";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
+import { UserQueryProposalStatus } from "../enum/UserQueryProposalStatus";
 
 export function ProposalTable({
   proposals,
   currentBlockHeight,
   currentBlockMedianTime,
-  isOpenProposalsClicked,
+  userQueryProposalStatus,
   masternodeId,
 }: {
   proposals: ProposalInfo[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  isOpenProposalsClicked: boolean;
+  userQueryProposalStatus: UserQueryProposalStatus;
   masternodeId: string;
 }) {
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
@@ -67,7 +68,7 @@ export function ProposalTable({
           <OverflowTable.Head title={OnChainGovernanceTitles.ProposerId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
           <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
-          {!isOpenProposalsClicked && (
+          {userQueryProposalStatus === UserQueryProposalStatus.Close && (
             <OverflowTable.Head title={OnChainGovernanceTitles.Result} />
           )}
         </OverflowTable.Header>
@@ -78,7 +79,7 @@ export function ProposalTable({
               proposal={proposal}
               currentBlockHeight={currentBlockHeight}
               currentBlockMedianTime={currentBlockMedianTime}
-              isOpenProposalsClicked={isOpenProposalsClicked}
+              userQueryProposalStatus={userQueryProposalStatus}
               onDummyVote={(vote: string) =>
                 voteDummyProposals(proposal.proposalId, masternodeId, vote)
               }
@@ -102,13 +103,13 @@ function ProposalRow({
   proposal,
   currentBlockHeight,
   currentBlockMedianTime,
-  isOpenProposalsClicked,
+  userQueryProposalStatus,
   onDummyVote,
 }: {
   proposal: ProposalInfo;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  isOpenProposalsClicked: boolean;
+  userQueryProposalStatus: UserQueryProposalStatus;
   onDummyVote: (vote: string) => void;
 }) {
   const router = useRouter();
@@ -152,19 +153,20 @@ function ProposalRow({
         <div className="flex flex-col w-max">
           <Link
             href={{
-              pathname: isOpenProposalsClicked
-                ? "/blocks"
-                : `/blocks/${proposal.cycleEndHeight}`,
+              pathname:
+                userQueryProposalStatus === UserQueryProposalStatus.Open
+                  ? "/blocks"
+                  : `/blocks/${proposal.cycleEndHeight}`,
             }}
             passHref
           >
             <a
-              className="flex flex-row items-center gap-x-2 text-[#4A72DA] hover:underline"
+              className="flex flex-row items-center gap-x-2 text-blue-500 dark:text-blue-500 hover:underline"
               onClick={(e) => {
                 e.stopPropagation();
               }}
               href={
-                isOpenProposalsClicked
+                userQueryProposalStatus === UserQueryProposalStatus.Open
                   ? "/blocks"
                   : `/blocks/${proposal.cycleEndHeight}`
               }
@@ -193,7 +195,7 @@ function ProposalRow({
         </a>
       </OverflowTable.Cell>
 
-      {!isOpenProposalsClicked && (
+      {userQueryProposalStatus === UserQueryProposalStatus.Close && (
         <OverflowTable.Cell className="align-middle">
           <div
             className={classNames(
