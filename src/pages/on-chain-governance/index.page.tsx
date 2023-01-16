@@ -276,10 +276,6 @@ function UserQueryButtonRow({
               userQueryProposalType === ListProposalsType.ALL
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
-              // {
-              //   "border-0 bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0":
-              //     userQueryProposalType === ListProposalsType.ALL,
-              // }
             )}
           >
             All
