@@ -28,7 +28,6 @@ export interface ConsortiumShareProps {
 export default function AssetBreakdown({
   assets,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  // const [selectedToken, setSelectedToken] = useState("All Tokens");
   const [searchText, setSearchText] = useState<string>("");
   const [filteredAssets, setFilteredAssets] = useState(assets.items);
 
@@ -110,56 +109,56 @@ export async function getServerSideProps(
   }>
 > {
   const api = getWhaleApiClient(context);
-  const items =
+  let items =
     (await api.consortium.getAssetBreakdown().catch(() => undefined)) ?? [];
 
   /* Hardcode data for testing */
-  // items = [
-  //   {
-  //     tokenSymbol: "BTC",
-  //     tokenDisplaySymbol: "dBTC",
-  //     memberInfo: [
-  //       {
-  //         minted: "130",
-  //         burned: "130",
-  //         tokenId: "1",
-  //         id: "1",
-  //         name: "Cake",
-  //         backingAddresses: ["38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT", "backing2"],
-  //       },
-  //       {
-  //         minted: "20.300",
-  //         burned: "12312",
-  //         tokenId: "2",
-  //         id: "2",
-  //         name: "Birthday Research",
-  //         backingAddresses: ["backing3", "backing4"],
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     tokenSymbol: "ETH",
-  //     tokenDisplaySymbol: "dETH",
-  //     memberInfo: [
-  //       {
-  //         minted: "79.700",
-  //         burned: "64564",
-  //         tokenId: "1",
-  //         id: "1",
-  //         name: "Cake",
-  //         backingAddresses: ["backing1", "backing2"],
-  //       },
-  //       {
-  //         minted: "79.700",
-  //         burned: "12312",
-  //         tokenId: "2",
-  //         id: "2",
-  //         name: "Birthday Research",
-  //         backingAddresses: ["backing3", "backing4"],
-  //       },
-  //     ],
-  //   },
-  // ];
+  items = [
+    {
+      tokenSymbol: "BTC",
+      tokenDisplaySymbol: "dBTC",
+      memberInfo: [
+        {
+          minted: "130",
+          burned: "130",
+          tokenId: "1",
+          id: "1",
+          name: "Cake",
+          backingAddresses: ["38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT", "backing2"],
+        },
+        {
+          minted: "20.300",
+          burned: "12312",
+          tokenId: "2",
+          id: "2",
+          name: "Birthday Research",
+          backingAddresses: ["backing3", "backing4"],
+        },
+      ],
+    },
+    {
+      tokenSymbol: "ETH",
+      tokenDisplaySymbol: "dETH",
+      memberInfo: [
+        {
+          minted: "79.700",
+          burned: "64564",
+          tokenId: "1",
+          id: "1",
+          name: "Cake",
+          backingAddresses: ["backing1", "backing2"],
+        },
+        {
+          minted: "79.700",
+          burned: "12312",
+          tokenId: "2",
+          id: "2",
+          name: "Birthday Research",
+          backingAddresses: ["backing3", "backing4"],
+        },
+      ],
+    },
+  ];
   const consortiumShares = computeMintedTokens(items);
 
   return {
@@ -189,6 +188,7 @@ function computeMintedTokens(
     };
   }[] = [];
 
+  // Get total minted tokens per member
   assets.forEach((item) => {
     item.memberInfo.forEach((member) => {
       totalMintedPerMember[member.id] = {
@@ -202,6 +202,7 @@ function computeMintedTokens(
     });
   });
 
+  // Get share based on total minted tokens per member
   Object.keys(totalMintedPerMember).forEach((key) => {
     const sharePerMember = new BigNumber(totalMintedPerMember[key].total)
       .dividedBy(totalMinted)

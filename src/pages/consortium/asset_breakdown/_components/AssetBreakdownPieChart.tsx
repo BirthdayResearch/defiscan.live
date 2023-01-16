@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { useTheme } from "@contexts/ThemeContext";
+import BigNumber from "bignumber.js";
 import { ConsortiumShareProps } from "../index.page";
 
 const memberColors = {
@@ -42,7 +43,7 @@ export function AssetBreakdownPieChart({
                   <div
                     data-testid={`Pie.Member.${share.member}.Value`}
                     className="text-xs"
-                  >{`${share.minted}%`}</div>
+                  >{`${new BigNumber(share.minted).toFixed(2)}%`}</div>
                 </div>
               </div>
             );
