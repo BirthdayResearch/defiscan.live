@@ -14,17 +14,18 @@ import { useNetwork } from "@contexts/NetworkContext";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
+import { UserQueryProposalStatus } from "../enum/UserQueryProposalStatus";
 
 export function ProposalCards({
   proposals,
   currentBlockHeight,
   currentBlockMedianTime,
-  isOpenProposalsClicked,
+  userQueryProposalStatus,
 }: {
   proposals: ProposalInfo[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  isOpenProposalsClicked: boolean;
+  userQueryProposalStatus: UserQueryProposalStatus;
 }) {
   return (
     <>
@@ -34,15 +35,10 @@ export function ProposalCards({
             proposal={proposal}
             currentBlockHeight={currentBlockHeight}
             currentBlockMedianTime={currentBlockMedianTime}
-            isOpenProposalsClicked={isOpenProposalsClicked}
+            userQueryProposalStatus={userQueryProposalStatus}
           />
         </React.Fragment>
       ))}
-      {(proposals === null || proposals.length === 0) && (
-        <div className="relative overflow-x-auto border rounded-lg border-gray-200 dark:border-gray-700 pt-[80px] pb-[328px] text-center dark:text-gray-100 text-gray-900 font-semibold text-2xl whitespace-nowrap">
-          {OnChainGovernanceTitles.NoProposals}
-        </div>
-      )}
     </>
   );
 }
@@ -56,12 +52,12 @@ function ProposalCard({
   proposal,
   currentBlockHeight,
   currentBlockMedianTime,
-  isOpenProposalsClicked,
+  userQueryProposalStatus,
 }: {
   proposal: ProposalInfo;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  isOpenProposalsClicked: boolean;
+  userQueryProposalStatus: UserQueryProposalStatus;
 }) {
   const [isViewClicked, setIsViewClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -81,9 +77,9 @@ function ProposalCard({
       )}
     >
       {/* mobile */}
-      <div className="group md:hidden block ">
+      <div className="group md:hidden block">
         <div className={classNames("grid py-4 px-4 gap-y-3")}>
-          <div className="flex flex-row align-middle w-full gap-x-2">
+          <div className="flex flex-row items-center align-middle w-full gap-x-2">
             <div className="grow">
               <div
                 className={classNames(
@@ -105,8 +101,11 @@ function ProposalCard({
                     data-testid="OnChainGovernance.CardView.ViewButton"
                     onClick={() => setIsViewClicked(!isViewClicked)}
                     className={classNames(
-                      "border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min",
-                      { "bg-primary-100": isViewClicked }
+                      "border-[0.5px] border-primary-300 rounded text-primary-500 dark:text-dark-primary-500 dark:bg-gray-900 dark:border-dark-primary-300 px-1.5 py-1 text-sm h-min",
+                      {
+                        "bg-primary-100 dark:bg-dark-primary-100":
+                          isViewClicked,
+                      }
                     )}
                   >
                     VIEW
@@ -114,7 +113,7 @@ function ProposalCard({
                 </a>
               </Link>
               <div
-                className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 border border-primary-300 rounded h-min"
+                className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:text-dark-primary-500 border-[0.5px] border-primary-300 dark:border-dark-primary-300 rounded h-min"
                 onClick={() => setIsOpen(!isOpen)}
                 data-testid="OnChainGovernance.CardView.Toggle"
               >
@@ -154,19 +153,20 @@ function ProposalCard({
                 <div className="flex flex-col">
                   <Link
                     href={{
-                      pathname: isOpenProposalsClicked
-                        ? "/blocks"
-                        : `/blocks/${proposal.cycleEndHeight}`,
+                      pathname:
+                        userQueryProposalStatus === UserQueryProposalStatus.Open
+                          ? "/blocks"
+                          : `/blocks/${proposal.cycleEndHeight}`,
                     }}
                     passHref
                   >
                     <a
-                      className="flex flex-row items-center text-[#4A72DA] hover:underline text-sm w-full justify-end"
+                      className="flex flex-row items-center text-blue-500 hover:underline text-sm w-full justify-end"
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
                       href={
-                        isOpenProposalsClicked
+                        userQueryProposalStatus === UserQueryProposalStatus.Open
                           ? "/blocks"
                           : `/blocks/${proposal.cycleEndHeight}`
                       }
@@ -199,7 +199,7 @@ function ProposalCard({
                 </a>
               </div>
 
-              {!isOpenProposalsClicked && (
+              {userQueryProposalStatus === UserQueryProposalStatus.Close && (
                 <div className="flex flex-row align-middle">
                   <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
                     {OnChainGovernanceTitles.Result}
@@ -208,8 +208,8 @@ function ProposalCard({
                     className={classNames(
                       "text-sm",
                       proposal.status === ProposalStatus.COMPLETED
-                        ? "text-green-600"
-                        : "text-red-600"
+                        ? "text-green-600 dark:text-dark-green-600"
+                        : "text-red-600 dark:text-dark-red-600"
                     )}
                   >
                     {proposal.status === ProposalStatus.COMPLETED
