@@ -21,7 +21,7 @@ export function VotesTable({ votes }: { votes }): JSX.Element {
 
 function getVotesStyle(vote) {
   if (vote === "NO") {
-    return "md:bg-red-50 md:dark:bg-[#FF483D]/[0.15] text-red-600 dark:text-dark-red-600";
+    return "md:bg-red-50 md:dark:bg-[#FF483D]/[0.15] text-red-600 dark:text-[#FB6C64]";
   }
   if (vote === "YES") {
     return "md:bg-green-50 md:dark:bg-[#21E529]/[0.15] text-green-600 dark:text-dark-green-600";

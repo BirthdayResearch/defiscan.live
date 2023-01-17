@@ -176,31 +176,31 @@ export default function OnChainGovernancePage({
                 </div>
               </div>
               <div className="pl-7 pr-1 lg:block hidden">
-                <button
-                  type="button"
-                  className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded"
-                >
-                  <Link href={{ pathname: "on-chain-governance/create" }}>
+                <Link href={{ pathname: "on-chain-governance/create" }}>
+                  <button
+                    type="button"
+                    className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded"
+                  >
                     <span className="text-sm font-medium text-primary-500 dark:text-dark-primary-500">
                       CREATE PROPOSAL
                     </span>
-                  </Link>
-                </button>
+                  </button>
+                </Link>
               </div>
             </div>
 
             {/* Tablet and Mobile Create Proposal Button */}
             <div className="lg:hidden flex w-full md:justify-end mt-4">
-              <button
-                type="button"
-                className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded md:w-fit w-full"
-              >
-                <Link href={{ pathname: "on-chain-governance/create" }}>
+              <Link href={{ pathname: "on-chain-governance/create" }}>
+                <button
+                  type="button"
+                  className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded md:w-fit w-full"
+                >
                   <span className="text-sm font-medium text-primary-500 dark:text-dark-primary-500">
                     CREATE PROPOSAL
                   </span>
-                </Link>
-              </button>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
