@@ -151,7 +151,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         LosslessJSON.stringify(proposal.amount)
       );
     }
-    const proposalVotes = await rpc.governance.listGovProposalVotes(proposalId);
+    const proposalVotes = await rpc.governance.listGovProposalVotes({
+      proposalId,
+    });
     const currentBlockHeight = await rpc.blockchain.getBlockCount();
     const currentBlockMedianTime = await rpc.blockchain
       .getBlockStats(currentBlockHeight)
