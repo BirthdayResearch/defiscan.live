@@ -45,15 +45,15 @@ export function VotingResult({
     >
       <div>
         {status === ProposalStatus.COMPLETED && (
-          <div className="bg-green-50 dark:bg-dark-green-50 py-3 rounded-t-lg w-full text-center mb-6">
+          <div className="bg-green-50 dark:bg-[#21E529]/[0.15] py-3 rounded-t-lg w-full text-center mb-6">
             <span className="text-lg text-green-600 dark:text-dark-green-600 font-medium">
               Proposal approved
             </span>
           </div>
         )}
         {status === ProposalStatus.REJECTED && (
-          <div className="bg-red-50 dark:bg-dark-red-50 py-3 rounded-t-lg w-full text-center mb-6">
-            <span className="text-lg text-red-600 dark:text-dark-red-600 font-medium">
+          <div className="bg-red-50 dark:bg-[#FF483D]/[0.15] py-3 rounded-t-lg w-full text-center mb-6">
+            <span className="text-lg text-red-600 dark:text-[#FF483D] font-medium">
               Proposal rejected
             </span>
           </div>

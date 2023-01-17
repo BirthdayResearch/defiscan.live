@@ -21,13 +21,13 @@ export function VotesTable({ votes }: { votes }): JSX.Element {
 
 function getVotesStyle(vote) {
   if (vote === "NO") {
-    return "md:bg-red-50 md:dark:bg-dark-red-50 text-red-600 dark:text-dark-red-600";
+    return "md:bg-red-50 md:dark:bg-[#FF483D]/[0.15] text-red-600 dark:text-dark-red-600";
   }
   if (vote === "YES") {
-    return "md:bg-green-50 md:dark:bg-dark-green-50 text-green-600 dark:text-dark-green-600";
+    return "md:bg-green-50 md:dark:bg-[#21E529]/[0.15] text-green-600 dark:text-dark-green-600";
   }
   if (vote === "NEUTRAL") {
-    return "md:bg-gray-50 md:dark:bg-dark-gray-50 text-gray-600 dark:text-dark-gray-600";
+    return "md:bg-gray-50 md:dark:bg-dark-gray-200 text-gray-600 dark:text-dark-gray-600";
   }
 }
 
@@ -63,7 +63,7 @@ export function VoteCards({
     <div className="space-y-2">
       {votes.map((item) => (
         <div
-          className="flex flex-row border-[0.5px] border-gray-300 dark:border-dark-gray-300 p-4 justify-between items-center space-x-3 rounded-xl"
+          className="flex flex-row border-[0.5px] border-gray-300 dark:border-dark-gray-300 dark:bg-dark-gray-100 p-4 justify-between items-center space-x-3 rounded-xl"
           key={item.masternodeId}
         >
           <div className="flex flex-col scale-y-1 w-8/12">

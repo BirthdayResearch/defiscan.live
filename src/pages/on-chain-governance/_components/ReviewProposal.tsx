@@ -1,6 +1,5 @@
 import React from "react";
 import { NumericFormat } from "react-number-format";
-import { TextMiddleTruncate } from "@components/commons/text/TextMiddleTruncate";
 import { ProposalDisplayName } from "./ProposalCard";
 
 interface ReviewProposalProps {
@@ -107,12 +106,7 @@ export function ReviewProposal({
                 </span>
               </div>
               <div>
-                <TextMiddleTruncate
-                  text={payoutAddress}
-                  textLength={11}
-                  className="md:hidden text-gray-900 dark:text-dark-gray-900 text-base font-medium"
-                />
-                <span className="hidden md:block text-gray-900 dark:text-dark-gray-900 text-base font-medium">
+                <span className="text-gray-900 dark:text-dark-gray-900 text-base font-medium break-all">
                   {payoutAddress}
                 </span>
               </div>

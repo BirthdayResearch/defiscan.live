@@ -278,7 +278,7 @@ export default function ProposalDetailPage() {
                       <InputComponent
                         label="Cycles"
                         placeholder=""
-                        infoDesc="Cycles determine the duration for which a proposal can accept votes."
+                        infoDesc="Cycle(s) determine the duration for which a proposal can accept votes."
                         error={isValidCycle()}
                         value={cycle}
                         isVisited={visited.cycle}
