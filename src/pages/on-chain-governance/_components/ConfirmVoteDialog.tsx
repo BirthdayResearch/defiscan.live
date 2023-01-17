@@ -99,7 +99,7 @@ export function ConfirmVoteDialog({
                         onClick={() => setVoteStage(VoteStages.VoteProposal)}
                         className="grow"
                       >
-                        <div className="flex flex-row gap-x-1 text-blue-500 dark:text-blue-500 font-medium hover:underline">
+                        <div className="flex flex-row gap-x-1 text-blue-500 font-medium hover:underline">
                           <MdArrowBack size={24} className="self-center" />
                           Back to voting
                         </div>

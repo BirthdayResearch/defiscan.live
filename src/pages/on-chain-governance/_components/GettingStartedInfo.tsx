@@ -18,7 +18,7 @@ export function GettingStartedInfo(): JSX.Element {
           discussion&nbsp;
         </span>
         <a
-          className="text-sm md:text-base text-blue-500 dark:text-blue-500 underline"
+          className="text-sm md:text-base text-blue-500 underline"
           href={link}
           target="_blank"
           rel="noreferrer"
@@ -31,7 +31,7 @@ export function GettingStartedInfo(): JSX.Element {
           Github and On-chain,&nbsp;
         </span>
         <a
-          className="text-sm md:text-base text-blue-500 dark:text-blue-500 underline"
+          className="text-sm md:text-base text-blue-500 underline"
           href={readHereLink}
           target="_blank"
           rel="noreferrer"

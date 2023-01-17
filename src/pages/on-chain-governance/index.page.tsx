@@ -95,7 +95,7 @@ export default function OnChainGovernancePage({
             Announcement: {currentMonth} {currentYear} voting round is now
             ongoing.&nbsp;
             <a
-              className="text-blue-500 dark:text-blue-500 underline"
+              className="text-blue-500 underline"
               href="https://github.com/DeFiCh/dfips/issues/222"
             >
               Read here for more details

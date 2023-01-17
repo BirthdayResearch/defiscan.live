@@ -12,7 +12,7 @@ export function SubmitProposal({ command }: SubmitProposalProps): JSX.Element {
         and paste it in the CLI located in your full node wallet. If you have
         not downloaded a full node wallet,&nbsp;
         <a
-          className="text-blue-500 dark:text-blue-500 underline"
+          className="text-blue-500 underline"
           href="https://defichain.com/downloads"
           target="_blank"
           rel="noreferrer"

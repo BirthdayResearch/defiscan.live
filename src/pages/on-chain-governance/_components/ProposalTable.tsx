@@ -161,7 +161,7 @@ function ProposalRow({
             passHref
           >
             <a
-              className="flex flex-row items-center gap-x-2 text-blue-500 dark:text-blue-500 hover:underline"
+              className="flex flex-row items-center gap-x-2 text-blue-500 hover:underline"
               onClick={(e) => {
                 e.stopPropagation();
               }}

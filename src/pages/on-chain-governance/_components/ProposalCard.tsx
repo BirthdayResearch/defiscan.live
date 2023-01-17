@@ -161,7 +161,7 @@ function ProposalCard({
                     passHref
                   >
                     <a
-                      className="flex flex-row items-center text-blue-500 dark:text-blue-500 hover:underline text-sm w-full justify-end"
+                      className="flex flex-row items-center text-blue-500 hover:underline text-sm w-full justify-end"
                       onClick={(e) => {
                         e.stopPropagation();
                       }}
