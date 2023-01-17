@@ -621,7 +621,7 @@ function getVotesStyle(vote: VoteDecision | undefined) {
     return "text-green-600 dark:text-dark-green-600";
   }
   if (vote === VoteDecision.NEUTRAL) {
-    return "text-gray-600 dark:text-dark-gray-600";
+    return "text-gray-900 dark:text-dark-gray-900";
   }
 }
 
