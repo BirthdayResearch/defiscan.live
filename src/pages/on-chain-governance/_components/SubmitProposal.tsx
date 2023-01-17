@@ -21,7 +21,7 @@ export function SubmitProposal({ command }: SubmitProposalProps): JSX.Element {
         </a>
       </span>
       <div className="flex flex-row mt-6 mb-2 md:mb-4 bg-blue-100 dark:bg-dark-blue-500/[0.15] rounded py-3 px-4 items-center">
-        <span className="text-[#4A72DA] dark:text-blue-600 break-all flex grow">
+        <span className="text-[#4A72DA] dark:text-dark-blue-600 break-all flex grow">
           {command}
         </span>
         <CopyButton
