@@ -201,8 +201,8 @@ function ProposalRow({
             className={classNames(
               "py-1 px-3 rounded-[32px] w-fit",
               proposal.status === ProposalStatus.COMPLETED
-                ? "bg-green-100 dark:bg-dark-green-100 text-green-600 dark:text-dark-green-600"
-                : "bg-red-100 dark:bg-dark-red-100 text-red-600 dark:text-dark-red-600"
+                ? "bg-green-100 text-green-600 dark:bg-[#21E529] dark:text-dark-green-600 dark:bg-opacity-25"
+                : "bg-red-100 text-red-600 dark:bg-[#FF483D] dark:text-dark-red-600 dark:bg-opacity-20"
             )}
           >
             {proposal.status === ProposalStatus.COMPLETED
