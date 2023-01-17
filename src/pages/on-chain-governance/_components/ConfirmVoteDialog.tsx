@@ -99,7 +99,7 @@ export function ConfirmVoteDialog({
                         onClick={() => setVoteStage(VoteStages.VoteProposal)}
                         className="grow"
                       >
-                        <div className="flex flex-row gap-x-1 text-[#4A72DA] font-medium hover:underline">
+                        <div className="flex flex-row gap-x-1 text-blue-500 dark:text-blue-500 font-medium hover:underline">
                           <MdArrowBack size={24} className="self-center" />
                           Back to voting
                         </div>
@@ -384,7 +384,7 @@ function UserVote({
             "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NO
               ? "text-white dark:text-dark-gray-0 border-0 bg-red-600 dark:bg-dark-red-600"
-              : "text-red-600 dark:text-dark-red-600"
+              : "text-red-600 dark:text-dark-red-600 dark:bg-dark-gray-50"
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NO);
@@ -401,7 +401,7 @@ function UserVote({
             "grow w-1/3 border py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NEUTRAL
               ? "text-white dark:text-dark-gray-0 border-0 bg-gray-600 dark:bg-dark-gray-600"
-              : "text-gray-600 dark:text-dark-gray-600"
+              : "text-gray-600 dark:text-dark-gray-600 dark:bg-dark-gray-50"
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NEUTRAL);
@@ -418,7 +418,7 @@ function UserVote({
             "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.YES
               ? "text-white dark:text-dark-gray-0 border-0 bg-green-600 dark:bg-dark-green-600"
-              : "text-green-600 dark:text-dark-green-600"
+              : "text-green-600 dark:text-dark-green-600 dark:bg-dark-gray-50"
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.YES);
