@@ -203,7 +203,7 @@ function VoteForProposal({
     if (ref.current) {
       // Set initial base height to get the correct scrollHeight
       ref.current.style.height = "20px";
-      // then get the scroll height
+      // Then set the height = scrollHeight
       ref.current.style.height = `${ref.current.scrollHeight}px`;
     }
   }, [ref, masternodeId, dimension]);

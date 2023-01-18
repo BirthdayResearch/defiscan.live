@@ -33,7 +33,7 @@ export function InputComponent({
     if (ref.current) {
       // Set initial base height to get the correct scrollHeight
       ref.current.style.height = "24px";
-      // Then set the height directly
+      // Then set the height = scrollHeight
       ref.current.style.height = `${ref.current.scrollHeight}px`;
     }
   }, [ref, value, dimension]);
