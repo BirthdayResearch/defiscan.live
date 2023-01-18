@@ -14,7 +14,6 @@ import { fromAddress } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { isPlayground } from "@contexts/Environment";
-import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { ProposalDisplayName } from "../_components/ProposalCard";
 import { ReviewProposal } from "../_components/ReviewProposal";
 import { InputComponent } from "../_components/InputComponent";
@@ -39,7 +38,6 @@ export default function ProposalDetailPage() {
   const [visited, setVisited] = useState<{ [key: string]: boolean }>({});
   const [canSwitchType, setCanSwitchType] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const windowWidth = useWindowDimensions().width;
 
   useEffect(() => {
     if (isEditing) {
@@ -149,12 +147,7 @@ export default function ProposalDetailPage() {
   return (
     <>
       <Head title="Create Proposal" />
-      <Container
-        className={classNames(
-          "mt-10 md:mt-12 px-6",
-          windowWidth < 1280 ? "lg:px-6" : "lg:px-[312px]"
-        )}
-      >
+      <Container className="mt-10 md:mt-12 px-6 xl:px-[312px]">
         <Breadcrumb
           items={[
             {

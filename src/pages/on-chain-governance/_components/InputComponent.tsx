@@ -31,7 +31,9 @@ export function InputComponent({
   const dimension = useWindowDimensions();
   useEffect(() => {
     if (ref.current) {
+      // Set initial base height to get the correct scrollHeight
       ref.current.style.height = "24px";
+      // Then set the height directly
       ref.current.style.height = `${ref.current.scrollHeight}px`;
     }
   }, [ref, value, dimension]);
