@@ -8,13 +8,13 @@ import {
 import {
   ProposalInfo,
   ProposalStatus,
+  ListProposalsStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { Link } from "@components/commons/link/Link";
 import { useNetwork } from "@contexts/NetworkContext";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
-import { UserQueryProposalStatus } from "../enum/UserQueryProposalStatus";
 
 export function ProposalCards({
   proposals,
@@ -25,7 +25,7 @@ export function ProposalCards({
   proposals: ProposalInfo[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  userQueryProposalStatus: UserQueryProposalStatus;
+  userQueryProposalStatus: ListProposalsStatus;
 }) {
   return (
     <>
@@ -57,7 +57,7 @@ function ProposalCard({
   proposal: ProposalInfo;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  userQueryProposalStatus: UserQueryProposalStatus;
+  userQueryProposalStatus: ListProposalsStatus;
 }) {
   const [isViewClicked, setIsViewClicked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -154,7 +154,7 @@ function ProposalCard({
                   <Link
                     href={{
                       pathname:
-                        userQueryProposalStatus === UserQueryProposalStatus.Open
+                        userQueryProposalStatus === ListProposalsStatus.VOTING
                           ? "/blocks"
                           : `/blocks/${proposal.cycleEndHeight}`,
                     }}
@@ -166,7 +166,7 @@ function ProposalCard({
                         e.stopPropagation();
                       }}
                       href={
-                        userQueryProposalStatus === UserQueryProposalStatus.Open
+                        userQueryProposalStatus === ListProposalsStatus.VOTING
                           ? "/blocks"
                           : `/blocks/${proposal.cycleEndHeight}`
                       }
@@ -199,7 +199,8 @@ function ProposalCard({
                 </a>
               </div>
 
-              {userQueryProposalStatus === UserQueryProposalStatus.Close && (
+              {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
+                userQueryProposalStatus === ListProposalsStatus.REJECTED) && (
                 <div className="flex flex-row align-middle">
                   <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
                     {OnChainGovernanceTitles.Result}

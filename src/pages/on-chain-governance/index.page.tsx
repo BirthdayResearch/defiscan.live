@@ -14,13 +14,11 @@ import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import classNames from "classnames";
 import { Link } from "@components/commons/link/Link";
-import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
 import { getCurrentYearMonth } from "./shared/dateHelper";
-import { UserQueryProposalStatus } from "./enum/UserQueryProposalStatus";
 import {
   getLocalStorageItem,
   setLocalStorage,
@@ -31,11 +29,12 @@ interface OCGProps {
   allProposalsDetails: {
     proposalsSubmitted: number;
     openProposals: number;
-    closedProposals: number;
+    completedProposals: number;
+    rejectedProposals: number;
     currentBlockCount: number;
     currentBlockMedianTime: number;
     userQueryProposalType: ListProposalsType;
-    userQueryProposalStatus: UserQueryProposalStatus;
+    userQueryProposalStatus: ListProposalsStatus;
   };
   proposals: {
     allProposals: ProposalInfo[];
@@ -167,12 +166,20 @@ export default function OnChainGovernancePage({
                   Open
                 </div>
               </div>
-              <div className="flex-col grow lg:border-r border-gray-200 dark:border-dark-gray-300 lg:px-7">
+              <div className="flex-col grow border-r border-gray-200 dark:border-dark-gray-300 lg:px-7">
                 <div className="md:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
-                  {allProposalsDetails.closedProposals}
+                  {allProposalsDetails.completedProposals}
                 </div>
                 <div className="md:text-base text-sm text-center text-gray-900 dark:text-dark-gray-900">
-                  Closed
+                  Completed
+                </div>
+              </div>
+              <div className="flex-col grow lg:border-r border-gray-200 dark:border-dark-gray-300 lg:px-7">
+                <div className="md:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
+                  {allProposalsDetails.rejectedProposals}
+                </div>
+                <div className="md:text-base text-sm text-center text-gray-900 dark:text-dark-gray-900">
+                  Rejected
                 </div>
               </div>
               <div className="pl-7 pr-1 lg:block hidden">
@@ -253,35 +260,12 @@ function UserQueryButtonRow({
   userQueryProposalStatus,
   userQueryProposalType,
 }: {
-  userQueryProposalStatus: UserQueryProposalStatus;
+  userQueryProposalStatus: ListProposalsStatus;
   userQueryProposalType: ListProposalsType;
 }) {
-  const windowSize = useWindowDimensions().width;
   return (
     <div className="mt-[30px] flex flex-row">
       <div className="flex flex-row w-fit grow">
-        <Link
-          href={{
-            pathname: "on-chain-governance/",
-            query: {
-              proposalStatus: userQueryProposalStatus,
-              proposalType: ListProposalsType.ALL,
-            },
-          }}
-        >
-          <a
-            data-testid="OnChainGovernance.AllProposalsButton"
-            className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 ",
-              userQueryProposalType === ListProposalsType.ALL
-                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
-            )}
-          >
-            All
-          </a>
-        </Link>
-
         <Link
           href={{
             pathname: "on-chain-governance/",
@@ -294,7 +278,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.CfpProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              "md:font-normal font-medium border py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-900 rounded-l",
               userQueryProposalType === ListProposalsType.CFP
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
@@ -316,7 +300,7 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.DfipProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-900",
               userQueryProposalType === ListProposalsType.VOC
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
@@ -333,20 +317,20 @@ function UserQueryButtonRow({
             pathname: "on-chain-governance/",
             query: {
               proposalType: userQueryProposalType,
-              proposalStatus: "open",
+              proposalStatus: ListProposalsStatus.VOTING,
             },
           }}
         >
           <a
             data-testid="OnChainGovernance.OpenProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 ",
-              userQueryProposalStatus === UserQueryProposalStatus.Open
+              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-900 border-gray-200 ",
+              userQueryProposalStatus === ListProposalsStatus.VOTING
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
-            {windowSize <= 640 ? "Open" : "Open proposals"}
+            Open
           </a>
         </Link>
 
@@ -355,20 +339,42 @@ function UserQueryButtonRow({
             pathname: "on-chain-governance/",
             query: {
               proposalType: userQueryProposalType,
-              proposalStatus: "close",
+              proposalStatus: ListProposalsStatus.COMPLETED,
             },
           }}
         >
           <a
             data-testid="OnChainGovernance.ClosedProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
-              userQueryProposalStatus === UserQueryProposalStatus.Close
+              "md:font-normal font-medium border py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-900",
+              userQueryProposalStatus === ListProposalsStatus.COMPLETED
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
-            {windowSize <= 640 ? "Closed" : "Closed proposals"}
+            Completed
+          </a>
+        </Link>
+
+        <Link
+          href={{
+            pathname: "on-chain-governance/",
+            query: {
+              proposalType: userQueryProposalType,
+              proposalStatus: ListProposalsStatus.REJECTED,
+            },
+          }}
+        >
+          <a
+            data-testid="OnChainGovernance.ClosedProposalsButton"
+            className={classNames(
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-900",
+              userQueryProposalStatus === ListProposalsStatus.REJECTED
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
+            )}
+          >
+            Rejected
           </a>
         </Link>
       </div>
@@ -379,27 +385,27 @@ function UserQueryButtonRow({
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const rpc = getWhaleRpcClient(context);
 
-  let userQueryProposalType = ListProposalsType.ALL;
-  let userQueryProposalStatus = UserQueryProposalStatus.Open;
+  let userQueryProposalType = ListProposalsType.CFP;
+  let userQueryProposalStatus = ListProposalsStatus.VOTING;
   switch (context.query.proposalStatus) {
-    case UserQueryProposalStatus.Close:
-      userQueryProposalStatus = UserQueryProposalStatus.Close;
+    case ListProposalsStatus.REJECTED:
+      userQueryProposalStatus = ListProposalsStatus.REJECTED;
       break;
-    case UserQueryProposalStatus.Open:
+    case ListProposalsStatus.COMPLETED:
+      userQueryProposalStatus = ListProposalsStatus.COMPLETED;
+      break;
+    case ListProposalsStatus.VOTING:
     default:
-      userQueryProposalStatus = UserQueryProposalStatus.Open;
+      userQueryProposalStatus = ListProposalsStatus.VOTING;
   }
 
   switch (context.query.proposalType) {
-    case ListProposalsType.CFP:
-      userQueryProposalType = ListProposalsType.CFP;
-      break;
     case ListProposalsType.VOC:
       userQueryProposalType = ListProposalsType.VOC;
       break;
-    case ListProposalsType.ALL:
+    case ListProposalsType.CFP:
     default:
-      userQueryProposalType = ListProposalsType.ALL;
+      userQueryProposalType = ListProposalsType.CFP;
   }
 
   const currentBlockCount = await rpc.blockchain.getBlockCount();
@@ -415,17 +421,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const queryProposals = await rpc.governance
     .listGovProposals({
       type: userQueryProposalType,
-      status: ListProposalsStatus.ALL,
-    })
-    .then((proposals) => {
-      proposals = proposals.filter((proposal) => {
-        if (userQueryProposalStatus === "open") {
-          return proposal.status === ProposalStatus.VOTING;
-        } else {
-          return proposal.status !== ProposalStatus.VOTING;
-        }
-      });
-      return proposals;
+      status: userQueryProposalStatus,
     })
     .catch((error) => {
       console.error(error);
@@ -450,7 +446,7 @@ function getOCGData(
   currentBlockCount: number,
   currentBlockMedianTime: number,
   userQueryProposalType: ListProposalsType,
-  userQueryProposalStatus: UserQueryProposalStatus
+  userQueryProposalStatus: ListProposalsStatus
 ): OCGProps {
   return {
     allProposalsDetails: {
@@ -458,8 +454,11 @@ function getOCGData(
       openProposals: allProposals.filter(
         (item) => item.status === ProposalStatus.VOTING
       ).length,
-      closedProposals: allProposals.filter(
-        (item) => item.status !== ProposalStatus.VOTING
+      completedProposals: allProposals.filter(
+        (item) => item.status === ProposalStatus.COMPLETED
+      ).length,
+      rejectedProposals: allProposals.filter(
+        (item) => item.status === ProposalStatus.REJECTED
       ).length,
       currentBlockCount: currentBlockCount,
       currentBlockMedianTime: currentBlockMedianTime,
