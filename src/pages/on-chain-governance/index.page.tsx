@@ -12,16 +12,20 @@ import {
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
-import { MdEdit, MdClose } from "react-icons/md";
 import classNames from "classnames";
 import { Link } from "@components/commons/link/Link";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
+import { EmptySection } from "@components/commons/sections/EmptySection";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { Button } from "./_components/Button";
 import { getCurrentYearMonth } from "./shared/dateHelper";
 import { UserQueryProposalStatus } from "./enum/UserQueryProposalStatus";
+import {
+  getLocalStorageItem,
+  setLocalStorage,
+} from "./shared/localStorageHelper";
+import { OnChainGovernanceTitles } from "./enum/onChainGovernanceTitles";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -46,14 +50,10 @@ export default function OnChainGovernancePage({
   const connection = useNetwork().connection;
   const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
   const userQueryProposalType = allProposalsDetails.userQueryProposalType;
-
-  const isOpenProposalsClicked = userQueryProposalStatus === "open";
-  const [isMasterNodeClicked, setIsMasterNodeClicked] = useState(false);
-  const [masterNodeID, setMasterNodeID] = useState(
-    localStorage.getItem("masternodeID") ?? ""
+  const [masternodeId, setMasterNodeID] = useState(
+    getLocalStorageItem("dummyMasternodeID") ?? ""
   );
-  const [masterNodeErrorMsg, setMasterNodeErrorMsg] = useState("");
-  const [isMasterNodeInputFocus, setIsMasterNodeInputFocus] = useState(false);
+
   const { currentYear, currentMonth } = getCurrentYearMonth();
 
   // TODO remove this before release to prod
@@ -65,16 +65,20 @@ export default function OnChainGovernancePage({
       const governanceType = ["creategovvoc", "creategovcfp"];
       const proposalType =
         governanceType[Math.floor(Math.random() * governanceType.length)]; // get random governance type
-      const data = {
+      const cfpData = {
         title: `Title testing proposal ${new Date().getTime()}`,
         amount: "100000000",
         context: "https://github.com/WavesHQ/scan",
         payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
         cycles: i + 1,
       };
+      const vocData = {
+        title: `Title testing proposal ${new Date().getTime()}`,
+        context: "https://github.com/WavesHQ/scan",
+      };
       const proposal = await playgroundRPC.call(
         proposalType,
-        [data, []],
+        [proposalType === "creategovvoc" ? vocData : cfpData, []],
         "number"
       );
       console.log(
@@ -85,13 +89,13 @@ export default function OnChainGovernancePage({
 
   return (
     <div>
-      <div className="py-4 bg-gray-50 w-screen">
+      <div className="py-4 bg-gray-50 dark:bg-dark-gray-100 w-screen">
         <Container>
-          <span className="text-gray-900 tracking-[0.0044em]">
+          <span className="text-gray-900 dark:text-dark-gray-900">
             Announcement: {currentMonth} {currentYear} voting round is now
             ongoing.&nbsp;
             <a
-              className="text-[#4A72DA] underline"
+              className="text-blue-500 underline"
               href="https://github.com/DeFiCh/dfips/issues/222"
             >
               Read here for more details
@@ -107,188 +111,136 @@ export default function OnChainGovernancePage({
             onClick={createDummyProposals}
             customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
           />
+          <input
+            className="border"
+            placeholder="set masternode here"
+            value={masternodeId}
+            onChange={(v) => {
+              setMasterNodeID(v.target.value);
+            }}
+          />
+          <Button
+            label="set masternode"
+            testId="dummy-submit"
+            customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
+            onClick={() => {
+              setLocalStorage("dummyMasternodeID", masternodeId);
+            }}
+          />
         </div>
       )}
 
       <Container className="md:pt-11 pt-10 pb-20">
         <div className="flex md:flex-row flex-col">
-          <div className="flex flex-col grow">
+          <div className="flex flex-col grow md:justify-center">
             {/* main title */}
             <div
               data-testid="OnChainGovernance.Title"
-              className="text-[10px] tracking-[0.0015em] font-medium text-gray-500 dark:text-dark-gray-900"
+              className="text-[10px] font-medium text-gray-500 dark:text-dark-gray-500"
             >
               ON-CHAIN GOVERNANCE
             </div>
             <div
               data-testid="OnChainGovernance.Proposals.Title"
-              className="text-4xl leading-[48px] tracking-[0.0015em] font-semibold dark:text-dark-gray-900"
+              className="text-4xl leading-[48px] font-semibold dark:text-dark-gray-900"
             >
               Proposals
             </div>
-
-            {/* Set Masternode */}
-            {isMasterNodeClicked ? (
-              <>
-                <div className="flex flex-row items-center gap-x-[10px] mt-2">
-                  <div
-                    onBlur={() => {
-                      setIsMasterNodeInputFocus(false);
-                    }}
-                    onFocus={() => {
-                      setIsMasterNodeInputFocus(true);
-                    }}
-                    className={classNames(
-                      "flex flex-row rounded border py-2 px-4 lg:w-[385px] md:w-[190px] dark:bg-gray-800",
-                      { "border-primary-300": isMasterNodeInputFocus },
-                      { "border-red-200": masterNodeErrorMsg !== "" }
-                    )}
-                  >
-                    <input
-                      onChange={(v) => {
-                        if (v.target.value.length !== 64) {
-                          setMasterNodeErrorMsg("Invalid masternode address");
-                        } else {
-                          setMasterNodeErrorMsg("");
-                        }
-                        setMasterNodeID(v.target.value);
-                      }}
-                      value={masterNodeID}
-                      className="w-2/3 text-sm focus:outline-none grow focus:caret-[#007AFF] dark:bg-gray-800 dark:text-dark-gray-900"
-                      placeholder="Set your masternode"
-                    />
-                    {(masterNodeID !== "" || isMasterNodeInputFocus) && (
-                      <MdClose
-                        onClick={() => {
-                          setMasterNodeID("");
-                        }}
-                        size={15}
-                        className="text-gray-500 self-center cursor-pointer m-auto"
-                      />
-                    )}
-                  </div>
-                  <Button
-                    label="SAVE"
-                    testId="OnChainGovernance.SaveMasterNodeID"
-                    disabled={masterNodeID === "" || masterNodeErrorMsg !== ""}
-                    onClick={() => {
-                      setIsMasterNodeClicked(false);
-                      localStorage.setItem("masternodeID", masterNodeID);
-                    }}
-                  />
-                  <InfoIconToolTip />
-                </div>
-                <div className="text-red-600 text-xs px-4 mt-1">
-                  {masterNodeErrorMsg}
-                </div>
-              </>
-            ) : (
-              <>
-                {!isMasterNodeClicked &&
-                masterNodeID !== "" &&
-                masterNodeErrorMsg === "" ? (
-                  <div className="flex flex-row gap-x-[10px] items-center mt-[14px]">
-                    <div className="lg:w-[385px] md:w-[185px] w-5/6 break-all">
-                      Masternode: {masterNodeID}
-                    </div>
-                    <MdEdit
-                      role="button"
-                      size={18}
-                      onClick={() => setIsMasterNodeClicked(true)}
-                      className="text-primary-500"
-                    />
-                    <InfoIconToolTip />
-                  </div>
-                ) : (
-                  <div className="flex flex-row items-center gap-x-[10px] mt-[14px]">
-                    <Button
-                      customStyle="px-0 text-[#4A72DA] py-[6px] hover:underline"
-                      label="Set Masternode"
-                      testId="OnChainGovernance.SetMasterNode"
-                      onClick={() => setIsMasterNodeClicked(true)}
-                    />
-                    <InfoIconToolTip />
-                  </div>
-                )}
-              </>
-            )}
           </div>
 
           {/* Proposal Info Table */}
-          <div className="flex flex-col md:mt-0 mt-[46px]">
-            <div className="justify-self-center border border-gray-200 rounded-[10px] flex flex-row items-center lg:px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
-              <div className="flex-col grow lg:px-7 dark:text-dark-gray-900">
-                <div className="md:text-2xl text-lg font-semibold text-center">
+          <div className="flex flex-col md:mt-0 mt-8">
+            <div className="justify-self-center border border-gray-200 dark:border-dark-gray-300 rounded-[10px] flex flex-row items-center lg:px-3 py-6 md:h-[104px] h-[84px] md:w-[412px] lg:w-fit justify-evenly">
+              <div className="flex-col grow lg:px-7">
+                <div className="md:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
                   {allProposalsDetails.proposalsSubmitted}
                 </div>
-                <div className="md:text-base text-sm text-center">Total</div>
+                <div className="md:text-base text-sm text-center text-gray-900 dark:text-dark-gray-900">
+                  Total
+                </div>
               </div>
-              <div className="flex-col grow border-r border-l lg:px-7 dark:text-dark-gray-900">
-                <div className="md:text-2xl text-lg font-semibold text-center">
+              <div className="flex-col grow border-r border-l border-gray-200 dark:border-dark-gray-300 lg:px-7">
+                <div className="md:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
                   {allProposalsDetails.openProposals}
                 </div>
-                <div className="md:text-base text-sm text-center">Open</div>
+                <div className="md:text-base text-sm text-center text-gray-900 dark:text-dark-gray-900">
+                  Open
+                </div>
               </div>
-              <div className="flex-col grow lg:border-r lg:px-7 dark:text-dark-gray-900">
-                <div className="md:text-2xl text-lg font-semibold text-center">
+              <div className="flex-col grow lg:border-r border-gray-200 dark:border-dark-gray-300 lg:px-7">
+                <div className="md:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
                   {allProposalsDetails.closedProposals}
                 </div>
-                <div className="md:text-base text-sm text-center">Closed</div>
+                <div className="md:text-base text-sm text-center text-gray-900 dark:text-dark-gray-900">
+                  Closed
+                </div>
               </div>
               <div className="pl-7 pr-1 lg:block hidden">
-                <button
-                  type="button"
-                  className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded"
-                >
-                  <Link href={{ pathname: "on-chain-governance/create" }}>
-                    <span className="text-sm font-medium text-primary-500">
+                <Link href={{ pathname: "on-chain-governance/create" }}>
+                  <button
+                    type="button"
+                    className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded"
+                  >
+                    <span className="text-sm font-medium text-primary-500 dark:text-dark-primary-500">
                       CREATE PROPOSAL
                     </span>
-                  </Link>
-                </button>
+                  </button>
+                </Link>
               </div>
             </div>
 
             {/* Tablet and Mobile Create Proposal Button */}
             <div className="lg:hidden flex w-full md:justify-end mt-4">
-              <button
-                type="button"
-                className="py-3 px-6 bg-primary-50 hover:bg-primary-100 rounded md:w-fit w-full"
-              >
-                <Link href={{ pathname: "on-chain-governance/create" }}>
-                  <span className="text-sm font-medium text-primary-500">
+              <Link href={{ pathname: "on-chain-governance/create" }}>
+                <button
+                  type="button"
+                  className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded md:w-fit w-full"
+                >
+                  <span className="text-sm font-medium text-primary-500 dark:text-dark-primary-500">
                     CREATE PROPOSAL
                   </span>
-                </Link>
-              </button>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
 
         <UserQueryButtonRow
-          isOpenProposalsClicked={isOpenProposalsClicked}
+          userQueryProposalStatus={userQueryProposalStatus}
           userQueryProposalType={userQueryProposalType}
         />
-
-        <div className="hidden md:block mt-8">
-          <ProposalTable
-            data-testid="OnChainGovernance.ProposalListTable"
-            proposals={proposals.queryProposals}
-            currentBlockHeight={allProposalsDetails.currentBlockCount}
-            currentBlockMedianTime={allProposalsDetails.currentBlockMedianTime}
-            isOpenProposalsClicked={isOpenProposalsClicked}
-            masternodeId={masterNodeID}
+        {proposals.queryProposals.length === 0 ? (
+          <EmptySection
+            message={OnChainGovernanceTitles.NoProposals}
+            className="mt-4 md:mt-8"
           />
-        </div>
-        <div className="md:hidden block mt-4">
-          <ProposalCards
-            data-testid="OnChainGovernance.ProposalListCard"
-            currentBlockHeight={allProposalsDetails.currentBlockCount}
-            currentBlockMedianTime={allProposalsDetails.currentBlockMedianTime}
-            isOpenProposalsClicked={isOpenProposalsClicked}
-            proposals={proposals.queryProposals}
-          />
-        </div>
+        ) : (
+          <>
+            <div className="hidden md:block mt-8">
+              <ProposalTable
+                data-testid="OnChainGovernance.ProposalListTable"
+                proposals={proposals.queryProposals}
+                currentBlockHeight={allProposalsDetails.currentBlockCount}
+                currentBlockMedianTime={
+                  allProposalsDetails.currentBlockMedianTime
+                }
+                userQueryProposalStatus={userQueryProposalStatus}
+                masternodeId={masternodeId}
+              />
+            </div>
+            <div className="md:hidden block mt-4">
+              <ProposalCards
+                data-testid="OnChainGovernance.ProposalListCard"
+                currentBlockHeight={allProposalsDetails.currentBlockCount}
+                currentBlockMedianTime={
+                  allProposalsDetails.currentBlockMedianTime
+                }
+                userQueryProposalStatus={userQueryProposalStatus}
+                proposals={proposals.queryProposals}
+              />
+            </div>
+          </>
+        )}
         {/* <div className="flex justify-end mt-8">
           <CursorPagination pages={proposals.pages} path="/on-chain-governance" />
         </div> */}
@@ -297,20 +249,11 @@ export default function OnChainGovernancePage({
   );
 }
 
-function InfoIconToolTip() {
-  return (
-    <InfoHoverPopover
-      className="ml-1"
-      description="Set your masternode to vote on proposals"
-    />
-  );
-}
-
 function UserQueryButtonRow({
-  isOpenProposalsClicked,
+  userQueryProposalStatus,
   userQueryProposalType,
 }: {
-  isOpenProposalsClicked: boolean;
+  userQueryProposalStatus: UserQueryProposalStatus;
   userQueryProposalType: ListProposalsType;
 }) {
   const windowSize = useWindowDimensions().width;
@@ -321,7 +264,7 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalStatus: userQueryProposalStatus,
               proposalType: ListProposalsType.ALL,
             },
           }}
@@ -329,11 +272,10 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.AllProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200",
-              {
-                "border-0 bg-primary-500 text-white":
-                  userQueryProposalType === ListProposalsType.ALL,
-              }
+              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 ",
+              userQueryProposalType === ListProposalsType.ALL
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             All
@@ -344,7 +286,7 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalStatus: userQueryProposalStatus,
               proposalType: ListProposalsType.CFP,
             },
           }}
@@ -352,11 +294,10 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.CfpProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
-              {
-                "border-0 bg-primary-500 text-white":
-                  userQueryProposalType === ListProposalsType.CFP,
-              }
+              "md:font-normal font-medium border py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              userQueryProposalType === ListProposalsType.CFP
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             CFP
@@ -367,7 +308,7 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalStatus: isOpenProposalsClicked ? "open" : "close",
+              proposalStatus: userQueryProposalStatus,
               proposalType: ListProposalsType.VOC,
             },
           }}
@@ -375,11 +316,10 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.DfipProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
-              {
-                "border-0 bg-primary-500 text-white":
-                  userQueryProposalType === ListProposalsType.VOC,
-              }
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              userQueryProposalType === ListProposalsType.VOC
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             DFIP
@@ -400,11 +340,13 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.OpenProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 dark:text-gray-100",
-              { "border-0 bg-primary-500 text-white": isOpenProposalsClicked }
+              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 border-gray-200 ",
+              userQueryProposalStatus === UserQueryProposalStatus.Open
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
-            <div>{windowSize <= 640 ? "Open" : "Open proposals"}</div>
+            {windowSize <= 640 ? "Open" : "Open proposals"}
           </a>
         </Link>
 
@@ -420,13 +362,13 @@ function UserQueryButtonRow({
           <a
             data-testid="OnChainGovernance.ClosedProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900 dark:text-gray-100",
-              {
-                "border-0 bg-primary-500 text-white": !isOpenProposalsClicked,
-              }
+              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-3 md:text-base text-xs text-gray-900",
+              userQueryProposalStatus === UserQueryProposalStatus.Close
+                ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
-            <div>{windowSize <= 640 ? "Closed" : "Closed proposals"}</div>
+            {windowSize <= 640 ? "Closed" : "Closed proposals"}
           </a>
         </Link>
       </div>

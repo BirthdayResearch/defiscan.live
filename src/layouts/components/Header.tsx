@@ -101,7 +101,7 @@ export function Header(): JSX.Element {
                     <div className="md:hidden">
                       <BiSearchAlt2
                         size={24}
-                        className="text-gray-600"
+                        className="text-gray-600 dark:text-dark-gray-600"
                         role="button"
                         onClick={() => setIsSearchIconClicked(true)}
                         data-testid="Header.Mobile.SearchIcon"

@@ -10,6 +10,7 @@ import { getEnvironment } from "@contexts/Environment";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
+import { EmptySection } from "@components/commons/sections/EmptySection";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -18,6 +19,7 @@ import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { formatUnixTime } from "../shared/dateHelper";
+import { VoteStages } from "../enum/VoteStages";
 
 export default function ProposalDetailPage({
   proposal,
@@ -28,23 +30,19 @@ export default function ProposalDetailPage({
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
-  const [isMasterNodeConfirmClicked, setIsMasterNodeConfirmClicked] =
-    useState(false);
-  const [hasUserSelectedVote, setHasUserSelectedVote] = useState(false);
   const [userConfirmedSelectedVote, setUserConfirmedSelectedVote] =
     useState<VoteDecision>();
-  const [isConfirmDetailsClicked, setIsConfirmDetailsClicked] = useState(false);
   const [voteCommand, setVoteCommand] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [voteStage, setVoteStage] = useState<VoteStages>(
+    VoteStages.VoteProposal
+  );
 
   useEffect(() => {
     if (isChangeVoteClicked) {
-      setIsMasterNodeConfirmClicked(false);
-      setIsConfirmDetailsClicked(false);
       setIsChangeVoteClicked(false);
-      setHasUserSelectedVote(false);
+      setVoteStage(VoteStages.VoteProposal);
     }
-    setIsLoading(true);
   }, [isChangeVoteClicked]);
 
   return (
@@ -73,7 +71,11 @@ export default function ProposalDetailPage({
               proposalEndDate={proposalEndDate}
             />
             <div className="hidden lg:block mt-6">
-              <VotesTable votes={proposalVotes} />
+              {proposalVotes.length === 0 ? (
+                <EmptySection message="No votes posted yet" className="mt-0" />
+              ) : (
+                <VotesTable votes={proposalVotes} />
+              )}
             </div>
           </div>
           <div className="w-full lg:w-4/12">
@@ -87,13 +89,16 @@ export default function ProposalDetailPage({
               status={proposal.status}
               neutral={neutral}
               onSubmitVote={() => {
-                setIsLoading(true);
                 setIsDialogOpen(true);
               }}
             />
           </div>
           <div className="lg:hidden md:block hidden w-full mt-6">
-            <VotesTable votes={proposalVotes} />
+            {proposalVotes.length === 0 ? (
+              <EmptySection message="No votes posted yet" className="mt-0" />
+            ) : (
+              <VotesTable votes={proposalVotes} />
+            )}
           </div>
 
           <div className="md:hidden mt-7 items-center">
@@ -105,24 +110,20 @@ export default function ProposalDetailPage({
               <span className="text-gray-900 dark:text-gray-100 font-semibold">
                 Votes
               </span>
-              <span className="text-gray-900 dark:text-gray-100 text-xs ml-1">
-                {proposalVotes.length > 0
-                  ? `(${proposalVotes.length} total)`
-                  : ""}
-              </span>
             </div>
-            <VoteCards votes={proposalVotes} />
+            {proposalVotes.length === 0 ? (
+              <EmptySection message="No votes posted yet" className="mt-0" />
+            ) : (
+              <VoteCards votes={proposalVotes} />
+            )}
           </div>
         </div>
       </Container>
       <ConfirmVoteDialog
-        setIsMasterNodeConfirmClicked={setIsMasterNodeConfirmClicked}
-        isMasterNodeConfirmClicked={isMasterNodeConfirmClicked}
-        hasUserSelectedVote={hasUserSelectedVote}
-        setHasUserSelectedVote={setHasUserSelectedVote}
+        voteStage={voteStage}
+        setVoteStage={setVoteStage}
         setUserConfirmedSelectedVote={setUserConfirmedSelectedVote}
-        isConfirmDetailsClicked={isConfirmDetailsClicked}
-        setIsConfirmDetailsClicked={setIsConfirmDetailsClicked}
+        userConfirmedSelectedVote={userConfirmedSelectedVote}
         setVoteCommand={setVoteCommand}
         voteCommand={voteCommand}
         isLoading={isLoading}
@@ -150,7 +151,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         LosslessJSON.stringify(proposal.amount)
       );
     }
-    const proposalVotes = await rpc.governance.listGovProposalVotes(proposalId);
+    const proposalVotes = await rpc.governance.listGovProposalVotes({
+      proposalId,
+    });
     const currentBlockHeight = await rpc.blockchain.getBlockCount();
     const currentBlockMedianTime = await rpc.blockchain
       .getBlockStats(currentBlockHeight)
