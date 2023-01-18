@@ -15,6 +15,7 @@ export enum NetworkConnection {
   RemotePlayground = "Playground",
   MainNet = "MainNet",
   TestNet = "TestNet",
+  DevNet = "DevNet"
 }
 
 export type NetworkName = NetworkObject["name"];

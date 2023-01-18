@@ -92,6 +92,12 @@ function newOceanOptions(
         network: "regtest",
         version: "v0",
       };
+    case NetworkConnection.DevNet:
+      return {
+        url: "http://34.79.77.87:3000",
+        network: "devnet",
+        version: "v0",
+      };
     case NetworkConnection.TestNet:
       return {
         url: "https://testnet.ocean.jellyfishsdk.com",
