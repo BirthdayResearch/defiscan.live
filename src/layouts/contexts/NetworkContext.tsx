@@ -15,7 +15,7 @@ export enum NetworkConnection {
   RemotePlayground = "Playground",
   MainNet = "MainNet",
   TestNet = "TestNet",
-  DevNet = "DevNet"
+  DevNet = "DevNet",
 }
 
 export type NetworkName = NetworkObject["name"];
@@ -50,6 +50,8 @@ function mapNetworkObject(connection: NetworkConnection): NetworkContextObject {
       return { connection: connection, ...getNetwork("mainnet") };
     case NetworkConnection.TestNet:
       return { connection: connection, ...getNetwork("testnet") };
+    case NetworkConnection.DevNet:
+      return { connection: connection, ...getNetwork("devnet") };
     case NetworkConnection.RemotePlayground:
     case NetworkConnection.LocalPlayground:
       return { connection: connection, ...getNetwork("regtest") };
