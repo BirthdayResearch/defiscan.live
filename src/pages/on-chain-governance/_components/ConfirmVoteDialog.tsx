@@ -201,7 +201,9 @@ function VoteForProposal({
   const dimension = useWindowDimensions();
   useEffect(() => {
     if (ref.current) {
+      // Set initial base height to get the correct scrollHeight
       ref.current.style.height = "20px";
+      // then get the scroll height
       ref.current.style.height = `${ref.current.scrollHeight}px`;
     }
   }, [ref, masternodeId, dimension]);
