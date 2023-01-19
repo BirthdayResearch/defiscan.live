@@ -4,7 +4,7 @@ import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import classNames from "classnames";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 
-interface InputComponentProps {
+interface TextAreaComponentProps {
   label: string;
   error: string;
   note?: string;
@@ -16,7 +16,7 @@ interface InputComponentProps {
   onChange: (value: string | number) => void;
 }
 
-export function InputComponent({
+export function TextAreaComponent({
   label,
   value,
   placeholder,
@@ -26,7 +26,7 @@ export function InputComponent({
   onBlur,
   isVisited,
   error,
-}: InputComponentProps): JSX.Element {
+}: TextAreaComponentProps): JSX.Element {
   const ref = useRef<HTMLTextAreaElement>(null);
   const dimension = useWindowDimensions();
   useEffect(() => {
