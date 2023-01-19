@@ -174,7 +174,7 @@ export default function OnChainGovernancePage({
                   Completed
                 </div>
               </div>
-              <div className="flex-col grow lg:border-r border-gray-200 dark:border-dark-gray-300 lg:px-7 md:px-4">
+              <div className="flex-col grow lg:border-r border-gray-200 dark:border-dark-gray-300 lg:px-7 md:px-5">
                 <div className="lg:text-2xl text-lg font-semibold text-center text-gray-900 dark:text-dark-gray-900">
                   {allProposalsDetails.rejectedProposals}
                 </div>
@@ -425,6 +425,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     .listGovProposals({
       type: userQueryProposalType,
       status: userQueryProposalStatus,
+      pagination: {
+        limit: 0,
+      },
     })
     .catch((error) => {
       console.error(error);
