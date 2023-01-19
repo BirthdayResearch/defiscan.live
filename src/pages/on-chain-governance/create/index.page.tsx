@@ -141,7 +141,7 @@ export default function ProposalDetailPage() {
 
   const command =
     proposalType === ProposalDisplayName.CommunityFundProposal
-      ? `creategovcfp '{"title": "${title}" ,"context":"${context}","amount": ${amount} ,"payoutAddress":"${payoutAddress}", "cycle": "${cycle}"}'`
+      ? `creategovcfp '{"title": "${title}" ,"context":"${context}","amount": ${amount} ,"payoutAddress":"${payoutAddress}", "cycles": ${cycle}}'`
       : `creategovvoc '{"title": "${title}" ,"context":"${context}"}'`;
 
   return (
