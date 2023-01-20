@@ -261,7 +261,7 @@ export default function OnChainGovernancePage({
             path="/on-chain-governance"
             queryPath={{
               proposalStatus: userQueryProposalStatus,
-              proposalType: ListProposalsType.CFP,
+              proposalType: userQueryProposalType,
             }}
           />
         </div>
