@@ -13,7 +13,8 @@ import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/govern
 import { debounce } from "lodash";
 import { CopyButton } from "@components/commons/CopyButton";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import { NetworkConnection, useNetwork } from "@contexts/NetworkContext";
+import { useNetwork } from "@contexts/NetworkContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { CircularCheckIcon } from "./CircularCheckIcon";
 import { VoteStages } from "../enum/VoteStages";
 import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
@@ -629,7 +630,7 @@ function getVotesStyle(vote: VoteDecision | undefined) {
  * Update `masternodeId` and `rememberMasternodeId` in localStorage for current network without overwriting others
  */
 function onContinueVoteButtonClick(
-  connection: NetworkConnection,
+  connection: EnvironmentNetwork,
   rememberMasternodeId: RememberMasterNodeId,
   masternodeId: string,
   setVoteStage: Dispatch<SetStateAction<VoteStages>>

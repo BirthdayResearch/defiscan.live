@@ -5,12 +5,12 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
-import { NetworkConnection } from "@contexts/NetworkContext";
 import { getEnvironment } from "@contexts/Environment";
 import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
 import { EmptySection } from "@components/commons/sections/EmptySection";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -165,7 +165,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       .then((block) => formatUnixTime(block.mediantime));
 
     const network =
-      (context.query.network?.toString() as NetworkConnection) ??
+      (context.query.network?.toString() as EnvironmentNetwork) ??
       getEnvironment().networks[0];
     const secondsPerBlock = getSecondsPerBlock(network);
 

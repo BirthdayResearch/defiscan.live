@@ -8,11 +8,12 @@ import {
   ProposalStatus,
   ListProposalsStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
-import { getEnvironment, isPlayground } from "@contexts/Environment";
+import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import { newPlaygroundClient } from "@contexts/WhaleContext";
+import { isPlayground } from "@waveshq/walletkit-core";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { getCycleEndDate } from "../shared/getCycleEndTime";

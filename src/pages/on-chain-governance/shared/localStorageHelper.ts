@@ -1,4 +1,4 @@
-import { NetworkConnection } from "@contexts/NetworkContext";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
 
 /**
@@ -11,7 +11,7 @@ import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
 
 export function getLocalStorageItem(
   key: string,
-  connection?: NetworkConnection
+  connection?: EnvironmentNetwork
 ) {
   const localStorageItem = localStorage.getItem(key)!;
 

@@ -2,12 +2,18 @@ import {
   PlaygroundApiClient,
   PlaygroundRpcClient,
 } from "@defichain/playground-api-client";
+import {
+  EnvironmentNetwork,
+  newOceanOptions as getOceanOptions,
+  newWhaleAPIClient,
+  newWhaleRpcClient,
+} from "@waveshq/walletkit-core";
 import { WhaleApiClient, WhaleRpcClient } from "@defichain/whale-api-client";
 import { GetServerSidePropsContext } from "next";
 import { createContext, PropsWithChildren, useContext, useMemo } from "react";
 import { WhaleApiClientOptions } from "@defichain/whale-api-client/dist/whale.api.client";
 import { getEnvironment } from "./Environment";
-import { NetworkConnection, useNetwork } from "./NetworkContext";
+import { useNetwork } from "./NetworkContext";
 
 const WhaleApiClientContext = createContext<WhaleApiClient>(undefined as any);
 const WhaleRpcClientContext = createContext<WhaleRpcClient>(undefined as any);
@@ -27,7 +33,7 @@ export function getWhaleApiClient(
 ): WhaleApiClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  return newWhaleClient(newOceanOptions(network));
+  return newWhaleClient(newOceanOptions(network as EnvironmentNetwork));
 }
 
 export function getWhaleRpcClient(
@@ -35,7 +41,7 @@ export function getWhaleRpcClient(
 ): WhaleRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  return newRpcClient(newOceanOptions(network));
+  return newRpcClient(newOceanOptions(network as EnvironmentNetwork));
 }
 
 export function newPlaygroundRpcClient(
@@ -77,63 +83,29 @@ export function WhaleProvider(
 }
 
 function newOceanOptions(
-  connection?: string | NetworkConnection
+  connection: EnvironmentNetwork = EnvironmentNetwork.MainNet
 ): WhaleApiClientOptions {
-  switch (connection) {
-    case NetworkConnection.LocalPlayground:
-      return {
-        url: "http://localhost:19553",
-        network: "regtest",
-        version: "v0",
-      };
-    case NetworkConnection.RemotePlayground:
-      return {
-        url: "https://playground.jellyfishsdk.com",
-        network: "regtest",
-        version: "v0",
-      };
-    case NetworkConnection.DevNet:
-      return {
-        url: "http://35.241.191.23:3000",
-        network: "devnet",
-        version: "v0",
-      };
-    case NetworkConnection.TestNet:
-      return {
-        url: "https://testnet.ocean.jellyfishsdk.com",
-        network: "testnet",
-        version: "v0",
-      };
-    case NetworkConnection.MainNet:
-    default:
-      return {
-        url: "https://ocean.defichain.com",
-        network: "mainnet",
-        version: "v0",
-      };
-  }
+  return getOceanOptions(connection);
 }
 
 function newWhaleClient(options: WhaleApiClientOptions): WhaleApiClient {
-  return new WhaleApiClient(options);
+  return newWhaleAPIClient(options);
 }
 
 function newRpcClient(options: WhaleApiClientOptions): WhaleRpcClient {
-  return new WhaleRpcClient(
-    `${options.url}/${options.version}/${options.network}/rpc`
-  );
+  return newWhaleRpcClient(options);
 }
 
 // TODO remove this before release to prod
 export function newPlaygroundClient(
-  network: string | NetworkConnection
+  network: string | EnvironmentNetwork
 ): PlaygroundApiClient {
   switch (network) {
-    case NetworkConnection.RemotePlayground:
+    case EnvironmentNetwork.RemotePlayground:
       return new PlaygroundApiClient({
         url: "https://playground.jellyfishsdk.com",
       });
-    case NetworkConnection.LocalPlayground:
+    case EnvironmentNetwork.LocalPlayground:
       return new PlaygroundApiClient({ url: "http://localhost:19553" });
     default:
       throw new Error(`playground not available for '${network}'`);
