@@ -222,10 +222,10 @@ function CfpVotingResultButtonRow({
         type="button"
         data-testid="OnChainGovernance.VotingFlow.NoVote"
         className={classNames(
-          "md:px-5 rounded-l border px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500",
+          "md:px-5 rounded-l border px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500",
           cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current
             ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
+            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300"
         )}
         onClick={() => {
           setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Current);
@@ -238,10 +238,10 @@ function CfpVotingResultButtonRow({
         data-testid="OnChainGovernance.VotingFlow.YesVote"
         disabled={currenCycle === 1}
         className={classNames(
-          "md:px-5 border border-l-0 rounded-r px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
+          "md:px-5 border border-l-0 rounded-r px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
           cfpVotingResultTabChoice === CfpVotingResultCycleTab.Previous
             ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
+            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300"
         )}
         onClick={() => {
           setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Previous);
