@@ -407,10 +407,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     currentBlockCount
   );
   const currentBlockMedianTime = currentBlockInfo.mediantime;
-  const allProposals = await rpc.governance.listGovProposals({
-    type: ListProposalsType.ALL,
-    status: ListProposalsStatus.ALL,
-  });
+  const allProposals = await rpc.governance
+    .listGovProposals({
+      type: ListProposalsType.ALL,
+      status: ListProposalsStatus.ALL,
+    })
+    .catch((error) => {
+      console.error(error);
+      return [];
+    });
 
   const queryProposals = await rpc.governance
     .listGovProposals({
