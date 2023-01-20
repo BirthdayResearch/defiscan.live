@@ -40,6 +40,7 @@ export function getEnvironment(): Environment {
       return new Environment("Production", false, [
         NetworkConnection.MainNet,
         NetworkConnection.TestNet,
+        NetworkConnection.DevNet,
         NetworkConnection.RemotePlayground,
       ]);
     case "development":
@@ -49,6 +50,7 @@ export function getEnvironment(): Environment {
         NetworkConnection.RemotePlayground,
         NetworkConnection.LocalPlayground,
         NetworkConnection.TestNet,
+        NetworkConnection.DevNet,
       ]);
   }
 }
