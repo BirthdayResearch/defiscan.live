@@ -3,10 +3,10 @@ import classNames from "classnames";
 import { AiFillGithub } from "react-icons/ai";
 import { NumericFormat } from "react-number-format";
 import {
-  ProposalInfo,
-  ProposalType,
-  ProposalStatus,
-} from "@defichain/jellyfish-api-core/dist/category/governance";
+  GovernanceProposal,
+  GovernanceProposalStatus,
+  GovernanceProposalType,
+} from "@defichain/whale-api-client/dist/api/governance";
 import { Link } from "@components/commons/link/Link";
 import { ProposalDisplayName } from "./ProposalCard";
 
@@ -15,12 +15,12 @@ export function ProposalDetail({
   proposalCreationDate,
   proposalEndDate,
 }: {
-  proposal: ProposalInfo;
+  proposal: GovernanceProposal;
   proposalCreationDate: string;
   proposalEndDate: string;
 }) {
   const blockPage =
-    proposal.status === ProposalStatus.VOTING
+    proposal.status === GovernanceProposalStatus.VOTING
       ? "/blocks"
       : `/blocks/${proposal.cycleEndHeight}`;
 
@@ -37,7 +37,7 @@ export function ProposalDetail({
         {proposal.title}
       </div>
       <div className="mb-6 md:mb-10">
-        {proposal.status === ProposalStatus.VOTING && (
+        {proposal.status === GovernanceProposalStatus.VOTING && (
           <div className="mt-2">
             <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900">
               Voting stops at&nbsp;
@@ -64,7 +64,7 @@ export function ProposalDetail({
             </span>
           </div>
         </div>
-        {proposal.status !== ProposalStatus.VOTING && (
+        {proposal.status !== GovernanceProposalStatus.VOTING && (
           <div className="flex flex-row md:flex-col">
             <div className="w-1/2 md:w-full mb-0 md:mb-2">
               <DetailSectionTitle label="Ended on" />
@@ -80,7 +80,7 @@ export function ProposalDetail({
             </div>
           </div>
         )}
-        {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
+        {proposal.type === GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
           <>
             <div className="flex flex-row md:flex-col">
               <div className="w-1/2 md:w-full mb-0 md:mb-2">
@@ -126,7 +126,7 @@ export function ProposalDetail({
         <div
           className={classNames("flex flex-row md:flex-col", {
             "md:row-start-2":
-              proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL,
+              proposal.type === GovernanceProposalType.COMMUNITY_FUND_PROPOSAL,
           })}
         >
           <div className="w-1/2 md:w-full mb-0 md:mb-1">
