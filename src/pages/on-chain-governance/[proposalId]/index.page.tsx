@@ -153,6 +153,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
     const proposalVotes = await rpc.governance.listGovProposalVotes({
       proposalId,
+      masternode: "all",
     });
     const currentBlockHeight = await rpc.blockchain.getBlockCount();
     const currentBlockMedianTime = await rpc.blockchain
