@@ -94,7 +94,7 @@ function newOceanOptions(
       };
     case NetworkConnection.DevNet:
       return {
-        url: "http://34.79.77.87:3000",
+        url: "http://35.241.191.23:3000",
         network: "devnet",
         version: "v0",
       };
