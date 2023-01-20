@@ -16,7 +16,7 @@ import { NetworkName } from "@defichain/jellyfish-network";
 import { isPlayground } from "@contexts/Environment";
 import { ProposalDisplayName } from "../_components/ProposalCard";
 import { ReviewProposal } from "../_components/ReviewProposal";
-import { InputComponent } from "../_components/InputComponent";
+import { TextAreaComponent } from "../_components/TextAreaComponent";
 import { GettingStartedInfo } from "../_components/GettingStartedInfo";
 import { DisclosureComponent } from "../_components/DisclosureComponent";
 import { ConfirmDialog } from "../_components/ConfirmDialog";
@@ -74,7 +74,7 @@ export default function ProposalDetailPage() {
   }
 
   function isValidGithubUrl() {
-    const regex = /https?:\/\/github\.com\/(?:[^/\s]+\/)+(?:issues\/\d+)$/gm;
+    const regex = /https?:\/\/github\.com\/defich\/dfips\/issues\/\d+$/gim;
     if (regex.test(context)) {
       return "";
     }
@@ -141,13 +141,13 @@ export default function ProposalDetailPage() {
 
   const command =
     proposalType === ProposalDisplayName.CommunityFundProposal
-      ? `creategovcfp '{"title": "${title}" ,"context":"${context}","amount": ${amount} ,"payoutAddress":"${payoutAddress}", "cycle": "${cycle}"}'`
+      ? `creategovcfp '{"title": "${title}" ,"context":"${context}","amount": ${amount} ,"payoutAddress":"${payoutAddress}", "cycles": ${cycle}}'`
       : `creategovvoc '{"title": "${title}" ,"context":"${context}"}'`;
 
   return (
     <>
       <Head title="Create Proposal" />
-      <Container className="mt-10 md:mt-12 px-6 lg:px-[312px]">
+      <Container className="mt-10 md:mt-12 px-6 xl:px-[312px]">
         <Breadcrumb
           items={[
             {
@@ -162,7 +162,7 @@ export default function ProposalDetailPage() {
             },
           ]}
         />
-        <h1 className="text-2xl	md:text-4xl font-semibold mt-2 mb-6 text-gray-900 dark:text-gray-100">
+        <h1 className="text-2xl	md:text-4xl font-semibold mt-2 mb-6 text-gray-900 dark:text-dark-gray-900">
           Create Proposal
         </h1>
         <div className="flex flex-col space-y-2">
@@ -179,7 +179,7 @@ export default function ProposalDetailPage() {
               },
             })}
           >
-            <span className="text-gray-600 dark:text-gray-100 text-sm md:text-base">
+            <span className="text-gray-600 dark:text-dark-gray-600 text-sm md:text-base">
               Enter from Github the title of the proposal and the type of
               proposal.
             </span>
@@ -202,7 +202,7 @@ export default function ProposalDetailPage() {
                       "p-4 border rounded w-full md:w-1/2",
                       checked
                         ? "border-primary-300 dark:text-dark-primary-500"
-                        : "border-gray-200 dark:border-gray-700"
+                        : "border-gray-200 dark:border-dark-gray-200"
                     )
                   }
                 >
@@ -217,12 +217,12 @@ export default function ProposalDetailPage() {
                         ) : (
                           <MdRadioButtonUnchecked
                             size={20}
-                            className="text-gray-300"
+                            className="text-gray-300 dark:text-dark-gray-300"
                           />
                         )}
                       </div>
                       <div className="flex flex-col space-y-1">
-                        <span className="font-medium text-sm text-gray-900 dark:text-gray-100">
+                        <span className="font-medium text-sm text-gray-900 dark:text-dark-gray-900">
                           {item.name}
                         </span>
                         <span className="text-sm text-gray-500 dark:text-dark-gray-500">
@@ -236,7 +236,7 @@ export default function ProposalDetailPage() {
             </RadioGroup>
 
             <div className="space-y-6">
-              <InputComponent
+              <TextAreaComponent
                 label="Name of proposal"
                 placeholder="Enter title of the proposal (required)"
                 note="Make sure that the name added here is the same as from the one posted in Github."
@@ -246,7 +246,7 @@ export default function ProposalDetailPage() {
                 onBlur={() => setVisited({ ...visited, title: true })}
                 onChange={(value) => setTitle(value as string)}
               />
-              <InputComponent
+              <TextAreaComponent
                 label="Github discussion"
                 placeholder="Paste URL"
                 error={isValidGithubUrl()}
@@ -259,7 +259,7 @@ export default function ProposalDetailPage() {
                 <>
                   <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row">
                     <div className="w-full md:w-1/2">
-                      <InputComponent
+                      <TextAreaComponent
                         label="Amount requested in DFI"
                         placeholder="0.00 DFI"
                         value={amount}
@@ -275,10 +275,10 @@ export default function ProposalDetailPage() {
                       />
                     </div>
                     <div className="flex flex-row w-full md:w-1/2 md:ml-6">
-                      <InputComponent
+                      <TextAreaComponent
                         label="Cycles"
                         placeholder=""
-                        infoDesc="Cycles determine the duration for which a proposal can accept votes. Each voting cycle lasts ~130,000 blocks."
+                        infoDesc="Cycle(s) determine the duration for which a proposal can accept votes."
                         error={isValidCycle()}
                         value={cycle}
                         isVisited={visited.cycle}
@@ -302,14 +302,14 @@ export default function ProposalDetailPage() {
                             type="button"
                             disabled={cycle <= minCycle}
                             onClick={() => setCycle(cycle - 1)}
-                            className="px-4 py-3 border-y border-l border-gray-300 rounded-l ml-2"
+                            className="px-4 py-3 border-y border-l border-gray-300 dark:border-dark-gray-300 rounded-l ml-2"
                           >
                             <MdRemove
                               size={24}
                               className={
                                 cycle <= minCycle
                                   ? "text-gray-300 dark:text-gray-600"
-                                  : "text-gray-900 dark:text-gray-100"
+                                  : "text-gray-900 dark:text-dark-gray-900"
                               }
                             />
                           </button>
@@ -317,14 +317,14 @@ export default function ProposalDetailPage() {
                             type="button"
                             disabled={cycle >= maxCycle}
                             onClick={() => setCycle(cycle + 1)}
-                            className="px-4 py-3 border border-gray-300 rounded-r"
+                            className="px-4 py-3 border border-gray-300 dark:border-dark-gray-300 rounded-r"
                           >
                             <MdAdd
                               size={24}
                               className={
                                 cycle >= maxCycle
                                   ? "text-gray-300 dark:text-gray-600"
-                                  : "text-gray-900 dark:text-gray-100"
+                                  : "text-gray-900 dark:text-dark-gray-900"
                               }
                             />
                           </button>
@@ -332,7 +332,7 @@ export default function ProposalDetailPage() {
                       </div>
                     </div>
                   </div>
-                  <InputComponent
+                  <TextAreaComponent
                     label="Receiving address"
                     placeholder="Paste DFI address for receiving payout"
                     value={payoutAddress}
@@ -353,8 +353,8 @@ export default function ProposalDetailPage() {
                   className={classNames(
                     "w-full md:w-1/2 py-3 border rounded-sm font-medium text-base mt-4 md:mt-0",
                     canClearForm()
-                      ? "border-gray-300 text-primary-500 hover:border-primary-200"
-                      : "border-gray-100 text-gray-300"
+                      ? "border-gray-300 dark:border-dark-gray-300 text-primary-500 dark:text-dark-primary-500 hover:border-primary-200 hover:dark:border-dark-primary-300"
+                      : "border-gray-100 dark:border-dark-gray-200 text-gray-300 dark:text-dark-gray-200"
                   )}
                 >
                   CLEAR FORM
@@ -372,8 +372,8 @@ export default function ProposalDetailPage() {
                   className={classNames(
                     "w-full md:w-1/2 py-3 rounded-sm font-medium text-base border",
                     canReviewProposal()
-                      ? "text-primary-500 bg-primary-50 border-primary-50 hover:bg-primary-100 hover:border-primary-100"
-                      : "text-gray-300 bg-gray-100 border-gray-100"
+                      ? "text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 border-primary-50 dark:border-dark-primary-50 hover:bg-primary-100 hover:border-primary-100 hover:dark:bg-dark-primary-100 hover:dark:border-dark-primary-100"
+                      : "text-gray-300 dark:text-dark-gray-300 bg-gray-100 dark:bg-dark-gray-200 border-gray-100 dark:border-dark-gray-200"
                   )}
                 >
                   REVIEW PROPOSAL

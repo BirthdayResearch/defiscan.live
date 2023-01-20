@@ -15,6 +15,7 @@ import { getEnvironment } from "@contexts/Environment";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { EmptySection } from "@components/commons/sections/EmptySection";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VotesTable, VoteCards } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -101,7 +102,14 @@ export default function ProposalDetailPage({
                     : "mt-6"
                 )}
               >
-                <VotesTable votes={proposalVotes} />
+                {proposalVotes.length === 0 ? (
+                  <EmptySection
+                    message="No votes posted yet"
+                    className="mt-0"
+                  />
+                ) : (
+                  <VotesTable votes={proposalVotes} />
+                )}
               </div>
             ) : (
               <div className="hidden lg:block mt-4">
@@ -151,11 +159,24 @@ export default function ProposalDetailPage({
             proposal.type === ProposalType.VOTE_OF_CONFIDENCE ? (
               <>
                 <div className="lg:hidden md:block hidden w-full">
-                  <VotesTable votes={proposalVotes} />
+                  {proposalVotes.length === 0 ? (
+                    <EmptySection
+                      message="No votes posted yet"
+                      className="mt-0"
+                    />
+                  ) : (
+                    <VotesTable votes={proposalVotes} />
+                  )}
                 </div>
-
                 <div className="md:hidden items-center">
-                  <VoteCards votes={proposalVotes} />
+                  {proposalVotes.length === 0 ? (
+                    <EmptySection
+                      message="No votes posted yet"
+                      className="mt-0"
+                    />
+                  ) : (
+                    <VoteCards votes={proposalVotes} />
+                  )}
                 </div>
               </>
             ) : (
@@ -258,7 +279,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         LosslessJSON.stringify(proposal.amount)
       );
     }
-    const proposalVotes = await rpc.governance.listGovProposalVotes(proposalId);
+    const proposalVotes = await rpc.governance.listGovProposalVotes({
+      proposalId: proposalId,
+      cycle: 0,
+    });
     const currentBlockHeight = await rpc.blockchain.getBlockCount();
     const currentBlockMedianTime = await rpc.blockchain
       .getBlockStats(currentBlockHeight)
@@ -288,11 +312,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       );
     }
 
-    const allCycleProposalVotes = await rpc.governance.listGovProposalVotes(
-      proposalId,
-      undefined,
-      -1
-    );
+    const allCycleProposalVotes = await rpc.governance.listGovProposalVotes({
+      proposalId: proposalId,
+      cycle: -1,
+    });
+
+    console.log(allCycleProposalVotes);
+    console.log(proposalVotes);
     const totalVotes = getAllCycleVotes(allCycleProposalVotes);
 
     return {

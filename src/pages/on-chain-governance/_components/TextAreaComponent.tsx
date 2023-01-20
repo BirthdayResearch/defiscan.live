@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import classNames from "classnames";
+import { useWindowDimensions } from "hooks/useWindowDimensions";
 
-interface InputComponentProps {
+interface TextAreaComponentProps {
   label: string;
   error: string;
   note?: string;
@@ -15,7 +16,7 @@ interface InputComponentProps {
   onChange: (value: string | number) => void;
 }
 
-export function InputComponent({
+export function TextAreaComponent({
   label,
   value,
   placeholder,
@@ -25,11 +26,22 @@ export function InputComponent({
   onBlur,
   isVisited,
   error,
-}: InputComponentProps): JSX.Element {
+}: TextAreaComponentProps): JSX.Element {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const dimension = useWindowDimensions();
+  useEffect(() => {
+    if (ref.current) {
+      // Set initial base height to get the correct scrollHeight
+      ref.current.style.height = "24px";
+      // Then set the height = scrollHeight
+      ref.current.style.height = `${ref.current.scrollHeight}px`;
+    }
+  }, [ref, value, dimension]);
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row w-full">
-        <span className="text-xs font-medium text-gray-900 dark:text-gray-100">
+        <span className="text-xs font-medium text-gray-900 dark:text-dark-gray-900">
           {label}
         </span>
         {infoDesc !== undefined && (
@@ -43,19 +55,20 @@ export function InputComponent({
       <div className="mt-1">
         <div
           className={classNames(
-            "flex flex-row py-3 px-4 bg-white dark:bg-gray-800 border rounded",
+            "flex flex-row py-3 px-4 bg-white dark:bg-dark-gray-50 border rounded",
             isVisited && error !== ""
               ? "border-red-500"
               : "border-gray-300 dark:border-dark-gray-300"
           )}
         >
-          <input
+          <textarea
+            ref={ref}
             value={value}
             spellCheck={false}
             placeholder={placeholder}
             onBlur={onBlur}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full mr-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none text-base placeholder:text-gray-400"
+            className="w-full mr-2 resize-none h-6 bg-white dark:bg-dark-gray-50 text-gray-900 dark:text-dark-gray-900 focus:outline-none text-base placeholder:text-gray-400 placeholder:dark:text-dark-gray-400"
           />
           {value !== "" && (
             <button
@@ -72,11 +85,13 @@ export function InputComponent({
         </div>
         <div className="mt-1">
           {isVisited && error !== "" ? (
-            <span className="text-xs text-red-500">{error}</span>
+            <span className="text-xs text-red-500 dark:text-dark-red-500">
+              {error}
+            </span>
           ) : (
             <>
               {note !== undefined && (
-                <span className="text-xs text-gray-600 dark:text-gray-100">
+                <span className="text-xs text-gray-600 dark:text-dark-gray-600">
                   {note}
                 </span>
               )}

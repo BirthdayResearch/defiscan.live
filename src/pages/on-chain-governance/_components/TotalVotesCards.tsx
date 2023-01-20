@@ -15,6 +15,7 @@ export function TotalVotesCards({
   return (
     <>
       {cycleArray.reverse().map((cycle, key) => {
+        console.log(totalVotes);
         const total = totalVotes[cycle];
         return (
           <TotalVotesCard
