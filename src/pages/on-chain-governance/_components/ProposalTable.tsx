@@ -6,6 +6,7 @@ import classNames from "classnames";
 import {
   ProposalInfo,
   ProposalStatus,
+  ListProposalsStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import { getEnvironment, isPlayground } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
@@ -17,7 +18,6 @@ import { VoteModal } from "./VoteModal";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
-import { UserQueryProposalStatus } from "../enum/UserQueryProposalStatus";
 
 export function ProposalTable({
   proposals,
@@ -29,7 +29,7 @@ export function ProposalTable({
   proposals: ProposalInfo[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  userQueryProposalStatus: UserQueryProposalStatus;
+  userQueryProposalStatus: ListProposalsStatus;
   masternodeId: string;
 }) {
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
@@ -68,7 +68,8 @@ export function ProposalTable({
           <OverflowTable.Head title={OnChainGovernanceTitles.ProposerId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
           <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
-          {userQueryProposalStatus === UserQueryProposalStatus.Close && (
+          {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
+            userQueryProposalStatus === ListProposalsStatus.REJECTED) && (
             <OverflowTable.Head title={OnChainGovernanceTitles.Result} />
           )}
         </OverflowTable.Header>
@@ -109,7 +110,7 @@ function ProposalRow({
   proposal: ProposalInfo;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
-  userQueryProposalStatus: UserQueryProposalStatus;
+  userQueryProposalStatus: ListProposalsStatus;
   onDummyVote: (vote: string) => void;
 }) {
   const router = useRouter();
@@ -154,7 +155,7 @@ function ProposalRow({
           <Link
             href={{
               pathname:
-                userQueryProposalStatus === UserQueryProposalStatus.Open
+                userQueryProposalStatus === ListProposalsStatus.VOTING
                   ? "/blocks"
                   : `/blocks/${proposal.cycleEndHeight}`,
             }}
@@ -166,7 +167,7 @@ function ProposalRow({
                 e.stopPropagation();
               }}
               href={
-                userQueryProposalStatus === UserQueryProposalStatus.Open
+                userQueryProposalStatus === ListProposalsStatus.VOTING
                   ? "/blocks"
                   : `/blocks/${proposal.cycleEndHeight}`
               }
@@ -195,7 +196,8 @@ function ProposalRow({
         </a>
       </OverflowTable.Cell>
 
-      {userQueryProposalStatus === UserQueryProposalStatus.Close && (
+      {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
+        userQueryProposalStatus === ListProposalsStatus.REJECTED) && (
         <OverflowTable.Cell className="align-middle">
           <div
             className={classNames(
