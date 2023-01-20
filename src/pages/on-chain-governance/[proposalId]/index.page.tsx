@@ -316,8 +316,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       cycle: -1,
     });
 
-    console.log(allCycleProposalVotes);
-    console.log(proposalVotes);
     const totalVotes = getAllCycleVotes(allCycleProposalVotes);
 
     return {
