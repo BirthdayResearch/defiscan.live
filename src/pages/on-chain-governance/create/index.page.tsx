@@ -16,7 +16,7 @@ import { NetworkName } from "@defichain/jellyfish-network";
 import { isPlayground } from "@contexts/Environment";
 import { ProposalDisplayName } from "../_components/ProposalCard";
 import { ReviewProposal } from "../_components/ReviewProposal";
-import { InputComponent } from "../_components/InputComponent";
+import { TextAreaComponent } from "../_components/TextAreaComponent";
 import { GettingStartedInfo } from "../_components/GettingStartedInfo";
 import { DisclosureComponent } from "../_components/DisclosureComponent";
 import { ConfirmDialog } from "../_components/ConfirmDialog";
@@ -147,7 +147,7 @@ export default function ProposalDetailPage() {
   return (
     <>
       <Head title="Create Proposal" />
-      <Container className="mt-10 md:mt-12 px-6 lg:px-[312px]">
+      <Container className="mt-10 md:mt-12 px-6 xl:px-[312px]">
         <Breadcrumb
           items={[
             {
@@ -236,7 +236,7 @@ export default function ProposalDetailPage() {
             </RadioGroup>
 
             <div className="space-y-6">
-              <InputComponent
+              <TextAreaComponent
                 label="Name of proposal"
                 placeholder="Enter title of the proposal (required)"
                 note="Make sure that the name added here is the same as from the one posted in Github."
@@ -246,7 +246,7 @@ export default function ProposalDetailPage() {
                 onBlur={() => setVisited({ ...visited, title: true })}
                 onChange={(value) => setTitle(value as string)}
               />
-              <InputComponent
+              <TextAreaComponent
                 label="Github discussion"
                 placeholder="Paste URL"
                 error={isValidGithubUrl()}
@@ -259,7 +259,7 @@ export default function ProposalDetailPage() {
                 <>
                   <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row">
                     <div className="w-full md:w-1/2">
-                      <InputComponent
+                      <TextAreaComponent
                         label="Amount requested in DFI"
                         placeholder="0.00 DFI"
                         value={amount}
@@ -275,7 +275,7 @@ export default function ProposalDetailPage() {
                       />
                     </div>
                     <div className="flex flex-row w-full md:w-1/2 md:ml-6">
-                      <InputComponent
+                      <TextAreaComponent
                         label="Cycles"
                         placeholder=""
                         infoDesc="Cycle(s) determine the duration for which a proposal can accept votes."
@@ -332,7 +332,7 @@ export default function ProposalDetailPage() {
                       </div>
                     </div>
                   </div>
-                  <InputComponent
+                  <TextAreaComponent
                     label="Receiving address"
                     placeholder="Paste DFI address for receiving payout"
                     value={payoutAddress}
