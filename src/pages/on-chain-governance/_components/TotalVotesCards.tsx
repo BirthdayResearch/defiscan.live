@@ -40,12 +40,12 @@ function TotalVotesCard({
   cycle: number;
 }) {
   return (
-    <div className="md:p-6 py-3 px-4 md:border border-[0.5px] md:border-gray-200 border-gray-300 md:rounded-lg rounded-xl flex flex-row items-center w-full md:mb-3 mb-2">
-      <div className="text-gray-900 md:font-semibold font-medium md:text-xl text-sm grow md:tracking-[0.0015em] tracking-[0.0025em]">
+    <div className="md:p-6 py-3 px-4 md:border border-[0.5px] md:border-gray-200 border-gray-300 md:rounded-lg rounded-xl flex flex-row items-center w-full md:mb-3 mb-2 dark:border-gray-700 dark:bg-gray-800">
+      <div className="text-gray-900 dark:text-dark-gray-900 md:font-semibold font-medium md:text-xl text-sm grow md:tracking-[0.0015em] tracking-[0.0025em]">
         Cycle {cycle} of {proposal.totalCycles}
       </div>
       <div className="flex flex-col gap-y-1">
-        <div className="md:px-3 md:py-1 text-right rounded-[32px] md:text-base text-xs md:bg-green-100 text-green-600 md:font-normal font-medium tracking-[0.0044em]">
+        <div className="md:px-3 md:py-1 text-right rounded-[32px] md:text-base text-xs md:bg-green-100 text-green-600 md:font-normal font-medium dark:bg-[#21E529] dark:text-dark-green-600 dark:bg-opacity-25">
           Approved
         </div>
         <NumericFormat

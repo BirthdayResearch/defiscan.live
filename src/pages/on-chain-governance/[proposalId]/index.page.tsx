@@ -1,11 +1,11 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Container } from "@components/commons/Container";
 import { getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import {
+  ListVotesResult,
   ProposalType,
   VoteDecision,
-  ListVotesResult,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
@@ -17,7 +17,7 @@ import BigNumber from "bignumber.js";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { getVoteCount } from "../shared/getVoteCount";
-import { VotesTable, VoteCards } from "../_components/VotesTable";
+import { VoteCards, VotesTable } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
 import { ProposalDetail } from "../_components/ProposalDetail";
 import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
@@ -222,11 +222,10 @@ function CfpVotingResultButtonRow({
         type="button"
         data-testid="OnChainGovernance.VotingFlow.NoVote"
         className={classNames(
-          "md:px-5 rounded-l border px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500  tracking-[0.0025em]",
-          {
-            "bg-primary-500 text-white border-0":
-              cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current,
-          }
+          "md:px-5 rounded-l border px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500",
+          cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current
+            ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
         )}
         onClick={() => {
           setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Current);
@@ -240,10 +239,9 @@ function CfpVotingResultButtonRow({
         disabled={currenCycle === 1}
         className={classNames(
           "md:px-5 border border-l-0 rounded-r px-3 py-[6px] md:text-sm text-xs font-medium border-gray-300 text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
-          {
-            "bg-primary-500 text-white border-0":
-              cfpVotingResultTabChoice === CfpVotingResultCycleTab.Previous,
-          }
+          cfpVotingResultTabChoice === CfpVotingResultCycleTab.Previous
+            ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
         )}
         onClick={() => {
           setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Previous);
