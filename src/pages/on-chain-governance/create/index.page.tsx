@@ -13,7 +13,7 @@ import { Breadcrumb } from "@components/commons/Breadcrumb";
 import { fromAddress } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { NetworkName } from "@defichain/jellyfish-network";
-import { isPlayground } from "@contexts/Environment";
+import { isPlayground } from "@waveshq/walletkit-core";
 import { ProposalDisplayName } from "../_components/ProposalCard";
 import { ReviewProposal } from "../_components/ReviewProposal";
 import { TextAreaComponent } from "../_components/TextAreaComponent";
