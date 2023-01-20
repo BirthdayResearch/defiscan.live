@@ -1,12 +1,12 @@
 import { NumericFormat } from "react-number-format";
-import { ProposalInfo } from "@defichain/jellyfish-api-core/dist/category/governance";
+import { GovernanceProposal } from "@defichain/whale-api-client/dist/api/governance";
 
 export function TotalVotesCards({
   totalVotes,
   proposal,
 }: {
   totalVotes: {};
-  proposal: ProposalInfo;
+  proposal: GovernanceProposal;
 }) {
   // creates an Array that contains cycle 1 to 1 before cycle current [1....currentCycle - 1]
   const cycleArray = Array.from(Array(proposal.currentCycle - 1).keys()).map(
@@ -35,7 +35,7 @@ function TotalVotesCard({
   cycle,
 }: {
   total: number;
-  proposal: ProposalInfo;
+  proposal: GovernanceProposal;
   cycle: number;
 }) {
   return (

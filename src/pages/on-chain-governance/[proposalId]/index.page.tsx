@@ -1,12 +1,16 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Container } from "@components/commons/Container";
-import { getWhaleRpcClient } from "@contexts/WhaleContext";
+import { getWhaleApiClient, getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import {
-  ListVotesResult,
-  ProposalType,
   VoteDecision,
+  MasternodeType,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
+import {
+  GovernanceProposalType,
+  ProposalVotesResult,
+} from "@defichain/whale-api-client/dist/api/governance";
+import { ApiPagedResponse } from "@defichain/whale-api-client";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
@@ -82,7 +86,8 @@ export default function ProposalDetailPage({
               proposalCreationDate={proposalCreationDate}
               proposalEndDate={proposalEndDate}
             />
-            {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
+            {proposal.type ===
+              GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
               <div className="hidden lg:block mt-6">
                 <CfpVotingResultButtonRow
                   cfpVotingResultTabChoice={cfpVotingResultTabChoice}
@@ -93,11 +98,12 @@ export default function ProposalDetailPage({
             )}
 
             {cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current ||
-            proposal.type === ProposalType.VOTE_OF_CONFIDENCE ? (
+            proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
               <div
                 className={classNames(
                   "hidden lg:block",
-                  proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL
+                  proposal.type ===
+                    GovernanceProposalType.COMMUNITY_FUND_PROPOSAL
                     ? "mt-4"
                     : "mt-6"
                 )}
@@ -136,7 +142,8 @@ export default function ProposalDetailPage({
           <div className="space-y-0">
             <div
               className={classNames("flex flex-row mb-2 md:mb-4 items-center", {
-                "md:mb-0": proposal.type === ProposalType.VOTE_OF_CONFIDENCE,
+                "md:mb-0":
+                  proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE,
               })}
             >
               <div className="grow md:hidden ml-4 ">
@@ -145,7 +152,8 @@ export default function ProposalDetailPage({
                 </span>
               </div>
 
-              {proposal.type === ProposalType.COMMUNITY_FUND_PROPOSAL && (
+              {proposal.type ===
+                GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
                 <div className="block lg:hidden">
                   <CfpVotingResultButtonRow
                     cfpVotingResultTabChoice={cfpVotingResultTabChoice}
@@ -156,7 +164,7 @@ export default function ProposalDetailPage({
               )}
             </div>
             {cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current ||
-            proposal.type === ProposalType.VOTE_OF_CONFIDENCE ? (
+            proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
               <>
                 <div className="lg:hidden md:block hidden w-full">
                   {proposalVotes.length === 0 ? (
@@ -253,7 +261,9 @@ function CfpVotingResultButtonRow({
   );
 }
 
-function getAllCycleVotes(allCycleProposalVotes: ListVotesResult[]): {} {
+function getAllCycleVotes(
+  allCycleProposalVotes: ApiPagedResponse<ProposalVotesResult>
+): {} {
   const totalVotes = {};
   for (let i = 0; i < allCycleProposalVotes.length; i += 1) {
     const vote = allCycleProposalVotes[i];
@@ -269,26 +279,28 @@ function getAllCycleVotes(allCycleProposalVotes: ListVotesResult[]): {} {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const proposalId = context.params?.proposalId?.toString().trim() as string;
+  const api = getWhaleApiClient(context);
   const rpc = getWhaleRpcClient(context);
+
   try {
-    const proposal = await rpc.governance.getGovProposal(proposalId);
+    const proposal = await api.governance.getGovProposal(proposalId);
     if (proposal.amount) {
       proposal.amount = LosslessJSON.parse(
         LosslessJSON.stringify(proposal.amount)
       );
     }
-    const proposalVotes = await rpc.governance.listGovProposalVotes({
-      proposalId: proposalId,
-      masternode: "all",
+    const proposalVotes = await api.governance.listGovProposalVotes({
+      id: proposalId,
+      masternode: MasternodeType.ALL,
       cycle: 0,
     });
     const currentBlockHeight = await rpc.blockchain.getBlockCount();
-    const currentBlockMedianTime = await rpc.blockchain
-      .getBlockStats(currentBlockHeight)
-      .then((block) => block.mediantime);
-    const proposalCreationDate = await rpc.blockchain
-      .getBlockStats(proposal.creationHeight)
-      .then((block) => formatUnixTime(block.mediantime));
+    const currentBlockMedianTime = await api.blocks
+      .get(currentBlockHeight.toString())
+      .then((block) => block.medianTime);
+    const proposalCreationDate = await api.blocks
+      .get(proposal.creationHeight.toString())
+      .then((block) => formatUnixTime(block.medianTime));
 
     const network =
       (context.query.network?.toString() as NetworkConnection) ??
@@ -299,9 +311,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (
       new BigNumber(currentBlockHeight).isGreaterThan(proposal.cycleEndHeight)
     ) {
-      proposalEndDate = await rpc.blockchain
-        .getBlockStats(proposal.cycleEndHeight)
-        .then((block) => formatUnixTime(block.mediantime));
+      proposalEndDate = await api.blocks
+        .get(proposal.cycleEndHeight.toString())
+        .then((block) => formatUnixTime(block.medianTime));
     } else {
       proposalEndDate = getCycleEndDate(
         proposal.cycleEndHeight,
@@ -311,9 +323,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       );
     }
 
-    const allCycleProposalVotes = await rpc.governance.listGovProposalVotes({
-      proposalId: proposalId,
+    const allCycleProposalVotes = await api.governance.listGovProposalVotes({
+      id: proposalId,
+      masternode: MasternodeType.ALL,
       cycle: -1,
+      all: true,
     });
 
     const totalVotes = getAllCycleVotes(allCycleProposalVotes);

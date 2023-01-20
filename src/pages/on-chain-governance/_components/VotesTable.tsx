@@ -3,6 +3,7 @@ import {
   ListVotesResult,
   VoteDecision,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
+import { ProposalVotesResult } from "@defichain/whale-api-client/dist/api/governance";
 import classNames from "classnames";
 
 export function VotesTable({ votes }: { votes }): JSX.Element {
@@ -57,7 +58,7 @@ function VoteRow({ item }: { item: ListVotesResult }): JSX.Element {
 export function VoteCards({
   votes,
 }: {
-  votes: ListVotesResult[];
+  votes: ProposalVotesResult[];
 }): JSX.Element {
   return (
     <div className="space-y-2">
