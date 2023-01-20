@@ -1,4 +1,5 @@
-import { NetworkConnection, useNetwork } from "@contexts/NetworkContext";
+import { isPlayground } from "@waveshq/walletkit-core";
+import { useNetwork } from "@contexts/NetworkContext";
 import BigNumber from "bignumber.js";
 
 interface AuctionTimeLeft {
@@ -12,11 +13,7 @@ export function useAuctionTimeLeft(
   blockCount: number
 ): AuctionTimeLeft {
   const network = useNetwork().connection;
-  const blocksPerAuction =
-    network === NetworkConnection.MainNet ||
-    network === NetworkConnection.TestNet
-      ? 720
-      : 36;
+  const blocksPerAuction = !isPlayground(network) ? 720 : 36;
   const blocksRemaining = BigNumber.max(
     liquidationHeight - blockCount,
     0

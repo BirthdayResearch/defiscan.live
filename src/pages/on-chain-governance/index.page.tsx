@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { isPlayground } from "@contexts/Environment";
+import { isPlayground } from "@waveshq/walletkit-core";
 import { Container } from "@components/commons/Container";
 import { CursorPage } from "@components/commons/CursorPagination";
 import { getWhaleRpcClient, newPlaygroundClient } from "@contexts/WhaleContext";
