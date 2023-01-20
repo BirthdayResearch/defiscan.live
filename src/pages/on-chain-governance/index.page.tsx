@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { isPlayground } from "@contexts/Environment";
 import { Container } from "@components/commons/Container";
+import { ApiPagedResponse } from "@defichain/whale-api-client";
 import {
   CursorPage,
   CursorPagination,
@@ -451,7 +452,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       console.error(error);
       return [];
     });
-  const pages = CursorPagination.getPages(context, queryProposals);
+  const pages = CursorPagination.getPages(
+    context,
+    queryProposals as ApiPagedResponse<any>
+  );
 
   return {
     props: getOCGData(
