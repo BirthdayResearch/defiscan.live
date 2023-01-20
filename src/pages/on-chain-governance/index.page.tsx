@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { isPlayground } from "@contexts/Environment";
 import { Container } from "@components/commons/Container";
-import { CursorPage } from "@components/commons/CursorPagination";
-import { getWhaleRpcClient, newPlaygroundClient } from "@contexts/WhaleContext";
+import {
+  CursorPage,
+  CursorPagination,
+} from "@components/commons/CursorPagination";
+import {
+  getWhaleApiClient,
+  getWhaleRpcClient,
+  newPlaygroundClient,
+} from "@contexts/WhaleContext";
 import { GetServerSidePropsContext } from "next";
 import {
   ListProposalsType,
@@ -248,9 +255,16 @@ export default function OnChainGovernancePage({
             </div>
           </>
         )}
-        {/* <div className="flex justify-end mt-8">
-          <CursorPagination pages={proposals.pages} path="/on-chain-governance" />
-        </div> */}
+        <div className="flex justify-end mt-8">
+          <CursorPagination
+            pages={proposals.pages}
+            path="/on-chain-governance"
+            queryPath={{
+              proposalStatus: userQueryProposalStatus,
+              proposalType: ListProposalsType.CFP,
+            }}
+          />
+        </div>
       </Container>
     </div>
   );
@@ -384,6 +398,8 @@ function UserQueryButtonRow({
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const rpc = getWhaleRpcClient(context);
+  const api = getWhaleApiClient(context);
+  const next = CursorPagination.getNext(context);
 
   let userQueryProposalType = ListProposalsType.CFP;
   let userQueryProposalStatus = ListProposalsStatus.VOTING;
@@ -413,31 +429,29 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     currentBlockCount
   );
   const currentBlockMedianTime = currentBlockInfo.mediantime;
-  const allProposals = await rpc.governance
+  const allProposals = await api.governance
     .listGovProposals({
       type: ListProposalsType.ALL,
       status: ListProposalsStatus.ALL,
-      pagination: {
-        limit: 0,
-      },
+      all: true,
     })
     .catch((error) => {
       console.error(error);
       return [];
     });
 
-  const queryProposals = await rpc.governance
+  const queryProposals = await api.governance
     .listGovProposals({
       type: userQueryProposalType,
       status: userQueryProposalStatus,
-      pagination: {
-        limit: 0,
-      },
+      size: 10,
+      next: next,
     })
     .catch((error) => {
       console.error(error);
       return [];
     });
+  const pages = CursorPagination.getPages(context, queryProposals);
 
   return {
     props: getOCGData(
@@ -446,7 +460,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       currentBlockCount,
       currentBlockMedianTime,
       userQueryProposalType,
-      userQueryProposalStatus
+      userQueryProposalStatus,
+      pages
     ),
   };
 }
@@ -457,7 +472,8 @@ function getOCGData(
   currentBlockCount: number,
   currentBlockMedianTime: number,
   userQueryProposalType: ListProposalsType,
-  userQueryProposalStatus: ListProposalsStatus
+  userQueryProposalStatus: ListProposalsStatus,
+  pages: CursorPage[]
 ): OCGProps {
   return {
     allProposalsDetails: {
@@ -479,23 +495,7 @@ function getOCGData(
     proposals: {
       allProposals,
       queryProposals,
-      pages: [
-        {
-          n: 1,
-          active: true,
-          cursors: [],
-        },
-        {
-          n: 2,
-          active: false,
-          cursors: ["1"],
-        },
-        {
-          n: 3,
-          active: false,
-          cursors: ["1", "2"],
-        },
-      ],
+      pages: pages,
     },
   };
 }
