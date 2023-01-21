@@ -1,18 +1,27 @@
-import { useState, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Container } from "@components/commons/Container";
-import { getWhaleRpcClient } from "@contexts/WhaleContext";
+import { getWhaleApiClient, getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import {
+  VoteDecision,
+  MasternodeType,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
+import {
+  GovernanceProposalType,
+  ProposalVotesResult,
+} from "@defichain/whale-api-client/dist/api/governance";
+import { ApiPagedResponse } from "@defichain/whale-api-client";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
-import { NetworkConnection } from "@contexts/NetworkContext";
 import { getEnvironment } from "@contexts/Environment";
-import { VoteDecision } from "@defichain/jellyfish-api-core/dist/category/governance";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
+import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { EmptySection } from "@components/commons/sections/EmptySection";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { getVoteCount } from "../shared/getVoteCount";
-import { VotesTable, VoteCards } from "../_components/VotesTable";
+import { VoteCards, VotesTable } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
 import { ProposalDetail } from "../_components/ProposalDetail";
 import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
@@ -20,12 +29,15 @@ import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { formatUnixTime } from "../shared/dateHelper";
 import { VoteStages } from "../enum/VoteStages";
+import { TotalVotesCards } from "../_components/TotalVotesCards";
+import { CfpVotingResultCycleTab } from "../enum/CfpVotingResultCycleTab";
 
 export default function ProposalDetailPage({
   proposal,
   proposalVotes,
   proposalCreationDate,
   proposalEndDate,
+  totalVotes,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -36,6 +48,10 @@ export default function ProposalDetailPage({
   const [isLoading, setIsLoading] = useState(true);
   const [voteStage, setVoteStage] = useState<VoteStages>(
     VoteStages.VoteProposal
+  );
+
+  const [cfpVotingResultTabChoice, setCfpVotingResultTabChoice] = useState(
+    CfpVotingResultCycleTab.Current
   );
 
   useEffect(() => {
@@ -70,13 +86,42 @@ export default function ProposalDetailPage({
               proposalCreationDate={proposalCreationDate}
               proposalEndDate={proposalEndDate}
             />
-            <div className="hidden lg:block mt-6">
-              {proposalVotes.length === 0 ? (
-                <EmptySection message="No votes posted yet" className="mt-0" />
-              ) : (
-                <VotesTable votes={proposalVotes} />
-              )}
-            </div>
+            {proposal.type ===
+              GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
+              <div className="hidden lg:block mt-6">
+                <CfpVotingResultButtonRow
+                  cfpVotingResultTabChoice={cfpVotingResultTabChoice}
+                  setCfpVotingResultTabChoice={setCfpVotingResultTabChoice}
+                  currenCycle={proposal.currentCycle}
+                />
+              </div>
+            )}
+
+            {cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current ||
+            proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
+              <div
+                className={classNames(
+                  "hidden lg:block",
+                  proposal.type ===
+                    GovernanceProposalType.COMMUNITY_FUND_PROPOSAL
+                    ? "mt-4"
+                    : "mt-6"
+                )}
+              >
+                {proposalVotes.length === 0 ? (
+                  <EmptySection
+                    message="No votes posted yet"
+                    className="mt-0"
+                  />
+                ) : (
+                  <VotesTable votes={proposalVotes} />
+                )}
+              </div>
+            ) : (
+              <div className="hidden lg:block mt-4">
+                <TotalVotesCards totalVotes={totalVotes} proposal={proposal} />
+              </div>
+            )}
           </div>
           <div className="w-full lg:w-4/12">
             <VotingResult
@@ -93,28 +138,59 @@ export default function ProposalDetailPage({
               }}
             />
           </div>
-          <div className="lg:hidden md:block hidden w-full mt-6">
-            {proposalVotes.length === 0 ? (
-              <EmptySection message="No votes posted yet" className="mt-0" />
-            ) : (
-              <VotesTable votes={proposalVotes} />
-            )}
-          </div>
 
-          <div className="md:hidden mt-7 items-center">
+          <div className="space-y-0">
             <div
-              className={classNames("mb-2 ml-4", {
-                "mb-4": proposalVotes.length === 0,
+              className={classNames("flex flex-row mb-2 md:mb-4 items-center", {
+                "md:mb-0":
+                  proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE,
               })}
             >
-              <span className="text-gray-900 dark:text-gray-100 font-semibold">
-                Votes
-              </span>
+              <div className="grow md:hidden ml-4 ">
+                <span className="text-gray-900 dark:text-gray-100 font-semibold">
+                  Votes
+                </span>
+              </div>
+
+              {proposal.type ===
+                GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
+                <div className="block lg:hidden">
+                  <CfpVotingResultButtonRow
+                    cfpVotingResultTabChoice={cfpVotingResultTabChoice}
+                    setCfpVotingResultTabChoice={setCfpVotingResultTabChoice}
+                    currenCycle={proposal.currentCycle}
+                  />
+                </div>
+              )}
             </div>
-            {proposalVotes.length === 0 ? (
-              <EmptySection message="No votes posted yet" className="mt-0" />
+            {cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current ||
+            proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
+              <>
+                <div className="lg:hidden md:block hidden w-full">
+                  {proposalVotes.length === 0 ? (
+                    <EmptySection
+                      message="No votes posted yet"
+                      className="mt-0"
+                    />
+                  ) : (
+                    <VotesTable votes={proposalVotes} />
+                  )}
+                </div>
+                <div className="md:hidden items-center">
+                  {proposalVotes.length === 0 ? (
+                    <EmptySection
+                      message="No votes posted yet"
+                      className="mt-0"
+                    />
+                  ) : (
+                    <VoteCards votes={proposalVotes} />
+                  )}
+                </div>
+              </>
             ) : (
-              <VoteCards votes={proposalVotes} />
+              <div className="lg:hidden items-center">
+                <TotalVotesCards totalVotes={totalVotes} proposal={proposal} />
+              </div>
             )}
           </div>
         </div>
@@ -136,36 +212,98 @@ export default function ProposalDetailPage({
   );
 }
 
+function CfpVotingResultButtonRow({
+  setCfpVotingResultTabChoice,
+  cfpVotingResultTabChoice,
+  currenCycle,
+}: {
+  setCfpVotingResultTabChoice: Dispatch<
+    SetStateAction<CfpVotingResultCycleTab>
+  >;
+  cfpVotingResultTabChoice: CfpVotingResultCycleTab;
+  currenCycle: number;
+}) {
+  const windowDimension = useWindowDimensions();
+  return (
+    <div className="flex flex-row">
+      <button
+        type="button"
+        data-testid="OnChainGovernance.VotingFlow.NoVote"
+        className={classNames(
+          "md:px-5 rounded-l border px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500",
+          cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current
+            ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300"
+        )}
+        onClick={() => {
+          setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Current);
+        }}
+      >
+        {windowDimension.width <= 767 ? "Current" : "Current cycle"}
+      </button>
+      <button
+        type="button"
+        data-testid="OnChainGovernance.VotingFlow.YesVote"
+        disabled={currenCycle === 1}
+        className={classNames(
+          "md:px-5 border border-l-0 rounded-r px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
+          cfpVotingResultTabChoice === CfpVotingResultCycleTab.Previous
+            ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
+            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300"
+        )}
+        onClick={() => {
+          setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Previous);
+        }}
+      >
+        {windowDimension.width <= 767 ? "Previous" : "Previous cycle"}
+      </button>
+    </div>
+  );
+}
+
+function getAllCycleVotes(
+  allCycleProposalVotes: ApiPagedResponse<ProposalVotesResult>
+): {} {
+  const totalVotes = {};
+  for (let i = 0; i < allCycleProposalVotes.length; i += 1) {
+    const vote = allCycleProposalVotes[i];
+    const voteCycle = vote.cycle;
+    if (voteCycle in totalVotes) {
+      totalVotes[voteCycle] += 1;
+    } else {
+      totalVotes[voteCycle] = 1;
+    }
+  }
+  return totalVotes;
+}
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const proposalId = context.params?.proposalId?.toString().trim() as string;
+  const api = getWhaleApiClient(context);
   const rpc = getWhaleRpcClient(context);
-  // const prpc = newPlaygroundRpcClient(context)
-  // await prpc.call('votegov',
-  //   [proposalId, "e86c027861cc0af423313f4152a44a83296a388eb51bf1a6dde9bd75bed55fb4", 'neutral', []],
-  //   'number'
-  // )
+
   try {
-    const proposal = await rpc.governance.getGovProposal(proposalId);
+    const proposal = await api.governance.getGovProposal(proposalId);
     if (proposal.amount) {
       proposal.amount = LosslessJSON.parse(
         LosslessJSON.stringify(proposal.amount)
       );
     }
-    const proposalVotes = await rpc.governance.listGovProposalVotes({
-      proposalId,
-      masternode: "all",
+    const proposalVotes = await api.governance.listGovProposalVotes({
+      id: proposalId,
+      masternode: MasternodeType.ALL,
       cycle: 0,
     });
     const currentBlockHeight = await rpc.blockchain.getBlockCount();
-    const currentBlockMedianTime = await rpc.blockchain
-      .getBlockStats(currentBlockHeight)
-      .then((block) => block.mediantime);
-    const proposalCreationDate = await rpc.blockchain
-      .getBlockStats(proposal.creationHeight)
-      .then((block) => formatUnixTime(block.mediantime));
+    const currentBlockMedianTime = await api.blocks
+      .get(currentBlockHeight.toString())
+      .then((block) => block.medianTime);
+    const proposalCreationDate = await api.blocks
+      .get(proposal.creationHeight.toString())
+      .then((block) => formatUnixTime(block.medianTime));
 
     const network =
-      (context.query.network?.toString() as NetworkConnection) ??
+      (context.query.network?.toString() as EnvironmentNetwork) ??
       getEnvironment().networks[0];
     const secondsPerBlock = getSecondsPerBlock(network);
 
@@ -173,9 +311,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (
       new BigNumber(currentBlockHeight).isGreaterThan(proposal.cycleEndHeight)
     ) {
-      proposalEndDate = await rpc.blockchain
-        .getBlockStats(proposal.cycleEndHeight)
-        .then((block) => formatUnixTime(block.mediantime));
+      proposalEndDate = await api.blocks
+        .get(proposal.cycleEndHeight.toString())
+        .then((block) => formatUnixTime(block.medianTime));
     } else {
       proposalEndDate = getCycleEndDate(
         proposal.cycleEndHeight,
@@ -185,12 +323,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       );
     }
 
+    const allCycleProposalVotes = await api.governance.listGovProposalVotes({
+      id: proposalId,
+      masternode: MasternodeType.ALL,
+      cycle: -1,
+      all: true,
+    });
+
+    const totalVotes = getAllCycleVotes(allCycleProposalVotes);
+
     return {
       props: {
         proposal,
         proposalVotes,
         proposalCreationDate,
         proposalEndDate,
+        totalVotes,
       },
     };
   } catch {

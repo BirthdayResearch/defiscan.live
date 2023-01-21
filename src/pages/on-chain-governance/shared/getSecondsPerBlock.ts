@@ -1,8 +1,5 @@
-import { NetworkConnection } from "@contexts/NetworkContext";
+import { EnvironmentNetwork, isPlayground } from "@waveshq/walletkit-core";
 
-export function getSecondsPerBlock(network: NetworkConnection): number {
-  return network === NetworkConnection.MainNet ||
-    network === NetworkConnection.TestNet
-    ? 30
-    : 3;
+export function getSecondsPerBlock(network: EnvironmentNetwork): number {
+  return isPlayground(network) ? 30 : 3;
 }
