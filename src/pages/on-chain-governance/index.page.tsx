@@ -181,7 +181,7 @@ export default function OnChainGovernancePage({
                   {allProposalsDetails.completedProposals}
                 </div>
                 <div className="lg:text-base text-xs text-center text-gray-900 dark:text-dark-gray-900">
-                  Completed
+                  Approved
                 </div>
               </div>
               <div className="flex-col grow lg:border-r border-gray-200 dark:border-dark-gray-300 lg:px-7 md:px-5">
@@ -355,7 +355,7 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              status: ListProposalsStatus.COMPLETED,
+              status: "approved",
               type: userQueryProposalType,
             },
           }}
@@ -369,7 +369,7 @@ function UserQueryButtonRow({
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
-            Completed
+            Approved
           </a>
         </Link>
 
