@@ -15,7 +15,11 @@ interface CursorPaginationProps {
   className?: string;
   pages: CursorPage[];
   path: `/${string}`;
-  queryPath?: {};
+  queryParam?: QueryStringParameter;
+}
+
+interface QueryStringParameter {
+  [key: string]: string;
 }
 
 /**
@@ -40,7 +44,7 @@ export function CursorPagination(props: CursorPaginationProps): JSX.Element {
     <div className={props.className}>
       <div className="flex space-x-2">
         <NavigateButton.Prev
-          queryPath={props.queryPath}
+          queryParam={props.queryParam}
           path={props.path}
           cursors={prev?.cursors}
         >
@@ -48,14 +52,14 @@ export function CursorPagination(props: CursorPaginationProps): JSX.Element {
         </NavigateButton.Prev>
         {pages.map((page) => (
           <NumberButton
-            queryPath={props.queryPath}
+            queryParam={props.queryParam}
             key={page.n}
             path={props.path}
             {...page}
           />
         ))}
         <NavigateButton.Next
-          queryPath={props.queryPath}
+          queryParam={props.queryParam}
           path={props.path}
           cursors={next?.cursors}
         >
@@ -67,7 +71,7 @@ export function CursorPagination(props: CursorPaginationProps): JSX.Element {
 }
 
 function NumberButton(
-  props: CursorPage & { path: string } & { queryPath?: {} }
+  props: CursorPage & { path: string } & { queryParam?: QueryStringParameter }
 ): JSX.Element {
   if (props.active) {
     return (
@@ -83,7 +87,7 @@ function NumberButton(
     <Link
       href={{
         pathname: props.path,
-        query: { ...getQueryFromCursors(props.cursors), ...props.queryPath },
+        query: { ...getQueryFromCursors(props.cursors), ...props.queryParam },
       }}
     >
       <a className="bg-gray-50  rounded border border-gray-200 hover:border-primary-500 hover:text-primary-500 cursor-pointer dark:bg-gray-800 dark:border-0 dark:text-dark-gray-900">
@@ -97,7 +101,7 @@ function NumberButton(
 
 NavigateButton.Prev = (
   props: PropsWithChildren<{
-    queryPath?: {};
+    queryParam?: QueryStringParameter;
     path: string;
     cursors: string[] | undefined;
   }>
@@ -107,7 +111,7 @@ NavigateButton.Prev = (
 
 NavigateButton.Next = (
   props: PropsWithChildren<{
-    queryPath?: {};
+    queryParam?: QueryStringParameter;
     path: string;
     cursors: string[] | undefined;
   }>
@@ -117,7 +121,7 @@ NavigateButton.Next = (
 
 function NavigateButton(
   props: PropsWithChildren<{
-    queryPath?: {};
+    queryParam?: QueryStringParameter;
     path: string;
     cursors: string[] | undefined;
     type: "Next" | "Prev";
@@ -137,7 +141,7 @@ function NavigateButton(
     <Link
       href={{
         pathname: props.path,
-        query: { ...getQueryFromCursors(props.cursors), ...props.queryPath },
+        query: { ...getQueryFromCursors(props.cursors), ...props.queryParam },
       }}
     >
       <a
