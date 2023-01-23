@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Container } from "@components/commons/Container";
 import { getWhaleApiClient, getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
@@ -111,22 +111,11 @@ export default function ProposalDetailPage({
                     : "mt-6"
                 )}
               >
-                {proposalVotes.length === 0 ? (
-                  <EmptySection
-                    message="No votes posted yet"
-                    className="mt-0"
-                  />
-                ) : (
-                  <>
-                    <VotesTable votes={proposalVotes} />
-                    <div className="flex justify-end mt-8">
-                      <CursorPagination
-                        pages={pages}
-                        path={`/on-chain-governance/${proposal.proposalId}`}
-                      />
-                    </div>
-                  </>
-                )}
+                <VotesList
+                  proposalVotes={proposalVotes}
+                  pages={pages}
+                  proposalId={proposal.proposalId}
+                />
               </div>
             ) : (
               <div className="hidden lg:block mt-4">
@@ -176,34 +165,13 @@ export default function ProposalDetailPage({
             </div>
             {cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current ||
             proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
-              <>
-                <div className="lg:hidden md:block hidden w-full">
-                  {proposalVotes.length === 0 ? (
-                    <EmptySection
-                      message="No votes posted yet"
-                      className="mt-0"
-                    />
-                  ) : (
-                    <VotesTable votes={proposalVotes} />
-                  )}
-                </div>
-                <div className="md:hidden items-center">
-                  {proposalVotes.length === 0 ? (
-                    <EmptySection
-                      message="No votes posted yet"
-                      className="mt-0"
-                    />
-                  ) : (
-                    <VoteCards votes={proposalVotes} />
-                  )}
-                  <div className="flex justify-end mt-8">
-                    <CursorPagination
-                      pages={pages}
-                      path={`/on-chain-governance/${proposal.proposalId}`}
-                    />
-                  </div>
-                </div>
-              </>
+              <div className="lg:hidden w-full">
+                <VotesList
+                  proposalVotes={proposalVotes}
+                  pages={pages}
+                  proposalId={proposal.proposalId}
+                />
+              </div>
             ) : (
               <div className="lg:hidden items-center">
                 <TotalVotesCards totalVotes={totalVotes} proposal={proposal} />
@@ -225,6 +193,31 @@ export default function ProposalDetailPage({
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
       />
+    </>
+  );
+}
+
+function VotesList({ proposalVotes, pages, proposalId }): JSX.Element {
+  return (
+    <>
+      {proposalVotes.length === 0 ? (
+        <EmptySection message="No votes posted yet" className="mt-0" />
+      ) : (
+        <>
+          <div className="md:hidden">
+            <VoteCards votes={proposalVotes} />
+          </div>
+          <div className="hidden md:block">
+            <VotesTable votes={proposalVotes} />
+          </div>
+          <div className="flex justify-end mt-8">
+            <CursorPagination
+              pages={pages}
+              path={`/on-chain-governance/${proposalId}`}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 }
