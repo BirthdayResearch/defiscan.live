@@ -17,9 +17,9 @@ import { Breadcrumb } from "@components/commons/Breadcrumb";
 import { getEnvironment } from "@contexts/Environment";
 import classNames from "classnames";
 import BigNumber from "bignumber.js";
-import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { CursorPagination } from "@components/commons/CursorPagination";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VoteCards, VotesTable } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -38,8 +38,11 @@ export default function ProposalDetailPage({
   proposalCreationDate,
   proposalEndDate,
   totalVotes,
+  pages,
+  yes,
+  no,
+  neutral,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
-  const { yes, no, neutral } = getVoteCount(proposalVotes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
   const [userConfirmedSelectedVote, setUserConfirmedSelectedVote] =
@@ -114,7 +117,15 @@ export default function ProposalDetailPage({
                     className="mt-0"
                   />
                 ) : (
-                  <VotesTable votes={proposalVotes} />
+                  <>
+                    <VotesTable votes={proposalVotes} />
+                    <div className="flex justify-end mt-8">
+                      <CursorPagination
+                        pages={pages}
+                        path={`/on-chain-governance/${proposal.proposalId}`}
+                      />
+                    </div>
+                  </>
                 )}
               </div>
             ) : (
@@ -131,8 +142,8 @@ export default function ProposalDetailPage({
               setIsChangeVoteClicked={setIsChangeVoteClicked}
               yes={yes}
               no={no}
-              status={proposal.status}
               neutral={neutral}
+              status={proposal.status}
               onSubmitVote={() => {
                 setIsDialogOpen(true);
               }}
@@ -185,6 +196,12 @@ export default function ProposalDetailPage({
                   ) : (
                     <VoteCards votes={proposalVotes} />
                   )}
+                  <div className="flex justify-end mt-8">
+                    <CursorPagination
+                      pages={pages}
+                      path={`/on-chain-governance/${proposal.proposalId}`}
+                    />
+                  </div>
                 </div>
               </>
             ) : (
@@ -223,7 +240,6 @@ function CfpVotingResultButtonRow({
   cfpVotingResultTabChoice: CfpVotingResultCycleTab;
   currenCycle: number;
 }) {
-  const windowDimension = useWindowDimensions();
   return (
     <div className="flex flex-row">
       <button
@@ -239,7 +255,8 @@ function CfpVotingResultButtonRow({
           setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Current);
         }}
       >
-        {windowDimension.width <= 767 ? "Current" : "Current cycle"}
+        <span className="hidden md:block">Current cycle</span>
+        <span className="md:hidden">Current</span>
       </button>
       <button
         type="button"
@@ -255,7 +272,8 @@ function CfpVotingResultButtonRow({
           setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Previous);
         }}
       >
-        {windowDimension.width <= 767 ? "Previous" : "Previous cycle"}
+        <span className="hidden md:block">Previous cycle</span>
+        <span className="md:hidden">Previous</span>
       </button>
     </div>
   );
@@ -281,6 +299,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const proposalId = context.params?.proposalId?.toString().trim() as string;
   const api = getWhaleApiClient(context);
   const rpc = getWhaleRpcClient(context);
+  const next = CursorPagination.getNext(context);
 
   try {
     const proposal = await api.governance.getGovProposal(proposalId);
@@ -292,8 +311,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const proposalVotes = await api.governance.listGovProposalVotes({
       id: proposalId,
       masternode: MasternodeType.ALL,
-      cycle: 0,
+      cycle: proposal.currentCycle,
+      size: 10,
+      next: next,
     });
+    const pages = CursorPagination.getPages(
+      context,
+      proposalVotes as ApiPagedResponse<any>
+    );
+
     const currentBlockHeight = await rpc.blockchain.getBlockCount();
     const currentBlockMedianTime = await api.blocks
       .get(currentBlockHeight.toString())
@@ -322,7 +348,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         secondsPerBlock
       );
     }
-
+    // All votes to get statistics breakdown
     const allCycleProposalVotes = await api.governance.listGovProposalVotes({
       id: proposalId,
       masternode: MasternodeType.ALL,
@@ -331,7 +357,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     });
 
     const totalVotes = getAllCycleVotes(allCycleProposalVotes);
-
+    // calculate stats (yes/no/neutral) for current cycle
+    const stats = getVoteCount(
+      allCycleProposalVotes.filter(
+        (each) => each.cycle === proposal.currentCycle
+      )
+    );
     return {
       props: {
         proposal,
@@ -339,6 +370,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         proposalCreationDate,
         proposalEndDate,
         totalVotes,
+        pages,
+        ...stats,
       },
     };
   } catch {
