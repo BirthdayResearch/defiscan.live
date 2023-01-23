@@ -5,11 +5,11 @@ import {
   MdOutlineKeyboardArrowUp,
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
+import { ListProposalsStatus } from "@defichain/jellyfish-api-core/dist/category/governance";
 import {
-  ProposalInfo,
-  ProposalStatus,
-  ListProposalsStatus,
-} from "@defichain/jellyfish-api-core/dist/category/governance";
+  GovernanceProposal,
+  GovernanceProposalStatus,
+} from "@defichain/whale-api-client/dist/api/governance";
 import { Link } from "@components/commons/link/Link";
 import { useNetwork } from "@contexts/NetworkContext";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
@@ -22,14 +22,14 @@ export function ProposalCards({
   currentBlockMedianTime,
   userQueryProposalStatus,
 }: {
-  proposals: ProposalInfo[];
+  proposals: GovernanceProposal[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
 }) {
   return (
     <>
-      {proposals.map((proposal: ProposalInfo, index) => (
+      {proposals.map((proposal: GovernanceProposal, index) => (
         <React.Fragment key={index}>
           <ProposalCard
             proposal={proposal}
@@ -54,7 +54,7 @@ function ProposalCard({
   currentBlockMedianTime,
   userQueryProposalStatus,
 }: {
-  proposal: ProposalInfo;
+  proposal: GovernanceProposal;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -208,12 +208,12 @@ function ProposalCard({
                   <div
                     className={classNames(
                       "text-sm",
-                      proposal.status === ProposalStatus.COMPLETED
+                      proposal.status === GovernanceProposalStatus.COMPLETED
                         ? "text-green-600 dark:text-dark-green-600"
                         : "text-red-600 dark:text-dark-red-600"
                     )}
                   >
-                    {proposal.status === ProposalStatus.COMPLETED
+                    {proposal.status === GovernanceProposalStatus.COMPLETED
                       ? "Approved"
                       : proposal.status}
                   </div>

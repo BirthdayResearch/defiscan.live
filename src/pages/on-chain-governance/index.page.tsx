@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { isPlayground } from "@waveshq/walletkit-core";
 import { Container } from "@components/commons/Container";
-import { CursorPage } from "@components/commons/CursorPagination";
-import { getWhaleRpcClient, newPlaygroundClient } from "@contexts/WhaleContext";
+import { ApiPagedResponse } from "@defichain/whale-api-client";
+import {
+  CursorPage,
+  CursorPagination,
+} from "@components/commons/CursorPagination";
+import {
+  getWhaleApiClient,
+  getWhaleRpcClient,
+  newPlaygroundClient,
+} from "@contexts/WhaleContext";
 import { GetServerSidePropsContext } from "next";
 import {
   ListProposalsType,
   ListProposalsStatus,
-  ProposalInfo,
-  ProposalStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
+import {
+  GovernanceProposal,
+  GovernanceProposalStatus,
+} from "@defichain/whale-api-client/dist/api/governance";
 import { useNetwork } from "@contexts/NetworkContext";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import classNames from "classnames";
@@ -37,8 +47,8 @@ interface OCGProps {
     userQueryProposalStatus: ListProposalsStatus;
   };
   proposals: {
-    allProposals: ProposalInfo[];
-    queryProposals: ProposalInfo[];
+    allProposals: GovernanceProposal[];
+    queryProposals: GovernanceProposal[];
     pages: CursorPage[];
   };
 }
@@ -171,7 +181,7 @@ export default function OnChainGovernancePage({
                   {allProposalsDetails.completedProposals}
                 </div>
                 <div className="lg:text-base text-xs text-center text-gray-900 dark:text-dark-gray-900">
-                  Completed
+                  Approved
                 </div>
               </div>
               <div className="flex-col grow lg:border-r border-gray-200 dark:border-dark-gray-300 lg:px-7 md:px-5">
@@ -248,9 +258,16 @@ export default function OnChainGovernancePage({
             </div>
           </>
         )}
-        {/* <div className="flex justify-end mt-8">
-          <CursorPagination pages={proposals.pages} path="/on-chain-governance" />
-        </div> */}
+        <div className="flex justify-end mt-8">
+          <CursorPagination
+            pages={proposals.pages}
+            path="/on-chain-governance"
+            queryParam={{
+              status: userQueryProposalStatus,
+              type: userQueryProposalType,
+            }}
+          />
+        </div>
       </Container>
     </div>
   );
@@ -270,8 +287,8 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalStatus: userQueryProposalStatus,
-              proposalType: ListProposalsType.CFP,
+              status: userQueryProposalStatus,
+              type: ListProposalsType.CFP,
             },
           }}
         >
@@ -292,8 +309,8 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalStatus: userQueryProposalStatus,
-              proposalType: ListProposalsType.VOC,
+              status: userQueryProposalStatus,
+              type: ListProposalsType.VOC,
             },
           }}
         >
@@ -316,8 +333,8 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalType: userQueryProposalType,
-              proposalStatus: ListProposalsStatus.VOTING,
+              status: ListProposalsStatus.VOTING,
+              type: userQueryProposalType,
             },
           }}
         >
@@ -338,8 +355,8 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalType: userQueryProposalType,
-              proposalStatus: ListProposalsStatus.COMPLETED,
+              status: "approved",
+              type: userQueryProposalType,
             },
           }}
         >
@@ -352,7 +369,7 @@ function UserQueryButtonRow({
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
-            Completed
+            Approved
           </a>
         </Link>
 
@@ -360,8 +377,8 @@ function UserQueryButtonRow({
           href={{
             pathname: "on-chain-governance/",
             query: {
-              proposalType: userQueryProposalType,
-              proposalStatus: ListProposalsStatus.REJECTED,
+              status: ListProposalsStatus.REJECTED,
+              type: userQueryProposalType,
             },
           }}
         >
@@ -384,92 +401,77 @@ function UserQueryButtonRow({
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const rpc = getWhaleRpcClient(context);
+  const api = getWhaleApiClient(context);
+  const next = CursorPagination.getNext(context);
 
-  let userQueryProposalType = ListProposalsType.CFP;
-  let userQueryProposalStatus = ListProposalsStatus.VOTING;
-  switch (context.query.proposalStatus) {
-    case ListProposalsStatus.REJECTED:
-      userQueryProposalStatus = ListProposalsStatus.REJECTED;
-      break;
-    case ListProposalsStatus.COMPLETED:
-      userQueryProposalStatus = ListProposalsStatus.COMPLETED;
-      break;
-    case ListProposalsStatus.VOTING:
-    default:
-      userQueryProposalStatus = ListProposalsStatus.VOTING;
-  }
-
-  switch (context.query.proposalType) {
-    case ListProposalsType.VOC:
-      userQueryProposalType = ListProposalsType.VOC;
-      break;
-    case ListProposalsType.CFP:
-    default:
-      userQueryProposalType = ListProposalsType.CFP;
-  }
-
+  const userQueryProposalType = mapQueryType(context.query.type);
+  const userQueryProposalStatus = mapQueryStatus(context.query.status);
   const currentBlockCount = await rpc.blockchain.getBlockCount();
   const currentBlockInfo = await rpc.blockchain.getBlockStats(
     currentBlockCount
   );
   const currentBlockMedianTime = currentBlockInfo.mediantime;
-  const allProposals = await rpc.governance
+  // All proposal to get statistics breakdown
+  const allProposals = await api.governance
     .listGovProposals({
       type: ListProposalsType.ALL,
       status: ListProposalsStatus.ALL,
-      pagination: {
-        limit: 0,
-      },
+      all: true,
     })
     .catch((error) => {
       console.error(error);
       return [];
     });
 
-  const queryProposals = await rpc.governance
+  const queryProposals = await api.governance
     .listGovProposals({
       type: userQueryProposalType,
       status: userQueryProposalStatus,
-      pagination: {
-        limit: 0,
-      },
+      size: 10,
+      next: next,
     })
     .catch((error) => {
       console.error(error);
       return [];
     });
+  const pages = CursorPagination.getPages(
+    context,
+    queryProposals as ApiPagedResponse<any>
+  );
 
   return {
     props: getOCGData(
-      JSON.parse(JSON.stringify(allProposals)),
-      JSON.parse(JSON.stringify(queryProposals)),
+      allProposals,
+      queryProposals,
       currentBlockCount,
       currentBlockMedianTime,
       userQueryProposalType,
-      userQueryProposalStatus
+      userQueryProposalStatus,
+      pages
     ),
   };
 }
 
 function getOCGData(
-  allProposals: ProposalInfo[],
-  queryProposals: ProposalInfo[],
+  allProposals: GovernanceProposal[],
+  queryProposals: GovernanceProposal[],
   currentBlockCount: number,
   currentBlockMedianTime: number,
   userQueryProposalType: ListProposalsType,
-  userQueryProposalStatus: ListProposalsStatus
+  userQueryProposalStatus: ListProposalsStatus,
+  pages: CursorPage[]
 ): OCGProps {
   return {
     allProposalsDetails: {
       proposalsSubmitted: allProposals.length,
       openProposals: allProposals.filter(
-        (item) => item.status === ProposalStatus.VOTING
+        (item) => item.status === GovernanceProposalStatus.VOTING
       ).length,
       completedProposals: allProposals.filter(
-        (item) => item.status === ProposalStatus.COMPLETED
+        (item) => item.status === GovernanceProposalStatus.COMPLETED
       ).length,
       rejectedProposals: allProposals.filter(
-        (item) => item.status === ProposalStatus.REJECTED
+        (item) => item.status === GovernanceProposalStatus.REJECTED
       ).length,
       currentBlockCount: currentBlockCount,
       currentBlockMedianTime: currentBlockMedianTime,
@@ -479,23 +481,42 @@ function getOCGData(
     proposals: {
       allProposals,
       queryProposals,
-      pages: [
-        {
-          n: 1,
-          active: true,
-          cursors: [],
-        },
-        {
-          n: 2,
-          active: false,
-          cursors: ["1"],
-        },
-        {
-          n: 3,
-          active: false,
-          cursors: ["1", "2"],
-        },
-      ],
+      pages: pages,
     },
   };
+}
+
+function mapQueryType(type?: string | string[]): ListProposalsType {
+  if (typeof type !== "string") {
+    return ListProposalsType.CFP;
+  }
+
+  switch (type.toLowerCase()) {
+    case "voc":
+    case "dfip":
+      return ListProposalsType.VOC;
+
+    case "cfp":
+    default:
+      return ListProposalsType.CFP;
+  }
+}
+
+function mapQueryStatus(status?: string | string[]): ListProposalsStatus {
+  if (typeof status !== "string") {
+    return ListProposalsStatus.VOTING;
+  }
+
+  switch (status.toLowerCase()) {
+    case "approved":
+    case "completed":
+      return ListProposalsStatus.COMPLETED;
+
+    case "rejected":
+      return ListProposalsStatus.REJECTED;
+
+    case "voting":
+    default:
+      return ListProposalsStatus.VOTING;
+  }
 }

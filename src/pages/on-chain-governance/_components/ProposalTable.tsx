@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
 import { AiFillGithub } from "react-icons/ai";
 import classNames from "classnames";
+import { ListProposalsStatus } from "@defichain/jellyfish-api-core/dist/category/governance";
 import {
-  ProposalInfo,
-  ProposalStatus,
-  ListProposalsStatus,
-} from "@defichain/jellyfish-api-core/dist/category/governance";
+  GovernanceProposal,
+  GovernanceProposalStatus,
+} from "@defichain/whale-api-client/dist/api/governance";
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
@@ -27,7 +27,7 @@ export function ProposalTable({
   userQueryProposalStatus,
   masternodeId,
 }: {
-  proposals: ProposalInfo[];
+  proposals: GovernanceProposal[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -75,7 +75,7 @@ export function ProposalTable({
           )}
         </OverflowTable.Header>
 
-        {proposals.map((proposal: ProposalInfo, index) => (
+        {proposals.map((proposal: GovernanceProposal, index) => (
           <React.Fragment key={index}>
             <ProposalRow
               proposal={proposal}
@@ -108,7 +108,7 @@ function ProposalRow({
   userQueryProposalStatus,
   onDummyVote,
 }: {
-  proposal: ProposalInfo;
+  proposal: GovernanceProposal;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -203,12 +203,12 @@ function ProposalRow({
           <div
             className={classNames(
               "py-1 px-3 rounded-[32px] w-fit",
-              proposal.status === ProposalStatus.COMPLETED
+              proposal.status === GovernanceProposalStatus.COMPLETED
                 ? "bg-green-100 text-green-600 dark:bg-[#21E529] dark:text-dark-green-600 dark:bg-opacity-25"
                 : "bg-red-100 text-red-600 dark:bg-[#FF483D] dark:text-dark-red-600 dark:bg-opacity-20"
             )}
           >
-            {proposal.status === ProposalStatus.COMPLETED
+            {proposal.status === GovernanceProposalStatus.COMPLETED
               ? "Approved"
               : proposal.status}
           </div>
