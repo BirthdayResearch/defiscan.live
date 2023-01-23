@@ -15,10 +15,10 @@ interface CursorPaginationProps {
   className?: string;
   pages: CursorPage[];
   path: `/${string}`;
-  queryParam?: QueryStringParameter;
+  queryParam?: QueryParameter;
 }
 
-interface QueryStringParameter {
+interface QueryParameter {
   [key: string]: string;
 }
 
@@ -71,7 +71,7 @@ export function CursorPagination(props: CursorPaginationProps): JSX.Element {
 }
 
 function NumberButton(
-  props: CursorPage & { path: string } & { queryParam?: QueryStringParameter }
+  props: CursorPage & { path: string } & { queryParam?: QueryParameter }
 ): JSX.Element {
   if (props.active) {
     return (
@@ -101,7 +101,7 @@ function NumberButton(
 
 NavigateButton.Prev = (
   props: PropsWithChildren<{
-    queryParam?: QueryStringParameter;
+    queryParam?: QueryParameter;
     path: string;
     cursors: string[] | undefined;
   }>
@@ -111,7 +111,7 @@ NavigateButton.Prev = (
 
 NavigateButton.Next = (
   props: PropsWithChildren<{
-    queryParam?: QueryStringParameter;
+    queryParam?: QueryParameter;
     path: string;
     cursors: string[] | undefined;
   }>
@@ -121,7 +121,7 @@ NavigateButton.Next = (
 
 function NavigateButton(
   props: PropsWithChildren<{
-    queryParam?: QueryStringParameter;
+    queryParam?: QueryParameter;
     path: string;
     cursors: string[] | undefined;
     type: "Next" | "Prev";
