@@ -6,7 +6,7 @@ specifiers:
   '@floating-ui/react-dom': ^1.2.1
   '@headlessui/react': ^1.7.7
   '@netlify/plugin-lighthouse': ^4.0.5
-  '@netlify/plugin-nextjs': ^4.30.0
+  '@netlify/plugin-nextjs': ^4.30.1
   '@prismicio/client': ^6.7.3
   '@prismicio/types': ^0.2.7
   '@reduxjs/toolkit': ^1.9.1
@@ -67,7 +67,7 @@ dependencies:
 devDependencies:
   '@cypress/code-coverage': 3.10.0_evefxzax64vtdycatomx3m6wya
   '@netlify/plugin-lighthouse': 4.0.5
-  '@netlify/plugin-nextjs': 4.30.0
+  '@netlify/plugin-nextjs': 4.30.1
   '@testing-library/cypress': 8.0.7_cypress@11.2.0
   '@types/lodash': 4.14.191
   '@types/node': 18.11.13
@@ -1888,8 +1888,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@netlify/plugin-nextjs/4.30.0:
-    resolution: {integrity: sha512-+MyfV6biKGVs/jQQUKGi2vN5aFFyRUTeEAItDiSvNhAUi0mOXEkEmu5JN7ZAQtL2oRIKKnxflsZDmtP3DdAahg==}
+  /@netlify/plugin-nextjs/4.30.1:
+    resolution: {integrity: sha512-GZ97Yqt8Kv+aN1SXvL0MhsJxheXHYQ9lSggpsuT9LQVmZY5SGpbnRoqas/pGj1cr5wRD3RR2w90URa0cSa7jBg==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@netlify/esbuild': 0.14.39
