@@ -20,7 +20,6 @@ import { Link } from "@components/commons/link/Link";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
-import { getCurrentYearMonth } from "./shared/dateHelper";
 import { OnChainGovernanceTitles } from "./enum/onChainGovernanceTitles";
 
 interface OCGProps {
@@ -47,11 +46,11 @@ export default function OnChainGovernancePage({
   const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
   const userQueryProposalType = allProposalsDetails.userQueryProposalType;
 
-  const { currentYear, currentMonth } = getCurrentYearMonth();
+  // const { currentYear, currentMonth } = getCurrentYearMonth();
 
   return (
     <div>
-      <div className="py-4 bg-gray-50 dark:bg-dark-gray-100 w-screen">
+      {/* <div className="py-4 bg-gray-50 dark:bg-dark-gray-100 w-screen">
         <Container>
           <span className="text-gray-900 dark:text-dark-gray-900">
             Announcement: {currentMonth} {currentYear} voting round is now
@@ -64,7 +63,7 @@ export default function OnChainGovernancePage({
             </a>
           </span>
         </Container>
-      </div>
+      </div> */}
       <Container className="md:pt-11 pt-10 pb-20">
         <div className="flex md:flex-row flex-col">
           <div className="flex flex-col grow md:justify-center">
