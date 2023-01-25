@@ -14,11 +14,11 @@ specifiers:
   '@testing-library/cypress': ^8.0.7
   '@types/lodash': ^4.14.191
   '@types/node': ^18.11.13
-  '@waveshq/standard-defichain-jellyfishsdk': ^0.34.1
-  '@waveshq/standard-web': ^0.34.1
-  '@waveshq/standard-web-linter': ^0.34.1
-  '@waveshq/walletkit-core': ^0.26.0
-  '@waveshq/walletkit-ui': ^0.26.0
+  '@waveshq/standard-defichain-jellyfishsdk': ^0.34.3
+  '@waveshq/standard-web': ^0.34.3
+  '@waveshq/standard-web-linter': ^0.34.3
+  '@waveshq/walletkit-core': ^0.27.0
+  '@waveshq/walletkit-ui': ^0.27.0
   autoprefixer: ^10.4.13
   babel-plugin-istanbul: ^6.1.1
   babel-plugin-jsx-remove-data-test-id: ^3.0.0
@@ -49,10 +49,10 @@ dependencies:
   '@prismicio/types': 0.2.7
   '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
   '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
-  '@waveshq/standard-defichain-jellyfishsdk': 0.34.1
-  '@waveshq/standard-web': 0.34.1_tdx3q6g4ls4wk63hrmjkiys2u4
-  '@waveshq/walletkit-core': 0.26.0
-  '@waveshq/walletkit-ui': 0.26.0_2ew4zevcrqblybnsy44nvi44xq
+  '@waveshq/standard-defichain-jellyfishsdk': 0.34.3
+  '@waveshq/standard-web': 0.34.3_tdx3q6g4ls4wk63hrmjkiys2u4
+  '@waveshq/walletkit-core': 0.27.0
+  '@waveshq/walletkit-ui': 0.27.0_2ew4zevcrqblybnsy44nvi44xq
   bignumber.js: 9.1.1
   classnames: 2.3.2
   date-fns: 2.29.3
@@ -75,7 +75,7 @@ devDependencies:
   '@testing-library/cypress': 8.0.7_cypress@11.2.0
   '@types/lodash': 4.14.191
   '@types/node': 18.11.13
-  '@waveshq/standard-web-linter': 0.34.1_rsrorrpfqoe5pmgf4axxk6jweq
+  '@waveshq/standard-web-linter': 0.34.3_rsrorrpfqoe5pmgf4axxk6jweq
   autoprefixer: 10.4.13_postcss@8.4.21
   babel-plugin-istanbul: 6.1.1
   babel-plugin-jsx-remove-data-test-id: 3.0.0_@babel+core@7.20.5
@@ -1367,206 +1367,206 @@ packages:
       - supports-color
     dev: true
 
-  /@defichain/jellyfish-address/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-rVmtkkUgrY//FhAf8C3Pe0YsGpOeGSOrgynW/fXKm7GoLtH9EFp8uNKPr/YLthfFuM89Cnbkyc9Sq6rTdKWFog==}
+  /@defichain/jellyfish-address/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-rgJei1pVnX+qVtkQ2x0gdmOIp0Kp6tp28vxolHzS8l8FZAvfmKIBdEHvvdbu/0QyMWz3KY2v99Gv1+9U1EwuTg==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-crypto': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-network': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction': 3.23.0_defichain@3.23.0
+      '@defichain/jellyfish-crypto': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-network': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction': 3.23.2_defichain@3.23.2
       bech32: 2.0.0
       bs58: 4.0.1
-      defichain: 3.23.0
+      defichain: 3.23.2
     dev: false
 
-  /@defichain/jellyfish-api-core/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-ZkEKj0+Awr8zMu01IoDYxjNJRkhJBV/lRiOxSj9ZVD3U7svTgwpVjTpbn90JM+xjmSP82K281I8kmrCK/R2iyA==}
+  /@defichain/jellyfish-api-core/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-IMPqJUdExgFiumF7aFSuN6gd5Q4E9sdOsncMGf0IbDCoAd8/tt5mtbKcYjeUQrf98YMycfjo+zcS48VQzy8w3Q==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-json': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-json': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
     dev: false
 
-  /@defichain/jellyfish-api-jsonrpc/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-OQxP5RcE0l6PBPVwvyUKLX294jBeikLq6d4bFnIsKWLrAIkfOYeB4vBvRxxOKov4gAK8/64U3NmIBWVrsiGf1A==}
+  /@defichain/jellyfish-api-jsonrpc/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-nwuHZIEL1erFAUibX6tN9pxrno6Zdr2gqUy6k7lhUEgwF2jSO3mnSGs1luot8jt2zNvsjJi9L1IUZWLncFVusw==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-api-core': 3.23.0_defichain@3.23.0
+      '@defichain/jellyfish-api-core': 3.23.2_defichain@3.23.2
       abort-controller: 3.0.0
       cross-fetch: 3.1.5
-      defichain: 3.23.0
+      defichain: 3.23.2
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@defichain/jellyfish-buffer/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-BLN6V7TKE8/aEAy9SgkFfQiGb5eX0dLyiWNz/+qRgYluYPfdf+zLSYKrwPEg7u/eXtmBRVA1BY5h4TAC/0XLtg==}
+  /@defichain/jellyfish-buffer/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-0Clwd/sIvBD+Lu88TN7X9uZefyOn3XlRoovPkoIxEk+g5ZBJAc63enXGi2MwCiwlKHXMrYctm7BbFjGm12gvpQ==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
       bignumber.js: 9.1.1
       bn.js: 5.2.1
-      defichain: 3.23.0
+      defichain: 3.23.2
       smart-buffer: 4.2.0
     dev: false
 
-  /@defichain/jellyfish-crypto/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-BeTHkAYoQhaNTRoHS3Y4acui//0lwQJYo+cKSr5K/766sQ2f+DPiyoB75CRiz1v2IabVSiY+AclmM64rkw4D9g==}
+  /@defichain/jellyfish-crypto/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-qbLT5Hk043TBym24REEzAWOFKg/OihWYIl+SW59vnuma5hZ+nvmdrvi9N9qpjOD1aW2oJ/Nq/aXIWYIXHX3IPw==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
       bech32: 2.0.0
       bip66: 1.1.5
       browserify-aes: 1.2.0
       bs58: 4.0.1
       create-hash: 1.2.0
-      defichain: 3.23.0
+      defichain: 3.23.2
       randombytes: 2.1.0
       tiny-secp256k1: 1.1.6
       wif: 2.0.6
     dev: false
 
-  /@defichain/jellyfish-json/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-TdpMddVg5cymEXeTjLp3yDUwDN8GekJ7X5VmCJUJo51Ln7KtmSDi6+gPv+OsPGSfAXekiaF4WYW53kAO8hB57w==}
+  /@defichain/jellyfish-json/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-wJYnzx6cfpkKv9WIcQjJy4FNwfgks0Wr+uIzDxRFVo+/snpnZc8I7w8PsC7X8ZKiiIBeeptf6y23Grf9FdsdKA==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
       '@types/lossless-json': 1.0.1
       bignumber.js: 9.1.1
-      defichain: 3.23.0
+      defichain: 3.23.2
       lossless-json: 1.0.5
     dev: false
 
-  /@defichain/jellyfish-network/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-URb0HpKkTK1qnUaXHRrXqYSrZh6deSqJOxzrhm+ew6mf2DkdCkvyIKHT2vZW6ER2A+pVHxaQg8qX+AmJCgnzfg==}
+  /@defichain/jellyfish-network/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-Oix/V/Nj3YX83FrkmafZRixZ+81TnhGia2OmbmqbhijpVJoKkILOrPxoLZ2njG1CvmDxqkuYzgI53gQ6lAXs7w==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
       bignumber.js: 9.1.1
-      defichain: 3.23.0
+      defichain: 3.23.2
     dev: false
 
-  /@defichain/jellyfish-transaction-builder/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-AXmEQE2djdTsyY/UKy0qIuPH8YXz7Thc4cQpkH1ZNJM2KhuIj1QgfL/q6jchQue4mxmiwcSb1tpJx7rwqg1pYA==}
+  /@defichain/jellyfish-transaction-builder/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-2qDhaGZKDGhcI+husJpLq1lKrSP/miToIZdVf2/A1+hSsmBi0pyzanWV+zJh86fA/Uf6WKP508xgUN4K7UEhrg==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-crypto': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction-signature': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-crypto': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction-signature': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
     dev: false
 
-  /@defichain/jellyfish-transaction-signature/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-8JaD5XBg28CdePkAZMIa66XKnp8lNUeSIeS3KtTUzoh2Ijr0EnV55lNR4va6JhqGagxOAQLWc5LZqBXorBufGg==}
+  /@defichain/jellyfish-transaction-signature/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-sI/98Xwdi4ZLUlQDVZfzka8yLlbSAEHAN04gzBVRe3b12jyLHSyUa4rNtm24kdCqFUO1e5opmG0ZXUYxjrAQkg==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-buffer': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-crypto': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-buffer': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-crypto': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
     dev: false
 
-  /@defichain/jellyfish-transaction/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-bnwJoe1gDGNk2hv/FtWDUyyn28zfYVMCGL9GpUl9CZB5mGQwZNrtpSfPb7cY5DoJ/74cTOEaOdyyh6n/M+S/FA==}
+  /@defichain/jellyfish-transaction/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-suzudq8nJ4hYK1gS1l2aU8APwSGQmqF3vH7kc6uccoeK5CiWHfZDKxunqvDnxBPdXMx2oYbuYE3Xy27y0Ij8Fw==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-buffer': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-crypto': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-buffer': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-crypto': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
     dev: false
 
-  /@defichain/jellyfish-wallet-encrypted/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-Tk/c2xN9iMILp4VrCyhihWziKLr3yKUgB3WrmWNg5tLKhorfaytVa1cOeOX4MMZwnp/nqSAsRuMrvhMKRuT2kg==}
+  /@defichain/jellyfish-wallet-encrypted/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-xCb+BNXavLVCTb8nDLLzIfINVQJV+Dqcn94v9DNeWXGruGegzRw+a/B9FQDP8VSY0wKqtyRmMORMbTC27RNoQw==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-wallet-mnemonic': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-wallet-mnemonic': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
       scrypt-js: 3.0.1
     dev: false
 
-  /@defichain/jellyfish-wallet-mnemonic/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-vE3mIWiVDk74Awyie9+PURMUc4Ga+UudbaUSwzg7TrinMsb5y/b1tzlsVuC5XAYPuuvo7b1Yz2McLWJIJeKaQA==}
+  /@defichain/jellyfish-wallet-mnemonic/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-bvhlwzeMD0ARnd/ZFjY1bxshqI6opUzWgCNbhOS4FcEM75mhmS8OmV0AcVGpYLjb65hEZ3H2zbbnQG/7Xc71hQ==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-transaction': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-wallet': 3.23.0_defichain@3.23.0
+      '@defichain/jellyfish-transaction': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-wallet': 3.23.2_defichain@3.23.2
       bip32: 2.0.6
       bip39: 3.0.4
       create-hmac: 1.1.7
-      defichain: 3.23.0
+      defichain: 3.23.2
     dev: false
 
-  /@defichain/jellyfish-wallet/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-M1wNQ4IJULIstcJcYDrpquMECnZm5aqzpYOQQMPkN718nOD0DR26cu5lw2Bk50SnJpfAE7A6X4kcH5iATZQ3Lw==}
+  /@defichain/jellyfish-wallet/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-NjS+7lD9ySR6iLQdmph2G8JNX76V9slJPac8ZgUQpKpbc+WGnXKQlW4Ig1vkNlxf5hUWCpYWy4E+cC/SFRr4Nw==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-address': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-crypto': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-network': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction-builder': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction-signature': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-address': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-crypto': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-network': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction-builder': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction-signature': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
     dev: false
 
-  /@defichain/ocean-api-client/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-v+pdqtk5QgS9U184MHbEeA+3OEc1gRN8d1zI7iiVTzWY7PB6urLr00cZVRqyi55IcSIP5AtxzZMD6BDb73J3hg==}
+  /@defichain/ocean-api-client/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-icx2IaNwx1DTsB44MrNPF3SDRMTSMqvQARgEQ8e+D9BgmTxB4GWx6Rxdit8p8SbMBLqqHutk0XbZ7230av2nWQ==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
       abort-controller: 3.0.0
       cross-fetch: 3.1.5
-      defichain: 3.23.0
+      defichain: 3.23.2
       url-search-params-polyfill: 8.1.1
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@defichain/playground-api-client/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-rhHoBrMQG8BHr3uiSlwJ2oXh9qFu+Gjhad5eqJKpEghlaLn/g6whBRwRCrzeGqzpUSJFb8GFelq2xqVCsqGKGA==}
+  /@defichain/playground-api-client/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-57+DeLPANmBunfhu6MZnuRJDOY9rTTRdUPzGy+fi/5nM7AOLBIiYpCXNLg5cBddM/y4THgLW09vIAIWcSn6qCA==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-api-core': 3.23.0_defichain@3.23.0
-      '@defichain/ocean-api-client': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-api-core': 3.23.2_defichain@3.23.2
+      '@defichain/ocean-api-client': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@defichain/whale-api-client/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-fuLw/KV03EBC6zpxNH/dDL5IFiN2WXqNSNHm6uoof2ujDaGKyFSXcv/HEfDlOSSInv2DZpVyixa/4HjzUyZ6KA==}
+  /@defichain/whale-api-client/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-I4KRWeF2cZnledtp2Ku2WhhkjrPKMZKo+cJtTeFlscrwx8hOr8DuwBMax2xGbxnKI3J0MIKeI4y74vEXBK0DNg==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-api-core': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-api-jsonrpc': 3.23.0_defichain@3.23.0
+      '@defichain/jellyfish-api-core': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-api-jsonrpc': 3.23.2_defichain@3.23.2
       abort-controller: 3.0.0
       cross-fetch: 3.1.5
-      defichain: 3.23.0
+      defichain: 3.23.2
       url-search-params-polyfill: 8.1.1
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@defichain/whale-api-wallet/3.23.0_defichain@3.23.0:
-    resolution: {integrity: sha512-hh9cA2ZIxR/gUy7An2fL2862tQpBaCqb3FPmim5LxQZBrrdkytHPEdSDaDjtJmYV+3X/r+G4ZcoTBCEKvHrrxA==}
+  /@defichain/whale-api-wallet/3.23.2_defichain@3.23.2:
+    resolution: {integrity: sha512-IYtF+eAidp9ZHrL19WuXYPrPPwPpJgr70OtL3qCR2XE6eEwibR4aTTyfFVLT3e8ukw+aKvfyHCiTovwwe3XR5A==}
     peerDependencies:
-      defichain: ^3.23.0
+      defichain: ^3.23.2
     dependencies:
-      '@defichain/jellyfish-transaction-builder': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-wallet': 3.23.0_defichain@3.23.0
-      '@defichain/whale-api-client': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-transaction-builder': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-wallet': 3.23.2_defichain@3.23.2
+      '@defichain/whale-api-client': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -2192,33 +2192,13 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@next/env/13.1.2:
-    resolution: {integrity: sha512-PpT4UZIX66VMTqXt4HKEJ+/PwbS+tWmmhZlazaws1a+dbUA5pPdjntQ46Jvj616i3ZKN9doS9LHx3y50RLjAWg==}
-    dev: false
-
   /@next/env/13.1.5:
     resolution: {integrity: sha512-0Ry4NhJy6qLbXhvxPRUQ1H6RzgtryGdUto7hfgAK0Iw/bScgeVjwLZdfhm2iT7qsOS32apo9cWzLCxjc6iGPsA==}
-
-  /@next/eslint-plugin-next/13.1.2:
-    resolution: {integrity: sha512-WGaNVvIYphdriesP6r7jq/8l7u38tzotnVQuxc1RYKLqYYApSsrebti3OCPoT3Gx0pw2smPIFHH98RzcsgW5GQ==}
-    dependencies:
-      glob: 7.1.7
-    dev: false
 
   /@next/eslint-plugin-next/13.1.5:
     resolution: {integrity: sha512-3kvLTX35bOWOCKU8KY74Ygczc55Qk/kB2TQy0tH7Rti6hzZ6Aij7WQ8zHdIVjmnlD0n/zXWXrIf5y56RKcLQkQ==}
     dependencies:
       glob: 7.1.7
-    dev: true
-
-  /@next/swc-android-arm-eabi/13.1.2:
-    resolution: {integrity: sha512-7mRz1owoGsbfIcdOJA3kk7KEwPZ+OvVT1z9DkR/yru4QdVLF69h/1SHy0vlUNQMxDRllabhxCfkoZCB34GOGAg==}
-    engines: {node: '>= 10'}
-    cpu: [arm]
-    os: [android]
-    requiresBuild: true
-    dev: false
-    optional: true
 
   /@next/swc-android-arm-eabi/13.1.5:
     resolution: {integrity: sha512-QAEf3YM9U0qWVQTxgF3Tsh4OeCN1i9Smsf6cVlwZsPzoLyj2nQ879joCoN+ONqDknkBgG6OG/ajefywL3jw9Cg==}
@@ -2226,15 +2206,6 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    optional: true
-
-  /@next/swc-android-arm64/13.1.2:
-    resolution: {integrity: sha512-mgjZ2eJSayovQm1LcE54BLSI4jjnnnLtq5GY5g+DdPuUiCT644gKtjZ/w2BQvuIecCqqBO+Ph9yzo/wUTq7NLg==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [android]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-android-arm64/13.1.5:
@@ -2245,30 +2216,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@next/swc-darwin-arm64/13.1.2:
-    resolution: {integrity: sha512-RikoQqy109r2222UJlyGs4dZw2BibkfPqpeFdW5JEGv+L2PStlHID8DwyVYbmHfQ0VIBGvbf/NAUtFakAWlhwg==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /@next/swc-darwin-arm64/13.1.5:
     resolution: {integrity: sha512-aeFXK+M/zmG/CNdMJ0tGNs0MWcLueUe7vZ2V6fa+2yz/ZgYJLI7fEfFvVh1p1yBMzupSbZDowvMuCSFTaeg3MA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    optional: true
-
-  /@next/swc-darwin-x64/13.1.2:
-    resolution: {integrity: sha512-JbDZjaTvL8gyPC5TAH6OnD4jmXPkyUxRYPvu08ZmhT/XAFBb/Cso0BdXyDax/BPCG70mimP9d3hXNKNq+A0VtQ==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-darwin-x64/13.1.5:
@@ -2279,30 +2232,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@next/swc-freebsd-x64/13.1.2:
-    resolution: {integrity: sha512-ax4j8VrdFQ/xc3W7Om0u1vnDxVApQHKsChBbAMynCrnycZmpbqK4MZu4ZkycT+mx2eccCiqZROpbzDbEdPosEw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /@next/swc-freebsd-x64/13.1.5:
     resolution: {integrity: sha512-nR4a/SNblG0w8hhYRflTZjk4yD99ld18w/FCftw99ziw8sgciBlOXRICJIiRIaMRU8UH7QLSgBOQVnfNcVNKMA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    optional: true
-
-  /@next/swc-linux-arm-gnueabihf/13.1.2:
-    resolution: {integrity: sha512-NcRHTesnCxnUvSJa637PQJffBBkmqi5XS/xVWGY7dI6nyJ+pC96Oj7kd+mcjnFUQI5lHKbg39qBWKtOzbezc4w==}
-    engines: {node: '>= 10'}
-    cpu: [arm]
-    os: [linux]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-arm-gnueabihf/13.1.5:
@@ -2313,30 +2248,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@next/swc-linux-arm64-gnu/13.1.2:
-    resolution: {integrity: sha512-AxJdjocLtPrsBY4P2COSBIc3crT5bpjgGenNuINoensOlXhBkYM0aRDYZdydwXOhG+kN2ngUvfgitop9pa204w==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /@next/swc-linux-arm64-gnu/13.1.5:
     resolution: {integrity: sha512-E7HMkdoxStmTUJU4KzBUU4vZ5DHT4Gd327tC3KFZS5lda0NRerJAOCfsRg+fBj22FvCb1UWsX6XI+weL6xhyeQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    optional: true
-
-  /@next/swc-linux-arm64-musl/13.1.2:
-    resolution: {integrity: sha512-JmNimDkcCRq7P5zpkdqeaSZ69qKDntEPtyIaMNWqy5M0WUJxGim0Fs6Qzxayiyvuuh9Guxks4woQ/j/ZvX/c8Q==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-arm64-musl/13.1.5:
@@ -2347,30 +2264,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@next/swc-linux-x64-gnu/13.1.2:
-    resolution: {integrity: sha512-TsLsjZwUlgmvI42neTuIoD6K9RlXCUzqPtvIClgXxVO0um0DiZwK+M+0zX/uVXhMVphfPY2c5YeR1zFSIONY4A==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /@next/swc-linux-x64-gnu/13.1.5:
     resolution: {integrity: sha512-GftSBFAay2nocGl+KNqFsj6EVSvomaM/bp86hzezbKsTwQmu76PjOCVcejI1gE+4k7f5zPDgCuorF6F04BV0HQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    optional: true
-
-  /@next/swc-linux-x64-musl/13.1.2:
-    resolution: {integrity: sha512-eSkyXgCXydEFPTkcncQOGepafedPte6JT/OofB9uvruucrrMVBagCASOuPxodWEMrlfEKSXVnExMKIlfmQMD7A==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-linux-x64-musl/13.1.5:
@@ -2381,15 +2280,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@next/swc-win32-arm64-msvc/13.1.2:
-    resolution: {integrity: sha512-DmXFaRTgt2KrV9dmRLifDJE+cYiutHVFIw5/C9BtnwXH39uf3YbPxeD98vNrtqqqZVVLXY/1ySaSIwzYnqeY9g==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /@next/swc-win32-arm64-msvc/13.1.5:
     resolution: {integrity: sha512-uzsvkQY+K3EbL+97IUHPWZPwjsCmCkdH/O5Cf9wCnh0k0gaj7ob1mGKqr1vNNak+9U7HloGwuHcXnZpijWSP7w==}
     engines: {node: '>= 10'}
@@ -2398,30 +2288,12 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@next/swc-win32-ia32-msvc/13.1.2:
-    resolution: {integrity: sha512-3+nBkuFs/wT+lmRVQNH5SyDT7I4vUlNPntosEaEP63FuYQdPLaxz0GvcR66MdFSFh2fsvazpe4wciOwVS4FItQ==}
-    engines: {node: '>= 10'}
-    cpu: [ia32]
-    os: [win32]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /@next/swc-win32-ia32-msvc/13.1.5:
     resolution: {integrity: sha512-v0NaC1w8mPf620GlJaHBdEm3dm4G4AEQMasDqjzQvo0yCRrvtvzMgCIe8MocBxFHzaF6868NybMqvumxP5YxEg==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    optional: true
-
-  /@next/swc-win32-x64-msvc/13.1.2:
-    resolution: {integrity: sha512-avsyveEvcvH42PvKjR4Pb8JlLttuGURr2H3ZhS2b85pHOiZ7yjH3rMUoGnNzuLMApyxYaCvd4MedPrLhnNhkog==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /@next/swc-win32-x64-msvc/13.1.5:
@@ -2975,83 +2847,27 @@ packages:
     resolution: {integrity: sha512-haGBC8noyA5BfjCRXRH+VIkHCDVW5iD5UX24P2nOdilwUxI4qWsattS/co8QBGq64XsNLRAMdM5pQUE3zxkF9Q==}
     dev: true
 
-  /@waveshq/standard-defichain-jellyfishsdk/0.33.0:
-    resolution: {integrity: sha512-ntDJip/HaeYBjq2Xdf43aMOd+Np4bmpasKU2NgibzBmE8CAg4WbvFGwOX10xDAnGZIZPUv8AuXsDyu0vGDxaDg==}
+  /@waveshq/standard-defichain-jellyfishsdk/0.34.3:
+    resolution: {integrity: sha512-sH8oIIp/X5CDXdGxIpX705YL4BH9L/l+mV9bukTBpC72pNDpxVReXetlY20UFFwMBFybGgZKd48w4+/ZR0KWOw==}
     dependencies:
-      '@defichain/jellyfish-address': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-api-core': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-network': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction-builder': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-wallet': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-wallet-encrypted': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-wallet-mnemonic': 3.23.0_defichain@3.23.0
-      '@defichain/playground-api-client': 3.23.0_defichain@3.23.0
-      '@defichain/whale-api-client': 3.23.0_defichain@3.23.0
-      '@defichain/whale-api-wallet': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
+      '@defichain/jellyfish-address': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-api-core': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-network': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-transaction-builder': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-wallet': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-wallet-encrypted': 3.23.2_defichain@3.23.2
+      '@defichain/jellyfish-wallet-mnemonic': 3.23.2_defichain@3.23.2
+      '@defichain/playground-api-client': 3.23.2_defichain@3.23.2
+      '@defichain/whale-api-client': 3.23.2_defichain@3.23.2
+      '@defichain/whale-api-wallet': 3.23.2_defichain@3.23.2
+      defichain: 3.23.2
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@waveshq/standard-defichain-jellyfishsdk/0.34.1:
-    resolution: {integrity: sha512-umSoQZCcmVbQUrfT33pKwWdf2hjlEVHYk3E/pMXEC8pqVHHys8JCrtXYMYHoTs2ia3khggKAqUpvREcudVqmiw==}
-    dependencies:
-      '@defichain/jellyfish-address': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-api-core': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-network': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-transaction-builder': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-wallet': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-wallet-encrypted': 3.23.0_defichain@3.23.0
-      '@defichain/jellyfish-wallet-mnemonic': 3.23.0_defichain@3.23.0
-      '@defichain/playground-api-client': 3.23.0_defichain@3.23.0
-      '@defichain/whale-api-client': 3.23.0_defichain@3.23.0
-      '@defichain/whale-api-wallet': 3.23.0_defichain@3.23.0
-      defichain: 3.23.0
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
-  /@waveshq/standard-web-linter/0.33.0_rsrorrpfqoe5pmgf4axxk6jweq:
-    resolution: {integrity: sha512-0oZFcwmO3E5zTvB8OG7NEj/bmCR5v6bb1ecUGKXZ1KaEzw0FudvCuZTBzt2qyI6w0hvHl2LMHgBvpQZTVgoEEA==}
-    dependencies:
-      eslint: 8.32.0
-      eslint-config-airbnb: 19.0.4_td5yecidacttadzxcsbd5t7tli
-      eslint-config-airbnb-typescript: 17.0.0_zpuozpdjuqngrzqt4462tszd5q
-      eslint-config-next: 13.1.2_7uibuqfxkfaozanbtbziikiqje
-      eslint-config-prettier: 8.6.0_eslint@8.32.0
-      eslint-plugin-cypress: 2.12.1_eslint@8.32.0
-      eslint-plugin-import: 2.27.5_mfjhmtjhkhhcvkuqmmk4u5s7je
-      eslint-plugin-jsx-a11y: 6.7.1_eslint@8.32.0
-      eslint-plugin-node: 11.1.0_eslint@8.32.0
-      eslint-plugin-prettier: 4.2.1_cn4lalcyadplruoxa5mhp7j3dq
-      eslint-plugin-react: 7.32.1_eslint@8.32.0
-      eslint-plugin-react-hooks: 4.6.0_eslint@8.32.0
-      eslint-plugin-simple-import-sort: 9.0.0_eslint@8.32.0
-      husky: 8.0.3
-      lint-staged: 13.1.0
-      next: 13.1.2_672uxklweod7ene3nqtsh262ca
-      prettier: 2.8.3
-      typescript: 4.9.4
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@typescript-eslint/eslint-plugin'
-      - '@typescript-eslint/parser'
-      - babel-plugin-macros
-      - enquirer
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - fibers
-      - node-sass
-      - react
-      - react-dom
-      - sass
-      - supports-color
-    dev: false
-
-  /@waveshq/standard-web-linter/0.34.1_rsrorrpfqoe5pmgf4axxk6jweq:
-    resolution: {integrity: sha512-D2O9kGqh7jKt8VBzM9Kjr1I/RVCdRPNH8a5u86t80e8wuin1uD+TwCrhB0rqmNBqAYH4pD3Fuq5TuvxeJ6mslQ==}
+  /@waveshq/standard-web-linter/0.34.3_rsrorrpfqoe5pmgf4axxk6jweq:
+    resolution: {integrity: sha512-R2q/M8F+u2+x/Z0QSRXT/xiwFAphULRtgvzeXfzrm+nvJy62AUsDGlwZOjZNqRmRfARCSDLnMKyX8MCQBMbyoQ==}
     dependencies:
       eslint: 8.32.0
       eslint-config-airbnb: 19.0.4_td5yecidacttadzxcsbd5t7tli
@@ -3085,43 +2901,9 @@ packages:
       - react-dom
       - sass
       - supports-color
-    dev: true
 
-  /@waveshq/standard-web/0.33.0_tdx3q6g4ls4wk63hrmjkiys2u4:
-    resolution: {integrity: sha512-nCXf/szn/0qkC+3s/5i08YPT4jTR73/sDpQhZwDW8Ndn57i/9plodWa6Ph7XKfuaqni75dmxvT+zXv1Ml2zxPg==}
-    dependencies:
-      '@netlify/ipx': 1.3.3
-      '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
-      '@types/react': 18.0.27
-      '@types/react-dom': 18.0.10
-      follow-redirects: 1.15.2
-      next: 13.1.2_672uxklweod7ene3nqtsh262ca
-      next-sitemap: 3.1.47_4p2ultaykblwnxfcibjb23ybae
-      nextjs-progressbar: 0.0.16_next@13.1.2+react@18.2.0
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      react-icons: 4.7.1_react@18.2.0
-      react-redux: 8.0.5_sfvtgtw6zg4uu5uf4vg7hgzorm
-      react-responsive: 9.0.2_react@18.2.0
-      typescript: 4.9.4
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@next/env'
-      - babel-plugin-macros
-      - bufferutil
-      - debug
-      - encoding
-      - fibers
-      - node-sass
-      - react-native
-      - redux
-      - sass
-      - supports-color
-      - utf-8-validate
-    dev: false
-
-  /@waveshq/standard-web/0.34.1_tdx3q6g4ls4wk63hrmjkiys2u4:
-    resolution: {integrity: sha512-kfkFkci7lnkYTSiE0lP1LrrBi1wi+Z8vLFf+6Xz3BaAiBqL7mxtYV5jeb7LB3ZthtO/gFap2q46m0k85xO/ggw==}
+  /@waveshq/standard-web/0.34.3_tdx3q6g4ls4wk63hrmjkiys2u4:
+    resolution: {integrity: sha512-v02XInud31VWMjPqZxhhHBmyg78N93XAgvWxvDxsSoolsjGScHACFhZhxJ6mjtRfJBhQp7CdnftqTLbRSoKOhw==}
     dependencies:
       '@netlify/ipx': 1.3.3
       '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
@@ -3153,20 +2935,20 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@waveshq/walletkit-core/0.26.0:
-    resolution: {integrity: sha512-Dg0Hr4Kq2mGpq088CQgxsgi0aMylWBrykcNkVFOvjwHFnOaAb1lcRWk34rlUDQRAcR+9yN77Prp4MVNuVaXQ3w==}
+  /@waveshq/walletkit-core/0.27.0:
+    resolution: {integrity: sha512-DljUNOam0hBHL7ZGmsUz5fDcIQxiGfbVo5Bb+L4nUpPkNfj7JYlnyEwvu9zPD7F9sUXmD2pLe1OeXvE52rkL3w==}
     dependencies:
       bignumber.js: 9.1.1
     dev: false
 
-  /@waveshq/walletkit-ui/0.26.0_2ew4zevcrqblybnsy44nvi44xq:
-    resolution: {integrity: sha512-u7hsnRoUSdHd1pxz0S2/rXBXao5P5izWqZeea0y+Nbyx1xyJNS+1m+yiCKD/5Aw8CWpWT+4cCewoQPO3ZfV1Gg==}
+  /@waveshq/walletkit-ui/0.27.0_2ew4zevcrqblybnsy44nvi44xq:
+    resolution: {integrity: sha512-KxXwDYyhOfR8wtuC+HFM6qbRm8PrGFCB5CKFVOcUP/ipH8IImdFmgdpKowGrVOAhDD54C4MRfvgNrKPv5WxueA==}
     dependencies:
       '@birthdayresearch/sticky-jest': 0.3.6_moyf35itjzyqxwsznvick4dxfe
-      '@waveshq/standard-defichain-jellyfishsdk': 0.33.0
-      '@waveshq/standard-web': 0.33.0_tdx3q6g4ls4wk63hrmjkiys2u4
-      '@waveshq/standard-web-linter': 0.33.0_rsrorrpfqoe5pmgf4axxk6jweq
-      '@waveshq/walletkit-core': 0.26.0
+      '@waveshq/standard-defichain-jellyfishsdk': 0.34.3
+      '@waveshq/standard-web': 0.34.3_tdx3q6g4ls4wk63hrmjkiys2u4
+      '@waveshq/standard-web-linter': 0.34.3_rsrorrpfqoe5pmgf4axxk6jweq
+      '@waveshq/walletkit-core': 0.27.0
       bignumber.js: 9.1.1
       dayjs: 1.11.7
       immer: 9.0.18
@@ -4645,8 +4427,8 @@ packages:
       strip-bom: 4.0.0
     dev: true
 
-  /defichain/3.23.0:
-    resolution: {integrity: sha512-BZ5iAe5WIbBK94oTbReucRJuqpum8uCydvFqlCxxKm1XhhySumc2kgba26t3IM1dBb8isglpLoUcmQfmYm/3EQ==}
+  /defichain/3.23.2:
+    resolution: {integrity: sha512-K61KcDd8OI3Ki/ZGnegMAaK6hNqf4PGcFOZgHad6AOHCZ5++FR0yX59Z8lelbHSaGmrbQnyKncETfkdoApEduQ==}
     engines: {node: '>=v16.17.0'}
     dev: false
 
@@ -4971,31 +4753,6 @@ packages:
       object.assign: 4.1.4
       object.entries: 1.1.6
 
-  /eslint-config-next/13.1.2_7uibuqfxkfaozanbtbziikiqje:
-    resolution: {integrity: sha512-zdRAQOr8v69ZwJRtBrGqAqm160ONqKxU/pV1FB1KlgfyqveGsLZmlQ7l31otwtw763901J7xdiTVkj2y3YxXZA==}
-    peerDependencies:
-      eslint: ^7.23.0 || ^8.0.0
-      typescript: '>=3.3.1'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@next/eslint-plugin-next': 13.1.2
-      '@rushstack/eslint-patch': 1.2.0
-      '@typescript-eslint/parser': 5.46.1_7uibuqfxkfaozanbtbziikiqje
-      eslint: 8.32.0
-      eslint-import-resolver-node: 0.3.7
-      eslint-import-resolver-typescript: 3.5.2_ps7hf4l2dvbuxvtusmrfhmzsba
-      eslint-plugin-import: 2.27.5_pdwz6gzta2bm4fpagildindq64
-      eslint-plugin-jsx-a11y: 6.7.1_eslint@8.32.0
-      eslint-plugin-react: 7.32.1_eslint@8.32.0
-      eslint-plugin-react-hooks: 4.6.0_eslint@8.32.0
-      typescript: 4.9.4
-    transitivePeerDependencies:
-      - eslint-import-resolver-webpack
-      - supports-color
-    dev: false
-
   /eslint-config-next/13.1.5_7uibuqfxkfaozanbtbziikiqje:
     resolution: {integrity: sha512-7FqkjkvGCQfvYUiPTFRiRYPR1uI6Ew+4f4mVp16lLSWcaChtWoZxQCZHM5n0yxzKKVmuEg1aM4uvDQfSXSjTww==}
     peerDependencies:
@@ -5019,7 +4776,6 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
-    dev: true
 
   /eslint-config-prettier/8.6.0_eslint@8.32.0:
     resolution: {integrity: sha512-bAF0eLpLVqP5oEVUFKpMA+NnRFICwn9X8B5jrR9FcqnYBuPbqWEjTEspPWMj5ye6czoSLDweCzSo3Ko7gGrZaA==}
@@ -7570,20 +7326,6 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /next-sitemap/3.1.47_4p2ultaykblwnxfcibjb23ybae:
-    resolution: {integrity: sha512-LZxCWZ6lhQBfv1cuGob3tnsaHWffQM7VDmkXXp8u3n4LD7EJAR/SamlMj3mpHa8bFeuR6TjjRqrq/7e4WSOcLQ==}
-    engines: {node: '>=14.18'}
-    hasBin: true
-    peerDependencies:
-      '@next/env': '*'
-      next: '*'
-    dependencies:
-      '@corex/deepmerge': 4.0.29
-      '@next/env': 13.1.5
-      minimist: 1.2.7
-      next: 13.1.2_672uxklweod7ene3nqtsh262ca
-    dev: false
-
   /next-sitemap/3.1.47_csmsbcsbfdx2cjngizs3en5eh4:
     resolution: {integrity: sha512-LZxCWZ6lhQBfv1cuGob3tnsaHWffQM7VDmkXXp8u3n4LD7EJAR/SamlMj3mpHa8bFeuR6TjjRqrq/7e4WSOcLQ==}
     engines: {node: '>=14.18'}
@@ -7596,50 +7338,6 @@ packages:
       '@next/env': 13.1.5
       minimist: 1.2.7
       next: 13.1.5_672uxklweod7ene3nqtsh262ca
-    dev: false
-
-  /next/13.1.2_672uxklweod7ene3nqtsh262ca:
-    resolution: {integrity: sha512-Rdnnb2YH///w78FEOR/IQ6TXga+qpth4OqFSem48ng1PYYKr6XBsIk1XVaRcIGM3o6iiHnun0nJvkJHDf+ICyQ==}
-    engines: {node: '>=14.6.0'}
-    hasBin: true
-    peerDependencies:
-      fibers: '>= 3.1.0'
-      node-sass: ^6.0.0 || ^7.0.0
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      sass: ^1.3.0
-    peerDependenciesMeta:
-      fibers:
-        optional: true
-      node-sass:
-        optional: true
-      sass:
-        optional: true
-    dependencies:
-      '@next/env': 13.1.2
-      '@swc/helpers': 0.4.14
-      caniuse-lite: 1.0.30001439
-      postcss: 8.4.14
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      styled-jsx: 5.1.1_zavbqmrropwrojvx6ojaa4s7im
-    optionalDependencies:
-      '@next/swc-android-arm-eabi': 13.1.2
-      '@next/swc-android-arm64': 13.1.2
-      '@next/swc-darwin-arm64': 13.1.2
-      '@next/swc-darwin-x64': 13.1.2
-      '@next/swc-freebsd-x64': 13.1.2
-      '@next/swc-linux-arm-gnueabihf': 13.1.2
-      '@next/swc-linux-arm64-gnu': 13.1.2
-      '@next/swc-linux-arm64-musl': 13.1.2
-      '@next/swc-linux-x64-gnu': 13.1.2
-      '@next/swc-linux-x64-musl': 13.1.2
-      '@next/swc-win32-arm64-msvc': 13.1.2
-      '@next/swc-win32-ia32-msvc': 13.1.2
-      '@next/swc-win32-x64-msvc': 13.1.2
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
     dev: false
 
   /next/13.1.5_672uxklweod7ene3nqtsh262ca:
@@ -7684,19 +7382,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-
-  /nextjs-progressbar/0.0.16_next@13.1.2+react@18.2.0:
-    resolution: {integrity: sha512-GV0fD38EMD3vSDCmkq+tObmoup6QA91a6a9MxGuhJZuRk/9TNsrHGnIQQQ/sggkMkXuT4fBgF6jRjFwScDT3zA==}
-    peerDependencies:
-      next: '>= 6.0.0'
-      react: '>= 16.0.0'
-    dependencies:
-      '@types/nprogress': 0.2.0
-      next: 13.1.2_672uxklweod7ene3nqtsh262ca
-      nprogress: 0.2.0
-      prop-types: 15.8.1
-      react: 18.2.0
-    dev: false
 
   /nextjs-progressbar/0.0.16_next@13.1.5+react@18.2.0:
     resolution: {integrity: sha512-GV0fD38EMD3vSDCmkq+tObmoup6QA91a6a9MxGuhJZuRk/9TNsrHGnIQQQ/sggkMkXuT4fBgF6jRjFwScDT3zA==}
