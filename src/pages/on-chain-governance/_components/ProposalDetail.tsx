@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub, AiFillRedditCircle } from "react-icons/ai";
 import { NumericFormat } from "react-number-format";
 import {
   GovernanceProposal,
@@ -8,7 +8,9 @@ import {
   GovernanceProposalType,
 } from "@defichain/whale-api-client/dist/api/governance";
 import { Link } from "@components/commons/link/Link";
+import { isValidOCGGithubUrl } from "utils/commons/LinkValidator";
 import { ProposalDisplayName } from "./ProposalCard";
+import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 
 export function ProposalDetail({
   proposal,
@@ -23,6 +25,8 @@ export function ProposalDetail({
     proposal.status === GovernanceProposalStatus.VOTING
       ? `/blocks/countdown/${proposal.cycleEndHeight}`
       : `/blocks/${proposal.cycleEndHeight}`;
+
+  const isGithubUrl = isValidOCGGithubUrl(proposal.context);
 
   return (
     <div className="md:border md:p-6 border-gray-200 dark:border-dark-gray-200 rounded-lg md:dark:bg-dark-gray-100">
@@ -140,13 +144,27 @@ export function ProposalDetail({
               rel="noreferrer"
             >
               <div className="flex flex-row justify-end items-center gap-x-1 md:gap-x-1 md:px-2 md:py-1 md:border-[0.5px] rounded-[30px] border-gray-200 dark:border-dark-gray-200 hover:border-primary-200 hover:dark:border-dark-primary-200 focus:border-primary-400 focus:dark:border-dark-primary-400 md:w-fit">
-                <AiFillGithub
-                  size={24}
-                  className="text-gray-900 dark:text-dark-gray-900"
-                />
-                <span className="text-gray-600 dark:text-dark-gray-600 text-sm font-medium">
-                  Github
-                </span>
+                {isGithubUrl ? (
+                  <>
+                    <AiFillGithub
+                      size={24}
+                      className="text-gray-900 dark:text-dark-gray-900"
+                    />
+                    <span className="text-gray-600 dark:text-dark-gray-600 text-sm font-medium">
+                      {OnChainGovernanceTitles.Github}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <AiFillRedditCircle
+                      size={24}
+                      className="text-gray-900 dark:text-dark-gray-900"
+                    />
+                    <span className="text-gray-600 dark:text-dark-gray-600 text-sm font-medium">
+                      {OnChainGovernanceTitles.Reddit}
+                    </span>
+                  </>
+                )}
               </div>
             </a>
           </div>

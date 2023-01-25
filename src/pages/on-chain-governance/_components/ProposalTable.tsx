@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub, AiFillRedditCircle } from "react-icons/ai";
 import classNames from "classnames";
 import { ListProposalsStatus } from "@defichain/jellyfish-api-core/dist/category/governance";
 import {
@@ -11,6 +11,7 @@ import {
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
+import { isValidOCGGithubUrl } from "utils/commons/LinkValidator";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
@@ -94,7 +95,7 @@ function ProposalRow({
     currentBlockMedianTime,
     secondsPerBlock
   );
-
+  const isGithubUrl = isValidOCGGithubUrl(proposal.context);
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -154,16 +155,30 @@ function ProposalRow({
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
         <a
           href={proposal.context}
+          target="_blank"
           onClick={(e) => {
             e.stopPropagation();
           }}
+          rel="noreferrer"
         >
           <div className="text-gray-600 dark:text-dark-gray-600 text-sm font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border-[0.5px] border-gray-200 dark:border-dark-gray-200 hover:border-primary-200 hover:dark:border-dark-primary-200 focus:border-primary-400 focus:dark:border-dark-primary-400 rounded-[30px] w-fit">
-            <AiFillGithub
-              size={24}
-              className="text-gray-900 dark:text-dark-gray-900"
-            />
-            {OnChainGovernanceTitles.Github}
+            {isGithubUrl ? (
+              <>
+                <AiFillGithub
+                  size={24}
+                  className="text-gray-900 dark:text-dark-gray-900"
+                />
+                {OnChainGovernanceTitles.Github}
+              </>
+            ) : (
+              <>
+                <AiFillRedditCircle
+                  size={24}
+                  className="text-gray-900 dark:text-dark-gray-900"
+                />
+                {OnChainGovernanceTitles.Reddit}
+              </>
+            )}
           </div>
         </a>
       </OverflowTable.Cell>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub, AiFillRedditCircle } from "react-icons/ai";
 import {
   MdOutlineKeyboardArrowUp,
   MdOutlineKeyboardArrowDown,
@@ -12,6 +12,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/governance";
 import { Link } from "@components/commons/link/Link";
 import { useNetwork } from "@contexts/NetworkContext";
+import { isValidOCGGithubUrl } from "utils/commons/LinkValidator";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
@@ -69,6 +70,7 @@ function ProposalCard({
     currentBlockMedianTime,
     secondsPerBlock
   );
+  const isGithubUrl = isValidOCGGithubUrl(proposal.context);
 
   return (
     <div
@@ -188,13 +190,24 @@ function ProposalCard({
                 </div>
                 <a
                   href={proposal.context}
+                  target="_blank"
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
+                  rel="noreferrer"
                 >
                   <div className="flex flex-row font-semibold items-center gap-x-1 text-sm text-gray-900 dark:text-dark-gray-900">
-                    <AiFillGithub size={20} />
-                    {OnChainGovernanceTitles.Github}
+                    {isGithubUrl ? (
+                      <>
+                        <AiFillGithub size={20} />
+                        {OnChainGovernanceTitles.Github}
+                      </>
+                    ) : (
+                      <>
+                        <AiFillRedditCircle size={20} />
+                        {OnChainGovernanceTitles.Reddit}
+                      </>
+                    )}
                   </div>
                 </a>
               </div>
