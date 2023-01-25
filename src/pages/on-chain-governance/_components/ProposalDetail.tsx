@@ -21,7 +21,7 @@ export function ProposalDetail({
 }) {
   const blockPage =
     proposal.status === GovernanceProposalStatus.VOTING
-      ? "/blocks"
+      ? `/blocks/countdown/${proposal.cycleEndHeight}`
       : `/blocks/${proposal.cycleEndHeight}`;
 
   return (
