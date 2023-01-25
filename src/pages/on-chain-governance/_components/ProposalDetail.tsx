@@ -22,7 +22,7 @@ export function ProposalDetail({
 }) {
   const blockPage =
     proposal.status === GovernanceProposalStatus.VOTING
-      ? "/blocks"
+      ? `/blocks/countdown/${proposal.cycleEndHeight}`
       : `/blocks/${proposal.cycleEndHeight}`;
   const isEmergencyProposal = proposal.options?.includes("emergency");
 
