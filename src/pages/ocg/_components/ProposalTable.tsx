@@ -128,7 +128,7 @@ function ProposalRow({
             href={{
               pathname:
                 userQueryProposalStatus === ListProposalsStatus.VOTING
-                  ? "/blocks"
+                  ? `/blocks/countdown/${proposal.cycleEndHeight}`
                   : `/blocks/${proposal.cycleEndHeight}`,
             }}
             passHref
@@ -140,7 +140,7 @@ function ProposalRow({
               }}
               href={
                 userQueryProposalStatus === ListProposalsStatus.VOTING
-                  ? "/blocks"
+                  ? `/blocks/countdown/${proposal.cycleEndHeight}`
                   : `/blocks/${proposal.cycleEndHeight}`
               }
             >

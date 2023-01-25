@@ -155,7 +155,7 @@ function ProposalCard({
                     href={{
                       pathname:
                         userQueryProposalStatus === ListProposalsStatus.VOTING
-                          ? "/blocks"
+                          ? `/blocks/countdown/${proposal.cycleEndHeight}`
                           : `/blocks/${proposal.cycleEndHeight}`,
                     }}
                     passHref
@@ -167,7 +167,7 @@ function ProposalCard({
                       }}
                       href={
                         userQueryProposalStatus === ListProposalsStatus.VOTING
-                          ? "/blocks"
+                          ? `/blocks/countdown/${proposal.cycleEndHeight}`
                           : `/blocks/${proposal.cycleEndHeight}`
                       }
                     >
