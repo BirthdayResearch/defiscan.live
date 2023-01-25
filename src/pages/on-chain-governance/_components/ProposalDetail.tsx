@@ -9,6 +9,7 @@ import {
 } from "@defichain/whale-api-client/dist/api/governance";
 import { Link } from "@components/commons/link/Link";
 import { ProposalDisplayName } from "./ProposalCard";
+import { EmergencyChip } from "./EmergencyChip";
 
 export function ProposalDetail({
   proposal,
@@ -23,6 +24,7 @@ export function ProposalDetail({
     proposal.status === GovernanceProposalStatus.VOTING
       ? "/blocks"
       : `/blocks/${proposal.cycleEndHeight}`;
+  const isEmergencyProposal = proposal.options?.includes("emergency");
 
   return (
     <div className="md:border md:p-6 border-gray-200 dark:border-dark-gray-200 rounded-lg md:dark:bg-dark-gray-100">
@@ -32,6 +34,9 @@ export function ProposalDetail({
             {ProposalDisplayName[proposal.type]}
           </div>
         </div>
+        {isEmergencyProposal && (
+          <EmergencyChip wrapperClassName="py-2 ml-2" className="text-md" />
+        )}
       </div>
       <div className="text-gray-900 dark:text-dark-gray-900 text-2xl font-semibold md:text-4xl break-words">
         {proposal.title}
