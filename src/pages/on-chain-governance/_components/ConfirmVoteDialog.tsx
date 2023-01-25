@@ -382,7 +382,7 @@ function UserVote({
           disabled={isVoteSelectionDisabled}
           data-testid="OnChainGovernance.VotingFlow.NoVote"
           className={classNames(
-            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
+            "grow w-1/2 rounded-l border py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NO
               ? "text-white dark:text-dark-gray-0 border-0 bg-red-600 dark:bg-dark-red-600"
               : "text-red-600 dark:text-dark-red-600 dark:bg-dark-gray-50"
@@ -394,7 +394,7 @@ function UserVote({
           NO
         </button>
 
-        <button
+        {/* <button
           type="button"
           data-testid="OnChainGovernance.VotingFlow.NeutralVote"
           disabled={isVoteSelectionDisabled}
@@ -409,14 +409,14 @@ function UserVote({
           }}
         >
           NEUTRAL
-        </button>
+        </button> */}
 
         <button
           type="button"
           data-testid="OnChainGovernance.VotingFlow.YesVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
+            "grow w-1/2 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.YES
               ? "text-white dark:text-dark-gray-0 border-0 bg-green-600 dark:bg-dark-green-600"
               : "text-green-600 dark:text-dark-green-600 dark:bg-dark-gray-50"
