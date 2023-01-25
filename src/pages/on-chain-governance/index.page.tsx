@@ -1,16 +1,11 @@
-import React, { useState } from "react";
-import { isPlayground } from "@waveshq/walletkit-core";
+import React from "react";
 import { Container } from "@components/commons/Container";
 import { ApiPagedResponse } from "@defichain/whale-api-client";
 import {
   CursorPage,
   CursorPagination,
 } from "@components/commons/CursorPagination";
-import {
-  getWhaleApiClient,
-  getWhaleRpcClient,
-  newPlaygroundClient,
-} from "@contexts/WhaleContext";
+import { getWhaleApiClient, getWhaleRpcClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext } from "next";
 import {
   ListProposalsType,
@@ -20,19 +15,12 @@ import {
   GovernanceProposal,
   GovernanceProposalStatus,
 } from "@defichain/whale-api-client/dist/api/governance";
-import { useNetwork } from "@contexts/NetworkContext";
-import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import classNames from "classnames";
 import { Link } from "@components/commons/link/Link";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
-import { Button } from "./_components/Button";
 import { getCurrentYearMonth } from "./shared/dateHelper";
-import {
-  getLocalStorageItem,
-  setLocalStorage,
-} from "./shared/localStorageHelper";
 import { OnChainGovernanceTitles } from "./enum/onChainGovernanceTitles";
 
 interface OCGProps {
@@ -56,45 +44,10 @@ export default function OnChainGovernancePage({
   allProposalsDetails,
   proposals,
 }: OCGProps) {
-  const connection = useNetwork().connection;
   const userQueryProposalStatus = allProposalsDetails.userQueryProposalStatus;
   const userQueryProposalType = allProposalsDetails.userQueryProposalType;
-  const [masternodeId, setMasterNodeID] = useState(
-    getLocalStorageItem("dummyMasternodeID") ?? ""
-  );
 
   const { currentYear, currentMonth } = getCurrentYearMonth();
-
-  // TODO remove this before release to prod
-  async function createDummyProposals(): Promise<void> {
-    const playgroundRPC = new PlaygroundRpcClient(
-      newPlaygroundClient(connection)
-    );
-    for (let i = 0; i < 5; i += 1) {
-      const governanceType = ["creategovvoc", "creategovcfp"];
-      const proposalType =
-        governanceType[Math.floor(Math.random() * governanceType.length)]; // get random governance type
-      const cfpData = {
-        title: `Title testing proposal ${new Date().getTime()}`,
-        amount: "100000000",
-        context: "https://github.com/WavesHQ/scan",
-        payoutAddress: "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy",
-        cycles: i + 1,
-      };
-      const vocData = {
-        title: `Title testing proposal ${new Date().getTime()}`,
-        context: "https://github.com/WavesHQ/scan",
-      };
-      const proposal = await playgroundRPC.call(
-        proposalType,
-        [proposalType === "creategovvoc" ? vocData : cfpData, []],
-        "number"
-      );
-      console.log(
-        `proposal created with id:${proposal} is created with ${proposalType}`
-      );
-    }
-  }
 
   return (
     <div>
@@ -112,33 +65,6 @@ export default function OnChainGovernancePage({
           </span>
         </Container>
       </div>
-      {isPlayground(connection) && (
-        <div className="text-center">
-          <Button
-            testId="dummy-proposal"
-            label="Create dummy proposal"
-            onClick={createDummyProposals}
-            customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
-          />
-          <input
-            className="border"
-            placeholder="set masternode here"
-            value={masternodeId}
-            onChange={(v) => {
-              setMasterNodeID(v.target.value);
-            }}
-          />
-          <Button
-            label="set masternode"
-            testId="dummy-submit"
-            customStyle="bg-primary-50 hover:bg-primary-100 rounded m-4"
-            onClick={() => {
-              setLocalStorage("dummyMasternodeID", masternodeId);
-            }}
-          />
-        </div>
-      )}
-
       <Container className="md:pt-11 pt-10 pb-20">
         <div className="flex md:flex-row flex-col">
           <div className="flex flex-col grow md:justify-center">
@@ -242,7 +168,6 @@ export default function OnChainGovernancePage({
                   allProposalsDetails.currentBlockMedianTime
                 }
                 userQueryProposalStatus={userQueryProposalStatus}
-                masternodeId={masternodeId}
               />
             </div>
             <div className="md:hidden block mt-4">
@@ -418,8 +343,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       status: ListProposalsStatus.ALL,
       all: true,
     })
-    .catch((error) => {
-      console.error(error);
+    .catch(() => {
       return [];
     });
 
@@ -430,8 +354,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       size: 10,
       next: next,
     })
-    .catch((error) => {
-      console.error(error);
+    .catch(() => {
       return [];
     });
   const pages = CursorPagination.getPages(
