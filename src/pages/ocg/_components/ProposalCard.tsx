@@ -93,7 +93,7 @@ function ProposalCard({
             <div className="flex flex-row gap-x-2">
               <Link
                 href={{
-                  pathname: `/on-chain-governance/${proposal.proposalId}`,
+                  pathname: `/ocg/${proposal.proposalId}`,
                 }}
               >
                 <a className="contents">

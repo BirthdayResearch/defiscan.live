@@ -151,11 +151,11 @@ export default function ProposalDetailPage() {
         <Breadcrumb
           items={[
             {
-              path: "/on-chain-governance",
+              path: "/ocg",
               name: "Proposal",
             },
             {
-              path: `/on-chain-governance/create`,
+              path: `/ocg/create`,
               name: "Create Proposal",
               canonical: true,
               isCurrentPath: true,

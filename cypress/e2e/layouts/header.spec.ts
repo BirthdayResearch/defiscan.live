@@ -59,10 +59,10 @@ context("<Header/> on macbook-13", () => {
 
     cy.findByTestId("Desktop.HeaderLink.More").should("be.visible");
     cy.findByTestId("Desktop.HeaderLink.More").click();
-    cy.findByTestId("Desktop.HeaderLink.More.Items.on-chain-governance").should(
+    cy.findByTestId("Desktop.HeaderLink.More.Items.ocg").should(
       "have.attr",
       "href",
-      "/on-chain-governance"
+      "/ocg"
     );
   });
 
@@ -138,7 +138,7 @@ context("<Header/> on ipad-2", () => {
     cy.findByTestId("Tablet.HeaderLink.On-ChainGovernance").should(
       "have.attr",
       "href",
-      "/on-chain-governance"
+      "/ocg"
     );
   });
 
@@ -214,7 +214,7 @@ context("<Header/> on iphone-x", () => {
     cy.findByTestId("Mobile.HeaderLink.On-ChainGovernance").should(
       "have.attr",
       "href",
-      "/on-chain-governance"
+      "/ocg"
     );
   });
 

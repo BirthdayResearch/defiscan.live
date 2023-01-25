@@ -99,7 +99,7 @@ function ProposalRow({
     <OverflowTable.Row
       onClick={() => {
         router.push({
-          pathname: `/on-chain-governance/${proposal.proposalId}`,
+          pathname: `/ocg/${proposal.proposalId}`,
           query: getEnvironment().isDefaultConnection(connection)
             ? {}
             : { network: connection },
