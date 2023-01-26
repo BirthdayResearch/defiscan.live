@@ -26,7 +26,7 @@ import { DisclosureComponent } from "../_components/DisclosureComponent";
 import { ConfirmDialog } from "../_components/ConfirmDialog";
 import { SubmitProposal } from "../_components/SubmitProposal";
 
-export default function ProposalDetailPage() {
+export default function CreateProposalPage() {
   const { connection } = useNetwork();
   const [activeStep, setActiveStep] = useState(1);
   const [title, setTitle] = useState<string>("");
@@ -81,7 +81,7 @@ export default function ProposalDetailPage() {
     if (isValidOCGGithubUrl(context) || isValidOCGRedditUrl(context)) {
       return "";
     }
-    return "Invalid URL. Only Github or Reddit URL are accepted";
+    return "Invalid URL. Only GitHub or Reddit URL are accepted";
   }
 
   function isValidCycle() {
@@ -183,8 +183,8 @@ export default function ProposalDetailPage() {
             })}
           >
             <span className="text-gray-600 dark:text-dark-gray-600 text-sm md:text-base">
-              Enter from Github the title of the proposal and the type of
-              proposal.
+              Enter from GitHub or Reddit the title of the proposal and the type
+              of proposal.
             </span>
             <RadioGroup
               value={proposalType}
@@ -242,7 +242,7 @@ export default function ProposalDetailPage() {
               <TextAreaComponent
                 label="Name of proposal"
                 placeholder="Enter title of the proposal (required)"
-                note="Make sure that the name added here is the same as from the one posted in Github."
+                note="Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
                 value={title}
                 error={isValidName()}
                 isVisited={visited.title}
