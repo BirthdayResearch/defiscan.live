@@ -11,7 +11,7 @@ export function EmergencyChip({
   return (
     <div
       className={classNames(
-        "flex py-1 px-2 bg-orange-100 dark:bg-dark-orange-100 rounded w-fit h-fit justify-between",
+        "flex px-2 bg-orange-100 dark:bg-dark-orange-100 rounded w-fit h-fit justify-between",
         wrapperClassName
       )}
     >

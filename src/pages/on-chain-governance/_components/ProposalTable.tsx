@@ -141,7 +141,10 @@ function ProposalRow({
     >
       <OverflowTable.Cell className="align-middle font-semibold text-gray-900 dark:text-gray-100 w-[320px]">
         {isEmergencyProposal && (
-          <EmergencyChip className="text-[10px] leading-3" />
+          <EmergencyChip
+            wrapperClassName="py-1"
+            className="text-[10px] leading-3"
+          />
         )}
         <div className="line-clamp-2 text-gray-900 dark:text-dark-gray-900">
           {proposal.title}

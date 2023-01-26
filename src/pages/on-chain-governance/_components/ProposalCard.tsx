@@ -84,7 +84,10 @@ function ProposalCard({
           <div className="flex flex-row items-center align-middle w-full gap-x-2">
             <div className="grow">
               {isEmergencyProposal && (
-                <EmergencyChip className="text-[10px] leading-3" />
+                <EmergencyChip
+                  wrapperClassName="py-1"
+                  className="text-[10px] leading-3"
+                />
               )}
               <div
                 className={classNames(
