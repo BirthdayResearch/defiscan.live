@@ -220,7 +220,7 @@ function ProposalTypeTab({
           <a
             data-testid="OnChainGovernance.AllProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 rounded-l cursor-pointer",
+              "md:font-normal font-medium border border-r-[0.5px] py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 rounded-l cursor-pointer",
               userQueryProposalType === ListProposalsType.ALL
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
@@ -242,7 +242,7 @@ function ProposalTypeTab({
           <a
             data-testid="OnChainGovernance.CfpProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
+              "md:font-normal font-medium border border-x-[0.5px] py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
               userQueryProposalType === ListProposalsType.CFP
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
@@ -264,7 +264,7 @@ function ProposalTypeTab({
           <a
             data-testid="OnChainGovernance.DfipProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
+              "md:font-normal font-medium border border-l-[0.5px] rounded-r py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
               userQueryProposalType === ListProposalsType.VOC
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
@@ -288,7 +288,7 @@ function ProposalTypeTab({
           <a
             data-testid="OnChainGovernance.OpenProposalsButton"
             className={classNames(
-              "md:font-normal font-medium rounded-l border border-r-0 py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 border-gray-200 cursor-pointer",
+              "md:font-normal font-medium rounded-l border border-r-[0.5px] py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 border-gray-200 cursor-pointer",
               userQueryProposalStatus === ListProposalsStatus.VOTING
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
@@ -310,7 +310,7 @@ function ProposalTypeTab({
           <a
             data-testid="OnChainGovernance.ClosedProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
+              "md:font-normal font-medium border border-x-[0.5px] py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
               userQueryProposalStatus === ListProposalsStatus.COMPLETED
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
@@ -332,7 +332,7 @@ function ProposalTypeTab({
           <a
             data-testid="OnChainGovernance.ClosedProposalsButton"
             className={classNames(
-              "md:font-normal font-medium border border-l-0 rounded-r py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
+              "md:font-normal font-medium border border-l-[0.5px] rounded-r py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
               userQueryProposalStatus === ListProposalsStatus.REJECTED
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
                 : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
