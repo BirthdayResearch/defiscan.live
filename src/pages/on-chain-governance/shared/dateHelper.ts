@@ -1,4 +1,4 @@
-import { format, fromUnixTime } from "date-fns";
+import { format } from "date-fns";
 
 export function getCurrentYearMonth() {
   const currentTime = new Date();
@@ -15,5 +15,9 @@ export function formatUnixTime(
   medianTime: number,
   dateFormat: string = "MM/dd/yyyy"
 ): string {
-  return format(fromUnixTime(medianTime), dateFormat);
+  const date = new Date(medianTime * 1000);
+  const utcDate = new Date(
+    date.valueOf() + date.getTimezoneOffset() * 60 * 1000
+  );
+  return format(utcDate, dateFormat);
 }
