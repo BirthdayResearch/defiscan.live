@@ -28,12 +28,12 @@ import { VoteCards, VotesTable } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
 import { ProposalDetail } from "../_components/ProposalDetail";
 import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
-import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { formatUnixTime } from "../shared/dateHelper";
 import { VoteStages } from "../enum/VoteStages";
 import { TotalVotesCards } from "../_components/TotalVotesCards";
 import { CfpVotingResultCycleTab } from "../enum/CfpVotingResultCycleTab";
+import { getFutureCycleEndMedianTime } from "../shared/getCycleEndTime";
 
 export default function ProposalDetailPage({
   proposal,
@@ -331,7 +331,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       .then((block) => block.medianTime);
     const proposalCreationDate = await api.blocks
       .get(proposal.creationHeight.toString())
-      .then((block) => formatUnixTime(block.medianTime));
+      .then((block) => formatUnixTime(block.medianTime, "MMM dd, yyyy"));
 
     const network =
       (context.query.network?.toString() as EnvironmentNetwork) ??
@@ -339,18 +339,24 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const secondsPerBlock = getSecondsPerBlock(network);
 
     let proposalEndDate: string;
-    if (
-      new BigNumber(currentBlockHeight).isGreaterThan(proposal.cycleEndHeight)
-    ) {
+    const timeDifferenceInBlocks = new BigNumber(proposal.cycleEndHeight).minus(
+      currentBlockHeight
+    );
+    if (timeDifferenceInBlocks.isLessThan(0)) {
+      // get past date
       proposalEndDate = await api.blocks
         .get(proposal.cycleEndHeight.toString())
         .then((block) => formatUnixTime(block.medianTime));
     } else {
-      proposalEndDate = getCycleEndDate(
-        proposal.cycleEndHeight,
-        currentBlockHeight,
-        currentBlockMedianTime,
-        secondsPerBlock
+      // get future date
+      proposalEndDate = formatUnixTime(
+        getFutureCycleEndMedianTime(
+          timeDifferenceInBlocks,
+          secondsPerBlock,
+          currentBlockMedianTime
+        ),
+        undefined,
+        true
       );
     }
     // All votes to get statistics breakdown

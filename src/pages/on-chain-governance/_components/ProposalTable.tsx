@@ -17,7 +17,7 @@ import {
 } from "utils/commons/LinkValidator";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
-import { getCycleEndDate } from "../shared/getCycleEndTime";
+import { useCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { EmergencyChip } from "./EmergencyChip";
@@ -93,7 +93,7 @@ function ProposalRow({
   const router = useRouter();
   const { connection } = useNetwork();
   const secondsPerBlock = getSecondsPerBlock(connection);
-  const cycleEndDate = getCycleEndDate(
+  const cycleEndDate = useCycleEndDate(
     proposal.cycleEndHeight,
     currentBlockHeight,
     currentBlockMedianTime,
@@ -158,7 +158,9 @@ function ProposalRow({
               {`Block ${proposal.cycleEndHeight}`}
             </a>
           </Link>
-          <div className="hidden text-gray-900 dark:text-dark-gray-900 text-sm">{`~ ${cycleEndDate}`}</div>
+          <div className="text-gray-600 dark:text-dark-gray-600 text-xs w-[120px] break-words">
+            {cycleEndDate}
+          </div>
         </div>
       </OverflowTable.Cell>
 
