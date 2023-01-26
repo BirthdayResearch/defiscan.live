@@ -11,25 +11,50 @@ import {
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
+import { PlaygroundRpcClient } from "@defichain/playground-api-client";
+import { newPlaygroundClient } from "@contexts/WhaleContext";
+import { isPlayground } from "@waveshq/walletkit-core";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
+import { EmergencyChip } from "./EmergencyChip";
 
 export function ProposalTable({
   proposals,
   currentBlockHeight,
   currentBlockMedianTime,
   userQueryProposalStatus,
+  masternodeId,
 }: {
   proposals: GovernanceProposal[];
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
+  masternodeId: string;
 }) {
   const [displayVoteModal, setDisplayVoteModal] = useState(false);
 
+  // TODO: remove testing code
+  const connection = useNetwork().connection;
+  async function voteDummyProposals(
+    proposalId: string,
+    masternodeId: string,
+    vote: string
+  ): Promise<void> {
+    const playgroundRPC = new PlaygroundRpcClient(
+      newPlaygroundClient(connection)
+    );
+    console.log(
+      `Voted proposal: ${proposalId} with ${vote}, tx hash:`,
+      await playgroundRPC.call(
+        "votegov",
+        [proposalId, masternodeId, vote],
+        "number"
+      )
+    );
+  }
   return (
     <div>
       <OverflowTable
@@ -58,6 +83,9 @@ export function ProposalTable({
               currentBlockHeight={currentBlockHeight}
               currentBlockMedianTime={currentBlockMedianTime}
               userQueryProposalStatus={userQueryProposalStatus}
+              onDummyVote={(vote: string) =>
+                voteDummyProposals(proposal.proposalId, masternodeId, vote)
+              }
             />
             {displayVoteModal && (
               <VoteModal
@@ -79,11 +107,13 @@ function ProposalRow({
   currentBlockHeight,
   currentBlockMedianTime,
   userQueryProposalStatus,
+  onDummyVote,
 }: {
   proposal: GovernanceProposal;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
+  onDummyVote: (vote: string) => void;
 }) {
   const router = useRouter();
   const { connection } = useNetwork();
@@ -94,7 +124,7 @@ function ProposalRow({
     currentBlockMedianTime,
     secondsPerBlock
   );
-
+  const isEmergencyProposal = proposal.options?.includes("emergency");
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -110,6 +140,12 @@ function ProposalRow({
       )}
     >
       <OverflowTable.Cell className="align-middle font-semibold text-gray-900 dark:text-gray-100 w-[320px]">
+        {isEmergencyProposal && (
+          <EmergencyChip
+            wrapperClassName="py-1"
+            className="text-[10px] leading-3"
+          />
+        )}
         <div className="line-clamp-2 text-gray-900 dark:text-dark-gray-900">
           {proposal.title}
         </div>
@@ -183,6 +219,44 @@ function ProposalRow({
               ? "Approved"
               : proposal.status}
           </div>
+        </OverflowTable.Cell>
+      )}
+
+      {isPlayground(connection) && (
+        <OverflowTable.Cell className="align-middle dark:text-gray-100">
+          <button
+            type="button"
+            onClick={(e) => {
+              onDummyVote("yes");
+              e.stopPropagation();
+            }}
+          >
+            <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+              Yes
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              onDummyVote("no");
+              e.stopPropagation();
+            }}
+          >
+            <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+              No
+            </div>
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              onDummyVote("neutral");
+              e.stopPropagation();
+            }}
+          >
+            <div className="text-gray-900 dark:text-gray-100 font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border hover:border-primary-200 focus:border-primary-400 rounded-[30px] w-fit">
+              Neutral
+            </div>
+          </button>
         </OverflowTable.Cell>
       )}
     </OverflowTable.Row>
