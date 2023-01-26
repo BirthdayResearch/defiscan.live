@@ -6,6 +6,9 @@ import { shift, useFloating } from "@floating-ui/react-dom";
 interface CopyButtonProps {
   content: string;
   className?: string;
+  buttonClass?: string;
+  iconsClass?: string;
+  withCopyText?: boolean;
 }
 
 export function CopyButton(props: CopyButtonProps): JSX.Element {
@@ -35,10 +38,23 @@ export function CopyButton(props: CopyButtonProps): JSX.Element {
     <div className={classNames("relative", props.className)} ref={reference}>
       <button
         type="button"
-        className="cursor-pointer outline-none p-2 bg-white dark:bg-gray-900 dark:border-gray-700  border border-gray-200 rounded"
+        className={
+          props.buttonClass ??
+          "cursor-pointer outline-none p-2 bg-white dark:bg-gray-900 dark:border-gray-700 border border-gray-200 rounded"
+        }
         onClick={copy}
       >
-        <MdContentCopy className="h-5 w-5 text-gray-600 dark:text-dark-primary-500" />
+        <div className="flex flex-row">
+          <MdContentCopy
+            className={
+              props.iconsClass ??
+              "h-5 w-5 text-gray-600 dark:text-dark-primary-500"
+            }
+          />
+          {props.withCopyText && (
+            <div className="text-primary-500 font-medium text-sm">COPY</div>
+          )}
+        </div>
       </button>
       {open && (
         <div

@@ -5,22 +5,12 @@ import {
   Network as NetworkObject,
   getNetwork,
 } from "@defichain/jellyfish-network";
-
-/**
- * What connection is DeFi Scan connected to.
- * This is different from NetworkName, and should not be used as NetworkName.
- */
-export enum NetworkConnection {
-  LocalPlayground = "Local",
-  RemotePlayground = "Playground",
-  MainNet = "MainNet",
-  TestNet = "TestNet",
-}
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 
 export type NetworkName = NetworkObject["name"];
 
 export interface NetworkContextObject extends NetworkObject {
-  connection: NetworkConnection;
+  connection: EnvironmentNetwork;
 }
 
 const NetworkContext = createContext<NetworkContextObject>(undefined as any);
@@ -43,14 +33,18 @@ export function NetworkProvider(
   );
 }
 
-function mapNetworkObject(connection: NetworkConnection): NetworkContextObject {
+function mapNetworkObject(
+  connection: EnvironmentNetwork
+): NetworkContextObject {
   switch (connection) {
-    case NetworkConnection.MainNet:
+    case EnvironmentNetwork.MainNet:
       return { connection: connection, ...getNetwork("mainnet") };
-    case NetworkConnection.TestNet:
+    case EnvironmentNetwork.TestNet:
       return { connection: connection, ...getNetwork("testnet") };
-    case NetworkConnection.RemotePlayground:
-    case NetworkConnection.LocalPlayground:
+    case EnvironmentNetwork.DevNet:
+      return { connection: connection, ...getNetwork("devnet") };
+    case EnvironmentNetwork.RemotePlayground:
+    case EnvironmentNetwork.LocalPlayground:
       return { connection: connection, ...getNetwork("regtest") };
     default:
       throw new Error(`${connection as string} network not found`);

@@ -1,4 +1,4 @@
-import { isPlayground } from "@contexts/Environment";
+import { isPlayground } from "@waveshq/walletkit-core";
 import { useNetwork } from "@contexts/NetworkContext";
 import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
