@@ -343,7 +343,7 @@ function VoteForProposal({
             setVoteStage
           );
         }}
-        className="w-full py-3 rounded-sm font-medium border border-primary-50 dark:border-dark-primary-50 text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 hover:border-primary-100 hover:dark:border-dark-primary-100 disabled:bg-gray-50 disabled:dark:bg-dark-gray-50 disabled:border-0 disabled:text-gray-300 disabled:dark:text-dark-gray-300"
+        className="w-full py-3 rounded-sm font-medium border border-primary-50 dark:border-dark-primary-50 text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 hover:border-primary-100 hover:dark:border-dark-primary-100 disabled:bg-gray-50 disabled:dark:bg-dark-gray-50 disabled:border-transparent disabled:text-gray-300 disabled:dark:text-dark-gray-300"
       >
         CONTINUE
       </button>
