@@ -54,7 +54,7 @@ export function ReviewProposal({
         <div className="flex flex-col space-y-1 md:space-y-0 md:flex-row justify-between">
           <div className="w-full md:w-5/12">
             <span className="text-gray-600 dark:text-dark-gray-600 text-xs md:text-base">
-              Github discussion
+              Discussion
             </span>
           </div>
           <div className="md:text-right">

@@ -14,6 +14,10 @@ import { fromAddress } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { NetworkName } from "@defichain/jellyfish-network";
 import { isPlayground } from "@waveshq/walletkit-core";
+import {
+  isValidOCGGithubUrl,
+  isValidOCGRedditUrl,
+} from "utils/commons/LinkValidator";
 import { ProposalDisplayName } from "../_components/ProposalCard";
 import { ReviewProposal } from "../_components/ReviewProposal";
 import { TextAreaComponent } from "../_components/TextAreaComponent";
@@ -73,12 +77,11 @@ export default function ProposalDetailPage() {
     return "";
   }
 
-  function isValidGithubUrl() {
-    const regex = /https?:\/\/github\.com\/defich\/dfips\/issues\/\d+$/gim;
-    if (regex.test(context)) {
+  function isValidContextUrl() {
+    if (isValidOCGGithubUrl(context) || isValidOCGRedditUrl(context)) {
       return "";
     }
-    return "Invalid URL. Only Github URL are accepted";
+    return "Invalid URL. Only Github or Reddit URL are accepted";
   }
 
   function isValidCycle() {
@@ -100,7 +103,7 @@ export default function ProposalDetailPage() {
   }
 
   function canReviewProposal(): boolean {
-    if (isValidName() !== "" || isValidGithubUrl() !== "") {
+    if (isValidName() !== "" || isValidContextUrl() !== "") {
       return false;
     }
     if (proposalType === ProposalDisplayName.CommunityFundProposal) {
@@ -247,9 +250,9 @@ export default function ProposalDetailPage() {
                 onChange={(value) => setTitle(value as string)}
               />
               <TextAreaComponent
-                label="Github discussion"
+                label="Discussion"
                 placeholder="Paste URL"
-                error={isValidGithubUrl()}
+                error={isValidContextUrl()}
                 value={context}
                 isVisited={visited.context}
                 onBlur={() => setVisited({ ...visited, context: true })}

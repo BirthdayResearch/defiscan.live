@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { OverflowTable } from "@components/commons/OverflowTable";
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub, AiFillRedditCircle } from "react-icons/ai";
 import classNames from "classnames";
 import { ListProposalsStatus } from "@defichain/jellyfish-api-core/dist/category/governance";
 import {
@@ -11,6 +11,10 @@ import {
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Link } from "@components/commons/link/Link";
+import {
+  isValidOCGGithubUrl,
+  isValidOCGRedditUrl,
+} from "utils/commons/LinkValidator";
 import { PlaygroundRpcClient } from "@defichain/playground-api-client";
 import { newPlaygroundClient } from "@contexts/WhaleContext";
 import { isPlayground } from "@waveshq/walletkit-core";
@@ -190,16 +194,32 @@ function ProposalRow({
       <OverflowTable.Cell className="align-middle dark:text-gray-100">
         <a
           href={proposal.context}
+          target="_blank"
           onClick={(e) => {
             e.stopPropagation();
           }}
+          rel="noreferrer"
         >
           <div className="text-gray-600 dark:text-dark-gray-600 text-sm font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border-[0.5px] border-gray-200 dark:border-dark-gray-200 hover:border-primary-200 hover:dark:border-dark-primary-200 focus:border-primary-400 focus:dark:border-dark-primary-400 rounded-[30px] w-fit">
-            <AiFillGithub
-              size={24}
-              className="text-gray-900 dark:text-dark-gray-900"
-            />
-            {OnChainGovernanceTitles.Github}
+            {isValidOCGGithubUrl(proposal.context) ? (
+              <>
+                <AiFillGithub
+                  size={24}
+                  className="text-gray-900 dark:text-dark-gray-900"
+                />
+                {OnChainGovernanceTitles.Github}
+              </>
+            ) : isValidOCGRedditUrl(proposal.context) ? (
+              <>
+                <AiFillRedditCircle
+                  size={24}
+                  className="text-gray-900 dark:text-dark-gray-900"
+                />
+                {OnChainGovernanceTitles.Reddit}
+              </>
+            ) : (
+              <span className="pl-1">{OnChainGovernanceTitles.Link}</span>
+            )}
           </div>
         </a>
       </OverflowTable.Cell>
