@@ -50,9 +50,9 @@ export function ProposalDetail({
         {proposal.status === GovernanceProposalStatus.VOTING && (
           <div className="mt-2">
             <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900">
-              Voting stops at&nbsp;
+              Voting concludes at&nbsp;
             </span>
-            <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900 font-semibold">
+            <span className="hidden text-sm md:text-lg text-gray-900 dark:text-dark-gray-900 font-semibold">
               {proposalEndDate}&nbsp;
             </span>
             <Link href={{ pathname: blockPage }}>
