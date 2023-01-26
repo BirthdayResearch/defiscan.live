@@ -15,6 +15,7 @@ import { CopyButton } from "@components/commons/CopyButton";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { useNetwork } from "@contexts/NetworkContext";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { CircularCheckIcon } from "./CircularCheckIcon";
 import { VoteStages } from "../enum/VoteStages";
 import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
@@ -342,7 +343,7 @@ function VoteForProposal({
             setVoteStage
           );
         }}
-        className="w-full py-3 rounded-sm font-medium border border-primary-50 dark:border-dark-primary-50 text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 hover:border-primary-100 hover:dark:border-dark-primary-100 disabled:bg-gray-50 disabled:dark:bg-dark-gray-50 disabled:border-0 disabled:text-gray-300 disabled:dark:text-dark-gray-300"
+        className="w-full py-3 rounded-sm font-medium border border-primary-50 dark:border-dark-primary-50 text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 hover:border-primary-100 hover:dark:border-dark-primary-100 disabled:bg-gray-50 disabled:dark:bg-dark-gray-50 disabled:border-transparent disabled:text-gray-300 disabled:dark:text-dark-gray-300"
       >
         CONTINUE
       </button>
@@ -382,7 +383,7 @@ function UserVote({
           disabled={isVoteSelectionDisabled}
           data-testid="OnChainGovernance.VotingFlow.NoVote"
           className={classNames(
-            "grow w-1/2 rounded-l border py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
+            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NO
               ? "text-white dark:text-dark-gray-0 border-0 bg-red-600 dark:bg-dark-red-600"
               : "text-red-600 dark:text-dark-red-600 dark:bg-dark-gray-50"
@@ -394,29 +395,36 @@ function UserVote({
           NO
         </button>
 
-        {/* <button
+        <button
           type="button"
           data-testid="OnChainGovernance.VotingFlow.NeutralVote"
-          disabled={isVoteSelectionDisabled}
+          disabled
           className={classNames(
-            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
+            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300",
             userSelectedVote === VoteDecision.NEUTRAL
-              ? "text-white dark:text-dark-gray-0 border-0 bg-gray-600 dark:bg-dark-gray-600"
+              ? "text-white dark:text-dark-gray-0 border-0 bg-gray-600/[0.30] dark:bg-dark-gray-600/[0.30]"
               : "text-gray-600 dark:text-dark-gray-600 dark:bg-dark-gray-50"
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NEUTRAL);
           }}
         >
-          NEUTRAL
-        </button> */}
+          <div className="flex self-center justify-center">
+            <span className="opacity-30">NEUTRAL</span>
+            <InfoHoverPopover
+              className="ml-1 self-center"
+              description="The neutral option is disabled due to a bug which treats the neutral vote as a no vote"
+              placement="top"
+            />
+          </div>
+        </button>
 
         <button
           type="button"
           data-testid="OnChainGovernance.VotingFlow.YesVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow w-1/2 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
+            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.YES
               ? "text-white dark:text-dark-gray-0 border-0 bg-green-600 dark:bg-dark-green-600"
               : "text-green-600 dark:text-dark-green-600 dark:bg-dark-gray-50"
