@@ -5,7 +5,7 @@ specifiers:
   '@cypress/code-coverage': ^3.10.0
   '@floating-ui/react-dom': ^1.2.1
   '@headlessui/react': ^1.7.7
-  '@netlify/plugin-lighthouse': ^4.0.5
+  '@netlify/plugin-lighthouse': ^4.0.7
   '@netlify/plugin-nextjs': ^4.30.2
   '@prismicio/client': ^6.7.3
   '@prismicio/types': ^0.2.7
@@ -70,7 +70,7 @@ dependencies:
 
 devDependencies:
   '@cypress/code-coverage': 3.10.0_evefxzax64vtdycatomx3m6wya
-  '@netlify/plugin-lighthouse': 4.0.5
+  '@netlify/plugin-lighthouse': 4.0.7
   '@netlify/plugin-nextjs': 4.30.2
   '@testing-library/cypress': 8.0.7_cypress@11.2.0
   '@types/lodash': 4.14.191
@@ -2139,8 +2139,8 @@ packages:
       - supports-color
       - utf-8-validate
 
-  /@netlify/plugin-lighthouse/4.0.5:
-    resolution: {integrity: sha512-L73Z3oJW1YDjkkzqHPaj4GOD3dBQIeCcrKo21rb5yuzZIMfJvlnxcqyct/SlPf9+pO+e+ze7v45WHO9arkrmrg==}
+  /@netlify/plugin-lighthouse/4.0.7:
+    resolution: {integrity: sha512-J9oPEJ3/7KcWDGaHuxngSYzyiVR21DKEJ8AmfZs/G2nzG+4fXpLpWsJT/SyKj+tgD8DUxNjffZlCcZZPxIu6Vg==}
     engines: {node: '>=14.15 <19'}
     dependencies:
       chalk: 4.1.2
