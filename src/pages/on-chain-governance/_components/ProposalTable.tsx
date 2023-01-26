@@ -19,6 +19,7 @@ import { VoteModal } from "./VoteModal";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
+import { EmergencyChip } from "./EmergencyChip";
 
 export function ProposalTable({
   proposals,
@@ -123,7 +124,7 @@ function ProposalRow({
     currentBlockMedianTime,
     secondsPerBlock
   );
-
+  const isEmergencyProposal = proposal.options?.includes("emergency");
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -139,6 +140,12 @@ function ProposalRow({
       )}
     >
       <OverflowTable.Cell className="align-middle font-semibold text-gray-900 dark:text-gray-100 w-[320px]">
+        {isEmergencyProposal && (
+          <EmergencyChip
+            wrapperClassName="py-1"
+            className="text-[10px] leading-3"
+          />
+        )}
         <div className="line-clamp-2 text-gray-900 dark:text-dark-gray-900">
           {proposal.title}
         </div>
