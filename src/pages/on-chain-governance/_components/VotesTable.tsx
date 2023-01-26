@@ -11,7 +11,7 @@ export function VotesTable({ votes }: { votes }): JSX.Element {
     <OverflowTable>
       <OverflowTable.Header>
         <OverflowTable.Head title="Masternode" className="font-medium" />
-        <OverflowTable.Head title="Result" className="font-medium" />
+        <OverflowTable.Head title="Vote" className="font-medium" />
       </OverflowTable.Header>
       {votes.map((vote) => (
         <VoteRow item={vote} key={vote.masternodeId} />

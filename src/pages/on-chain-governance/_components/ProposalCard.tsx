@@ -187,7 +187,7 @@ function ProposalCard({
                     </a>
                   </Link>
                   <div>
-                    <div className="text-gray-900 font-semibold text-sm text-right dark:text-dark-gray-900">
+                    <div className="hidden text-gray-900 font-semibold text-sm text-right dark:text-dark-gray-900">
                       {`~ ${cycleEndDate}`}
                     </div>
                   </div>
