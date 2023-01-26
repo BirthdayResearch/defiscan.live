@@ -158,7 +158,7 @@ function ProposalRow({
               {`Block ${proposal.cycleEndHeight}`}
             </a>
           </Link>
-          <div className="text-gray-900 dark:text-dark-gray-900 text-sm">{`~ ${cycleEndDate}`}</div>
+          <div className="hidden text-gray-900 dark:text-dark-gray-900 text-sm">{`~ ${cycleEndDate}`}</div>
         </div>
       </OverflowTable.Cell>
 
