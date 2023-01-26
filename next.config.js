@@ -59,13 +59,4 @@ module.exports = {
       },
     ];
   },
-  async redirect() {
-    return [
-      {
-        source: '/ocg/:path*',
-        destination: '/on-chain-governance/:path*',
-        permanent: true
-      }
-    ]
-  }
 };
