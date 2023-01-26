@@ -15,6 +15,7 @@ import { useNetwork } from "@contexts/NetworkContext";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
+import { EmergencyChip } from "./EmergencyChip";
 
 export function ProposalCards({
   proposals,
@@ -69,6 +70,7 @@ function ProposalCard({
     currentBlockMedianTime,
     secondsPerBlock
   );
+  const isEmergencyProposal = proposal.options?.includes("emergency");
 
   return (
     <div
@@ -81,6 +83,12 @@ function ProposalCard({
         <div className={classNames("grid py-4 px-4 gap-y-3")}>
           <div className="flex flex-row items-center align-middle w-full gap-x-2">
             <div className="grow">
+              {isEmergencyProposal && (
+                <EmergencyChip
+                  wrapperClassName="py-1"
+                  className="text-[10px] leading-3"
+                />
+              )}
               <div
                 className={classNames(
                   "font-semibold text-gray-900 text-sm dark:text-dark-gray-900",
