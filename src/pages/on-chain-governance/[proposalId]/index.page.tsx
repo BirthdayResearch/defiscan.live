@@ -19,7 +19,10 @@ import classNames from "classnames";
 import BigNumber from "bignumber.js";
 import { EmptySection } from "@components/commons/sections/EmptySection";
 import { EnvironmentNetwork } from "@waveshq/walletkit-core";
-import { CursorPagination } from "@components/commons/CursorPagination";
+import {
+  CursorPage,
+  CursorPagination,
+} from "@components/commons/CursorPagination";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VoteCards, VotesTable } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -197,7 +200,15 @@ export default function ProposalDetailPage({
   );
 }
 
-function VotesList({ proposalVotes, pages, proposalId }): JSX.Element {
+function VotesList({
+  proposalVotes,
+  pages,
+  proposalId,
+}: {
+  proposalVotes: ApiPagedResponse<ProposalVotesResult>;
+  pages: CursorPage[];
+  proposalId: string;
+}): JSX.Element {
   return (
     <>
       {proposalVotes.length === 0 ? (
@@ -210,14 +221,15 @@ function VotesList({ proposalVotes, pages, proposalId }): JSX.Element {
           <div className="hidden md:block">
             <VotesTable votes={proposalVotes} />
           </div>
-          <div className="flex justify-end mt-8">
-            <CursorPagination
-              pages={pages}
-              path={`/on-chain-governance/${proposalId}`}
-            />
-          </div>
         </>
       )}
+
+      <div className="flex justify-end mt-8">
+        <CursorPagination
+          pages={pages}
+          path={`/on-chain-governance/${proposalId}`}
+        />
+      </div>
     </>
   );
 }
