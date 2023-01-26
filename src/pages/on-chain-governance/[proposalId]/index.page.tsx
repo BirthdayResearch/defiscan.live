@@ -221,14 +221,15 @@ function VotesList({
           <div className="hidden md:block">
             <VotesTable votes={proposalVotes} />
           </div>
-          <div className="flex justify-end mt-8">
-            <CursorPagination
-              pages={pages}
-              path={`/on-chain-governance/${proposalId}`}
-            />
-          </div>
         </>
       )}
+
+      <div className="flex justify-end mt-8">
+        <CursorPagination
+          pages={pages}
+          path={`/on-chain-governance/${proposalId}`}
+        />
+      </div>
     </>
   );
 }
