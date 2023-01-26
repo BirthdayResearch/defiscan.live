@@ -12,7 +12,10 @@ import {
 } from "@defichain/whale-api-client/dist/api/governance";
 import { Link } from "@components/commons/link/Link";
 import { useNetwork } from "@contexts/NetworkContext";
-import { isValidOCGGithubUrl } from "utils/commons/LinkValidator";
+import {
+  isValidOCGGithubUrl,
+  isValidOCGRedditUrl,
+} from "utils/commons/LinkValidator";
 import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
@@ -71,7 +74,6 @@ function ProposalCard({
     currentBlockMedianTime,
     secondsPerBlock
   );
-  const isGithubUrl = isValidOCGGithubUrl(proposal.context);
   const isEmergencyProposal = proposal.options?.includes("emergency");
 
   return (
@@ -205,16 +207,18 @@ function ProposalCard({
                   rel="noreferrer"
                 >
                   <div className="flex flex-row font-semibold items-center gap-x-1 text-sm text-gray-900 dark:text-dark-gray-900">
-                    {isGithubUrl ? (
+                    {isValidOCGGithubUrl(proposal.context) ? (
                       <>
                         <AiFillGithub size={20} />
                         {OnChainGovernanceTitles.Github}
                       </>
-                    ) : (
+                    ) : isValidOCGRedditUrl(proposal.context) ? (
                       <>
                         <AiFillRedditCircle size={20} />
                         {OnChainGovernanceTitles.Reddit}
                       </>
+                    ) : (
+                      OnChainGovernanceTitles.Link
                     )}
                   </div>
                 </a>

@@ -8,7 +8,10 @@ import {
   GovernanceProposalType,
 } from "@defichain/whale-api-client/dist/api/governance";
 import { Link } from "@components/commons/link/Link";
-import { isValidOCGGithubUrl } from "utils/commons/LinkValidator";
+import {
+  isValidOCGGithubUrl,
+  isValidOCGRedditUrl,
+} from "utils/commons/LinkValidator";
 import { ProposalDisplayName } from "./ProposalCard";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { EmergencyChip } from "./EmergencyChip";
@@ -27,8 +30,6 @@ export function ProposalDetail({
       ? `/blocks/countdown/${proposal.cycleEndHeight}`
       : `/blocks/${proposal.cycleEndHeight}`;
   const isEmergencyProposal = proposal.options?.includes("emergency");
-
-  const isGithubUrl = isValidOCGGithubUrl(proposal.context);
 
   return (
     <div className="md:border md:p-6 border-gray-200 dark:border-dark-gray-200 rounded-lg md:dark:bg-dark-gray-100">
@@ -149,7 +150,7 @@ export function ProposalDetail({
               rel="noreferrer"
             >
               <div className="flex flex-row justify-end items-center gap-x-1 md:gap-x-1 md:px-2 md:py-1 md:border-[0.5px] rounded-[30px] border-gray-200 dark:border-dark-gray-200 hover:border-primary-200 hover:dark:border-dark-primary-200 focus:border-primary-400 focus:dark:border-dark-primary-400 md:w-fit">
-                {isGithubUrl ? (
+                {isValidOCGGithubUrl(proposal.context) ? (
                   <>
                     <AiFillGithub
                       size={24}
@@ -159,7 +160,7 @@ export function ProposalDetail({
                       {OnChainGovernanceTitles.Github}
                     </span>
                   </>
-                ) : (
+                ) : isValidOCGRedditUrl(proposal.context) ? (
                   <>
                     <AiFillRedditCircle
                       size={24}
@@ -169,6 +170,10 @@ export function ProposalDetail({
                       {OnChainGovernanceTitles.Reddit}
                     </span>
                   </>
+                ) : (
+                  <span className="text-gray-600 dark:text-dark-gray-600 text-sm font-medium">
+                    {OnChainGovernanceTitles.Link}
+                  </span>
                 )}
               </div>
             </a>
