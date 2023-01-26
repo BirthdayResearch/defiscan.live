@@ -11,6 +11,7 @@ import { Link } from "@components/commons/link/Link";
 import { isValidOCGGithubUrl } from "utils/commons/LinkValidator";
 import { ProposalDisplayName } from "./ProposalCard";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
+import { EmergencyChip } from "./EmergencyChip";
 
 export function ProposalDetail({
   proposal,
@@ -25,17 +26,21 @@ export function ProposalDetail({
     proposal.status === GovernanceProposalStatus.VOTING
       ? `/blocks/countdown/${proposal.cycleEndHeight}`
       : `/blocks/${proposal.cycleEndHeight}`;
+  const isEmergencyProposal = proposal.options?.includes("emergency");
 
   const isGithubUrl = isValidOCGGithubUrl(proposal.context);
 
   return (
     <div className="md:border md:p-6 border-gray-200 dark:border-dark-gray-200 rounded-lg md:dark:bg-dark-gray-100">
       <div className="flex mb-2">
-        <div className="p-2 bg-gray-100 dark:bg-gray-800 rounded">
-          <div className="text-sm font-medium text-gray-900 dark:text-dark-gray-900 leading-4">
+        <div className="flex justify-between p-2 bg-gray-100 dark:bg-gray-800 rounded">
+          <span className="text-sm font-medium text-gray-900 dark:text-dark-gray-900">
             {ProposalDisplayName[proposal.type]}
-          </div>
+          </span>
         </div>
+        {isEmergencyProposal && (
+          <EmergencyChip wrapperClassName="py-2 ml-2" className="text-sm" />
+        )}
       </div>
       <div className="text-gray-900 dark:text-dark-gray-900 text-2xl font-semibold md:text-4xl break-words">
         {proposal.title}
