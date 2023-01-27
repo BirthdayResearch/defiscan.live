@@ -148,7 +148,7 @@ export default function OnChainGovernancePage({
           </div>
         </div>
 
-        <ProposalTypeTab
+        <ProposalFilterTab
           userQueryProposalStatus={userQueryProposalStatus}
           userQueryProposalType={userQueryProposalType}
         />
@@ -198,7 +198,7 @@ export default function OnChainGovernancePage({
   );
 }
 
-function ProposalTypeTab({
+function ProposalFilterTab({
   userQueryProposalStatus,
   userQueryProposalType,
 }: {

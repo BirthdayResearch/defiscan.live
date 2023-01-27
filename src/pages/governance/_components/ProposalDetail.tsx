@@ -25,7 +25,7 @@ export function ProposalDetail({
   proposalCreationDate: string;
   proposalEndDate: string;
 }) {
-  const blockPage =
+  const blockPageLink =
     proposal.status === GovernanceProposalStatus.VOTING
       ? `/blocks/countdown/${proposal.cycleEndHeight}`
       : `/blocks/${proposal.cycleEndHeight}`;
@@ -52,19 +52,19 @@ export function ProposalDetail({
             <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900">
               Voting concludes at&nbsp;
             </span>
-            <span className="hidden text-sm md:text-lg text-gray-900 dark:text-dark-gray-900 font-semibold">
-              {proposalEndDate}&nbsp;
-            </span>
-            <Link href={{ pathname: blockPage }}>
-              <a className="text-sm md:text-lg hover:underline text-blue-500 cursor-pointer">
-                ({proposal.cycleEndHeight})
+            <Link href={{ pathname: blockPageLink }}>
+              <a className="text-sm md:text-lg font-semibold hover:underline text-blue-500 cursor-pointer">
+                Block {proposal.cycleEndHeight}&nbsp;
               </a>
             </Link>
+            <span className="block md:inline text-xs md:text-base text-gray-600 dark:text-dark-gray-600 lg:text-gray-500 lg:dark:text-dark-gray-500">
+              ({proposalEndDate})
+            </span>
           </div>
         )}
       </div>
       <div className="grid md:grid-cols-3 gap-y-3 md:gap-y-8 md:gap-x-8">
-        <div className="flex flex-row md:flex-col">
+        <div className="flex flex-row md:flex-col items-center">
           <div className="w-1/2 md:w-full mb-0 md:mb-2">
             <DetailSectionTitle label="Date posted" />
           </div>
@@ -84,7 +84,7 @@ export function ProposalDetail({
                 Block {proposal.cycleEndHeight}
               </span>
 
-              <span className="text-gray-600 dark:text-dark-gray-600 text-sm text-right md:text-left w-full">
+              <span className="text-gray-600 dark:text-dark-gray-600 text-xs text-right md:text-left w-full">
                 {proposalEndDate}
               </span>
             </div>
@@ -92,7 +92,7 @@ export function ProposalDetail({
         )}
         {proposal.type === GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
           <>
-            <div className="flex flex-row md:flex-col">
+            <div className="flex flex-row md:flex-col items-center">
               <div className="w-1/2 md:w-full mb-0 md:mb-2">
                 <DetailSectionTitle label="Cycles" />
               </div>
@@ -116,11 +116,11 @@ export function ProposalDetail({
                 </span>
               </div>
             </div>
-            <div className="flex flex-row md:flex-col md:row-start-2">
+            <div className="flex flex-row md:flex-col md:row-start-2 items-center">
               <div className="w-1/2 md:w-full mb-0 md:mb-2">
                 <DetailSectionTitle label="Amount requested" />
               </div>
-              <div className="w-1/2 md:w-full flex">
+              <div className="w-1/2 md:w-full">
                 <NumericFormat
                   value={new BigNumber(proposal.amount ?? 0).toFixed(2)}
                   fixedDecimalScale
@@ -134,10 +134,14 @@ export function ProposalDetail({
           </>
         )}
         <div
-          className={classNames("flex flex-row md:flex-col", {
-            "md:row-start-2":
-              proposal.type === GovernanceProposalType.COMMUNITY_FUND_PROPOSAL,
-          })}
+          className={classNames(
+            "flex flex-row md:flex-col items-center md:items-start",
+            {
+              "md:row-start-2":
+                proposal.type ===
+                GovernanceProposalType.COMMUNITY_FUND_PROPOSAL,
+            }
+          )}
         >
           <div className="w-1/2 md:w-full mb-0 md:mb-1">
             <DetailSectionTitle label="Discussions" />

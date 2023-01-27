@@ -1,6 +1,6 @@
 import { IoSearchSharp } from "react-icons/io5";
 import { useEffect, useMemo, useState } from "react";
-import { useWhaleApiClient, useWhaleRpcClient } from "@contexts/WhaleContext";
+import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { debounce } from "lodash";
 import {
   getOverflowAncestors,
@@ -14,7 +14,7 @@ import { Block } from "@defichain/whale-api-client/dist/api/blocks";
 import { fromAddress } from "@defichain/jellyfish-address";
 import { useNetwork } from "@contexts/NetworkContext";
 import { NetworkName } from "@defichain/jellyfish-network";
-import { WhaleApiClient, WhaleRpcClient } from "@defichain/whale-api-client";
+import { WhaleApiClient } from "@defichain/whale-api-client";
 import {
   LoanVaultActive,
   LoanVaultLiquidated,
@@ -22,7 +22,7 @@ import {
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { getEnvironment } from "@contexts/Environment";
-import { ProposalInfo } from "@defichain/jellyfish-api-core/dist/category/governance";
+import { GovernanceProposal } from "@defichain/whale-api-client/dist/api/governance";
 import { SearchResult, SearchResultTable } from "./SearchResult";
 
 interface SearchBarInterface {
@@ -31,7 +31,6 @@ interface SearchBarInterface {
 
 export function SearchBar(props: SearchBarInterface): JSX.Element {
   const api = useWhaleApiClient();
-  const rpc = useWhaleRpcClient();
   const { name: network, connection } = useNetwork();
   const router = useRouter();
 
@@ -104,7 +103,7 @@ export function SearchBar(props: SearchBarInterface): JSX.Element {
     setSelected({ title: query, url: "", type: "Query" });
     if (query.length > 0) {
       setIsSearching(true);
-      const results = await getSearchResults(api, rpc, network, query);
+      const results = await getSearchResults(api, network, query);
       setSearchResults(results);
       setIsSearching(false);
     } else {
@@ -184,7 +183,6 @@ export function SearchBar(props: SearchBarInterface): JSX.Element {
 
 async function getSearchResults(
   api: WhaleApiClient,
-  rpc: WhaleRpcClient,
   network: NetworkName,
   query: string
 ): Promise<SearchResult[]> {
@@ -256,9 +254,9 @@ async function getSearchResults(
     searchResults.push(vaultsData);
   }
 
-  const proposalsData = await rpc.governance
+  const proposalsData = await api.governance
     .getGovProposal(query)
-    .then((data: ProposalInfo) => {
+    .then((data: GovernanceProposal) => {
       if (data === undefined) {
         return undefined;
       }

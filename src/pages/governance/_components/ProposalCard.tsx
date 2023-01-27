@@ -16,7 +16,7 @@ import {
   isValidOCGGithubUrl,
   isValidOCGRedditUrl,
 } from "utils/commons/LinkValidator";
-import { getCycleEndDate } from "../shared/getCycleEndTime";
+import { useCycleEndDate } from "../shared/useCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { EmergencyChip } from "./EmergencyChip";
@@ -68,7 +68,7 @@ function ProposalCard({
   const [isOpen, setIsOpen] = useState(false);
   const { connection } = useNetwork();
   const secondsPerBlock = getSecondsPerBlock(connection);
-  const cycleEndDate = getCycleEndDate(
+  const cycleEndDate = useCycleEndDate(
     proposal.cycleEndHeight,
     currentBlockHeight,
     currentBlockMedianTime,
@@ -162,7 +162,7 @@ function ProposalCard({
                 <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
                   {OnChainGovernanceTitles.EndOfVoting}
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col w-6/12">
                   <Link
                     href={{
                       pathname:
@@ -186,10 +186,8 @@ function ProposalCard({
                       {`Block ${proposal.cycleEndHeight}`}
                     </a>
                   </Link>
-                  <div>
-                    <div className="hidden text-gray-900 font-semibold text-sm text-right dark:text-dark-gray-900">
-                      {`~ ${cycleEndDate}`}
-                    </div>
+                  <div className="text-gray-600 text-xs text-right dark:text-dark-gray-600">
+                    {cycleEndDate}
                   </div>
                 </div>
               </div>
