@@ -331,7 +331,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       .then((block) => block.medianTime);
     const proposalCreationDate = await api.blocks
       .get(proposal.creationHeight.toString())
-      .then((block) => formatUnixTime(block.medianTime, "MMM dd, yyyy"));
+      .then((block) => formatUnixTime(block.medianTime, "yyyy-MM-dd"));
 
     const network =
       (context.query.network?.toString() as EnvironmentNetwork) ??

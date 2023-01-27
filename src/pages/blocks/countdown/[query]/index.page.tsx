@@ -13,6 +13,8 @@ import * as prismic from "@prismicio/client";
 import _ from "lodash";
 import { getEnvironment } from "@contexts/Environment";
 import { PrismicDocument } from "@prismicio/types";
+import { getSecondsPerBlock } from "pages/on-chain-governance/shared/getSecondsPerBlock";
+import { useNetwork } from "@contexts/NetworkContext";
 import { InfoSection } from "./_components/InfoSection";
 import { CountdownSection } from "./_components/CountdownSection";
 import { BlocksInfoSection } from "./_components/BlocksInfoSection";
@@ -32,23 +34,27 @@ interface BlockDetailsPageProps {
 export default function BlockCountdown(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
+  const { connection } = useNetwork();
   const currentHeight =
     useSelector((state: RootState) => state.stats.count.blocks) ??
     props.current.height;
-
+  const secondsPerBlock = getSecondsPerBlock(connection);
   const estimatedTargetTime =
     props.current.medianTime * 1000 +
-    (props.target.height - currentHeight) * 30 * 1000;
-  const secsToTargetHeight = estimatedTargetTime - new Date().getTime();
+    (props.target.height - currentHeight) * secondsPerBlock * 1000;
+  const millisecsToTargetHeight = estimatedTargetTime - new Date().getTime();
   const [timeLeft, setTimeLeft] = useState<number>(
-    Math.ceil(secsToTargetHeight / 1000)
+    Math.ceil(millisecsToTargetHeight / 1000)
   );
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(timeLeft - 1);
 
-      if (currentHeight >= props.target.height || timeLeft % 30 === 0) {
+      if (
+        currentHeight >= props.target.height ||
+        timeLeft % secondsPerBlock === 0
+      ) {
         location.reload();
       }
     }, 1000);

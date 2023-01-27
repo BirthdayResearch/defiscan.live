@@ -158,7 +158,7 @@ function ProposalRow({
               {`Block ${proposal.cycleEndHeight}`}
             </a>
           </Link>
-          <div className="text-gray-600 dark:text-dark-gray-600 text-xs w-[120px] break-words">
+          <div className="text-gray-600 dark:text-dark-gray-600 text-xs break-words">
             {cycleEndDate}
           </div>
         </div>
