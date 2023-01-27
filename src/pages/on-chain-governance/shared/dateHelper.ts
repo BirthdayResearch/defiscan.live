@@ -17,7 +17,7 @@ export function formatMedianTime(
   approximation: boolean = false
 ): string {
   if (approximation === true) {
-    dateFormat = `'~ '${dateFormat}`;
+    dateFormat = `'≈ '${dateFormat}`;
   }
   const date = new Date(medianTime * 1000);
   const utcDate = new Date(
