@@ -25,6 +25,12 @@ export function Header(): JSX.Element {
   const [atTop, setAtTop] = useState(true);
   const [isSearchIconClicked, setIsSearchIconClicked] = useState(false);
   const router = useRouter();
+  const [openProposals, setOpenProposals] = useState(0);
+  const api = useWhaleApiClient();
+
+  useEffect(() => {
+    getOpenProposals(api).then((res) => setOpenProposals(res));
+  }, []);
 
   useEffect(() => {
     function routeChangeStart(): void {
@@ -96,7 +102,7 @@ export function Header(): JSX.Element {
                         <DeFiChainLogo className="h-full w-36 lg:w-40 md:m-0 m-2" />
                       </a>
                     </Link>
-                    <DesktopNavbar />
+                    <DesktopNavbar openProposals={openProposals} />
                   </div>
                   <div className="lg:hidden flex flex-row items-center md:gap-x-6 gap-x-5">
                     <div
@@ -139,10 +145,16 @@ export function Header(): JSX.Element {
       {menu && (
         <>
           <div className="fixed z-50 md:hidden">
-            <MobileMenu toggleMenu={() => setMenu(false)} />
+            <MobileMenu
+              toggleMenu={() => setMenu(false)}
+              openProposals={openProposals}
+            />
           </div>
           <div className="w-full hidden md:block md:fixed md:z-50">
-            <TabletMenu toggleMenu={() => setMenu(false)} />
+            <TabletMenu
+              toggleMenu={() => setMenu(false)}
+              openProposals={openProposals}
+            />
           </div>
         </>
       )}
@@ -169,14 +181,7 @@ async function getOpenProposals(api: WhaleApiClient) {
   return openProposals;
 }
 
-function DesktopNavbar(): JSX.Element {
-  const [openProposals, setOpenProposals] = useState(0);
-  const api = useWhaleApiClient();
-  useEffect(() => {
-    getOpenProposals(api).then((res) => setOpenProposals(res));
-  }, []);
-  console.log(openProposals);
-
+function DesktopNavbar(props): JSX.Element {
   return (
     <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
       <div className="hidden md:flex">
@@ -212,7 +217,7 @@ function DesktopNavbar(): JSX.Element {
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
-          text={`Governance (${openProposals})`}
+          text={`Governance (${props.openProposals})`}
           pathname="/on-chain-governance"
           testId="Desktop.HeaderLink.Governance"
         />
@@ -234,11 +239,11 @@ function DesktopNavbar(): JSX.Element {
   );
 }
 
-function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
+function TabletMenu(props): JSX.Element {
   return (
     <div
       onClick={() => {
-        toggleMenu();
+        props.toggleMenu();
       }}
       className="h-screen w-screen backdrop-blur-[2px] backdrop-brightness-50"
     >
@@ -258,7 +263,7 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
           <MdClose
             role="button"
             className="h-6 w-6 text-primary-500"
-            onClick={() => toggleMenu()}
+            onClick={() => props.toggleMenu}
             data-testid="Header.CloseMenu"
           />
         </div>
@@ -270,7 +275,7 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
             </div>
           </div>
           <div className="mt-2">
-            <MenuItems viewPort="Tablet" />
+            <MenuItems viewPort="Tablet" openProposals={props.openProposals} />
           </div>
         </div>
       </div>
@@ -278,7 +283,7 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   );
 }
 
-function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
+function MobileMenu(props): JSX.Element {
   const ref = useRef<HTMLDivElement>(null);
   const dimension = useWindowDimensions();
   useEffect(() => {
@@ -303,7 +308,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
         <MdClose
           role="button"
           className="h-6 w-6 text-primary-500"
-          onClick={() => toggleMenu()}
+          onClick={() => props.toggleMenu}
           data-testid="Header.Mobile.CloseMenu"
         />
       </div>
@@ -319,7 +324,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
           "text-gray-600 dark:text-dark-gray-900 overflow-auto"
         )}
       >
-        <MenuItems viewPort="Mobile" />
+        <MenuItems viewPort="Mobile" openProposals={props.openProposals} />
       </div>
     </div>
   );
@@ -364,7 +369,7 @@ export function HeaderLink(props: {
   );
 }
 
-function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
+function MenuItems(props): JSX.Element {
   return (
     <div className="flex flex-col">
       {drawerMenuItemLinks.map((item, index) => {
@@ -375,9 +380,14 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
               "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 p-1.5",
               { "md:pt-0": index === 0 }
             )}
-            text={item.text}
+            text={`${item.text}${
+              item.text === "Governance" ? ` (${props.openProposals})` : ""
+            }`}
             pathname={item.pathname}
-            testId={`${viewPort}.HeaderLink.${item.text.replace(" ", "")}`}
+            testId={`${props.viewPort}.HeaderLink.${item.text.replace(
+              " ",
+              ""
+            )}`}
           />
         );
       })}
