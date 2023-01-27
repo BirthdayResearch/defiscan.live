@@ -179,9 +179,9 @@ function DesktopNavbar(): JSX.Element {
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
-          text="Tokens"
-          pathname="/tokens"
-          testId="Desktop.HeaderLink.Tokens"
+          text="Governance"
+          pathname="/on-chain-governance"
+          testId="Desktop.HeaderLink.Governance"
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
@@ -456,9 +456,9 @@ const dropDownLinks = [
   //   rootPathName: "consortium",
   // },
   {
-    name: "On-Chain Governance",
-    link: "/on-chain-governance",
-    rootPathName: "on-chain-governance",
+    name: "Tokens",
+    link: "/tokens",
+    rootPathName: "tokens",
   },
 ];
 
@@ -496,7 +496,7 @@ const drawerMenuItemLinks = [
   //   pathname: "/consortium/asset_breakdown"
   // },
   {
-    text: "On-Chain Governance",
+    text: "Governance",
     pathname: "/on-chain-governance",
   },
 ];
