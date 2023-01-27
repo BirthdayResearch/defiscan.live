@@ -264,7 +264,7 @@ async function getSearchResults(
       }
 
       return {
-        url: `/on-chain-governance/${data.proposalId}`,
+        url: `/governance/${data.proposalId}`,
         title: `${data.proposalId}`,
         type: "Proposal",
       };
