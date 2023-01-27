@@ -11,7 +11,7 @@ export function getCurrentYearMonth() {
   };
 }
 
-export function formatUnixTime(
+export function formatMedianTime(
   medianTime: number,
   dateFormat: string = "yyyy-MM-dd'T'HH:mm:ss'Z'",
   approximation: boolean = false

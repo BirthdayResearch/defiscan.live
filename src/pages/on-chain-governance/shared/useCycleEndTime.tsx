@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useWhaleRpcClient } from "@contexts/WhaleContext";
 import BigNumber from "bignumber.js";
-import { formatUnixTime } from "./dateHelper";
+import { formatMedianTime } from "./dateHelper";
 
 /**
  * Return an estimated end date for a proposal cycle
@@ -21,7 +21,7 @@ export function useCycleEndDate(
   useEffect(() => {
     async function getPastCycleEndHeightMedianTime(): Promise<void> {
       const block = await rpc.blockchain.getBlockStats(cycleEndHeight);
-      setCycleEndDate(formatUnixTime(block.mediantime));
+      setCycleEndDate(formatMedianTime(block.mediantime));
     }
 
     if (timeDifferenceInBlocks.isGreaterThan(0)) {
@@ -30,7 +30,7 @@ export function useCycleEndDate(
         secondsPerBlock,
         currentBlockMedianTime
       );
-      setCycleEndDate(formatUnixTime(cycleEndMedianTime, undefined, true));
+      setCycleEndDate(formatMedianTime(cycleEndMedianTime, undefined, true));
     } else {
       getPastCycleEndHeightMedianTime();
     }

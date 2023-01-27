@@ -29,11 +29,11 @@ import { VotingResult } from "../_components/VotingResult";
 import { ProposalDetail } from "../_components/ProposalDetail";
 import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
-import { formatUnixTime } from "../shared/dateHelper";
+import { formatMedianTime } from "../shared/dateHelper";
 import { VoteStages } from "../enum/VoteStages";
 import { TotalVotesCards } from "../_components/TotalVotesCards";
 import { CfpVotingResultCycleTab } from "../enum/CfpVotingResultCycleTab";
-import { getFutureCycleEndMedianTime } from "../shared/getCycleEndTime";
+import { getFutureCycleEndMedianTime } from "../shared/useCycleEndTime";
 
 export default function ProposalDetailPage({
   proposal,
@@ -331,7 +331,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       .then((block) => block.medianTime);
     const proposalCreationDate = await api.blocks
       .get(proposal.creationHeight.toString())
-      .then((block) => formatUnixTime(block.medianTime, "yyyy-MM-dd"));
+      .then((block) => formatMedianTime(block.medianTime, "yyyy-MM-dd"));
 
     const network =
       (context.query.network?.toString() as EnvironmentNetwork) ??
@@ -346,10 +346,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       // get past date
       proposalEndDate = await api.blocks
         .get(proposal.cycleEndHeight.toString())
-        .then((block) => formatUnixTime(block.medianTime));
+        .then((block) => formatMedianTime(block.medianTime));
     } else {
       // get future date
-      proposalEndDate = formatUnixTime(
+      proposalEndDate = formatMedianTime(
         getFutureCycleEndMedianTime(
           timeDifferenceInBlocks,
           secondsPerBlock,
