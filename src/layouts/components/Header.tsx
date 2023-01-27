@@ -10,8 +10,15 @@ import { Container } from "@components/commons/Container";
 import { SearchBar } from "@components/commons/searchbar/SearchBar";
 import { Menu, Transition } from "@headlessui/react";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import { HeaderCountBar } from "./HeaderCountBar";
+import { useWhaleApiClient } from "@contexts/WhaleContext";
+import { WhaleApiClient } from "@defichain/whale-api-client";
+import {
+  ListProposalsType,
+  ListProposalsStatus,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
+import { GovernanceProposalStatus } from "@defichain/whale-api-client/dist/api/governance";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
+import { HeaderCountBar } from "./HeaderCountBar";
 
 export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
@@ -143,7 +150,33 @@ export function Header(): JSX.Element {
   );
 }
 
+async function getOpenProposals(api: WhaleApiClient) {
+  const allProposals = await api.governance
+    .listGovProposals({
+      type: ListProposalsType.ALL,
+      status: ListProposalsStatus.VOTING,
+      all: true,
+    })
+    .catch(() => {
+      return [];
+    });
+
+  const openProposals = allProposals.filter(
+    (item) => item.status === GovernanceProposalStatus.VOTING
+  ).length;
+
+  console.log(openProposals);
+  return openProposals;
+}
+
 function DesktopNavbar(): JSX.Element {
+  const [openProposals, setOpenProposals] = useState(0);
+  const api = useWhaleApiClient();
+  useEffect(() => {
+    getOpenProposals(api).then((res) => setOpenProposals(res));
+  }, []);
+  console.log(openProposals);
+
   return (
     <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
       <div className="hidden md:flex">
@@ -179,7 +212,7 @@ function DesktopNavbar(): JSX.Element {
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
-          text="Governance"
+          text={`Governance (${openProposals})`}
           pathname="/on-chain-governance"
           testId="Desktop.HeaderLink.Governance"
         />
