@@ -177,7 +177,6 @@ async function getOpenProposals(api: WhaleApiClient) {
     (item) => item.status === GovernanceProposalStatus.VOTING
   ).length;
 
-  console.log(openProposals);
   return openProposals;
 }
 
