@@ -21,7 +21,7 @@ export function EmergencyChip({
           className
         )}
       >
-        EMERGENCY
+        SPECIAL
       </span>
     </div>
   );
