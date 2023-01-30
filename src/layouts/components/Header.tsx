@@ -214,7 +214,7 @@ function DesktopNavbar(props): JSX.Element {
         <HeaderLink
           className="ml-1 lg:ml-2 whitespace-nowrap"
           text={`Governance (${props.openProposals})`}
-          pathname="/on-chain-governance"
+          pathname="/governance"
           testId="Desktop.HeaderLink.Governance"
         />
         <HeaderLink
@@ -526,7 +526,7 @@ let drawerMenuItemLinks = [
   },
   {
     text: "Governance",
-    pathname: "/on-chain-governance",
+    pathname: "/governance",
     openProposals: 0,
   },
   {
