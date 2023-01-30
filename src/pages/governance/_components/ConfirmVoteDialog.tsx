@@ -233,7 +233,7 @@ function VoteForProposal({
           description={
             <div className="px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs dark:bg-gray-800 dark:border-gray-700 dark:text-dark-gray-900">
               Masternode ID can be retrieved by using the command
-              <span className="font-medium bg-[#FFF5EA] dark:bg-[#FF9F0A40]/[0.25]  mx-1 px-1 py-0.5 rounded">
+              <span className="font-medium bg-orange-100 dark:bg-dark-orange-500/[0.25]  mx-1 px-1 py-0.5 rounded">
                 &nbsp;getmininginfo&nbsp;
               </span>
               on CLI.
