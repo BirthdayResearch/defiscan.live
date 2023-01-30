@@ -109,56 +109,56 @@ export async function getServerSideProps(
   }>
 > {
   const api = getWhaleApiClient(context);
-  let items =
+  const items =
     (await api.consortium.getAssetBreakdown().catch(() => undefined)) ?? [];
 
   /* Hardcode data for testing */
-  items = [
-    {
-      tokenSymbol: "BTC",
-      tokenDisplaySymbol: "dBTC",
-      memberInfo: [
-        {
-          minted: "130",
-          burned: "130",
-          tokenId: "1",
-          id: "1",
-          name: "Cake",
-          backingAddresses: ["38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT", "backing2"],
-        },
-        {
-          minted: "20.300",
-          burned: "12312",
-          tokenId: "2",
-          id: "2",
-          name: "Birthday Research",
-          backingAddresses: ["backing3", "backing4"],
-        },
-      ],
-    },
-    {
-      tokenSymbol: "ETH",
-      tokenDisplaySymbol: "dETH",
-      memberInfo: [
-        {
-          minted: "79.700",
-          burned: "64564",
-          tokenId: "1",
-          id: "1",
-          name: "Cake",
-          backingAddresses: ["backing1", "backing2"],
-        },
-        {
-          minted: "79.700",
-          burned: "12312",
-          tokenId: "2",
-          id: "2",
-          name: "Birthday Research",
-          backingAddresses: ["backing3", "backing4"],
-        },
-      ],
-    },
-  ];
+  // items = [
+  //   {
+  //     tokenSymbol: "BTC",
+  //     tokenDisplaySymbol: "dBTC",
+  //     memberInfo: [
+  //       {
+  //         minted: "130",
+  //         burned: "130",
+  //         tokenId: "1",
+  //         id: "1",
+  //         name: "Cake",
+  //         backingAddresses: ["38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT", "backing2"],
+  //       },
+  //       {
+  //         minted: "20.300",
+  //         burned: "12312",
+  //         tokenId: "2",
+  //         id: "2",
+  //         name: "Birthday Research",
+  //         backingAddresses: ["backing3", "backing4"],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     tokenSymbol: "ETH",
+  //     tokenDisplaySymbol: "dETH",
+  //     memberInfo: [
+  //       {
+  //         minted: "79.700",
+  //         burned: "64564",
+  //         tokenId: "1",
+  //         id: "1",
+  //         name: "Cake",
+  //         backingAddresses: ["backing1", "backing2"],
+  //       },
+  //       {
+  //         minted: "79.700",
+  //         burned: "12312",
+  //         tokenId: "2",
+  //         id: "2",
+  //         name: "Birthday Research",
+  //         backingAddresses: ["backing3", "backing4"],
+  //       },
+  //     ],
+  //   },
+  // ];
   const consortiumShares = computeMintedTokens(items);
 
   return {
