@@ -132,10 +132,8 @@ context("<Header/> on ipad-2", () => {
       "/masternodes"
     );
 
-    cy.findByTestId("Tablet.HeaderLink.On-ChainGovernance").should(
-      "be.visible"
-    );
-    cy.findByTestId("Tablet.HeaderLink.On-ChainGovernance").should(
+    cy.findByTestId("Tablet.HeaderLink.Governance").should("be.visible");
+    cy.findByTestId("Tablet.HeaderLink.Governance").should(
       "have.attr",
       "href",
       "/governance"

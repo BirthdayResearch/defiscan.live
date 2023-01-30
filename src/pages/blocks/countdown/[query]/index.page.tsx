@@ -13,7 +13,7 @@ import * as prismic from "@prismicio/client";
 import _ from "lodash";
 import { getEnvironment } from "@contexts/Environment";
 import { PrismicDocument } from "@prismicio/types";
-import { getSecondsPerBlock } from "pages/on-chain-governance/shared/getSecondsPerBlock";
+import { getSecondsPerBlock } from "pages/governance/shared/getSecondsPerBlock";
 import { useNetwork } from "@contexts/NetworkContext";
 import { InfoSection } from "./_components/InfoSection";
 import { CountdownSection } from "./_components/CountdownSection";
