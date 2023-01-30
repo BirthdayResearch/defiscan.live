@@ -101,7 +101,7 @@ export function Header(): JSX.Element {
                     <div className="md:hidden">
                       <BiSearchAlt2
                         size={24}
-                        className="text-gray-600"
+                        className="text-gray-600 dark:text-dark-gray-600"
                         role="button"
                         onClick={() => setIsSearchIconClicked(true)}
                         data-testid="Header.Mobile.SearchIcon"
@@ -455,11 +455,11 @@ const dropDownLinks = [
     link: "/consortium/asset_breakdown",
     rootPathName: "consortium",
   },
-  // {
-  //   name: "On-Chain Governance",
-  //   link: "/on-chain-governance",
-  //   rootPathName: "on-chain-governance",
-  // },
+  {
+    name: "On-Chain Governance",
+    link: "/on-chain-governance",
+    rootPathName: "on-chain-governance",
+  },
 ];
 
 const drawerMenuItemLinks = [
@@ -495,8 +495,8 @@ const drawerMenuItemLinks = [
     text: "Consortium",
     pathname: "/consortium/asset_breakdown",
   },
-  // {
-  //   text: "On-Chain Governance",
-  //   pathname: "/on-chain-governance",
-  // },
+  {
+    text: "On-Chain Governance",
+    pathname: "/on-chain-governance",
+  },
 ];

@@ -1,4 +1,4 @@
-import { isPlayground } from "@contexts/Environment";
+import { isPlayground } from "@waveshq/walletkit-core";
 import { useNetwork } from "@contexts/NetworkContext";
 import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { StatsData } from "@defichain/whale-api-client/dist/api/stats";
