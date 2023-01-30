@@ -11,7 +11,6 @@ import { SearchBar } from "@components/commons/searchbar/SearchBar";
 import { Menu, Transition } from "@headlessui/react";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { useWhaleApiClient } from "@contexts/WhaleContext";
-import { WhaleApiClient } from "@defichain/whale-api-client";
 import {
   ListProposalsType,
   ListProposalsStatus,
@@ -23,18 +22,39 @@ export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
   const [atTop, setAtTop] = useState(true);
   const [isSearchIconClicked, setIsSearchIconClicked] = useState(false);
-  const [openProposals, setOpenProposals] = useState(0);
+  const [openProposalsLength, setOpenProposalsLength] = useState(0);
   const router = useRouter();
 
   const api = useWhaleApiClient();
 
+  function editdrawerMenuItemLinks(item) {
+    if (item.text.includes("Governance")) {
+      item.text = `Governance (${openProposalsLength})`;
+    }
+  }
+
+  async function getOpenProposalsLength() {
+    await api.governance
+      .listGovProposals({
+        type: ListProposalsType.ALL,
+        status: ListProposalsStatus.VOTING,
+        all: true,
+      })
+      .then((res) => {
+        setOpenProposalsLength(res.length);
+      })
+      .catch(() => {
+        return 0;
+      });
+  }
+
   useEffect(() => {
-    getOpenProposals(api).then((res) => setOpenProposals(res));
+    getOpenProposalsLength();
   }, []);
 
   useEffect(() => {
-    drawerMenuItemLinks[5].openProposals = openProposals;
-  }, [openProposals]);
+    drawerMenuItemLinks.map(editdrawerMenuItemLinks);
+  }, [openProposalsLength]);
 
   useEffect(() => {
     function routeChangeStart(): void {
@@ -106,7 +126,7 @@ export function Header(): JSX.Element {
                         <DeFiChainLogo className="h-full w-36 lg:w-40 md:m-0 m-2" />
                       </a>
                     </Link>
-                    <DesktopNavbar openProposals={openProposals} />
+                    <DesktopNavbar openProposalsLength={openProposalsLength} />
                   </div>
                   <div className="lg:hidden flex flex-row items-center md:gap-x-6 gap-x-5">
                     <div
@@ -160,23 +180,6 @@ export function Header(): JSX.Element {
   );
 }
 
-async function getOpenProposals(api: WhaleApiClient) {
-  const openProposals = await api.governance
-    .listGovProposals({
-      type: ListProposalsType.ALL,
-      status: ListProposalsStatus.VOTING,
-      all: true,
-    })
-    .then((res) => {
-      return res.length;
-    })
-    .catch(() => {
-      return 0;
-    });
-
-  return openProposals;
-}
-
 function DesktopNavbar(props): JSX.Element {
   return (
     <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
@@ -213,7 +216,7 @@ function DesktopNavbar(props): JSX.Element {
         />
         <HeaderLink
           className="ml-1 lg:ml-2 whitespace-nowrap"
-          text={`Governance (${props.openProposals})`}
+          text={`Governance (${props.openProposalsLength})`}
           pathname="/governance"
           testId="Desktop.HeaderLink.Governance"
         />
@@ -378,9 +381,7 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
               "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 p-1.5",
               { "md:pt-0": index === 0 }
             )}
-            text={`${item.text}${
-              item.text === "Governance" ? ` (${item.openProposals})` : ""
-            }`}
+            text={item.text}
             pathname={item.pathname}
             testId={`${viewPort}.HeaderLink.${item.text.replace(" ", "")}`}
           />
@@ -524,7 +525,6 @@ let drawerMenuItemLinks = [
   {
     text: "Governance",
     pathname: "/governance",
-    openProposals: 0,
   },
   {
     text: "Masternodes",
