@@ -13,15 +13,12 @@ export function getCurrentYearMonth() {
 
 export function formatMedianTime(
   medianTime: number,
-  dateFormat: string = "yyyy-MM-dd'T'HH:mm:ss'Z'",
+  dateFormat: string = "MMM dd, yyyy, HH:mm:ss aa",
   approximation: boolean = false
 ): string {
   if (approximation === true) {
     dateFormat = `'≈ '${dateFormat}`;
   }
   const date = new Date(medianTime * 1000);
-  const utcDate = new Date(
-    date.valueOf() + date.getTimezoneOffset() * 60 * 1000
-  );
-  return format(utcDate, dateFormat);
+  return format(date, dateFormat);
 }
