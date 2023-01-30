@@ -367,7 +367,7 @@ export function HeaderLink(props: {
   );
 }
 
-function MenuItems(props): JSX.Element {
+function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
   return (
     <div className="flex flex-col">
       {drawerMenuItemLinks.map((item, index) => {
@@ -382,10 +382,7 @@ function MenuItems(props): JSX.Element {
               item.text === "Governance" ? ` (${item.openProposals})` : ""
             }`}
             pathname={item.pathname}
-            testId={`${props.viewPort}.HeaderLink.${item.text.replace(
-              " ",
-              ""
-            )}`}
+            testId={`${viewPort}.HeaderLink.${item.text.replace(" ", "")}`}
           />
         );
       })}
