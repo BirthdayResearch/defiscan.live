@@ -221,12 +221,25 @@ function VoteForProposal({
         </span>
       </div>
 
-      <span
-        data-testid="OnChainGovernance.VotingFlow.VoteForProposal.Masternode"
-        className="text-gray-600 dark:text-dark-gray-600 font-semibold text-sm"
-      >
-        Masternode
-      </span>
+      <div className="flex">
+        <span
+          data-testid="OnChainGovernance.VotingFlow.VoteForProposal.Masternode"
+          className="text-gray-600 dark:text-dark-gray-600 font-semibold text-sm"
+        >
+          Masternode
+        </span>
+        <InfoHoverPopover
+          className="ml-1 self-center"
+          description={
+            <div className="px-4 py-3 font-normal text-sm bg-white text-left text-gray-900 rounded-lg border border-gray-100 shadow-md max-w-xs dark:bg-gray-800 dark:border-gray-700 dark:text-dark-gray-900">
+              Masternode ID can be retrieved by using the command
+              <span className="font-semibold">&nbsp;getmininginfo&nbsp;</span>
+              on CLI.
+            </div>
+          }
+          placement="top"
+        />
+      </div>
 
       <div className="flex flex-row items-center gap-x-2 mt-1">
         <div
