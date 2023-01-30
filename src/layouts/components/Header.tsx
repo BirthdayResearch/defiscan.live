@@ -235,11 +235,11 @@ function DesktopNavbar(props): JSX.Element {
   );
 }
 
-function TabletMenu(props): JSX.Element {
+function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   return (
     <div
       onClick={() => {
-        props.toggleMenu();
+        toggleMenu();
       }}
       className="h-screen w-screen backdrop-blur-[2px] backdrop-brightness-50"
     >
@@ -259,7 +259,7 @@ function TabletMenu(props): JSX.Element {
           <MdClose
             role="button"
             className="h-6 w-6 text-primary-500"
-            onClick={() => props.toggleMenu()}
+            onClick={() => toggleMenu()}
             data-testid="Header.CloseMenu"
           />
         </div>
@@ -279,7 +279,7 @@ function TabletMenu(props): JSX.Element {
   );
 }
 
-function MobileMenu(props): JSX.Element {
+function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   const ref = useRef<HTMLDivElement>(null);
   const dimension = useWindowDimensions();
   useEffect(() => {
@@ -304,7 +304,7 @@ function MobileMenu(props): JSX.Element {
         <MdClose
           role="button"
           className="h-6 w-6 text-primary-500"
-          onClick={() => props.toggleMenu()}
+          onClick={() => toggleMenu()}
           data-testid="Header.Mobile.CloseMenu"
         />
       </div>
