@@ -396,7 +396,7 @@ function UserVote({
           disabled={isVoteSelectionDisabled}
           data-testid="OnChainGovernance.VotingFlow.NoVote"
           className={classNames(
-            "grow w-1/3 rounded-l border border-r-0 py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
+            "grow w-1/3 rounded-l border border-r-[0.5px] py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NO
               ? "text-white dark:text-dark-gray-0 border-0 bg-red-600 dark:bg-dark-red-600"
               : "text-red-600 dark:text-dark-red-600 dark:bg-dark-gray-50"
@@ -413,17 +413,17 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.NeutralVote"
           disabled
           className={classNames(
-            "grow w-1/3 border py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300",
+            "grow w-1/3 border border-r-[0.5px] border-l-[0.5px] py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:dark:border-opacity-30 disabled:border-opacity-30 disabled:dark:text-opacity-30 disabled:text-opacity-30",
             userSelectedVote === VoteDecision.NEUTRAL
               ? "text-white dark:text-dark-gray-0 border-0 bg-gray-600/[0.30] dark:bg-dark-gray-600/[0.30]"
-              : "text-gray-600 dark:text-dark-gray-600 dark:bg-dark-gray-50"
+              : "text-gray-600 dark:text-dark-gray-600 dark:bg-dark-gray-50 dark:bg-opacity-30"
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NEUTRAL);
           }}
         >
           <div className="flex self-center justify-center">
-            <span className="opacity-30">NEUTRAL</span>
+            NEUTRAL
             <InfoHoverPopover
               className="ml-1 self-center"
               description="The neutral option is disabled due to a bug which treats the neutral vote as a no vote"
@@ -437,7 +437,7 @@ function UserVote({
           data-testid="OnChainGovernance.VotingFlow.YesVote"
           disabled={isVoteSelectionDisabled}
           className={classNames(
-            "grow w-1/3 border border-l-0 rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
+            "grow w-1/3 border border-l-[0.5px] rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.YES
               ? "text-white dark:text-dark-gray-0 border-0 bg-green-600 dark:bg-dark-green-600"
               : "text-green-600 dark:text-dark-green-600 dark:bg-dark-gray-50"
