@@ -104,7 +104,7 @@ function AssetBreakdownRow({
               symbol,
               new BigNumber(memberInfo.burned)
             ).toFixed(2)}
-            prefix="≈$"
+            prefix="≈(USDT) "
             fixedDecimalScale
             thousandSeparator=","
             displayType="text"
