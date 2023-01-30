@@ -74,11 +74,11 @@ export default function ProposalDetailPage({
         <Breadcrumb
           items={[
             {
-              path: "/on-chain-governance",
+              path: "/governance",
               name: "Proposal",
             },
             {
-              path: `/on-chain-governance/${proposal.proposalId}`,
+              path: `/governance/${proposal.proposalId}`,
               name: "Proposal Details",
               canonical: true,
               isCurrentPath: true,
@@ -225,10 +225,7 @@ function VotesList({
       )}
 
       <div className="flex justify-end mt-8">
-        <CursorPagination
-          pages={pages}
-          path={`/on-chain-governance/${proposalId}`}
-        />
+        <CursorPagination pages={pages} path={`/governance/${proposalId}`} />
       </div>
     </>
   );
