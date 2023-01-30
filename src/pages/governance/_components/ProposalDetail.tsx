@@ -34,7 +34,7 @@ export function ProposalDetail({
   return (
     <div className="md:border md:p-6 border-gray-200 dark:border-dark-gray-200 rounded-lg md:dark:bg-dark-gray-100">
       <div className="flex mb-2">
-        <div className="flex justify-between p-2 bg-gray-100 dark:bg-gray-800 rounded">
+        <div className="flex justify-between p-2 bg-gray-100 dark:bg-dark-gray-200 rounded">
           <span className="text-sm font-medium text-gray-900 dark:text-dark-gray-900">
             {ProposalDisplayName[proposal.type]}
           </span>
@@ -120,7 +120,7 @@ export function ProposalDetail({
               <div className="w-1/2 md:w-full mb-0 md:mb-2">
                 <DetailSectionTitle label="Amount requested" />
               </div>
-              <div className="w-1/2 md:w-full">
+              <div className="w-1/2 md:w-full flex">
                 <NumericFormat
                   value={new BigNumber(proposal.amount ?? 0).toFixed(2)}
                   fixedDecimalScale
