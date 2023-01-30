@@ -16,7 +16,6 @@ import {
   ListProposalsType,
   ListProposalsStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
-import { GovernanceProposalStatus } from "@defichain/whale-api-client/dist/api/governance";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 import { HeaderCountBar } from "./HeaderCountBar";
 
@@ -24,13 +23,18 @@ export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
   const [atTop, setAtTop] = useState(true);
   const [isSearchIconClicked, setIsSearchIconClicked] = useState(false);
-  const router = useRouter();
   const [openProposals, setOpenProposals] = useState(0);
+  const router = useRouter();
+
   const api = useWhaleApiClient();
 
   useEffect(() => {
     getOpenProposals(api).then((res) => setOpenProposals(res));
   }, []);
+
+  useEffect(() => {
+    drawerMenuItemLinks[5].openProposals = openProposals;
+  }, [openProposals]);
 
   useEffect(() => {
     function routeChangeStart(): void {
@@ -145,16 +149,10 @@ export function Header(): JSX.Element {
       {menu && (
         <>
           <div className="fixed z-50 md:hidden">
-            <MobileMenu
-              toggleMenu={() => setMenu(false)}
-              openProposals={openProposals}
-            />
+            <MobileMenu toggleMenu={() => setMenu(false)} />
           </div>
           <div className="w-full hidden md:block md:fixed md:z-50">
-            <TabletMenu
-              toggleMenu={() => setMenu(false)}
-              openProposals={openProposals}
-            />
+            <TabletMenu toggleMenu={() => setMenu(false)} />
           </div>
         </>
       )}
@@ -163,19 +161,18 @@ export function Header(): JSX.Element {
 }
 
 async function getOpenProposals(api: WhaleApiClient) {
-  const allProposals = await api.governance
+  const openProposals = await api.governance
     .listGovProposals({
       type: ListProposalsType.ALL,
       status: ListProposalsStatus.VOTING,
       all: true,
     })
+    .then((res) => {
+      return res.length;
+    })
     .catch(() => {
-      return [];
+      return 0;
     });
-
-  const openProposals = allProposals.filter(
-    (item) => item.status === GovernanceProposalStatus.VOTING
-  ).length;
 
   return openProposals;
 }
@@ -215,7 +212,7 @@ function DesktopNavbar(props): JSX.Element {
           testId="Desktop.HeaderLink.Oracles"
         />
         <HeaderLink
-          className="ml-1 lg:ml-2"
+          className="ml-1 lg:ml-2 whitespace-nowrap"
           text={`Governance (${props.openProposals})`}
           pathname="/on-chain-governance"
           testId="Desktop.HeaderLink.Governance"
@@ -262,7 +259,7 @@ function TabletMenu(props): JSX.Element {
           <MdClose
             role="button"
             className="h-6 w-6 text-primary-500"
-            onClick={() => props.toggleMenu}
+            onClick={() => props.toggleMenu()}
             data-testid="Header.CloseMenu"
           />
         </div>
@@ -274,7 +271,7 @@ function TabletMenu(props): JSX.Element {
             </div>
           </div>
           <div className="mt-2">
-            <MenuItems viewPort="Tablet" openProposals={props.openProposals} />
+            <MenuItems viewPort="Tablet" />
           </div>
         </div>
       </div>
@@ -307,7 +304,7 @@ function MobileMenu(props): JSX.Element {
         <MdClose
           role="button"
           className="h-6 w-6 text-primary-500"
-          onClick={() => props.toggleMenu}
+          onClick={() => props.toggleMenu()}
           data-testid="Header.Mobile.CloseMenu"
         />
       </div>
@@ -323,7 +320,7 @@ function MobileMenu(props): JSX.Element {
           "text-gray-600 dark:text-dark-gray-900 overflow-auto"
         )}
       >
-        <MenuItems viewPort="Mobile" openProposals={props.openProposals} />
+        <MenuItems viewPort="Mobile" />
       </div>
     </div>
   );
@@ -342,12 +339,14 @@ export function HeaderLink(props: {
         className={classNames(
           props.className,
           {
-            "dark:text-dark-50 text-primary-500":
-              router.pathname === props.pathname,
+            "dark:text-dark-50 text-primary-500": router.pathname.includes(
+              props.pathname
+            ),
           },
           {
-            "text-gray-900 dark:text-dark-gray-900":
-              router.pathname !== props.pathname,
+            "text-gray-900 dark:text-dark-gray-900": !router.pathname.includes(
+              props.pathname
+            ),
           }
         )}
         data-testid={props.testId}
@@ -357,7 +356,7 @@ export function HeaderLink(props: {
             "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
             {
               "dark:border-dark-50 border-b-2 border-primary-500":
-                router.pathname === props.pathname,
+                router.pathname.includes(props.pathname),
             }
           )}
         >
@@ -380,7 +379,7 @@ function MenuItems(props): JSX.Element {
               { "md:pt-0": index === 0 }
             )}
             text={`${item.text}${
-              item.text === "Governance" ? ` (${props.openProposals})` : ""
+              item.text === "Governance" ? ` (${item.openProposals})` : ""
             }`}
             pathname={item.pathname}
             testId={`${props.viewPort}.HeaderLink.${item.text.replace(
@@ -504,7 +503,7 @@ const dropDownLinks = [
   },
 ];
 
-const drawerMenuItemLinks = [
+let drawerMenuItemLinks = [
   {
     text: "Dex",
     pathname: "/dex",
@@ -526,8 +525,9 @@ const drawerMenuItemLinks = [
     pathname: "/oracles",
   },
   {
-    text: "Tokens",
-    pathname: "/tokens",
+    text: "Governance",
+    pathname: "/on-chain-governance",
+    openProposals: 0,
   },
   {
     text: "Masternodes",
@@ -538,7 +538,7 @@ const drawerMenuItemLinks = [
   //   pathname: "/consortium/asset_breakdown"
   // },
   {
-    text: "Governance",
-    pathname: "/on-chain-governance",
+    text: "Tokens",
+    pathname: "/tokens",
   },
 ];
