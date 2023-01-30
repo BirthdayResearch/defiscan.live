@@ -15,6 +15,8 @@ import {
   ListProposalsType,
   ListProposalsStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
+import { isPlayground } from "@waveshq/walletkit-core";
+import { useNetwork } from "@contexts/NetworkContext";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 import { HeaderCountBar } from "./HeaderCountBar";
 
@@ -26,8 +28,10 @@ export function Header(): JSX.Element {
   const router = useRouter();
 
   const api = useWhaleApiClient();
+  const connection = useNetwork().connection;
+  const interval = isPlayground(connection) ? 3000 : 30000;
 
-  function editdrawerMenuItemLinks(item) {
+  function editDrawerMenuItemLinks(item: { text: string; pathname: string }) {
     if (item.text.includes("Governance")) {
       item.text = `Governance (${openProposalsLength})`;
     }
@@ -44,16 +48,18 @@ export function Header(): JSX.Element {
         setOpenProposalsLength(res.length);
       })
       .catch(() => {
-        return 0;
+        setOpenProposalsLength(0);
       });
   }
 
   useEffect(() => {
     getOpenProposalsLength();
-  }, []);
+    const intervalId = setInterval(getOpenProposalsLength, interval);
+    return () => clearInterval(intervalId);
+  }, [api]);
 
   useEffect(() => {
-    drawerMenuItemLinks.map(editdrawerMenuItemLinks);
+    drawerMenuItemLinks.map(editDrawerMenuItemLinks);
   }, [openProposalsLength]);
 
   useEffect(() => {
@@ -180,7 +186,11 @@ export function Header(): JSX.Element {
   );
 }
 
-function DesktopNavbar(props): JSX.Element {
+function DesktopNavbar({
+  openProposalsLength,
+}: {
+  openProposalsLength: number;
+}): JSX.Element {
   return (
     <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
       <div className="hidden md:flex">
@@ -216,7 +226,7 @@ function DesktopNavbar(props): JSX.Element {
         />
         <HeaderLink
           className="ml-1 lg:ml-2 whitespace-nowrap"
-          text={`Governance (${props.openProposalsLength})`}
+          text={`Governance (${openProposalsLength})`}
           pathname="/governance"
           testId="Desktop.HeaderLink.Governance"
         />
