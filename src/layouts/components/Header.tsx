@@ -457,8 +457,8 @@ const dropDownLinks = [
   // },
   {
     name: "On-Chain Governance",
-    link: "/on-chain-governance",
-    rootPathName: "on-chain-governance",
+    link: "/governance",
+    rootPathName: "governance",
   },
 ];
 
@@ -497,6 +497,6 @@ const drawerMenuItemLinks = [
   // },
   {
     text: "On-Chain Governance",
-    pathname: "/on-chain-governance",
+    pathname: "/governance",
   },
 ];

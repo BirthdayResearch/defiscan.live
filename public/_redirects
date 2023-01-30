@@ -4,11 +4,17 @@ https://defiscan.live/prices https://defiscan.live/oracles 301!
 http://defiscan.live/prices/* https://defiscan.live/oracles/:splat 301!
 https://defiscan.live/prices/* https://defiscan.live/oracles/:splat 301!
 
-http://defiscan.live/ocg https://defiscan.live/on-chain-governance 301!
-https://defiscan.live/ocg https://defiscan.live/on-chain-governance 301!
+http://defiscan.live/ocg https://defiscan.live/governance 301!
+https://defiscan.live/ocg https://defiscan.live/governance 301!
 
-http://defiscan.live/ocg/* https://defiscan.live/on-chain-governance/:splat 301!
-https://defiscan.live/ocg/* https://defiscan.live/on-chain-governance/:splat 301!
+http://defiscan.live/on-chain-governance https://defiscan.live/governance 301!
+https://defiscan.live/on-chain-governance https://defiscan.live/governance 301!
+
+http://defiscan.live/ocg/* https://defiscan.live/governance/:splat 301!
+https://defiscan.live/ocg/* https://defiscan.live/governance/:splat 301!
+
+http://defiscan.live/on-chain-governance/* https://defiscan.live/governance/:splat 301!
+https://defiscan.live/on-chain-governance/* https://defiscan.live/governance/:splat 301!
 
 http://defiscan.live/* https://defiscan.live/:splat 301!
 
