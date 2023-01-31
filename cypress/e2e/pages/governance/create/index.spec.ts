@@ -8,7 +8,7 @@ viewPorts.forEach((viewPort) => {
     const amountRequested = "100";
 
     before(() => {
-      cy.visit("/on-chain-governance/create?network=Playground");
+      cy.visit("/governance/create?network=Playground");
     });
 
     beforeEach(() => {
