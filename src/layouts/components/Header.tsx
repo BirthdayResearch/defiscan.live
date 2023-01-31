@@ -1,5 +1,5 @@
 import { Link } from "@components/commons/link/Link";
-import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { IoChevronDown } from "react-icons/io5";
 import { DeFiChainLogo } from "@components/icons/DeFiChainLogo";
 import classNames from "classnames";
 import { useRouter } from "next/router";
@@ -10,14 +10,60 @@ import { Container } from "@components/commons/Container";
 import { SearchBar } from "@components/commons/searchbar/SearchBar";
 import { Menu, Transition } from "@headlessui/react";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import { HeaderCountBar } from "./HeaderCountBar";
+import { useWhaleApiClient } from "@contexts/WhaleContext";
+import {
+  ListProposalsType,
+  ListProposalsStatus,
+} from "@defichain/jellyfish-api-core/dist/category/governance";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
+import { HeaderCountBar } from "./HeaderCountBar";
 
 export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
   const [atTop, setAtTop] = useState(true);
   const [isSearchIconClicked, setIsSearchIconClicked] = useState(false);
+  const [openProposalsLength, setOpenProposalsLength] = useState<
+    number | undefined
+  >(undefined);
   const router = useRouter();
+
+  const api = useWhaleApiClient();
+
+  function editDrawerMenuItemLinks(item: {
+    text: string;
+    pathname: string;
+    testId: string;
+  }) {
+    if (
+      item.text.toLowerCase() === "governance" &&
+      openProposalsLength !== undefined
+    ) {
+      item.text = `Governance (${openProposalsLength})`;
+    }
+  }
+
+  async function getOpenProposalsLength() {
+    await api.governance
+      .listGovProposals({
+        type: ListProposalsType.ALL,
+        status: ListProposalsStatus.VOTING,
+        all: true,
+      })
+      .then((res) => {
+        setOpenProposalsLength(res.length);
+      })
+      .catch(() => {
+        setOpenProposalsLength(undefined);
+      });
+  }
+
+  useEffect(() => {
+    getOpenProposalsLength();
+  }, []);
+
+  useEffect(() => {
+    drawerMenuItemLinks.map(editDrawerMenuItemLinks);
+  }, [openProposalsLength]);
 
   useEffect(() => {
     function routeChangeStart(): void {
@@ -89,7 +135,7 @@ export function Header(): JSX.Element {
                         <DeFiChainLogo className="h-full w-36 lg:w-40 md:m-0 m-2" />
                       </a>
                     </Link>
-                    <DesktopNavbar />
+                    <DesktopNavbar openProposalsLength={openProposalsLength} />
                   </div>
                   <div className="lg:hidden flex flex-row items-center md:gap-x-6 gap-x-5">
                     <div
@@ -143,7 +189,11 @@ export function Header(): JSX.Element {
   );
 }
 
-function DesktopNavbar(): JSX.Element {
+function DesktopNavbar({
+  openProposalsLength,
+}: {
+  openProposalsLength: number | undefined;
+}): JSX.Element {
   return (
     <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
       <div className="hidden md:flex">
@@ -178,10 +228,12 @@ function DesktopNavbar(): JSX.Element {
           testId="Desktop.HeaderLink.Oracles"
         />
         <HeaderLink
-          className="ml-1 lg:ml-2"
-          text="Tokens"
-          pathname="/tokens"
-          testId="Desktop.HeaderLink.Tokens"
+          className="ml-1 lg:ml-2 whitespace-nowrap"
+          text={`Governance${
+            openProposalsLength !== undefined ? ` (${openProposalsLength})` : ""
+          }`}
+          pathname="/governance"
+          testId="Desktop.HeaderLink.Governance"
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
@@ -305,12 +357,14 @@ export function HeaderLink(props: {
         className={classNames(
           props.className,
           {
-            "dark:text-dark-50 text-primary-500":
-              router.pathname === props.pathname,
+            "dark:text-dark-50 text-primary-500": router.pathname.includes(
+              props.pathname
+            ),
           },
           {
-            "text-gray-900 dark:text-dark-gray-900":
-              router.pathname !== props.pathname,
+            "text-gray-900 dark:text-dark-gray-900": !router.pathname.includes(
+              props.pathname
+            ),
           }
         )}
         data-testid={props.testId}
@@ -320,7 +374,7 @@ export function HeaderLink(props: {
             "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
             {
               "dark:border-dark-50 border-b-2 border-primary-500":
-                router.pathname === props.pathname,
+                router.pathname.includes(props.pathname),
             }
           )}
         >
@@ -344,7 +398,7 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
             )}
             text={item.text}
             pathname={item.pathname}
-            testId={`${viewPort}.HeaderLink.${item.text.replace(" ", "")}`}
+            testId={`${viewPort}.HeaderLink.${item.testId}`}
           />
         );
       })}
@@ -377,11 +431,10 @@ function MoreDropdown(): JSX.Element {
             )}
           >
             More
-            {open ? (
-              <IoChevronUp className="ml-2" size={20} />
-            ) : (
-              <IoChevronDown className="ml-2" size={20} />
-            )}
+            <IoChevronDown
+              className={classNames("ml-2 transition", { "rotate-180": open })}
+              size={20}
+            />
           </Menu.Button>
           <Transition
             enter="transition duration-100 ease-out"
@@ -456,47 +509,55 @@ const dropDownLinks = [
     rootPathName: "consortium",
   },
   {
-    name: "On-Chain Governance",
-    link: "/on-chain-governance",
-    rootPathName: "on-chain-governance",
+    name: "Tokens",
+    link: "/tokens",
+    rootPathName: "tokens",
   },
 ];
 
-const drawerMenuItemLinks = [
+let drawerMenuItemLinks = [
   {
     text: "Dex",
     pathname: "/dex",
+    testId: "Dex",
   },
   {
     text: "Blocks",
     pathname: "/blocks",
+    testId: "Blocks",
   },
   {
     text: "Vaults",
     pathname: "/vaults",
+    testId: "Vaults",
   },
   {
     text: "Auctions",
     pathname: "/auctions",
+    testId: "Auctions",
   },
   {
     text: "Oracles",
     pathname: "/oracles",
+    testId: "Oracles",
   },
   {
-    text: "Tokens",
-    pathname: "/tokens",
+    text: "Governance",
+    pathname: "/governance",
+    testId: "Governance",
   },
   {
     text: "Masternodes",
     pathname: "/masternodes",
+    testId: "Masternodes",
   },
   {
     text: "Consortium",
     pathname: "/consortium/asset_breakdown",
   },
   {
-    text: "On-Chain Governance",
-    pathname: "/on-chain-governance",
+    text: "Tokens",
+    pathname: "/tokens",
+    testId: "Tokens",
   },
 ];

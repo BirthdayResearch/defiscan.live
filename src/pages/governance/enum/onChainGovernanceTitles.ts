@@ -3,7 +3,7 @@ export enum OnChainGovernanceTitles {
   TypeTitle = "Proposal Type",
   ProposerId = "Proposal ID",
   NoProposals = "No proposals yet",
-  Github = "Github",
+  Github = "GitHub",
   Reddit = "Reddit",
   Link = "Link",
   EndOfVoting = "End of voting",
