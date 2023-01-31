@@ -43,11 +43,11 @@ context("<Header/> on macbook-13", () => {
       "/oracles"
     );
 
-    cy.findByTestId("Desktop.HeaderLink.Tokens").should("be.visible");
-    cy.findByTestId("Desktop.HeaderLink.Tokens").should(
+    cy.findByTestId("Desktop.HeaderLink.Governance").should("be.visible");
+    cy.findByTestId("Desktop.HeaderLink.Governance").should(
       "have.attr",
       "href",
-      "/tokens"
+      "/governance"
     );
 
     cy.findByTestId("Desktop.HeaderLink.Masternodes").should("be.visible");
@@ -59,10 +59,13 @@ context("<Header/> on macbook-13", () => {
 
     cy.findByTestId("Desktop.HeaderLink.More").should("be.visible");
     cy.findByTestId("Desktop.HeaderLink.More").click();
-    cy.findByTestId("Desktop.HeaderLink.More.Items.governance").should(
+    cy.findByTestId("Desktop.HeaderLink.More.Items.tokens").should(
+      "be.visible"
+    );
+    cy.findByTestId("Desktop.HeaderLink.More.Items.tokens").should(
       "have.attr",
       "href",
-      "/governance"
+      "/tokens"
     );
   });
 
@@ -132,10 +135,8 @@ context("<Header/> on ipad-2", () => {
       "/masternodes"
     );
 
-    cy.findByTestId("Tablet.HeaderLink.On-ChainGovernance").should(
-      "be.visible"
-    );
-    cy.findByTestId("Tablet.HeaderLink.On-ChainGovernance").should(
+    cy.findByTestId("Tablet.HeaderLink.Governance").should("be.visible");
+    cy.findByTestId("Tablet.HeaderLink.Governance").should(
       "have.attr",
       "href",
       "/governance"
@@ -208,10 +209,8 @@ context("<Header/> on iphone-x", () => {
       "/masternodes"
     );
 
-    cy.findByTestId("Mobile.HeaderLink.On-ChainGovernance").should(
-      "be.visible"
-    );
-    cy.findByTestId("Mobile.HeaderLink.On-ChainGovernance").should(
+    cy.findByTestId("Mobile.HeaderLink.Governance").should("be.visible");
+    cy.findByTestId("Mobile.HeaderLink.Governance").should(
       "have.attr",
       "href",
       "/governance"
