@@ -14,15 +14,13 @@ import { ApiPagedResponse } from "@defichain/whale-api-client";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
-import { getEnvironment } from "@contexts/Environment";
 import classNames from "classnames";
-import BigNumber from "bignumber.js";
 import { EmptySection } from "@components/commons/sections/EmptySection";
-import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import {
   CursorPage,
   CursorPagination,
 } from "@components/commons/CursorPagination";
+import { useNetwork } from "@contexts/NetworkContext";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VoteCards, VotesTable } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -33,19 +31,28 @@ import { formatMedianTime } from "../shared/dateHelper";
 import { VoteStages } from "../enum/VoteStages";
 import { TotalVotesCards } from "../_components/TotalVotesCards";
 import { CfpVotingResultCycleTab } from "../enum/CfpVotingResultCycleTab";
-import { getFutureCycleEndMedianTime } from "../shared/useCycleEndTime";
+import { useCycleEndDate } from "../shared/useCycleEndTime";
 
 export default function ProposalDetailPage({
   proposal,
   proposalVotes,
   proposalCreationDate,
-  proposalEndDate,
+  currentBlockHeight,
+  currentBlockMedianTime,
   totalVotes,
   pages,
   yes,
   no,
   neutral,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const { connection } = useNetwork();
+  const secondsPerBlock = getSecondsPerBlock(connection);
+  const cycleEndDate = useCycleEndDate(
+    proposal.cycleEndHeight,
+    currentBlockHeight,
+    currentBlockMedianTime,
+    secondsPerBlock
+  );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
   const [userConfirmedSelectedVote, setUserConfirmedSelectedVote] =
@@ -89,8 +96,11 @@ export default function ProposalDetailPage({
           <div className="w-full lg:w-8/12">
             <ProposalDetail
               proposal={proposal}
-              proposalCreationDate={proposalCreationDate}
-              proposalEndDate={proposalEndDate}
+              proposalCreationDate={formatMedianTime(
+                proposalCreationDate,
+                "MMM dd, yyyy"
+              )}
+              proposalEndDate={cycleEndDate}
             />
             {proposal.type ===
               GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
@@ -328,34 +338,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       .then((block) => block.medianTime);
     const proposalCreationDate = await api.blocks
       .get(proposal.creationHeight.toString())
-      .then((block) => formatMedianTime(block.medianTime, "MMM dd, yyyy"));
+      .then((block) => block.medianTime);
 
-    const network =
-      (context.query.network?.toString() as EnvironmentNetwork) ??
-      getEnvironment().networks[0];
-    const secondsPerBlock = getSecondsPerBlock(network);
-
-    let proposalEndDate: string;
-    const timeDifferenceInBlocks = new BigNumber(proposal.cycleEndHeight).minus(
-      currentBlockHeight
-    );
-    if (timeDifferenceInBlocks.isLessThan(0)) {
-      // get past date
-      proposalEndDate = await api.blocks
-        .get(proposal.cycleEndHeight.toString())
-        .then((block) => formatMedianTime(block.medianTime));
-    } else {
-      // get future date
-      proposalEndDate = formatMedianTime(
-        getFutureCycleEndMedianTime(
-          timeDifferenceInBlocks,
-          secondsPerBlock,
-          currentBlockMedianTime
-        ),
-        undefined,
-        true
-      );
-    }
     // All votes to get statistics breakdown
     const allCycleProposalVotes = await api.governance.listGovProposalVotes({
       id: proposalId,
@@ -376,7 +360,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         proposal,
         proposalVotes,
         proposalCreationDate,
-        proposalEndDate,
+        currentBlockHeight,
+        currentBlockMedianTime,
         totalVotes,
         pages,
         ...stats,
