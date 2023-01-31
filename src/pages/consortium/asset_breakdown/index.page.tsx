@@ -18,6 +18,7 @@ import { AssetBreakdownCards } from "./_components/AssetBreakdownCards";
 import { AssetBreakdownPieChart } from "./_components/AssetBreakdownPieChart";
 import { AssetBreakdownTable } from "./_components/AssetBreakdownTable";
 import { SearchInput } from "../_components/SearchInput";
+import { BurnMint } from "./_components/BurnMint";
 
 export interface ConsortiumShareProps {
   id: string;
@@ -58,6 +59,8 @@ export default function AssetBreakdown({
 
   return (
     <Container>
+      {/* Temporary code to test burning and minting */}
+      <BurnMint />
       <div className="mx-0 mt-14 flex flex-col items-center justify-center lg:mx-40 xl:flex-row">
         <div className="xl:mr-24 xl:w-7/12">
           <ConsortiumTitle />
