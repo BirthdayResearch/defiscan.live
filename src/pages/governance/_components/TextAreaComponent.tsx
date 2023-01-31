@@ -74,7 +74,7 @@ export function TextAreaComponent({
           />
           {value !== "" && (
             <button
-              data-testid="Governance.Create.Step1.TextArea.ClearForm"
+              data-testid={`${testid}.ClearForm`}
               type="button"
               className="rounded-full h-4 w-4 bg-gray-100 self-center cursor-pointer text-center"
               onClick={() => onChange("")}

@@ -133,7 +133,9 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().type(nameOfProposal);
-          cy.get("button").click();
+          cy.findByTestId(
+            "Governance.Create.Step1.TextArea.NameOfProposal.ClearForm"
+          ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
             "Invalid proposal name"
@@ -143,7 +145,9 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(discussion);
-          cy.get("button").click();
+          cy.findByTestId(
+            "Governance.Create.Step1.TextArea.Discussion.ClearForm"
+          ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
             "Invalid URL. Only GitHub or Reddit URL are accepted"
@@ -176,7 +180,9 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().type(nameOfProposal);
-          cy.get("button").click();
+          cy.findByTestId(
+            "Governance.Create.Step1.TextArea.NameOfProposal.ClearForm"
+          ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
             "Invalid proposal name"
@@ -186,7 +192,9 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(discussion);
-          cy.get("button").click();
+          cy.findByTestId(
+            "Governance.Create.Step1.TextArea.Discussion.ClearForm"
+          ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
             "Invalid URL. Only GitHub or Reddit URL are accepted"
@@ -198,7 +206,9 @@ viewPorts.forEach((viewPort) => {
         "Governance.Create.Step1.TextArea.AmountRequested"
       ).within(() => {
         cy.get("textarea").click().type(amountRequested);
-        cy.get("button").click();
+        cy.findByTestId(
+          "Governance.Create.Step1.TextArea.AmountRequested.ClearForm"
+        ).click();
         cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
           "have.text",
           "Invalid amount"
@@ -226,11 +236,26 @@ viewPorts.forEach((viewPort) => {
         "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).within(() => {
         cy.get("textarea").click().type(receivingAddress);
-        cy.get("button").click();
+        cy.findByTestId(
+          "Governance.Create.Step1.TextArea.ReceivingAddress.ClearForm"
+        ).click();
         cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
           "have.text",
           "Invalid payout address. Only DFI addresses are accepted"
         );
+      });
+
+      // clear form button
+      cy.findByTestId(
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
+      ).within(() => {
+        cy.get("textarea").click().type(receivingAddress);
+      });
+      cy.findByTestId("Governance.Create.Step1.ClearForm").click();
+      cy.findByTestId(
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
+      ).within(() => {
+        cy.get("textarea").should("have.text", "");
       });
     });
 
