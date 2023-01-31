@@ -22,7 +22,9 @@ export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
   const [atTop, setAtTop] = useState(true);
   const [isSearchIconClicked, setIsSearchIconClicked] = useState(false);
-  const [openProposalsLength, setOpenProposalsLength] = useState(0);
+  const [openProposalsLength, setOpenProposalsLength] = useState<
+    number | undefined
+  >(undefined);
   const router = useRouter();
 
   const api = useWhaleApiClient();
@@ -44,7 +46,7 @@ export function Header(): JSX.Element {
         setOpenProposalsLength(res.length);
       })
       .catch(() => {
-        setOpenProposalsLength(0);
+        setOpenProposalsLength(undefined);
       });
   }
 
