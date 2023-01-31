@@ -205,11 +205,10 @@ viewPorts.forEach((viewPort) => {
         );
       });
 
+      cy.findByTestId("InfoHoverPopover").should("be.visible");
       cy.findByTestId("Governance.Create.Step1.TextArea.Cycles").within(() => {
         cy.get("textarea").should("have.text", "1");
       });
-      cy.findByTestId("InfoHoverPopover").should("be.visible");
-
       cy.findByTestId(
         "Governance.Create.Step1.TextArea.Cycles.Increment"
       ).click();
