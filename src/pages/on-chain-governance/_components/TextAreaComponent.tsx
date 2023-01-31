@@ -14,6 +14,7 @@ interface TextAreaComponentProps {
   isVisited: boolean;
   onBlur: () => void;
   onChange: (value: string | number) => void;
+  testid?: string;
 }
 
 export function TextAreaComponent({
@@ -26,6 +27,7 @@ export function TextAreaComponent({
   onBlur,
   isVisited,
   error,
+  testid,
 }: TextAreaComponentProps): JSX.Element {
   const ref = useRef<HTMLTextAreaElement>(null);
   const dimension = useWindowDimensions();
@@ -39,7 +41,7 @@ export function TextAreaComponent({
   }, [ref, value, dimension]);
 
   return (
-    <div className="flex flex-col w-full">
+    <div data-testid={testid} className="flex flex-col w-full">
       <div className="flex flex-row w-full">
         <span className="text-xs font-medium text-gray-900 dark:text-dark-gray-900">
           {label}
@@ -72,6 +74,7 @@ export function TextAreaComponent({
           />
           {value !== "" && (
             <button
+              data-testid="Governance.Create.Step1.TextArea.ClearForm"
               type="button"
               className="rounded-full h-4 w-4 bg-gray-100 self-center cursor-pointer text-center"
               onClick={() => onChange("")}
@@ -83,7 +86,10 @@ export function TextAreaComponent({
             </button>
           )}
         </div>
-        <div className="mt-1">
+        <div
+          data-testid="Governance.Create.Step1.TextArea.ErrorMsg"
+          className="mt-1"
+        >
           {isVisited && error !== "" ? (
             <span className="text-xs text-red-500 dark:text-dark-red-500">
               {error}
