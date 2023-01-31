@@ -28,7 +28,7 @@ export function Header(): JSX.Element {
   const api = useWhaleApiClient();
 
   function editDrawerMenuItemLinks(item: { text: string; pathname: string }) {
-    if (item.text.includes("Governance")) {
+    if (item.text.toLowerCase() === "governance" && openProposalsLength !== undefined) {
       item.text = `Governance (${openProposalsLength})`;
     }
   }
