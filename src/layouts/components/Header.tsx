@@ -1,5 +1,5 @@
 import { Link } from "@components/commons/link/Link";
-import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { IoChevronDown } from "react-icons/io5";
 import { DeFiChainLogo } from "@components/icons/DeFiChainLogo";
 import classNames from "classnames";
 import { useRouter } from "next/router";
@@ -431,11 +431,10 @@ function MoreDropdown(): JSX.Element {
             )}
           >
             More
-            {open ? (
-              <IoChevronUp className="ml-2" size={20} />
-            ) : (
-              <IoChevronDown className="ml-2" size={20} />
-            )}
+            <IoChevronDown
+              className={classNames("ml-2 transition", { "rotate-180": open })}
+              size={20}
+            />
           </Menu.Button>
           <Transition
             enter="transition duration-100 ease-out"
