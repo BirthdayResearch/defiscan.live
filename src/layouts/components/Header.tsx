@@ -15,8 +15,6 @@ import {
   ListProposalsType,
   ListProposalsStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
-import { isPlayground } from "@waveshq/walletkit-core";
-import { useNetwork } from "@contexts/NetworkContext";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 import { HeaderCountBar } from "./HeaderCountBar";
 
@@ -28,8 +26,6 @@ export function Header(): JSX.Element {
   const router = useRouter();
 
   const api = useWhaleApiClient();
-  const connection = useNetwork().connection;
-  const interval = isPlayground(connection) ? 3000 : 30000;
 
   function editDrawerMenuItemLinks(item: { text: string; pathname: string }) {
     if (item.text.includes("Governance")) {
@@ -54,9 +50,7 @@ export function Header(): JSX.Element {
 
   useEffect(() => {
     getOpenProposalsLength();
-    const intervalId = setInterval(getOpenProposalsLength, interval);
-    return () => clearInterval(intervalId);
-  }, [api]);
+  }, []);
 
   useEffect(() => {
     drawerMenuItemLinks.map(editDrawerMenuItemLinks);
@@ -393,7 +387,7 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
             )}
             text={item.text}
             pathname={item.pathname}
-            testId={`${viewPort}.HeaderLink.${item.text.replace(" ", "")}`}
+            testId={`${viewPort}.HeaderLink.${item.testId}`}
           />
         );
       })}
@@ -515,30 +509,37 @@ let drawerMenuItemLinks = [
   {
     text: "Dex",
     pathname: "/dex",
+    testId: "Dex",
   },
   {
     text: "Blocks",
     pathname: "/blocks",
+    testId: "Blocks",
   },
   {
     text: "Vaults",
     pathname: "/vaults",
+    testId: "Vaults",
   },
   {
     text: "Auctions",
     pathname: "/auctions",
+    testId: "Auctions",
   },
   {
     text: "Oracles",
     pathname: "/oracles",
+    testId: "Oracles",
   },
   {
     text: "Governance",
     pathname: "/governance",
+    testId: "Governance",
   },
   {
     text: "Masternodes",
     pathname: "/masternodes",
+    testId: "Masternodes",
   },
   // {
   //   text: "Consortium",
@@ -547,5 +548,6 @@ let drawerMenuItemLinks = [
   {
     text: "Tokens",
     pathname: "/tokens",
+    testId: "Tokens",
   },
 ];
