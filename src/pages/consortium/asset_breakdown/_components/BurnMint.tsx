@@ -27,6 +27,8 @@ import { useWhaleApiClient } from "@contexts/WhaleContext";
 import BigNumber from "bignumber.js";
 import { CTransactionSegWit } from "@defichain/jellyfish-transaction/dist";
 import { useCallback, useEffect } from "react";
+import { P2WPKH } from "@defichain/jellyfish-address";
+import { RegTest } from "@defichain/jellyfish-network";
 
 function initJellyfishWallet<HdNode extends WalletHdNode>(
   provider: WalletHdNodeProvider<HdNode>,
@@ -91,16 +93,22 @@ export function BurnMint(): JSX.Element {
     ): Promise<CTransactionSegWit> {
       const builder = account.withTransactionBuilder();
       const script = await account.getScript();
+      // const wavesScript = P2WPKH.fromAddress(
+      //   RegTest,
+      //   "bcrt1qyeuu9rvq8a67j86pzvh5897afdmdjpyankp4mu",
+      //   P2WPKH
+      // ).getScript();
       const dfTx = await builder.tokens.burn(
         {
           from: script,
-          amounts: [{ token: 4, amount: new BigNumber(100000) }],
+          amounts: [{ token: 1, amount: new BigNumber(1) }],
           burnType: 0,
           variantContext: {
             variant: 0,
             context: {
               stack: [],
             },
+            // context: wavesScript,
           },
         },
         script
@@ -129,8 +137,9 @@ export function BurnMint(): JSX.Element {
         type="button"
         onClick={async () => {
           try {
-            const test = await fetchFromAPI();
-            console.log({ test });
+            const tx = await fetchFromAPI();
+            const rawTx = await whaleApiClient.rawtx.send({ hex: tx.toHex() });
+            console.log({ rawTx });
           } catch (e: any) {
             console.log({ e, message: e.message });
             throw e;
