@@ -29,8 +29,15 @@ export function Header(): JSX.Element {
 
   const api = useWhaleApiClient();
 
-  function editDrawerMenuItemLinks(item: { text: string; pathname: string }) {
-    if (item.text.toLowerCase() === "governance" && openProposalsLength !== undefined) {
+  function editDrawerMenuItemLinks(item: {
+    text: string;
+    pathname: string;
+    testId: string;
+  }) {
+    if (
+      item.text.toLowerCase() === "governance" &&
+      openProposalsLength !== undefined
+    ) {
       item.text = `Governance (${openProposalsLength})`;
     }
   }
@@ -185,7 +192,7 @@ export function Header(): JSX.Element {
 function DesktopNavbar({
   openProposalsLength,
 }: {
-  openProposalsLength: number;
+  openProposalsLength: number | undefined;
 }): JSX.Element {
   return (
     <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
@@ -222,7 +229,9 @@ function DesktopNavbar({
         />
         <HeaderLink
           className="ml-1 lg:ml-2 whitespace-nowrap"
-          text={`Governance (${openProposalsLength})`}
+          text={`Governance${
+            openProposalsLength !== undefined ? ` (${openProposalsLength})` : ""
+          }`}
           pathname="/governance"
           testId="Desktop.HeaderLink.Governance"
         />
