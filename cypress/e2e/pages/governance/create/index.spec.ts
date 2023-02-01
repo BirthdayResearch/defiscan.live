@@ -118,6 +118,13 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().type(nameOfProposal);
+        }
+      );
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
+      cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
+        () => {
           cy.findByTestId(
             "Governance.Create.Step1.TextArea.NameOfProposal.ClearForm"
           ).click();
@@ -139,6 +146,13 @@ viewPorts.forEach((viewPort) => {
           cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "not.exist"
           );
+        }
+      );
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
+      cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
+        () => {
           cy.findByTestId(
             "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
@@ -160,6 +174,14 @@ viewPorts.forEach((viewPort) => {
           cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "not.exist"
           );
+        }
+      );
+
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
+      cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
+        () => {
           cy.findByTestId(
             "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
@@ -186,13 +208,19 @@ viewPorts.forEach((viewPort) => {
     it("should have step 1 `Name of proposal` input for CFP proposal creation", () => {
       // choose CFP proposal creation
       cy.findByTestId("Governance.Create.Step1.RadioGroup.CFP").click();
-
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").should(
         "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().type(nameOfProposal);
+        }
+      );
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
+      cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
+        () => {
           cy.findByTestId(
             "Governance.Create.Step1.TextArea.NameOfProposal.ClearForm"
           ).click();
@@ -214,6 +242,13 @@ viewPorts.forEach((viewPort) => {
           cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "not.exist"
           );
+        }
+      );
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
+      cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
+        () => {
           cy.findByTestId(
             "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
@@ -235,6 +270,13 @@ viewPorts.forEach((viewPort) => {
           cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "not.exist"
           );
+        }
+      );
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
+      cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
+        () => {
           cy.findByTestId(
             "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
@@ -255,6 +297,14 @@ viewPorts.forEach((viewPort) => {
         "Governance.Create.Step1.TextArea.AmountRequested"
       ).within(() => {
         cy.get("textarea").click().type(amountRequested);
+        cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should("not.exist");
+      });
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
+      cy.findByTestId(
+        "Governance.Create.Step1.TextArea.AmountRequested"
+      ).within(() => {
         cy.findByTestId(
           "Governance.Create.Step1.TextArea.AmountRequested.ClearForm"
         ).click();
@@ -297,6 +347,16 @@ viewPorts.forEach((viewPort) => {
         "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).within(() => {
         cy.get("textarea").click().type(receivingAddress);
+        cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should("not.exist");
+      });
+
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
+
+      cy.findByTestId(
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
+      ).within(() => {
         cy.findByTestId(
           "Governance.Create.Step1.TextArea.ReceivingAddress.ClearForm"
         ).click();
