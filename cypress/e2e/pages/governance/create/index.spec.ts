@@ -68,7 +68,7 @@ viewPorts.forEach((viewPort) => {
       });
     });
 
-    it("should have step 1 cfp radio group checked and dfip radio unchecked", () => {
+    it("should have step 1 cfp radio group checked and dfip radio unchecked by default", () => {
       cy.findByTestId("Governance.Create.Step1.RadioGroup").should(
         "be.visible"
       );
@@ -91,7 +91,7 @@ viewPorts.forEach((viewPort) => {
       });
     });
 
-    it("should have step 1 dfip radio group checked and cfp radio group unchecked", () => {
+    it("should be able to check dfip radio group in step 1", () => {
       cy.findByTestId("Governance.Create.Step1.RadioGroup.DFIP").click();
       // DFIP radio
       cy.findByTestId("Governance.Create.Step1.RadioGroup.DFIP")
