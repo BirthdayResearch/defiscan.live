@@ -153,9 +153,20 @@ function ProposalCard({
                 <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
                   {OnChainGovernanceTitles.TransactionId}
                 </div>
-                <div className="text-gray-900 text-sm w-[146px] text-right break-all dark:text-dark-gray-900">
-                  {proposal.proposalId}
-                </div>
+                <Link
+                  href={{ pathname: `/transactions/${proposal.proposalId}` }}
+                  passHref
+                >
+                  <a
+                    href={`/transactions/${proposal.proposalId}`}
+                    className="flex flex-row items-center gap-x-2 text-right text-blue-500 hover:underline break-all text-sm w-[146px]"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    {proposal.proposalId}
+                  </a>
+                </Link>
               </div>
 
               <div className="flex flex-row align-middle">
