@@ -52,7 +52,7 @@ export function ProposalDetail({
           Txn:&nbsp;
         </span>
         <Link href={{ pathname: `/transactions/${proposal.proposalId}` }}>
-          <a className="text-sm md:text-base font-medium hover:underline text-blue-500 cursor-pointer break-all">
+          <a className="text-sm md:text-base font-semibold hover:underline text-blue-500 cursor-pointer break-all">
             {proposal.proposalId}
           </a>
         </Link>
