@@ -408,6 +408,12 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").click();
     });
 
+    it("should have step 1 fields hidden when step 2", () => {
+      cy.findByTestId("Governance.Create.Step1.ExpandedPanel").should(
+        "not.exist"
+      );
+    });
+
     it("should have step 2 header and description", () => {
       cy.findByTestId("Governance.Create.Step2").should("be.visible");
       cy.findByTestId("Governance.Create.Step2").within(() => {
@@ -513,6 +519,12 @@ viewPorts.forEach((viewPort) => {
           "Governance.Create.Step2.ReviewProposal.ConfirmDetails"
         ).click();
       });
+    });
+
+    it("should have step 2 fields hidden when step 3", () => {
+      cy.findByTestId("Governance.Create.Step2.ExpandedPanel").should(
+        "not.exist"
+      );
     });
 
     it("should have step 3 header and description", () => {

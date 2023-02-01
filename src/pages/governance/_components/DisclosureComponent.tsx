@@ -56,7 +56,12 @@ export function DisclosureComponent({
           </Disclosure.Button>
           <Transition show={isOpen}>
             {isOpen && (
-              <Disclosure.Panel className="mt-2">{children}</Disclosure.Panel>
+              <Disclosure.Panel
+                data-testid={`${testid}.ExpandedPanel`}
+                className="mt-2"
+              >
+                {children}
+              </Disclosure.Panel>
             )}
           </Transition>
         </div>
