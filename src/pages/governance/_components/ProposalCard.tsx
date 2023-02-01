@@ -151,7 +151,7 @@ function ProposalCard({
 
               <div className="flex flex-row align-middle">
                 <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
-                  {OnChainGovernanceTitles.ProposerId}
+                  {OnChainGovernanceTitles.TransactionId}
                 </div>
                 <div className="text-gray-900 text-sm w-[146px] text-right break-all dark:text-dark-gray-900">
                   {proposal.proposalId}

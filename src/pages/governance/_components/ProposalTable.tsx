@@ -47,7 +47,7 @@ export function ProposalTable({
             title={OnChainGovernanceTitles.NameOfProposalTitle}
           />
           <OverflowTable.Head title={OnChainGovernanceTitles.TypeTitle} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.ProposerId} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.TransactionId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
           <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
           {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
