@@ -4,6 +4,7 @@ viewPorts.forEach((viewPort) => {
   context(`/governance/create on ${viewPort}`, () => {
     const nameOfProposal = "Test Proposal";
     const discussion = "https://github.com/DeFiCh/dfips/issues/243";
+    const redditDiscussion = "https://www.reddit.com/r/defiblockchain/";
     const receivingAddress = "mswsMVsyGMj1FzDMbbxw2QW3KvQAv2FKiy";
     const amountRequested = "100";
 
@@ -128,13 +129,37 @@ viewPorts.forEach((viewPort) => {
       );
     });
 
-    it("should have step 1 `Discussion` input for DFIP proposal creation", () => {
+    it("should have step 1 `Discussion` (GitHub) input for DFIP proposal creation", () => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").should(
         "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(discussion);
+          cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
+            "not.exist"
+          );
+          cy.findByTestId(
+            "Governance.Create.Step1.TextArea.Discussion.ClearForm"
+          ).click();
+          cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
+            "have.text",
+            "Invalid URL. Only GitHub or Reddit URL are accepted"
+          );
+        }
+      );
+    });
+
+    it("should have step 1 `Discussion` (Reddit) input for DFIP proposal creation", () => {
+      cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").should(
+        "be.visible"
+      );
+      cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
+        () => {
+          cy.get("textarea").click().type(redditDiscussion);
+          cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
+            "not.exist"
+          );
           cy.findByTestId(
             "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
@@ -179,13 +204,37 @@ viewPorts.forEach((viewPort) => {
       );
     });
 
-    it("should have step 1 `Discussion` input for CFP proposal creation", () => {
+    it("should have step 1 `Discussion` (GitHub) input for CFP proposal creation", () => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").should(
         "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(discussion);
+          cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
+            "not.exist"
+          );
+          cy.findByTestId(
+            "Governance.Create.Step1.TextArea.Discussion.ClearForm"
+          ).click();
+          cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
+            "have.text",
+            "Invalid URL. Only GitHub or Reddit URL are accepted"
+          );
+        }
+      );
+    });
+
+    it("should have step 1 `Discussion` (Reddit) input for CFP proposal creation", () => {
+      cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").should(
+        "be.visible"
+      );
+      cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
+        () => {
+          cy.get("textarea").click().type(redditDiscussion);
+          cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
+            "not.exist"
+          );
           cy.findByTestId(
             "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
