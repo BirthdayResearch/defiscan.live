@@ -14,38 +14,45 @@ import { ApiPagedResponse } from "@defichain/whale-api-client";
 import * as LosslessJSON from "lossless-json";
 import { Head } from "@components/commons/Head";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
-import { getEnvironment } from "@contexts/Environment";
 import classNames from "classnames";
-import BigNumber from "bignumber.js";
 import { EmptySection } from "@components/commons/sections/EmptySection";
-import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import {
   CursorPage,
   CursorPagination,
 } from "@components/commons/CursorPagination";
+import { useNetwork } from "@contexts/NetworkContext";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VoteCards, VotesTable } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
 import { ProposalDetail } from "../_components/ProposalDetail";
 import { ConfirmVoteDialog } from "../_components/ConfirmVoteDialog";
-import { getCycleEndDate } from "../shared/getCycleEndTime";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
-import { formatUnixTime } from "../shared/dateHelper";
+import { formatMedianTime } from "../shared/dateHelper";
 import { VoteStages } from "../enum/VoteStages";
 import { TotalVotesCards } from "../_components/TotalVotesCards";
 import { CfpVotingResultCycleTab } from "../enum/CfpVotingResultCycleTab";
+import { useCycleEndDate } from "../shared/useCycleEndTime";
 
 export default function ProposalDetailPage({
   proposal,
   proposalVotes,
   proposalCreationDate,
-  proposalEndDate,
+  currentBlockHeight,
+  currentBlockMedianTime,
   totalVotes,
   pages,
   yes,
   no,
   neutral,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const { connection } = useNetwork();
+  const secondsPerBlock = getSecondsPerBlock(connection);
+  const cycleEndDate = useCycleEndDate(
+    proposal.cycleEndHeight,
+    currentBlockHeight,
+    currentBlockMedianTime,
+    secondsPerBlock
+  );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
   const [userConfirmedSelectedVote, setUserConfirmedSelectedVote] =
@@ -74,11 +81,11 @@ export default function ProposalDetailPage({
         <Breadcrumb
           items={[
             {
-              path: "/on-chain-governance",
+              path: "/governance",
               name: "Proposal",
             },
             {
-              path: `/on-chain-governance/${proposal.proposalId}`,
+              path: `/governance/${proposal.proposalId}`,
               name: "Proposal Details",
               canonical: true,
               isCurrentPath: true,
@@ -89,13 +96,16 @@ export default function ProposalDetailPage({
           <div className="w-full lg:w-8/12">
             <ProposalDetail
               proposal={proposal}
-              proposalCreationDate={proposalCreationDate}
-              proposalEndDate={proposalEndDate}
+              proposalCreationDate={formatMedianTime(
+                proposalCreationDate,
+                "MMM dd, yyyy"
+              )}
+              proposalEndDate={cycleEndDate}
             />
             {proposal.type ===
               GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
               <div className="hidden lg:block mt-6">
-                <CfpVotingResultButtonRow
+                <CfpVotingResultFilterTab
                   cfpVotingResultTabChoice={cfpVotingResultTabChoice}
                   setCfpVotingResultTabChoice={setCfpVotingResultTabChoice}
                   currenCycle={proposal.currentCycle}
@@ -158,7 +168,7 @@ export default function ProposalDetailPage({
               {proposal.type ===
                 GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
                 <div className="block lg:hidden">
-                  <CfpVotingResultButtonRow
+                  <CfpVotingResultFilterTab
                     cfpVotingResultTabChoice={cfpVotingResultTabChoice}
                     setCfpVotingResultTabChoice={setCfpVotingResultTabChoice}
                     currenCycle={proposal.currentCycle}
@@ -225,16 +235,13 @@ function VotesList({
       )}
 
       <div className="flex justify-end mt-8">
-        <CursorPagination
-          pages={pages}
-          path={`/on-chain-governance/${proposalId}`}
-        />
+        <CursorPagination pages={pages} path={`/governance/${proposalId}`} />
       </div>
     </>
   );
 }
 
-function CfpVotingResultButtonRow({
+function CfpVotingResultFilterTab({
   setCfpVotingResultTabChoice,
   cfpVotingResultTabChoice,
   currenCycle,
@@ -251,7 +258,7 @@ function CfpVotingResultButtonRow({
         type="button"
         data-testid="OnChainGovernance.VotingFlow.NoVote"
         className={classNames(
-          "md:px-5 rounded-l border px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500",
+          "md:px-5 rounded-l border border-r-[0.5px] px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500",
           cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current
             ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
             : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300"
@@ -268,7 +275,7 @@ function CfpVotingResultButtonRow({
         data-testid="OnChainGovernance.VotingFlow.YesVote"
         disabled={currenCycle === 1}
         className={classNames(
-          "md:px-5 border border-l-0 rounded-r px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
+          "md:px-5 border border-l-[0.5px] rounded-r px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
           cfpVotingResultTabChoice === CfpVotingResultCycleTab.Previous
             ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
             : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300"
@@ -331,28 +338,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       .then((block) => block.medianTime);
     const proposalCreationDate = await api.blocks
       .get(proposal.creationHeight.toString())
-      .then((block) => formatUnixTime(block.medianTime));
+      .then((block) => block.medianTime);
 
-    const network =
-      (context.query.network?.toString() as EnvironmentNetwork) ??
-      getEnvironment().networks[0];
-    const secondsPerBlock = getSecondsPerBlock(network);
-
-    let proposalEndDate: string;
-    if (
-      new BigNumber(currentBlockHeight).isGreaterThan(proposal.cycleEndHeight)
-    ) {
-      proposalEndDate = await api.blocks
-        .get(proposal.cycleEndHeight.toString())
-        .then((block) => formatUnixTime(block.medianTime));
-    } else {
-      proposalEndDate = getCycleEndDate(
-        proposal.cycleEndHeight,
-        currentBlockHeight,
-        currentBlockMedianTime,
-        secondsPerBlock
-      );
-    }
     // All votes to get statistics breakdown
     const allCycleProposalVotes = await api.governance.listGovProposalVotes({
       id: proposalId,
@@ -373,7 +360,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         proposal,
         proposalVotes,
         proposalCreationDate,
-        proposalEndDate,
+        currentBlockHeight,
+        currentBlockMedianTime,
         totalVotes,
         pages,
         ...stats,

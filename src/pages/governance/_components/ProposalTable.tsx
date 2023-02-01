@@ -20,7 +20,7 @@ import { newPlaygroundClient } from "@contexts/WhaleContext";
 import { isPlayground } from "@waveshq/walletkit-core";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
-import { getCycleEndDate } from "../shared/getCycleEndTime";
+import { useCycleEndDate } from "../shared/useCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { EmergencyChip } from "./EmergencyChip";
@@ -123,7 +123,7 @@ function ProposalRow({
   const router = useRouter();
   const { connection } = useNetwork();
   const secondsPerBlock = getSecondsPerBlock(connection);
-  const cycleEndDate = getCycleEndDate(
+  const cycleEndDate = useCycleEndDate(
     proposal.cycleEndHeight,
     currentBlockHeight,
     currentBlockMedianTime,
@@ -134,7 +134,7 @@ function ProposalRow({
     <OverflowTable.Row
       onClick={() => {
         router.push({
-          pathname: `/on-chain-governance/${proposal.proposalId}`,
+          pathname: `/governance/${proposal.proposalId}`,
           query: getEnvironment().isDefaultConnection(connection)
             ? {}
             : { network: connection },
@@ -188,7 +188,9 @@ function ProposalRow({
               {`Block ${proposal.cycleEndHeight}`}
             </a>
           </Link>
-          <div className="hidden text-gray-900 dark:text-dark-gray-900 text-sm">{`~ ${cycleEndDate}`}</div>
+          <div className="text-gray-600 dark:text-dark-gray-600 text-xs break-words">
+            {cycleEndDate}
+          </div>
         </div>
       </OverflowTable.Cell>
 

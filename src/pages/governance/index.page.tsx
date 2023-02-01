@@ -194,7 +194,7 @@ export default function OnChainGovernancePage({
                 </div>
               </div>
               <div className="pl-7 pr-1 lg:block hidden">
-                <Link href={{ pathname: "on-chain-governance/create" }}>
+                <Link href={{ pathname: "governance/create" }}>
                   <button
                     type="button"
                     className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded"
@@ -209,7 +209,7 @@ export default function OnChainGovernancePage({
 
             {/* Tablet and Mobile Create Proposal Button */}
             <div className="lg:hidden flex w-full md:justify-end mt-4">
-              <Link href={{ pathname: "on-chain-governance/create" }}>
+              <Link href={{ pathname: "governance/create" }}>
                 <button
                   type="button"
                   className="py-3 px-6 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 rounded w-full"
@@ -223,7 +223,7 @@ export default function OnChainGovernancePage({
           </div>
         </div>
 
-        <ProposalTypeTab
+        <ProposalFilterTab
           userQueryProposalStatus={userQueryProposalStatus}
           userQueryProposalType={userQueryProposalType}
         />
@@ -262,7 +262,7 @@ export default function OnChainGovernancePage({
         <div className="flex justify-end mt-8">
           <CursorPagination
             pages={proposals.pages}
-            path="/on-chain-governance"
+            path="/governance"
             queryParam={{
               status: userQueryProposalStatus,
               type: userQueryProposalType,
@@ -274,7 +274,7 @@ export default function OnChainGovernancePage({
   );
 }
 
-function ProposalTypeTab({
+function ProposalFilterTab({
   userQueryProposalStatus,
   userQueryProposalType,
 }: {
@@ -286,7 +286,7 @@ function ProposalTypeTab({
       <div className="flex flex-row w-fit grow">
         <Link
           href={{
-            pathname: "on-chain-governance/",
+            pathname: "governance/",
             query: {
               status: userQueryProposalStatus,
               type: ListProposalsType.ALL,
@@ -308,7 +308,7 @@ function ProposalTypeTab({
 
         <Link
           href={{
-            pathname: "on-chain-governance/",
+            pathname: "governance/",
             query: {
               status: userQueryProposalStatus,
               type: ListProposalsType.CFP,
@@ -330,7 +330,7 @@ function ProposalTypeTab({
 
         <Link
           href={{
-            pathname: "on-chain-governance/",
+            pathname: "governance/",
             query: {
               status: userQueryProposalStatus,
               type: ListProposalsType.VOC,
@@ -354,7 +354,7 @@ function ProposalTypeTab({
       <div className="flex flex-row w-fit">
         <Link
           href={{
-            pathname: "on-chain-governance/",
+            pathname: "governance/",
             query: {
               status: ListProposalsStatus.VOTING,
               type: userQueryProposalType,
@@ -376,7 +376,7 @@ function ProposalTypeTab({
 
         <Link
           href={{
-            pathname: "on-chain-governance/",
+            pathname: "governance/",
             query: {
               status: "approved",
               type: userQueryProposalType,
@@ -398,7 +398,7 @@ function ProposalTypeTab({
 
         <Link
           href={{
-            pathname: "on-chain-governance/",
+            pathname: "governance/",
             query: {
               status: ListProposalsStatus.REJECTED,
               type: userQueryProposalType,
