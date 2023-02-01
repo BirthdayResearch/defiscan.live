@@ -319,6 +319,9 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Cycles").should(
         "be.visible"
       );
+      cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
+        "be.disabled"
+      );
       // check for tooltip
       cy.findByTestId("InfoHoverPopover").should("be.visible");
       cy.findByTestId("Governance.Create.Step1.TextArea.Cycles").within(() => {
