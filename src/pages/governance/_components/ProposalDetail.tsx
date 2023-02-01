@@ -180,21 +180,21 @@ export function ProposalDetail({
       </div>
 
       {proposal.status === GovernanceProposalStatus.VOTING && (
-        <div className="mt-8 bg-blue-50 py-3 px-[18px] flex">
+        <div className="mt-8 py-3 px-[18px] flex bg-blue-50 dark:bg-dark-blue-500/[0.15] rounded">
           <MdAccessTimeFilled
             size={22}
             className="self-center mr-[18px] text-blue-500"
           />
           <div>
-            <span className="text-sm md:text-base text-gray-900 dark:text-dark-gray-900">
+            <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900">
               Voting concludes at&nbsp;
             </span>
             <Link href={{ pathname: blockPageLink }}>
-              <a className="text-sm md:text-base font-medium hover:underline text-blue-500 cursor-pointer">
-                Block {proposal.cycleEndHeight}&nbsp;
+              <a className="text-sm md:text-lg font-semibold hover:underline text-blue-500 cursor-pointer mr-2">
+                Block {proposal.cycleEndHeight}
               </a>
             </Link>
-            <span className="block md:inline text-sm md:text-base text-gray-600 dark:text-dark-gray-600 lg:text-gray-500 lg:dark:text-dark-gray-500">
+            <span className="block md:inline text-sm text-gray-500 dark:text-dark-gray-500 align-text-top">
               ({proposalEndDate})
             </span>
           </div>
