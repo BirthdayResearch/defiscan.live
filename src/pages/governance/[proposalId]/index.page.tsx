@@ -138,6 +138,7 @@ export default function ProposalDetailPage({
           </div>
           <div className="w-full lg:w-4/12">
             <VotingResult
+              proposal={proposal}
               userSelectedVote={userConfirmedSelectedVote}
               voteCommand={voteCommand}
               isLoading={isLoading}
