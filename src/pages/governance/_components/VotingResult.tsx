@@ -105,10 +105,10 @@ export function VotingResult({
                 <div className="flex flex-row">
                   <span
                     className={classNames(
-                      "md:text-base text-sm grow",
+                      "grow",
                       percYes > percNo
                         ? "text-gray-900 dark:text-dark-gray-900 font-semibold"
-                        : "text-gray-600 dark:text-dark-gray-600"
+                        : "text-gray-600 dark:text-dark-gray-600 text-sm"
                     )}
                   >
                     {percYes.toFixed(2)}%
@@ -139,10 +139,10 @@ export function VotingResult({
                 <div className="flex - flex-row">
                   <span
                     className={classNames(
-                      "md:text-base text-sm grow",
+                      "grow",
                       percNo > percYes
                         ? "text-gray-900 dark:text-dark-gray-900 font-semibold"
-                        : "text-gray-600 dark:text-dark-gray-600"
+                        : "text-gray-600 dark:text-dark-gray-600 text-sm"
                     )}
                   >
                     {percNo.toFixed(2)}%
@@ -183,7 +183,7 @@ export function VotingResult({
                   fixedDecimalScale
                   displayType="text"
                   suffix="%"
-                  className="md:text-base text-sm font-semibold text-gray-900 dark:text-dark-gray-900 grow text-end"
+                  className="md:text-base text-sm font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
                 />
 
                 {percYes.isGreaterThan(
@@ -241,7 +241,7 @@ export function VotingResult({
                       fixedDecimalScale
                       displayType="text"
                       suffix="%"
-                      className="font-semibold text-gray-900 dark:text-dark-gray-900 grow text-end"
+                      className="font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
                     />
 
                     {percYes.isGreaterThan(
@@ -282,7 +282,7 @@ export function VotingResult({
                     fixedDecimalScale
                     thousandSeparator=","
                     displayType="text"
-                    className="md:text-base text-sm text-gray-600 dark:text-dark-gray-600 grow text-end"
+                    className="md:text-base text-sm text-gray-600 dark:text-dark-gray-600 grow text-end font-medium"
                   />
                 </div>
                 <div className="flex flex-col mt-4 gap-y-1">
