@@ -172,6 +172,7 @@ export default function CreateProposalPage() {
           <GettingStartedInfo />
           {/* Step 1 */}
           <DisclosureComponent
+            testid="Governance.Create.Step1"
             title="Step 1: Proposal details"
             isOpen={activeStep === 1}
             isCompleted={activeStep > 1 || (isEditing && activeStep === 1)}
@@ -182,11 +183,15 @@ export default function CreateProposalPage() {
               },
             })}
           >
-            <span className="text-gray-600 dark:text-dark-gray-600 text-sm md:text-base">
+            <span
+              data-testid="Governance.Create.Step1.Description"
+              className="text-gray-600 dark:text-dark-gray-600 text-sm md:text-base"
+            >
               Enter from GitHub or Reddit the title of the proposal and the type
               of proposal.
             </span>
             <RadioGroup
+              data-testid="Governance.Create.Step1.RadioGroup"
               value={proposalType}
               onChange={(type) => {
                 if (canSwitchType) {
@@ -198,6 +203,7 @@ export default function CreateProposalPage() {
             >
               {proposalTypes.map((item) => (
                 <RadioGroup.Option
+                  data-testid={`Governance.Create.Step1.RadioGroup.${item.value}`}
                   value={item.value}
                   key={item.value}
                   className={({ checked }) =>
@@ -214,11 +220,13 @@ export default function CreateProposalPage() {
                       <div className="mr-2">
                         {checked ? (
                           <MdRadioButtonChecked
+                            data-testid={`Governance.Create.Step1.RadioGroup.${item.value}.Checked`}
                             size={20}
                             className="text-primary-500 dark:text-dark-primary-500"
                           />
                         ) : (
                           <MdRadioButtonUnchecked
+                            data-testid={`Governance.Create.Step1.RadioGroup.${item.value}.Unchecked`}
                             size={20}
                             className="text-gray-300 dark:text-dark-gray-300"
                           />
@@ -240,6 +248,7 @@ export default function CreateProposalPage() {
 
             <div className="space-y-6">
               <TextAreaComponent
+                testid="Governance.Create.Step1.TextArea.NameOfProposal"
                 label="Name of proposal"
                 placeholder="Enter title of the proposal (required)"
                 note="Make sure that the name added here is the same as from the one posted in GitHub or Reddit."
@@ -250,6 +259,7 @@ export default function CreateProposalPage() {
                 onChange={(value) => setTitle(value as string)}
               />
               <TextAreaComponent
+                testid="Governance.Create.Step1.TextArea.Discussion"
                 label="Discussion"
                 placeholder="Paste URL"
                 error={isValidContextUrl()}
@@ -263,6 +273,7 @@ export default function CreateProposalPage() {
                   <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row">
                     <div className="w-full md:w-1/2">
                       <TextAreaComponent
+                        testid="Governance.Create.Step1.TextArea.AmountRequested"
                         label="Amount requested in DFI"
                         placeholder="0.00 DFI"
                         value={amount}
@@ -279,6 +290,7 @@ export default function CreateProposalPage() {
                     </div>
                     <div className="flex flex-row w-full md:w-1/2 md:ml-6">
                       <TextAreaComponent
+                        testid="Governance.Create.Step1.TextArea.Cycles"
                         label="Cycles"
                         placeholder=""
                         infoDesc="Cycle(s) determine the duration for which a proposal can accept votes."
@@ -302,6 +314,7 @@ export default function CreateProposalPage() {
                       <div>
                         <div className="pt-5 flex flex-row">
                           <button
+                            data-testid="Governance.Create.Step1.TextArea.Cycles.Decrement"
                             type="button"
                             disabled={cycle <= minCycle}
                             onClick={() => setCycle(cycle - 1)}
@@ -317,6 +330,7 @@ export default function CreateProposalPage() {
                             />
                           </button>
                           <button
+                            data-testid="Governance.Create.Step1.TextArea.Cycles.Increment"
                             type="button"
                             disabled={cycle >= maxCycle}
                             onClick={() => setCycle(cycle + 1)}
@@ -336,6 +350,7 @@ export default function CreateProposalPage() {
                     </div>
                   </div>
                   <TextAreaComponent
+                    testid="Governance.Create.Step1.TextArea.ReceivingAddress"
                     label="Receiving address"
                     placeholder="Paste DFI address for receiving payout"
                     value={payoutAddress}
@@ -350,6 +365,7 @@ export default function CreateProposalPage() {
               )}
               <div className="flex flex-col-reverse md:flex-row md:space-x-2">
                 <button
+                  data-testid="Governance.Create.Step1.ClearForm"
                   onClick={clearForm}
                   disabled={!canClearForm()}
                   type="button"
@@ -363,6 +379,7 @@ export default function CreateProposalPage() {
                   CLEAR FORM
                 </button>
                 <button
+                  data-testid="Governance.Create.Step1.ReviewProposal"
                   type="button"
                   disabled={!canReviewProposal()}
                   onClick={() => {
@@ -387,11 +404,13 @@ export default function CreateProposalPage() {
 
           {/* Step 2 */}
           <DisclosureComponent
+            testid="Governance.Create.Step2"
             title="Step 2: Review proposal"
             isOpen={activeStep === 2}
             isCompleted={activeStep > 2}
           >
             <ReviewProposal
+              testid="Governance.Create.Step2.ReviewProposal"
               title={title}
               proposalType={proposalType}
               context={context}
@@ -404,10 +423,14 @@ export default function CreateProposalPage() {
 
           {/* Step 3 */}
           <DisclosureComponent
+            testid="Governance.Create.Step3"
             title="Step 3: Submit proposal on-chain"
             isOpen={activeStep === 3}
           >
-            <SubmitProposal command={command} />
+            <SubmitProposal
+              testid="Governance.Create.Step3.SubmitProposal"
+              command={command}
+            />
           </DisclosureComponent>
         </div>
       </Container>
