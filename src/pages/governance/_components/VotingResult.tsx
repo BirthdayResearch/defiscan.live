@@ -62,7 +62,7 @@ export function VotingResult({
         )}
         {status === GovernanceProposalStatus.REJECTED && (
           <div className="bg-red-600 dark:bg-[#FF483D] py-3 rounded-t-lg w-full text-center mb-6">
-            <span className="text-lg text-white dark:text-black font-medium">
+            <span className="text-lg text-white dark:text-black font-semibold">
               Rejected
             </span>
           </div>
@@ -90,7 +90,7 @@ export function VotingResult({
               )}
             >
               <div className="flex flex-col gap-y-2 w-full">
-                <span className="text-base font-semibold text-gray-900 dark:text-dark-gray-900">
+                <span className="md:text-lg text-sm font-semibold text-gray-900 dark:text-dark-gray-900">
                   Yes
                 </span>
                 <Progress
@@ -105,7 +105,7 @@ export function VotingResult({
                 <div className="flex flex-row">
                   <span
                     className={classNames(
-                      "text-sm grow",
+                      "md:text-base text-sm grow",
                       percYes > percNo
                         ? "text-gray-900 dark:text-dark-gray-900 font-semibold"
                         : "text-gray-600 dark:text-dark-gray-600"
@@ -124,7 +124,7 @@ export function VotingResult({
               </div>
 
               <div className="flex flex-col gap-y-2 w-full mt-4">
-                <span className="text-base font-semibold text-gray-900 dark:text-dark-gray-900">
+                <span className="md:text-lg text-sm font-semibold text-gray-900 dark:text-dark-gray-900">
                   No
                 </span>
                 <Progress
@@ -139,7 +139,7 @@ export function VotingResult({
                 <div className="flex - flex-row">
                   <span
                     className={classNames(
-                      "text-sm grow",
+                      "md:text-base text-sm grow",
                       percNo > percYes
                         ? "text-gray-900 dark:text-dark-gray-900 font-semibold"
                         : "text-gray-600 dark:text-dark-gray-600"
@@ -183,7 +183,7 @@ export function VotingResult({
                   fixedDecimalScale
                   displayType="text"
                   suffix="%"
-                  className="font-semibold text-gray-900 dark:text-dark-gray-900 grow text-end"
+                  className="md:text-base text-sm font-semibold text-gray-900 dark:text-dark-gray-900 grow text-end"
                 />
 
                 {percYes.isGreaterThan(
@@ -203,7 +203,7 @@ export function VotingResult({
                         <CircularCrossIcon
                           width={14}
                           height={14}
-                          className="fill-red-600 dark:fill-dark-red-600"
+                          className="fill-red-600 dark:fill-[#FF483D]"
                         />
                       </div>
                     )}
@@ -213,11 +213,12 @@ export function VotingResult({
             </div>
 
             <div className="lg:w-full md:w-1/2 w-full md:pl-8 lg:pl-0 lg:border-l-0 md:border-l-[0.5px] dark:border-dark-gray-300">
+              {/* show Details header and Min. approval in 2nd col when not voting for tablet view */}
               {proposal.status !== GovernanceProposalStatus.VOTING && (
                 <>
                   <div
                     className={classNames(
-                      "lg:hidden md:flex hidden text-sm font-semibold mb-[14px] dark:text-dark-gray-900"
+                      "lg:hidden md:flex hidden text-sm font-semibold mb-3 dark:text-dark-gray-900"
                     )}
                   >
                     Details
@@ -258,7 +259,7 @@ export function VotingResult({
                         <CircularCrossIcon
                           width={14}
                           height={14}
-                          className="fill-red-600 dark:fill-dark-red-600"
+                          className="fill-red-600 dark:fill-[#FF483D]"
                         />
                       </div>
                     )}
@@ -281,10 +282,10 @@ export function VotingResult({
                     fixedDecimalScale
                     thousandSeparator=","
                     displayType="text"
-                    className="text-gray-600 dark:text-dark-gray-600 grow text-end"
+                    className="md:text-base text-sm text-gray-600 dark:text-dark-gray-600 grow text-end"
                   />
                 </div>
-                <div className="flex flex-col mt-[18px]">
+                <div className="flex flex-col mt-4 gap-y-1">
                   <div className="flex items-center">
                     <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
                       Total votes
@@ -300,7 +301,7 @@ export function VotingResult({
                       thousandSeparator=","
                       displayType="text"
                       suffix=" votes"
-                      className="font-semibold text-gray-900 dark:text-dark-gray-900 grow text-end"
+                      className="md:text-base text-sm font-semibold text-gray-900 dark:text-dark-gray-900 grow text-end"
                     />
 
                     {total.isGreaterThan(BigNumber(minVotes)) ? (
@@ -319,7 +320,7 @@ export function VotingResult({
                             <CircularCrossIcon
                               width={14}
                               height={14}
-                              className="fill-red-600 dark:fill-dark-red-600"
+                              className="fill-red-600 dark:fill-[#FF483D]"
                             />
                           </div>
                         )}
@@ -341,7 +342,7 @@ export function VotingResult({
               {status === GovernanceProposalStatus.VOTING && (
                 <>
                   {voteCommand === "" ? (
-                    <div className="lg:mt-[52px] md:mt-7">
+                    <div className="lg:mt-[52px] lg:mt-[52px] md:mt-7 mt-[52px]">
                       <button
                         type="button"
                         onClick={() => {
@@ -369,13 +370,32 @@ export function VotingResult({
                               </span>
                             </div>
                           ) : (
-                            <div className=" grow">
-                              <span className="text-gray-500 dark:text-dark-gray-500">
-                                You have voted
-                              </span>
-                              <span className="text-gray-900 dark:text-dark-gray-900 capitalize font-medium">
-                                &nbsp;{userSelectedVote}
-                              </span>
+                            <div className="flex flex-row grow items-center">
+                              {userSelectedVote !== VoteDecision.NEUTRAL && (
+                                <div className="mr-[10px]">
+                                  {userSelectedVote === VoteDecision.NO ? (
+                                    <CircularCrossIcon
+                                      width={14}
+                                      height={14}
+                                      className="fill-red-600 dark:fill-[#FF483D]"
+                                    />
+                                  ) : (
+                                    <CircularCheckIcon
+                                      width={14}
+                                      height={14}
+                                      className="fill-green-600 dark:fill-dark-green-500"
+                                    />
+                                  )}
+                                </div>
+                              )}
+                              <div>
+                                <span className="text-gray-500 dark:text-dark-gray-500">
+                                  You have voted
+                                </span>
+                                <span className="text-gray-900 dark:text-dark-gray-900 capitalize font-medium">
+                                  &nbsp;{userSelectedVote}
+                                </span>
+                              </div>
                             </div>
                           )}
 
@@ -464,14 +484,14 @@ function Progress({
   return (
     <div
       className={classNames(
-        "h-2 rounded-[54px] w-full bg-gray-200 dark:bg-dark-gray-200 relative overflow-hidden",
+        "h-3 rounded-[54px] w-full bg-gray-200 dark:bg-dark-gray-200 relative overflow-hidden",
         containerClass
       )}
     >
       <div
         style={{ width: `${value}%` }}
         className={classNames(
-          "absolute top-0 left-0 h-2 bg-primary-500 dark:bg-dark-primary-500",
+          "absolute top-0 left-0 h-3 bg-primary-500 dark:bg-dark-primary-500",
           contentClass
         )}
       />
