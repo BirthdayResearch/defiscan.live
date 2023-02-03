@@ -15,6 +15,7 @@ import {
   ListProposalsType,
   ListProposalsStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
+import { NumericFormat } from "react-number-format";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 import { HeaderCountBar } from "./HeaderCountBar";
 
@@ -387,7 +388,14 @@ export function HeaderLink({
                 : "bg-gray-600 dark:bg-dark-gray-900 dark:text-black text-dark-gray-900"
             )}
           >
-            {openProposals}
+            <div className="min-w-[13px] text-center">
+              <NumericFormat
+                displayType="text"
+                thousandSeparator
+                value={openProposals}
+                decimalScale={0}
+              />
+            </div>
           </div>
         )}
         <a
