@@ -433,8 +433,6 @@ function LabelWithInfoTooltipAndChecks({
   proposal: GovernanceProposal;
   decimalPlace: number;
 }) {
-  console.log(labelTitle, value.toString());
-
   if (comparatorValue === undefined) {
     return (
       <div className="flex">
@@ -447,7 +445,7 @@ function LabelWithInfoTooltipAndChecks({
           placement="top"
         />
         <NumericFormat
-          value={baseValue.toString()}
+          value={value.toString()}
           fixedDecimalScale
           thousandSeparator=","
           displayType="text"
