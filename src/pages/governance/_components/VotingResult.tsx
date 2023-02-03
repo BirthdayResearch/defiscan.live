@@ -39,7 +39,7 @@ export function VotingResult({
   proposal: GovernanceProposal;
 }) {
   const minVotes = getMinVotes(proposal);
-  console.log(minVotes.toString());
+  console.log("approvale", proposal.approvalThreshold.replace("%", ""));
   console.log(proposal);
   const { percYes, percNo } = getVotePercentage(yes, no, neutral);
   const total = new BigNumber(yes).plus(no).plus(neutral);
@@ -160,9 +160,8 @@ export function VotingResult({
 
               <div
                 className={classNames(
-                  "flex flex-row items-center",
                   {
-                    "lg:flex md:hidden flex":
+                    "lg:block md:hidden block":
                       proposal.status !== GovernanceProposalStatus.VOTING,
                   },
                   proposal.status === GovernanceProposalStatus.VOTING
@@ -170,45 +169,20 @@ export function VotingResult({
                     : "mt-5"
                 )}
               >
-                <span className="text-gray-500 dark:text-dark-gray-500 text-sm whitespace-nowrap">
-                  Min. approval
-                </span>
-                <InfoHoverPopover
-                  className="ml-1 self-center"
-                  description="The percentage of required “yes” votes for proposal to be considered accepted."
-                  placement="top"
-                />
-                <NumericFormat
-                  value={proposal.approvalThreshold}
-                  fixedDecimalScale
-                  displayType="text"
+                <LabelWithInfoTooltipAndChecks
+                  labelTitle="Min. approval"
+                  value={
+                    new BigNumber(proposal.approvalThreshold.replace("%", ""))
+                  }
+                  baseValue={percYes}
+                  comparatorValue={
+                    new BigNumber(proposal.approvalThreshold.replace("%", ""))
+                  }
                   suffix="%"
-                  className="md:text-base text-sm font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
+                  toolTipDesc="The percentage of required “yes” votes for proposal to be considered accepted."
+                  proposal={proposal}
+                  decimalPlace={2}
                 />
-
-                {percYes.isGreaterThan(
-                  BigNumber(proposal.approvalThreshold.replace("%", ""))
-                ) ? (
-                  <div className="ml-[5.33px]">
-                    <CircularCheckIcon
-                      width={14}
-                      height={14}
-                      className="fill-green-600 dark:fill-dark-green-500"
-                    />
-                  </div>
-                ) : (
-                  <>
-                    {proposal.status !== GovernanceProposalStatus.VOTING && (
-                      <div className="ml-[5.33px]">
-                        <CircularCrossIcon
-                          width={14}
-                          height={14}
-                          className="fill-red-600 dark:fill-[#FF483D]"
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
               </div>
             </div>
 
@@ -225,108 +199,51 @@ export function VotingResult({
                   </div>
                   <div
                     className={classNames(
-                      "lg:hidden md:flex hidden flex flex-row items-center pb-3 border-b-[0.5px] dark:border-dark-gray-300 mb-3"
+                      "lg:hidden md:block hidden pb-3 border-b-[0.5px] dark:border-dark-gray-300 mb-3"
                     )}
                   >
-                    <span className="text-gray-500 dark:text-dark-gray-500 text-sm whitespace-nowrap">
-                      Min. approval
-                    </span>
-                    <InfoHoverPopover
-                      className="ml-1 self-center"
-                      description="The percentage of required “yes” votes for proposal to be considered accepted."
-                      placement="top"
-                    />
-                    <NumericFormat
-                      value={proposal.approvalThreshold}
-                      fixedDecimalScale
-                      displayType="text"
+                    <LabelWithInfoTooltipAndChecks
+                      labelTitle="Min. approval"
+                      value={
+                        new BigNumber(
+                          proposal.approvalThreshold.replace("%", "")
+                        )
+                      }
+                      baseValue={percYes}
+                      comparatorValue={
+                        new BigNumber(
+                          proposal.approvalThreshold.replace("%", "")
+                        )
+                      }
                       suffix="%"
-                      className="font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
+                      toolTipDesc="The percentage of required “yes” votes for proposal to be considered accepted."
+                      proposal={proposal}
+                      decimalPlace={2}
                     />
-
-                    {percYes.isGreaterThan(
-                      BigNumber(proposal.approvalThreshold.replace("%", ""))
-                    ) ? (
-                      <div className="ml-[5.33px]">
-                        <CircularCheckIcon
-                          width={14}
-                          height={14}
-                          className="fill-green-600 dark:fill-dark-green-500"
-                        />
-                      </div>
-                    ) : (
-                      <div className="ml-[5.33px]">
-                        <CircularCrossIcon
-                          width={14}
-                          height={14}
-                          className="fill-red-600 dark:fill-[#FF483D]"
-                        />
-                      </div>
-                    )}
                   </div>
                 </>
               )}
 
               <div className="flex flex-col">
-                <div className="flex">
-                  <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
-                    Neutral votes
-                  </span>
-                  <InfoHoverPopover
-                    className="ml-1 self-center"
-                    description="Included as part of the total votes submitted, excluded from min. approval."
-                    placement="top"
-                  />
-                  <NumericFormat
-                    value={neutral}
-                    fixedDecimalScale
-                    thousandSeparator=","
-                    displayType="text"
-                    className="md:text-base text-sm text-gray-900 dark:text-dark-gray-900 grow text-end font-medium"
-                  />
-                </div>
+                <LabelWithInfoTooltipAndChecks
+                  labelTitle="Neutral votes"
+                  value={BigNumber(neutral)}
+                  baseValue={BigNumber(neutral)}
+                  toolTipDesc="Included as part of the total votes submitted, excluded from min. approval."
+                  proposal={proposal}
+                  decimalPlace={0}
+                />
                 <div className="flex flex-col mt-4 gap-y-1">
-                  <div className="flex items-center">
-                    <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
-                      Total votes
-                    </span>
-                    <InfoHoverPopover
-                      className="ml-1 self-center"
-                      description="Total number of votes needed to surpass the minimum required votes for proposal to be considered accepted."
-                      placement="top"
-                    />
-                    <NumericFormat
-                      value={total.toFixed(0)}
-                      fixedDecimalScale
-                      thousandSeparator=","
-                      displayType="text"
-                      suffix=" votes"
-                      className="md:text-base text-sm font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
-                    />
-
-                    {total.isGreaterThan(BigNumber(minVotes)) ? (
-                      <div className="ml-[5.33px]">
-                        <CircularCheckIcon
-                          width={14}
-                          height={14}
-                          className="fill-green-600 dark:fill-dark-green-500"
-                        />
-                      </div>
-                    ) : (
-                      <>
-                        {proposal.status !==
-                          GovernanceProposalStatus.VOTING && (
-                          <div className="ml-[5.33px]">
-                            <CircularCrossIcon
-                              width={14}
-                              height={14}
-                              className="fill-red-600 dark:fill-[#FF483D]"
-                            />
-                          </div>
-                        )}
-                      </>
-                    )}
-                  </div>
+                  <LabelWithInfoTooltipAndChecks
+                    labelTitle="Total votes"
+                    value={total}
+                    baseValue={total}
+                    comparatorValue={BigNumber(minVotes)}
+                    toolTipDesc="Included as part of the total votes submitted, excluded from min. approval."
+                    suffix=" votes"
+                    proposal={proposal}
+                    decimalPlace={0}
+                  />
                   <NumericFormat
                     value={minVotes}
                     fixedDecimalScale
@@ -354,7 +271,7 @@ export function VotingResult({
                       >
                         SUBMIT VOTE
                       </button>
-                      <span className="text-xs lg:text-center md:text-left text-center flex text-gray-600 dark:text-dark-gray-600">
+                      <span className="text-xs lg:text-center text-center flex text-gray-600 dark:text-dark-gray-600">
                         Submitting your vote will generate a defi-cli command
                         that needs to be used to record your vote on-chain
                       </span>
@@ -495,6 +412,93 @@ function Progress({
           contentClass
         )}
       />
+    </div>
+  );
+}
+
+function LabelWithInfoTooltipAndChecks({
+  labelTitle,
+  value,
+  baseValue,
+  suffix,
+  comparatorValue,
+  toolTipDesc,
+  proposal,
+  decimalPlace,
+}: {
+  labelTitle: string;
+  value: BigNumber;
+  baseValue: BigNumber;
+  suffix?: string;
+  comparatorValue?: BigNumber;
+  toolTipDesc: string;
+  proposal: GovernanceProposal;
+  decimalPlace: number;
+}) {
+  console.log(labelTitle, value.toString());
+
+  if (comparatorValue === undefined) {
+    return (
+      <div className="flex">
+        <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
+          {labelTitle}
+        </span>
+        <InfoHoverPopover
+          className="ml-1 self-center"
+          description={toolTipDesc}
+          placement="top"
+        />
+        <NumericFormat
+          value={baseValue.toString()}
+          fixedDecimalScale
+          thousandSeparator=","
+          displayType="text"
+          className="md:text-base text-sm text-gray-900 dark:text-dark-gray-900 grow text-end font-medium"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center">
+      <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
+        {labelTitle}
+      </span>
+      <InfoHoverPopover
+        className="ml-1 self-center"
+        description={toolTipDesc}
+        placement="top"
+      />
+      <NumericFormat
+        value={value.toFixed(decimalPlace)}
+        fixedDecimalScale
+        thousandSeparator=","
+        displayType="text"
+        suffix={suffix ?? ""}
+        className="md:text-base text-sm font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
+      />
+
+      {baseValue.isGreaterThan(BigNumber(comparatorValue)) ? (
+        <div className="ml-[5.33px]">
+          <CircularCheckIcon
+            width={14}
+            height={14}
+            className="fill-green-600 dark:fill-dark-green-500"
+          />
+        </div>
+      ) : (
+        <>
+          {proposal.status !== GovernanceProposalStatus.VOTING && (
+            <div className="ml-[5.33px]">
+              <CircularCrossIcon
+                width={14}
+                height={14}
+                className="fill-red-600 dark:fill-[#FF483D]"
+              />
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
