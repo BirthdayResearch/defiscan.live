@@ -1,7 +1,7 @@
 export function CircularCheckIcon({
   className,
   width = 40,
-  height,
+  height = 40,
 }: {
   className: string;
   width?: number;

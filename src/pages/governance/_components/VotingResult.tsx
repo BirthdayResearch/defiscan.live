@@ -16,9 +16,9 @@ import { CircularCheckIcon } from "./CircularCheckIcon";
 import { CircularCrossIcon } from "./CircularCrossIcon";
 
 export function VotingResult({
-  yes,
-  no,
-  neutral,
+  yesVotes,
+  noVotes,
+  neutralVotes,
   status,
   onSubmitVote,
   voteCommand,
@@ -27,9 +27,9 @@ export function VotingResult({
   isLoading,
   proposal,
 }: {
-  yes: number;
-  no: number;
-  neutral: number;
+  yesVotes: number;
+  noVotes: number;
+  neutralVotes: number;
   status: GovernanceProposalStatus;
   onSubmitVote: () => void;
   voteCommand: string;
@@ -39,8 +39,12 @@ export function VotingResult({
   proposal: GovernanceProposal;
 }) {
   const minVotes = getMinVotes(proposal);
-  const { percYes, percNo } = getVotePercentage(yes, no, neutral);
-  const total = new BigNumber(yes).plus(no).plus(neutral);
+  const { percYes, percNo } = getVotePercentage(
+    yesVotes,
+    noVotes,
+    neutralVotes
+  );
+  const total = new BigNumber(yesVotes).plus(noVotes).plus(neutralVotes);
   return (
     <div
       className={classNames(
@@ -105,7 +109,7 @@ export function VotingResult({
                     {percYes.toFixed(2)}%
                   </span>
                   <NumericFormat
-                    value={yes}
+                    value={yesVotes}
                     fixedDecimalScale
                     thousandSeparator=","
                     displayType="text"
@@ -133,7 +137,7 @@ export function VotingResult({
                   </span>
 
                   <NumericFormat
-                    value={no}
+                    value={noVotes}
                     fixedDecimalScale
                     thousandSeparator=","
                     displayType="text"
@@ -225,7 +229,7 @@ export function VotingResult({
               <div className="flex flex-col">
                 <LabelWithInfoTooltipAndChecks
                   labelTitle="Neutral votes"
-                  value={BigNumber(neutral)}
+                  value={BigNumber(neutralVotes)}
                   toolTipDesc="Included as part of the total votes submitted, excluded from min. approval."
                   decimalPlace={0}
                 />
