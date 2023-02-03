@@ -351,7 +351,14 @@ function MobileMenu({
   );
 }
 
-export function HeaderLink(props: {
+export function HeaderLink({
+  text,
+  pathname,
+  className,
+  testId,
+  openProposals,
+  viewPort,
+}: {
   text: string;
   pathname: string;
   className: string;
@@ -360,55 +367,52 @@ export function HeaderLink(props: {
   viewPort: string;
 }): JSX.Element {
   const router = useRouter();
-  console.log(props.openProposals);
   return (
-    <Link href={{ pathname: props.pathname }}>
+    <Link href={{ pathname: pathname }}>
       <div
         className={classNames(
-          props.className,
-          props.viewPort === "Desktop" ? "flex flex-col" : "flex flex-row"
+          className,
+          viewPort === "Desktop" ? "flex flex-col" : "flex flex-row"
         )}
       >
-        {props.pathname.includes("governance") &&
-          props.openProposals !== undefined && (
-            <div
-              className={classNames(
-                " py-0.5 px-2 w-fit rounded-r-[20px] rounded-l-[20px] font-bold text-sm",
-                props.viewPort !== "Desktop"
-                  ? "order-last place-self-center"
-                  : "place-self-end",
-                router.pathname.includes(props.pathname)
-                  ? "bg-primary-500 text-dark-gray-900"
-                  : "bg-gray-600 dark:bg-dark-gray-900 dark:text-black text-dark-gray-900"
-              )}
-            >
-              {props.openProposals}
-            </div>
-          )}
+        {pathname.includes("governance") && openProposals !== undefined && (
+          <div
+            className={classNames(
+              " py-0.5 px-2 w-fit rounded-r-[20px] rounded-l-[20px] font-bold text-sm",
+              viewPort !== "Desktop"
+                ? "order-last place-self-center"
+                : "place-self-end",
+              router.pathname.includes(pathname)
+                ? "bg-primary-500 text-dark-gray-900"
+                : "bg-gray-600 dark:bg-dark-gray-900 dark:text-black text-dark-gray-900"
+            )}
+          >
+            {openProposals}
+          </div>
+        )}
         <a
           className={classNames(
             {
-              "dark:text-dark-50 text-primary-500": router.pathname.includes(
-                props.pathname
-              ),
+              "dark:text-dark-50 text-primary-500":
+                router.pathname.includes(pathname),
             },
             {
               "text-gray-900 dark:text-dark-gray-900":
-                !router.pathname.includes(props.pathname),
+                !router.pathname.includes(pathname),
             }
           )}
-          data-testid={props.testId}
+          data-testid={testId}
         >
           <div
             className={classNames(
               "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
               {
                 "dark:border-dark-50 border-b-2 border-primary-500":
-                  router.pathname.includes(props.pathname),
+                  router.pathname.includes(pathname),
               }
             )}
           >
-            {props.text}
+            {text}
           </div>
         </a>
       </div>
