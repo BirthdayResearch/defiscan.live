@@ -14,11 +14,10 @@ import { getVotePercentage } from "../shared/getTotalVotes";
 import { EditVoteIcon } from "./EditVoteIcon";
 import { CircularCheckIcon } from "./CircularCheckIcon";
 import { CircularCrossIcon } from "./CircularCrossIcon";
+import { VoteCount } from "../shared/getVoteCount";
 
 export function VotingResult({
-  yesVotes,
-  noVotes,
-  neutralVotes,
+  voteCounts,
   status,
   onSubmitVote,
   voteCommand,
@@ -27,9 +26,7 @@ export function VotingResult({
   isLoading,
   proposal,
 }: {
-  yesVotes: number;
-  noVotes: number;
-  neutralVotes: number;
+  voteCounts: VoteCount;
   status: GovernanceProposalStatus;
   onSubmitVote: () => void;
   voteCommand: string;
@@ -40,11 +37,13 @@ export function VotingResult({
 }) {
   const minVotes = getMinVotes(proposal);
   const { percYes, percNo } = getVotePercentage(
-    yesVotes,
-    noVotes,
-    neutralVotes
+    voteCounts.yes,
+    voteCounts.no,
+    voteCounts.neutral
   );
-  const total = new BigNumber(yesVotes).plus(noVotes).plus(neutralVotes);
+  const total = new BigNumber(voteCounts.yes)
+    .plus(voteCounts.no)
+    .plus(voteCounts.neutral);
   return (
     <div
       className={classNames(
@@ -109,7 +108,7 @@ export function VotingResult({
                     {percYes.toFixed(2)}%
                   </span>
                   <NumericFormat
-                    value={yesVotes}
+                    value={voteCounts.yes}
                     fixedDecimalScale
                     thousandSeparator=","
                     displayType="text"
@@ -137,7 +136,7 @@ export function VotingResult({
                   </span>
 
                   <NumericFormat
-                    value={noVotes}
+                    value={voteCounts.no}
                     fixedDecimalScale
                     thousandSeparator=","
                     displayType="text"
@@ -229,7 +228,7 @@ export function VotingResult({
               <div className="flex flex-col">
                 <LabelWithInfoTooltipAndChecks
                   labelTitle="Neutral votes"
-                  value={BigNumber(neutralVotes)}
+                  value={BigNumber(voteCounts.neutral)}
                   // toolTipDesc="Included as part of the total votes submitted, excluded from min. approval." // TODO: uncomment when blockchain fixes neutral votes as no bug
                   decimalPlace={0}
                 />
