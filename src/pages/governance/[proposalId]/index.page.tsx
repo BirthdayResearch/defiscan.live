@@ -143,9 +143,9 @@ export default function ProposalDetailPage({
               voteCommand={voteCommand}
               isLoading={isLoading}
               setIsChangeVoteClicked={setIsChangeVoteClicked}
-              yes={yes}
-              no={no}
-              neutral={neutral}
+              yesVotes={yes}
+              noVotes={no}
+              neutralVotes={neutral}
               status={proposal.status}
               onSubmitVote={() => {
                 setIsDialogOpen(true);
