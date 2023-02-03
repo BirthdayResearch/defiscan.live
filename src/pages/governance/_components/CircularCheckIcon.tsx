@@ -1,6 +1,6 @@
 export function CircularCheckIcon({
   className,
-  width,
+  width = 40,
   height,
 }: {
   className: string;
@@ -9,8 +9,8 @@ export function CircularCheckIcon({
 }) {
   return (
     <svg
-      width={width ?? 40}
-      height={height ?? 40}
+      width={width}
+      height={height}
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

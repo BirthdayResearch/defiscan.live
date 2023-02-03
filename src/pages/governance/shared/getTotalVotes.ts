@@ -5,7 +5,7 @@ export function getVotePercentage(
   numNo: number,
   numNeutral: number
 ) {
-  const totalVotes = numYes + numNo;
+  const totalVotes = numYes + numNo + numNeutral;
   const percYes = BigNumber(numYes).div(totalVotes).multipliedBy(100);
   const percNo = BigNumber(numNo).div(totalVotes).multipliedBy(100);
   const percNeutral = BigNumber(numNeutral).div(totalVotes).multipliedBy(100);
