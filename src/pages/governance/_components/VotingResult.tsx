@@ -237,7 +237,7 @@ export function VotingResult({
                     value={total}
                     baseValue={total}
                     comparatorValue={BigNumber(minVotes)}
-                    toolTipDesc="Included as part of the total votes submitted, excluded from min. approval."
+                    toolTipDesc="Total number of votes needed to surpass the minimum required votes for proposal to be considered accepted."
                     suffix=" votes"
                     proposal={proposal}
                     decimalPlace={0}
