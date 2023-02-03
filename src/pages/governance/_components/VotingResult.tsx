@@ -39,8 +39,6 @@ export function VotingResult({
   proposal: GovernanceProposal;
 }) {
   const minVotes = getMinVotes(proposal);
-  console.log("approvale", proposal.approvalThreshold.replace("%", ""));
-  console.log(proposal);
   const { percYes, percNo } = getVotePercentage(yes, no, neutral);
   const total = new BigNumber(yes).plus(no).plus(neutral);
   return (
