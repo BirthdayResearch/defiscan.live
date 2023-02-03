@@ -29,19 +29,6 @@ export function Header(): JSX.Element {
 
   const api = useWhaleApiClient();
 
-  function editDrawerMenuItemLinks(item: {
-    text: string;
-    pathname: string;
-    testId: string;
-  }) {
-    if (
-      item.text.toLowerCase() === "governance" &&
-      openProposalsLength !== undefined
-    ) {
-      item.text = `Governance (${openProposalsLength})`;
-    }
-  }
-
   async function getOpenProposalsLength() {
     await api.governance
       .listGovProposals({
@@ -60,10 +47,6 @@ export function Header(): JSX.Element {
   useEffect(() => {
     getOpenProposalsLength();
   }, []);
-
-  useEffect(() => {
-    drawerMenuItemLinks.map(editDrawerMenuItemLinks);
-  }, [openProposalsLength]);
 
   useEffect(() => {
     function routeChangeStart(): void {
@@ -111,7 +94,7 @@ export function Header(): JSX.Element {
         </div>
 
         <div className="border-b border-gray-100 dark:border-gray-800 dark:bg-gray-900">
-          <Container className="py-4 md:py-8">
+          <Container className="py-4 md:py-6">
             <div className="flex items-center justify-between">
               {isSearchIconClicked ? (
                 <div className="flex flex-row items-center w-full m-2 h-9">
@@ -129,10 +112,10 @@ export function Header(): JSX.Element {
                 </div>
               ) : (
                 <>
-                  <div className="flex w-full">
+                  <div className="flex w-full items-end">
                     <Link href={{ pathname: "/" }} passHref>
-                      <a className="flex cursor-pointer items-center hover:text-primary-500">
-                        <DeFiChainLogo className="h-full w-36 lg:w-40 md:m-0 m-2" />
+                      <a className="flex cursor-pointer hover:text-primary-500">
+                        <DeFiChainLogo className="h-full w-36 lg:w-40" />
                       </a>
                     </Link>
                     <DesktopNavbar openProposalsLength={openProposalsLength} />
@@ -178,10 +161,16 @@ export function Header(): JSX.Element {
       {menu && (
         <>
           <div className="fixed z-50 md:hidden">
-            <MobileMenu toggleMenu={() => setMenu(false)} />
+            <MobileMenu
+              openProposals={openProposalsLength}
+              toggleMenu={() => setMenu(false)}
+            />
           </div>
           <div className="w-full hidden md:block md:fixed md:z-50">
-            <TabletMenu toggleMenu={() => setMenu(false)} />
+            <TabletMenu
+              openProposals={openProposalsLength}
+              toggleMenu={() => setMenu(false)}
+            />
           </div>
         </>
       )}
@@ -195,51 +184,57 @@ function DesktopNavbar({
   openProposalsLength: number | undefined;
 }): JSX.Element {
   return (
-    <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
-      <div className="hidden md:flex">
+    <div className="ml-2 hidden items-end text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
+      <div className="hidden md:flex items-end">
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="DEX"
           pathname="/dex"
           testId="Desktop.HeaderLink.DEX"
+          viewPort="Desktop"
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Blocks"
           pathname="/blocks"
           testId="Desktop.HeaderLink.Blocks"
+          viewPort="Desktop"
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Vaults"
           pathname="/vaults"
           testId="Desktop.HeaderLink.Vaults"
+          viewPort="Desktop"
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Auctions"
           pathname="/auctions"
           testId="Desktop.HeaderLink.Auctions"
+          viewPort="Desktop"
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Oracles"
           pathname="/oracles"
           testId="Desktop.HeaderLink.Oracles"
+          viewPort="Desktop"
         />
         <HeaderLink
           className="ml-1 lg:ml-2 whitespace-nowrap"
-          text={`Governance${
-            openProposalsLength !== undefined ? ` (${openProposalsLength})` : ""
-          }`}
+          text="Governance"
+          openProposals={openProposalsLength}
           pathname="/governance"
           testId="Desktop.HeaderLink.Governance"
+          viewPort="Desktop"
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Masternodes"
           pathname="/masternodes"
           testId="Desktop.HeaderLink.Masternodes"
+          viewPort="Desktop"
         />
         <MoreDropdown />
       </div>
@@ -253,7 +248,13 @@ function DesktopNavbar({
   );
 }
 
-function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
+function TabletMenu({
+  toggleMenu,
+  openProposals,
+}: {
+  toggleMenu: () => void;
+  openProposals: number | undefined;
+}): JSX.Element {
   return (
     <div
       onClick={() => {
@@ -289,7 +290,7 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
             </div>
           </div>
           <div className="mt-2">
-            <MenuItems viewPort="Tablet" />
+            <MenuItems openProposals={openProposals} viewPort="Tablet" />
           </div>
         </div>
       </div>
@@ -297,7 +298,13 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   );
 }
 
-function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
+function MobileMenu({
+  toggleMenu,
+  openProposals,
+}: {
+  toggleMenu: () => void;
+  openProposals: number | undefined;
+}): JSX.Element {
   const ref = useRef<HTMLDivElement>(null);
   const dimension = useWindowDimensions();
   useEffect(() => {
@@ -313,7 +320,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
       className="bg-white dark:bg-gray-900 md:hidden"
       data-testid="MobileMenu"
     >
-      <div className="flex flex-row justify-between m-6 items-center">
+      <div className="flex flex-row justify-between p-6 items-center">
         <Link href={{ pathname: "/" }} passHref>
           <a className="hover:text-primary-500">
             <DeFiChainLogo className="h-full w-36" />
@@ -338,7 +345,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
           "text-gray-600 dark:text-dark-gray-900 overflow-auto"
         )}
       >
-        <MenuItems viewPort="Mobile" />
+        <MenuItems openProposals={openProposals} viewPort="Mobile" />
       </div>
     </div>
   );
@@ -349,56 +356,88 @@ export function HeaderLink(props: {
   pathname: string;
   className: string;
   testId?: string;
+  openProposals?: number;
+  viewPort: string;
 }): JSX.Element {
   const router = useRouter();
+  console.log(props.openProposals);
   return (
     <Link href={{ pathname: props.pathname }}>
-      <a
+      <div
         className={classNames(
           props.className,
-          {
-            "dark:text-dark-50 text-primary-500": router.pathname.includes(
-              props.pathname
-            ),
-          },
-          {
-            "text-gray-900 dark:text-dark-gray-900": !router.pathname.includes(
-              props.pathname
-            ),
-          }
+          props.viewPort === "Desktop" ? "flex flex-col" : "flex flex-row"
         )}
-        data-testid={props.testId}
       >
-        <div
+        {props.pathname.includes("governance") &&
+          props.openProposals !== undefined && (
+            <div
+              className={classNames(
+                " py-0.5 px-2 w-fit rounded-r-[20px] rounded-l-[20px] font-bold text-sm",
+                props.viewPort !== "Desktop"
+                  ? "order-last place-self-center"
+                  : "place-self-end",
+                router.pathname.includes(props.pathname)
+                  ? "bg-primary-500 text-dark-gray-900"
+                  : "bg-gray-600 dark:bg-dark-gray-900 dark:text-black text-dark-gray-900"
+              )}
+            >
+              {props.openProposals}
+            </div>
+          )}
+        <a
           className={classNames(
-            "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
             {
-              "dark:border-dark-50 border-b-2 border-primary-500":
-                router.pathname.includes(props.pathname),
+              "dark:text-dark-50 text-primary-500": router.pathname.includes(
+                props.pathname
+              ),
+            },
+            {
+              "text-gray-900 dark:text-dark-gray-900":
+                !router.pathname.includes(props.pathname),
             }
           )}
+          data-testid={props.testId}
         >
-          {props.text}
-        </div>
-      </a>
+          <div
+            className={classNames(
+              "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
+              {
+                "dark:border-dark-50 border-b-2 border-primary-500":
+                  router.pathname.includes(props.pathname),
+              }
+            )}
+          >
+            {props.text}
+          </div>
+        </a>
+      </div>
     </Link>
   );
 }
 
-function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
+function MenuItems({
+  viewPort,
+  openProposals,
+}: {
+  viewPort: string;
+  openProposals: number | undefined;
+}): JSX.Element {
   return (
     <div className="flex flex-col">
       {drawerMenuItemLinks.map((item, index) => {
         return (
           <HeaderLink
+            openProposals={openProposals}
             key={index}
             className={classNames(
-              "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 p-1.5",
-              { "md:pt-0": index === 0 }
+              "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 py-5",
+              { "md:pt-3": index === 0 }
             )}
             text={item.text}
             pathname={item.pathname}
             testId={`${viewPort}.HeaderLink.${item.testId}`}
+            viewPort={viewPort}
           />
         );
       })}
