@@ -378,6 +378,7 @@ export function HeaderLink({
       >
         {pathname.includes("governance") && openProposals !== undefined && (
           <div
+            role="button"
             className={classNames(
               " py-0.5 px-2 w-fit rounded-r-[20px] rounded-l-[20px] font-bold text-sm",
               viewPort !== "Desktop"
