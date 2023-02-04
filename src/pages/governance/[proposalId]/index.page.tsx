@@ -41,9 +41,7 @@ export default function ProposalDetailPage({
   currentBlockMedianTime,
   totalVotes,
   pages,
-  yes,
-  no,
-  neutral,
+  voteCounts,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const { connection } = useNetwork();
   const secondsPerBlock = getSecondsPerBlock(connection);
@@ -138,13 +136,12 @@ export default function ProposalDetailPage({
           </div>
           <div className="w-full lg:w-4/12">
             <VotingResult
+              proposal={proposal}
               userSelectedVote={userConfirmedSelectedVote}
               voteCommand={voteCommand}
               isLoading={isLoading}
               setIsChangeVoteClicked={setIsChangeVoteClicked}
-              yes={yes}
-              no={no}
-              neutral={neutral}
+              voteCounts={voteCounts}
               status={proposal.status}
               onSubmitVote={() => {
                 setIsDialogOpen(true);
@@ -350,7 +347,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const totalVotes = getAllCycleVotes(allCycleProposalVotes);
     // calculate stats (yes/no/neutral) for current cycle
-    const stats = getVoteCount(
+    const voteCounts = getVoteCount(
       allCycleProposalVotes.filter(
         (each) => each.cycle === proposal.currentCycle
       )
@@ -364,7 +361,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         currentBlockMedianTime,
         totalVotes,
         pages,
-        ...stats,
+        voteCounts,
       },
     };
   } catch {
