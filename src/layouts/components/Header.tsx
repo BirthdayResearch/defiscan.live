@@ -360,7 +360,8 @@ export function HeaderLink({
   const openProposals = useContext(OpenProposal);
   return (
     <Link href={{ pathname: pathname }}>
-      <div
+      <a
+        data-testid={testId}
         className={classNames(
           className,
           viewPort === ViewPort.Desktop ? "flex flex-col" : "flex flex-row"
@@ -389,7 +390,7 @@ export function HeaderLink({
             </div>
           </div>
         )}
-        <a
+        <div
           className={classNames(
             {
               "dark:text-dark-50 text-primary-500":
@@ -400,7 +401,6 @@ export function HeaderLink({
                 !router.pathname.includes(pathname),
             }
           )}
-          data-testid={testId}
         >
           <div
             className={classNames(
@@ -413,8 +413,8 @@ export function HeaderLink({
           >
             {text}
           </div>
-        </a>
-      </div>
+        </div>
+      </a>
     </Link>
   );
 }
