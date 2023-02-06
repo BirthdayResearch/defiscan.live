@@ -371,7 +371,7 @@ export function HeaderLink({
           <div
             role="button"
             className={classNames(
-              "px-2 w-fit rounded-r-[20px] rounded-l-[20px] font-bold lg:text-[10px] text-sm",
+              "px-1 py-0.5 w-fit rounded-[20px] font-bold lg:text-[10px] lg:leading-[10px] text-sm",
               viewPort !== ViewPort.Desktop
                 ? "order-last place-self-center"
                 : "place-self-end",
