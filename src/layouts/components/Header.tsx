@@ -3,7 +3,13 @@ import { IoChevronDown } from "react-icons/io5";
 import { DeFiChainLogo } from "@components/icons/DeFiChainLogo";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import React, { useEffect, useState, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  createContext,
+  useContext,
+} from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { Container } from "@components/commons/Container";
@@ -18,6 +24,8 @@ import {
 import { NumericFormat } from "react-number-format";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 import { HeaderCountBar } from "./HeaderCountBar";
+
+export const OpenProposal = createContext<undefined | number>(undefined);
 
 export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
@@ -78,7 +86,7 @@ export function Header(): JSX.Element {
   }, [menu]);
 
   return (
-    <>
+    <OpenProposal.Provider value={openProposalsLength}>
       <header
         className={classNames(
           "sticky top-0 z-50 bg-white md:static md:shadow-none",
@@ -119,7 +127,7 @@ export function Header(): JSX.Element {
                         <DeFiChainLogo className="h-full w-36 lg:w-40" />
                       </a>
                     </Link>
-                    <DesktopNavbar openProposalsLength={openProposalsLength} />
+                    <DesktopNavbar />
                   </div>
                   <div className="lg:hidden flex flex-row items-center md:gap-x-6 gap-x-5">
                     <div
@@ -162,28 +170,18 @@ export function Header(): JSX.Element {
       {menu && (
         <>
           <div className="fixed z-50 md:hidden">
-            <MobileMenu
-              openProposals={openProposalsLength}
-              toggleMenu={() => setMenu(false)}
-            />
+            <MobileMenu toggleMenu={() => setMenu(false)} />
           </div>
           <div className="w-full hidden md:block md:fixed md:z-50">
-            <TabletMenu
-              openProposals={openProposalsLength}
-              toggleMenu={() => setMenu(false)}
-            />
+            <TabletMenu toggleMenu={() => setMenu(false)} />
           </div>
         </>
       )}
-    </>
+    </OpenProposal.Provider>
   );
 }
 
-function DesktopNavbar({
-  openProposalsLength,
-}: {
-  openProposalsLength: number | undefined;
-}): JSX.Element {
+function DesktopNavbar(): JSX.Element {
   return (
     <div className="ml-2 hidden items-end text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
       <div className="hidden md:flex items-end">
@@ -225,7 +223,6 @@ function DesktopNavbar({
         <HeaderLink
           className="ml-1 lg:ml-2 whitespace-nowrap"
           text="Governance"
-          openProposals={openProposalsLength}
           pathname="/governance"
           testId="Desktop.HeaderLink.Governance"
           viewPort="Desktop"
@@ -249,13 +246,7 @@ function DesktopNavbar({
   );
 }
 
-function TabletMenu({
-  toggleMenu,
-  openProposals,
-}: {
-  toggleMenu: () => void;
-  openProposals: number | undefined;
-}): JSX.Element {
+function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   return (
     <div
       onClick={() => {
@@ -291,7 +282,7 @@ function TabletMenu({
             </div>
           </div>
           <div className="mt-2">
-            <MenuItems openProposals={openProposals} viewPort="Tablet" />
+            <MenuItems viewPort="Tablet" />
           </div>
         </div>
       </div>
@@ -299,13 +290,7 @@ function TabletMenu({
   );
 }
 
-function MobileMenu({
-  toggleMenu,
-  openProposals,
-}: {
-  toggleMenu: () => void;
-  openProposals: number | undefined;
-}): JSX.Element {
+function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
   const ref = useRef<HTMLDivElement>(null);
   const dimension = useWindowDimensions();
   useEffect(() => {
@@ -346,7 +331,7 @@ function MobileMenu({
           "text-gray-600 dark:text-dark-gray-900 overflow-auto"
         )}
       >
-        <MenuItems openProposals={openProposals} viewPort="Mobile" />
+        <MenuItems viewPort="Mobile" />
       </div>
     </div>
   );
@@ -357,17 +342,16 @@ export function HeaderLink({
   pathname,
   className,
   testId,
-  openProposals,
   viewPort,
 }: {
   text: string;
   pathname: string;
   className: string;
   testId?: string;
-  openProposals?: number;
   viewPort: string;
 }): JSX.Element {
   const router = useRouter();
+  const openProposals = useContext(OpenProposal);
   return (
     <Link href={{ pathname: pathname }}>
       <div
@@ -380,7 +364,7 @@ export function HeaderLink({
           <div
             role="button"
             className={classNames(
-              " py-0.5 px-2 w-fit rounded-r-[20px] rounded-l-[20px] font-bold text-sm",
+              "px-2 w-fit rounded-r-[20px] rounded-l-[20px] font-bold lg:text-[10px] text-sm",
               viewPort !== "Desktop"
                 ? "order-last place-self-center"
                 : "place-self-end",
@@ -389,7 +373,7 @@ export function HeaderLink({
                 : "bg-gray-600 dark:bg-dark-gray-900 dark:text-black text-dark-gray-900"
             )}
           >
-            <div className="min-w-[13px] text-center">
+            <div className="text-center">
               <NumericFormat
                 displayType="text"
                 thousandSeparator
@@ -429,19 +413,12 @@ export function HeaderLink({
   );
 }
 
-function MenuItems({
-  viewPort,
-  openProposals,
-}: {
-  viewPort: string;
-  openProposals: number | undefined;
-}): JSX.Element {
+function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
   return (
     <div className="flex flex-col">
       {drawerMenuItemLinks.map((item, index) => {
         return (
           <HeaderLink
-            openProposals={openProposals}
             key={index}
             className={classNames(
               "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 py-5",
