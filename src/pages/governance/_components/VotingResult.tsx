@@ -433,7 +433,7 @@ function LabelWithInfoTooltipAndChecks({
         <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
           {labelTitle}
         </span>
-        <button type="button" className="ml-1 align-middle">
+        <button type="button" className="ml-1 align-sub">
           <InfoHoverPopover description={toolTipDesc} placement="top" />
         </button>
       </div>
