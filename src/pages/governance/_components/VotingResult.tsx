@@ -77,7 +77,7 @@ export function VotingResult({
               }
             )}
           >
-            {status === GovernanceProposalStatus.VOTING && "Current results"}
+            {status === GovernanceProposalStatus.VOTING && "Current votes"}
           </span>
 
           <div
@@ -90,8 +90,8 @@ export function VotingResult({
                 "mb-6 lg:pb-[22px] lg:pr-0 md:pr-8 md:pb-0 pb-[22px] lg:w-full w-full md:w-1/2 lg:border-b-[0.5px] md:border-b-0 border-b-[0.5px] dark:border-dark-gray-300"
               )}
             >
-              <div className="flex flex-col gap-y-1 w-full">
-                <div className="flex flex-row">
+              <div className="flex flex-col w-full">
+                <div className="flex flex-row mb-1">
                   <span className="md:text-base text-sm font-semibold text-gray-900 dark:text-dark-gray-900 grow">
                     Yes
                   </span>
@@ -112,7 +112,6 @@ export function VotingResult({
                   <div className="flex flex-col grow">
                     <span
                       className={classNames(
-                        "text-sm",
                         percYes > percNo
                           ? "text-green-600 dark:text-[#21E529] font-semibold"
                           : "text-gray-900 dark:text-dark-gray-900"
@@ -126,13 +125,13 @@ export function VotingResult({
                       thousandSeparator=","
                       displayType="text"
                       suffix=" votes"
-                      className="text-sm text-gray-600 dark:text-dark-gray-600"
+                      className="text-xs text-gray-600 dark:text-dark-gray-600"
                     />
                   </div>
                   <div className="flex flex-col">
                     <span
                       className={classNames(
-                        "grow  text-sm text-right",
+                        "grow text-right",
                         percNo > percYes
                           ? "text-red-600 dark:text-[#FF483D] font-semibold"
                           : "text-gray-900 dark:text-dark-gray-900"
@@ -147,7 +146,7 @@ export function VotingResult({
                       thousandSeparator=","
                       displayType="text"
                       suffix=" votes"
-                      className="text-sm text-gray-600 dark:text-dark-gray-600"
+                      className="text-xs text-gray-600 dark:text-dark-gray-600 text-right"
                     />
                   </div>
                 </div>
@@ -156,7 +155,7 @@ export function VotingResult({
               <div className="flex flex-col mt-5">
                 <LabelWithInfoTooltipAndChecks
                   labelTitle="Neutral votes"
-                  value={BigNumber(voteCounts.neutral)}
+                  value={new BigNumber(voteCounts.neutral)}
                   // toolTipDesc="Included as part of the total votes submitted, excluded from min. approval." // TODO: uncomment when blockchain fixes neutral votes as no bug
                   decimalPlace={0}
                 />
@@ -192,11 +191,9 @@ export function VotingResult({
                   value={
                     new BigNumber(proposal.approvalThreshold.replace("%", ""))
                   }
-                  baseValue={percYes}
+                  comparatorValue={percYes}
                   proposalStatus={proposal.status}
-                  comparatorValue={
-                    new BigNumber(proposal.approvalThreshold.replace("%", ""))
-                  }
+                  comparingMinimumValue
                   suffix="%"
                   toolTipDesc="The percentage of required “yes” votes for proposal to be considered accepted."
                   decimalPlace={2}
@@ -205,9 +202,9 @@ export function VotingResult({
                 <LabelWithInfoTooltipAndChecks
                   labelTitle="Min. required votes"
                   value={new BigNumber(minVotes)}
-                  baseValue={new BigNumber(voteCounts.yes)}
+                  comparatorValue={new BigNumber(voteCounts.yes)}
                   proposalStatus={proposal.status}
-                  comparatorValue={new BigNumber(minVotes)}
+                  comparingMinimumValue
                   toolTipDesc="Votes needed to surpass the minimum required votes for proposal to be considered accepted."
                   decimalPlace={0}
                 />
@@ -360,7 +357,7 @@ function Progress({
     <div className="h-6 relative">
       <div
         style={{ width: `${approvalThreshold}%` }}
-        className="absolute left-0 -top-1.5 h-6 border-r border-gray-200 dark:border-dark-gray-200"
+        className="absolute left-0 -top-1.5 h-6 border-r border-gray-200 dark:border-dark-gray-400"
       />
       <div
         className={classNames(
@@ -390,8 +387,8 @@ function Progress({
 function LabelWithInfoTooltipAndChecks({
   labelTitle,
   value,
-  baseValue,
   comparatorValue,
+  comparingMinimumValue = false,
   proposalStatus,
   suffix,
   toolTipDesc,
@@ -399,19 +396,19 @@ function LabelWithInfoTooltipAndChecks({
 }: {
   labelTitle: string;
   value: BigNumber;
-  baseValue?: BigNumber;
   comparatorValue?: BigNumber;
+  comparingMinimumValue?: boolean;
   proposalStatus?: GovernanceProposalStatus;
   suffix?: string;
   toolTipDesc?: string;
   decimalPlace: number;
 }) {
-  if (comparatorValue === undefined) {
+  if (!comparingMinimumValue) {
     return (
       <div className="flex items-center">
-        <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
+        <div className="text-gray-500 dark:text-dark-gray-500 text-sm">
           {labelTitle}
-        </span>
+        </div>
         {toolTipDesc && (
           <InfoHoverPopover
             className="ml-1"
@@ -432,14 +429,15 @@ function LabelWithInfoTooltipAndChecks({
 
   return (
     <div className="flex items-center">
-      <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
-        {labelTitle}
-      </span>
-      <InfoHoverPopover
-        className="ml-1 self-center"
-        description={toolTipDesc}
-        placement="top"
-      />
+      <div className="inline">
+        <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
+          {labelTitle}
+        </span>
+        <button type="button" className="ml-1 align-middle">
+          <InfoHoverPopover description={toolTipDesc} placement="top" />
+        </button>
+      </div>
+
       <NumericFormat
         value={value.toFixed(decimalPlace)}
         fixedDecimalScale
@@ -455,15 +453,14 @@ function LabelWithInfoTooltipAndChecks({
             width={14}
             height={14}
             className={classNames(
-              "",
-              baseValue!.isGreaterThanOrEqualTo(BigNumber(comparatorValue))
+              comparatorValue!.isGreaterThanOrEqualTo(value)
                 ? "fill-green-600 dark:fill-dark-green-500"
                 : "fill-gray-300 dark:fill-dark-gray-400"
             )}
           />
         ) : (
           <>
-            {baseValue!.isGreaterThanOrEqualTo(BigNumber(comparatorValue)) ? (
+            {comparatorValue!.isGreaterThanOrEqualTo(value) ? (
               <CircularCheckIcon
                 width={14}
                 height={14}
@@ -473,7 +470,7 @@ function LabelWithInfoTooltipAndChecks({
               />
             ) : (
               <>
-                <CircularCrossIcon className="fill-red-600 dark:fill-dark-red-500" />
+                <CircularCrossIcon className="fill-red-600 dark:fill-[#FF483D]" />
               </>
             )}
           </>
