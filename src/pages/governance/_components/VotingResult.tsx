@@ -90,7 +90,7 @@ export function VotingResult({
                 "mb-6 lg:pb-[22px] lg:pr-0 md:pr-8 md:pb-0 pb-[22px] lg:w-full w-full md:w-1/2 lg:border-b-[0.5px] md:border-b-0 border-b-[0.5px] dark:border-dark-gray-300"
               )}
             >
-              <div className="flex flex-col gap-y-2 w-full">
+              <div className="flex flex-col gap-y-1 w-full">
                 <div className="flex flex-row">
                   <span className="md:text-base text-sm font-semibold text-gray-900 dark:text-dark-gray-900 grow">
                     Yes
@@ -107,13 +107,15 @@ export function VotingResult({
                     proposal.approvalThreshold.replace("%", "")
                   )}
                   containerClass="bg-gray-100 dark:bg-dark-gray-200"
-                  // contentClass="bg-gray-300 dark:bg-dark-gray-400"
                 />
                 <div className="flex flex-row">
                   <div className="flex flex-col grow">
                     <span
                       className={classNames(
-                        "text-green-600 dark:text-dark-green-600 text-sm"
+                        "text-sm",
+                        percYes > percNo
+                          ? "text-green-600 dark:text-[#21E529] font-semibold"
+                          : "text-gray-900 dark:text-dark-gray-900"
                       )}
                     >
                       {percYes.toFixed(2)}%
@@ -130,7 +132,10 @@ export function VotingResult({
                   <div className="flex flex-col">
                     <span
                       className={classNames(
-                        "grow text-red-600 dark:text-dark-red-600 text-sm text-right"
+                        "grow  text-sm text-right",
+                        percNo > percYes
+                          ? "text-red-600 dark:text-[#FF483D] font-semibold"
+                          : "text-gray-900 dark:text-dark-gray-900"
                       )}
                     >
                       {percNo.toFixed(2)}%
@@ -367,14 +372,14 @@ function Progress({
           style={{ width: `${yesValue}%` }}
           className={classNames(
             "absolute top-0 left-0 h-3 bg-primary-500 dark:bg-dark-primary-500",
-            "bg-green-600 dark:bg-green-600"
+            "bg-green-600 dark:bg-[#21E529]"
           )}
         />
         <div
           style={{ width: `${noValue}%` }}
           className={classNames(
             "absolute top-0 right-0 h-3 bg-primary-500 dark:bg-dark-primary-500",
-            "bg-red-600 dark:bg-red-600"
+            "bg-red-600 dark:bg-[#FF483D]"
           )}
         />
       </div>
