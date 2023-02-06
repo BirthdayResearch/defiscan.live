@@ -25,7 +25,13 @@ import { NumericFormat } from "react-number-format";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 import { HeaderCountBar } from "./HeaderCountBar";
 
-export const OpenProposal = createContext<undefined | number>(undefined);
+const OpenProposal = createContext<undefined | number>(undefined);
+
+enum ViewPort {
+  Desktop = "Desktop",
+  Tablet = "Tablet",
+  Mobile = "Mobile",
+}
 
 export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
@@ -190,49 +196,49 @@ function DesktopNavbar(): JSX.Element {
           text="DEX"
           pathname="/dex"
           testId="Desktop.HeaderLink.DEX"
-          viewPort="Desktop"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Blocks"
           pathname="/blocks"
           testId="Desktop.HeaderLink.Blocks"
-          viewPort="Desktop"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Vaults"
           pathname="/vaults"
           testId="Desktop.HeaderLink.Vaults"
-          viewPort="Desktop"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Auctions"
           pathname="/auctions"
           testId="Desktop.HeaderLink.Auctions"
-          viewPort="Desktop"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Oracles"
           pathname="/oracles"
           testId="Desktop.HeaderLink.Oracles"
-          viewPort="Desktop"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2 whitespace-nowrap"
           text="Governance"
           pathname="/governance"
           testId="Desktop.HeaderLink.Governance"
-          viewPort="Desktop"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Masternodes"
           pathname="/masternodes"
           testId="Desktop.HeaderLink.Masternodes"
-          viewPort="Desktop"
+          viewPort={ViewPort.Desktop}
         />
         <MoreDropdown />
       </div>
@@ -282,7 +288,7 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
             </div>
           </div>
           <div className="mt-2">
-            <MenuItems viewPort="Tablet" />
+            <MenuItems viewPort={ViewPort.Tablet} />
           </div>
         </div>
       </div>
@@ -331,7 +337,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
           "text-gray-600 dark:text-dark-gray-900 overflow-auto"
         )}
       >
-        <MenuItems viewPort="Mobile" />
+        <MenuItems viewPort={ViewPort.Mobile} />
       </div>
     </div>
   );
@@ -348,7 +354,7 @@ export function HeaderLink({
   pathname: string;
   className: string;
   testId?: string;
-  viewPort: string;
+  viewPort: ViewPort;
 }): JSX.Element {
   const router = useRouter();
   const openProposals = useContext(OpenProposal);
@@ -357,7 +363,7 @@ export function HeaderLink({
       <div
         className={classNames(
           className,
-          viewPort === "Desktop" ? "flex flex-col" : "flex flex-row"
+          viewPort === ViewPort.Desktop ? "flex flex-col" : "flex flex-row"
         )}
       >
         {pathname.includes("governance") && openProposals !== undefined && (
@@ -365,7 +371,7 @@ export function HeaderLink({
             role="button"
             className={classNames(
               "px-2 w-fit rounded-r-[20px] rounded-l-[20px] font-bold lg:text-[10px] text-sm",
-              viewPort !== "Desktop"
+              viewPort !== ViewPort.Desktop
                 ? "order-last place-self-center"
                 : "place-self-end",
               router.pathname.includes(pathname)
@@ -413,7 +419,7 @@ export function HeaderLink({
   );
 }
 
-function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
+function MenuItems({ viewPort }: { viewPort: ViewPort }): JSX.Element {
   return (
     <div className="flex flex-col">
       {drawerMenuItemLinks.map((item, index) => {
