@@ -357,10 +357,10 @@ function Progress({
   containerClass: string;
 }) {
   return (
-    <div className="h-5 relative">
+    <div className="h-6 relative">
       <div
         style={{ width: `${approvalThreshold}%` }}
-        className="absolute left-0 -top-1 h-5 border-r border-gray-200 dark:border-dark-gray-200"
+        className="absolute left-0 -top-1.5 h-6 border-r border-gray-200 dark:border-dark-gray-200"
       />
       <div
         className={classNames(
@@ -408,13 +408,13 @@ function LabelWithInfoTooltipAndChecks({
 }) {
   if (comparatorValue === undefined) {
     return (
-      <div className="flex">
+      <div className="flex items-center">
         <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
           {labelTitle}
         </span>
         {toolTipDesc && (
           <InfoHoverPopover
-            className="ml-1 self-center"
+            className="ml-1"
             description={toolTipDesc}
             placement="top"
           />
