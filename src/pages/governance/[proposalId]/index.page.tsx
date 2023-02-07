@@ -163,15 +163,16 @@ export default function ProposalDetailPage({
               </div>
 
               {proposal.type ===
-                GovernanceProposalType.COMMUNITY_FUND_PROPOSAL && (
-                <div className="block lg:hidden">
-                  <CfpVotingResultFilterTab
-                    cfpVotingResultTabChoice={cfpVotingResultTabChoice}
-                    setCfpVotingResultTabChoice={setCfpVotingResultTabChoice}
-                    currenCycle={proposal.currentCycle}
-                  />
-                </div>
-              )}
+                GovernanceProposalType.COMMUNITY_FUND_PROPOSAL &&
+                proposal.totalCycles > 1 && (
+                  <div className="block lg:hidden">
+                    <CfpVotingResultFilterTab
+                      cfpVotingResultTabChoice={cfpVotingResultTabChoice}
+                      setCfpVotingResultTabChoice={setCfpVotingResultTabChoice}
+                      currenCycle={proposal.currentCycle}
+                    />
+                  </div>
+                )}
             </div>
             {cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current ||
             proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
