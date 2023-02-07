@@ -425,8 +425,8 @@ function LabelWithInfoTooltipAndChecks({
   }
 
   return (
-    <div className="flex items-center">
-      <div className="inline">
+    <div className="flex flex-row items-end">
+      <div className="inline grow">
         <span className="text-gray-500 dark:text-dark-gray-500 text-sm">
           {labelTitle}
         </span>
@@ -435,43 +435,45 @@ function LabelWithInfoTooltipAndChecks({
         </button>
       </div>
 
-      <NumericFormat
-        value={value.toFixed(decimalPlace)}
-        fixedDecimalScale
-        thousandSeparator=","
-        displayType="text"
-        suffix={suffix ?? ""}
-        className="md:text-base text-sm font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
-      />
+      <div className="flex items-center">
+        <NumericFormat
+          value={value.toFixed(decimalPlace)}
+          fixedDecimalScale
+          thousandSeparator=","
+          displayType="text"
+          suffix={suffix ?? ""}
+          className="md:text-base text-sm font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
+        />
 
-      <div className="ml-[5.33px]">
-        {proposalStatus === GovernanceProposalStatus.VOTING ? (
-          <CircularCheckIcon
-            width={14}
-            height={14}
-            className={classNames(
-              comparatorValue!.isGreaterThanOrEqualTo(value)
-                ? "fill-green-600 dark:fill-dark-green-500"
-                : "fill-gray-300 dark:fill-dark-gray-400"
-            )}
-          />
-        ) : (
-          <>
-            {comparatorValue!.isGreaterThanOrEqualTo(value) ? (
-              <CircularCheckIcon
-                width={14}
-                height={14}
-                className={classNames(
-                  "fill-green-600 dark:fill-dark-green-500"
-                )}
-              />
-            ) : (
-              <>
-                <CircularCrossIcon className="fill-red-600 dark:fill-[#FF483D]" />
-              </>
-            )}
-          </>
-        )}
+        <div className="ml-[5.33px]">
+          {proposalStatus === GovernanceProposalStatus.VOTING ? (
+            <CircularCheckIcon
+              width={14}
+              height={14}
+              className={classNames(
+                comparatorValue!.isGreaterThanOrEqualTo(value)
+                  ? "fill-green-600 dark:fill-dark-green-500"
+                  : "fill-gray-300 dark:fill-dark-gray-400"
+              )}
+            />
+          ) : (
+            <>
+              {comparatorValue!.isGreaterThanOrEqualTo(value) ? (
+                <CircularCheckIcon
+                  width={14}
+                  height={14}
+                  className={classNames(
+                    "fill-green-600 dark:fill-dark-green-500"
+                  )}
+                />
+              ) : (
+                <>
+                  <CircularCrossIcon className="fill-red-600 dark:fill-[#FF483D]" />
+                </>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
