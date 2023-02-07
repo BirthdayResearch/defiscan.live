@@ -71,10 +71,7 @@ export function VotingResult({
         <div className="px-6">
           <span
             className={classNames(
-              "font-semibold text-xl text-gray-900 dark:text-dark-gray-900",
-              {
-                "mb-5": proposal.status === GovernanceProposalStatus.VOTING,
-              }
+              "font-semibold text-xl text-gray-900 dark:text-dark-gray-900"
             )}
           >
             {status === GovernanceProposalStatus.VOTING && "Current votes"}
@@ -159,7 +156,7 @@ export function VotingResult({
                   // toolTipDesc="Included as part of the total votes submitted, excluded from min. approval." // TODO: uncomment when blockchain fixes neutral votes as no bug
                   decimalPlace={0}
                 />
-                <div className="flex flex-col mt-4 gap-y-1">
+                <div className="flex flex-col mt-4">
                   <LabelWithInfoTooltipAndChecks
                     labelTitle="Total votes"
                     value={total}
@@ -185,7 +182,7 @@ export function VotingResult({
                 </>
               )}
 
-              <div className="flex flex-col gap-y-5">
+              <div className="flex flex-col gap-y-4">
                 <LabelWithInfoTooltipAndChecks
                   labelTitle="Min. required approval rate"
                   value={
@@ -213,7 +210,7 @@ export function VotingResult({
               {status === GovernanceProposalStatus.VOTING && (
                 <>
                   {voteCommand === "" ? (
-                    <div className="lg:mt-12 md:mt-6 mt-12">
+                    <div className="lg:mt-12 md:mt-7 mt-12">
                       <button
                         type="button"
                         onClick={() => {
@@ -254,7 +251,7 @@ export function VotingResult({
                                   <CircularCheckIcon
                                     width={20}
                                     height={20}
-                                    className="fill-green-600 dark:fill-dark-green-500"
+                                    className="fill-green-600 dark:fill-dark-green-600"
                                   />
                                 )}
                               </div>
