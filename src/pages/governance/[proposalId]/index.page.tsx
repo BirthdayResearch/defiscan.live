@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Container } from "@components/commons/Container";
-import { getWhaleApiClient, getWhaleRpcClient } from "@contexts/WhaleContext";
+import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import {
   VoteDecision,
@@ -307,7 +307,6 @@ function getAllCycleVotes(
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const proposalId = context.params?.proposalId?.toString().trim() as string;
   const api = getWhaleApiClient(context);
-  const rpc = getWhaleRpcClient(context);
   const next = CursorPagination.getNext(context);
 
   try {
@@ -329,7 +328,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       proposalVotes as ApiPagedResponse<any>
     );
 
-    const currentBlockHeight = await rpc.blockchain.getBlockCount();
+    const currentBlockHeight = await api.blocks
+      .list(1)
+      .then((blocks) => blocks[0].height);
     const currentBlockMedianTime = await api.blocks
       .get(currentBlockHeight.toString())
       .then((block) => block.medianTime);

@@ -56,23 +56,28 @@ export function ProposalTable({
           )}
         </OverflowTable.Header>
 
-        {proposals.map((proposal: GovernanceProposal, index) => (
-          <React.Fragment key={index}>
-            <ProposalRow
-              proposal={proposal}
-              currentBlockHeight={currentBlockHeight}
-              currentBlockMedianTime={currentBlockMedianTime}
-              userQueryProposalStatus={userQueryProposalStatus}
-            />
-            {displayVoteModal && (
-              <VoteModal
-                proposalId={proposal.proposalId}
-                onClose={() => {
-                  setDisplayVoteModal(false);
-                }}
+        {proposals.map((proposal: GovernanceProposal) => (
+          <Link
+            href={{ pathname: `/governance/${proposal.proposalId}` }}
+            key={proposal.proposalId}
+          >
+            <a className="contents">
+              <ProposalRow
+                proposal={proposal}
+                currentBlockHeight={currentBlockHeight}
+                currentBlockMedianTime={currentBlockMedianTime}
+                userQueryProposalStatus={userQueryProposalStatus}
               />
-            )}
-          </React.Fragment>
+              {displayVoteModal && (
+                <VoteModal
+                  proposalId={proposal.proposalId}
+                  onClose={() => {
+                    setDisplayVoteModal(false);
+                  }}
+                />
+              )}
+            </a>
+          </Link>
         ))}
       </OverflowTable>
     </div>
