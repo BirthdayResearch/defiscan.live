@@ -90,8 +90,8 @@ export function VotingResult({
                 "mb-[22px] lg:pb-[22px] lg:pr-0 md:pr-8 md:pb-0 pb-[22px] lg:w-full w-full md:w-1/2 lg:border-b-[0.5px] md:border-b-0 border-b-[0.5px] dark:border-dark-gray-300"
               )}
             >
-              <div className="flex flex-col w-full">
-                <div className="flex flex-row mb-3">
+              <div className="flex flex-col w-full gap-y-[10px]">
+                <div className="flex flex-row">
                   <span className="md:text-base text-sm font-semibold text-gray-900 dark:text-dark-gray-900 grow">
                     Yes
                   </span>
@@ -108,7 +108,7 @@ export function VotingResult({
                   )}
                   containerClass="bg-gray-100 dark:bg-dark-gray-200"
                 />
-                <div className="flex flex-row mt-1">
+                <div className="flex flex-row">
                   <div className="flex flex-col grow">
                     <span
                       className={classNames(
@@ -354,7 +354,7 @@ function Progress({
   containerClass: string;
 }) {
   return (
-    <div className="h-6 relative">
+    <div className="relative">
       <div
         style={{ width: `${approvalThreshold}%` }}
         className="absolute left-0 -top-1.5 h-6 border-r border-gray-200 dark:border-dark-gray-400"
