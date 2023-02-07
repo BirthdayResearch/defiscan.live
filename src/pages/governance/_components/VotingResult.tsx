@@ -199,7 +199,7 @@ export function VotingResult({
                 <LabelWithInfoTooltipAndChecks
                   labelTitle="Min. required votes"
                   value={new BigNumber(minVotes)}
-                  comparatorValue={new BigNumber(voteCounts.yes)}
+                  comparatorValue={new BigNumber(total)}
                   proposalStatus={proposal.status}
                   comparingMinimumValue
                   toolTipDesc="Votes needed to surpass the minimum required votes for proposal to be considered accepted."
