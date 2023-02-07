@@ -441,7 +441,7 @@ function LabelWithInfoTooltipAndChecks({
           fixedDecimalScale
           thousandSeparator=","
           displayType="text"
-          suffix={suffix ?? ""}
+          suffix={suffix}
           className="md:text-base text-sm font-medium text-gray-900 dark:text-dark-gray-900 grow text-end"
         />
 
@@ -467,9 +467,7 @@ function LabelWithInfoTooltipAndChecks({
                   )}
                 />
               ) : (
-                <>
-                  <CircularCrossIcon className="fill-red-600 dark:fill-[#FF483D]" />
-                </>
+                <CircularCrossIcon className="fill-red-600 dark:fill-[#FF483D]" />
               )}
             </>
           )}
