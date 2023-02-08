@@ -21,7 +21,6 @@ import {
   CursorPagination,
 } from "@components/commons/CursorPagination";
 import { useNetwork } from "@contexts/NetworkContext";
-import { isPlayground } from "@waveshq/walletkit-core";
 import { getVoteCount } from "../shared/getVoteCount";
 import { VoteCards, VotesTable } from "../_components/VotesTable";
 import { VotingResult } from "../_components/VotingResult";
@@ -75,9 +74,8 @@ export default function ProposalDetailPage({
     }
   }, [isChangeVoteClicked]);
 
-  if (isPlayground(connection)) {
-    console.log(proposal);
-  }
+  console.log(proposal);
+
   return (
     <>
       <Head title="Proposal Details" />

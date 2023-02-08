@@ -95,9 +95,7 @@ export default function OnChainGovernancePage({
       );
     }
   }
-  if (isPlayground(connection)) {
-    console.log(proposals);
-  }
+  console.log(proposals);
 
   return (
     <div>
