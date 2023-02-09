@@ -18,13 +18,13 @@ import {
   isValidOCGGithubUrl,
   isValidOCGRedditUrl,
 } from "utils/commons/LinkValidator";
-import { ProposalDisplayName } from "../_components/ProposalCard";
-import { ReviewProposal } from "../_components/ReviewProposal";
-import { TextAreaComponent } from "../_components/TextAreaComponent";
-import { GettingStartedInfo } from "../_components/GettingStartedInfo";
-import { DisclosureComponent } from "../_components/DisclosureComponent";
-import { ConfirmDialog } from "../_components/ConfirmDialog";
-import { SubmitProposal } from "../_components/SubmitProposal";
+import { ProposalDisplayName } from "./_components/ProposalCard";
+import { ReviewProposal } from "./_components/ReviewProposal";
+import { TextAreaComponent } from "./_components/TextAreaComponent";
+import { GettingStartedInfo } from "./_components/GettingStartedInfo";
+import { DisclosureComponent } from "./_components/DisclosureComponent";
+import { ConfirmDialog } from "./_components/ConfirmDialog";
+import { SubmitProposal } from "./_components/SubmitProposal";
 
 export default function CreateProposalPage() {
   const { connection } = useNetwork();
