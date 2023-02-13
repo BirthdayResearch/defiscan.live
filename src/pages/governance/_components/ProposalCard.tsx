@@ -9,6 +9,7 @@ import { ListProposalsStatus } from "@defichain/jellyfish-api-core/dist/category
 import {
   GovernanceProposal,
   GovernanceProposalStatus,
+  GovernanceProposalType,
 } from "@defichain/whale-api-client/dist/api/governance";
 import { Link } from "@components/commons/link/Link";
 import { useNetwork } from "@contexts/NetworkContext";
@@ -16,6 +17,8 @@ import {
   isValidOCGGithubUrl,
   isValidOCGRedditUrl,
 } from "utils/commons/LinkValidator";
+import { NumericFormat } from "react-number-format";
+import BigNumber from "bignumber.js";
 import { useCycleEndDate } from "../shared/useCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
@@ -146,6 +149,26 @@ function ProposalCard({
                 </div>
                 <div className="text-gray-900 text-sm dark:text-dark-gray-900">
                   {ProposalDisplayName[proposal.type]}
+                </div>
+              </div>
+
+              <div className="flex flex-row align-middle">
+                <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
+                  {OnChainGovernanceTitles.RequestedAmount}
+                </div>
+                <div className="text-gray-900 text-sm dark:text-dark-gray-900">
+                  {proposal.type ===
+                  GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
+                    "N/A"
+                  ) : (
+                    <NumericFormat
+                      value={new BigNumber(proposal.amount ?? 0).toFixed(2)}
+                      fixedDecimalScale
+                      thousandSeparator=","
+                      displayType="text"
+                      suffix=" DFI"
+                    />
+                  )}
                 </div>
               </div>
 
