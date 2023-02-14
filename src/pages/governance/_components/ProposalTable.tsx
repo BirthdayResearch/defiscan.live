@@ -7,6 +7,7 @@ import { ListProposalsStatus } from "@defichain/jellyfish-api-core/dist/category
 import {
   GovernanceProposal,
   GovernanceProposalStatus,
+  GovernanceProposalType,
 } from "@defichain/whale-api-client/dist/api/governance";
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
@@ -15,6 +16,8 @@ import {
   isValidOCGGithubUrl,
   isValidOCGRedditUrl,
 } from "utils/commons/LinkValidator";
+import { NumericFormat } from "react-number-format";
+import BigNumber from "bignumber.js";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { useCycleEndDate } from "../shared/useCycleEndTime";
@@ -47,6 +50,7 @@ export function ProposalTable({
             title={OnChainGovernanceTitles.NameOfProposalTitle}
           />
           <OverflowTable.Head title={OnChainGovernanceTitles.TypeTitle} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.RequestedAmount} />
           <OverflowTable.Head title={OnChainGovernanceTitles.TransactionId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
           <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
@@ -132,6 +136,17 @@ function ProposalRow({
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle text-gray-900 dark:text-dark-gray-900">
         {ProposalDisplayName[proposal.type]}
+      </OverflowTable.Cell>
+      <OverflowTable.Cell className="align-middle text-gray-900 dark:text-dark-gray-900">
+        {proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
+          "N/A"
+        ) : (
+          <NumericFormat
+            value={new BigNumber(proposal.amount ?? 0).toFixed(2)}
+            thousandSeparator=","
+            displayType="text"
+          />
+        )}
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle break-all">
         <Link
