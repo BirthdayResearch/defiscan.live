@@ -72,7 +72,7 @@ export function ProposalTable({
             title={OnChainGovernanceTitles.NameOfProposalTitle}
           />
           <OverflowTable.Head title={OnChainGovernanceTitles.TypeTitle} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.ProposerId} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.TransactionId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
           <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
           {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
@@ -81,26 +81,31 @@ export function ProposalTable({
           )}
         </OverflowTable.Header>
 
-        {proposals.map((proposal: GovernanceProposal, index) => (
-          <React.Fragment key={index}>
-            <ProposalRow
-              proposal={proposal}
-              currentBlockHeight={currentBlockHeight}
-              currentBlockMedianTime={currentBlockMedianTime}
-              userQueryProposalStatus={userQueryProposalStatus}
-              onDummyVote={(vote: string) =>
-                voteDummyProposals(proposal.proposalId, masternodeId, vote)
-              }
-            />
-            {displayVoteModal && (
-              <VoteModal
-                proposalId={proposal.proposalId}
-                onClose={() => {
-                  setDisplayVoteModal(false);
-                }}
+        {proposals.map((proposal: GovernanceProposal) => (
+          <Link
+            href={{ pathname: `/governance/${proposal.proposalId}` }}
+            key={proposal.proposalId}
+          >
+            <a className="contents">
+              <ProposalRow
+                proposal={proposal}
+                currentBlockHeight={currentBlockHeight}
+                currentBlockMedianTime={currentBlockMedianTime}
+                userQueryProposalStatus={userQueryProposalStatus}
+                onDummyVote={(vote: string) =>
+                  voteDummyProposals(proposal.proposalId, masternodeId, vote)
+                }
               />
-            )}
-          </React.Fragment>
+              {displayVoteModal && (
+                <VoteModal
+                  proposalId={proposal.proposalId}
+                  onClose={() => {
+                    setDisplayVoteModal(false);
+                  }}
+                />
+              )}
+            </a>
+          </Link>
         ))}
       </OverflowTable>
     </div>
@@ -159,9 +164,20 @@ function ProposalRow({
         {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle break-all">
-        <div className="line-clamp-2 dark:text-dark-gray-900 text-gray-900">
-          {proposal.proposalId}
-        </div>
+        <Link
+          href={{ pathname: `/transactions/${proposal.proposalId}` }}
+          passHref
+        >
+          <a
+            href={`/transactions/${proposal.proposalId}`}
+            className="flex flex-row items-center gap-x-2 text-blue-500 hover:underline line-clamp-2"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {proposal.proposalId}
+          </a>
+        </Link>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle">
         <div className="flex flex-col w-max">

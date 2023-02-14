@@ -9,19 +9,25 @@ export function DisclosureComponent({
   isOpen,
   isCompleted = false,
   onEdit,
+  testid,
 }: PropsWithChildren<{
   title: string;
   isOpen: boolean;
   isCompleted?: boolean;
   onEdit?: () => void;
+  testid?: string;
 }>) {
   return (
-    <div className="py-5 px-6 md:px-10 rounded-lg border border-gray-200 dark:border-gray-700 dark:bg-dark-gray-100">
+    <div
+      data-testid={testid}
+      className="py-5 px-6 md:px-10 rounded-lg border border-gray-200 dark:border-gray-700 dark:bg-dark-gray-100"
+    >
       <Disclosure defaultOpen>
         <div className={classNames({ "py-5": isOpen })}>
           <Disclosure.Button className="flex w-full flex-row items-center justify-between cursor-default">
             <div className="flex w-full flex-row items-center">
               <span
+                data-testid={`${testid}.Title`}
                 className={classNames(
                   "text-base md:text-lg font-medium",
                   isOpen || isCompleted
@@ -37,6 +43,7 @@ export function DisclosureComponent({
             </div>
             {onEdit !== undefined && (
               <div
+                data-testid={`${testid}.Edit`}
                 className="flex flex-row items-center justify-end cursor-pointer"
                 onClick={onEdit}
               >
@@ -49,7 +56,12 @@ export function DisclosureComponent({
           </Disclosure.Button>
           <Transition show={isOpen}>
             {isOpen && (
-              <Disclosure.Panel className="mt-2">{children}</Disclosure.Panel>
+              <Disclosure.Panel
+                data-testid={`${testid}.ExpandedPanel`}
+                className="mt-2"
+              >
+                {children}
+              </Disclosure.Panel>
             )}
           </Transition>
         </div>

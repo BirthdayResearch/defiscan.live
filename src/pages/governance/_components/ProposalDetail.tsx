@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
 import { AiFillGithub, AiFillRedditCircle } from "react-icons/ai";
+import { MdAccessTimeFilled } from "react-icons/md";
 import { NumericFormat } from "react-number-format";
 import {
   GovernanceProposal,
@@ -46,22 +47,15 @@ export function ProposalDetail({
       <div className="text-gray-900 dark:text-dark-gray-900 text-2xl font-semibold md:text-4xl break-words">
         {proposal.title}
       </div>
-      <div className="mb-6 md:mb-10">
-        {proposal.status === GovernanceProposalStatus.VOTING && (
-          <div className="mt-2">
-            <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900">
-              Voting concludes at&nbsp;
-            </span>
-            <Link href={{ pathname: blockPageLink }}>
-              <a className="text-sm md:text-lg font-semibold hover:underline text-blue-500 cursor-pointer">
-                Block {proposal.cycleEndHeight}&nbsp;
-              </a>
-            </Link>
-            <span className="block md:inline text-xs md:text-base text-gray-600 dark:text-dark-gray-600 lg:text-gray-500 lg:dark:text-dark-gray-500">
-              ({proposalEndDate})
-            </span>
-          </div>
-        )}
+      <div className="mb-6 md:mb-8 mt-1 md:mt-2 flex md:flex-row flex-col">
+        <span className="text-sm md:text-base text-gray-500 dark:text-dark-gray-500">
+          Txn:&nbsp;
+        </span>
+        <Link href={{ pathname: `/transactions/${proposal.proposalId}` }}>
+          <a className="text-sm md:text-base font-semibold hover:underline text-blue-500 cursor-pointer break-all">
+            {proposal.proposalId}
+          </a>
+        </Link>
       </div>
       <div className="grid md:grid-cols-3 gap-y-3 md:gap-y-8 md:gap-x-8">
         <div className="flex flex-row md:flex-col items-center">
@@ -184,6 +178,28 @@ export function ProposalDetail({
           </div>
         </div>
       </div>
+
+      {proposal.status === GovernanceProposalStatus.VOTING && (
+        <div className="mt-8 py-3 px-[18px] flex bg-blue-50 dark:bg-dark-blue-500/[0.15] rounded">
+          <MdAccessTimeFilled
+            size={22}
+            className="self-center mr-[18px] text-blue-500"
+          />
+          <div>
+            <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900">
+              Voting concludes at&nbsp;
+            </span>
+            <Link href={{ pathname: blockPageLink }}>
+              <a className="text-sm md:text-lg font-semibold hover:underline text-blue-500 cursor-pointer mr-2">
+                Block {proposal.cycleEndHeight}
+              </a>
+            </Link>
+            <span className="block md:inline text-sm text-gray-500 dark:text-dark-gray-500 align-text-top">
+              ({proposalEndDate})
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
