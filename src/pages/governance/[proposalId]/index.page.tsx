@@ -72,6 +72,8 @@ export default function ProposalDetailPage({
     }
   }, [isChangeVoteClicked]);
 
+  console.log(proposal);
+
   return (
     <>
       <Head title="Proposal Details" />
@@ -320,7 +322,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       id: proposalId,
       masternode: MasternodeType.ALL,
       cycle: proposal.currentCycle,
-      size: 10,
+      size: 1,
       next: next,
     });
     const pages = CursorPagination.getPages(
