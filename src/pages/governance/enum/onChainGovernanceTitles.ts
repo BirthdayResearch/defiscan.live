@@ -10,5 +10,5 @@ export enum OnChainGovernanceTitles {
   Discussions = "Discussions",
   Discussion = "Discussion",
   Result = "Result",
-  RequestedAmount = "Requested amount",
+  RequestedAmount = "Requested amount (DFI)",
 }

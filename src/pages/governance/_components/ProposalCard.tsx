@@ -163,10 +163,8 @@ function ProposalCard({
                   ) : (
                     <NumericFormat
                       value={new BigNumber(proposal.amount ?? 0).toFixed(2)}
-                      fixedDecimalScale
                       thousandSeparator=","
                       displayType="text"
-                      suffix=" DFI"
                     />
                   )}
                 </div>

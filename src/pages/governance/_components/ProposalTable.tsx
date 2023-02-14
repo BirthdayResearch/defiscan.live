@@ -50,9 +50,7 @@ export function ProposalTable({
             title={OnChainGovernanceTitles.NameOfProposalTitle}
           />
           <OverflowTable.Head title={OnChainGovernanceTitles.TypeTitle} />
-          <OverflowTable.Head
-            title={`${OnChainGovernanceTitles.RequestedAmount} (DFI)`}
-          />
+          <OverflowTable.Head title={OnChainGovernanceTitles.RequestedAmount} />
           <OverflowTable.Head title={OnChainGovernanceTitles.TransactionId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
           <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
@@ -145,7 +143,6 @@ function ProposalRow({
         ) : (
           <NumericFormat
             value={new BigNumber(proposal.amount ?? 0).toFixed(2)}
-            fixedDecimalScale
             thousandSeparator=","
             displayType="text"
           />
