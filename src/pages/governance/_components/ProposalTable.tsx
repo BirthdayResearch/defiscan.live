@@ -7,6 +7,7 @@ import { ListProposalsStatus } from "@defichain/jellyfish-api-core/dist/category
 import {
   GovernanceProposal,
   GovernanceProposalStatus,
+  GovernanceProposalType,
 } from "@defichain/whale-api-client/dist/api/governance";
 import { getEnvironment } from "@contexts/Environment";
 import { useNetwork } from "@contexts/NetworkContext";
@@ -15,6 +16,8 @@ import {
   isValidOCGGithubUrl,
   isValidOCGRedditUrl,
 } from "utils/commons/LinkValidator";
+import { NumericFormat } from "react-number-format";
+import BigNumber from "bignumber.js";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { useCycleEndDate } from "../shared/useCycleEndTime";
@@ -47,7 +50,8 @@ export function ProposalTable({
             title={OnChainGovernanceTitles.NameOfProposalTitle}
           />
           <OverflowTable.Head title={OnChainGovernanceTitles.TypeTitle} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.ProposerId} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.RequestedAmount} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.TransactionId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
           <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
           {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
@@ -56,23 +60,28 @@ export function ProposalTable({
           )}
         </OverflowTable.Header>
 
-        {proposals.map((proposal: GovernanceProposal, index) => (
-          <React.Fragment key={index}>
-            <ProposalRow
-              proposal={proposal}
-              currentBlockHeight={currentBlockHeight}
-              currentBlockMedianTime={currentBlockMedianTime}
-              userQueryProposalStatus={userQueryProposalStatus}
-            />
-            {displayVoteModal && (
-              <VoteModal
-                proposalId={proposal.proposalId}
-                onClose={() => {
-                  setDisplayVoteModal(false);
-                }}
+        {proposals.map((proposal: GovernanceProposal) => (
+          <Link
+            href={{ pathname: `/governance/${proposal.proposalId}` }}
+            key={proposal.proposalId}
+          >
+            <a className="contents">
+              <ProposalRow
+                proposal={proposal}
+                currentBlockHeight={currentBlockHeight}
+                currentBlockMedianTime={currentBlockMedianTime}
+                userQueryProposalStatus={userQueryProposalStatus}
               />
-            )}
-          </React.Fragment>
+              {displayVoteModal && (
+                <VoteModal
+                  proposalId={proposal.proposalId}
+                  onClose={() => {
+                    setDisplayVoteModal(false);
+                  }}
+                />
+              )}
+            </a>
+          </Link>
         ))}
       </OverflowTable>
     </div>
@@ -128,10 +137,32 @@ function ProposalRow({
       <OverflowTable.Cell className="align-middle text-gray-900 dark:text-dark-gray-900">
         {ProposalDisplayName[proposal.type]}
       </OverflowTable.Cell>
+      <OverflowTable.Cell className="align-middle text-gray-900 dark:text-dark-gray-900">
+        {proposal.type === GovernanceProposalType.VOTE_OF_CONFIDENCE ? (
+          "N/A"
+        ) : (
+          <NumericFormat
+            value={new BigNumber(proposal.amount ?? 0).toFixed(2)}
+            thousandSeparator=","
+            displayType="text"
+          />
+        )}
+      </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle break-all">
-        <div className="line-clamp-2 dark:text-dark-gray-900 text-gray-900">
-          {proposal.proposalId}
-        </div>
+        <Link
+          href={{ pathname: `/transactions/${proposal.proposalId}` }}
+          passHref
+        >
+          <a
+            href={`/transactions/${proposal.proposalId}`}
+            className="flex flex-row items-center gap-x-2 text-blue-500 hover:underline line-clamp-2"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {proposal.proposalId}
+          </a>
+        </Link>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle">
         <div className="flex flex-col w-max">

@@ -3,7 +3,13 @@ import { IoChevronDown } from "react-icons/io5";
 import { DeFiChainLogo } from "@components/icons/DeFiChainLogo";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import React, { useEffect, useState, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  createContext,
+  useContext,
+} from "react";
 import { MdClose, MdMenu } from "react-icons/md";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { Container } from "@components/commons/Container";
@@ -15,8 +21,17 @@ import {
   ListProposalsType,
   ListProposalsStatus,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
+import { NumericFormat } from "react-number-format";
 import { HeaderNetworkMenu } from "./HeaderNetworkMenu";
 import { HeaderCountBar } from "./HeaderCountBar";
+
+const OpenProposal = createContext<undefined | number>(undefined);
+
+enum ViewPort {
+  Desktop = "Desktop",
+  Tablet = "Tablet",
+  Mobile = "Mobile",
+}
 
 export function Header(): JSX.Element {
   const [menu, setMenu] = useState(false);
@@ -28,19 +43,6 @@ export function Header(): JSX.Element {
   const router = useRouter();
 
   const api = useWhaleApiClient();
-
-  function editDrawerMenuItemLinks(item: {
-    text: string;
-    pathname: string;
-    testId: string;
-  }) {
-    if (
-      item.text.toLowerCase() === "governance" &&
-      openProposalsLength !== undefined
-    ) {
-      item.text = `Governance (${openProposalsLength})`;
-    }
-  }
 
   async function getOpenProposalsLength() {
     await api.governance
@@ -60,10 +62,6 @@ export function Header(): JSX.Element {
   useEffect(() => {
     getOpenProposalsLength();
   }, []);
-
-  useEffect(() => {
-    drawerMenuItemLinks.map(editDrawerMenuItemLinks);
-  }, [openProposalsLength]);
 
   useEffect(() => {
     function routeChangeStart(): void {
@@ -94,7 +92,7 @@ export function Header(): JSX.Element {
   }, [menu]);
 
   return (
-    <>
+    <OpenProposal.Provider value={openProposalsLength}>
       <header
         className={classNames(
           "sticky top-0 z-50 bg-white md:static md:shadow-none",
@@ -111,7 +109,7 @@ export function Header(): JSX.Element {
         </div>
 
         <div className="border-b border-gray-100 dark:border-gray-800 dark:bg-gray-900">
-          <Container className="py-4 md:py-8">
+          <Container className="py-4 md:py-6">
             <div className="flex items-center justify-between">
               {isSearchIconClicked ? (
                 <div className="flex flex-row items-center w-full m-2 h-9">
@@ -129,13 +127,13 @@ export function Header(): JSX.Element {
                 </div>
               ) : (
                 <>
-                  <div className="flex w-full">
+                  <div className="flex w-full items-end">
                     <Link href={{ pathname: "/" }} passHref>
-                      <a className="flex cursor-pointer items-center hover:text-primary-500">
-                        <DeFiChainLogo className="h-full w-36 lg:w-40 md:m-0 m-2" />
+                      <a className="flex cursor-pointer hover:text-primary-500">
+                        <DeFiChainLogo className="h-full w-36 lg:w-40" />
                       </a>
                     </Link>
-                    <DesktopNavbar openProposalsLength={openProposalsLength} />
+                    <DesktopNavbar />
                   </div>
                   <div className="lg:hidden flex flex-row items-center md:gap-x-6 gap-x-5">
                     <div
@@ -185,61 +183,62 @@ export function Header(): JSX.Element {
           </div>
         </>
       )}
-    </>
+    </OpenProposal.Provider>
   );
 }
 
-function DesktopNavbar({
-  openProposalsLength,
-}: {
-  openProposalsLength: number | undefined;
-}): JSX.Element {
+function DesktopNavbar(): JSX.Element {
   return (
-    <div className="ml-2 hidden items-center text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
-      <div className="hidden md:flex">
+    <div className="ml-2 hidden items-end text-gray-600 dark:text-dark-gray-900 md:w-full md:justify-between lg:ml-8 lg:flex">
+      <div className="hidden md:flex items-end">
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="DEX"
           pathname="/dex"
           testId="Desktop.HeaderLink.DEX"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Blocks"
           pathname="/blocks"
           testId="Desktop.HeaderLink.Blocks"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Vaults"
           pathname="/vaults"
           testId="Desktop.HeaderLink.Vaults"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Auctions"
           pathname="/auctions"
           testId="Desktop.HeaderLink.Auctions"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Oracles"
           pathname="/oracles"
           testId="Desktop.HeaderLink.Oracles"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2 whitespace-nowrap"
-          text={`Governance${
-            openProposalsLength !== undefined ? ` (${openProposalsLength})` : ""
-          }`}
+          text="Governance"
           pathname="/governance"
           testId="Desktop.HeaderLink.Governance"
+          viewPort={ViewPort.Desktop}
         />
         <HeaderLink
           className="ml-1 lg:ml-2"
           text="Masternodes"
           pathname="/masternodes"
           testId="Desktop.HeaderLink.Masternodes"
+          viewPort={ViewPort.Desktop}
         />
         <MoreDropdown />
       </div>
@@ -289,7 +288,7 @@ function TabletMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
             </div>
           </div>
           <div className="mt-2">
-            <MenuItems viewPort="Tablet" />
+            <MenuItems viewPort={ViewPort.Tablet} />
           </div>
         </div>
       </div>
@@ -313,7 +312,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
       className="bg-white dark:bg-gray-900 md:hidden"
       data-testid="MobileMenu"
     >
-      <div className="flex flex-row justify-between m-6 items-center">
+      <div className="flex flex-row justify-between p-6 items-center">
         <Link href={{ pathname: "/" }} passHref>
           <a className="hover:text-primary-500">
             <DeFiChainLogo className="h-full w-36" />
@@ -338,54 +337,89 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
           "text-gray-600 dark:text-dark-gray-900 overflow-auto"
         )}
       >
-        <MenuItems viewPort="Mobile" />
+        <MenuItems viewPort={ViewPort.Mobile} />
       </div>
     </div>
   );
 }
 
-export function HeaderLink(props: {
+export function HeaderLink({
+  text,
+  pathname,
+  className,
+  testId,
+  viewPort,
+}: {
   text: string;
   pathname: string;
   className: string;
   testId?: string;
+  viewPort: ViewPort;
 }): JSX.Element {
   const router = useRouter();
+  const openProposals = useContext(OpenProposal);
   return (
-    <Link href={{ pathname: props.pathname }}>
+    <Link href={{ pathname: pathname }}>
       <a
+        data-testid={testId}
         className={classNames(
-          props.className,
-          {
-            "dark:text-dark-50 text-primary-500": router.pathname.includes(
-              props.pathname
-            ),
-          },
-          {
-            "text-gray-900 dark:text-dark-gray-900": !router.pathname.includes(
-              props.pathname
-            ),
-          }
+          className,
+          viewPort === ViewPort.Desktop ? "flex flex-col" : "flex flex-row"
         )}
-        data-testid={props.testId}
       >
+        {pathname.includes("governance") && openProposals !== undefined && (
+          <div
+            role="button"
+            className={classNames(
+              "lg:px-1 px-2 lg:py-0.5 py-1 w-fit rounded-[20px] font-bold lg:text-[10px] leading-[10px] text-xs lg:mr-2",
+              viewPort !== ViewPort.Desktop
+                ? "order-last place-self-center"
+                : "place-self-end",
+              router.pathname.includes(pathname)
+                ? "bg-primary-500 text-dark-gray-900"
+                : "bg-gray-600 dark:bg-dark-gray-600 dark:text-black text-white"
+            )}
+          >
+            <div className="text-center">
+              <NumericFormat
+                displayType="text"
+                thousandSeparator
+                value={openProposals}
+                decimalScale={0}
+              />
+            </div>
+          </div>
+        )}
         <div
           className={classNames(
-            "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
             {
-              "dark:border-dark-50 border-b-2 border-primary-500":
-                router.pathname.includes(props.pathname),
+              "dark:text-dark-50 text-primary-500":
+                router.pathname.includes(pathname),
+            },
+            {
+              "text-gray-900 dark:text-dark-gray-900":
+                !router.pathname.includes(pathname),
             }
           )}
         >
-          {props.text}
+          <div
+            className={classNames(
+              "dark:hover:text-dark-50 m-2 inline cursor-pointer pb-0.5 text-lg hover:text-primary-500",
+              {
+                "dark:border-dark-50 border-b-2 border-primary-500":
+                  router.pathname.includes(pathname),
+              }
+            )}
+          >
+            {text}
+          </div>
         </div>
       </a>
     </Link>
   );
 }
 
-function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
+function MenuItems({ viewPort }: { viewPort: ViewPort }): JSX.Element {
   return (
     <div className="flex flex-col">
       {drawerMenuItemLinks.map((item, index) => {
@@ -393,12 +427,13 @@ function MenuItems({ viewPort }: { viewPort: string }): JSX.Element {
           <HeaderLink
             key={index}
             className={classNames(
-              "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 p-1.5",
-              { "md:pt-0": index === 0 }
+              "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 py-5",
+              { "md:pt-3": index === 0 }
             )}
             text={item.text}
             pathname={item.pathname}
             testId={`${viewPort}.HeaderLink.${item.testId}`}
+            viewPort={viewPort}
           />
         );
       })}

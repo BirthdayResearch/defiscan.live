@@ -1,7 +1,7 @@
 export enum OnChainGovernanceTitles {
   NameOfProposalTitle = "Name of Proposal",
   TypeTitle = "Proposal Type",
-  ProposerId = "Proposal ID",
+  TransactionId = "Transaction ID",
   NoProposals = "No proposals yet",
   Github = "GitHub",
   Reddit = "Reddit",
@@ -10,4 +10,5 @@ export enum OnChainGovernanceTitles {
   Discussions = "Discussions",
   Discussion = "Discussion",
   Result = "Result",
+  RequestedAmount = "Requested amount (DFI)",
 }

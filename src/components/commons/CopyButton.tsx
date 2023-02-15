@@ -9,6 +9,7 @@ interface CopyButtonProps {
   buttonClass?: string;
   iconsClass?: string;
   withCopyText?: boolean;
+  testid?: string;
 }
 
 export function CopyButton(props: CopyButtonProps): JSX.Element {
@@ -35,7 +36,11 @@ export function CopyButton(props: CopyButtonProps): JSX.Element {
   }
 
   return (
-    <div className={classNames("relative", props.className)} ref={reference}>
+    <div
+      data-testid={props.testid}
+      className={classNames("relative", props.className)}
+      ref={reference}
+    >
       <button
         type="button"
         className={
