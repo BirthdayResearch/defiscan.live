@@ -15,7 +15,7 @@ const securityHeaders = [
       };` +
       `style-src 'self' fonts.googleapis.com 'unsafe-inline';` +
       `font-src fonts.gstatic.com;` +
-      `connect-src 'self' ocean.defichain.com devnet.ocean.jellyfishsdk.com:3000 *.jellyfishsdk.com playground.jellyfishsdk.com wallet.defichain.com; ${
+      `connect-src 'self' ocean.defichain.com devnet.ocean.jellyfishsdk.com *.jellyfishsdk.com playground.jellyfishsdk.com wallet.defichain.com; ${
         process.env.NODE_ENV === "development"
           ? `ws://localhost:3000/_next/webpack-hmr`
           : ""
