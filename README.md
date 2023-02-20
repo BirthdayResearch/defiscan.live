@@ -106,3 +106,4 @@ If you discover a security vulnerability in
 ## License & Disclaimer
 
 By using `DeFi Scan` (this repo), you (the user) agree to be bound by [the terms of this license](LICENSE).
+
