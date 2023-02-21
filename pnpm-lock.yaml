@@ -9,7 +9,7 @@ specifiers:
   '@netlify/plugin-nextjs': ^4.30.4
   '@prismicio/client': ^6.7.3
   '@prismicio/types': ^0.2.7
-  '@reduxjs/toolkit': ^1.9.1
+  '@reduxjs/toolkit': ^1.9.3
   '@tailwindcss/line-clamp': ^0.4.2
   '@testing-library/cypress': ^8.0.7
   '@types/lodash': ^4.14.191
@@ -47,7 +47,7 @@ dependencies:
   '@headlessui/react': 1.7.11_biqbaboplfbrettd7655fr4n2y
   '@prismicio/client': 6.7.3
   '@prismicio/types': 0.2.7
-  '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
+  '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
   '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
   '@waveshq/standard-defichain-jellyfishsdk': 0.34.3
   '@waveshq/standard-web': 0.34.3_tdx3q6g4ls4wk63hrmjkiys2u4
@@ -2363,8 +2363,8 @@ packages:
     engines: {node: '>=12.7.0'}
     dev: false
 
-  /@reduxjs/toolkit/1.9.1_k4ae6lp43ej6mezo3ztvx6pykq:
-    resolution: {integrity: sha512-HikrdY+IDgRfRYlCTGUQaiCxxDDgM1mQrRbZ6S1HFZX5ZYuJ4o8EstNmhTwHdPl2rTmLxzwSu0b3AyeyTlR+RA==}
+  /@reduxjs/toolkit/1.9.3_k4ae6lp43ej6mezo3ztvx6pykq:
+    resolution: {integrity: sha512-GU2TNBQVofL09VGmuSioNPQIu6Ml0YLf4EJhgj0AvBadRlCGzUWet8372LjvO4fqKZF2vH1xU0htAa7BrK9pZg==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
       react-redux: ^7.2.1 || ^8.0.2
@@ -2374,7 +2374,7 @@ packages:
       react-redux:
         optional: true
     dependencies:
-      immer: 9.0.16
+      immer: 9.0.18
       react: 18.2.0
       react-redux: 8.0.5_e42enmjmqb4imi3q3iaq2rrebm
       redux: 4.2.0
@@ -2906,7 +2906,7 @@ packages:
     resolution: {integrity: sha512-v02XInud31VWMjPqZxhhHBmyg78N93XAgvWxvDxsSoolsjGScHACFhZhxJ6mjtRfJBhQp7CdnftqTLbRSoKOhw==}
     dependencies:
       '@netlify/ipx': 1.3.3
-      '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
+      '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
       follow-redirects: 1.15.2
@@ -5923,10 +5923,6 @@ packages:
     engines: {node: '>=12.7.0'}
     dev: false
 
-  /immer/9.0.16:
-    resolution: {integrity: sha512-qenGE7CstVm1NrHQbMh8YaSzTZTFNP3zPqr3YU0S0UY441j4bJTg4A2Hh5KAhwgaiU6ZZ1Ar6y/2f4TblnMReQ==}
-    dev: false
-
   /immer/9.0.18:
     resolution: {integrity: sha512-eAPNpsj7Ax1q6Y/3lm2PmlwRcFzpON7HSNQ3ru5WQH1/PSpnyed/HpNOELl2CxLKoj4r+bAHgdyKqW5gc2Se1A==}
     dev: false
@@ -8377,7 +8373,7 @@ packages:
   /redux/4.2.0:
     resolution: {integrity: sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==}
     dependencies:
-      '@babel/runtime': 7.20.6
+      '@babel/runtime': 7.20.7
     dev: false
 
   /regenerate-unicode-properties/10.1.0:
