@@ -90,7 +90,9 @@ export function PoolPairsTable({
             pathname: `/dex/${
               data.poolPair.displaySymbol.includes("DUSD") ||
               data.poolPair.displaySymbol.includes("dUSDT") ||
-              data.poolPair.displaySymbol.includes("dUSDC")
+              data.poolPair.displaySymbol.includes("dUSDC") ||
+              data.poolPair.displaySymbol.includes("dBTC") ||
+              data.poolPair.displaySymbol.includes("dETH")
                 ? data.poolPair.displaySymbol
                 : data.poolPair.tokenA.displaySymbol
             }`,
