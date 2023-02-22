@@ -364,17 +364,11 @@ function Progress({
       >
         <div
           style={{ width: `${yesValue}%` }}
-          className={classNames(
-            "absolute top-0 left-0 h-3 bg-primary-500 dark:bg-dark-primary-500",
-            "bg-green-600 dark:bg-[#21E529]"
-          )}
+          className="absolute top-0 left-0 h-3 bg-green-600 dark:bg-[#21E529]"
         />
         <div
           style={{ width: `${noValue}%` }}
-          className={classNames(
-            "absolute top-0 right-0 h-3 bg-primary-500 dark:bg-dark-primary-500",
-            "bg-red-600 dark:bg-[#FF483D]"
-          )}
+          className="absolute top-0 right-0 h-3 bg-red-600 dark:bg-[#FF483D]"
         />
       </div>
     </div>
