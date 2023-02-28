@@ -6,6 +6,7 @@ export enum OnChainGovernanceTitles {
   Github = "GitHub",
   Reddit = "Reddit",
   Link = "Link",
+  CurrentVotes = "Current votes",
   EndOfVoting = "End of voting",
   Discussions = "Discussions",
   Discussion = "Discussion",

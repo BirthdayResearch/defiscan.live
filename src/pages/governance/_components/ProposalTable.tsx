@@ -24,14 +24,20 @@ import { useCycleEndDate } from "../shared/useCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { EmergencyChip } from "./EmergencyChip";
+import { Progress } from "./VotingResult";
+import { getVotePercentage } from "../shared/getTotalVotes";
+import { ProposalsVotes } from "../index.page";
+import { VoteCount } from "../shared/getVoteCount";
 
 export function ProposalTable({
   proposals,
+  proposalsVotes,
   currentBlockHeight,
   currentBlockMedianTime,
   userQueryProposalStatus,
 }: {
   proposals: GovernanceProposal[];
+  proposalsVotes: ProposalsVotes;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -53,6 +59,7 @@ export function ProposalTable({
           <OverflowTable.Head title={OnChainGovernanceTitles.RequestedAmount} />
           <OverflowTable.Head title={OnChainGovernanceTitles.TransactionId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
+          <OverflowTable.Head title={OnChainGovernanceTitles.CurrentVotes} />
           <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
           {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
             userQueryProposalStatus === ListProposalsStatus.REJECTED) && (
@@ -68,6 +75,7 @@ export function ProposalTable({
             <a className="contents">
               <ProposalRow
                 proposal={proposal}
+                votes={proposalsVotes[proposal.proposalId]}
                 currentBlockHeight={currentBlockHeight}
                 currentBlockMedianTime={currentBlockMedianTime}
                 userQueryProposalStatus={userQueryProposalStatus}
@@ -90,11 +98,13 @@ export function ProposalTable({
 
 function ProposalRow({
   proposal,
+  votes,
   currentBlockHeight,
   currentBlockMedianTime,
   userQueryProposalStatus,
 }: {
   proposal: GovernanceProposal;
+  votes: VoteCount;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -109,6 +119,12 @@ function ProposalRow({
     secondsPerBlock
   );
   const isEmergencyProposal = proposal.options?.includes("emergency");
+  const { percYes, percNo } = getVotePercentage(
+    votes.yes,
+    votes.no,
+    votes.neutral
+  );
+
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -193,6 +209,17 @@ function ProposalRow({
             {cycleEndDate}
           </div>
         </div>
+      </OverflowTable.Cell>
+
+      <OverflowTable.Cell className="align-middle">
+        <Progress
+          yesValue={percYes.toNumber()}
+          noValue={percNo.toNumber()}
+          approvalThreshold={Number(
+            proposal.approvalThreshold.replace("%", "")
+          )}
+          containerClass="bg-gray-100 dark:bg-dark-gray-200"
+        />
       </OverflowTable.Cell>
 
       <OverflowTable.Cell className="align-middle dark:text-gray-100">

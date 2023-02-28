@@ -10,6 +10,7 @@ import { GetServerSidePropsContext } from "next";
 import {
   ListProposalsType,
   ListProposalsStatus,
+  MasternodeType,
 } from "@defichain/jellyfish-api-core/dist/category/governance";
 import {
   GovernanceProposal,
@@ -21,6 +22,7 @@ import { EmptySection } from "@components/commons/sections/EmptySection";
 import { ProposalCards } from "./_components/ProposalCard";
 import { ProposalTable } from "./_components/ProposalTable";
 import { OnChainGovernanceTitles } from "./enum/onChainGovernanceTitles";
+import { getVoteCount, VoteCount } from "./shared/getVoteCount";
 
 interface OCGProps {
   allProposalsDetails: {
@@ -36,6 +38,7 @@ interface OCGProps {
   proposals: {
     allProposals: GovernanceProposal[];
     queryProposals: GovernanceProposal[];
+    proposalsVotes: ProposalsVotes;
     pages: CursorPage[];
   };
 }
@@ -163,6 +166,7 @@ export default function OnChainGovernancePage({
               <ProposalTable
                 data-testid="OnChainGovernance.ProposalListTable"
                 proposals={proposals.queryProposals}
+                proposalsVotes={proposals.proposalsVotes}
                 currentBlockHeight={allProposalsDetails.currentBlockCount}
                 currentBlockMedianTime={
                   allProposalsDetails.currentBlockMedianTime
@@ -379,6 +383,28 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     .catch(() => {
       return [];
     });
+
+  async function getProposalsVotes(queryProposals) {
+    const promises = queryProposals.map(async (p) => {
+      const votes = await api.governance.listGovProposalVotes({
+        id: p.proposalId,
+        masternode: MasternodeType.ALL,
+        cycle: -1,
+        all: true,
+      });
+      const voteCounts = getVoteCount(
+        votes.filter((each) => each.cycle === p.currentCycle)
+      );
+      return { [p.proposalId]: voteCounts };
+    });
+
+    const results = await Promise.all(promises);
+    const proposalsVotes = Object.assign({}, ...results);
+    return proposalsVotes;
+  }
+
+  const proposalsVotes = await getProposalsVotes(queryProposals);
+
   const pages = CursorPagination.getPages(
     context,
     queryProposals as ApiPagedResponse<any>
@@ -388,6 +414,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: getOCGData(
       allProposals,
       queryProposals,
+      proposalsVotes,
       currentBlockCount,
       currentBlockMedianTime,
       userQueryProposalType,
@@ -397,9 +424,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
+export type ProposalsVotes = {
+  [id: string]: VoteCount;
+};
+
 function getOCGData(
   allProposals: GovernanceProposal[],
   queryProposals: GovernanceProposal[],
+  proposalsVotes: ProposalsVotes,
   currentBlockCount: number,
   currentBlockMedianTime: number,
   userQueryProposalType: ListProposalsType,
@@ -426,6 +458,7 @@ function getOCGData(
     proposals: {
       allProposals,
       queryProposals,
+      proposalsVotes,
       pages: pages,
     },
   };

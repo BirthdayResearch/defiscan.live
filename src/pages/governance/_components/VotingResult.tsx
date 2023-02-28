@@ -339,7 +339,7 @@ export function VotingResult({
   );
 }
 
-function Progress({
+export function Progress({
   yesValue,
   noValue,
   containerClass,
