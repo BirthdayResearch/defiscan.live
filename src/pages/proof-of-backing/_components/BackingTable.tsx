@@ -9,11 +9,15 @@ export function BackingTable({
   tokens: TokenWithBacking[];
 }): JSX.Element {
   return (
-    <div className="md:mt-10 mt-8 grid grid-rows -2 grid-cols-4">
+    <div className="mt-10 mb-[78px] grid grid-rows -2 grid-cols-4">
       <TableHeader />
       <>
-        {tokens.map((token) => (
-          <TableRow key={token.symbol} token={token} />
+        {tokens.map((token, index) => (
+          <TableRow
+            key={token.symbol}
+            token={token}
+            isLast={index === tokens.length - 1}
+          />
         ))}
       </>
     </div>
@@ -42,11 +46,24 @@ function TableHeader(): JSX.Element {
   );
 }
 
-function TableRow({ token }: { token: TokenWithBacking }): JSX.Element {
+function TableRow({
+  token,
+  isLast,
+}: {
+  token: TokenWithBacking;
+  isLast?: boolean;
+}): JSX.Element {
   const backedAddress = TOKEN_BACKED_ADDRESS[token.symbol];
   const Icon = getAssetIcon(token.symbol);
   return (
-    <div className="dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4">
+    <div
+      className={classNames(
+        "dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4",
+        {
+          "rounded-b-[10px]": isLast === true,
+        }
+      )}
+    >
       <div className="col-span-1 h-full px-6 self-center flex items-center py-[18px] pl-6 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
         <Icon width={28} height={28} />
         <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900">

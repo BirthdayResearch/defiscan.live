@@ -38,7 +38,7 @@ export default function ProofOfBackingPage(
       <div className="md:block hidden">
         <BackingTable tokens={props.tokens} />
       </div>
-      <div className="md:hidden mt-8">
+      <div className="md:hidden mt-8 mb-14">
         {props.tokens.map((token) => (
           <BackingCard key={token.symbol} token={token} />
         ))}
