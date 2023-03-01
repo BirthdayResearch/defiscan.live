@@ -548,6 +548,11 @@ const dropDownLinks = [
     link: "/tokens",
     rootPathName: "tokens",
   },
+  {
+    name: "Proof of Backing",
+    link: "/proof-of-backing",
+    rootPathName: "proof-of-backing",
+  },
 ];
 
 let drawerMenuItemLinks = [
@@ -594,5 +599,10 @@ let drawerMenuItemLinks = [
     text: "Tokens",
     pathname: "/tokens",
     testId: "Tokens",
+  },
+  {
+    text: "Proof of Backing",
+    pathname: "/proof-of-backing",
+    testId: "/proof-of-backing",
   },
 ];
