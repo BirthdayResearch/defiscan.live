@@ -1,6 +1,28 @@
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  InferGetServerSidePropsType,
+} from "next";
 import { Container } from "@components/commons/Container";
+import { getWhaleApiClient } from "@contexts/WhaleContext";
+import { getAllTokens } from "pages/tokens/shared/getAllTokens";
+import BigNumber from "bignumber.js";
+import { TOKEN_BACKED } from "constants/TokenBackedAddress";
+import { BackingTable } from "./_components/BackingTable";
 
-export default function ProofOfBackingPage(): JSX.Element {
+interface ProofOfBackingPageProps {
+  tokens: TokenWithBacking[];
+}
+
+export interface TokenWithBacking {
+  symbol: string;
+  displaySymbol: string;
+  netSupply?: string;
+}
+
+export default function ProofOfBackingPage(
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+): JSX.Element {
   return (
     <Container>
       <div className="md:px-6 ">
@@ -12,6 +34,44 @@ export default function ProofOfBackingPage(): JSX.Element {
           tokens (dTokens) which are used in the DeFiChain Ecosystem.
         </span>
       </div>
+      <BackingTable tokens={props.tokens} />
     </Container>
   );
+}
+
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<ProofOfBackingPageProps>> {
+  const api = getWhaleApiClient(context);
+  const tokenList = await getAllTokens(api);
+  const burntTokenList = await api.address.listToken(
+    "8defichainBurnAddressXXXXXXXdRQkSm"
+  );
+  const result: TokenWithBacking[] = [];
+  TOKEN_BACKED.forEach((token) => {
+    const _token = tokenList.find((t) => t.displaySymbol === token.name);
+    const _burntToken = burntTokenList.find(
+      (t) => t.displaySymbol === token.name
+    );
+    if (_token !== undefined && _burntToken !== undefined) {
+      result.push({
+        displaySymbol: _token.displaySymbol,
+        symbol: _token.symbol,
+        netSupply: BigNumber(_token.minted)
+          .minus(_burntToken.amount)
+          .toFixed(8),
+      });
+      return;
+    }
+    result.push({
+      displaySymbol: token.name,
+      symbol: token.symbol,
+    });
+  });
+
+  return {
+    props: {
+      tokens: result,
+    },
+  };
 }
