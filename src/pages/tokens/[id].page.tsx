@@ -274,32 +274,32 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
           case "BCH":
             return (
               <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.BCH.link}
-                text={TOKEN_BACKED_ADDRESS.BCH.address}
+                url={TOKEN_BACKED_ADDRESS.BCH.cake.link}
+                text={TOKEN_BACKED_ADDRESS.BCH.cake.address}
                 testId="BackingAddress.BCH"
               />
             );
           case "LTC":
             return (
               <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.LTC.link}
-                text={TOKEN_BACKED_ADDRESS.LTC.address}
+                url={TOKEN_BACKED_ADDRESS.LTC.cake.link}
+                text={TOKEN_BACKED_ADDRESS.LTC.cake.address}
                 testId="BackingAddress.LTC"
               />
             );
           case "DOGE":
             return (
               <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.DOGE.link}
-                text={TOKEN_BACKED_ADDRESS.DOGE.address}
+                url={TOKEN_BACKED_ADDRESS.DOGE.cake.link}
+                text={TOKEN_BACKED_ADDRESS.DOGE.cake.address}
                 testId="BackingAddress.DOGE"
               />
             );
           case "BTC":
             return (
               <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.BTC.link}
-                text={TOKEN_BACKED_ADDRESS.BTC.address}
+                url={TOKEN_BACKED_ADDRESS.BTC.cake.link}
+                text={TOKEN_BACKED_ADDRESS.BTC.cake.address}
                 testId="BackingAddress.BTC"
               />
             );
@@ -308,8 +308,8 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
           case "USDT":
             return (
               <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.ETH.link}
-                text={TOKEN_BACKED_ADDRESS.ETH.address}
+                url={TOKEN_BACKED_ADDRESS.ETH.cake.link}
+                text={TOKEN_BACKED_ADDRESS.ETH.cake.address}
                 testId="BackingAddress.ETH"
               />
             );

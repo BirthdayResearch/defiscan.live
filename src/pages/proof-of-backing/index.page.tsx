@@ -9,6 +9,7 @@ import { getAllTokens } from "pages/tokens/shared/getAllTokens";
 import BigNumber from "bignumber.js";
 import { TOKEN_BACKED } from "constants/TokenBackedAddress";
 import { BackingTable } from "./_components/BackingTable";
+import { BackingCard } from "./_components/BackingCard";
 
 interface ProofOfBackingPageProps {
   tokens: TokenWithBacking[];
@@ -34,7 +35,14 @@ export default function ProofOfBackingPage(
           tokens (dTokens) which are used in the DeFiChain Ecosystem.
         </span>
       </div>
-      <BackingTable tokens={props.tokens} />
+      <div className="md:block hidden">
+        <BackingTable tokens={props.tokens} />
+      </div>
+      <div className="md:hidden mt-8">
+        {props.tokens.map((token) => (
+          <BackingCard key={token.symbol} token={token} />
+        ))}
+      </div>
     </Container>
   );
 }
@@ -44,9 +52,11 @@ export async function getServerSideProps(
 ): Promise<GetServerSidePropsResult<ProofOfBackingPageProps>> {
   const api = getWhaleApiClient(context);
   const tokenList = await getAllTokens(api);
-  const burntTokenList = await api.address.listToken(
-    "8defichainBurnAddressXXXXXXXdRQkSm"
-  );
+  const burntTokenList = await api.address
+    .listToken("8defichainBurnAddressXXXXXXXdRQkSm")
+    .catch(() => {
+      return [];
+    });
   const result: TokenWithBacking[] = [];
   TOKEN_BACKED.forEach((token) => {
     const _token = tokenList.find((t) => t.displaySymbol === token.name);

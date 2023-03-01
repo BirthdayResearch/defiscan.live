@@ -1,4 +1,5 @@
 import { getAssetIcon } from "@components/icons/assets/tokens";
+import classNames from "classnames";
 import { TOKEN_BACKED_ADDRESS } from "constants/TokenBackedAddress";
 import { TokenWithBacking } from "../index.page";
 
@@ -52,15 +53,25 @@ function TableRow({ token }: { token: TokenWithBacking }): JSX.Element {
           {token.displaySymbol}
         </span>
       </div>
-      <div className="h-full px-6 py-5 flex items-center text-gray-900 dark:text-dark-gray-900">{`${token.netSupply} ${token.displaySymbol}`}</div>
+      <div
+        className={classNames(
+          "h-full px-6 py-5 flex items-center text-gray-900",
+          {
+            "dark:text-dark-gray-900": token.netSupply !== undefined,
+            "dark:text-dark-gray-500": token.netSupply === undefined,
+          }
+        )}
+      >{`${token.netSupply ?? "N/A"} ${
+        token.netSupply === undefined ? "" : token.displaySymbol
+      }`}</div>
       {backedAddress !== undefined ? (
         <a
           className="px-6 self-center break-words py-5 text-blue-500 hover:underline border-gray-300 dark:border-dark-gray-300 border-x-[0.5px]"
-          href={backedAddress.link}
+          href={backedAddress.cake.link}
           target="_blank"
           rel="noreferrer"
         >
-          {backedAddress.address}
+          {backedAddress.cake.address}
         </a>
       ) : (
         <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
