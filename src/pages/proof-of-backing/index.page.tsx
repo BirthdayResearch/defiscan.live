@@ -54,13 +54,11 @@ export async function getServerSideProps(
   const tokenList = await getAllTokens(api);
   const burntTokenList = await api.address
     .listToken("8defichainBurnAddressXXXXXXXdRQkSm")
-    .catch(() => {
-      return [];
-    });
+    .catch(() => {});
   const result: TokenWithBacking[] = [];
   TOKEN_BACKED.forEach((token) => {
     const _token = tokenList.find((t) => t.displaySymbol === token.name);
-    const _burntToken = burntTokenList.find(
+    const _burntToken = burntTokenList?.find(
       (t) => t.displaySymbol === token.name
     );
     if (_token !== undefined && _burntToken !== undefined) {
