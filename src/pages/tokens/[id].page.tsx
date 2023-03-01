@@ -17,8 +17,13 @@ import BigNumber from "bignumber.js";
 import { NumericFormat } from "react-number-format";
 import { Head } from "@components/commons/Head";
 import { WhaleApiClient } from "@defichain/whale-api-client";
+import {
+  TOKEN_BACKED,
+  TOKEN_BACKED_ADDRESS,
+} from "constants/TokenBackedAddress";
 import { getTokenName } from "../../utils/commons/token/getTokenName";
 import { isAlphanumeric, isNumeric } from "../../utils/commons/StringValidator";
+import { getAllTokens } from "./shared/getAllTokens";
 
 interface TokenAssetPageProps {
   token: TokenData;
@@ -258,17 +263,7 @@ function ListLeft({
 }
 
 function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
-  const tokensWithBackingAddress = [
-    "BCH",
-    "LTC",
-    "DOGE",
-    "BTC",
-    "ETH",
-    "USDC",
-    "USDT",
-  ];
-
-  if (!tokensWithBackingAddress.includes(tokenSymbol)) {
+  if (!TOKEN_BACKED.map((token) => token.symbol).includes(tokenSymbol)) {
     return <></>;
   }
 
@@ -279,32 +274,32 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
           case "BCH":
             return (
               <AddressLinkExternal
-                url="https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf"
-                text="38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf"
+                url={TOKEN_BACKED_ADDRESS.BCH.link}
+                text={TOKEN_BACKED_ADDRESS.BCH.address}
                 testId="BackingAddress.BCH"
               />
             );
           case "LTC":
             return (
               <AddressLinkExternal
-                url="https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE"
-                text="MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE"
+                url={TOKEN_BACKED_ADDRESS.LTC.link}
+                text={TOKEN_BACKED_ADDRESS.LTC.address}
                 testId="BackingAddress.LTC"
               />
             );
           case "DOGE":
             return (
               <AddressLinkExternal
-                url="https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba"
-                text="D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba"
+                url={TOKEN_BACKED_ADDRESS.DOGE.link}
+                text={TOKEN_BACKED_ADDRESS.DOGE.address}
                 testId="BackingAddress.DOGE"
               />
             );
           case "BTC":
             return (
               <AddressLinkExternal
-                url="https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT"
-                text="38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT"
+                url={TOKEN_BACKED_ADDRESS.BTC.link}
+                text={TOKEN_BACKED_ADDRESS.BTC.address}
                 testId="BackingAddress.BTC"
               />
             );
@@ -313,8 +308,8 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
           case "USDT":
             return (
               <AddressLinkExternal
-                url="https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac"
-                text="0x94fa70d079d76279e1815ce403e9b985bccc82ac"
+                url={TOKEN_BACKED_ADDRESS.ETH.link}
+                text={TOKEN_BACKED_ADDRESS.ETH.address}
                 testId="BackingAddress.ETH"
               />
             );
@@ -328,14 +323,8 @@ async function getTokenByParam(
   param: string,
   api: WhaleApiClient
 ): Promise<TokenData | undefined> {
-  const tokenList: TokenData[] = [];
+  const tokenList: TokenData[] = await getAllTokens(api);
 
-  let tokenResponse = await api.tokens.list(200);
-  tokenList.push(...tokenResponse);
-  while (tokenResponse.hasNext) {
-    tokenResponse = await api.tokens.list(200, tokenResponse.nextToken);
-    tokenList.push(...tokenResponse);
-  }
   return tokenList.find((t) => {
     if (t.isDAT || t.isLPS) {
       return t.displaySymbol.toLowerCase() === param.toLowerCase();
