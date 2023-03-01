@@ -8,7 +8,6 @@ export enum OnChainGovernanceTitles {
   Link = "Link",
   CurrentVotes = "Current votes",
   EndOfVoting = "End of voting",
-  Discussions = "Discussions",
   Discussion = "Discussion",
   Result = "Result",
   RequestedAmount = "Requested amount (DFI)",

@@ -16,6 +16,71 @@ import { CircularCheckIcon } from "./CircularCheckIcon";
 import { CircularCrossIcon } from "./CircularCrossIcon";
 import { VoteCount } from "../shared/getVoteCount";
 
+export function VotePopover(proposal) {
+  const votes = proposal.votes;
+  const total = new BigNumber(votes.neutral + votes.yes + votes.no);
+  const { percYes } = getVotePercentage(votes.yes, votes.no, votes.neutral);
+  return (
+    <>
+      <div className="p-3 shadow-md rounded w-96 text-sm text-gray-500 dark:text-dark-gray-500 bg-gray-50 dark:bg-gray-700">
+        <div className="p-2 gap-y-4 grid">
+          <div className="flex justify-between">
+            <div className="inline">Neutral votes</div>
+            <div className="inline">
+              <NumericFormat
+                value={votes.neutral}
+                fixedDecimalScale
+                thousandSeparator=","
+                displayType="text"
+                className="md:text-base text-sm text-gray-600 dark:text-dark-gray-600 grow text-end"
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-between">
+            <div className="inline">Total votes</div>
+            <div className="inline">
+              <NumericFormat
+                value={total.toNumber()}
+                fixedDecimalScale
+                thousandSeparator=","
+                displayType="text"
+                className="md:text-base text-sm text-gray-600 dark:text-dark-gray-600 grow text-end"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="m-2 border-t-[0.5px] dark:border-dark-gray-300" />
+
+        <div className="p-3 gap-y-4 grid">
+          <LabelWithInfoTooltipAndChecks
+            labelTitle="Min. required approval rate"
+            value={
+              new BigNumber(
+                proposal.proposal.approvalThreshold.replace("%", "")
+              )
+            }
+            comparatorValue={percYes}
+            proposalStatus={undefined}
+            comparingMinimumValue
+            suffix="%"
+            decimalPlace={2}
+          />
+
+          <LabelWithInfoTooltipAndChecks
+            labelTitle="Min. required votes"
+            value={new BigNumber(1)}
+            comparatorValue={total}
+            proposalStatus={proposal.proposal.status}
+            comparingMinimumValue
+            decimalPlace={0}
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
 export function VotingResult({
   voteCounts,
   status,
@@ -425,7 +490,9 @@ function LabelWithInfoTooltipAndChecks({
           {labelTitle}
         </span>
         <button type="button" className="ml-1 align-sub">
-          <InfoHoverPopover description={toolTipDesc} placement="top" />
+          {toolTipDesc && (
+            <InfoHoverPopover description={toolTipDesc} placement="top" />
+          )}
         </button>
       </div>
 
