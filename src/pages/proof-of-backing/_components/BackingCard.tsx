@@ -46,10 +46,13 @@ export function BackingCard({
               Net Supply
             </div>
             <div
-              className={classNames("font-sm text-gray-900 w-2/4 text-end", {
-                "dark:text-dark-gray-900": token.netSupply !== undefined,
-                "dark:text-dark-gray-500": token.netSupply === undefined,
-              })}
+              className={classNames(
+                "font-sm text-gray-900 w-2/4 text-end break-words",
+                {
+                  "dark:text-dark-gray-900": token.netSupply !== undefined,
+                  "dark:text-dark-gray-500": token.netSupply === undefined,
+                }
+              )}
             >
               {token.netSupply === undefined ? (
                 "N/A"
