@@ -1,6 +1,7 @@
 import { getAssetIcon } from "@components/icons/assets/tokens";
 import classNames from "classnames";
 import { TOKEN_BACKED_ADDRESS } from "constants/TokenBackedAddress";
+import { NumericFormat } from "react-number-format";
 import { TokenWithBacking } from "../index.page";
 
 export function BackingTable({
@@ -78,9 +79,18 @@ function TableRow({
             "dark:text-dark-gray-500": token.netSupply === undefined,
           }
         )}
-      >{`${token.netSupply ?? "N/A"} ${
-        token.netSupply === undefined ? "" : token.displaySymbol
-      }`}</div>
+      >
+        {token.netSupply === undefined ? (
+          "N/A"
+        ) : (
+          <NumericFormat
+            displayType="text"
+            thousandSeparator
+            value={token.netSupply}
+            suffix={` ${token.displaySymbol}`}
+          />
+        )}
+      </div>
       {backedAddress !== undefined ? (
         <a
           className="px-6 self-center break-words py-5 text-blue-500 hover:underline border-gray-300 dark:border-dark-gray-300 border-x-[0.5px]"

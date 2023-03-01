@@ -6,6 +6,7 @@ import {
   MdOutlineKeyboardArrowUp,
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
+import { NumericFormat } from "react-number-format";
 import { TokenWithBacking } from "../index.page";
 
 export function BackingCard({
@@ -49,9 +50,18 @@ export function BackingCard({
                 "dark:text-dark-gray-900": token.netSupply !== undefined,
                 "dark:text-dark-gray-500": token.netSupply === undefined,
               })}
-            >{`${token.netSupply ?? "N/A"} ${
-              token.netSupply === undefined ? "" : token.displaySymbol
-            }`}</div>
+            >
+              {token.netSupply === undefined ? (
+                "N/A"
+              ) : (
+                <NumericFormat
+                  displayType="text"
+                  thousandSeparator
+                  value={token.netSupply}
+                  suffix={` ${token.displaySymbol}`}
+                />
+              )}
+            </div>
           </div>
           <div className="py-1.5 flex justify-between">
             <div className="font-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
