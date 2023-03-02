@@ -20,6 +20,7 @@ export function VotePopover(proposal) {
   const votes = proposal.votes;
   const total = new BigNumber(votes.neutral + votes.yes + votes.no);
   const { percYes } = getVotePercentage(votes.yes, votes.no, votes.neutral);
+  const minVotes = getMinVotes(proposal.proposal);
   return (
     <>
       <div className="p-3 shadow-md rounded w-96 text-sm text-gray-500 dark:text-dark-gray-500 bg-gray-50 dark:bg-gray-700">
@@ -69,7 +70,7 @@ export function VotePopover(proposal) {
 
           <LabelWithInfoTooltipAndChecks
             labelTitle="Min. required votes"
-            value={new BigNumber(1)}
+            value={new BigNumber(minVotes)}
             comparatorValue={total}
             proposalStatus={proposal.proposal.status}
             comparingMinimumValue
@@ -688,7 +689,7 @@ function LabelWithInfoTooltipAndChecks({
                   width={14}
                   height={14}
                   className={classNames(
-                    "ill-green-600 dark:fill-dark-green-500"
+                    "fill-green-600 dark:fill-dark-green-500"
                   )}
                 />
               ) : (
