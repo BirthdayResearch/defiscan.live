@@ -61,7 +61,7 @@ export function VotePopover(proposal) {
               )
             }
             comparatorValue={percYes}
-            proposalStatus={undefined}
+            proposalStatus={proposal.proposal.status}
             comparingMinimumValue
             suffix="%"
             decimalPlace={2}
