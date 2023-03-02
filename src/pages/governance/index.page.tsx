@@ -183,6 +183,7 @@ export default function OnChainGovernancePage({
                 }
                 userQueryProposalStatus={userQueryProposalStatus}
                 proposals={proposals.queryProposals}
+                proposalsVotes={proposals.proposalsVotes}
               />
             </div>
           </>

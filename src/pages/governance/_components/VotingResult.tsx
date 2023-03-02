@@ -81,6 +81,170 @@ export function VotePopover(proposal) {
   );
 }
 
+export function VotingResultMobile({
+  voteCounts,
+  status,
+  proposal,
+}: {
+  voteCounts: VoteCount;
+  status: GovernanceProposalStatus;
+  proposal: GovernanceProposal;
+}) {
+  const minVotes = getMinVotes(proposal);
+  const { percYes, percNo } = getVotePercentage(
+    voteCounts.yes,
+    voteCounts.no,
+    voteCounts.neutral
+  );
+  const total = new BigNumber(voteCounts.yes)
+    .plus(voteCounts.no)
+    .plus(voteCounts.neutral);
+  return (
+    <div className="w-full">
+      {status === GovernanceProposalStatus.COMPLETED && (
+        <div className="bg-green-600 dark:bg-[#21E529] py-3 rounded-t-lg w-full text-center mb-6">
+          <span className="text-lg text-white dark:text-black font-semibold">
+            Approved
+          </span>
+        </div>
+      )}
+      {status === GovernanceProposalStatus.REJECTED && (
+        <div className="bg-red-600 dark:bg-[#FF483D] py-3 rounded-t-lg w-full text-center mb-6">
+          <span className="text-lg text-white dark:text-black font-semibold">
+            Rejected
+          </span>
+        </div>
+      )}
+      <div>
+        <div
+          className={classNames("flex flex-col lg:flex-col md:flex-row", {
+            "mt-5": proposal.status === GovernanceProposalStatus.VOTING,
+          })}
+        >
+          <div
+            className={classNames(
+              "mb-[22px] lg:pb-[22px] lg:pr-0 md:pr-8 md:pb-0 pb-[22px] lg:w-full w-full md:w-1/2 lg:border-b-[0.5px] md:border-b-0 border-b-[0.5px] dark:border-dark-gray-300"
+            )}
+          >
+            <div className="flex flex-col w-full gap-y-[10px]">
+              <Progress
+                yesValue={percYes.toNumber()}
+                noValue={percNo.toNumber()}
+                approvalThreshold={Number(
+                  proposal.approvalThreshold.replace("%", "")
+                )}
+                containerClass="bg-gray-100 dark:bg-dark-gray-200"
+              />
+              <div className="flex flex-row">
+                <div className="flex flex-col grow">
+                  <span
+                    className={classNames(
+                      percYes > percNo
+                        ? "text-green-600 dark:text-[#21E529] font-semibold"
+                        : "text-gray-900 dark:text-dark-gray-900"
+                    )}
+                  >
+                    {percYes.toFixed(2)}%
+                  </span>
+                  <NumericFormat
+                    value={voteCounts.yes}
+                    fixedDecimalScale
+                    thousandSeparator=","
+                    displayType="text"
+                    suffix=" votes"
+                    className="text-xs text-gray-600 dark:text-dark-gray-600"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span
+                    className={classNames(
+                      "grow text-right",
+                      percNo > percYes
+                        ? "text-red-600 dark:text-[#FF483D] font-semibold"
+                        : "text-gray-900 dark:text-dark-gray-900"
+                    )}
+                  >
+                    {percNo.toFixed(2)}%
+                  </span>
+
+                  <NumericFormat
+                    value={voteCounts.no}
+                    fixedDecimalScale
+                    thousandSeparator=","
+                    displayType="text"
+                    suffix=" votes"
+                    className="text-xs text-gray-600 dark:text-dark-gray-600 text-right"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col mt-5">
+              <LabelWithInfoTooltipAndChecks
+                labelTitle="Neutral votes"
+                value={new BigNumber(voteCounts.neutral)}
+                // toolTipDesc="Included as part of the total votes submitted, excluded from min. approval." // TODO: uncomment when blockchain fixes neutral votes as no bug
+                decimalPlace={0}
+              />
+              <div className="flex flex-col mt-4">
+                <LabelWithInfoTooltipAndChecks
+                  labelTitle="Total votes"
+                  value={total}
+                  toolTipDesc="Total number of votes submitted on chain."
+                  suffix=" votes"
+                  decimalPlace={0}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:w-full md:w-1/2 w-full md:pl-8 lg:pl-0 lg:border-l-0 md:border-l-[0.5px] dark:border-dark-gray-300">
+            {/* show Details header and approval rate in 2nd col when not voting for tablet view */}
+            {proposal.status !== GovernanceProposalStatus.VOTING && (
+              <>
+                <div
+                  className={classNames(
+                    "lg:hidden md:flex hidden text-sm font-semibold mb-3 dark:text-dark-gray-900"
+                  )}
+                >
+                  Details
+                </div>
+              </>
+            )}
+
+            <div className="flex flex-col gap-y-4">
+              <LabelWithInfoTooltipAndChecks
+                labelTitle="Min. required approval rate"
+                value={
+                  new BigNumber(proposal.approvalThreshold.replace("%", ""))
+                }
+                comparatorValue={percYes}
+                proposalStatus={proposal.status}
+                comparingMinimumValue
+                suffix="%"
+                toolTipDesc="The percentage of required “yes” votes for proposal to be considered accepted."
+                decimalPlace={2}
+              />
+
+              <LabelWithInfoTooltipAndChecks
+                labelTitle="Min. required votes"
+                value={new BigNumber(minVotes)}
+                comparatorValue={new BigNumber(total)}
+                proposalStatus={proposal.status}
+                comparingMinimumValue
+                toolTipDesc="Votes needed to surpass the minimum required votes for proposal to be considered accepted."
+                decimalPlace={0}
+              />
+            </div>
+
+            <div className="pt-6 border-b-[0.5px] dark:border-dark-gray-300" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function VotingResult({
   voteCounts,
   status,
@@ -524,7 +688,7 @@ function LabelWithInfoTooltipAndChecks({
                   width={14}
                   height={14}
                   className={classNames(
-                    "fill-green-600 dark:fill-dark-green-500"
+                    "ill-green-600 dark:fill-dark-green-500"
                   )}
                 />
               ) : (
