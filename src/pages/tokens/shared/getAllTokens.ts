@@ -6,12 +6,16 @@ export async function getAllTokens(api: WhaleApiClient) {
   let hasNext = false;
   let nextToken: string | undefined;
 
-  do {
-    const tokenResponse = await api.tokens.list(200, nextToken);
-    hasNext = tokenResponse.hasNext;
-    nextToken = tokenResponse.nextToken;
-    result.push(...tokenResponse);
-  } while (hasNext);
+  try {
+    do {
+      const tokenResponse = await api.tokens.list(200, nextToken);
+      hasNext = tokenResponse.hasNext;
+      nextToken = tokenResponse.nextToken;
+      result.push(...tokenResponse);
+    } while (hasNext);
+  } catch (e) {
+    console.error("Error while retrieving all tokens", e);
+  }
 
   return result;
 }
