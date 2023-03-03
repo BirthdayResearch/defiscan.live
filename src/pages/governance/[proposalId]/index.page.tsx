@@ -312,7 +312,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   try {
     const proposal = await api.governance.getGovProposal(proposalId);
-    console.log(proposal.votesPossible);
     if (proposal.amount) {
       proposal.amount = LosslessJSON.parse(
         LosslessJSON.stringify(proposal.amount)

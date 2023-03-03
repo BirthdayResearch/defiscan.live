@@ -151,13 +151,11 @@ function ProposalCard({
 
           {isOpen && (
             <>
-              <div className="flex flex-row align-middle">
-                <VotingResultMobile
-                  proposal={proposal}
-                  voteCounts={votes}
-                  status={proposal.status}
-                />
-              </div>
+              {proposal.status === GovernanceProposalStatus.VOTING && (
+                <div className="flex flex-row align-middle">
+                  <VotingResultMobile proposal={proposal} voteCounts={votes} />
+                </div>
+              )}
 
               <div className="flex flex-row align-middle">
                 <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">

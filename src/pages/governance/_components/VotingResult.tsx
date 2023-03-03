@@ -84,49 +84,29 @@ import { VoteCount } from "../shared/getVoteCount";
 
 export function VotingResultMobile({
   voteCounts,
-  status,
   proposal,
 }: {
   voteCounts: VoteCount;
-  status: GovernanceProposalStatus;
   proposal: GovernanceProposal;
 }) {
-  const minVotes = getMinVotes(proposal);
+  // const minVotes = getMinVotes(proposal);
   const { percYes, percNo } = getVotePercentage(
     voteCounts.yes,
     voteCounts.no,
     voteCounts.neutral
   );
-  const total = new BigNumber(voteCounts.yes)
-    .plus(voteCounts.no)
-    .plus(voteCounts.neutral);
+  // const total = new BigNumber(voteCounts.yes)
+  //   .plus(voteCounts.no)
+  //   .plus(voteCounts.neutral);
   return (
     <div className="w-full">
-      {status === GovernanceProposalStatus.COMPLETED && (
-        <div className="bg-green-600 dark:bg-[#21E529] py-3 rounded-t-lg w-full text-center mb-6">
-          <span className="text-lg text-white dark:text-black font-semibold">
-            Approved
-          </span>
-        </div>
-      )}
-      {status === GovernanceProposalStatus.REJECTED && (
-        <div className="bg-red-600 dark:bg-[#FF483D] py-3 rounded-t-lg w-full text-center mb-6">
-          <span className="text-lg text-white dark:text-black font-semibold">
-            Rejected
-          </span>
-        </div>
-      )}
       <div>
         <div
-          className={classNames("flex flex-col lg:flex-col md:flex-row", {
+          className={classNames("flex flex-col", {
             "mt-5": proposal.status === GovernanceProposalStatus.VOTING,
           })}
         >
-          <div
-            className={classNames(
-              "mb-[22px] lg:pb-[22px] lg:pr-0 md:pr-8 md:pb-0 pb-[22px] lg:w-full w-full md:w-1/2 lg:border-b-[0.5px] md:border-b-0 border-b-[0.5px] dark:border-dark-gray-300"
-            )}
-          >
+          <div className="mb-[11px] pb-[22px] w-full border-b-[0.5px] dark:border-dark-gray-300">
             <div className="flex flex-col w-full gap-y-[10px]">
               <Progress
                 yesValue={percYes.toNumber()}
@@ -180,7 +160,7 @@ export function VotingResultMobile({
               </div>
             </div>
 
-            <div className="flex flex-col mt-5">
+            {/* <div className="flex flex-col mt-5">
               <LabelWithInfoTooltipAndChecks
                 labelTitle="Neutral votes"
                 value={new BigNumber(voteCounts.neutral)}
@@ -196,23 +176,10 @@ export function VotingResultMobile({
                   decimalPlace={0}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
 
-          <div className="lg:w-full md:w-1/2 w-full md:pl-8 lg:pl-0 lg:border-l-0 md:border-l-[0.5px] dark:border-dark-gray-300">
-            {/* show Details header and approval rate in 2nd col when not voting for tablet view */}
-            {proposal.status !== GovernanceProposalStatus.VOTING && (
-              <>
-                <div
-                  className={classNames(
-                    "lg:hidden md:flex hidden text-sm font-semibold mb-3 dark:text-dark-gray-900"
-                  )}
-                >
-                  Details
-                </div>
-              </>
-            )}
-
+          {/* <div className="lg:w-full md:w-1/2 w-full md:pl-8 lg:pl-0 lg:border-l-0 md:border-l-[0.5px] dark:border-dark-gray-300">
             <div className="flex flex-col gap-y-4">
               <LabelWithInfoTooltipAndChecks
                 labelTitle="Min. required approval rate"
@@ -239,7 +206,7 @@ export function VotingResultMobile({
             </div>
 
             <div className="pt-6 border-b-[0.5px] dark:border-dark-gray-300" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
