@@ -18,14 +18,14 @@ import {
 } from "utils/commons/LinkValidator";
 import { NumericFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
-import { HoverPopover } from "@components/commons/popover/HoverPopover";
+// import { HoverPopover } from "@components/commons/popover/HoverPopover";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { useCycleEndDate } from "../shared/useCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { EmergencyChip } from "./EmergencyChip";
-import { Progress, VotePopover } from "./VotingResult";
+import { Progress } from "./VotingResult";
 import { getVotePercentage } from "../shared/getTotalVotes";
 import { ProposalsVotes } from "../index.page";
 import { VoteCount } from "../shared/getVoteCount";
@@ -241,47 +241,47 @@ function ProposalRow({
       </OverflowTable.Cell>
       {userQueryProposalStatus === ListProposalsStatus.VOTING && (
         <OverflowTable.Cell className="align-middle">
-          <HoverPopover
+          {/* <HoverPopover
             className="cursor-pointer group"
             popover={<VotePopover proposal={proposal} votes={votes} />}
             placement="top"
-          >
-            <div className="flex flex-col w-48">
-              <Progress
-                yesValue={percYes.toNumber()}
-                noValue={percNo.toNumber()}
-                approvalThreshold={Number(
-                  proposal.approvalThreshold.replace("%", "")
-                )}
-                containerClass="bg-gray-100 dark:bg-dark-gray-200"
-              />
-              <div className="flex flex-row pt-2">
-                <div className="flex flex-col grow">
-                  <span
-                    className={classNames(
-                      percYes > percNo
-                        ? "text-green-600 dark:text-[#21E529] font-semibold"
-                        : "text-gray-900 dark:text-dark-gray-900"
-                    )}
-                  >
-                    {percYes.toFixed(2)}%
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span
-                    className={classNames(
-                      "grow text-right",
-                      percNo > percYes
-                        ? "text-red-600 dark:text-[#FF483D] font-semibold"
-                        : "text-gray-900 dark:text-dark-gray-900"
-                    )}
-                  >
-                    {percNo.toFixed(2)}%
-                  </span>
-                </div>
+          > */}
+          <div className="flex flex-col w-48">
+            <Progress
+              yesValue={percYes.toNumber()}
+              noValue={percNo.toNumber()}
+              approvalThreshold={Number(
+                proposal.approvalThreshold.replace("%", "")
+              )}
+              containerClass="bg-gray-100 dark:bg-dark-gray-200"
+            />
+            <div className="flex flex-row pt-2">
+              <div className="flex flex-col grow">
+                <span
+                  className={classNames(
+                    percYes > percNo
+                      ? "text-green-600 dark:text-[#21E529] font-semibold"
+                      : "text-gray-900 dark:text-dark-gray-900"
+                  )}
+                >
+                  {percYes.toFixed(2)}%
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <span
+                  className={classNames(
+                    "grow text-right",
+                    percNo > percYes
+                      ? "text-red-600 dark:text-[#FF483D] font-semibold"
+                      : "text-gray-900 dark:text-dark-gray-900"
+                  )}
+                >
+                  {percNo.toFixed(2)}%
+                </span>
               </div>
             </div>
-          </HoverPopover>
+          </div>
+          {/* </HoverPopover> */}
         </OverflowTable.Cell>
       )}
 
