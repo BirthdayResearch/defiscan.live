@@ -114,7 +114,7 @@ export default function PricesPage(
                   dTokens/Collateral Tokens
                   <InfoHoverPopover
                     className="ml-0.5"
-                    description="Price of Loan Tokens and Collateral Tokens available on the decentralized loan service."
+                    description="Price of dTokens and Collateral Tokens available on the decentralized loan service."
                   />
                 </Switch.Label>
               </div>
