@@ -37,7 +37,7 @@ specifiers:
   react-redux: ^8.0.5
   react-schemaorg: ^2.0.0
   recharts: 2.4.3
-  schema-dts: ^1.1.0
+  schema-dts: ^1.1.2
   smart-buffer: ^4.2.0
   tailwindcss: ^3.2.7
 
@@ -63,9 +63,9 @@ dependencies:
   randomcolor: 0.6.2
   react-number-format: 5.1.4_biqbaboplfbrettd7655fr4n2y
   react-redux: 8.0.5_e42enmjmqb4imi3q3iaq2rrebm
-  react-schemaorg: 2.0.0_fbbptd4yr5srky4tv3eva3cp5y
+  react-schemaorg: 2.0.0_6bnps355to3xlx2exm773rfp4m
   recharts: 2.4.3_v2m5e27vhdewzwhryxwfaorcca
-  schema-dts: 1.1.0_typescript@4.9.5
+  schema-dts: 1.1.2_typescript@4.9.5
   smart-buffer: 4.2.0
 
 devDependencies:
@@ -8580,7 +8580,7 @@ packages:
       shallow-equal: 1.2.1
     dev: false
 
-  /react-schemaorg/2.0.0_fbbptd4yr5srky4tv3eva3cp5y:
+  /react-schemaorg/2.0.0_6bnps355to3xlx2exm773rfp4m:
     resolution: {integrity: sha512-UqciFKA203ewNjn0zC09uYKuJSvMD8L75L1s/cW4rc7cS64w8l7vaI3SYkuoI/nwCBkJRmOkSJedWDUZBlYZwg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -8589,7 +8589,7 @@ packages:
       typescript: '>=3.1.6'
     dependencies:
       react: 18.2.0
-      schema-dts: 1.1.0_typescript@4.9.5
+      schema-dts: 1.1.2_typescript@4.9.5
       typescript: 4.9.5
     dev: false
 
@@ -8912,8 +8912,8 @@ packages:
     dependencies:
       loose-envify: 1.4.0
 
-  /schema-dts/1.1.0_typescript@4.9.5:
-    resolution: {integrity: sha512-vdmbs/5ycj4zyKpZIDqTcy+IZi4s7c38RVAYuDmRi7zgxUT8wRWPMLzg0jr7FjdVunYu9yZ00F3+XcZTTFcTOQ==}
+  /schema-dts/1.1.2_typescript@4.9.5:
+    resolution: {integrity: sha512-MpNwH0dZJHinVxk9bT8XUdjKTxMYrA5bLtrrGmFA6PTLwlOKnhi67XoRd6/ty+Djt6ZC0slR57qFhZDNMI6DhQ==}
     peerDependencies:
       typescript: '>=4.1.0'
     dependencies:
