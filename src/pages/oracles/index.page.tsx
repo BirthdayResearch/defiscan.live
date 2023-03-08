@@ -111,10 +111,10 @@ export default function PricesPage(
                   />
                 </Switch>
                 <Switch.Label className="ml-1 flex items-center text-gray-900 dark:text-gray-100">
-                  Loan/Collateral Tokens
+                  dTokens/Collateral Tokens
                   <InfoHoverPopover
                     className="ml-0.5"
-                    description="Price of Loan Tokens and Collateral Tokens available on the decentralized loan service."
+                    description="Price of dTokens and Collateral Tokens available on the decentralized loan service."
                   />
                 </Switch.Label>
               </div>

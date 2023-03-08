@@ -27,7 +27,7 @@ jobs:
 
       - uses: pnpm/action-setup@c3b53f6a16e57305370b4ae5a540c2077a1d50dd # tag=v2.2.4
         with:
-          version: 7.27.0
+          version: 7.29.0
 
       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
@@ -35,7 +35,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - uses: cypress-io/github-action@327178c8042fbb3be13870105eece3c8abf348c9 # v5.0.9
+      - uses: cypress-io/github-action@7eaec0de61cd50fc2e0db8423d7f0698222ee20d # v5.2.0
         with:
           config-file: cypress.config.js
           install: false
