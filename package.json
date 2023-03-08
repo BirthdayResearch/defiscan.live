@@ -45,6 +45,7 @@
     "smart-buffer": "^4.2.0"
   },
   "devDependencies": {
+    "@birthdayresearch/sticky-jest": "^0.5.4",
     "@cypress/code-coverage": "^3.10.0",
     "@netlify/plugin-lighthouse": "^4.0.7",
     "@netlify/plugin-nextjs": "^4.31.0",
@@ -64,10 +65,5 @@
     "node": "^18.0.0 || ^16.16.0",
     "pnpm": ">=7.29.0"
   },
-  "packageManager": "pnpm@7.29.0",
-  "jest": {
-    "modulePathIgnorePatterns": [
-      "<rootDir>/cypress/"
-    ]
-  }
+  "packageManager": "pnpm@7.29.0"
 }
