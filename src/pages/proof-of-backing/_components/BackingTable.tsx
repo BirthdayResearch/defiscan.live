@@ -10,7 +10,7 @@ export function BackingTable({
   tokens: TokenWithBacking[];
 }): JSX.Element {
   return (
-    <div className="mt-10 mb-[78px] grid grid-rows -2 grid-cols-4">
+    <div className="mt-10 mb-[78px] grid grid-cols-4">
       <TableHeader />
       <>
         {tokens.map((token, index) => (
