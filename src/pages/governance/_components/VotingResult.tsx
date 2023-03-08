@@ -18,7 +18,6 @@ import { VoteCount } from "../shared/getVoteCount";
 
 // For desktop, the votepopover has been disabled as Min. required votes
 // cannot be calculated as of now as the blockchain does not return this
-// Slack discussion: https://cakedefi.slack.com/archives/C04DW15K92P/p1677822189311269?thread_ts=1677566893.639309&cid=C04DW15K92P
 // The corresponding mobile screen for proposals overview also hides the Min. required votes
 // section for consistency.
 // export function VotePopover(proposal) {
