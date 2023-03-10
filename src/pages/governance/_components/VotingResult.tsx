@@ -16,6 +16,207 @@ import { CircularCheckIcon } from "./CircularCheckIcon";
 import { CircularCrossIcon } from "./CircularCrossIcon";
 import { VoteCount } from "../shared/getVoteCount";
 
+// For desktop, the votepopover has been disabled as Min. required votes
+// cannot be calculated as of now as the blockchain does not return this
+// The corresponding mobile screen for proposals overview also hides the Min. required votes
+// section for consistency.
+// export function VotePopover(proposal) {
+//   const votes = proposal.votes;
+//   const total = new BigNumber(votes.neutral + votes.yes + votes.no);
+//   const { percYes } = getVotePercentage(votes.yes, votes.no, votes.neutral);
+//   const minVotes = getMinVotes(proposal.proposal);
+//   return (
+//     <>
+//       <div className="p-3 shadow-md rounded w-96 text-sm text-gray-500 dark:text-dark-gray-500 bg-gray-50 dark:bg-gray-700">
+//         <div className="p-2 gap-y-4 grid">
+//           <div className="flex justify-between">
+//             <div className="inline">Neutral votes</div>
+//             <div className="inline">
+//               <NumericFormat
+//                 value={votes.neutral}
+//                 fixedDecimalScale
+//                 thousandSeparator=","
+//                 displayType="text"
+//                 className="md:text-base text-sm text-gray-600 dark:text-dark-gray-600 grow text-end"
+//               />
+//             </div>
+//           </div>
+
+//           <div className="flex justify-between">
+//             <div className="inline">Total votes</div>
+//             <div className="inline">
+//               <NumericFormat
+//                 value={total.toNumber()}
+//                 fixedDecimalScale
+//                 thousandSeparator=","
+//                 displayType="text"
+//                 className="md:text-base text-sm text-gray-600 dark:text-dark-gray-600 grow text-end"
+//               />
+//             </div>
+//           </div>
+//         </div>
+//         <div className="m-2 border-t-[0.5px] dark:border-dark-gray-300" />
+
+//         <div className="p-3 gap-y-4 grid">
+//           <LabelWithInfoTooltipAndChecks
+//             labelTitle="Min. required approval rate"
+//             value={
+//               new BigNumber(
+//                 proposal.proposal.approvalThreshold.replace("%", "")
+//               )
+//             }
+//             comparatorValue={percYes}
+//             proposalStatus={proposal.proposal.status}
+//             comparingMinimumValue
+//             suffix="%"
+//             decimalPlace={2}
+//           />
+
+//           <LabelWithInfoTooltipAndChecks
+//             labelTitle="Min. required votes"
+//             value={new BigNumber(minVotes)}
+//             comparatorValue={total}
+//             proposalStatus={proposal.proposal.status}
+//             comparingMinimumValue
+//             decimalPlace={0}
+//           />
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+export function VotingResultMobile({
+  voteCounts,
+  proposal,
+}: {
+  voteCounts: VoteCount;
+  proposal: GovernanceProposal;
+}) {
+  // const minVotes = getMinVotes(proposal);
+  const { percYes, percNo } = getVotePercentage(
+    voteCounts.yes,
+    voteCounts.no,
+    voteCounts.neutral
+  );
+  // const total = new BigNumber(voteCounts.yes)
+  //   .plus(voteCounts.no)
+  //   .plus(voteCounts.neutral);
+  return (
+    <div className="w-full">
+      <div>
+        <div
+          className={classNames("flex flex-col", {
+            "mt-5": proposal.status === GovernanceProposalStatus.VOTING,
+          })}
+        >
+          <div className="mb-[11px] pb-[22px] w-full border-b-[0.5px] dark:border-dark-gray-300">
+            <div className="flex flex-col w-full gap-y-[10px]">
+              <Progress
+                yesValue={percYes.toNumber()}
+                noValue={percNo.toNumber()}
+                approvalThreshold={Number(
+                  proposal.approvalThreshold.replace("%", "")
+                )}
+                containerClass="bg-gray-100 dark:bg-dark-gray-200"
+              />
+              <div className="flex flex-row">
+                <div className="flex flex-col grow">
+                  <span
+                    className={classNames(
+                      percYes > percNo
+                        ? "text-green-600 dark:text-[#21E529] font-semibold"
+                        : "text-gray-900 dark:text-dark-gray-900"
+                    )}
+                  >
+                    {percYes.toFixed(2)}%
+                  </span>
+                  <NumericFormat
+                    value={voteCounts.yes}
+                    fixedDecimalScale
+                    thousandSeparator=","
+                    displayType="text"
+                    suffix=" votes"
+                    className="text-xs text-gray-600 dark:text-dark-gray-600"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span
+                    className={classNames(
+                      "grow text-right",
+                      percNo > percYes
+                        ? "text-red-600 dark:text-[#FF483D] font-semibold"
+                        : "text-gray-900 dark:text-dark-gray-900"
+                    )}
+                  >
+                    {percNo.toFixed(2)}%
+                  </span>
+
+                  <NumericFormat
+                    value={voteCounts.no}
+                    fixedDecimalScale
+                    thousandSeparator=","
+                    displayType="text"
+                    suffix=" votes"
+                    className="text-xs text-gray-600 dark:text-dark-gray-600 text-right"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="flex flex-col mt-5">
+              <LabelWithInfoTooltipAndChecks
+                labelTitle="Neutral votes"
+                value={new BigNumber(voteCounts.neutral)}
+                // toolTipDesc="Included as part of the total votes submitted, excluded from min. approval." // TODO: uncomment when blockchain fixes neutral votes as no bug
+                decimalPlace={0}
+              />
+              <div className="flex flex-col mt-4">
+                <LabelWithInfoTooltipAndChecks
+                  labelTitle="Total votes"
+                  value={total}
+                  toolTipDesc="Total number of votes submitted on chain."
+                  suffix=" votes"
+                  decimalPlace={0}
+                />
+              </div>
+            </div> */}
+          </div>
+
+          {/* <div className="lg:w-full md:w-1/2 w-full md:pl-8 lg:pl-0 lg:border-l-0 md:border-l-[0.5px] dark:border-dark-gray-300">
+            <div className="flex flex-col gap-y-4">
+              <LabelWithInfoTooltipAndChecks
+                labelTitle="Min. required approval rate"
+                value={
+                  new BigNumber(proposal.approvalThreshold.replace("%", ""))
+                }
+                comparatorValue={percYes}
+                proposalStatus={proposal.status}
+                comparingMinimumValue
+                suffix="%"
+                toolTipDesc="The percentage of required “yes” votes for proposal to be considered accepted."
+                decimalPlace={2}
+              />
+
+              <LabelWithInfoTooltipAndChecks
+                labelTitle="Min. required votes"
+                value={new BigNumber(minVotes)}
+                comparatorValue={new BigNumber(total)}
+                proposalStatus={proposal.status}
+                comparingMinimumValue
+                toolTipDesc="Votes needed to surpass the minimum required votes for proposal to be considered accepted."
+                decimalPlace={0}
+              />
+            </div>
+
+            <div className="pt-6 border-b-[0.5px] dark:border-dark-gray-300" />
+          </div> */}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function VotingResult({
   voteCounts,
   status,
@@ -339,7 +540,7 @@ export function VotingResult({
   );
 }
 
-function Progress({
+export function Progress({
   yesValue,
   noValue,
   containerClass,
@@ -425,7 +626,9 @@ function LabelWithInfoTooltipAndChecks({
           {labelTitle}
         </span>
         <button type="button" className="ml-1 align-sub">
-          <InfoHoverPopover description={toolTipDesc} placement="top" />
+          {toolTipDesc && (
+            <InfoHoverPopover description={toolTipDesc} placement="top" />
+          )}
         </button>
       </div>
 
