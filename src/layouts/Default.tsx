@@ -10,6 +10,7 @@ import { SupplyProvider } from "@store/supply";
 import { getInitialTheme, ThemeProvider } from "@contexts/ThemeContext";
 import { WarningBanner } from "@components/commons/banner/WarningBanner";
 import { DexPricesProvider } from "@store/dexPrices";
+import { ReusableSVGElements } from "@components/icons/assets/tokens/ReusableSVGElements";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ScanAppProps } from "../pages/_app.page";
@@ -77,6 +78,7 @@ export function Default(
                       <ThemeProvider theme={initialTheme}>
                         <WarningBanner />
                         <Header />
+                        <ReusableSVGElements />
                         <main className="flex-grow">{props.children}</main>
                         <Footer />
                       </ThemeProvider>
