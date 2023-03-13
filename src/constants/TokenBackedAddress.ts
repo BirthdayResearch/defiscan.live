@@ -4,6 +4,10 @@ interface BackedAddress {
       link: string;
       address: string;
     };
+    quantum?: {
+      link: string;
+      address: string;
+    };
   };
 }
 
@@ -13,11 +17,19 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       link: "https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT",
       address: "38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT",
     },
+    quantum: {
+      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+    },
   },
   ETH: {
     cake: {
       link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
       address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    },
+    quantum: {
+      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
     },
   },
   USDT: {
@@ -25,11 +37,19 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
       address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
     },
+    quantum: {
+      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+    },
   },
   USDC: {
     cake: {
       link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
       address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    },
+    quantum: {
+      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
     },
   },
   LTC: {
