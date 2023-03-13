@@ -92,7 +92,8 @@ export function PoolPairsTable({
               data.poolPair.displaySymbol.includes("dUSDT") ||
               data.poolPair.displaySymbol.includes("dUSDC") ||
               data.poolPair.displaySymbol.includes("dBTC") ||
-              data.poolPair.displaySymbol.includes("dETH")
+              data.poolPair.displaySymbol.includes("dETH") ||
+              data.poolPair.displaySymbol.includes("dEUROC")
                 ? data.poolPair.displaySymbol
                 : data.poolPair.tokenA.displaySymbol
             }`,
