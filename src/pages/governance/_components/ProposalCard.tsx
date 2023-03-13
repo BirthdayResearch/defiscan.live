@@ -23,14 +23,19 @@ import { useCycleEndDate } from "../shared/useCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { EmergencyChip } from "./EmergencyChip";
+import { VotingResultMobile } from "./VotingResult";
+import { ProposalsVotes } from "../index.page";
+import { VoteCount } from "../shared/getVoteCount";
 
 export function ProposalCards({
   proposals,
+  proposalsVotes,
   currentBlockHeight,
   currentBlockMedianTime,
   userQueryProposalStatus,
 }: {
   proposals: GovernanceProposal[];
+  proposalsVotes: ProposalsVotes;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -41,6 +46,7 @@ export function ProposalCards({
         <React.Fragment key={index}>
           <ProposalCard
             proposal={proposal}
+            votes={proposalsVotes[proposal.proposalId]}
             currentBlockHeight={currentBlockHeight}
             currentBlockMedianTime={currentBlockMedianTime}
             userQueryProposalStatus={userQueryProposalStatus}
@@ -58,11 +64,13 @@ export enum ProposalDisplayName {
 
 function ProposalCard({
   proposal,
+  votes,
   currentBlockHeight,
   currentBlockMedianTime,
   userQueryProposalStatus,
 }: {
   proposal: GovernanceProposal;
+  votes: VoteCount;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -143,6 +151,41 @@ function ProposalCard({
 
           {isOpen && (
             <>
+              {proposal.status === GovernanceProposalStatus.VOTING && (
+                <div className="flex flex-row align-middle">
+                  <VotingResultMobile proposal={proposal} voteCounts={votes} />
+                </div>
+              )}
+
+              <div className="flex flex-row align-middle">
+                <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
+                  {OnChainGovernanceTitles.Discussion}
+                </div>
+                <a
+                  href={proposal.context}
+                  target="_blank"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  rel="noreferrer"
+                >
+                  <div className="flex flex-row font-semibold items-center gap-x-1 text-sm text-gray-900 dark:text-dark-gray-900">
+                    {isValidOCGGithubUrl(proposal.context) ? (
+                      <>
+                        <AiFillGithub size={20} />
+                        {OnChainGovernanceTitles.Github}
+                      </>
+                    ) : isValidOCGRedditUrl(proposal.context) ? (
+                      <>
+                        <AiFillRedditCircle size={20} />
+                        {OnChainGovernanceTitles.Reddit}
+                      </>
+                    ) : (
+                      OnChainGovernanceTitles.Link
+                    )}
+                  </div>
+                </a>
+              </div>
               <div className="flex flex-row align-middle">
                 <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
                   {OnChainGovernanceTitles.TypeTitle}
@@ -222,36 +265,6 @@ function ProposalCard({
                     {cycleEndDate}
                   </div>
                 </div>
-              </div>
-
-              <div className="flex flex-row align-middle">
-                <div className="text-sm text-gray-500 grow dark:text-dark-gray-500">
-                  {OnChainGovernanceTitles.Discussion}
-                </div>
-                <a
-                  href={proposal.context}
-                  target="_blank"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  rel="noreferrer"
-                >
-                  <div className="flex flex-row font-semibold items-center gap-x-1 text-sm text-gray-900 dark:text-dark-gray-900">
-                    {isValidOCGGithubUrl(proposal.context) ? (
-                      <>
-                        <AiFillGithub size={20} />
-                        {OnChainGovernanceTitles.Github}
-                      </>
-                    ) : isValidOCGRedditUrl(proposal.context) ? (
-                      <>
-                        <AiFillRedditCircle size={20} />
-                        {OnChainGovernanceTitles.Reddit}
-                      </>
-                    ) : (
-                      OnChainGovernanceTitles.Link
-                    )}
-                  </div>
-                </a>
               </div>
 
               {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||

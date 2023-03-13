@@ -18,20 +18,27 @@ import {
 } from "utils/commons/LinkValidator";
 import { NumericFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
+// import { HoverPopover } from "@components/commons/popover/HoverPopover";
 import { ProposalDisplayName } from "./ProposalCard";
 import { VoteModal } from "./VoteModal";
 import { useCycleEndDate } from "../shared/useCycleEndTime";
 import { OnChainGovernanceTitles } from "../enum/onChainGovernanceTitles";
 import { getSecondsPerBlock } from "../shared/getSecondsPerBlock";
 import { EmergencyChip } from "./EmergencyChip";
+import { Progress } from "./VotingResult";
+import { getVotePercentage } from "../shared/getTotalVotes";
+import { ProposalsVotes } from "../index.page";
+import { VoteCount } from "../shared/getVoteCount";
 
 export function ProposalTable({
   proposals,
+  proposalsVotes,
   currentBlockHeight,
   currentBlockMedianTime,
   userQueryProposalStatus,
 }: {
   proposals: GovernanceProposal[];
+  proposalsVotes: ProposalsVotes;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -53,7 +60,9 @@ export function ProposalTable({
           <OverflowTable.Head title={OnChainGovernanceTitles.RequestedAmount} />
           <OverflowTable.Head title={OnChainGovernanceTitles.TransactionId} />
           <OverflowTable.Head title={OnChainGovernanceTitles.EndOfVoting} />
-          <OverflowTable.Head title={OnChainGovernanceTitles.Discussions} />
+          {userQueryProposalStatus === ListProposalsStatus.VOTING && (
+            <OverflowTable.Head title={OnChainGovernanceTitles.CurrentVotes} />
+          )}
           {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
             userQueryProposalStatus === ListProposalsStatus.REJECTED) && (
             <OverflowTable.Head title={OnChainGovernanceTitles.Result} />
@@ -68,6 +77,7 @@ export function ProposalTable({
             <a className="contents">
               <ProposalRow
                 proposal={proposal}
+                votes={proposalsVotes[proposal.proposalId]}
                 currentBlockHeight={currentBlockHeight}
                 currentBlockMedianTime={currentBlockMedianTime}
                 userQueryProposalStatus={userQueryProposalStatus}
@@ -90,11 +100,13 @@ export function ProposalTable({
 
 function ProposalRow({
   proposal,
+  votes,
   currentBlockHeight,
   currentBlockMedianTime,
   userQueryProposalStatus,
 }: {
   proposal: GovernanceProposal;
+  votes: VoteCount;
   currentBlockHeight: number;
   currentBlockMedianTime: number;
   userQueryProposalStatus: ListProposalsStatus;
@@ -109,6 +121,12 @@ function ProposalRow({
     secondsPerBlock
   );
   const isEmergencyProposal = proposal.options?.includes("emergency");
+  const { percYes, percNo } = getVotePercentage(
+    votes.yes,
+    votes.no,
+    votes.neutral
+  );
+
   return (
     <OverflowTable.Row
       onClick={() => {
@@ -133,6 +151,33 @@ function ProposalRow({
         <div className="line-clamp-2 text-gray-900 dark:text-dark-gray-900">
           {proposal.title}
         </div>
+
+        <a
+          href={proposal.context}
+          target="_blank"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          rel="noreferrer"
+        >
+          {isValidOCGGithubUrl(proposal.context) ? (
+            <>
+              <AiFillGithub
+                size={24}
+                className="text-gray-900 dark:text-dark-gray-900"
+              />
+            </>
+          ) : isValidOCGRedditUrl(proposal.context) ? (
+            <>
+              <AiFillRedditCircle
+                size={24}
+                className="text-gray-900 dark:text-dark-gray-900"
+              />
+            </>
+          ) : (
+            <span className="pl-1">{OnChainGovernanceTitles.Link}</span>
+          )}
+        </a>
       </OverflowTable.Cell>
       <OverflowTable.Cell className="align-middle text-gray-900 dark:text-dark-gray-900">
         {ProposalDisplayName[proposal.type]}
@@ -194,39 +239,51 @@ function ProposalRow({
           </div>
         </div>
       </OverflowTable.Cell>
-
-      <OverflowTable.Cell className="align-middle dark:text-gray-100">
-        <a
-          href={proposal.context}
-          target="_blank"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          rel="noreferrer"
-        >
-          <div className="text-gray-600 dark:text-dark-gray-600 text-sm font-medium flex flex-row items-center gap-x-1 px-1 pr-2 py-[2px] border-[0.5px] border-gray-200 dark:border-dark-gray-200 hover:border-primary-200 hover:dark:border-dark-primary-200 focus:border-primary-400 focus:dark:border-dark-primary-400 rounded-[30px] w-fit">
-            {isValidOCGGithubUrl(proposal.context) ? (
-              <>
-                <AiFillGithub
-                  size={24}
-                  className="text-gray-900 dark:text-dark-gray-900"
-                />
-                {OnChainGovernanceTitles.Github}
-              </>
-            ) : isValidOCGRedditUrl(proposal.context) ? (
-              <>
-                <AiFillRedditCircle
-                  size={24}
-                  className="text-gray-900 dark:text-dark-gray-900"
-                />
-                {OnChainGovernanceTitles.Reddit}
-              </>
-            ) : (
-              <span className="pl-1">{OnChainGovernanceTitles.Link}</span>
-            )}
+      {userQueryProposalStatus === ListProposalsStatus.VOTING && (
+        <OverflowTable.Cell className="align-middle">
+          {/* <HoverPopover
+            className="cursor-pointer group"
+            popover={<VotePopover proposal={proposal} votes={votes} />}
+            placement="top"
+          > */}
+          <div className="flex flex-col w-48">
+            <Progress
+              yesValue={percYes.toNumber()}
+              noValue={percNo.toNumber()}
+              approvalThreshold={Number(
+                proposal.approvalThreshold.replace("%", "")
+              )}
+              containerClass="bg-gray-100 dark:bg-dark-gray-200"
+            />
+            <div className="flex flex-row pt-2">
+              <div className="flex flex-col grow">
+                <span
+                  className={classNames(
+                    percYes > percNo
+                      ? "text-green-600 dark:text-[#21E529] font-semibold"
+                      : "text-gray-900 dark:text-dark-gray-900"
+                  )}
+                >
+                  {percYes.toFixed(2)}%
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <span
+                  className={classNames(
+                    "grow text-right",
+                    percNo > percYes
+                      ? "text-red-600 dark:text-[#FF483D] font-semibold"
+                      : "text-gray-900 dark:text-dark-gray-900"
+                  )}
+                >
+                  {percNo.toFixed(2)}%
+                </span>
+              </div>
+            </div>
           </div>
-        </a>
-      </OverflowTable.Cell>
+          {/* </HoverPopover> */}
+        </OverflowTable.Cell>
+      )}
 
       {(userQueryProposalStatus === ListProposalsStatus.COMPLETED ||
         userQueryProposalStatus === ListProposalsStatus.REJECTED) && (
