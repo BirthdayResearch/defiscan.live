@@ -91,7 +91,7 @@ function TableRow({
           />
         )}
       </div>
-      {backedAddress !== undefined ? (
+      {backedAddress.cake !== undefined ? (
         <a
           className="px-6 self-center break-words py-5 text-blue-500 hover:underline border-gray-300 dark:border-dark-gray-300 border-x-[0.5px]"
           href={backedAddress.cake.link}
@@ -105,9 +105,20 @@ function TableRow({
           N/A
         </div>
       )}
-      <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500">
-        N/A
-      </div>
+      {backedAddress.quantum !== undefined ? (
+        <a
+          className="px-6 self-center break-words py-5 text-blue-500 hover:underline"
+          href={backedAddress.quantum.link}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {backedAddress.quantum.address}
+        </a>
+      ) : (
+        <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500">
+          N/A
+        </div>
+      )}
     </div>
   );
 }

@@ -70,7 +70,7 @@ export function BackingCard({
             <div className="font-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
               Backing Address (Cake)
             </div>
-            {backedAddress !== undefined ? (
+            {backedAddress.cake !== undefined ? (
               <a
                 href={backedAddress.cake.link}
                 className="font-sm text-blue-500 w-2/4 break-words text-end"
@@ -87,9 +87,18 @@ export function BackingCard({
             <div className="font-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
               Backing Address (Quantum)
             </div>
-            <div className="font-sm text-gray-900 dark:text-dark-gray-500 w-2/4 break-words text-end">
-              N/A
-            </div>
+            {backedAddress.quantum !== undefined ? (
+              <a
+                href={backedAddress.quantum.link}
+                className="font-sm text-blue-500 w-2/4 break-words text-end"
+              >
+                {backedAddress.quantum.address}
+              </a>
+            ) : (
+              <div className="font-sm text-gray-900 dark:text-dark-gray-500 w-2/4 break-words text-end">
+                N/A
+              </div>
+            )}
           </div>
         </div>
       )}

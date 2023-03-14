@@ -52,6 +52,16 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
     },
   },
+  EUROC: {
+    cake: {
+      link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+      address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    },
+    quantum: {
+      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+    },
+  },
   LTC: {
     cake: {
       link: "https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE",
@@ -93,6 +103,10 @@ export const TOKEN_BACKED: TokenBacked[] = [
   {
     name: "dUSDC",
     symbol: "USDC",
+  },
+  {
+    name: "dEUROC",
+    symbol: "EUROC",
   },
   {
     name: "dLTC",
