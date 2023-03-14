@@ -18,6 +18,7 @@ import { dUSDC } from "./dUSDC";
 import { dUSDT } from "./dUSDT";
 import { DUSD } from "./DUSD";
 import { _TokenDefault } from "./_TokenDefault";
+import { dEUROC } from "./dEUROC";
 
 const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   {
@@ -42,6 +43,8 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
     dUSDC: dUSDC,
     dDUSD: DUSD,
     DUSD: DUSD,
+    dEUROC: dEUROC,
+    EUROC: dEUROC,
   };
 
 // TODO(@defich): move assets into it's own repo where anyone can create pull request into.
