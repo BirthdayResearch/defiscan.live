@@ -96,7 +96,7 @@ export default function PoolPairPage(
         />
         <div className="flex flex-wrap flex-row lg:space-x-4">
           <PoolPairDetailsBar poolpair={poolpairs} />
-          {["DUSD-DFI", "dUSDC-DUSD", "dUSDT-DUSD"].includes(
+          {["DUSD-DFI", "dUSDC-DUSD", "dUSDT-DUSD", "dEUROC-DUSD"].includes(
             poolpairs.displaySymbol
           ) && (
             <PoolPairInfo
