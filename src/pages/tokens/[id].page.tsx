@@ -33,39 +33,48 @@ export default function TokenIdPage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
   const api = useWhaleApiClient();
-  const [burnedAmount, setBurnedAmount] = useState<BigNumber | undefined>(
-    new BigNumber(0)
-  );
-  const [netSupply, setNetSupply] = useState<BigNumber | undefined>(
-    new BigNumber(0)
-  );
+  const [burnedAmount, setBurnedAmount] = useState<BigNumber | undefined>();
+  const [netSupply, setNetSupply] = useState<BigNumber | undefined>();
 
   useEffect(() => {
     api.address
       .listToken("8defichainBurnAddressXXXXXXXdRQkSm")
       .then((data) => {
-        const filteredTokens = data.filter(
+        const burntToken = data.find(
           (token) => token.symbol === props.token.symbol
         );
-        if (filteredTokens.length === 1 && filteredTokens[0].symbol !== "DFI") {
-          setBurnedAmount(new BigNumber(filteredTokens[0].amount));
-          setNetSupply(
-            new BigNumber(props.token.minted).minus(filteredTokens[0].amount)
-          );
-        } else {
-          setBurnedAmount(undefined);
-          setNetSupply(undefined);
+
+        if (
+          props.token.isDAT &&
+          !props.token.isLPS &&
+          props.token.symbol !== "DFI"
+        ) {
+          if (burntToken !== undefined) {
+            setBurnedAmount(new BigNumber(burntToken.amount));
+            setNetSupply(
+              new BigNumber(props.token.minted).minus(burntToken.amount)
+            );
+          } else {
+            setBurnedAmount(new BigNumber(0));
+            setNetSupply(new BigNumber(props.token.minted));
+          }
         }
       })
       .catch(() => {
-        setNetSupply(undefined);
+        if (
+          props.token.isDAT &&
+          !props.token.isLPS &&
+          props.token.symbol !== "DFI"
+        ) {
+          setBurnedAmount(undefined);
+          setNetSupply(new BigNumber(props.token.minted));
+        }
       });
   }, []);
 
   return (
     <>
       <Head title={`${props.token.displaySymbol}`} />
-
       <Container className="pt-4 pb-20">
         <TokenPageHeading token={props.token} />
         <div className="flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0">
@@ -306,6 +315,7 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
           case "ETH":
           case "USDC":
           case "USDT":
+          case "EUROC":
             return (
               <AddressLinkExternal
                 url={TOKEN_BACKED_ADDRESS.ETH.cake.link}

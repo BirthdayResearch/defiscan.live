@@ -1,3 +1,4 @@
+import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { getAssetIcon } from "@components/icons/assets/tokens";
 import classNames from "classnames";
 import { TOKEN_BACKED_ADDRESS } from "constants/TokenBackedAddress";
@@ -40,14 +41,18 @@ export function BackingCard({
         </div>
       </div>
       {isExpanded && (
-        <div className="mt-3">
+        <div className="mt-[18px]">
           <div className="py-1.5 flex justify-between">
-            <div className="font-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
+            <div className="flex items-center text-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
               Net Supply
+              <InfoHoverPopover
+                className="ml-1"
+                description="Net supply is the circulating number of tokens minus the burned tokens."
+              />
             </div>
             <div
               className={classNames(
-                "font-sm text-gray-900 w-2/4 text-end break-words",
+                "text-sm text-gray-900 w-2/4 text-end break-words",
                 {
                   "dark:text-dark-gray-900": token.netSupply !== undefined,
                   "dark:text-dark-gray-500": token.netSupply === undefined,
@@ -66,36 +71,47 @@ export function BackingCard({
               )}
             </div>
           </div>
+          <div className="pt-[8px] pb-1 flex items-center text-xs font-medium text-gray-500 dark:text-dark-gray-500 w-2/4">
+            Backing Address
+            <InfoHoverPopover
+              className="ml-1"
+              description="Addresses that hold the backing collaterals for the circulating supply of dTokens"
+            />
+          </div>
           <div className="py-1.5 flex justify-between">
-            <div className="font-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
-              Backing Address (Cake)
+            <div className="text-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
+              Cake
             </div>
             {backedAddress.cake !== undefined ? (
               <a
                 href={backedAddress.cake.link}
-                className="font-sm text-blue-500 w-2/4 break-words text-end"
+                className="text-sm text-blue-500 w-2/4 break-words text-end"
               >
                 {backedAddress.cake.address}
               </a>
             ) : (
-              <div className="font-sm text-gray-900 dark:text-dark-gray-500 w-2/4 break-words text-end">
+              <div className="text-sm text-gray-900 dark:text-dark-gray-500 w-2/4 break-words text-end">
                 N/A
               </div>
             )}
           </div>
-          <div className="py-1.5 flex justify-between">
-            <div className="font-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
-              Backing Address (Quantum)
+          <div className="py-1.5 flex items-start justify-between">
+            <div className="flex items-center text-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
+              Quantum
+              <InfoHoverPopover
+                className="ml-1"
+                description="This excludes initial liquidity supplied and will only display collaterals for minting."
+              />
             </div>
             {backedAddress.quantum !== undefined ? (
               <a
                 href={backedAddress.quantum.link}
-                className="font-sm text-blue-500 w-2/4 break-words text-end"
+                className="text-sm text-blue-500 w-2/4 break-words text-end"
               >
                 {backedAddress.quantum.address}
               </a>
             ) : (
-              <div className="font-sm text-gray-900 dark:text-dark-gray-500 w-2/4 break-words text-end">
+              <div className="text-sm text-gray-900 dark:text-dark-gray-500 w-2/4 break-words text-end">
                 N/A
               </div>
             )}

@@ -27,12 +27,12 @@ export default function ProofOfBackingPage(
   return (
     <Container>
       <div className="md:px-6 ">
-        <h1 className="mt-12 mb-2 text-2xl md:text-3xl font-semibold text-gray-900 dark:text-dark-gray-900">
+        <h1 className="mt-12 mb-2 text-2xl md:text-4xl font-semibold text-gray-900 dark:text-dark-gray-900">
           Proof of Backing
         </h1>
         <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900">
-          This page shows the backing assets and overall supply of wrapped
-          tokens (dTokens) which are used in the DeFiChain Ecosystem.
+          All tokens have backed collateral from which they are minted. See
+          proof of the backed amount on the addresses below.
         </span>
       </div>
       <div className="md:block hidden">
@@ -61,20 +61,20 @@ export async function getServerSideProps(
     const _burntToken = burntTokenList?.find(
       (t) => t.displaySymbol === token.name
     );
-    if (_token !== undefined && _burntToken !== undefined) {
+    if (_token !== undefined) {
       result.push({
         displaySymbol: _token.displaySymbol,
         symbol: _token.symbol,
         netSupply: BigNumber(_token.minted)
-          .minus(_burntToken.amount)
+          .minus(_burntToken?.amount ?? 0)
           .toFixed(8),
       });
-      return;
+    } else {
+      result.push({
+        displaySymbol: token.name,
+        symbol: token.symbol,
+      });
     }
-    result.push({
-      displaySymbol: token.name,
-      symbol: token.symbol,
-    });
   });
 
   return {

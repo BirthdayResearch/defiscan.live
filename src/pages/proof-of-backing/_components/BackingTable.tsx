@@ -1,3 +1,4 @@
+import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { getAssetIcon } from "@components/icons/assets/tokens";
 import classNames from "classnames";
 import { TOKEN_BACKED_ADDRESS } from "constants/TokenBackedAddress";
@@ -31,17 +32,29 @@ function TableHeader(): JSX.Element {
       <div className="row-span-2 px-6 py-9 bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-y-[0.5px] border-l-[0.5px] rounded-tl-[10px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium">
         Token
       </div>
-      <div className="row-span-2 px-6 py-9 bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-y-[0.5px] border-l-[0.5px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium">
+      <div className="row-span-2 px-6 py-9 bg-gray-50 flex items-center justify-center dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-y-[0.5px] border-l-[0.5px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium">
         Net Supply
+        <InfoHoverPopover
+          className="ml-1"
+          description="Net supply is the circulating number of tokens minus the burned tokens."
+        />
       </div>
-      <div className="col-span-2 px-6 py-3.5 bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-[0.5px] rounded-tr-[10px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium text-center">
+      <div className="col-span-2 px-6 py-3.5 flex items-center justify-center bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-[0.5px] rounded-tr-[10px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium text-center">
         Backing Address
+        <InfoHoverPopover
+          className="ml-1"
+          description="Addresses that hold the backing collaterals for the circulating supply of dTokens"
+        />
       </div>
       <div className="text-gray-500 px-6 py-3 bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-x-[0.5px] border-b-[0.5px] dark:text-dark-gray-900 text-sm font-medium text-center">
         Cake
       </div>
-      <div className="text-gray-500 px-6 py-3 bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-b-[0.5px] border-r-[0.5px] dark:text-dark-gray-900 text-sm font-medium text-center">
+      <div className="text-gray-500 px-6 py-3 flex items-center justify-center bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-b-[0.5px] border-r-[0.5px] dark:text-dark-gray-900 text-sm font-medium text-center">
         Quantum
+        <InfoHoverPopover
+          className="ml-1"
+          description="This excludes initial liquidity supplied and will only display collaterals for minting."
+        />
       </div>
     </>
   );
@@ -88,6 +101,7 @@ function TableRow({
             thousandSeparator
             value={token.netSupply}
             suffix={` ${token.displaySymbol}`}
+            className="break-all"
           />
         )}
       </div>
