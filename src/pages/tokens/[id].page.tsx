@@ -17,8 +17,13 @@ import BigNumber from "bignumber.js";
 import { NumericFormat } from "react-number-format";
 import { Head } from "@components/commons/Head";
 import { WhaleApiClient } from "@defichain/whale-api-client";
+import {
+  TOKEN_BACKED,
+  TOKEN_BACKED_ADDRESS,
+} from "constants/TokenBackedAddress";
 import { getTokenName } from "../../utils/commons/token/getTokenName";
 import { isAlphanumeric, isNumeric } from "../../utils/commons/StringValidator";
+import { getAllTokens } from "./shared/getAllTokens";
 
 interface TokenAssetPageProps {
   token: TokenData;
@@ -28,39 +33,48 @@ export default function TokenIdPage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
   const api = useWhaleApiClient();
-  const [burnedAmount, setBurnedAmount] = useState<BigNumber | undefined>(
-    new BigNumber(0)
-  );
-  const [netSupply, setNetSupply] = useState<BigNumber | undefined>(
-    new BigNumber(0)
-  );
+  const [burnedAmount, setBurnedAmount] = useState<BigNumber | undefined>();
+  const [netSupply, setNetSupply] = useState<BigNumber | undefined>();
 
   useEffect(() => {
     api.address
       .listToken("8defichainBurnAddressXXXXXXXdRQkSm")
       .then((data) => {
-        const filteredTokens = data.filter(
+        const burntToken = data.find(
           (token) => token.symbol === props.token.symbol
         );
-        if (filteredTokens.length === 1 && filteredTokens[0].symbol !== "DFI") {
-          setBurnedAmount(new BigNumber(filteredTokens[0].amount));
-          setNetSupply(
-            new BigNumber(props.token.minted).minus(filteredTokens[0].amount)
-          );
-        } else {
-          setBurnedAmount(undefined);
-          setNetSupply(undefined);
+
+        if (
+          props.token.isDAT &&
+          !props.token.isLPS &&
+          props.token.symbol !== "DFI"
+        ) {
+          if (burntToken !== undefined) {
+            setBurnedAmount(new BigNumber(burntToken.amount));
+            setNetSupply(
+              new BigNumber(props.token.minted).minus(burntToken.amount)
+            );
+          } else {
+            setBurnedAmount(new BigNumber(0));
+            setNetSupply(new BigNumber(props.token.minted));
+          }
         }
       })
       .catch(() => {
-        setNetSupply(undefined);
+        if (
+          props.token.isDAT &&
+          !props.token.isLPS &&
+          props.token.symbol !== "DFI"
+        ) {
+          setBurnedAmount(undefined);
+          setNetSupply(new BigNumber(props.token.minted));
+        }
       });
   }, []);
 
   return (
     <>
       <Head title={`${props.token.displaySymbol}`} />
-
       <Container className="pt-4 pb-20">
         <TokenPageHeading token={props.token} />
         <div className="flex flex-col space-y-6 mt-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0">
@@ -258,17 +272,7 @@ function ListLeft({
 }
 
 function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
-  const tokensWithBackingAddress = [
-    "BCH",
-    "LTC",
-    "DOGE",
-    "BTC",
-    "ETH",
-    "USDC",
-    "USDT",
-  ];
-
-  if (!tokensWithBackingAddress.includes(tokenSymbol)) {
+  if (!TOKEN_BACKED.map((token) => token.symbol).includes(tokenSymbol)) {
     return <></>;
   }
 
@@ -279,42 +283,43 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
           case "BCH":
             return (
               <AddressLinkExternal
-                url="https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf"
-                text="38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf"
+                url={TOKEN_BACKED_ADDRESS.BCH.cake.link}
+                text={TOKEN_BACKED_ADDRESS.BCH.cake.address}
                 testId="BackingAddress.BCH"
               />
             );
           case "LTC":
             return (
               <AddressLinkExternal
-                url="https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE"
-                text="MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE"
+                url={TOKEN_BACKED_ADDRESS.LTC.cake.link}
+                text={TOKEN_BACKED_ADDRESS.LTC.cake.address}
                 testId="BackingAddress.LTC"
               />
             );
           case "DOGE":
             return (
               <AddressLinkExternal
-                url="https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba"
-                text="D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba"
+                url={TOKEN_BACKED_ADDRESS.DOGE.cake.link}
+                text={TOKEN_BACKED_ADDRESS.DOGE.cake.address}
                 testId="BackingAddress.DOGE"
               />
             );
           case "BTC":
             return (
               <AddressLinkExternal
-                url="https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT"
-                text="38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT"
+                url={TOKEN_BACKED_ADDRESS.BTC.cake.link}
+                text={TOKEN_BACKED_ADDRESS.BTC.cake.address}
                 testId="BackingAddress.BTC"
               />
             );
           case "ETH":
           case "USDC":
           case "USDT":
+          case "EUROC":
             return (
               <AddressLinkExternal
-                url="https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac"
-                text="0x94fa70d079d76279e1815ce403e9b985bccc82ac"
+                url={TOKEN_BACKED_ADDRESS.ETH.cake.link}
+                text={TOKEN_BACKED_ADDRESS.ETH.cake.address}
                 testId="BackingAddress.ETH"
               />
             );
@@ -328,14 +333,8 @@ async function getTokenByParam(
   param: string,
   api: WhaleApiClient
 ): Promise<TokenData | undefined> {
-  const tokenList: TokenData[] = [];
+  const tokenList: TokenData[] = await getAllTokens(api);
 
-  let tokenResponse = await api.tokens.list(200);
-  tokenList.push(...tokenResponse);
-  while (tokenResponse.hasNext) {
-    tokenResponse = await api.tokens.list(200, tokenResponse.nextToken);
-    tokenList.push(...tokenResponse);
-  }
   return tokenList.find((t) => {
     if (t.isDAT || t.isLPS) {
       return t.displaySymbol.toLowerCase() === param.toLowerCase();
