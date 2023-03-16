@@ -33,7 +33,7 @@ function TableHeader(): JSX.Element {
       <div className="row-span-2 px-6 py-9 bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-y-[0.5px] border-l-[0.5px] rounded-tl-[10px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium">
         Token
       </div>
-      <div className="row-span-2 px-6 py-9 bg-gray-50 flex items-center justify-center dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-y-[0.5px] border-l-[0.5px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium">
+      <div className="row-span-2 px-6 py-9 bg-gray-50 flex items-center dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-y-[0.5px] border-l-[0.5px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium">
         Net Supply
         <InfoHoverPopover
           className="ml-1"
