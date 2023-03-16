@@ -127,7 +127,10 @@ export function PoolPairsCard({
         path={`/dex/${
           poolPair.displaySymbol.includes("DUSD") ||
           poolPair.displaySymbol.includes("dUSDT") ||
-          poolPair.displaySymbol.includes("dUSDC")
+          poolPair.displaySymbol.includes("dUSDC") ||
+          poolPair.displaySymbol.includes("dBTC") ||
+          poolPair.displaySymbol.includes("dETH") ||
+          poolPair.displaySymbol.includes("dEUROC")
             ? poolPair.displaySymbol
             : poolPair.tokenA.displaySymbol
         }`}
