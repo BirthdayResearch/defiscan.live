@@ -74,7 +74,7 @@ function TableRow({
     <Link href={{ pathname: `/tokens/${token.displaySymbol}` }}>
       <a
         className={classNames(
-          "dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 hover:bg-primary-50 dark:hover:bg-gray-600 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4",
+          "group dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 hover:bg-primary-50 dark:hover:bg-gray-600 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4",
           {
             "rounded-b-[10px]": isLast === true,
           }
@@ -83,14 +83,14 @@ function TableRow({
         <div className="col-span-1 h-full px-6 self-center flex items-center py-[18px] pl-6 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
           <a className="flex items-center">
             <Icon width={28} height={28} />
-            <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900">
+            <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900 group-hover:text-primary-500">
               {token.displaySymbol}
             </span>
           </a>
         </div>
         <div
           className={classNames(
-            "h-full px-6 py-5 flex items-center text-gray-900",
+            "h-full px-6 py-5 flex items-center text-gray-900 group-hover:text-primary-500",
             {
               "dark:text-dark-gray-900": token.netSupply !== undefined,
               "dark:text-dark-gray-500": token.netSupply === undefined,
@@ -115,6 +115,9 @@ function TableRow({
             href={backedAddress.cake.link}
             target="_blank"
             rel="noreferrer"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             {backedAddress.cake.address}
           </a>
@@ -129,6 +132,9 @@ function TableRow({
             href={backedAddress.quantum.link}
             target="_blank"
             rel="noreferrer"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             {backedAddress.quantum.address}
           </a>
