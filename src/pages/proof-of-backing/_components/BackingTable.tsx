@@ -1,3 +1,4 @@
+import { Link } from "@components/commons/link/Link";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { getAssetIcon } from "@components/icons/assets/tokens";
 import classNames from "classnames";
@@ -70,69 +71,73 @@ function TableRow({
   const backedAddress = TOKEN_BACKED_ADDRESS[token.symbol];
   const Icon = getAssetIcon(token.symbol);
   return (
-    <div
-      className={classNames(
-        "dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4",
-        {
-          "rounded-b-[10px]": isLast === true,
-        }
-      )}
-    >
-      <div className="col-span-1 h-full px-6 self-center flex items-center py-[18px] pl-6 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
-        <Icon width={28} height={28} />
-        <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900">
-          {token.displaySymbol}
-        </span>
-      </div>
-      <div
+    <Link href={{ pathname: `/tokens/${token.displaySymbol}` }}>
+      <a
         className={classNames(
-          "h-full px-6 py-5 flex items-center text-gray-900",
+          "dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 hover:bg-primary-50 dark:hover:bg-gray-600 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4",
           {
-            "dark:text-dark-gray-900": token.netSupply !== undefined,
-            "dark:text-dark-gray-500": token.netSupply === undefined,
+            "rounded-b-[10px]": isLast === true,
           }
         )}
       >
-        {token.netSupply === undefined ? (
-          "N/A"
+        <div className="col-span-1 h-full px-6 self-center flex items-center py-[18px] pl-6 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
+          <a className="flex items-center">
+            <Icon width={28} height={28} />
+            <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900">
+              {token.displaySymbol}
+            </span>
+          </a>
+        </div>
+        <div
+          className={classNames(
+            "h-full px-6 py-5 flex items-center text-gray-900",
+            {
+              "dark:text-dark-gray-900": token.netSupply !== undefined,
+              "dark:text-dark-gray-500": token.netSupply === undefined,
+            }
+          )}
+        >
+          {token.netSupply === undefined ? (
+            "N/A"
+          ) : (
+            <NumericFormat
+              displayType="text"
+              thousandSeparator
+              value={token.netSupply}
+              suffix={` ${token.displaySymbol}`}
+              className="break-all"
+            />
+          )}
+        </div>
+        {backedAddress.cake !== undefined ? (
+          <a
+            className="px-6 self-center break-words py-5 text-blue-500 hover:underline border-gray-300 dark:border-dark-gray-300 border-x-[0.5px]"
+            href={backedAddress.cake.link}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {backedAddress.cake.address}
+          </a>
         ) : (
-          <NumericFormat
-            displayType="text"
-            thousandSeparator
-            value={token.netSupply}
-            suffix={` ${token.displaySymbol}`}
-            className="break-all"
-          />
+          <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
+            N/A
+          </div>
         )}
-      </div>
-      {backedAddress.cake !== undefined ? (
-        <a
-          className="px-6 self-center break-words py-5 text-blue-500 hover:underline border-gray-300 dark:border-dark-gray-300 border-x-[0.5px]"
-          href={backedAddress.cake.link}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {backedAddress.cake.address}
-        </a>
-      ) : (
-        <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
-          N/A
-        </div>
-      )}
-      {backedAddress.quantum !== undefined ? (
-        <a
-          className="px-6 self-center break-words py-5 text-blue-500 hover:underline"
-          href={backedAddress.quantum.link}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {backedAddress.quantum.address}
-        </a>
-      ) : (
-        <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500">
-          N/A
-        </div>
-      )}
-    </div>
+        {backedAddress.quantum !== undefined ? (
+          <a
+            className="px-6 self-center break-words py-5 text-blue-500 hover:underline"
+            href={backedAddress.quantum.link}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {backedAddress.quantum.address}
+          </a>
+        ) : (
+          <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500">
+            N/A
+          </div>
+        )}
+      </a>
+    </Link>
   );
 }

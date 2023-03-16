@@ -1,3 +1,4 @@
+import { Link } from "@components/commons/link/Link";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { getAssetIcon } from "@components/icons/assets/tokens";
 import classNames from "classnames";
@@ -28,16 +29,29 @@ export function BackingCard({
             {token.displaySymbol}
           </span>
         </div>
-        <div
-          className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:text-dark-primary-500 border-[0.5px] border-primary-300 dark:border-dark-primary-300 rounded h-min"
-          onClick={() => setIsExpanded(!isExpanded)}
-          data-testid="OnChainGovernance.CardView.Toggle"
-        >
-          {!isExpanded ? (
-            <MdOutlineKeyboardArrowDown size={28} />
-          ) : (
-            <MdOutlineKeyboardArrowUp size={28} />
-          )}
+        <div className="flex gap-x-2">
+          <Link href={{ pathname: `/tokens/${token.displaySymbol}` }}>
+            <a className="contents">
+              <div
+                className={classNames(
+                  "border-[0.5px] border-primary-300 rounded text-primary-500 dark:bg-gray-900 dark:border-dark-primary-300 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min"
+                )}
+              >
+                VIEW
+              </div>
+            </a>
+          </Link>
+          <div
+            className="text-primary-500 cursor-pointer dark:bg-gray-900 dark:text-dark-primary-500 border-[0.5px] border-primary-300 dark:border-dark-primary-300 rounded h-min"
+            onClick={() => setIsExpanded(!isExpanded)}
+            data-testid="OnChainGovernance.CardView.Toggle"
+          >
+            {!isExpanded ? (
+              <MdOutlineKeyboardArrowDown size={28} />
+            ) : (
+              <MdOutlineKeyboardArrowUp size={28} />
+            )}
+          </div>
         </div>
       </div>
       {isExpanded && (
