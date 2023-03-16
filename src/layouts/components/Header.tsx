@@ -522,7 +522,7 @@ const DropDownLink = React.forwardRef<HTMLAnchorElement, DropDownLinkProps>(
           href={item.link}
           onClick={close}
           className={classNames(
-            "px-6 py-3.5 cursor-pointer text-sm border-gray-200 hover:text-primary-500 dark:hover:text-dark-50",
+            "px-6 py-3.5 cursor-pointer text-sm border-gray-200 dark:border-dark-gray-300 border-b-[0.5px] hover:text-primary-500 dark:hover:text-dark-50",
             {
               "dark:text-dark-50 text-primary-500": routerPathName.includes(
                 item.rootPathName
@@ -547,6 +547,11 @@ const dropDownLinks = [
     name: "Tokens",
     link: "/tokens",
     rootPathName: "tokens",
+  },
+  {
+    name: "Proof of Backing",
+    link: "/proof-of-backing",
+    rootPathName: "proof-of-backing",
   },
 ];
 
@@ -594,5 +599,10 @@ let drawerMenuItemLinks = [
     text: "Tokens",
     pathname: "/tokens",
     testId: "Tokens",
+  },
+  {
+    text: "Proof of Backing",
+    pathname: "/proof-of-backing",
+    testId: "/proof-of-backing",
   },
 ];
