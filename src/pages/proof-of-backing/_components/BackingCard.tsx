@@ -42,7 +42,7 @@ export function BackingCard({
       </div>
       {isExpanded && (
         <div className="mt-[18px]">
-          <div className="py-1.5 flex justify-between">
+          <div className="py-1.5 flex items-start justify-between">
             <div className="flex items-center text-sm text-gray-500 dark:text-dark-gray-500 w-2/4">
               Net Supply
               <InfoHoverPopover
