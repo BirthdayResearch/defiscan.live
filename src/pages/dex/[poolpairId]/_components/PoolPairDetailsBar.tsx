@@ -34,7 +34,7 @@ export function PoolPairDetailsBar(props: {
             className="font-medium md:text-xl"
             prefix="$"
             value={getTokenPrice(
-              props.poolpair.tokenB.displaySymbol,
+              props.poolpair.tokenB.symbol,
               new BigNumber(props.poolpair.priceRatio.ba)
             ).toFixed(2, BigNumber.ROUND_HALF_UP)}
           />
