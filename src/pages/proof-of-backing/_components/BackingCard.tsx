@@ -61,7 +61,7 @@ export function BackingCard({
               Net Supply
               <InfoHoverPopover
                 className="ml-1"
-                description="Net supply is the circulating number of tokens minus the burned tokens."
+                description="Net supply is calculated using total amount of tokens minted minus burned amount."
               />
             </div>
             <div
