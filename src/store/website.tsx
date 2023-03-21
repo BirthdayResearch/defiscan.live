@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { PoolpairWithStabInfo } from "@waveshq/walletkit-core";
 
 interface DefiChainStatus {
   status: {
@@ -74,16 +75,29 @@ export const announcementWebsiteSlice = createApi({
         },
       }),
     }),
+    getPairsWithStabilizationFee: builder.query<PoolpairWithStabInfo[], any>({
+      query: (reqParams) => ({
+        url: "/wallet/pairs-with-stab-info",
+        params: reqParams,
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          mode: "no-cors",
+        },
+      }),
+    }),
   }),
 });
 
 const { useGetBlockchainStatusQuery, useGetOceanStatusQuery } =
   statusWebsiteSlice;
 
-const { useGetAnnouncementsQuery } = announcementWebsiteSlice;
+const { useGetAnnouncementsQuery, useGetPairsWithStabilizationFeeQuery } =
+  announcementWebsiteSlice;
 
 export {
   useGetBlockchainStatusQuery,
   useGetOceanStatusQuery,
   useGetAnnouncementsQuery,
+  useGetPairsWithStabilizationFeeQuery,
 };
