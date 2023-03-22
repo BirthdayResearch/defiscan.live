@@ -37,7 +37,7 @@ function TableHeader(): JSX.Element {
         Net Supply
         <InfoHoverPopover
           className="ml-1"
-          description="Net supply is the circulating number of tokens minus the burned tokens."
+          description="Net supply is calculated using total amount of tokens minted minus burned amount."
         />
       </div>
       <div className="col-span-2 px-6 py-3.5 flex items-center justify-center bg-gray-50 dark:bg-dark-gray-200 border-gray-300 dark:border-dark-gray-300 border-[0.5px] rounded-tr-[10px] text-gray-500 dark:text-dark-gray-900 text-sm font-medium text-center">
