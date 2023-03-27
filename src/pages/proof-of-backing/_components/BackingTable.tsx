@@ -121,6 +121,7 @@ function TableRow({
             onClick={(e) => {
               e.stopPropagation();
             }}
+            data-testid={`BackedAddress.Cake.${token.displaySymbol}`}
           >
             {backedAddress.cake.address}
           </a>
@@ -138,6 +139,7 @@ function TableRow({
             onClick={(e) => {
               e.stopPropagation();
             }}
+            data-testid={`BackedAddress.Quantum.${token.displaySymbol}`}
           >
             {backedAddress.quantum.address}
           </a>
