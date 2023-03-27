@@ -19,6 +19,17 @@ context("/proof-of-backing on macbook-16", () => {
       );
   });
 
+  it("should have Tokens displayed", () => {
+    cy.findByTestId("Symbol.dBTC").should("be.visible");
+    cy.findByTestId("Symbol.dETH").should("be.visible");
+    cy.findByTestId("Symbol.dUSDT").should("be.visible");
+    cy.findByTestId("Symbol.dUSDC").should("be.visible");
+    cy.findByTestId("Symbol.dUSDC").should("be.visible");
+    cy.findByTestId("Symbol.dEUROC").should("be.visible");
+    cy.findByTestId("Symbol.dBCH").should("be.visible");
+    cy.findByTestId("Symbol.dDOGE").should("be.visible");
+  });
+
   it("should verify Net supply values", () => {});
 
   it("should verify Backing address values", () => {});
