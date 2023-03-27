@@ -27,10 +27,16 @@ export default function ProofOfBackingPage(
   return (
     <Container>
       <div className="md:px-6 ">
-        <h1 className="mt-12 mb-2 text-2xl md:text-4xl font-semibold text-gray-900 dark:text-dark-gray-900">
+        <h1
+          className="mt-12 mb-2 text-2xl md:text-4xl font-semibold text-gray-900 dark:text-dark-gray-900"
+          data-testid="Title.Header"
+        >
           Proof of Backing
         </h1>
-        <span className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900">
+        <span
+          className="text-sm md:text-lg text-gray-900 dark:text-dark-gray-900"
+          data-testid="Title.Description"
+        >
           All tokens have backed collateral from which they are minted. See
           proof of the backed amount on the addresses below.
         </span>
