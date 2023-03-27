@@ -1,6 +1,17 @@
 const quantumBackingAddress =
   "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb";
 
+const tokenSymbols = [
+  "dBTC",
+  "dETH",
+  "dUSDT",
+  "dUSDC",
+  "dEUROC",
+  "dLTC",
+  "dBCH",
+  "dDOGE",
+];
+
 context("/proof-of-backing on macbook-16", () => {
   before(() => {
     cy.visit("/proof-of-backing?network=MainNet");
@@ -23,17 +34,6 @@ context("/proof-of-backing on macbook-16", () => {
   });
 
   it("should have Tokens displayed", () => {
-    const tokenSymbols = [
-      "dBTC",
-      "dETH",
-      "dUSDT",
-      "dUSDC",
-      "dEUROC",
-      "dLTC",
-      "dBCH",
-      "dDOGE",
-    ];
-
     tokenSymbols.forEach((symbol) => {
       cy.findByTestId(`Symbol.${symbol}`).should("be.visible");
     });
@@ -104,5 +104,26 @@ context("/proof-of-backing on iphone-x", () => {
 
   beforeEach(() => {
     cy.viewport("iphone-x");
+  });
+
+  it("should have Tokens links be displayed", () => {
+    tokenSymbols.forEach((symbol) => {
+      cy.findByTestId(`Mobile.CardView.ViewLink.${symbol}`).should(
+        "have.attr",
+        "href",
+        `/tokens/${symbol}`
+      );
+      cy.findByTestId(`Mobile.CardView.ViewLink.${symbol}`)
+        .parent()
+        .should("be.visible");
+    });
+  });
+
+  it.only("should expand each the Tokens cards", () => {
+    // tokenSymbols.forEach((symbol) => {
+    //   cy.findByTestId(`OnChainGovernance.CardView.Toggle`).each( (el) => {
+    //     cy.wrap(el).click();
+    //   });
+    // });
   });
 });

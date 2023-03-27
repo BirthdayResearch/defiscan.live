@@ -31,7 +31,10 @@ export function BackingCard({
         </div>
         <div className="flex gap-x-2">
           <Link href={{ pathname: `/tokens/${token.displaySymbol}` }}>
-            <a className="contents">
+            <a
+              className="contents"
+              data-testid={`Mobile.CardView.ViewLink.${token.displaySymbol}`}
+            >
               <div
                 className={classNames(
                   "border-[0.5px] border-primary-300 rounded text-primary-500 dark:bg-gray-900 dark:border-dark-primary-300 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min"
