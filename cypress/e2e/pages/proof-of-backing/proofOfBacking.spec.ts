@@ -1,3 +1,5 @@
+const proofOfBackingUrlMainnet = "/proof-of-backing?network=MainNet";
+
 const quantumBackingAddress =
   "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb";
 
@@ -14,7 +16,7 @@ const tokenSymbols = [
 
 context("/proof-of-backing on macbook-16", () => {
   before(() => {
-    cy.visit("/proof-of-backing?network=MainNet");
+    cy.visit(proofOfBackingUrlMainnet);
   });
 
   beforeEach(() => {
@@ -39,7 +41,9 @@ context("/proof-of-backing on macbook-16", () => {
     });
   });
 
-  it("should verify Net supply values", () => {});
+  it.skip("should verify Net supply values", () => {
+    // TODO: add Net calculation
+  });
 
   it("should verify Cake: Backing address values", () => {
     const cakeSymbols = ["dETH", "dUSDT", "dUSDC", "dUSDC"];
@@ -99,7 +103,7 @@ context("/proof-of-backing on macbook-16", () => {
 
 context("/proof-of-backing on iphone-x", () => {
   before(() => {
-    cy.visit("/proof-of-backing?network=MainNet");
+    cy.visit(proofOfBackingUrlMainnet);
   });
 
   beforeEach(() => {
@@ -119,11 +123,14 @@ context("/proof-of-backing on iphone-x", () => {
     });
   });
 
-  it.only("should expand each the Tokens cards", () => {
-    // tokenSymbols.forEach((symbol) => {
-    //   cy.findByTestId(`OnChainGovernance.CardView.Toggle`).each( (el) => {
-    //     cy.wrap(el).click();
-    //   });
-    // });
+  it("should expand each the Symbol card in mobile view", () => {
+    tokenSymbols.forEach((symbol) => {
+      cy.findByTestId(`Mobile.CardView.SelectBlock.${symbol}`)
+        .find("svg")
+        .click();
+    });
+    cy.findByTestId(`Mobile.CardView.NetSupply.${tokenSymbols.pop()}`).should(
+      "be.visible"
+    );
   });
 });
