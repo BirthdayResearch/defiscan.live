@@ -53,7 +53,7 @@ export async function getServerSideProps(
   const api = getWhaleApiClient(context);
   const tokenList = await getAllTokens(api);
   const burntTokenList = await api.address
-    .listToken("8defichainBurnAddressXXXXXXXdRQkSm")
+    .listToken("8defichainBurnAddressXXXXXXXdRQkSm", 200)
     .catch(() => {});
   const result: TokenWithBacking[] = [];
   TOKEN_BACKED.forEach((token) => {
