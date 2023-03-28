@@ -18,6 +18,7 @@ import {
   isValidOCGGithubUrl,
   isValidOCGRedditUrl,
 } from "utils/commons/LinkValidator";
+import BigNumber from "bignumber.js";
 import { ProposalDisplayName } from "../_components/ProposalCard";
 import { ReviewProposal } from "../_components/ReviewProposal";
 import { TextAreaComponent } from "../_components/TextAreaComponent";
@@ -301,10 +302,11 @@ export default function CreateProposalPage() {
                         onChange={(value) => {
                           const re = /^\d*\.?\d*$/;
                           if (value === "" || re.test(value.toString())) {
-                            if (value > maxCycle) {
+                            const _value = new BigNumber(value);
+                            if (_value.isGreaterThan(maxCycle)) {
                               return setCycle(maxCycle);
                             }
-                            if (value < minCycle) {
+                            if (_value.isLessThan(minCycle)) {
                               return setCycle(minCycle);
                             }
                             setCycle(value as number);
