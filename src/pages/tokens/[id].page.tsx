@@ -38,7 +38,7 @@ export default function TokenIdPage(
 
   useEffect(() => {
     api.address
-      .listToken("8defichainBurnAddressXXXXXXXdRQkSm")
+      .listToken("8defichainBurnAddressXXXXXXXdRQkSm", 200)
       .then((data) => {
         const burntToken = data.find(
           (token) => token.symbol === props.token.symbol
