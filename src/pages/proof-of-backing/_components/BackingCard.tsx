@@ -31,12 +31,12 @@ export function BackingCard({
         </div>
         <div
           className="flex gap-x-2"
-          data-testid={`Mobile.CardView.SelectBlock.${token.displaySymbol}`}
+          data-testid={`mobile-selectBlock-${token.displaySymbol}`}
         >
           <Link href={{ pathname: `/tokens/${token.displaySymbol}` }}>
             <a
               className="contents"
-              data-testid={`Mobile.CardView.ViewLink.${token.displaySymbol}`}
+              data-testid={`mobile-viewLink-${token.displaySymbol}`}
             >
               <div
                 className={classNames(
@@ -87,7 +87,7 @@ export function BackingCard({
                   thousandSeparator
                   value={token.netSupply}
                   suffix={` ${token.displaySymbol}`}
-                  data-testid={`Mobile.CardView.NetSupply.${token.displaySymbol}`}
+                  data-testid={`mobile-netSupply-${token.displaySymbol}`}
                 />
               )}
             </div>
@@ -107,7 +107,7 @@ export function BackingCard({
               <a
                 href={backedAddress.cake.link}
                 className="text-sm text-blue-500 w-2/4 break-words text-end"
-                data-testid={`Mobile.BackedAddress.Cake.${token.displaySymbol}`}
+                data-testid={`mobile-backedAddress-cake-${token.displaySymbol}`}
               >
                 {backedAddress.cake.address}
               </a>
@@ -129,7 +129,7 @@ export function BackingCard({
               <a
                 href={backedAddress.quantum.link}
                 className="text-sm text-blue-500 w-2/4 break-words text-end"
-                data-testid={`Mobile.BackedAddress.Quantum.${token.displaySymbol}`}
+                data-testid={`mobile-backedAddress-quantum-${token.displaySymbol}`}
               >
                 {backedAddress.quantum.address}
               </a>
