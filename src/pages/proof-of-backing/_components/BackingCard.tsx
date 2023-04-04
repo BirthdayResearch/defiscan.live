@@ -29,9 +29,15 @@ export function BackingCard({
             {token.displaySymbol}
           </span>
         </div>
-        <div className="flex gap-x-2">
+        <div
+          className="flex gap-x-2"
+          data-testid={`mobile-selectBlock-${token.displaySymbol}`}
+        >
           <Link href={{ pathname: `/tokens/${token.displaySymbol}` }}>
-            <a className="contents">
+            <a
+              className="contents"
+              data-testid={`mobile-viewLink-${token.displaySymbol}`}
+            >
               <div
                 className={classNames(
                   "border-[0.5px] border-primary-300 rounded text-primary-500 dark:bg-gray-900 dark:border-dark-primary-300 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min"
@@ -81,6 +87,7 @@ export function BackingCard({
                   thousandSeparator
                   value={token.netSupply}
                   suffix={` ${token.displaySymbol}`}
+                  data-testid={`mobile-netSupply-${token.displaySymbol}`}
                 />
               )}
             </div>
@@ -100,6 +107,7 @@ export function BackingCard({
               <a
                 href={backedAddress.cake.link}
                 className="text-sm text-blue-500 w-2/4 break-words text-end"
+                data-testid={`mobile-backedAddress-cake-${token.displaySymbol}`}
               >
                 {backedAddress.cake.address}
               </a>
@@ -121,6 +129,7 @@ export function BackingCard({
               <a
                 href={backedAddress.quantum.link}
                 className="text-sm text-blue-500 w-2/4 break-words text-end"
+                data-testid={`mobile-backedAddress-quantum-${token.displaySymbol}`}
               >
                 {backedAddress.quantum.address}
               </a>

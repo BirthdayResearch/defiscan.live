@@ -80,7 +80,10 @@ function TableRow({
           }
         )}
       >
-        <div className="col-span-1 h-full px-6 self-center flex items-center py-[18px] pl-6 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
+        <div
+          className="col-span-1 h-full px-6 self-center flex items-center py-[18px] pl-6 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]"
+          data-testid={`symbol-${token.displaySymbol}`}
+        >
           <a className="flex items-center">
             <Icon width={28} height={28} />
             <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900 group-hover:text-primary-500">
@@ -106,6 +109,7 @@ function TableRow({
               value={token.netSupply}
               suffix={` ${token.displaySymbol}`}
               className="break-all"
+              data-testid={`netSupply-value-${token.displaySymbol}`}
             />
           )}
         </div>
@@ -118,6 +122,7 @@ function TableRow({
             onClick={(e) => {
               e.stopPropagation();
             }}
+            data-testid={`backedAddress-cake-${token.displaySymbol}`}
           >
             {backedAddress.cake.address}
           </a>
@@ -135,11 +140,15 @@ function TableRow({
             onClick={(e) => {
               e.stopPropagation();
             }}
+            data-testid={`backedAddress-quantum-filled-${token.displaySymbol}`}
           >
             {backedAddress.quantum.address}
           </a>
         ) : (
-          <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500">
+          <div
+            className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500"
+            data-testid={`backedAddress-quantum-na-${token.displaySymbol}`}
+          >
             N/A
           </div>
         )}
