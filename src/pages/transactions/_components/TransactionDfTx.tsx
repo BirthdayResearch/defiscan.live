@@ -2,6 +2,7 @@ import {
   CAccountToAccount,
   CAccountToUtxos,
   CAnyAccountToAccount,
+  CTransferBalance,
   CAppointOracle,
   CAutoAuthPrep,
   CCloseVault,
@@ -55,6 +56,7 @@ import { DfTxCreateMasternode } from "./DfTx/DfTxCreateMasternode";
 import { DfTxPoolRemoveLiquidity } from "./DfTx/DfTxPoolRemoveLiquidity";
 import { DfTxSetOracleData } from "./DfTx/DfTxSetOracleData";
 import { DfTxAccountToAccount } from "./DfTx/DfTxAccountToAccount";
+import { DfTxTransferBalance } from "./DfTx/DfTxTransferBalance";
 import { DfTxAnyAccountToAccount } from "./DfTx/DfTxAnyAccountToAccount";
 import { DfTxPoolCreatePair } from "./DfTx/DfTxPoolCreatePair";
 import { DfTxTokenCreate } from "./DfTx/DfTxTokenCreate";
@@ -112,6 +114,8 @@ export function TransactionDfTx(
       return <DfTxUtxosToAccount dftx={props.dftx} />;
     case CAccountToAccount.OP_CODE:
       return <DfTxAccountToAccount dftx={props.dftx} />;
+    case CTransferBalance.OP_CODE:
+      return <DfTxTransferBalance dftx={props.dftx} />;
     case CAnyAccountToAccount.OP_CODE:
       return <DfTxAnyAccountToAccount dftx={props.dftx} />;
     case CAccountToUtxos.OP_CODE:
