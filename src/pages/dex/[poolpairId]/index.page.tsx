@@ -19,6 +19,8 @@ import { Breadcrumb } from "@components/commons/Breadcrumb";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import BigNumber from "bignumber.js";
+import { useNetwork } from "@contexts/NetworkContext";
+import { useGetPairsWithStabilizationFeeQuery } from "@store/website";
 import { SwapCards } from "./_components/SwapCards";
 import { PoolPairDetails } from "./_components/PoolPairDetails";
 import { SwapTable } from "./_components/SwapTable";
@@ -45,11 +47,11 @@ export default function PoolPairPage(
   const [swapItems, setSwapItems] = useState<PoolSwapData[]>(props.swaps.items);
   const [poolpairs, setPoolpairs] = useState<PoolPairData>(props.poolpair);
   const router = useRouter();
-
-  const dexStabilizationFee =
-    poolpairs.tokenA.displaySymbol === "DUSD"
-      ? poolpairs.tokenA.fee?.pct
-      : poolpairs.tokenB.fee?.pct;
+  const { connection } = useNetwork();
+  const { data: poolpairsWithDexFee } = useGetPairsWithStabilizationFeeQuery({
+    network: connection,
+  });
+  const [dexStabilizationFee, setDexStabilizationFee] = useState<string>();
 
   useEffect(() => {
     setPoolpairs(props.poolpair);
@@ -72,6 +74,17 @@ export default function PoolPairPage(
       return () => clearInterval(interval);
     }
   }, [props, router.query]);
+
+  useEffect(() => {
+    const pairDexStabFee = poolpairsWithDexFee?.find(
+      (pair) =>
+        pair.tokenADisplaySymbol === poolpairs.tokenA.displaySymbol &&
+        pair.tokenBDisplaySymbol === poolpairs.tokenB.displaySymbol
+    );
+    if (pairDexStabFee !== undefined) {
+      setDexStabilizationFee(pairDexStabFee.dexStabilizationFee);
+    }
+  }, [poolpairsWithDexFee, poolpairs]);
 
   return (
     <>
@@ -96,9 +109,7 @@ export default function PoolPairPage(
         />
         <div className="flex flex-wrap flex-row lg:space-x-4">
           <PoolPairDetailsBar poolpair={poolpairs} />
-          {["DUSD-DFI", "dUSDC-DUSD", "dUSDT-DUSD", "dEUROC-DUSD"].includes(
-            poolpairs.displaySymbol
-          ) && (
+          {dexStabilizationFee !== undefined && (
             <PoolPairInfo
               testId="DexStabilizationFee"
               lhsComponent={() => (
@@ -108,12 +119,7 @@ export default function PoolPairPage(
               )}
               popoverDescription="There is currently a high DEX Stabilization fee imposed on DUSD-DFI swaps due to DFIP 2206-D."
               rhs={{
-                value:
-                  dexStabilizationFee === undefined
-                    ? undefined
-                    : new BigNumber(dexStabilizationFee)
-                        .multipliedBy(100)
-                        .toFixed(2, BigNumber.ROUND_HALF_UP),
+                value: dexStabilizationFee,
                 suffix: "%",
               }}
             />
