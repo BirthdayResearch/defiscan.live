@@ -38,7 +38,7 @@ specifiers:
   react-number-format: ^5.1.4
   react-redux: ^8.0.5
   react-schemaorg: ^2.0.0
-  recharts: 2.4.3
+  recharts: 2.5.0
   schema-dts: ^1.1.2
   smart-buffer: ^4.2.0
   tailwindcss: ^3.2.7
@@ -67,7 +67,7 @@ dependencies:
   react-number-format: 5.1.4_biqbaboplfbrettd7655fr4n2y
   react-redux: 8.0.5_egguyi6kvemdtrnkbl3bdoeaey
   react-schemaorg: 2.0.0_6bnps355to3xlx2exm773rfp4m
-  recharts: 2.4.3_v2m5e27vhdewzwhryxwfaorcca
+  recharts: 2.5.0_v2m5e27vhdewzwhryxwfaorcca
   schema-dts: 1.1.2_typescript@4.9.5
   smart-buffer: 4.2.0
 
@@ -8924,8 +8924,8 @@ packages:
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
-  /react-resize-detector/7.1.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-zXnPJ2m8+6oq9Nn8zsep/orts9vQv3elrpA+R8XTcW7DVVUJ9vwDwMXaBtykAYjMnkCIaOoK9vObyR7ZgFNlOw==}
+  /react-resize-detector/8.1.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-S7szxlaIuiy5UqLhLL1KY3aoyGHbZzsTpYal9eYMwCyKqoqoVLCmIgAgNyIM1FhnP2KyBygASJxdhejrzjMb+w==}
     peerDependencies:
       react: ^16.0.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
@@ -9038,8 +9038,8 @@ packages:
       decimal.js-light: 2.5.1
     dev: false
 
-  /recharts/2.4.3_v2m5e27vhdewzwhryxwfaorcca:
-    resolution: {integrity: sha512-/hkRHTQShEOKDYd2OlKLIvGA0X9v/XVO/mNeRoDHg0lgFRL2KbGzeqVnStI3mMfORUZ6Hak4JbQ+uDiin1Foqg==}
+  /recharts/2.5.0_v2m5e27vhdewzwhryxwfaorcca:
+    resolution: {integrity: sha512-0EQYz3iA18r1Uq8VqGZ4dABW52AKBnio37kJgnztIqprELJXpOEsa0SzkqU1vjAhpCXCv52Dx1hiL9119xsqsQ==}
     engines: {node: '>=12'}
     peerDependencies:
       prop-types: ^15.6.0
@@ -9053,7 +9053,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 16.13.1
-      react-resize-detector: 7.1.2_biqbaboplfbrettd7655fr4n2y
+      react-resize-detector: 8.1.0_biqbaboplfbrettd7655fr4n2y
       react-smooth: 2.0.2_v2m5e27vhdewzwhryxwfaorcca
       recharts-scale: 0.4.5
       reduce-css-calc: 2.1.8
