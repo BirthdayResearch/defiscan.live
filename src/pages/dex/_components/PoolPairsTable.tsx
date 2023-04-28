@@ -9,6 +9,7 @@ import BigNumber from "bignumber.js";
 import { APRInfo } from "./APRInfo";
 import { TotalLiquidityInfo } from "./TotalLiquidityInfo";
 import { usePoolPairPrices } from "../hooks/CalculatePoolPairPrices";
+import { NonTradeChip } from "./NonTradeChip";
 
 export enum SortKeys {
   VOLUME = "volume",
@@ -160,6 +161,8 @@ function PoolPairRow({
   return (
     <OverflowTable.Row className="hover:text-primary-500">
       <OverflowTable.Cell className="align-middle">
+        {(poolPair.tokenB.displaySymbol.includes("BURN2") ||
+          poolPair.tokenA.displaySymbol.includes("BURN2")) && <NonTradeChip />}
         <PoolPairSymbolLocal
           tokenA={poolPair.tokenA}
           tokenB={poolPair.tokenB}
