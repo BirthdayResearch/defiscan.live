@@ -5,7 +5,7 @@ specifiers:
   '@birthdayresearch/sticky-jest': ^0.5.11
   '@cypress/code-coverage': ^3.10.4
   '@floating-ui/react-dom': ^1.3.0
-  '@headlessui/react': ^1.7.13
+  '@headlessui/react': ^1.7.14
   '@netlify/plugin-lighthouse': ^4.0.7
   '@netlify/plugin-nextjs': ^4.33.0
   '@prismicio/client': ^6.7.3
@@ -46,7 +46,7 @@ specifiers:
 dependencies:
   '@babel/types': 7.21.2
   '@floating-ui/react-dom': 1.3.0_biqbaboplfbrettd7655fr4n2y
-  '@headlessui/react': 1.7.13_biqbaboplfbrettd7655fr4n2y
+  '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
   '@prismicio/client': 6.7.3
   '@prismicio/types': 0.2.7
   '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
@@ -1958,8 +1958,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /@headlessui/react/1.7.13_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-9n+EQKRtD9266xIHXdY5MfiXPDfYwl7zBM7KOx2Ae3Gdgxy8QML1FkCMjq6AsOf0l6N9uvI4HcFtuFlenaldKg==}
+  /@headlessui/react/1.7.14_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-znzdq9PG8rkwcu9oQ2FwIy0ZFtP9Z7ycS+BAqJ3R5EIqC/0bJGvhT7193rFf+45i9nnPsYvCQVW4V/bB9Xc+gA==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
