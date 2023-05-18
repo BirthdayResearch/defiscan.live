@@ -14,9 +14,9 @@ interface DfTxTransferDomainProps {
 function getTransferDomainType(type: number): string {
   switch (type) {
     case 1:
-      return "DVM Token To EVM";
+      return "DVM token to EVM";
     case 2:
-      return "EVM To DVM Token";
+      return "EVM to DVM token";
     default:
       return "";
   }
@@ -47,9 +47,10 @@ export function DfTxTransferDomain(
 
                 {scriptBalances.balances.map((balance) => {
                   return (
-                    <FromAmountRow
+                    <BalanceRow
+                      testId="from"
                       balance={balance}
-                      key={`from-${balance.amount.toFixed(8)}-${balance.token}`}
+                      key={`${balance.amount.toFixed(8)}-${balance.token}`}
                     />
                   );
                 })}
@@ -72,6 +73,7 @@ export function DfTxTransferDomain(
                 {scriptBalances.balances.map((balance) => {
                   return (
                     <BalanceRow
+                      testId="to"
                       balance={balance}
                       key={`${balance.amount.toFixed(8)}-${balance.token}`}
                     />
@@ -86,38 +88,23 @@ export function DfTxTransferDomain(
   );
 }
 
-function FromAmountRow(props: { balance: TokenBalance }): JSX.Element {
-  return (
-    <AdaptiveList.Row name="Amount">
-      <div className="flex flex-row">
-        <span data-testid="DfTxTransferDomain.fromAmount">
-          {props.balance.amount.toFixed(8)}
-        </span>
-        <TokenSymbol
-          tokenId={props.balance.token}
-          className="ml-1"
-          testId="DfTxTransferDomain.fromSymbol"
-        />
-      </div>
-    </AdaptiveList.Row>
-  );
-}
-
-function BalanceRow(props: { balance: TokenBalance }): JSX.Element {
+function BalanceRow(props: {
+  balance: TokenBalance;
+  testId: string;
+}): JSX.Element {
   return (
     <>
       <AdaptiveList.Row name="Token">
         <div className="flex flex-row">
           <TokenSymbol
             tokenId={props.balance.token}
-            className="ml-1"
-            testId="DfTxTransferDomain.toSymbol"
+            testId={`DfTxTransferDomain.${props.testId}Symbol`}
           />
         </div>
       </AdaptiveList.Row>
       <AdaptiveList.Row name="Amount">
         <div className="flex flex-row">
-          <span data-testid="DfTxTransferDomain.toAmount">
+          <span data-testid={`DfTxTransferDomain.${props.testId}Amount`}>
             {props.balance.amount.toFixed(8)}
           </span>
         </div>
