@@ -48,7 +48,7 @@
     "@birthdayresearch/sticky-jest": "^0.5.13",
     "@cypress/code-coverage": "^3.10.4",
     "@netlify/plugin-lighthouse": "^4.0.7",
-    "@netlify/plugin-nextjs": "^4.37.0",
+    "@netlify/plugin-nextjs": "^4.37.2",
     "@testing-library/cypress": "^8.0.7",
     "@types/lodash": "^4.14.194",
     "@types/node": "^18.11.13",
