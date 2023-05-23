@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/scan.iml" filepath="$PROJECT_DIR$/.idea/scan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/defiscan.live.iml" filepath="$PROJECT_DIR$/.idea/defiscan.live.iml" />
     </modules>
   </component>
 </project>
