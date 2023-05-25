@@ -9,6 +9,7 @@ import { APRInfo } from "./APRInfo";
 import { SortData, SortKeys } from "./PoolPairsTable";
 import { TotalLiquidityInfo } from "./TotalLiquidityInfo";
 import { usePoolPairPrices } from "../hooks/CalculatePoolPairPrices";
+import { NonTradeChip } from "./NonTradeChip";
 
 const sortTypes = [
   {
@@ -136,6 +137,10 @@ export function PoolPairsCard({
         }`}
       >
         <div className="font-medium text-gray-900">
+          {(poolPair.tokenB.displaySymbol.includes("BURN2") ||
+            poolPair.tokenA.displaySymbol.includes("BURN2")) && (
+            <NonTradeChip />
+          )}
           <PoolPairSymbolLocal
             tokenA={poolPair.tokenA}
             tokenB={poolPair.tokenB}
