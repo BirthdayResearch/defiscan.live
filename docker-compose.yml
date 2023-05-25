@@ -17,7 +17,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   defi-blockchain:
-    image: defi/defichain:3.2.8
+    image: defi/defichain:feature-evm-87f295438
     command: >
       defid
       -printtoconsole
@@ -53,6 +53,7 @@ services:
       -fortcanninggreatworldheight=14
       -fortcanningepilogueheight=15
       -grandcentralheight=16
+       -nextnetworkupgradeheight=18
 
   defi-playground:
     image: ghcr.io/jellyfishsdk/playground-api:3.30.1
