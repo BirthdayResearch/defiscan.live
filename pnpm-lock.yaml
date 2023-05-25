@@ -10,7 +10,7 @@ specifiers:
   '@netlify/plugin-nextjs': ^4.37.2
   '@prismicio/client': ^6.7.3
   '@prismicio/types': ^0.2.7
-  '@reduxjs/toolkit': ^1.9.3
+  '@reduxjs/toolkit': ^1.9.5
   '@tailwindcss/line-clamp': ^0.4.4
   '@testing-library/cypress': ^8.0.7
   '@types/lodash': ^4.14.194
@@ -49,7 +49,7 @@ dependencies:
   '@headlessui/react': 1.7.14_biqbaboplfbrettd7655fr4n2y
   '@prismicio/client': 6.7.3
   '@prismicio/types': 0.2.7
-  '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
+  '@reduxjs/toolkit': 1.9.5_k4ae6lp43ej6mezo3ztvx6pykq
   '@tailwindcss/line-clamp': 0.4.4_tailwindcss@3.3.2
   '@waveshq/standard-defichain-jellyfishsdk': 0.49.3_@types+tar-fs@2.0.1
   '@waveshq/standard-web': 0.49.3_4wfzqs6qaz4xvc6syqcbdxarvm
@@ -2997,25 +2997,6 @@ packages:
     engines: {node: '>=12.7.0'}
     dev: false
 
-  /@reduxjs/toolkit/1.9.3_k4ae6lp43ej6mezo3ztvx6pykq:
-    resolution: {integrity: sha512-GU2TNBQVofL09VGmuSioNPQIu6Ml0YLf4EJhgj0AvBadRlCGzUWet8372LjvO4fqKZF2vH1xU0htAa7BrK9pZg==}
-    peerDependencies:
-      react: ^16.9.0 || ^17.0.0 || ^18
-      react-redux: ^7.2.1 || ^8.0.2
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-redux:
-        optional: true
-    dependencies:
-      immer: 9.0.19
-      react: 18.2.0
-      react-redux: 8.0.5_egguyi6kvemdtrnkbl3bdoeaey
-      redux: 4.2.1
-      redux-thunk: 2.4.2_redux@4.2.1
-      reselect: 4.1.7
-    dev: false
-
   /@reduxjs/toolkit/1.9.5_k4ae6lp43ej6mezo3ztvx6pykq:
     resolution: {integrity: sha512-Rt97jHmfTeaxL4swLRNPD/zV4OxTes4la07Xc4hetpUW/vc75t5m1ANyxG6ymnEQ2FsLQsoMlYB2vV1sO3m8tQ==}
     peerDependencies:
@@ -3029,7 +3010,7 @@ packages:
     dependencies:
       immer: 9.0.21
       react: 18.2.0
-      react-redux: 8.0.5_bqmu5crwk4xayru6pc4nvadrha
+      react-redux: 8.0.5_egguyi6kvemdtrnkbl3bdoeaey
       redux: 4.2.1
       redux-thunk: 2.4.2_redux@4.2.1
       reselect: 4.1.8
@@ -6869,10 +6850,6 @@ packages:
     engines: {node: '>=12.7.0'}
     dev: false
 
-  /immer/9.0.19:
-    resolution: {integrity: sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==}
-    dev: false
-
   /immer/9.0.21:
     resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
     dev: false
@@ -9505,10 +9482,6 @@ packages:
   /requires-port/1.0.0:
     resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
     optional: true
-
-  /reselect/4.1.7:
-    resolution: {integrity: sha512-Zu1xbUt3/OPwsXL46hvOOoQrap2azE7ZQbokq61BQfiXvhewsKDwhMeZjTX9sX0nvw1t/U5Audyn1I9P/m9z0A==}
-    dev: false
 
   /reselect/4.1.8:
     resolution: {integrity: sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==}
