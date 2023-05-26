@@ -1,6 +1,6 @@
 import { TransferDomain, DfTx } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import { fromScript } from "@defichain/jellyfish-address";
+import { getDecodedAddress } from "@waveshq/walletkit-core";
 import { useNetwork } from "@contexts/NetworkContext";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { TokenBalance } from "@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance";
@@ -35,7 +35,8 @@ export function DfTxTransferDomain(
         <div className="w-full lg:w-1/2">
           {props.dftx.data.from.map((scriptBalances) => {
             const scriptFromAddress =
-              fromScript(scriptBalances.script, network)?.address ?? "N/A";
+              getDecodedAddress(scriptBalances.script, network)?.address ??
+              "N/A";
             return (
               <AdaptiveList key={`from-${scriptFromAddress}`} className="mb-1">
                 <AdaptiveList.Row name="From">
@@ -61,7 +62,8 @@ export function DfTxTransferDomain(
         <div className="w-full lg:w-1/2">
           {props.dftx.data.to.map((scriptBalances) => {
             const toAddress =
-              fromScript(scriptBalances.script, network)?.address ?? "N/A";
+              getDecodedAddress(scriptBalances.script, network)?.address ??
+              "N/A";
             return (
               <AdaptiveList key={toAddress} className="mb-1">
                 <AdaptiveList.Row name="To">
