@@ -53,7 +53,7 @@ services:
       -fortcanninggreatworldheight=14
       -fortcanningepilogueheight=15
       -grandcentralheight=16
-       -nextnetworkupgradeheight=18
+      -nextnetworkupgradeheight=18
 
   defi-playground:
     image: ghcr.io/jellyfishsdk/playground-api:3.30.1
