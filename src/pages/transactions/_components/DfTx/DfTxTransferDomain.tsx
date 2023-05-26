@@ -1,4 +1,8 @@
-import { TransferDomain, DfTx } from "@defichain/jellyfish-transaction";
+import {
+  DfTx,
+  TransferDomain,
+  TransferDomainType,
+} from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { getDecodedAddress } from "@waveshq/walletkit-core";
 import { useNetwork } from "@contexts/NetworkContext";
@@ -11,7 +15,7 @@ interface DfTxTransferDomainProps {
   dftx: DfTx<TransferDomain>;
 }
 
-function getTransferDomainType(type: number): string {
+function getTransferDomainType(type: TransferDomainType): string {
   switch (type) {
     case 1:
       return "DVM token to EVM";
