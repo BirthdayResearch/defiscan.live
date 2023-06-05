@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@birthdayresearch/sticky-jest": "^0.5.13",
-    "@cypress/code-coverage": "^3.10.4",
+    "@cypress/code-coverage": "^3.10.7",
     "@netlify/plugin-lighthouse": "^4.0.7",
     "@netlify/plugin-nextjs": "^4.37.2",
     "@testing-library/cypress": "^8.0.7",
