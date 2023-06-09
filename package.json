@@ -45,7 +45,7 @@
     "smart-buffer": "^4.2.0"
   },
   "devDependencies": {
-    "@birthdayresearch/sticky-jest": "^0.5.13",
+    "@birthdayresearch/sticky-jest": "^0.8.5",
     "@cypress/code-coverage": "^3.10.4",
     "@netlify/plugin-lighthouse": "^4.0.7",
     "@netlify/plugin-nextjs": "^4.37.2",
