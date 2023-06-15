@@ -52,8 +52,8 @@ services:
       -fortcanningspringheight=13
       -fortcanninggreatworldheight=14
       -fortcanningepilogueheight=15
-      -grandcentralheight=16,
-      -grandcentralepilogueheight=17,
+      -grandcentralheight=16
+      -grandcentralepilogueheight=17
       -nextnetworkupgradeheight=18
 
   defi-playground:
@@ -70,7 +70,7 @@ services:
       - "traefik.http.routers.playground.entrypoints=web"
 
   defi-whale:
-    image: ghcr.io/birthdayresearch/playground-api:3.31.0
+    image: ghcr.io/birthdayresearch/whale-api:3.31.0
     depends_on:
       - defi-blockchain
     ports:
