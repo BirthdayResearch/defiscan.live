@@ -1,8 +1,4 @@
-import {
-  DfTx,
-  TransferDomain,
-  TransferDomainType,
-} from "@defichain/jellyfish-transaction";
+import { DfTx, TransferDomain } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
 import { getDecodedAddress } from "@waveshq/walletkit-core";
 import { useNetwork } from "@contexts/NetworkContext";
@@ -15,81 +11,55 @@ interface DfTxTransferDomainProps {
   dftx: DfTx<TransferDomain>;
 }
 
-function getTransferDomainType(type: TransferDomainType): string {
-  switch (type) {
-    case 1:
-      return "DVM token to EVM";
-    case 2:
-      return "EVM to DVM token";
-    default:
-      return "";
-  }
-}
-
 export function DfTxTransferDomain(
   props: DfTxTransferDomainProps
 ): JSX.Element {
   const network = useNetwork().name;
+  const { items } = props.dftx.data;
   return (
     <div>
-      <DfTxHeader
-        name={`Transfer Domain: ${getTransferDomainType(props.dftx.data.type)}`}
-      />
-      <div className="mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0">
-        <div className="w-full lg:w-1/2">
-          {props.dftx.data.from.map((scriptBalances) => {
-            const scriptFromAddress =
-              getDecodedAddress(scriptBalances.script, network)?.address ??
-              "N/A";
-            return (
-              <AdaptiveList key={`from-${scriptFromAddress}`} className="mb-1">
+      <DfTxHeader name="Transfer Domain" />
+      {items.map(({ src, dst }, index) => {
+        const fromAddress =
+          getDecodedAddress(src.address, network)?.address ?? "N/A";
+        const toAddress =
+          getDecodedAddress(dst.address, network)?.address ?? "N/A";
+        return (
+          <div
+            className="mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0"
+            key={`domain-txn-${index}`}
+          >
+            <div className="w-full lg:w-1/2">
+              <AdaptiveList className="mb-1">
                 <AdaptiveList.Row name="From">
                   <AddressLink
-                    address={scriptFromAddress}
+                    address={fromAddress}
                     testId="DfTxTransferDomain.from"
                   />
                 </AdaptiveList.Row>
-
-                {scriptBalances.balances.map((balance) => {
-                  return (
-                    <BalanceRow
-                      testId="from"
-                      balance={balance}
-                      key={`${balance.amount.toFixed(8)}-${balance.token}`}
-                    />
-                  );
-                })}
+                <BalanceRow
+                  testId={`BalanceFromRow-${index}`}
+                  balance={src.amount}
+                />
               </AdaptiveList>
-            );
-          })}
-        </div>
-        <div className="w-full lg:w-1/2">
-          {props.dftx.data.to.map((scriptBalances) => {
-            const toAddress =
-              getDecodedAddress(scriptBalances.script, network)?.address ??
-              "N/A";
-            return (
-              <AdaptiveList key={toAddress} className="mb-1">
+            </div>
+            <div className="w-full lg:w-1/2">
+              <AdaptiveList className="mb-1">
                 <AdaptiveList.Row name="To">
                   <AddressLink
                     address={toAddress}
                     testId="DfTxTransferDomain.to"
                   />
                 </AdaptiveList.Row>
-                {scriptBalances.balances.map((balance) => {
-                  return (
-                    <BalanceRow
-                      testId="to"
-                      balance={balance}
-                      key={`${balance.amount.toFixed(8)}-${balance.token}`}
-                    />
-                  );
-                })}
+                <BalanceRow
+                  testId={`BalanceToRow-${index}`}
+                  balance={dst.amount}
+                />
               </AdaptiveList>
-            );
-          })}
-        </div>
-      </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
