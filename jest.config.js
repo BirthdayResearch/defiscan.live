@@ -1,3 +1,3 @@
 module.exports = {
-  preset: "@birthdayresearch/sticky-jest",
+  preset: "@stickyjs/jest",
 };
