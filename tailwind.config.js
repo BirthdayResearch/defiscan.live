@@ -147,6 +147,5 @@ module.exports = {
         700: "#CBE9FD",
       },
     },
-  },
-  plugins: [require("@tailwindcss/line-clamp")],
+  }
 };
