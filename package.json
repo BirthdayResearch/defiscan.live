@@ -40,7 +40,7 @@
     "react-number-format": "^5.2.2",
     "react-redux": "^8.1.1",
     "react-schemaorg": "^2.0.0",
-    "recharts": "^2.7.1",
+    "recharts": "^2.7.2",
     "schema-dts": "^1.1.2",
     "smart-buffer": "^4.2.0"
   },
