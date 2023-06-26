@@ -11,6 +11,7 @@
   "plugins": ["prettier"],
   "ignorePatterns": ["**/plugins/*.ts", "**/support/*.ts"],
   "rules": {
+    "cypress/unsafe-to-chain-command": "off",
     "no-plusplus": "warn",
     "radix": "warn"
   }
