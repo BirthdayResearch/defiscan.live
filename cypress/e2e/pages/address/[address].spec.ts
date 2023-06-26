@@ -1,12 +1,9 @@
 context("/address/[address] on desktop", () => {
-  before(() => {
+  beforeEach(() => {
+    cy.viewport("macbook-16");
     cy.visit(
       "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
-    cy.viewport("macbook-16");
   });
 
   it("should have heading", () => {
@@ -31,16 +28,22 @@ context("/address/[address] on desktop", () => {
         "Balances"
       );
 
-      cy.findAllByTestId("AddressTokenCard").within(() => {
-        cy.findByTestId("AddressTokenCard.TokenSymbol").should("be.visible");
-        cy.findByTestId("AddressTokenCard.TokenName").should("be.visible");
-        cy.findByTestId("AddressTokenCard.Type")
-          .should("be.visible")
-          .contains(/^[A-Z]{3}$/);
-        cy.findByTestId("AddressTokenCard.Amount")
-          .should("be.visible")
-          .contains(/\d+.\d+/);
-      });
+      cy.findAllByTestId("AddressTokenCard", { timeout: 15000 }).each(
+        ($tokenCard) => {
+          cy.wrap($tokenCard).within(() => {
+            cy.findAllByTestId("AddressTokenCard.TokenSymbol").should(
+              "be.visible"
+            );
+            cy.findByTestId("AddressTokenCard.TokenName").should("be.visible");
+            cy.findByTestId("AddressTokenCard.Type")
+              .should("be.visible")
+              .contains(/^[A-Z]{3}$/);
+            cy.findByTestId("AddressTokenCard.Amount")
+              .should("be.visible")
+              .contains(/\d+.\d+/);
+          });
+        }
+      );
 
       cy.findAllByTestId("AddressTokenCard").should("have.length.at.least", 10);
     });
@@ -146,13 +149,10 @@ context("/address/[address] on desktop", () => {
 });
 
 context("/address/[address] on desktop - invalid address", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("macbook-16");
   });
 
@@ -165,13 +165,10 @@ context("/address/[address] on desktop - invalid address", () => {
 });
 
 context("/address/[address] on mobile", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("iphone-x");
   });
 
@@ -197,16 +194,22 @@ context("/address/[address] on mobile", () => {
         "Balances"
       );
 
-      cy.findAllByTestId("AddressTokenCard").within(() => {
-        cy.findByTestId("AddressTokenCard.TokenSymbol").should("be.visible");
-        cy.findByTestId("AddressTokenCard.TokenName").should("be.visible");
-        cy.findByTestId("AddressTokenCard.Type")
-          .should("be.visible")
-          .contains(/^[A-Z]{3}$/);
-        cy.findByTestId("AddressTokenCard.Amount")
-          .should("be.visible")
-          .contains(/\d+.\d+/);
-      });
+      cy.findAllByTestId("AddressTokenCard", { timeout: 15000 }).each(
+        ($tokenCard) => {
+          cy.wrap($tokenCard).within(() => {
+            cy.findAllByTestId("AddressTokenCard.TokenSymbol").should(
+              "be.visible"
+            );
+            cy.findByTestId("AddressTokenCard.TokenName").should("be.visible");
+            cy.findByTestId("AddressTokenCard.Type")
+              .should("be.visible")
+              .contains(/^[A-Z]{3}$/);
+            cy.findByTestId("AddressTokenCard.Amount")
+              .should("be.visible")
+              .contains(/\d+.\d+/);
+          });
+        }
+      );
 
       cy.findAllByTestId("AddressTokenCard").should("have.length.at.least", 10);
     });
@@ -312,13 +315,10 @@ context("/address/[address] on mobile", () => {
 });
 
 context("/address/[address] on mobile - invalid address", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("iphone-x");
   });
 
