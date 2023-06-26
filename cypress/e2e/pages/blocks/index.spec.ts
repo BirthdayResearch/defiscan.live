@@ -1,9 +1,6 @@
 context("/blocks on macbook-16", () => {
-  before(() => {
-    cy.visit("/blocks?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks?network=MainNet");
     cy.viewport("macbook-16");
   });
 
@@ -42,11 +39,8 @@ context("/blocks on macbook-16", () => {
 });
 
 context("/blocks on iphone-x", () => {
-  before(() => {
-    cy.visit("/blocks?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks?network=MainNet");
     cy.viewport("iphone-x");
   });
 
@@ -55,36 +49,38 @@ context("/blocks on iphone-x", () => {
   });
 
   it("should have CardList header information", () => {
-    cy.findAllByTestId("BlocksCard").within(() => {
-      cy.findAllByTestId("BlocksCard.CardList.Age").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Age");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findAllByTestId("BlocksCard.CardList.Transactions").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Transactions");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findAllByTestId("BlocksCard.CardList.Minter").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Minter");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findAllByTestId("BlocksCard.CardList.Size").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Size (B)");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findAllByTestId("BlocksCard.CardList.Difficulty").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Difficulty");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
+    cy.findAllByTestId("BlocksCard", { timeout: 15000 }).each(($blockCard) => {
+      cy.wrap($blockCard).within(() => {
+        cy.findAllByTestId("BlocksCard.CardList.Age").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "Age");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
+        cy.findAllByTestId("BlocksCard.CardList.Transactions").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "Transactions");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
+        cy.findAllByTestId("BlocksCard.CardList.Minter").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "Minter");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
+        cy.findAllByTestId("BlocksCard.CardList.Size").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "Size (B)");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
+        cy.findAllByTestId("BlocksCard.CardList.Difficulty").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "Difficulty");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
       });
     });
   });
