@@ -1,10 +1,7 @@
 context("search component macbook-16", () => {
-  before(() => {
-    cy.visit("/blocks?network=MainNet");
-  });
-
   beforeEach(() => {
     cy.viewport("macbook-16");
+    cy.visit("/blocks?network=MainNet");
   });
 
   it("should have SearchBar.Input", () => {
@@ -78,11 +75,8 @@ context("search component macbook-16 - different network", () => {
 });
 
 context("search component ipad-2", () => {
-  before(() => {
-    cy.visit("/blocks?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks?network=MainNet");
     cy.viewport("ipad-2");
   });
 
@@ -157,12 +151,9 @@ context("search component ipad-2 - different network", () => {
 });
 
 context("search component iphone-x", () => {
-  before(() => {
-    cy.visit("/blocks?network=MainNet");
-  });
-
   beforeEach(() => {
     cy.viewport("iphone-x");
+    cy.visit("/blocks?network=MainNet");
   });
 
   it("should have SearchBar.Input", () => {
@@ -220,11 +211,8 @@ context("search component iphone-x", () => {
 });
 
 context("search component iphone-x - different network", () => {
-  before(() => {
-    cy.visit("/blocks?network=TestNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks?network=TestNet");
     cy.viewport("iphone-x");
   });
 
