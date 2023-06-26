@@ -1,9 +1,6 @@
 context("<Header/> on macbook-13", () => {
-  before(() => {
-    cy.visit("/?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/?network=MainNet");
     cy.viewport("macbook-13");
   });
 
@@ -75,11 +72,8 @@ context("<Header/> on macbook-13", () => {
 });
 
 context("<Header/> on ipad-2", () => {
-  before(() => {
-    cy.visit("/?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/?network=MainNet");
     cy.viewport("ipad-2");
   });
 
@@ -149,11 +143,8 @@ context("<Header/> on ipad-2", () => {
 });
 
 context("<Header/> on iphone-x", () => {
-  before(() => {
-    cy.visit("/?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/?network=MainNet");
     cy.viewport("iphone-x");
   });
 
@@ -218,6 +209,7 @@ context("<Header/> on iphone-x", () => {
   });
 
   it("should have  Mobile.HeaderSearchbar", () => {
+    cy.findByTestId("Header.OpenMenu").click();
     cy.findByTestId("Header.Mobile.CloseMenu").click();
     cy.findByTestId("Header.Mobile.SearchIcon").click();
     cy.findByTestId("Mobile.HeaderSearchBar").within(() => {
