@@ -1,5 +1,5 @@
 context("/vaults/[vaultid] on desktop", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit("/vaults");
 
     cy.findAllByTestId("VaultRow.VaultStatus").each(($status) => {
@@ -11,9 +11,7 @@ context("/vaults/[vaultid] on desktop", () => {
         $status.trigger("click");
       }
     });
-  });
 
-  beforeEach(() => {
     cy.viewport("macbook-16");
   });
 
@@ -66,10 +64,10 @@ context("/vaults/[vaultid] on desktop", () => {
     });
 
     it("should have 4 cells in each row", () => {
-      cy.findAllByTestId("OverflowTable.Row").within(() => {
-        cy.findAllByTestId("OverflowTable.Cell")
-          .should("have.length", 4)
-          .should("be.visible");
+      cy.findAllByTestId("OverflowTable.Row").each(($el) => {
+        cy.wrap($el).within(() => {
+          cy.findAllByTestId("OverflowTable.Cell").should("be.visible");
+        });
       });
     });
 
@@ -105,53 +103,61 @@ context("/vaults/[vaultid] on desktop", () => {
 
     it("should have collateral details card", () => {
       cy.findByTestId("CollateralDetailsDesktop.Cards").within(() => {
-        cy.findAllByTestId("CollateralCard").within(() => {
-          cy.findByTestId("CollateralCard.AssetIcon").should("be.visible");
-          cy.findByTestId("CollateralCard.displaySymbol").should("be.visible");
-          cy.findByTestId("CollateralCard.displaySymbol").should("be.visible");
-          cy.findByTestId("CollateralCard.CollateralAmountTitle").should(
-            "be.visible"
-          );
-          cy.findByTestId("CollateralCard.CollateralAmount").should(
-            "be.visible"
-          );
+        cy.findAllByTestId("CollateralCard").each(($el) => {
+          cy.wrap($el).within(() => {
+            cy.findByTestId("CollateralCard.AssetIcon").should("be.visible");
+            cy.findByTestId("CollateralCard.displaySymbol").should(
+              "be.visible"
+            );
+            cy.findByTestId("CollateralCard.displaySymbol").should(
+              "be.visible"
+            );
+            cy.findByTestId("CollateralCard.CollateralAmountTitle").should(
+              "be.visible"
+            );
+            cy.findByTestId("CollateralCard.CollateralAmount").should(
+              "be.visible"
+            );
+          });
         });
       });
     });
-  });
 
-  describe("should Loan Details", () => {
-    it("should Loan Details Heading", () => {
-      cy.findByTestId("VaultLoansDesktop.Heading").should(
-        "have.text",
-        "Loan Details"
-      );
-    });
-
-    it("should OverflowTable Header Information", () => {
-      cy.findByTestId("VaultLoansDesktop.LoanToken")
-        .should("be.visible")
-        .should("have.text", "Loan Token");
-      cy.findByTestId("VaultLoansDesktop.LoanValue")
-        .should("be.visible")
-        .should("have.text", "Loan Value (USD)");
-      cy.findByTestId("VaultLoansDesktop.LoanAmount")
-        .should("be.visible")
-        .should("have.text", "Loan Amount");
-      cy.findByTestId("VaultLoansDesktop.TotalInterestRate")
-        .should("be.visible")
-        .should("have.text", "Total Interest Rate (APR)");
-      cy.findByTestId("VaultLoansDesktop.TotalInterestRate").within(() => {
-        cy.findByTestId("InfoHoverPopover").should("be.visible");
+    describe("should Loan Details", () => {
+      it("should Loan Details Heading", () => {
+        cy.findByTestId("VaultLoansDesktop.Heading").should(
+          "have.text",
+          "Loan Details"
+        );
       });
-    });
 
-    it("should have 4 cells in each row", () => {
-      cy.findByTestId("VaultLoansDesktop").within(() => {
-        cy.findAllByTestId("OverflowTable.Row").within(() => {
-          cy.findAllByTestId("OverflowTable.Cell")
-            .should("have.length", 4)
-            .should("be.visible");
+      it("should OverflowTable Header Information", () => {
+        cy.findByTestId("VaultLoansDesktop.LoanToken")
+          .should("be.visible")
+          .should("have.text", "Loan Token");
+        cy.findByTestId("VaultLoansDesktop.LoanValue")
+          .should("be.visible")
+          .should("have.text", "Loan Value (USD)");
+        cy.findByTestId("VaultLoansDesktop.LoanAmount")
+          .should("be.visible")
+          .should("have.text", "Loan Amount");
+        cy.findByTestId("VaultLoansDesktop.TotalInterestRate")
+          .should("be.visible")
+          .should("have.text", "Total Interest Rate (APR)");
+        cy.findByTestId("VaultLoansDesktop.TotalInterestRate").within(() => {
+          cy.findByTestId("InfoHoverPopover").should("be.visible");
+        });
+      });
+
+      it("should have 4 cells in each row", () => {
+        cy.findByTestId("VaultLoansDesktop").within(() => {
+          cy.findAllByTestId("OverflowTable.Row").each(($el) => {
+            cy.wrap($el).within(() => {
+              cy.findAllByTestId("OverflowTable.Cell")
+                .should("have.length", 4)
+                .should("be.visible");
+            });
+          });
         });
       });
     });
@@ -159,8 +165,9 @@ context("/vaults/[vaultid] on desktop", () => {
 });
 
 context("/vaults/[vaultid] on mobile", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit("/vaults");
+
     cy.findAllByTestId("VaultRow.VaultStatus").each(($status) => {
       if ($status === null) {
         throw new Error("Unable to locate Vault Status");
@@ -170,9 +177,7 @@ context("/vaults/[vaultid] on mobile", () => {
         $status.trigger("click");
       }
     });
-  });
 
-  beforeEach(() => {
     cy.viewport("iphone-x");
   });
 
@@ -244,15 +249,19 @@ context("/vaults/[vaultid] on mobile", () => {
 
     it("should have collateral details card", () => {
       cy.findByTestId("CollateralDetailsMobile.Cards").within(() => {
-        cy.findAllByTestId("CollateralCard").within(() => {
-          cy.findByTestId("CollateralCard.AssetIcon").should("be.visible");
-          cy.findByTestId("CollateralCard.displaySymbol").should("be.visible");
-          cy.findByTestId("CollateralCard.CollateralAmountTitle").should(
-            "be.visible"
-          );
-          cy.findByTestId("CollateralCard.CollateralAmount").should(
-            "be.visible"
-          );
+        cy.findAllByTestId("CollateralCard").each(($el) => {
+          cy.wrap($el).within(() => {
+            cy.findByTestId("CollateralCard.AssetIcon").should("be.visible");
+            cy.findByTestId("CollateralCard.displaySymbol").should(
+              "be.visible"
+            );
+            cy.findByTestId("CollateralCard.CollateralAmountTitle").should(
+              "be.visible"
+            );
+            cy.findByTestId("CollateralCard.CollateralAmount").should(
+              "be.visible"
+            );
+          });
         });
       });
     });
@@ -269,13 +278,15 @@ context("/vaults/[vaultid] on mobile", () => {
     });
 
     it("should have loan details card", () => {
-      cy.findByTestId("VaultCollapsibleSection.LoanDetails").within(() => {
-        cy.findAllByTestId("LoanDetailsCard").within(() => {
-          cy.findByTestId("LoanDetailsCard.AssetIcon").should("be.visible");
-          cy.findByTestId("LoanDetailsCard.displaySymbol").should("be.visible");
-          cy.findByTestId("LoanDetailsCard.LoanValue").should("be.visible");
-          cy.findByTestId("LoanDetailsCard.LoanAmount").should("be.visible");
-          cy.findByTestId("LoanDetailsCard.TotalInterestRate").should(
+      cy.findAllByTestId("VaultCollapsibleSection.LoanDetails").each(($el) => {
+        cy.wrap($el).within(() => {
+          cy.findAllByTestId("LoanDetailsCard.AssetIcon").should("be.visible");
+          cy.findAllByTestId("LoanDetailsCard.displaySymbol").should(
+            "be.visible"
+          );
+          cy.findAllByTestId("LoanDetailsCard.LoanValue").should("be.visible");
+          cy.findAllByTestId("LoanDetailsCard.LoanAmount").should("be.visible");
+          cy.findAllByTestId("LoanDetailsCard.TotalInterestRate").should(
             "be.visible"
           );
         });
