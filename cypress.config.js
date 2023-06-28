@@ -20,6 +20,6 @@ module.exports = defineConfig({
     },
     baseUrl: "http://localhost:3000",
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
-    excludeSpecPattern: "cypress/e2e/pages/**"
+    excludeSpecPattern: "cypress/e2e/pages/transactions/**"
   },
 });
