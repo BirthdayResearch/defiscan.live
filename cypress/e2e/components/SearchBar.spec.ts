@@ -164,6 +164,7 @@ context("search component iphone-x", () => {
   });
 
   it("should have search results - blocks", () => {
+    cy.findByTestId("Header.Mobile.SearchIcon").click();
     cy.findByTestId("Mobile.HeaderSearchBar").within(() => {
       cy.findByTestId("SearchBar.Input").should("be.visible").clear();
       cy.findByTestId("SearchBar.Input").click().type("123");
@@ -176,6 +177,7 @@ context("search component iphone-x", () => {
   });
 
   it("should have search results - txn", () => {
+    cy.findByTestId("Header.Mobile.SearchIcon").click();
     cy.findByTestId("Mobile.HeaderSearchBar").within(() => {
       cy.findByTestId("SearchBar.Input").should("be.visible").clear();
       cy.findByTestId("SearchBar.Input")
@@ -194,6 +196,7 @@ context("search component iphone-x", () => {
   });
 
   it("should have search results - address", () => {
+    cy.findByTestId("Header.Mobile.SearchIcon").click();
     cy.findByTestId("Mobile.HeaderSearchBar").within(() => {
       cy.findByTestId("SearchBar.Input").should("be.visible").clear();
       cy.findByTestId("SearchBar.Input")
