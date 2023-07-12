@@ -276,7 +276,6 @@ context("/transactions/[txid] on mobile", () => {
         .next()
         .first()
         .within(() => {
-          // some pure magic here
           cy.get("span").eq(0).should("have.text", "OUTPUT");
           cy.get("span").eq(1).should("have.text", "3.59205320 DFI");
           cy.findByTestId("TransactionVectorRow.Address").should(
