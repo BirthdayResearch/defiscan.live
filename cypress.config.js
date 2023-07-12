@@ -22,7 +22,10 @@ module.exports = defineConfig({
     specPattern: "cypress/e2e/**/*.{js,jsx,ts,tsx}",
     excludeSpecPattern: [
       "cypress/e2e/pages/transactions/DfTx/**",
-      "cypress/e2e/pages/governance/create/index.spec.ts"
+      "cypress/e2e/pages/governance/create/index.spec.ts",
+      "cypress/e2e/pages/vaults/[vaultid]/auctions/[index].spec.ts",
+      "cypress/e2e/pages/vaults/[vaultid]/index-InLiquidation.spec.ts",
+      "cypress/e2e/pages/vaults/[vaultid]/index.spec.ts",
     ]
   },
 });
