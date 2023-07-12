@@ -66,7 +66,9 @@ context("/vaults/[vaultid] on desktop", () => {
     it("should have 4 cells in each row", () => {
       cy.findAllByTestId("OverflowTable.Row").each(($el) => {
         cy.wrap($el).within(() => {
-          cy.findAllByTestId("OverflowTable.Cell").should("be.visible");
+          cy.findAllByTestId("OverflowTable.Cell")
+            .should("have.length", 4)
+            .should("be.visible");
         });
       });
     });
