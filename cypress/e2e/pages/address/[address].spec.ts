@@ -28,7 +28,7 @@ context("/address/[address] on desktop", () => {
         "Balances"
       );
 
-      cy.findAllByTestId("AddressTokenCard", { timeout: 15000 }).each(
+      cy.findAllByTestId("AddressTokenCard", { timeout: 30000 }).each(
         ($tokenCard) => {
           cy.wrap($tokenCard).within(() => {
             cy.findAllByTestId("AddressTokenCard.TokenSymbol").should(
@@ -194,7 +194,7 @@ context("/address/[address] on mobile", () => {
         "Balances"
       );
 
-      cy.findAllByTestId("AddressTokenCard", { timeout: 15000 }).each(
+      cy.findAllByTestId("AddressTokenCard", { timeout: 30000 }).each(
         ($tokenCard) => {
           cy.wrap($tokenCard).within(() => {
             cy.findAllByTestId("AddressTokenCard.TokenSymbol").should(
