@@ -16,8 +16,9 @@
 import "@cypress/code-coverage/support";
 import "./commands";
 
-Cypress.Server.defaults({
-  ignore: (xhr: Request) => {
-    return xhr.url.match(/^.+\/v0\/playground\/$/);
-  },
-});
+// to rewrite to be able to support in Cypress 12
+// Cypress.Server.defaults({
+//   ignore: (xhr: Request) => {
+//     return xhr.url.match(/^.+\/v0\/playground\/$/);
+//   },
+// });

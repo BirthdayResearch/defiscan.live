@@ -1,6 +1,7 @@
 const viewPorts = ["macbook-16", "ipad-2", "iphone-x"];
 
 viewPorts.forEach((viewPort) => {
+  // todo: rewrite completely to be compatible with cypress 12: tests to not share the context
   context(`/governance/create on ${viewPort}`, () => {
     const nameOfProposal = "Test Proposal";
     const discussion = "https://github.com/DeFiCh/dfips/issues/243";

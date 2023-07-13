@@ -1,9 +1,6 @@
 context("/ on macbook-16", () => {
-  before(() => {
-    cy.visit("/?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/?network=MainNet");
     cy.viewport("macbook-16");
   });
 
@@ -40,15 +37,17 @@ context("/ on macbook-16", () => {
         .should("be.visible")
         .should("have.text", "Latest Transactions");
 
-      cy.findAllByTestId("Desktop.TransactionCard").within(() => {
-        cy.findByTestId("Desktop.TransactionCard.txid").should("be.visible");
-        cy.findByTestId("Desktop.TransactionCard.age").should("be.visible");
-        cy.findByTestId("Desktop.TransactionCard.AmountLabel")
-          .should("be.visible")
-          .should("have.text", "Amount");
-        cy.findByTestId("Desktop.TransactionCard.AmountValue")
-          .should("be.visible")
-          .contains(/\d+.\d+\sDFI/);
+      cy.findAllByTestId("Desktop.TransactionCard").each(($el) => {
+        cy.wrap($el).within(() => {
+          cy.findByTestId("Desktop.TransactionCard.txid").should("be.visible");
+          cy.findByTestId("Desktop.TransactionCard.age").should("be.visible");
+          cy.findByTestId("Desktop.TransactionCard.AmountLabel")
+            .should("be.visible")
+            .should("have.text", "Amount");
+          cy.findByTestId("Desktop.TransactionCard.AmountValue")
+            .should("be.visible")
+            .contains(/\d+.\d+\sDFI/);
+        });
       });
 
       cy.findAllByTestId("Desktop.TransactionCard").should("have.length", 8);
@@ -64,19 +63,23 @@ context("/ on macbook-16", () => {
         .should("be.visible")
         .should("have.text", "Latest Blocks");
 
-      cy.findAllByTestId("BlockCardDetails").within(() => {
-        cy.findByTestId("BlockCardDetails.height").should("be.visible");
-        cy.findByTestId("BlockCardDetails.age").should("be.visible");
-        cy.findByTestId("BlockCardDetails.MintedByLabel")
-          .should("be.visible")
-          .should("have.text", "Minted by");
-        cy.findByTestId("BlockCardDetails.MintedByValue").should("be.visible");
-        cy.findByTestId("BlockCardDetails.TransactionsLabel")
-          .should("be.visible")
-          .should("have.text", "Transactions");
-        cy.findByTestId("BlockCardDetails.TransactionsValue")
-          .should("be.visible")
-          .contains(/\d+/);
+      cy.findAllByTestId("BlockCardDetails").each(($el) => {
+        cy.wrap($el).within(() => {
+          cy.findByTestId("BlockCardDetails.height").should("be.visible");
+          cy.findByTestId("BlockCardDetails.age").should("be.visible");
+          cy.findByTestId("BlockCardDetails.MintedByLabel")
+            .should("be.visible")
+            .should("have.text", "Minted by");
+          cy.findByTestId("BlockCardDetails.MintedByValue").should(
+            "be.visible"
+          );
+          cy.findByTestId("BlockCardDetails.TransactionsLabel")
+            .should("be.visible")
+            .should("have.text", "Transactions");
+          cy.findByTestId("BlockCardDetails.TransactionsValue")
+            .should("be.visible")
+            .contains(/\d+/);
+        });
       });
 
       cy.findAllByTestId("BlockCardDetails").should("have.length", 8);
@@ -92,29 +95,33 @@ context("/ on macbook-16", () => {
       .should("be.visible")
       .should("have.text", "Liquidity Pools");
 
-    cy.findAllByTestId("LiquidityPoolCard").within(() => {
-      cy.findByTestId("LiquidityPoolCard.PoolPairSymbol").should("be.visible");
+    cy.findAllByTestId("LiquidityPoolCard").each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findByTestId("LiquidityPoolCard.PoolPairSymbol").should(
+          "be.visible"
+        );
 
-      cy.findByTestId("LiquidityCardStat.APR.Label")
-        .should("be.visible")
-        .should("have.text", "APR");
-      cy.findByTestId("LiquidityCardStat.APR.Value")
-        .should("be.visible")
-        .contains(/\d+.\d+%/);
+        cy.findByTestId("LiquidityCardStat.APR.Label")
+          .should("be.visible")
+          .should("have.text", "APR");
+        cy.findByTestId("LiquidityCardStat.APR.Value")
+          .should("be.visible")
+          .contains(/\d+.\d+%/);
 
-      cy.findByTestId("LiquidityCardStat.Liquidity.Label")
-        .should("be.visible")
-        .should("have.text", "Liquidity");
-      cy.findByTestId("LiquidityCardStat.Liquidity.Value")
-        .should("be.visible")
-        .contains(/^\d{1,3}(,\d{3})* USDT$/);
+        cy.findByTestId("LiquidityCardStat.Liquidity.Label")
+          .should("be.visible")
+          .should("have.text", "Liquidity");
+        cy.findByTestId("LiquidityCardStat.Liquidity.Value")
+          .should("be.visible")
+          .contains(/^\d{1,3}(,\d{3})* USDT$/);
 
-      cy.findByTestId("LiquidityCardStat.Ratio.Label")
-        .should("be.visible")
-        .should("have.text", "Ratio");
-      cy.findByTestId("LiquidityCardStat.Ratio.Value")
-        .should("be.visible")
-        .contains(/^\d{1,3}(,\d{3})*(\.\d+)? .*\/.*$/);
+        cy.findByTestId("LiquidityCardStat.Ratio.Label")
+          .should("be.visible")
+          .should("have.text", "Ratio");
+        cy.findByTestId("LiquidityCardStat.Ratio.Value")
+          .should("be.visible")
+          .contains(/^\d{1,3}(,\d{3})*(\.\d+)? .*\/.*$/);
+      });
     });
 
     cy.findAllByTestId("LiquidityPoolCard").should("have.length", 8);
@@ -125,11 +132,8 @@ context("/ on macbook-16", () => {
 });
 
 context("/ on iphone-x", () => {
-  before(() => {
-    cy.visit("/?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/?network=MainNet");
     cy.viewport("iphone-x");
   });
 
@@ -166,15 +170,17 @@ context("/ on iphone-x", () => {
         .should("be.visible")
         .should("have.text", "Latest Transactions");
 
-      cy.findAllByTestId("Mobile.TransactionCard").within(() => {
-        cy.findByTestId("Mobile.TransactionCard.txid").should("be.visible");
-        cy.findByTestId("Mobile.TransactionCard.age").should("be.visible");
-        cy.findByTestId("Mobile.TransactionCard.AmountLabel")
-          .should("be.visible")
-          .should("have.text", "Amount");
-        cy.findByTestId("Mobile.TransactionCard.AmountValue")
-          .should("be.visible")
-          .contains(/\d+.\d+\sDFI/);
+      cy.findAllByTestId("Mobile.TransactionCard").each(($el) => {
+        cy.wrap($el).within(() => {
+          cy.findByTestId("Mobile.TransactionCard.txid").should("be.visible");
+          cy.findByTestId("Mobile.TransactionCard.age").should("be.visible");
+          cy.findByTestId("Mobile.TransactionCard.AmountLabel")
+            .should("be.visible")
+            .should("have.text", "Amount");
+          cy.findByTestId("Mobile.TransactionCard.AmountValue")
+            .should("be.visible")
+            .contains(/\d+.\d+\sDFI/);
+        });
       });
     });
 
@@ -190,19 +196,23 @@ context("/ on iphone-x", () => {
         .should("be.visible")
         .should("have.text", "Latest Blocks");
 
-      cy.findAllByTestId("BlockCardDetails").within(() => {
-        cy.findByTestId("BlockCardDetails.height").should("be.visible");
-        cy.findByTestId("BlockCardDetails.age").should("be.visible");
-        cy.findByTestId("BlockCardDetails.MintedByLabel")
-          .should("be.visible")
-          .should("have.text", "Minted by");
-        cy.findByTestId("BlockCardDetails.MintedByValue").should("be.visible");
-        cy.findByTestId("BlockCardDetails.TransactionsLabel")
-          .should("be.visible")
-          .should("have.text", "Transactions");
-        cy.findByTestId("BlockCardDetails.TransactionsValue")
-          .should("be.visible")
-          .contains(/\d+/);
+      cy.findAllByTestId("BlockCardDetails").each(($el) => {
+        cy.wrap($el).within(() => {
+          cy.findByTestId("BlockCardDetails.height").should("be.visible");
+          cy.findByTestId("BlockCardDetails.age").should("be.visible");
+          cy.findByTestId("BlockCardDetails.MintedByLabel")
+            .should("be.visible")
+            .should("have.text", "Minted by");
+          cy.findByTestId("BlockCardDetails.MintedByValue").should(
+            "be.visible"
+          );
+          cy.findByTestId("BlockCardDetails.TransactionsLabel")
+            .should("be.visible")
+            .should("have.text", "Transactions");
+          cy.findByTestId("BlockCardDetails.TransactionsValue")
+            .should("be.visible")
+            .contains(/\d+/);
+        });
       });
 
       cy.findAllByTestId("BlockCardDetails").should("have.length", 8);
@@ -215,30 +225,33 @@ context("/ on iphone-x", () => {
 
   it("should have LiquidityPools", () => {
     cy.findByTestId("LiquidityPoolList").should("be.visible");
+    cy.findAllByTestId("LiquidityPoolCard").each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findByTestId("LiquidityPoolCard.PoolPairSymbol").should(
+          "be.visible"
+        );
 
-    cy.findAllByTestId("LiquidityPoolCard").within(() => {
-      cy.findByTestId("LiquidityPoolCard.PoolPairSymbol").should("be.visible");
+        cy.findByTestId("LiquidityCardStat.APR.Label")
+          .should("be.visible")
+          .should("have.text", "APR");
+        cy.findByTestId("LiquidityCardStat.APR.Value")
+          .should("be.visible")
+          .contains(/\d+.\d+%/);
 
-      cy.findByTestId("LiquidityCardStat.APR.Label")
-        .should("be.visible")
-        .should("have.text", "APR");
-      cy.findByTestId("LiquidityCardStat.APR.Value")
-        .should("be.visible")
-        .contains(/\d+.\d+%/);
+        cy.findByTestId("LiquidityCardStat.Liquidity.Label")
+          .should("be.visible")
+          .should("have.text", "Liquidity");
+        cy.findByTestId("LiquidityCardStat.Liquidity.Value")
+          .should("be.visible")
+          .contains(/^\d{1,3}(,\d{3})* USDT$/);
 
-      cy.findByTestId("LiquidityCardStat.Liquidity.Label")
-        .should("be.visible")
-        .should("have.text", "Liquidity");
-      cy.findByTestId("LiquidityCardStat.Liquidity.Value")
-        .should("be.visible")
-        .contains(/^\d{1,3}(,\d{3})* USDT$/);
-
-      cy.findByTestId("LiquidityCardStat.Ratio.Label")
-        .should("be.visible")
-        .should("have.text", "Ratio");
-      cy.findByTestId("LiquidityCardStat.Ratio.Value")
-        .should("be.visible")
-        .contains(/^\d{1,3}(,\d{3})*(\.\d+)? .*\/.*$/);
+        cy.findByTestId("LiquidityCardStat.Ratio.Label")
+          .should("be.visible")
+          .should("have.text", "Ratio");
+        cy.findByTestId("LiquidityCardStat.Ratio.Value")
+          .should("be.visible")
+          .contains(/^\d{1,3}(,\d{3})*(\.\d+)? .*\/.*$/);
+      });
     });
 
     cy.findAllByTestId("LiquidityPoolCard").should("have.length", 8);

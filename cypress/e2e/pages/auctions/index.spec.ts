@@ -7,11 +7,10 @@ context("/auctions on desktop", () => {
         this.skip();
       }
     });
-
-    cy.visit("/auctions");
   });
 
   beforeEach(() => {
+    cy.visit("/auctions");
     cy.viewport("macbook-16");
   });
 

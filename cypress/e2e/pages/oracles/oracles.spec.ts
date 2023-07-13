@@ -1,9 +1,6 @@
 context("/oracles on macbook-13", () => {
-  before(() => {
-    cy.visit("/oracles?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/oracles?network=MainNet");
     cy.viewport("macbook-13");
   });
 
@@ -45,11 +42,8 @@ context("/oracles on macbook-13", () => {
 });
 
 context("/oracles on iphone-x", () => {
-  before(() => {
-    cy.visit("/oracles?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/oracles?network=MainNet");
     cy.viewport("iphone-x");
   });
 
