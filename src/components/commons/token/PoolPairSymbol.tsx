@@ -59,11 +59,9 @@ export function PoolPairSymbol(props: PoolPairSymbolProps): JSX.Element {
   return (
     <div className="flex items-center" data-testid={props.testId}>
       <IconA
-        data-testid="AddressTokenCard.TokenSymbol"
         className={classnames("absolute z-10", props.symbolSizeClassName)}
       />
       <IconB
-        data-testid="AddressTokenCard.TokenSymbol"
         className={classnames(
           "absolute",
           props.symbolSizeClassName,
