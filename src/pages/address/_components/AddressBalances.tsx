@@ -127,7 +127,7 @@ function TokenSymbolName(props: { token: AddressToken }): JSX.Element {
         {(() => {
           if (props.token.isLPS) {
             return (
-              <div className="mr-11">
+              <div className="mr-11" data-testid="AddressTokenCard.TokenSymbol">
                 <PoolPairSymbol
                   poolPairId={props.token.id}
                   symbolSizeClassName="h-6 w-6"
