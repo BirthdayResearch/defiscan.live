@@ -45,7 +45,7 @@
     "smart-buffer": "^4.2.0"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.10.8",
+    "@cypress/code-coverage": "^3.11.0",
     "@netlify/plugin-lighthouse": "^4.1.1",
     "@netlify/plugin-nextjs": "^4.39.1",
     "@stickyjs/jest": "^1.2.0",
