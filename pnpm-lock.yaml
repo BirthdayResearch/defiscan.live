@@ -92,8 +92,8 @@ devDependencies:
     specifier: ^4.1.1
     version: 4.1.1
   '@netlify/plugin-nextjs':
-    specifier: ^4.38.1
-    version: 4.38.1
+    specifier: ^4.39.1
+    version: 4.39.1
   '@stickyjs/jest':
     specifier: ^1.2.0
     version: 1.2.0(@babel/core@7.22.5)(@types/node@18.16.18)(typescript@5.1.3)
@@ -2591,8 +2591,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@netlify/plugin-nextjs@4.38.1:
-    resolution: {integrity: sha512-59iDg+zQzj9PZOVEGiEhCD84AdTXtWC6C8SQylBPfGMJ7xVYIVXdulNUpSy9F7NXhjDeM1y9IPyTKKan6D5QIA==}
+  /@netlify/plugin-nextjs@4.39.1:
+    resolution: {integrity: sha512-gdpTDRYJg8g55MQBy1JMcVJ3UgHC71M/u7BccI9oqvizVtV7ESgyCdJgGFPfZJJGCgWe2ANfQCk1wgA0yosnow==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@netlify/esbuild': 0.14.39
@@ -2612,7 +2612,7 @@ packages:
       node-stream-zip: 1.15.0
       outdent: 0.8.0
       p-limit: 3.1.0
-      pathe: 0.2.0
+      pathe: 0.3.9
       pretty-bytes: 5.6.0
       regexp-tree: 0.1.27
       semver: 7.5.3
@@ -8510,8 +8510,8 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
-  /pathe@0.2.0:
-    resolution: {integrity: sha512-sTitTPYnn23esFR3RlqYBWn4c45WGeLcsKzQiUpXJAyfcWkolvlYpV8FLo7JishK946oQwMFUCHXQ9AjGPKExw==}
+  /pathe@0.3.9:
+    resolution: {integrity: sha512-6Y6s0vT112P3jD8dGfuS6r+lpa0qqNrLyHPOwvXMnyNTQaYiwgau2DP3aNDsR13xqtGj7rrPo+jFUATpU6/s+g==}
     dev: true
 
   /pathe@1.1.1:
