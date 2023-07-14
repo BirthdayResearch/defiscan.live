@@ -48,7 +48,7 @@
     "@cypress/code-coverage": "^3.10.8",
     "@netlify/plugin-lighthouse": "^4.1.1",
     "@netlify/plugin-nextjs": "^4.39.1",
-    "@stickyjs/jest": "^1.2.0",
+    "@stickyjs/jest": "^1.2.2",
     "@testing-library/cypress": "^8.0.7",
     "@types/lodash": "^4.14.195",
     "@types/node": "^18.16.18",
