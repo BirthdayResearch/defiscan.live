@@ -48,8 +48,8 @@ dependencies:
     specifier: ^2.30.0
     version: 2.30.0
   dayjs:
-    specifier: ^1.11.8
-    version: 1.11.8
+    specifier: ^1.11.9
+    version: 1.11.9
   install:
     specifier: ^0.13.0
     version: 0.13.0
@@ -3471,7 +3471,7 @@ packages:
       '@waveshq/standard-web-linter': 1.0.11(@babel/core@7.22.5)(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(react-dom@18.2.0)(react@18.2.0)
       '@waveshq/walletkit-core': 0.51.0
       bignumber.js: 9.1.1
-      dayjs: 1.11.8
+      dayjs: 1.11.9
       immer: 9.0.21
       reselect: 4.1.8
       smart-buffer: 4.2.0
@@ -4837,7 +4837,7 @@ packages:
       cli-table3: 0.6.3
       commander: 6.2.1
       common-tags: 1.8.2
-      dayjs: 1.11.8
+      dayjs: 1.11.9
       debug: 4.3.4(supports-color@8.1.1)
       enquirer: 2.3.6
       eventemitter2: 6.4.7
@@ -4955,6 +4955,10 @@ packages:
 
   /dayjs@1.11.8:
     resolution: {integrity: sha512-LcgxzFoWMEPO7ggRv1Y2N31hUf2R0Vj7fuy/m+Bg1K8rr+KAs1AEy4y9jd5DXe8pbHgX+srkHNS7TH6Q6ZhYeQ==}
+    dev: true
+
+  /dayjs@1.11.9:
+    resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
