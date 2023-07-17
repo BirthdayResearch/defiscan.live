@@ -1,11 +1,8 @@
 context("/transactions/[txid] - DfTx any account to account on desktop", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/transactions/8dc36085de6d1605f055891770f92c20e5e62249966124e48c3577c91ad6f8b3?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("macbook-13");
   });
 
@@ -77,13 +74,10 @@ context("/transactions/[txid] - DfTx any account to account on desktop", () => {
 });
 
 context("/transactions/[txid] - DfTx any account to account on mobile", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/transactions/8dc36085de6d1605f055891770f92c20e5e62249966124e48c3577c91ad6f8b3?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("iphone-x");
   });
 

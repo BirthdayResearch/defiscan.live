@@ -1,9 +1,6 @@
 context("/vaults", () => {
-  before(() => {
-    cy.visit("/vaults");
-  });
-
   beforeEach(() => {
+    cy.visit("/vaults");
     cy.viewport("macbook-16");
   });
 
@@ -57,20 +54,19 @@ context("/vaults", () => {
   });
 
   it("should have 8 cells in each row", () => {
-    cy.findAllByTestId("OverflowTable.Row").within(() => {
-      cy.findAllByTestId("OverflowTable.Cell")
-        .should("have.length", 7)
-        .should("be.visible");
+    cy.findAllByTestId("OverflowTable.Row").each(($el) => {
+      cy.wrap($el).within(() => {
+        cy.findAllByTestId("OverflowTable.Cell")
+          .should("have.length", 7)
+          .should("be.visible");
+      });
     });
   });
 });
 
 context("/vaults on mobile", () => {
-  before(() => {
-    cy.visit("/vaults");
-  });
-
   beforeEach(() => {
+    cy.visit("/vaults");
     cy.viewport("iphone-x");
   });
 
@@ -97,18 +93,22 @@ context("/vaults on mobile", () => {
     });
 
     it("should have vault mobile cards", () => {
-      cy.findAllByTestId("VaultMobileCard").within(() => {
-        cy.findByTestId("VaultMobileCard.VaultStatus").should("be.visible");
-        cy.findByTestId("VaultMobileCard.VaultID").should("be.visible");
-        cy.findByTestId("VaultMobileCard.Toggle").should("be.visible");
-        cy.findByTestId("VaultMobileCard.Toggle").click();
-        cy.findByTestId("VaultMobileCard.Loans").should("be.visible");
-        cy.findByTestId("VaultMobileCard.LoansValue").should("be.visible");
-        cy.findByTestId("VaultMobileCard.Collateral").should("be.visible");
-        cy.findByTestId("VaultMobileCard.CollateralValue").should("be.visible");
-        cy.findByTestId("VaultMobileCard.MinCollateralizationRatio").should(
-          "be.visible"
-        );
+      cy.findAllByTestId("VaultMobileCard").each(($el) => {
+        cy.wrap($el).within(() => {
+          cy.findByTestId("VaultMobileCard.VaultStatus").should("be.visible");
+          cy.findByTestId("VaultMobileCard.VaultID").should("be.visible");
+          cy.findByTestId("VaultMobileCard.Toggle").should("be.visible");
+          cy.findByTestId("VaultMobileCard.Toggle").click();
+          cy.findByTestId("VaultMobileCard.Loans").should("be.visible");
+          cy.findByTestId("VaultMobileCard.LoansValue").should("be.visible");
+          cy.findByTestId("VaultMobileCard.Collateral").should("be.visible");
+          cy.findByTestId("VaultMobileCard.CollateralValue").should(
+            "be.visible"
+          );
+          cy.findByTestId("VaultMobileCard.MinCollateralizationRatio").should(
+            "be.visible"
+          );
+        });
       });
     });
   });

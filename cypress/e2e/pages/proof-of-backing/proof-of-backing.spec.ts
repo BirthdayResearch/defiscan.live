@@ -6,11 +6,8 @@ import {
 const pobUrlMainnet = "/proof-of-backing?network=MainNet";
 
 context("/proof-of-backing on macbook-16", () => {
-  before(() => {
-    cy.visit(pobUrlMainnet);
-  });
-
   beforeEach(() => {
+    cy.visit(pobUrlMainnet);
     cy.viewport("macbook-16");
   });
 
@@ -59,11 +56,8 @@ context("/proof-of-backing on macbook-16", () => {
 });
 
 context("/proof-of-backing on iphone-x", () => {
-  before(() => {
-    cy.visit(pobUrlMainnet);
-  });
-
   beforeEach(() => {
+    cy.visit(pobUrlMainnet);
     cy.viewport("iphone-x");
   });
 

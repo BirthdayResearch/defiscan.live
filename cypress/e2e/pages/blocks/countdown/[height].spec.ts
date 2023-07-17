@@ -1,9 +1,6 @@
 context("/blocks/countdown/[query] on desktop - Event Name", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/testEvent");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/testEvent");
     cy.viewport("macbook-16");
   });
 
@@ -68,11 +65,8 @@ context("/blocks/countdown/[query] on desktop - Event Name", () => {
 });
 
 context("/blocks/countdown/[query] on desktop - Block Number", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/99999998");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/99999998");
     cy.viewport("macbook-16");
   });
 
@@ -138,11 +132,8 @@ context("/blocks/countdown/[query] on desktop - Block Number", () => {
 });
 
 context("/blocks/countdown/[query] on desktop - Block Number = Event", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/99999999");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/99999999");
     cy.viewport("macbook-16");
   });
 
@@ -156,11 +147,8 @@ context("/blocks/countdown/[query] on desktop - Block Number = Event", () => {
 });
 
 context("/blocks/countdown/[query] on desktop - NextFutureSwap", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/NextFutureSwap");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/NextFutureSwap");
     cy.viewport("macbook-16");
   });
 
@@ -225,11 +213,8 @@ context("/blocks/countdown/[query] on desktop - NextFutureSwap", () => {
 });
 
 context("/blocks/countdown/[query] on mobile - Event Name", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/testEvent");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/testEvent");
     cy.viewport("iphone-x");
   });
 
@@ -294,11 +279,8 @@ context("/blocks/countdown/[query] on mobile - Event Name", () => {
 });
 
 context("/blocks/countdown/[query] on mobile - Block Number", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/99999998");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/99999998");
     cy.viewport("iphone-x");
   });
 
@@ -364,11 +346,8 @@ context("/blocks/countdown/[query] on mobile - Block Number", () => {
 });
 
 context("/blocks/countdown/[query] on mobile - Event Name = Event", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/99999999");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/99999999");
     cy.viewport("iphone-x");
   });
 
@@ -382,11 +361,8 @@ context("/blocks/countdown/[query] on mobile - Event Name = Event", () => {
 });
 
 context("/blocks/countdown/[query] on mobile - Event Name", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/testEvent");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/testEvent");
     cy.viewport("iphone-x");
   });
 
@@ -451,11 +427,8 @@ context("/blocks/countdown/[query] on mobile - Event Name", () => {
 });
 
 context("/blocks/countdown/[query] on mobile - NextFutureSwap", () => {
-  before(() => {
-    cy.visit("/blocks/countdown/NextFutureSwap");
-  });
-
   beforeEach(() => {
+    cy.visit("/blocks/countdown/NextFutureSwap");
     cy.viewport("iphone-x");
   });
 

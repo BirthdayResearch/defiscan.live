@@ -1,9 +1,6 @@
 context("/tokens/1 (Ether) Desktop", () => {
-  before(() => {
-    cy.visit("/tokens/1?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/tokens/1?network=MainNet");
     cy.viewport("macbook-13");
   });
 
@@ -65,11 +62,8 @@ context("/tokens/1 (Ether) Desktop", () => {
 });
 
 context("/tokens/1 (Ether) Mobile", () => {
-  before(() => {
-    cy.visit("/tokens/1?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/tokens/1?network=MainNet");
     cy.viewport("iphone-6");
   });
 

@@ -1,9 +1,6 @@
 context("/dex/[poolpairid] on macbook-16", () => {
-  before(() => {
-    cy.visit("/dex/5?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/dex/5?network=MainNet");
     cy.viewport("macbook-16");
   });
 
@@ -125,11 +122,8 @@ context("/dex/[poolpairid] on macbook-16", () => {
 });
 
 context("/dex/[poolpairId] on iphone-x", () => {
-  before(() => {
-    cy.visit("/dex/5?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/dex/5?network=MainNet");
     cy.viewport("iphone-x");
   });
 
@@ -175,44 +169,46 @@ context("/dex/[poolpairId] on iphone-x", () => {
   });
 
   it("should have CardList", () => {
-    cy.findAllByTestId("SwapCard").within(() => {
-      cy.findByTestId("CardList.Header").within(() => {
-        cy.findByTestId("CardList.Header.Children").should("be.visible");
-        cy.findByTestId("CardList.Header.Toggle").should("be.visible");
-      });
+    cy.findAllByTestId("SwapCard", { timeout: 15000 }).each(($swapCard) => {
+      cy.wrap($swapCard).within(() => {
+        cy.findByTestId("CardList.Header").within(() => {
+          cy.findByTestId("CardList.Header.Children").should("be.visible");
+          cy.findByTestId("CardList.Header.Toggle").should("be.visible");
+        });
 
-      cy.findByTestId("CardList.Header.Type").should("be.visible");
-      cy.findByTestId("CardList.Header.TxId").should("be.visible");
+        cy.findByTestId("CardList.Header.Type").should("be.visible");
+        cy.findByTestId("CardList.Header.TxId").should("be.visible");
 
-      cy.findAllByTestId("SwapCard.CardList.Age").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Age");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findAllByTestId("SwapCard.CardList.From").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "From");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findAllByTestId("SwapCard.CardList.To").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "To");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findAllByTestId("SwapCard.CardList.InputAmount").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Input Amount");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findAllByTestId("SwapCard.CardList.OutputAmount").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Output Amount");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
+        cy.findAllByTestId("SwapCard.CardList.Age").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "Age");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
+        cy.findAllByTestId("SwapCard.CardList.From").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "From");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
+        cy.findAllByTestId("SwapCard.CardList.To").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "To");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
+        cy.findAllByTestId("SwapCard.CardList.InputAmount").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "Input Amount");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
+        cy.findAllByTestId("SwapCard.CardList.OutputAmount").within(() => {
+          cy.findByTestId("CardList.Row.Title")
+            .should("be.visible")
+            .should("have.text", "Output Amount");
+          cy.findByTestId("CardList.Row.Child").should("be.visible");
+        });
       });
     });
   });

@@ -1,11 +1,8 @@
 context("/transactions/[txid] - DfTx account to utxos on desktop", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/transactions/68440d960df49256d122110e6635edcfeda7658ddc9d1c5f53afd090c70536d9?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("macbook-13");
   });
 
@@ -51,13 +48,10 @@ context("/transactions/[txid] - DfTx account to utxos on desktop", () => {
 });
 
 context("/transactions/[txid] - DfTx account to utxos on mobile", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/transactions/68440d960df49256d122110e6635edcfeda7658ddc9d1c5f53afd090c70536d9?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("iphone-x");
   });
 

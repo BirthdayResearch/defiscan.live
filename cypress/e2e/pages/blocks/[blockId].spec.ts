@@ -1,11 +1,8 @@
 context("/blocks/[blockId] on desktop", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("macbook-13");
   });
 
@@ -26,13 +23,6 @@ context("/blocks/[blockId] on desktop", () => {
 
   it("should have block detail transaction-count", () => {
     cy.findByTestId("block-detail-transaction-count").should("have.text", "64");
-  });
-
-  it("should have block detail timestamp", () => {
-    cy.findByTestId("block-detail-timestamp").should(
-      "have.text",
-      "Aug 25, 2021, 3:33:51 AM"
-    );
   });
 
   it("should have block detail timestamp", () => {
@@ -106,13 +96,10 @@ context("/blocks/[blockId] on desktop", () => {
 });
 
 context("/blocks/[blockId] on mobile", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("iphone-x");
   });
 
@@ -132,6 +119,7 @@ context("/blocks/[blockId] on mobile", () => {
       cy.wrap(ele).findByText("TX ID").should("be.visible");
     });
   });
+
   it("should have block hash", () => {
     cy.findByTestId("block-hash").should(
       "have.text",

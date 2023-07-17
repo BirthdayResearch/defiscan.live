@@ -1,9 +1,6 @@
 context("/oracles/TSLA-USD macbook-13", () => {
-  before(() => {
-    cy.visit("/oracles/TSLA-USD?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/oracles/TSLA-USD?network=MainNet");
     cy.viewport("macbook-13");
   });
 
@@ -97,11 +94,8 @@ context("/oracles/TSLA-USD macbook-13", () => {
 });
 
 context("/oracles/TSLA-USD iphone-x", () => {
-  before(() => {
-    cy.visit("/oracles/TSLA-USD?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/oracles/TSLA-USD?network=MainNet");
     cy.viewport("iphone-x");
   });
 

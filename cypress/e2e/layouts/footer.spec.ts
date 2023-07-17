@@ -1,9 +1,6 @@
 context("<Footer/> on macbook-16", () => {
-  before(() => {
-    cy.visit("/tokens?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/tokens?network=MainNet");
     cy.viewport("macbook-16");
   });
 
@@ -137,12 +134,9 @@ context("<Footer/> on macbook-16", () => {
 });
 
 context("<Footer/> on iphone-x", () => {
-  before(() => {
-    cy.visit("/tokens?network=MainNet");
-  });
-
   beforeEach(() => {
     cy.viewport("iphone-x");
+    cy.visit("/tokens?network=MainNet");
   });
 
   it("should have footer social links section", () => {

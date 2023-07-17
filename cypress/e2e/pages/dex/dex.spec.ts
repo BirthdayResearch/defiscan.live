@@ -1,9 +1,6 @@
 context("/dex on macbook-16", () => {
-  before(() => {
-    cy.visit("/dex?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/dex?network=MainNet");
     cy.viewport("macbook-16");
   });
 
@@ -184,11 +181,8 @@ context("/dex on macbook-16", () => {
 });
 
 context("/dex on iphone-x", () => {
-  before(() => {
-    cy.visit("/dex?network=MainNet");
-  });
-
   beforeEach(() => {
+    cy.visit("/dex?network=MainNet");
     cy.viewport("iphone-x");
   });
 
@@ -202,37 +196,43 @@ context("/dex on iphone-x", () => {
   });
 
   it("should have CardList list items", () => {
-    cy.findAllByTestId("PoolPairsCard").within(() => {
-      cy.findByTestId("CardList.Header").within(() => {
-        cy.findByTestId("CardList.Header.Children").should("be.visible");
-        cy.findByTestId("CardList.Header.Toggle").should("be.visible");
-      });
+    cy.findAllByTestId("PoolPairsCard", { timeout: 15000 }).each(
+      ($poolPairCard) => {
+        cy.wrap($poolPairCard).within(() => {
+          cy.findByTestId("CardList.Header").within(() => {
+            cy.findByTestId("CardList.Header.Children").should("be.visible");
+            cy.findByTestId("CardList.Header.Toggle").should("be.visible");
+          });
 
-      cy.findByTestId("PoolPairsCard.CardList.TotalLiquidity").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Total Liquidity");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findByTestId("PoolPairsCard.CardList.24hVolume").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Volume (24H)");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findByTestId("PoolPairsCard.CardList.TokenPrice").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "Primary Token Price (USDT)");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-      cy.findByTestId("PoolPairsCard.CardList.APR").within(() => {
-        cy.findByTestId("CardList.Row.Title")
-          .should("be.visible")
-          .should("have.text", "APR");
-        cy.findByTestId("CardList.Row.Child").should("be.visible");
-      });
-    });
+          cy.findByTestId("PoolPairsCard.CardList.TotalLiquidity").within(
+            () => {
+              cy.findByTestId("CardList.Row.Title")
+                .should("be.visible")
+                .should("have.text", "Total Liquidity");
+              cy.findByTestId("CardList.Row.Child").should("be.visible");
+            }
+          );
+          cy.findByTestId("PoolPairsCard.CardList.24hVolume").within(() => {
+            cy.findByTestId("CardList.Row.Title")
+              .should("be.visible")
+              .should("have.text", "Volume (24H)");
+            cy.findByTestId("CardList.Row.Child").should("be.visible");
+          });
+          cy.findByTestId("PoolPairsCard.CardList.TokenPrice").within(() => {
+            cy.findByTestId("CardList.Row.Title")
+              .should("be.visible")
+              .should("have.text", "Primary Token Price (USDT)");
+            cy.findByTestId("CardList.Row.Child").should("be.visible");
+          });
+          cy.findByTestId("PoolPairsCard.CardList.APR").within(() => {
+            cy.findByTestId("CardList.Row.Title")
+              .should("be.visible")
+              .should("have.text", "APR");
+            cy.findByTestId("CardList.Row.Child").should("be.visible");
+          });
+        });
+      }
+    );
   });
 
   // it('should CursorPagination.Next and CursorPagination.Prev', function () {
@@ -296,6 +296,10 @@ context("/dex on iphone-x", () => {
   });
 
   it("should sort cards by chosen order", () => {
+    cy.findByTestId("CardList.DropDownSortButton")
+      .findByText("Sort By")
+      .should("exist")
+      .click();
     cy.findAllByTestId("CardList.DropDownSortOption")
       .eq(1)
       .findByText("Total Liquidity (Low to High)")

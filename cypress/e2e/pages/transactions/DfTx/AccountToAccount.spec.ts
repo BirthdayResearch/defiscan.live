@@ -6,6 +6,9 @@ context("/transactions/[txid] - DfTx account to account on desktop", () => {
   });
 
   beforeEach(() => {
+    cy.visit(
+      "/transactions/05aa1b9629cffb3afcb03b3b483ff760957aa93d49ca9ffba9f5adaf81238ebc?network=MainNet"
+    );
     cy.viewport("macbook-13");
   });
 
@@ -69,6 +72,9 @@ context("/transactions/[txid] - DfTx account to account on mobile", () => {
 
   beforeEach(() => {
     cy.viewport("iphone-x");
+    cy.visit(
+      "/transactions/05aa1b9629cffb3afcb03b3b483ff760957aa93d49ca9ffba9f5adaf81238ebc?network=MainNet"
+    );
   });
 
   it("should have heading", () => {

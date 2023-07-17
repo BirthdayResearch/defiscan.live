@@ -7,6 +7,7 @@ export function USDT(props: SVGProps<SVGSVGElement>): JSX.Element {
       style={{ width: props.width, height: props.height, position: "relative" }}
     >
       <Image
+        unoptimized
         src={require("@content/prices/images/usdt.png")}
         fill
         style={{ objectFit: "contain", objectPosition: "left" }}

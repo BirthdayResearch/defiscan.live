@@ -1,11 +1,8 @@
 context("/transactions/[txid] on desktop", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/transactions/c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("macbook-13");
   });
 
@@ -114,6 +111,7 @@ context("/transactions/[txid] on desktop", () => {
 
       cy.get("div")
         .next()
+        .first()
         .within(() => {
           cy.get("span").eq(0).should("have.text", "OUTPUT");
           cy.get("span").eq(1).should("have.text", "3.59205320 DFI");
@@ -149,13 +147,10 @@ context("/transactions/[txid] on desktop", () => {
 });
 
 context("/transactions/[txid] on desktop - invalid txn id", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/transactions/9693a839caeeb5c161bf5768d9b64cf7d7c1704f1e8e5caf3d9c08b18599ddba?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("macbook-13");
   });
 
@@ -168,13 +163,10 @@ context("/transactions/[txid] on desktop - invalid txn id", () => {
 });
 
 context("/transactions/[txid] on mobile", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/transactions/c9b19726d6ce42beec137f1fe85614ec3341aff83f797ccd51f6494e21ac9df4?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("iphone-x");
   });
 
@@ -280,9 +272,9 @@ context("/transactions/[txid] on mobile", () => {
             .should("have.text", "OP_DEFI_TX_SET_ORACLE_DATA");
           cy.get("span").eq(2).should("have.text", "0.00000000 DFI");
         });
-
       cy.get("div")
         .next()
+        .first()
         .within(() => {
           cy.get("span").eq(0).should("have.text", "OUTPUT");
           cy.get("span").eq(1).should("have.text", "3.59205320 DFI");
@@ -318,13 +310,10 @@ context("/transactions/[txid] on mobile", () => {
 });
 
 context("/transactions/[txid] on mobile - invalid txn id", () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit(
       "/transactions/9693a839caeeb5c161bf5768d9b64cf7d7c1704f1e8e5caf3d9c08b18599ddba?network=MainNet"
     );
-  });
-
-  beforeEach(() => {
     cy.viewport("iphone-x");
   });
 
