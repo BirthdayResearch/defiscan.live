@@ -27,11 +27,11 @@ dependencies:
     specifier: ^0.4.4
     version: 0.4.4(tailwindcss@3.3.3)
   '@waveshq/standard-defichain-jellyfishsdk':
-    specifier: ^1.0.13
-    version: 1.0.13(@types/tar-fs@2.0.1)
+    specifier: ^1.0.14
+    version: 1.0.14(@types/tar-fs@2.0.1)
   '@waveshq/standard-web':
-    specifier: ^1.0.13
-    version: 1.0.13(@babel/core@7.22.5)(redux@4.2.1)
+    specifier: ^1.0.14
+    version: 1.0.14(@babel/core@7.22.5)(redux@4.2.1)
   '@waveshq/walletkit-core':
     specifier: ^0.51.0
     version: 0.51.0
@@ -107,8 +107,8 @@ devDependencies:
     specifier: ^18.16.18
     version: 18.16.18
   '@waveshq/standard-web-linter':
-    specifier: ^1.0.13
-    version: 1.0.13(@babel/core@7.22.5)(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^1.0.14
+    version: 1.0.14(@babel/core@7.22.5)(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(react-dom@18.2.0)(react@18.2.0)
   autoprefixer:
     specifier: ^10.4.14
     version: 10.4.14(postcss@8.4.26)
@@ -3567,8 +3567,8 @@ packages:
     resolution: {integrity: sha512-haGBC8noyA5BfjCRXRH+VIkHCDVW5iD5UX24P2nOdilwUxI4qWsattS/co8QBGq64XsNLRAMdM5pQUE3zxkF9Q==}
     dev: true
 
-  /@waveshq/standard-defichain-jellyfishsdk@1.0.13(@types/tar-fs@2.0.1):
-    resolution: {integrity: sha512-B7NrygpzJRhnPK4fRis+XTInNpnEU8QNfPilNWkZvVI1+B1xxBD91Gx1VJ/KwQo1uKR5tJZFQPshI0vGxjVrjQ==}
+  /@waveshq/standard-defichain-jellyfishsdk@1.0.14(@types/tar-fs@2.0.1):
+    resolution: {integrity: sha512-uc8PgJg555hRH7G0UFEM73/2EMyKSM5JKDy+TlgkPdVqAEJDKVQ0yrVS6pUaGPZ6GyxrgvJMgpgWt7/Nkw/Blw==}
     dependencies:
       '@defichain/jellyfish-address': 3.34.0(defichain@3.34.0)
       '@defichain/jellyfish-api-core': 3.34.0(defichain@3.34.0)
@@ -3590,8 +3590,8 @@ packages:
       - supports-color
     dev: false
 
-  /@waveshq/standard-web-linter@1.0.13(@babel/core@7.22.5)(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-JzjFP0TH/F3u87EY4CGVh9YzVRRsfzKVj4tLSRzrj8HtQm103c6wfyvXDoWWAmutmSMIEMNU4y3iyqfxXmLFQQ==}
+  /@waveshq/standard-web-linter@1.0.14(@babel/core@7.22.5)(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-4KLrWD0Wpv69gqQFnRn5boNxqVD1Fc8d0cYWR44ezEVTJO3fOi25GlqFNaw7Q2HDsHVQ6EGAi2riT01h35ZBTA==}
     dependencies:
       eslint: 8.44.0
       eslint-config-airbnb: 19.0.4(eslint-plugin-import@2.27.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint@8.44.0)
@@ -3626,8 +3626,8 @@ packages:
       - sass
       - supports-color
 
-  /@waveshq/standard-web@1.0.13(@babel/core@7.22.5)(redux@4.2.1):
-    resolution: {integrity: sha512-xkdcbxT3QVasBUNnnwH2ytGSz+b23dL90YOKuh3ulRCrarBbqfTme5v9H8uX2MnlkdSJ7wMvdJ1uEey7BJY3UQ==}
+  /@waveshq/standard-web@1.0.14(@babel/core@7.22.5)(redux@4.2.1):
+    resolution: {integrity: sha512-qwQzxKCLuoKaRJETPI4NxrPIxQzTUQ3AyZg56vGeVEjq+bhrVeYkL1PW27LsX3btRuZ2rhTaYQcgH+mXq3bS6Q==}
     dependencies:
       '@netlify/ipx': 1.4.1
       '@reduxjs/toolkit': 1.9.5(react-redux@8.1.1)(react@18.2.0)
@@ -3680,9 +3680,9 @@ packages:
     resolution: {integrity: sha512-+OF0KAwGhS6QwMlpfThFRRQXGgt/WxbI3qGNR6e8gBYBaTCQ5FZOZfm6zRLSmmXNA5yjYs9boAtkIkZtfzjLQA==}
     dependencies:
       '@stickyjs/jest': 1.2.2(@babel/core@7.22.5)(@types/node@18.16.18)(typescript@5.1.3)
-      '@waveshq/standard-defichain-jellyfishsdk': 1.0.13(@types/tar-fs@2.0.1)
-      '@waveshq/standard-web': 1.0.13(@babel/core@7.22.5)(redux@4.2.1)
-      '@waveshq/standard-web-linter': 1.0.13(@babel/core@7.22.5)(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(react-dom@18.2.0)(react@18.2.0)
+      '@waveshq/standard-defichain-jellyfishsdk': 1.0.14(@types/tar-fs@2.0.1)
+      '@waveshq/standard-web': 1.0.14(@babel/core@7.22.5)(redux@4.2.1)
+      '@waveshq/standard-web-linter': 1.0.14(@babel/core@7.22.5)(@typescript-eslint/eslint-plugin@5.60.1)(@typescript-eslint/parser@5.60.1)(react-dom@18.2.0)(react@18.2.0)
       '@waveshq/walletkit-core': 0.51.0
       bignumber.js: 9.1.1
       dayjs: 1.11.9
