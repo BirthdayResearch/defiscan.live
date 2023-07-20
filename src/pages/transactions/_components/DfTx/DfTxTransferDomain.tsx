@@ -1,6 +1,11 @@
 import { DfTx, TransferDomain } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import { getDecodedAddress } from "@waveshq/walletkit-core";
+import {
+  AddressType,
+  EnvironmentNetwork,
+  EthDecodedAddress,
+  getDecodedAddress,
+} from "@waveshq/walletkit-core";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { useNetwork } from "@contexts/NetworkContext";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
@@ -22,10 +27,8 @@ export function DfTxTransferDomain(
       <DfTxHeader name="Transfer Domain" />
       <div className="mt-5 space-y-10">
         {items.map(({ src, dst }, index) => {
-          const fromAddress =
-            getDecodedAddress(src.address, network)?.address ?? "N/A";
-          const toAddress =
-            getDecodedAddress(dst.address, network)?.address ?? "N/A";
+          const fromAddress = getDecodedAddress(src.address, network);
+          const toAddress = getDecodedAddress(dst.address, network);
           return (
             <div
               className="flex flex-col space-y-6 items-center lg:flex-row lg:space-x-8 lg:space-y-0"
@@ -34,8 +37,8 @@ export function DfTxTransferDomain(
               <div className="w-full lg:w-1/2">
                 <AdaptiveList className="mb-1">
                   <AdaptiveList.Row name="From">
-                    <AddressLink
-                      address={fromAddress}
+                    <AddressRow
+                      decodedAddress={fromAddress}
                       testId="DfTxTransferDomain.from"
                     />
                   </AdaptiveList.Row>
@@ -54,8 +57,8 @@ export function DfTxTransferDomain(
               <div className="w-full lg:w-1/2">
                 <AdaptiveList className="mb-1">
                   <AdaptiveList.Row name="To">
-                    <AddressLink
-                      address={toAddress}
+                    <AddressRow
+                      decodedAddress={toAddress}
                       testId="DfTxTransferDomain.to"
                     />
                   </AdaptiveList.Row>
@@ -70,6 +73,35 @@ export function DfTxTransferDomain(
         })}
       </div>
     </div>
+  );
+}
+
+function AddressRow({
+  decodedAddress,
+  testId,
+}: {
+  decodedAddress: EthDecodedAddress | undefined;
+  testId: string;
+}): JSX.Element {
+  const { connection } = useNetwork();
+  // hide link in case of ETH address and network is not MainNet/TestNet
+  if (
+    decodedAddress?.type === AddressType.ETH &&
+    ![EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet].includes(
+      connection
+    )
+  ) {
+    return (
+      <div
+        className="text-gray-600 dark:text-dark-gray-900"
+        data-testid={testId}
+      >
+        {decodedAddress?.address ?? "N/A"}
+      </div>
+    );
+  }
+  return (
+    <AddressLink address={decodedAddress?.address ?? "N/A"} testId={testId} />
   );
 }
 
