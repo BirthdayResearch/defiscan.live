@@ -7,7 +7,10 @@ export const metachainSlice = createApi({
     baseUrl: "/", // This will be overridden by query url below, need to dynamically get the base url based on network
   }),
   endpoints: (builder) => ({
-    getEVMBalance: builder.mutation<WalletAddressInfoI, any>({
+    getEVMBalance: builder.mutation<
+      WalletAddressInfoI,
+      { network: EnvironmentNetwork; address: string }
+    >({
       query: ({ network, address }) => ({
         url: `${getBaseUrl(network)}/api/v2/addresses/${address}`,
         method: "GET",
