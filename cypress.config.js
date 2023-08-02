@@ -27,6 +27,6 @@ module.exports = defineConfig({
       "cypress/e2e/pages/vaults/[vaultid]/index-InLiquidation.spec.ts",
       "cypress/e2e/pages/vaults/[vaultid]/index.spec.ts",
       "cypress/e2e/pages/auctions/index.spec.ts",
-    ]
+    ],
   },
 });

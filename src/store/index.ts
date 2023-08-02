@@ -4,6 +4,7 @@ import { stats } from "@store/stats";
 import { poolpairs } from "@store/poolpairs";
 import { supply } from "@store/supply";
 import { announcementWebsiteSlice, statusWebsiteSlice } from "./website";
+import { metachainSlice } from "./metachain";
 import { dexPrices } from "./dexPrices";
 
 /**
@@ -21,11 +22,13 @@ export function initializeStore(preloadedState?: any) {
       poolpairs: poolpairs.reducer,
       supply: supply.reducer,
       dexPrices: dexPrices.reducer,
+      metachain: metachainSlice.reducer,
       [announcementWebsiteSlice.reducerPath]: announcementWebsiteSlice.reducer,
       [statusWebsiteSlice.reducerPath]: statusWebsiteSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false })
+        .concat(metachainSlice.middleware)
         .concat(announcementWebsiteSlice.middleware)
         .concat(statusWebsiteSlice.middleware),
     preloadedState: preloadedState,
