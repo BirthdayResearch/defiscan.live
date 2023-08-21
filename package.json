@@ -24,10 +24,10 @@
     "@prismicio/types": "^0.2.8",
     "@reduxjs/toolkit": "^1.9.5",
     "@tailwindcss/line-clamp": "^0.4.4",
-    "@waveshq/standard-defichain-jellyfishsdk": "^1.8.0",
-    "@waveshq/standard-web": "^1.8.0",
-    "@waveshq/walletkit-core": "^0.52.0",
-    "@waveshq/walletkit-ui": "^0.52.0",
+    "@waveshq/standard-defichain-jellyfishsdk": "^1.9.0",
+    "@waveshq/standard-web": "^1.9.0",
+    "@waveshq/walletkit-core": "^1.1.0",
+    "@waveshq/walletkit-ui": "^1.1.0",
     "bignumber.js": "^9.1.1",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
@@ -52,7 +52,7 @@
     "@testing-library/cypress": "^9.0.0",
     "@types/lodash": "^4.14.197",
     "@types/node": "^18.16.18",
-    "@waveshq/standard-web-linter": "^1.8.0",
+    "@waveshq/standard-web-linter": "^1.9.0",
     "autoprefixer": "^10.4.15",
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-jsx-remove-data-test-id": "^3.0.0",
@@ -63,7 +63,7 @@
   },
   "engines": {
     "node": ">=18.0.0",
-    "pnpm": ">=8.6.3"
+    "pnpm": ">=8.6.12"
   },
-  "packageManager": "pnpm@8.6.3"
+  "packageManager": "pnpm@8.6.12"
 }
