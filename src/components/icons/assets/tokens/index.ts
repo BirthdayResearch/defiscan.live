@@ -19,6 +19,12 @@ import { dUSDT } from "./dUSDT";
 import { DUSD } from "./DUSD";
 import { _TokenDefault } from "./_TokenDefault";
 import { dEUROC } from "./dEUROC";
+import { MATIC } from "./MATIC";
+import { DOT } from "./DOT";
+import { SOL } from "./SOL";
+import { dDOT } from "./dDOT";
+import { dSOL } from "./dSOL";
+import { dMATIC } from "./dMATIC";
 
 const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   {
@@ -29,6 +35,9 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
     BTC: BTC,
     BCH: BCH,
     LTC: LTC,
+    MATIC: MATIC,
+    DOT: DOT,
+    SOL: SOL,
     USDT: USDT,
     USDC: USDC,
     ETH: ETH,
@@ -45,6 +54,9 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
     DUSD: DUSD,
     dEUROC: dEUROC,
     EUROC: dEUROC,
+    dMATIC: dMATIC,
+    dDOT: dDOT,
+    dSOL: dSOL,
   };
 
 // TODO(@defich): move assets into it's own repo where anyone can create pull request into.
