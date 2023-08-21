@@ -11,6 +11,14 @@ export function BackingTable({
 }: {
   tokens: TokenWithBacking[];
 }): JSX.Element {
+  // const hardcodedNewTokens = [
+  //   { symbol: "MATIC", displaySymbol: "MATIC", netSupply: "0.00" },
+  //   { symbol: "dMATIC", displaySymbol: "dMATIC", netSupply: "0.00" },
+  //   { symbol: "SOL", displaySymbol: "SOL", netSupply: "0.00" },
+  //   { symbol: "dSOL", displaySymbol: "dSOL", netSupply: "0.00" },
+  //   { symbol: "DOT", displaySymbol: "DOT", netSupply: "0.00" },
+  //   { symbol: "dDOT", displaySymbol: "dDOT", netSupply: "0.00" },
+  // ];
   return (
     <div className="mt-10 mb-[78px] grid grid-cols-4">
       <TableHeader />
@@ -22,6 +30,14 @@ export function BackingTable({
             isLast={index === tokens.length - 1}
           />
         ))}
+        {/* TODO remove
+        {hardcodedNewTokens.map((token, index) => (
+          <TableRow
+            key={token.symbol}
+            token={token}
+            isLast={index === tokens.length - 1}
+          />
+        ))} */}
       </>
     </div>
   );
@@ -72,7 +88,7 @@ function TableRow({
   const Icon = getAssetIcon(token.symbol);
   return (
     <Link href={{ pathname: `/tokens/${token.displaySymbol}` }}>
-      <a
+      <div
         className={classNames(
           "group dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 hover:bg-primary-50 dark:hover:bg-gray-600 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4",
           {
@@ -84,12 +100,12 @@ function TableRow({
           className="col-span-1 h-full px-6 self-center flex items-center py-[18px] pl-6 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]"
           data-testid={`symbol-${token.displaySymbol}`}
         >
-          <a className="flex items-center">
+          <div className="flex items-center">
             <Icon width={28} height={28} />
             <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900 group-hover:text-primary-500">
               {token.displaySymbol}
             </span>
-          </a>
+          </div>
         </div>
         <div
           className={classNames(
@@ -152,7 +168,7 @@ function TableRow({
             N/A
           </div>
         )}
-      </a>
+      </div>
     </Link>
   );
 }
