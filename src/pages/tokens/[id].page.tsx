@@ -312,6 +312,30 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
                 testId="BackingAddress.BTC"
               />
             );
+          case "MATIC":
+            return (
+              <AddressLinkExternal
+                url={TOKEN_BACKED_ADDRESS.MATIC.cake.link}
+                text={TOKEN_BACKED_ADDRESS.MATIC.cake.address}
+                testId="BackingAddress.MATIC"
+              />
+            );
+          case "SOL":
+            return (
+              <AddressLinkExternal
+                url={TOKEN_BACKED_ADDRESS.SOL.cake.link}
+                text={TOKEN_BACKED_ADDRESS.SOL.cake.address}
+                testId="BackingAddress.SOL"
+              />
+            );
+          case "DOT":
+            return (
+              <AddressLinkExternal
+                url={TOKEN_BACKED_ADDRESS.DOT.cake.link}
+                text={TOKEN_BACKED_ADDRESS.DOT.cake.address}
+                testId="BackingAddress.DOT"
+              />
+            );
           case "ETH":
           case "USDC":
           case "USDT":
