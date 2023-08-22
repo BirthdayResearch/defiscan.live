@@ -11,14 +11,6 @@ export function BackingTable({
 }: {
   tokens: TokenWithBacking[];
 }): JSX.Element {
-  // const hardcodedNewTokens = [
-  //   { symbol: "MATIC", displaySymbol: "MATIC", netSupply: "0.00" },
-  //   { symbol: "dMATIC", displaySymbol: "dMATIC", netSupply: "0.00" },
-  //   { symbol: "SOL", displaySymbol: "SOL", netSupply: "0.00" },
-  //   { symbol: "dSOL", displaySymbol: "dSOL", netSupply: "0.00" },
-  //   { symbol: "DOT", displaySymbol: "DOT", netSupply: "0.00" },
-  //   { symbol: "dDOT", displaySymbol: "dDOT", netSupply: "0.00" },
-  // ];
   return (
     <div className="mt-10 mb-[78px] grid grid-cols-4">
       <TableHeader />
@@ -30,14 +22,6 @@ export function BackingTable({
             isLast={index === tokens.length - 1}
           />
         ))}
-        {/* TODO remove
-        {hardcodedNewTokens.map((token, index) => (
-          <TableRow
-            key={token.symbol}
-            token={token}
-            isLast={index === tokens.length - 1}
-          />
-        ))} */}
       </>
     </div>
   );
