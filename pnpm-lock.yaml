@@ -33,11 +33,11 @@ dependencies:
     specifier: ^2.2.0
     version: 2.2.0(@babel/core@7.21.0)(redux@4.2.1)
   '@waveshq/walletkit-core':
-    specifier: ^1.3.0
-    version: 1.3.0
+    specifier: ^1.3.1
+    version: 1.3.1
   '@waveshq/walletkit-ui':
-    specifier: ^1.3.0
-    version: 1.3.0(@babel/core@7.21.0)(@types/node@18.16.18)(@types/tar-fs@2.0.1)(@typescript-eslint/eslint-plugin@5.54.1)(@typescript-eslint/parser@5.54.1)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@4.9.5)
+    specifier: ^1.3.1
+    version: 1.3.1(@babel/core@7.21.0)(@types/node@18.16.18)(@types/tar-fs@2.0.1)(@typescript-eslint/eslint-plugin@5.54.1)(@typescript-eslint/parser@5.54.1)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@4.9.5)
   bignumber.js:
     specifier: ^9.1.1
     version: 9.1.1
@@ -3809,8 +3809,8 @@ packages:
       - supports-color
     dev: false
 
-  /@waveshq/walletkit-core@1.3.0:
-    resolution: {integrity: sha512-qyvdF2H+QVaq4up05upLBJlBPsvQE2OlLG6WTT2yDsVzQrH14qe/ciEbhlYOA76JE2vIFHGmylJPmOugBuEbrQ==}
+  /@waveshq/walletkit-core@1.3.1:
+    resolution: {integrity: sha512-eZC/qlL2qIaYA71Ro8cyJnk5QymPei3NV6bAl+4YQLuQ0uROvucJS2FfS+4Hg1EUUWz6kpSfokm7UlvI9rDqtQ==}
     dependencies:
       bignumber.js: 9.1.1
       ethers: 5.7.2
@@ -3819,14 +3819,14 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@waveshq/walletkit-ui@1.3.0(@babel/core@7.21.0)(@types/node@18.16.18)(@types/tar-fs@2.0.1)(@typescript-eslint/eslint-plugin@5.54.1)(@typescript-eslint/parser@5.54.1)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@4.9.5):
-    resolution: {integrity: sha512-oaEeta/WKq67/ZYn9hsmd3NonxiFfWGHMJRX9ewyh92W8OLZVg8639S59Zpg83kAYJu0MxWSPWFyTiFlNpvVVA==}
+  /@waveshq/walletkit-ui@1.3.1(@babel/core@7.21.0)(@types/node@18.16.18)(@types/tar-fs@2.0.1)(@typescript-eslint/eslint-plugin@5.54.1)(@typescript-eslint/parser@5.54.1)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@4.9.5):
+    resolution: {integrity: sha512-7RjkRPGP+xc0/laxb5AfMrQfpPT5x2bXVhy6icD/dIek3q1W6hFbNuWTPyx5cCbaLCx+oO5/pvQMFE+FYrHBNA==}
     dependencies:
       '@stickyjs/jest': 1.3.2(@babel/core@7.21.0)(@types/node@18.16.18)(typescript@4.9.5)
       '@waveshq/standard-defichain-jellyfishsdk': 2.2.0(@types/tar-fs@2.0.1)
       '@waveshq/standard-web': 2.2.0(@babel/core@7.21.0)(redux@4.2.1)
       '@waveshq/standard-web-linter': 2.2.0(@babel/core@7.21.0)(@typescript-eslint/eslint-plugin@5.54.1)(@typescript-eslint/parser@5.54.1)(react-dom@18.2.0)(react@18.2.0)
-      '@waveshq/walletkit-core': 1.3.0
+      '@waveshq/walletkit-core': 1.3.1
       bignumber.js: 9.1.1
       dayjs: 1.11.9
       immer: 9.0.21
@@ -5087,7 +5087,7 @@ packages:
   /core-js-compat@3.29.0:
     resolution: {integrity: sha512-ScMn3uZNAFhK2DGoEfErguoiAHhV2Ju+oJo/jK08p7B3f3UhocUrCCkTvnZaiS+edl5nlIoiBXKcwMc6elv4KQ==}
     dependencies:
-      browserslist: 4.21.5
+      browserslist: 4.21.10
     dev: true
 
   /core-util-is@1.0.2:
@@ -11054,7 +11054,7 @@ packages:
       '@webassemblyjs/wasm-parser': 1.11.1
       acorn: 8.10.0
       acorn-import-assertions: 1.8.0(acorn@8.10.0)
-      browserslist: 4.21.5
+      browserslist: 4.21.10
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.12.0
       es-module-lexer: 0.9.3
