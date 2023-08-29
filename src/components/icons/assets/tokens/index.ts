@@ -25,6 +25,7 @@ import { SOL } from "./SOL";
 import { dDOT } from "./dDOT";
 import { dSOL } from "./dSOL";
 import { dMATIC } from "./dMATIC";
+import { dSUI } from "./dSUI";
 
 const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
   {
@@ -57,6 +58,7 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
     dMATIC: dMATIC,
     dDOT: dDOT,
     dSOL: dSOL,
+    dSUI: dSUI,
   };
 
 // TODO(@defich): move assets into it's own repo where anyone can create pull request into.
