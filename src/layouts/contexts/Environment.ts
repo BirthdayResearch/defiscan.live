@@ -42,6 +42,7 @@ export function getEnvironment(): Environment {
         EnvironmentNetwork.TestNet,
         EnvironmentNetwork.DevNet,
         EnvironmentNetwork.RemotePlayground,
+        EnvironmentNetwork.Changi,
       ]);
     case "development":
     default:
@@ -51,6 +52,7 @@ export function getEnvironment(): Environment {
         EnvironmentNetwork.LocalPlayground,
         EnvironmentNetwork.TestNet,
         EnvironmentNetwork.DevNet,
+        EnvironmentNetwork.Changi,
       ]);
   }
 }
