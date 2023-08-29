@@ -8,7 +8,6 @@ import {
   FaLinkedin,
   FaReddit,
   FaTelegram,
-  FaTwitterSquare,
   FaYoutube,
 } from "react-icons/fa";
 import { Container } from "@components/commons/Container";
@@ -16,6 +15,7 @@ import { NetlifyLightLogo } from "@components/icons/NetlifyLightLogo";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/index";
 import { HoverPopover } from "@components/commons/popover/HoverPopover";
+import { TwitterIcon } from "@components/icons/assets/TwitterIcon";
 
 export function Footer(): JSX.Element {
   return (
@@ -48,7 +48,7 @@ export function Footer(): JSX.Element {
 
 function FooterSectionSocial(): JSX.Element {
   function FooterSocialRow(
-    props: PropsWithChildren<{ url: string; text: string; testId: string }>
+    props: PropsWithChildren<{ url: string; text: string; testId: string }>,
   ): JSX.Element {
     return (
       <div className="flex flex-row space-x-2 py-2 items-center w-1/2 dark:text-dark-gray-900 hover:text-primary">
@@ -79,7 +79,7 @@ function FooterSectionSocial(): JSX.Element {
           text="Twitter"
           testId="FooterSectionSocial.Twitter"
         >
-          <FaTwitterSquare size={24} />
+          <TwitterIcon width={24} height={24} />
         </FooterSocialRow>
         <FooterSocialRow
           url="https://github.com/DeFiCh"

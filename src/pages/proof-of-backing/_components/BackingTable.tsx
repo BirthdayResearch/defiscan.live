@@ -72,24 +72,24 @@ function TableRow({
   const Icon = getAssetIcon(token.symbol);
   return (
     <Link href={{ pathname: `/tokens/${token.displaySymbol}` }}>
-      <a
+      <div
         className={classNames(
           "group dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 hover:bg-primary-50 dark:hover:bg-gray-600 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4",
           {
             "rounded-b-[10px]": isLast === true,
-          }
+          },
         )}
       >
         <div
           className="col-span-1 h-full px-6 self-center flex items-center py-[18px] pl-6 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]"
           data-testid={`symbol-${token.displaySymbol}`}
         >
-          <a className="flex items-center">
+          <div className="flex items-center">
             <Icon width={28} height={28} />
             <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900 group-hover:text-primary-500">
               {token.displaySymbol}
             </span>
-          </a>
+          </div>
         </div>
         <div
           className={classNames(
@@ -97,7 +97,7 @@ function TableRow({
             {
               "dark:text-dark-gray-900": token.netSupply !== undefined,
               "dark:text-dark-gray-500": token.netSupply === undefined,
-            }
+            },
           )}
         >
           {token.netSupply === undefined ? (
@@ -152,7 +152,7 @@ function TableRow({
             N/A
           </div>
         )}
-      </a>
+      </div>
     </Link>
   );
 }

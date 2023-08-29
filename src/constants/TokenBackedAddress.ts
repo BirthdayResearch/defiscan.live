@@ -80,6 +80,24 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       address: "D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba",
     },
   },
+  MATIC: {
+    cake: {
+      link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+      address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    },
+  },
+  SOL: {
+    cake: {
+      link: "https://solscan.io/account/9XeYumALc7r4TvBvnUYrZpMXdvxKQ4mxf2WsR1gxyNNH",
+      address: "9XeYumALc7r4TvBvnUYrZpMXdvxKQ4mxf2WsR1gxyNNH",
+    },
+  },
+  DOT: {
+    cake: {
+      link: "https://polkadot.subscan.io/account/12YfgqECReN4fQppa9BDoyGce43F54ZHYotE77mb5SmCBsUks",
+      address: "12YfgqECReN4fQppa9BDoyGce43F54ZHYotE77mb5SmCBsUk",
+    },
+  },
 };
 
 interface TokenBacked {
@@ -119,5 +137,17 @@ export const TOKEN_BACKED: TokenBacked[] = [
   {
     name: "dDOGE",
     symbol: "DOGE",
+  },
+  {
+    name: "dMATIC",
+    symbol: "MATIC",
+  },
+  {
+    name: "dSOL",
+    symbol: "SOL",
+  },
+  {
+    name: "dDOT",
+    symbol: "DOT",
   },
 ];

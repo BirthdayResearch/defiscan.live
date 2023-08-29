@@ -30,7 +30,7 @@ interface TokenAssetPageProps {
 }
 
 export default function TokenIdPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const api = useWhaleApiClient();
   const [burnedAmount, setBurnedAmount] = useState<BigNumber | undefined>();
@@ -41,7 +41,7 @@ export default function TokenIdPage(
       .listToken("8defichainBurnAddressXXXXXXXdRQkSm", 200)
       .then((data) => {
         const burntToken = data.find(
-          (token) => token.symbol === props.token.symbol
+          (token) => token.symbol === props.token.symbol,
         );
 
         if (
@@ -52,7 +52,7 @@ export default function TokenIdPage(
           if (burntToken !== undefined) {
             setBurnedAmount(new BigNumber(burntToken.amount));
             setNetSupply(
-              new BigNumber(props.token.minted).minus(burntToken.amount)
+              new BigNumber(props.token.minted).minus(burntToken.amount),
             );
           } else {
             setBurnedAmount(new BigNumber(0));
@@ -312,6 +312,30 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
                 testId="BackingAddress.BTC"
               />
             );
+          case "MATIC":
+            return (
+              <AddressLinkExternal
+                url={TOKEN_BACKED_ADDRESS.MATIC.cake.link}
+                text={TOKEN_BACKED_ADDRESS.MATIC.cake.address}
+                testId="BackingAddress.MATIC"
+              />
+            );
+          case "SOL":
+            return (
+              <AddressLinkExternal
+                url={TOKEN_BACKED_ADDRESS.SOL.cake.link}
+                text={TOKEN_BACKED_ADDRESS.SOL.cake.address}
+                testId="BackingAddress.SOL"
+              />
+            );
+          case "DOT":
+            return (
+              <AddressLinkExternal
+                url={TOKEN_BACKED_ADDRESS.DOT.cake.link}
+                text={TOKEN_BACKED_ADDRESS.DOT.cake.address}
+                testId="BackingAddress.DOT"
+              />
+            );
           case "ETH":
           case "USDC":
           case "USDT":
@@ -331,7 +355,7 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
 
 async function getTokenByParam(
   param: string,
-  api: WhaleApiClient
+  api: WhaleApiClient,
 ): Promise<TokenData | undefined> {
   const tokenList: TokenData[] = await getAllTokens(api);
 
@@ -350,7 +374,7 @@ async function getTokenByParam(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<TokenAssetPageProps>> {
   const api = getWhaleApiClient(context);
   const param = context.params?.id?.toString().trim() as string;
