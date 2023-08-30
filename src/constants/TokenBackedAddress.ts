@@ -98,6 +98,13 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       address: "12YfgqECReN4fQppa9BDoyGce43F54ZHYotE77mb5SmCBsUk",
     },
   },
+  SUI: {
+    cake: {
+      link: "https://suiexplorer.com/address/0x072e6de3fc10b1eacbe130127f6baf3111034fc0204f0edd7a1899d8c40a11a5",
+      address:
+        "0x072e6de3fc10b1eacbe130127f6baf3111034fc0204f0edd7a1899d8c40a11a5",
+    },
+  },
 };
 
 interface TokenBacked {
@@ -149,5 +156,9 @@ export const TOKEN_BACKED: TokenBacked[] = [
   {
     name: "dDOT",
     symbol: "DOT",
+  },
+  {
+    name: "dSUI",
+    symbol: "SUI",
   },
 ];
