@@ -24,8 +24,11 @@ export const { useGetEVMBalanceMutation } = metachainSlice;
 export function getBaseUrl(network: EnvironmentNetwork): string {
   switch (network) {
     case EnvironmentNetwork.MainNet:
+      return "https://blockscout.mainnet.ocean.jellyfishsdk.com/";
     case EnvironmentNetwork.TestNet:
-      return "https://changi.ocean.jellyfishsdk.com";
+      return "https://blockscout.testnet.ocean.jellyfishsdk.com/";
+    case EnvironmentNetwork.Changi:
+      return "https://blockscout.changi.ocean.jellyfishsdk.com/";
     default:
       throw new Error("No api endpoint available");
   }
