@@ -1,11 +1,6 @@
 import { DfTx, TransferDomain } from "@defichain/jellyfish-transaction";
 import { AdaptiveList } from "@components/commons/AdaptiveList";
-import {
-  AddressType,
-  EnvironmentNetwork,
-  EthDecodedAddress,
-  getDecodedAddress,
-} from "@waveshq/walletkit-core";
+import { EthDecodedAddress, getDecodedAddress } from "@waveshq/walletkit-core";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { useNetwork } from "@contexts/NetworkContext";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
@@ -18,7 +13,7 @@ interface DfTxTransferDomainProps {
 }
 
 export function DfTxTransferDomain(
-  props: DfTxTransferDomainProps
+  props: DfTxTransferDomainProps,
 ): JSX.Element {
   const network = useNetwork().name;
   const { items } = props.dftx.data;
@@ -83,23 +78,6 @@ function AddressRow({
   decodedAddress: EthDecodedAddress | undefined;
   testId: string;
 }): JSX.Element {
-  const { connection } = useNetwork();
-  // hide link in case of ETH address and network is not MainNet/TestNet
-  if (
-    decodedAddress?.type === AddressType.ETH &&
-    ![EnvironmentNetwork.MainNet, EnvironmentNetwork.TestNet].includes(
-      connection
-    )
-  ) {
-    return (
-      <div
-        className="text-gray-600 dark:text-dark-gray-900"
-        data-testid={testId}
-      >
-        {decodedAddress?.address ?? "N/A"}
-      </div>
-    );
-  }
   return (
     <AddressLink address={decodedAddress?.address ?? "N/A"} testId={testId} />
   );
