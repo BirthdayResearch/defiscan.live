@@ -53,7 +53,7 @@ export async function getServerSideProps(
   return {
     props: {
       tokens: {
-        items: items,
+        items,
         pages: CursorPagination.getPages(context, items),
       },
     },
