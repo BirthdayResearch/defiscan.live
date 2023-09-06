@@ -116,13 +116,15 @@ export async function getServerSideProps(
   const next = CursorPagination.getNext(context);
   const items = await api.poolpairs.list(100, next);
   const sorted = items.filter(
-    (poolpair) => !poolpair.displaySymbol.includes("/"),
+    (poolpair) =>
+      !poolpair.displaySymbol.includes("/") &&
+      !poolpair.symbol.includes("BURN"),
   );
 
   return {
     props: {
       poolPairs: {
-        items: sorted.filter((item) => !item.symbol.includes("BURN")),
+        items: sorted,
         pages: CursorPagination.getPages(context, items),
       },
       aggregate: {
