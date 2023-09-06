@@ -46,14 +46,14 @@ export default function TokensPage({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<TokensPageData>> {
   const next = CursorPagination.getNext(context);
   const items = await getWhaleApiClient(context).tokens.list(20, next);
   return {
     props: {
       tokens: {
-        items,
+        items: items.filter((item) => !item.symbol.includes("BURN")),
         pages: CursorPagination.getPages(context, items),
       },
     },
