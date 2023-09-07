@@ -109,14 +109,16 @@ export default function DexPage({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<DexPageProps>> {
   const api = getWhaleApiClient(context);
 
   const next = CursorPagination.getNext(context);
   const items = await api.poolpairs.list(100, next);
   const sorted = items.filter(
-    (poolpair) => !poolpair.displaySymbol.includes("/")
+    (poolpair) =>
+      !poolpair.displaySymbol.includes("/") &&
+      !poolpair.symbol.includes("BURN"),
   );
 
   return {
@@ -141,7 +143,7 @@ export async function getServerSideProps(
     while (poolpairsResponse.hasNext) {
       poolpairsResponse = await api.poolpairs.list(
         200,
-        poolpairsResponse.nextToken
+        poolpairsResponse.nextToken,
       );
       poolpairs.push(...poolpairsResponse);
     }
