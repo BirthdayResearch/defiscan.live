@@ -70,7 +70,7 @@ export function PoolPairsCards({
         sortKey,
         reverse: sortOrder === "desc",
       }),
-    [poolPairsPrices, sortKey, sortOrder]
+    [poolPairsPrices, sortKey, sortOrder],
   );
 
   function changeSort(sortType: {
@@ -131,7 +131,8 @@ export function PoolPairsCard({
           poolPair.displaySymbol.includes("dUSDC") ||
           poolPair.displaySymbol.includes("dBTC") ||
           poolPair.displaySymbol.includes("dETH") ||
-          poolPair.displaySymbol.includes("dEUROC")
+          poolPair.displaySymbol.includes("dEUROC") ||
+          poolPair.displaySymbol.includes("dXCHF")
             ? poolPair.displaySymbol
             : poolPair.tokenA.displaySymbol
         }`}
