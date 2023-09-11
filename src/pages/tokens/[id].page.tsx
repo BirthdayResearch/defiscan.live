@@ -336,6 +336,14 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
                 testId="BackingAddress.DOT"
               />
             );
+          case "SUI":
+            return (
+              <AddressLinkExternal
+                url={TOKEN_BACKED_ADDRESS.SUI.cake.link}
+                text={TOKEN_BACKED_ADDRESS.SUI.cake.address}
+                testId="BackingAddress.SUI"
+              />
+            );
           case "ETH":
           case "USDC":
           case "USDT":

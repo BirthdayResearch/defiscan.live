@@ -36,7 +36,7 @@ export function PoolPairsTable({
         sortKey,
         reverse: sortOrder === "desc",
       }),
-    [poolPairsPrices, sortKey, sortOrder]
+    [poolPairsPrices, sortKey, sortOrder],
   );
 
   function changeSort(key: SortKeys): void {
@@ -94,7 +94,8 @@ export function PoolPairsTable({
               data.poolPair.displaySymbol.includes("dUSDC") ||
               data.poolPair.displaySymbol.includes("dBTC") ||
               data.poolPair.displaySymbol.includes("dETH") ||
-              data.poolPair.displaySymbol.includes("dEUROC")
+              data.poolPair.displaySymbol.includes("dEUROC") ||
+              data.poolPair.displaySymbol.includes("dXCHF")
                 ? data.poolPair.displaySymbol
                 : data.poolPair.tokenA.displaySymbol
             }`,
