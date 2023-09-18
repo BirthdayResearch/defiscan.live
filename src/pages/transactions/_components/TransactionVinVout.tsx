@@ -18,7 +18,7 @@ interface TransactionVinVoutProps {
 }
 
 export function TransactionVinVout(
-  props: TransactionVinVoutProps
+  props: TransactionVinVoutProps,
 ): JSX.Element {
   const network = useNetwork().name;
 
@@ -36,37 +36,47 @@ export function TransactionVinVout(
             className="flex flex-col space-y-1"
             data-testid="TransactionDetailsLeft.List"
           >
-            {props.vins.map((vin) => {
-              const decoded =
-                vin.vout !== undefined
-                  ? fromScriptHex(vin.vout.script?.hex, network)
-                  : undefined;
-              const address = decoded?.address ?? "N/A";
+            {props.vins.length === 0 ? (
+              <TransactionVectorRow
+                label="INPUT"
+                address="N/A"
+                value="EvmTx"
+                network={network}
+                isAddressClickable={false}
+              />
+            ) : (
+              props.vins.map((vin) => {
+                const decoded =
+                  vin.vout !== undefined
+                    ? fromScriptHex(vin.vout.script?.hex, network)
+                    : undefined;
+                const address = decoded?.address ?? "N/A";
 
-              if (vin.vout === undefined) {
+                if (vin.vout === undefined) {
+                  return (
+                    <TransactionVectorRow
+                      label="INPUT"
+                      address={address}
+                      value="Coinbase (Newly Generated Coins)"
+                      key={vin.id}
+                      network={network}
+                      isAddressClickable={false}
+                    />
+                  );
+                }
+
                 return (
                   <TransactionVectorRow
                     label="INPUT"
                     address={address}
-                    value="Coinbase (Newly Generated Coins)"
+                    value={`${vin.vout.value} DFI`}
                     key={vin.id}
                     network={network}
-                    isAddressClickable={false}
+                    isAddressClickable
                   />
                 );
-              }
-
-              return (
-                <TransactionVectorRow
-                  label="INPUT"
-                  address={address}
-                  value={`${vin.vout.value} DFI`}
-                  key={vin.id}
-                  network={network}
-                  isAddressClickable
-                />
-              );
-            })}
+              })
+            )}
           </div>
         </div>
 
@@ -122,10 +132,12 @@ function TransactionSummary(props: {
   vins: TransactionVin[];
   fee: BigNumber;
 }): JSX.Element {
-  const fee =
-    props.vins[0].vout === undefined
-      ? "Coinbase"
-      : `${props.fee.toFixed(8)} DFI`;
+  let fee = `${props.fee.toFixed(8)} DFI`;
+  if (props.vins.length === 0) {
+    fee = "EvmTx";
+  } else if (props.vins.length > 0 && props.vins[0].vout === undefined) {
+    fee = "Coinbase";
+  }
 
   return (
     <div className="flex flex-col items-end justify-between mt-8 dark:text-dark-gray-900">

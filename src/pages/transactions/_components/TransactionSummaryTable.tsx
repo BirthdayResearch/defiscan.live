@@ -24,7 +24,7 @@ interface TransactionSummaryTableProps {
 }
 
 export function TransactionSummaryTable(
-  props: TransactionSummaryTableProps
+  props: TransactionSummaryTableProps,
 ): JSX.Element {
   return (
     <div className="mt-5 flex flex-col space-y-6 items-start lg:flex-row lg:space-x-8 lg:space-y-0">
@@ -56,10 +56,12 @@ function SummaryTableListLeft(props: {
   } = useSelector((state: RootState) => state.stats);
   const confirmations =
     blocks !== undefined ? blocks - props.transaction.block.height : blocks;
-  const fee =
-    props.vins[0].vout === undefined
-      ? "Coinbase"
-      : `${props.fee.toFixed(8)} DFI`;
+  let fee = `${props.fee.toFixed(8)} DFI`;
+  if (props.vins.length === 0) {
+    fee = "EvmTx";
+  } else if (props.vins[0].vout === undefined) {
+    fee = "Coinbase";
+  }
 
   return (
     <AdaptiveList className="w-full lg:w-1/2">
@@ -109,16 +111,20 @@ function SummaryTableListRight(props: {
 }): JSX.Element {
   const blockTime = format(
     fromUnixTime(props.transaction.block.medianTime),
-    "PPpp"
+    "PPpp",
   );
+  let feeRate = `${props.feeRate.toFixed(8)} fi/byte`;
+  if (props.vins.length === 0) {
+    feeRate = "EvmTx";
+  } else if (props.vins[0].vout === undefined) {
+    feeRate = "Coinbase";
+  }
 
   return (
     <AdaptiveList className="w-full lg:w-1/2">
       <AdaptiveList.Row name="Fee Rate" testId="transaction-detail-fee-rate">
         <div className="flex items-center">
-          {props.vins[0].vout === undefined
-            ? "Coinbase"
-            : `${props.feeRate.toFixed(8)} fi/byte`}
+          {feeRate}
           <InfoHoverPopover
             description="1 DFI = 100,000,000 fi"
             className="ml-1"
