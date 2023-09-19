@@ -21,6 +21,7 @@ interface TransactionSummaryTableProps {
   fee: BigNumber;
   feeRate: BigNumber;
   isDeFiTransaction: boolean;
+  isEvmTx: boolean;
 }
 
 export function TransactionSummaryTable(
@@ -33,6 +34,7 @@ export function TransactionSummaryTable(
         vins={props.vins}
         vouts={props.vouts}
         fee={props.fee}
+        isEvmTx={props.isEvmTx}
       />
       <SummaryTableListRight
         transaction={props.transaction}
@@ -40,6 +42,7 @@ export function TransactionSummaryTable(
         vouts={props.vouts}
         feeRate={props.feeRate}
         isDeFiTransaction={props.isDeFiTransaction}
+        isEvmTx={props.isEvmTx}
       />
     </div>
   );
@@ -50,6 +53,7 @@ function SummaryTableListLeft(props: {
   vins: TransactionVin[];
   vouts: TransactionVout[];
   fee: BigNumber;
+  isEvmTx: boolean;
 }): JSX.Element {
   const {
     count: { blocks },
@@ -57,7 +61,7 @@ function SummaryTableListLeft(props: {
   const confirmations =
     blocks !== undefined ? blocks - props.transaction.block.height : blocks;
   let fee = `${props.fee.toFixed(8)} DFI`;
-  if (props.vins.length === 0) {
+  if (props.isEvmTx) {
     fee = "EvmTx";
   } else if (props.vins[0].vout === undefined) {
     fee = "Coinbase";
@@ -108,13 +112,14 @@ function SummaryTableListRight(props: {
   vouts: TransactionVout[];
   feeRate: BigNumber;
   isDeFiTransaction: boolean;
+  isEvmTx: boolean;
 }): JSX.Element {
   const blockTime = format(
     fromUnixTime(props.transaction.block.medianTime),
     "PPpp",
   );
   let feeRate = `${props.feeRate.toFixed(8)} fi/byte`;
-  if (props.vins.length === 0) {
+  if (props.isEvmTx) {
     feeRate = "EvmTx";
   } else if (props.vins[0].vout === undefined) {
     feeRate = "Coinbase";

@@ -14,6 +14,7 @@ interface TransactionVinVoutProps {
   vins: TransactionVin[];
   vouts: TransactionVout[];
   fee: BigNumber;
+  isEvmTx: boolean;
   dftxName?: string;
 }
 
@@ -36,7 +37,7 @@ export function TransactionVinVout(
             className="flex flex-col space-y-1"
             data-testid="TransactionDetailsLeft.List"
           >
-            {props.vins.length === 0 ? (
+            {props.isEvmTx ? (
               <TransactionVectorRow
                 label="INPUT"
                 address="N/A"
@@ -122,6 +123,7 @@ export function TransactionVinVout(
         transaction={props.transaction}
         vins={props.vins}
         fee={props.fee}
+        isEvmTx={props.isEvmTx}
       />
     </>
   );
@@ -131,9 +133,10 @@ function TransactionSummary(props: {
   transaction: Transaction;
   vins: TransactionVin[];
   fee: BigNumber;
+  isEvmTx: boolean;
 }): JSX.Element {
   let fee = `${props.fee.toFixed(8)} DFI`;
-  if (props.vins.length === 0) {
+  if (props.isEvmTx) {
     fee = "EvmTx";
   } else if (props.vins.length > 0 && props.vins[0].vout === undefined) {
     fee = "Coinbase";
