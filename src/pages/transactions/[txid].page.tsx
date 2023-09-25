@@ -21,6 +21,7 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { Head } from "@components/commons/Head";
 import { useRouter } from "next/router";
+import { checkIfEvmTx } from "utils/commons/evmtx/checkIfEvmtx";
 import {
   TransactionHeading,
   TransactionNotFoundHeading,
@@ -39,7 +40,7 @@ interface TransactionPageProps {
 }
 
 export default function TransactionPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const router = useRouter();
 
@@ -71,6 +72,12 @@ export default function TransactionPage(
   const isDeFiTransaction = dftx !== undefined;
   const fee = getTransactionFee(props.transaction, props.vins, dftx);
   const feeRate = fee.multipliedBy(100000000).dividedBy(props.transaction.size);
+  const isEvmTx = checkIfEvmTx({
+    transaction: props.transaction,
+    vins: props.vins,
+    vouts: props.vouts,
+    dftxType: dftx?.type,
+  });
 
   return (
     <>
@@ -85,6 +92,7 @@ export default function TransactionPage(
           fee={fee}
           feeRate={feeRate}
           isDeFiTransaction={isDeFiTransaction}
+          isEvmTx={isEvmTx}
         />
         <TransactionVinVout
           transaction={props.transaction}
@@ -92,6 +100,7 @@ export default function TransactionPage(
           vouts={props.vouts}
           fee={fee}
           dftxName={dftx?.name}
+          isEvmTx={isEvmTx}
         />
         <TransactionDfTx dftx={dftx} transaction={props.transaction} />
       </Container>
@@ -102,11 +111,11 @@ export default function TransactionPage(
 function getTransactionFee(
   transaction: Transaction,
   vins: TransactionVin[],
-  dftx?: DfTx<any>
+  dftx?: DfTx<any>,
 ): BigNumber {
   if (dftx === undefined || dftx.type !== CAccountToUtxos.OP_CODE) {
     return new BigNumber(
-      getTotalVinsValue(vins).minus(transaction.totalVoutValue)
+      getTotalVinsValue(vins).minus(transaction.totalVoutValue),
     );
   }
 
@@ -117,7 +126,7 @@ function getTransactionFee(
     .map((balance) => balance.amount)
     .reduce((a, b) => a.plus(b));
   return new BigNumber(
-    sumOfInputs.plus(sumOfAccountInputs).minus(transaction.totalVoutValue)
+    sumOfInputs.plus(sumOfAccountInputs).minus(transaction.totalVoutValue),
   );
 }
 
@@ -142,7 +151,7 @@ function getDfTx(vouts: TransactionVout[]): DfTx<any> | undefined {
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<TransactionPageProps>> {
   const api = getWhaleApiClient(context);
   const txid = context.params?.txid?.toString().trim() as string;
@@ -172,7 +181,7 @@ export async function getServerSideProps(
       vinsResponse = await api.transactions.getVins(
         txid,
         100,
-        vinsResponse.nextToken
+        vinsResponse.nextToken,
       );
       vins.push(...vinsResponse);
     }
@@ -187,7 +196,7 @@ export async function getServerSideProps(
       voutsResponse = await api.transactions.getVouts(
         txid,
         100,
-        voutsResponse.nextToken
+        voutsResponse.nextToken,
       );
       vouts.push(...voutsResponse);
     }
