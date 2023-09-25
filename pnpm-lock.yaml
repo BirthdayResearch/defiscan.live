@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.7.17
     version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
   '@prismicio/client':
-    specifier: ^7.1.1
-    version: 7.1.1
+    specifier: ^7.2.0
+    version: 7.2.0
   '@prismicio/types':
     specifier: ^0.2.8
     version: 0.2.8
@@ -451,6 +451,7 @@ packages:
   /@babel/plugin-proposal-unicode-property-regex@7.18.6(@babel/core@7.22.5):
     resolution: {integrity: sha512-2BShG/d5yoZyXZfVePH91urL5wTG6ASZU9M4o03lKK8u8UW1y08OMttBSOADTcJrnPMpvDXRG3G8fyLh4ovs8w==}
     engines: {node: '>=4'}
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-unicode-property-regex instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -2755,8 +2756,8 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.0
 
-  /@prismicio/client@7.1.1:
-    resolution: {integrity: sha512-/E3xsFb4MvtWgqMkhWeWvh8zE14uZZIRdVT8HjixgLn4lH37UYhI2m4920o5Uo8UDpQRYqbsu6HBPPjrwHEyfw==}
+  /@prismicio/client@7.2.0:
+    resolution: {integrity: sha512-bfbs2ZMLd3ba7Bp1qI4qAz+13FIWE/JDT9+h+3hL/MVpK4iDpjz3vmOlYJs25myhryU9HP8Og7qKoaeE9hPzmA==}
     engines: {node: '>=14.15.0'}
     dependencies:
       '@prismicio/richtext': 2.1.5
