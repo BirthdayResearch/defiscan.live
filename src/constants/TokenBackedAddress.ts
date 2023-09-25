@@ -18,8 +18,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       address: "38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT",
     },
     quantum: {
-      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
-      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
+      address: "0xc3F5f07143c567D657beFAE6752382b160d17317",
     },
   },
   ETH: {
@@ -28,8 +28,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
     },
     quantum: {
-      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
-      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
+      address: "0xc3F5f07143c567D657beFAE6752382b160d17317",
     },
   },
   USDT: {
@@ -38,8 +38,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
     },
     quantum: {
-      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
-      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
+      address: "0xc3F5f07143c567D657beFAE6752382b160d17317",
     },
   },
   USDC: {
@@ -48,8 +48,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
     },
     quantum: {
-      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
-      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
+      address: "0xc3F5f07143c567D657beFAE6752382b160d17317",
     },
   },
   EUROC: {
@@ -58,8 +58,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
       address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
     },
     quantum: {
-      link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
-      address: "0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+      link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
+      address: "0xc3F5f07143c567D657beFAE6752382b160d17317",
     },
   },
   LTC: {
@@ -84,6 +84,10 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
     cake: {
       link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
       address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    },
+    quantum: {
+      link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
+      address: "0xc3F5f07143c567D657beFAE6752382b160d17317",
     },
   },
   SOL: {
