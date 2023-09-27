@@ -36,22 +36,22 @@ export const cakeBackingAddresses = [
 export const quantumBackingAddresses = [
   {
     token: "dBTC",
-    link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+    link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
   },
   {
     token: "dETH",
-    link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+    link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
   },
   {
     token: "dUSDT",
-    link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+    link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
   },
   {
     token: "dUSDC",
-    link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+    link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
   },
   {
     token: "dEUROC",
-    link: "https://etherscan.io/address/0x11901fd641f3a2d3a986d6745a2ff1d5fea988eb",
+    link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
   },
 ];
