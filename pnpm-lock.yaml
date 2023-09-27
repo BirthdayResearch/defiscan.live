@@ -92,8 +92,8 @@ devDependencies:
     specifier: ^5.0.0
     version: 5.0.0
   '@netlify/plugin-nextjs':
-    specifier: ^4.40.0
-    version: 4.40.0
+    specifier: ^4.40.1
+    version: 4.40.1
   '@stickyjs/jest':
     specifier: ^1.3.4
     version: 1.3.4(@babel/core@7.22.5)(@types/node@18.16.18)(typescript@5.1.3)
@@ -2805,8 +2805,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@netlify/plugin-nextjs@4.40.0:
-    resolution: {integrity: sha512-/pWqf0t8GN+DDFIchCF3co1FfGjQwv8MrneMxqqoKHGSrAoCG6Z51AnpSv5v3xCrZDKS45Ge3Cuy27lpezkVwA==}
+  /@netlify/plugin-nextjs@4.40.1:
+    resolution: {integrity: sha512-FVXQEzBCymJHu2JYnJs03hUXjJAIAHcLMsrbcrnSjqmib4yF65YZ9yJYmrajV2D6LRqN/TxWhzTEgGr9eYpRHQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@netlify/esbuild': 0.14.39
