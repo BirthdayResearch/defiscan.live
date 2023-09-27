@@ -21,7 +21,7 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { Head } from "@components/commons/Head";
 import { useRouter } from "next/router";
-import { checkIfEvmTx } from "utils/commons/evmtx/checkIfEvmtx";
+import { checkIfEvmTx } from "../../utils/commons/evmtx/checkIfEvmTx";
 import {
   TransactionHeading,
   TransactionNotFoundHeading,
