@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.7.17
     version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
   '@prismicio/client':
-    specifier: ^7.1.1
-    version: 7.1.1
+    specifier: ^7.2.0
+    version: 7.2.0
   '@prismicio/types':
     specifier: ^0.2.8
     version: 0.2.8
@@ -2961,8 +2961,8 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.0
 
-  /@prismicio/client@7.1.1:
-    resolution: {integrity: sha512-/E3xsFb4MvtWgqMkhWeWvh8zE14uZZIRdVT8HjixgLn4lH37UYhI2m4920o5Uo8UDpQRYqbsu6HBPPjrwHEyfw==}
+  /@prismicio/client@7.2.0:
+    resolution: {integrity: sha512-bfbs2ZMLd3ba7Bp1qI4qAz+13FIWE/JDT9+h+3hL/MVpK4iDpjz3vmOlYJs25myhryU9HP8Og7qKoaeE9hPzmA==}
     engines: {node: '>=14.15.0'}
     dependencies:
       '@prismicio/richtext': 2.1.5
