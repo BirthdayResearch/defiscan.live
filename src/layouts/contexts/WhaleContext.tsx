@@ -33,14 +33,7 @@ export function getWhaleApiClient(
 ): WhaleApiClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-
-  const customUrl =
-    network === EnvironmentNetwork.TestNet
-      ? "https://stable.changi.ocean.jellyfishsdk.com"
-      : undefined;
-  return newWhaleClient(
-    newOceanOptions(network as EnvironmentNetwork, customUrl),
-  );
+  return newWhaleClient(newOceanOptions(network as EnvironmentNetwork));
 }
 
 export function getWhaleRpcClient(
@@ -48,13 +41,7 @@ export function getWhaleRpcClient(
 ): WhaleRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  const customUrl =
-    network === EnvironmentNetwork.TestNet
-      ? "https://stable.changi.ocean.jellyfishsdk.com"
-      : undefined;
-  return newRpcClient(
-    newOceanOptions(network as EnvironmentNetwork, customUrl),
-  );
+  return newRpcClient(newOceanOptions(network as EnvironmentNetwork));
 }
 
 export function newPlaygroundRpcClient(
@@ -79,11 +66,7 @@ export function WhaleProvider(
   const connection = useNetwork().connection;
 
   const memo = useMemo(() => {
-    const customUrl =
-      connection === EnvironmentNetwork.TestNet
-        ? "https://stable.changi.ocean.jellyfishsdk.com"
-        : undefined;
-    const options = newOceanOptions(connection, customUrl);
+    const options = newOceanOptions(connection);
     return {
       api: newWhaleClient(options),
       rpc: newRpcClient(options),
