@@ -77,7 +77,7 @@ function TableRow({
           "group dark:bg-dark-gray-100 border-gray-300 dark:border-dark-gray-300 hover:bg-primary-50 dark:hover:bg-gray-600 border-x-[0.5px] border-b-[0.5px] col-span-4 grid grid-cols-4",
           {
             "rounded-b-[10px]": isLast === true,
-          }
+          },
         )}
       >
         <div
@@ -97,7 +97,7 @@ function TableRow({
             {
               "dark:text-dark-gray-900": token.netSupply !== undefined,
               "dark:text-dark-gray-500": token.netSupply === undefined,
-            }
+            },
           )}
         >
           {token.netSupply === undefined ? (

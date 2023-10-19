@@ -2,6 +2,7 @@
   "extends": "@waveshq/standard-web/tsconfig.json",
   "compilerOptions": {
     "baseUrl": "src",
+    "jsx": "preserve",
     "paths": {
       "@content/*": ["../content/*"],
       "@contexts/*": ["layouts/contexts/*"],

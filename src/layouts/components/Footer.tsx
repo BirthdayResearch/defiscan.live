@@ -48,7 +48,7 @@ export function Footer(): JSX.Element {
 
 function FooterSectionSocial(): JSX.Element {
   function FooterSocialRow(
-    props: PropsWithChildren<{ url: string; text: string; testId: string }>
+    props: PropsWithChildren<{ url: string; text: string; testId: string }>,
   ): JSX.Element {
     return (
       <div className="flex flex-row space-x-2 py-2 items-center w-1/2 dark:text-dark-gray-900 hover:text-primary">

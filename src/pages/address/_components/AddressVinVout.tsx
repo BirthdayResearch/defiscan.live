@@ -31,7 +31,7 @@ export function AddressVinVout(props: AddressVinVoutProps): JSX.Element {
       vinsResponse = await api.transactions.getVins(
         txid,
         100,
-        vinsResponse.nextToken
+        vinsResponse.nextToken,
       );
       vins.push(...vinsResponse);
     }
@@ -46,7 +46,7 @@ export function AddressVinVout(props: AddressVinVoutProps): JSX.Element {
       voutsResponse = await api.transactions.getVouts(
         txid,
         100,
-        voutsResponse.nextToken
+        voutsResponse.nextToken,
       );
       vouts.push(...voutsResponse);
     }
@@ -59,7 +59,7 @@ export function AddressVinVout(props: AddressVinVoutProps): JSX.Element {
         ([vinsData, voutsData]) => {
           setVins(vinsData);
           setVouts(voutsData);
-        }
+        },
       );
     }
   }, [props.expanded]);
@@ -138,36 +138,46 @@ function TransactionDetailsLeft(props: {
         className="flex flex-col space-y-1"
         data-testid="TransactionDetailsLeft.List"
       >
-        {props.vins.map((vin) => {
-          const decoded =
-            vin.vout !== undefined
-              ? fromScriptHex(vin.vout.script?.hex, props.network)
-              : undefined;
-          const address = decoded?.address ?? "N/A";
+        {props.vins.length === 0 ? (
+          <TransactionVectorRow
+            label="INPUT"
+            address="N/A"
+            value="EvmTx"
+            network={props.network}
+            isAddressClickable={false}
+          />
+        ) : (
+          props.vins.map((vin) => {
+            const decoded =
+              vin.vout !== undefined
+                ? fromScriptHex(vin.vout.script?.hex, props.network)
+                : undefined;
+            const address = decoded?.address ?? "N/A";
 
-          if (vin.vout === undefined) {
+            if (vin.vout === undefined) {
+              return (
+                <TransactionVectorRow
+                  label="INPUT"
+                  address={address}
+                  value="Coinbase (Newly Generated Coins)"
+                  key={vin.id}
+                  network={props.network}
+                  isAddressClickable={false}
+                />
+              );
+            }
             return (
               <TransactionVectorRow
                 label="INPUT"
                 address={address}
-                value="Coinbase (Newly Generated Coins)"
+                value={`${vin.vout.value} DFI`}
                 key={vin.id}
                 network={props.network}
-                isAddressClickable={false}
+                isAddressClickable={address !== props.address}
               />
             );
-          }
-          return (
-            <TransactionVectorRow
-              label="INPUT"
-              address={address}
-              value={`${vin.vout.value} DFI`}
-              key={vin.id}
-              network={props.network}
-              isAddressClickable={address !== props.address}
-            />
-          );
-        })}
+          })
+        )}
       </div>
     </div>
   );

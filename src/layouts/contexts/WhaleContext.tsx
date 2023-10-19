@@ -29,7 +29,7 @@ const WhaleRpcClientContext = createContext<WhaleRpcClient>(undefined as any);
  * @return WhaleApiClient created from query string of GetServerSidePropsContext
  */
 export function getWhaleApiClient(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): WhaleApiClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
@@ -37,7 +37,7 @@ export function getWhaleApiClient(
 }
 
 export function getWhaleRpcClient(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): WhaleRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
@@ -45,7 +45,7 @@ export function getWhaleRpcClient(
 }
 
 export function newPlaygroundRpcClient(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): PlaygroundRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
@@ -61,7 +61,7 @@ export function useWhaleRpcClient(): WhaleRpcClient {
 }
 
 export function WhaleProvider(
-  props: PropsWithChildren<any>
+  props: PropsWithChildren<any>,
 ): JSX.Element | null {
   const connection = useNetwork().connection;
 
@@ -83,9 +83,10 @@ export function WhaleProvider(
 }
 
 function newOceanOptions(
-  connection: EnvironmentNetwork = EnvironmentNetwork.MainNet
+  connection: EnvironmentNetwork = EnvironmentNetwork.MainNet,
+  url?: string,
 ): WhaleApiClientOptions {
-  return getOceanOptions(connection);
+  return getOceanOptions(connection, url);
 }
 
 function newWhaleClient(options: WhaleApiClientOptions): WhaleApiClient {
@@ -98,7 +99,7 @@ function newRpcClient(options: WhaleApiClientOptions): WhaleRpcClient {
 
 // TODO remove this before release to prod
 export function newPlaygroundClient(
-  network: string | EnvironmentNetwork
+  network: string | EnvironmentNetwork,
 ): PlaygroundApiClient {
   switch (network) {
     case EnvironmentNetwork.RemotePlayground:

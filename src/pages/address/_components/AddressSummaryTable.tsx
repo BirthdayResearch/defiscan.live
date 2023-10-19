@@ -4,21 +4,31 @@ import { AddressAggregation } from "@defichain/whale-api-client/dist/api/address
 import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
+import { AddressType } from "@waveshq/walletkit-core";
+import { WalletAddressInfoI, useGetEVMBalanceMutation } from "@store/metachain";
+import { useNetwork } from "@contexts/NetworkContext";
 
 interface AddressSummaryTableProps {
   address: string;
+  addressType: AddressType;
 }
 
 export function AddressSummaryTable(
   props: AddressSummaryTableProps
 ): JSX.Element {
   const api = useWhaleApiClient();
+  const { connection } = useNetwork();
+
   const [aggregationData, setAggregationData] = useState<
     AddressAggregation | undefined
   >(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [balance, setBalance] = useState(new BigNumber(0));
+  const [fetchEVMBalance] = useGetEVMBalanceMutation();
 
   function getAggregation(): void {
+    // reset balance
+    setBalance(new BigNumber(0));
     setIsLoading(true);
     api.address
       .getAggregation(props.address)
@@ -33,7 +43,28 @@ export function AddressSummaryTable(
       });
   }
 
+  function getEVMBalance(): void {
+    setIsLoading(true);
+    fetchEVMBalance({ address: props.address, network: connection })
+      .then(({ data }: { data: WalletAddressInfoI }) => {
+        setBalance(
+          new BigNumber(data?.coin_balance ?? 0).dividedBy(
+            new BigNumber(10).pow(18)
+          )
+        );
+      })
+      .catch(() => {
+        setBalance(new BigNumber(0));
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
   useEffect(() => {
+    if (props.addressType === AddressType.ETH) {
+      return getEVMBalance();
+    }
     getAggregation();
   }, [props.address]);
 
@@ -51,7 +82,12 @@ export function AddressSummaryTable(
               className="text-left"
               testId="AddressSummaryTable.balance"
             >
-              {new BigNumber(0).toFixed(8)} DFI
+              <NumericFormat
+                value={new BigNumber(balance ?? 0).toFixed(8)}
+                thousandSeparator
+                displayType="text"
+                suffix=" DFI"
+              />
             </AdaptiveList.Row>
           </AdaptiveList>
         </div>

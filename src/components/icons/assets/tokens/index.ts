@@ -73,7 +73,7 @@ const mapping: Record<string, (props: SVGProps<SVGSVGElement>) => JSX.Element> =
  * @return {(props: SVGProps<SVGSVGElement>) => JSX.Element}
  */
 export function getAssetIcon(
-  symbol: string
+  symbol: string,
 ): (props: SVGProps<SVGSVGElement>) => JSX.Element {
   const Icon = mapping[`d${symbol}`];
   if (Icon === undefined) {
@@ -88,7 +88,7 @@ export function getAssetIcon(
  * @return {(props: SVGProps<SVGSVGElement>) => JSX.Element}
  */
 export function getTokenIcon(
-  symbol: string
+  symbol: string,
 ): (props: { className: string }) => JSX.Element {
   return _Default(symbol);
 }
@@ -98,7 +98,7 @@ export function getTokenIcon(
  * @return {(props: SVGProps<SVGSVGElement>) => JSX.Element}
  */
 export function getNativeIcon(
-  symbol: string
+  symbol: string,
 ): (props: SVGProps<SVGSVGElement>) => JSX.Element {
   const Icon = mapping[symbol];
   if (Icon === undefined) {

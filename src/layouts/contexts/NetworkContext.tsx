@@ -46,6 +46,8 @@ function mapNetworkObject(
     case EnvironmentNetwork.RemotePlayground:
     case EnvironmentNetwork.LocalPlayground:
       return { connection: connection, ...getNetwork("regtest") };
+    case EnvironmentNetwork.Changi:
+      return { connection: connection, ...getNetwork("changi") };
     default:
       throw new Error(`${connection as string} network not found`);
   }

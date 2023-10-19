@@ -21,7 +21,7 @@ jobs:
 
       - uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
@@ -38,7 +38,7 @@ jobs:
 
       - uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
@@ -54,7 +54,7 @@ jobs:
 
       - uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
