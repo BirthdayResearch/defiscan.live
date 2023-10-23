@@ -91,7 +91,6 @@ function BalanceRow(props: {
   domain: TransferDomainType;
   testId: string;
 }): JSX.Element {
-  console.log(props.domain);
   return (
     <AdaptiveList.Row name="Amount">
       <div className="flex flex-row">
