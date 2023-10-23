@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import classNames from "classnames";
 import { getAssetIcon, getTokenIcon } from "@components/icons/assets/tokens";
+import { EVMLinearGradient } from "@components/icons/assets/tokens/EVMLinearGradient";
 
 interface TokenSymbolProps {
   tokenId: number;
   className?: string;
   testId?: string;
+  isEvmDomain?: boolean;
   symbolLeft?: boolean;
   symbolOnly?: boolean;
 }
@@ -42,7 +44,7 @@ export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
       <div
         className={classNames(
           "animate-pulse py-2.5 w-10 rounded-md bg-gray-200 inline",
-          props.className
+          props.className,
         )}
       />
     );
@@ -63,7 +65,7 @@ export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
           props.className,
           props.symbolLeft === undefined || !props.symbolLeft
             ? "mr-1.5"
-            : "ml-1.5 order-last"
+            : "ml-1.5 order-last",
         )}
         data-testid={props.testId}
       >
@@ -77,11 +79,19 @@ export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
 
         if (tokenData.isDAT) {
           const AssetIcon = getAssetIcon(tokenData.symbol);
-          return <AssetIcon className="h-6 w-6" />;
+          return (
+            <EVMLinearGradient isEvmToken={props.isEvmDomain}>
+              <AssetIcon className="h-6 w-6" />
+            </EVMLinearGradient>
+          );
         }
 
         const TokenIcon = getTokenIcon(tokenData.symbol);
-        return <TokenIcon className="h-6 w-6" />;
+        return (
+          <EVMLinearGradient isEvmToken={props.isEvmDomain}>
+            <TokenIcon className="h-6 w-6" />
+          </EVMLinearGradient>
+        );
       })()}
     </div>
   );
