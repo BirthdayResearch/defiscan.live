@@ -6,6 +6,7 @@ import { useNetwork } from "@contexts/NetworkContext";
 import { TokenSymbol } from "@components/commons/token/TokenSymbol";
 import { TokenBalance } from "@defichain/jellyfish-transaction/dist/script/dftx/dftx_balance";
 import { AddressLink } from "@components/commons/link/AddressLink";
+import { TransferDomainType } from "@defichain/jellyfish-api-core/dist/category/account";
 import { DfTxHeader } from "./DfTxHeader";
 
 interface DfTxTransferDomainProps {
@@ -39,6 +40,7 @@ export function DfTxTransferDomain(
                   </AdaptiveList.Row>
                   <BalanceRow
                     testId={`BalanceFromRow-${index}`}
+                    domain={src.domain}
                     balance={src.amount}
                   />
                 </AdaptiveList>
@@ -59,6 +61,7 @@ export function DfTxTransferDomain(
                   </AdaptiveList.Row>
                   <BalanceRow
                     testId={`BalanceToRow-${index}`}
+                    domain={dst.domain}
                     balance={dst.amount}
                   />
                 </AdaptiveList>
@@ -85,6 +88,7 @@ function AddressRow({
 
 function BalanceRow(props: {
   balance: TokenBalance;
+  domain: TransferDomainType;
   testId: string;
 }): JSX.Element {
   return (
@@ -94,6 +98,7 @@ function BalanceRow(props: {
           {props.balance.amount.toFixed(8)}
         </span>
         <TokenSymbol
+          isEvmDomain={props.domain === TransferDomainType.EVM}
           tokenId={props.balance.token}
           testId={`DfTxTransferDomain.${props.testId}Symbol`}
           className="ml-2"
