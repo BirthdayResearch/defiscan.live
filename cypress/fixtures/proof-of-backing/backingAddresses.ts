@@ -29,7 +29,7 @@ export const cakeBackingAddresses = [
   },
   {
     token: "dDOGE",
-    link: "https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba",
+    link: "https://dogechain.info/address/9uv4fqPjSYNVNvqzbuGUMACBw67qQcLTxg",
   },
 ];
 

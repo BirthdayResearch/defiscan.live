@@ -76,8 +76,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   DOGE: {
     cake: {
-      link: "https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba",
-      address: "D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba",
+      link: "https://dogechain.info/address/9uv4fqPjSYNVNvqzbuGUMACBw67qQcLTxg",
+      address: "9uv4fqPjSYNVNvqzbuGUMACBw67qQcLTxg",
     },
   },
   MATIC: {
