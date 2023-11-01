@@ -1,22 +1,22 @@
 # Define individuals that are responsible for code in a repository.
 # More details are here: https://help.github.com/articles/about-codeowners/
 
-/.github/                                       @thedoublejay
-/.husky/                                        @thedoublejay
+/.github/                                       @chloezxyy @fullstackninja864 @pierregee @lykalabrada
+/.husky/                                        @chloezxyy @fullstackninja864 @pierregee @lykalabrada
 
-/src/                                           @thedoublejay @chloezxyy @fullstackninja864 @kyleleow @pierregee @G9000 @JoshuaC817
+/src/                                           @chloezxyy @fullstackninja864 @pierregee @lykalabrada
 
-/src/styles/                                    @thedoublejay @kyleleow @pierregee @G9000 @JoshuaC817
-postcss.config.js                               @thedoublejay @kyleleow @pierregee @G9000 @JoshuaC817
-tailwind.config.js                              @thedoublejay @kyleleow @pierregee @G9000 @JoshuaC817
+/src/styles/                                    @chloezxyy @fullstackninja864 @pierregee @lykalabrada
+postcss.config.js                               @chloezxyy @fullstackninja864 @pierregee @lykalabrada
+tailwind.config.js                              @chloezxyy @fullstackninja864 @pierregee @lykalabrada
 
-/public/                                        @thedoublejay @kyleleow @pierregee @G9000 @JoshuaC817
+/public/                                        @chloezxyy @fullstackninja864 @pierregee @lykalabrada
 
-next.config.js                                  @thedoublejay @kyleleow @pierregee
-package.json                                    @thedoublejay @kyleleow @pierregee
-package-lock.json                               @thedoublejay @kyleleow @pierregee
-tsconfig.json                                   @thedoublejay @kyleleow @pierregee
+next.config.js                                  @chloezxyy @fullstackninja864 @pierregee @lykalabrada
+package.json                                    @chloezxyy @fullstackninja864 @pierregee @lykalabrada
+package-lock.json                               @chloezxyy @fullstackninja864 @pierregee @lykalabrada
+tsconfig.json                                   @chloezxyy @fullstackninja864 @pierregee @lykalabrada
 
-CONTRIBUTING.md                                 @thedoublejay @kyleleow @pierregee
-README.md                                       @thedoublejay @kyleleow @pierregee
-LICENSE                                         @thedoublejay
+CONTRIBUTING.md                                 @chloezxyy @fullstackninja864 @pierregee @lykalabrada
+README.md                                       @chloezxyy @fullstackninja864 @pierregee @lykalabrada
+LICENSE                                         @chloezxyy @fullstackninja864 @pierregee @lykalabrada
