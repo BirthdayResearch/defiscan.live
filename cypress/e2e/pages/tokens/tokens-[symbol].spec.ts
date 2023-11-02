@@ -123,14 +123,14 @@ context("/tokens/* Backing Addresses", () => {
       });
     cy.findByTestId("BackingAddress.BTC").should(
       "have.text",
-      "38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT"
+      "38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT",
     );
     cy.findByTestId("BackingAddress.BTC")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT"
+        "https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT",
       );
   });
 
@@ -143,14 +143,14 @@ context("/tokens/* Backing Addresses", () => {
       });
     cy.findByTestId("BackingAddress.ETH").should(
       "have.text",
-      "0x94fa70d079d76279e1815ce403e9b985bccc82ac"
+      "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
     );
     cy.findByTestId("BackingAddress.ETH")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac"
+        "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
       );
   });
 
@@ -163,14 +163,14 @@ context("/tokens/* Backing Addresses", () => {
       });
     cy.findByTestId("BackingAddress.ETH").should(
       "have.text",
-      "0x94fa70d079d76279e1815ce403e9b985bccc82ac"
+      "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
     );
     cy.findByTestId("BackingAddress.ETH")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac"
+        "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
       );
   });
 
@@ -183,14 +183,14 @@ context("/tokens/* Backing Addresses", () => {
       });
     cy.findByTestId("BackingAddress.ETH").should(
       "have.text",
-      "0x94fa70d079d76279e1815ce403e9b985bccc82ac"
+      "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
     );
     cy.findByTestId("BackingAddress.ETH")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac"
+        "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
       );
   });
 
@@ -203,14 +203,14 @@ context("/tokens/* Backing Addresses", () => {
       });
     cy.findByTestId("BackingAddress.DOGE").should(
       "have.text",
-      "D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba"
+      "9uv4fqPjSYNVNvqzbuGUMACBw67qQcLTxg",
     );
     cy.findByTestId("BackingAddress.DOGE")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "https://dogechain.info/address/D7jrXDgPYck8jL9eYvRrc7Ze8n2e2Loyba"
+        "https://dogechain.info/address/9uv4fqPjSYNVNvqzbuGUMACBw67qQcLTxg",
       );
   });
 
@@ -223,14 +223,14 @@ context("/tokens/* Backing Addresses", () => {
       });
     cy.findByTestId("BackingAddress.LTC").should(
       "have.text",
-      "MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE"
+      "MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE",
     );
     cy.findByTestId("BackingAddress.LTC")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE"
+        "https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE",
       );
   });
 
@@ -243,14 +243,14 @@ context("/tokens/* Backing Addresses", () => {
       });
     cy.findByTestId("BackingAddress.BCH").should(
       "have.text",
-      "38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf"
+      "38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf",
     );
     cy.findByTestId("BackingAddress.BCH")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf"
+        "https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf",
       );
   });
 
