@@ -44,9 +44,6 @@ const securityHeaders = [
 ];
 
 module.exports = {
-  experimental: {
-    forceSwcTransforms: true,
-  },
   swcMinify: true,
   reactStrictMode: true,
   pageExtensions: ["page.tsx", "page.ts"],
