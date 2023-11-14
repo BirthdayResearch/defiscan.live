@@ -92,8 +92,8 @@ devDependencies:
     specifier: ^5.0.0
     version: 5.0.0
   '@netlify/plugin-nextjs':
-    specifier: ^4.40.1
-    version: 4.40.1
+    specifier: ^4.41.1
+    version: 4.41.1
   '@stickyjs/jest':
     specifier: ^1.3.4
     version: 1.3.4(@babel/core@7.23.0)(@types/node@18.18.0)(typescript@5.2.2)
@@ -2595,6 +2595,11 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
+  /@netlify/blobs@2.2.0:
+    resolution: {integrity: sha512-j2C0+IvWj9CLNGPoiA7ETquMFDExZTrv4CarjfE6Au0eY3zlinnnTVae7DE+VQFK+U0CDM/O0VvelNy1QbsdwQ==}
+    engines: {node: ^14.16.0 || >=16.0.0}
+    dev: true
+
   /@netlify/esbuild-android-64@0.14.39:
     resolution: {integrity: sha512-azq+lsvjRsKLap8ubIwSJXGyknUACqYu5h98Fvyoh40Qk4QXIVKl16JIJ4s+B7jy2k9qblEc5c4nxdDA3aGbVA==}
     engines: {node: '>=12'}
@@ -2823,40 +2828,12 @@ packages:
       '@netlify/functions': 2.1.0
       etag: 1.8.1
       fs-extra: 11.1.1
-      ipx: 1.3.0
-      micromatch: 4.0.5
-      mkdirp: 3.0.1
-      murmurhash: 2.0.1
-      node-fetch: 2.7.0
-      ufo: 1.3.0
-      unstorage: 1.9.0
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@planetscale/database'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - encoding
-      - idb-keyval
-      - supports-color
-
-  /@netlify/ipx@1.4.5:
-    resolution: {integrity: sha512-QuPxUj8Bn8hXwjdcA1BF+HPLqFJ2e9OCNrKX/s3hoUFjjqQrNSK8lLARAtzGfOM3BRsTXyi/zGdwBE+oJKd0dw==}
-    dependencies:
-      '@netlify/functions': 2.1.0
-      etag: 1.8.1
-      fs-extra: 11.1.1
       ipx: 1.3.1
       micromatch: 4.0.5
       mkdirp: 3.0.1
       murmurhash: 2.0.1
       node-fetch: 2.7.0
-      ufo: 1.3.0
+      ufo: 1.3.1
       unstorage: 1.9.0
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -2873,6 +2850,34 @@ packages:
       - idb-keyval
       - supports-color
     dev: false
+
+  /@netlify/ipx@1.4.5:
+    resolution: {integrity: sha512-QuPxUj8Bn8hXwjdcA1BF+HPLqFJ2e9OCNrKX/s3hoUFjjqQrNSK8lLARAtzGfOM3BRsTXyi/zGdwBE+oJKd0dw==}
+    dependencies:
+      '@netlify/functions': 2.1.0
+      etag: 1.8.1
+      fs-extra: 11.1.1
+      ipx: 1.3.1
+      micromatch: 4.0.5
+      mkdirp: 3.0.1
+      murmurhash: 2.0.1
+      node-fetch: 2.7.0
+      ufo: 1.3.1
+      unstorage: 1.9.0
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@planetscale/database'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - encoding
+      - idb-keyval
+      - supports-color
 
   /@netlify/node-cookies@0.1.0:
     resolution: {integrity: sha512-OAs1xG+FfLX0LoRASpqzVntVV/RpYkgpI0VrUnw2u0Q1qiZUzcPffxRK8HF3gc4GjuhG5ahOEMJ9bswBiZPq0g==}
@@ -2897,13 +2902,14 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@netlify/plugin-nextjs@4.40.1:
-    resolution: {integrity: sha512-FVXQEzBCymJHu2JYnJs03hUXjJAIAHcLMsrbcrnSjqmib4yF65YZ9yJYmrajV2D6LRqN/TxWhzTEgGr9eYpRHQ==}
+  /@netlify/plugin-nextjs@4.41.1:
+    resolution: {integrity: sha512-/r4Lfp/A9kqyu2KrRPijXDGDdNMGo3rjYrHpc5kNehTZrsFCyAwNVDvOV/akfUlT8wnpibjsoAmlurF9+zfjRA==}
     engines: {node: '>=12.0.0'}
     dependencies:
+      '@netlify/blobs': 2.2.0
       '@netlify/esbuild': 0.14.39
       '@netlify/functions': 1.6.0
-      '@netlify/ipx': 1.4.4
+      '@netlify/ipx': 1.4.5
       '@vercel/node-bridge': 2.2.2
       chalk: 4.1.2
       chokidar: 3.5.3
@@ -7868,7 +7874,7 @@ packages:
       destr: 2.0.1
       iron-webcrypto: 0.10.1
       radix3: 1.1.0
-      ufo: 1.3.0
+      ufo: 1.3.1
       uncrypto: 0.1.3
       unenv: 1.7.4
 
@@ -8155,23 +8161,6 @@ packages:
     engines: {node: '>= 0.10'}
     dev: true
 
-  /ipx@1.3.0:
-    resolution: {integrity: sha512-Jfu+zQ0NGZwSeZ11CGMOnqWFlIyVcT8dW48e5UxKnMjQXXDy8VLTl8FIP7vRIJ9hd3ZPaJ/RIXXLJfZmBqRXWQ==}
-    hasBin: true
-    dependencies:
-      '@fastify/accept-negotiator': 1.1.0
-      consola: 3.2.3
-      defu: 6.1.2
-      destr: 2.0.1
-      etag: 1.8.1
-      image-meta: 0.1.1
-      listhen: 1.5.5
-      node-fetch-native: 1.4.0
-      pathe: 1.1.1
-      sharp: 0.32.6
-      ufo: 1.3.0
-      xss: 1.0.14
-
   /ipx@1.3.1:
     resolution: {integrity: sha512-hWRLXdMDOz2q81T2x9lowFtAGO3E5b2HtC8xOOBTrlnxygHNaVrZqJ5c1P3T7tDkC3oCocYRRz0VBffvJKeQlw==}
     hasBin: true
@@ -8188,7 +8177,6 @@ packages:
       sharp: 0.32.6
       ufo: 1.3.1
       xss: 1.0.14
-    dev: false
 
   /iron-webcrypto@0.10.1:
     resolution: {integrity: sha512-QGOS8MRMnj/UiOa+aMIgfyHcvkhqNUsUxb1XzskENvbo+rEfp6TOwqd1KPuDzXC4OnGHcMSVxDGRoilqB8ViqA==}
@@ -9216,7 +9204,7 @@ packages:
       node-forge: 1.3.1
       pathe: 1.1.1
       std-env: 3.4.3
-      ufo: 1.3.0
+      ufo: 1.3.1
       untun: 0.1.2
       uqr: 0.1.2
 
@@ -9559,7 +9547,7 @@ packages:
       acorn: 8.10.0
       pathe: 1.1.1
       pkg-types: 1.0.3
-      ufo: 1.3.0
+      ufo: 1.3.1
 
   /moize@6.1.6:
     resolution: {integrity: sha512-vSKdIUO61iCmTqhdoIDrqyrtp87nWZUmBPniNjO0fX49wEYmyDO4lvlnFXiGcaH1JLE/s/9HbiK4LSHsbiUY6Q==}
@@ -10003,7 +9991,7 @@ packages:
     dependencies:
       destr: 2.0.1
       node-fetch-native: 1.4.0
-      ufo: 1.3.0
+      ufo: 1.3.1
 
   /on-finished@2.4.1:
     resolution: {integrity: sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg==}
@@ -12012,12 +12000,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  /ufo@1.3.0:
-    resolution: {integrity: sha512-bRn3CsoojyNStCZe0BG0Mt4Nr/4KF+rhFlnNXybgqt5pXHNFRlqinSoQaTrGyzE4X8aHplSb+TorH+COin9Yxw==}
-
   /ufo@1.3.1:
     resolution: {integrity: sha512-uY/99gMLIOlJPwATcMVYfqDSxUR9//AUcgZMzwfSTJPDKzA1S8mX4VLqa+fiAtveraQUBCz4FFcwVZBGbwBXIw==}
-    dev: false
 
   /uglify-js@3.17.4:
     resolution: {integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==}
@@ -12144,7 +12128,7 @@ packages:
       mri: 1.2.0
       node-fetch-native: 1.4.0
       ofetch: 1.3.3
-      ufo: 1.3.0
+      ufo: 1.3.1
     transitivePeerDependencies:
       - supports-color
 
