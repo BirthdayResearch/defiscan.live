@@ -32,7 +32,7 @@ export default function MasternodesPage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const tvl = useSelector((state: RootState) => state.stats.tvl);
   const locked = useSelector(
-    (state: RootState) => state.stats.masternodes.locked,
+    (state: RootState) => state.stats.masternodes.locked
   );
 
   return (
@@ -100,7 +100,7 @@ export default function MasternodesPage({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<MasternodesPageProps>> {
   const next = CursorPagination.getNext(context);
   const items = await getWhaleApiClient(context).masternodes.list(30, next);

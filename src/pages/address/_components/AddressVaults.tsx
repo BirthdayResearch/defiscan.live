@@ -90,7 +90,7 @@ export function AddressVaults(props: AddressVaultsProps): JSX.Element {
                 <VaultMobileCard
                   vault={vault}
                   liquidatedVaultDerivedValues={calculateLiquidationValues(
-                    vault,
+                    vault
                   )}
                   key={vault.vaultId}
                 />

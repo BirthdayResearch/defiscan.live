@@ -8,7 +8,7 @@ interface DfTxCreateMasternodeProps {
 }
 
 export function DfTxCreateMasternode(
-  props: DfTxCreateMasternodeProps,
+  props: DfTxCreateMasternodeProps
 ): JSX.Element {
   return (
     <div>

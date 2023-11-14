@@ -25,7 +25,7 @@ interface ActionsPageProps {
 }
 
 export default function VaultIdPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
   return (
     <>
@@ -56,7 +56,7 @@ export default function VaultIdPage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<ActionsPageProps>> {
   const api = getWhaleApiClient(context);
 
@@ -70,7 +70,7 @@ export async function getServerSideProps(
       auctionHistory = await api.loan.listVaultAuctionHistory(
         vaultid,
         vault.liquidationHeight,
-        Number(batchIndex),
+        Number(batchIndex)
       );
     } else {
       return {

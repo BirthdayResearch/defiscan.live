@@ -60,7 +60,7 @@ export default function Vaults({
                   <VaultMobileCard
                     vault={vault}
                     liquidatedVaultDerivedValues={calculateLiquidationValues(
-                      vault,
+                      vault
                     )}
                     key={vault.vaultId}
                   />
@@ -79,7 +79,7 @@ export default function Vaults({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<VaultsPageData>> {
   try {
     const next = CursorPagination.getNext(context);

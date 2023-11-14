@@ -6,7 +6,7 @@ export default function TxPage(): JSX.Element {
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<any>> {
   const txid = context.params?.txid?.toString().trim() as string;
 

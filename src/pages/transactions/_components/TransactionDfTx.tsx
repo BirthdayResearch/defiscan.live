@@ -95,7 +95,7 @@ interface TransactionDfTxProps {
 }
 
 export function TransactionDfTx(
-  props: TransactionDfTxProps,
+  props: TransactionDfTxProps
 ): JSX.Element | null {
   if (props.dftx === undefined) {
     return null;

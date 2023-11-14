@@ -8,7 +8,7 @@ interface DfTxSetGovernanceHeightProps {
 }
 
 export function DfTxSetGovernanceHeight(
-  props: DfTxSetGovernanceHeightProps,
+  props: DfTxSetGovernanceHeightProps
 ): JSX.Element {
   return (
     <div>

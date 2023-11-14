@@ -9,7 +9,7 @@ interface BlockLinkProps {
 }
 
 export function BlockLink(
-  props: PropsWithChildren<BlockLinkProps>,
+  props: PropsWithChildren<BlockLinkProps>
 ): JSX.Element {
   if (props.block === undefined || props.block.length === 0) {
     return <></>;
@@ -20,7 +20,7 @@ export function BlockLink(
       data-testid={props.testId}
       className={classnames(
         "hover:underline text-blue-500 cursor-pointer",
-        props.className,
+        props.className
       )}
     >
       <Link href={{ pathname: `/blocks/${props.block}` }}>

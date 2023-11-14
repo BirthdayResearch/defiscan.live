@@ -20,7 +20,7 @@ interface MobileAuctionDetailsProps {
 }
 
 export function MobileAuctionDetails(
-  props: MobileAuctionDetailsProps,
+  props: MobileAuctionDetailsProps
 ): JSX.Element {
   const LoanSymbol = getAssetIcon(props.liquidationBatch.loan.symbol);
 
@@ -144,7 +144,7 @@ function MobileCollateralListItem(props: {
   const CollateralSymbol = getAssetIcon(props.collateral.symbol);
   const collateralValue = getTokenPrice(
     props.collateral.symbol,
-    new BigNumber(props.collateral.amount),
+    new BigNumber(props.collateral.amount)
   );
 
   return (

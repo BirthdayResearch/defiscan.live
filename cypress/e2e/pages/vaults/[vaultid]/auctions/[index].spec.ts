@@ -1,7 +1,7 @@
 context("/vaults/[vaultid]/auctions/[index] on desktop", () => {
   before(() => {
     cy.request(
-      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1",
+      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1"
     ).then(function (response) {
       if (response.body.data.length !== 1) {
         this.skip();
@@ -62,7 +62,7 @@ context("/vaults/[vaultid]/auctions/[index] on desktop", () => {
         .should("be.visible")
         .should("have.text", "Vault ID");
       cy.findByTestId("DesktopAuctionDetails.VaultID.Value").should(
-        "be.visible",
+        "be.visible"
       );
     });
 
@@ -73,7 +73,7 @@ context("/vaults/[vaultid]/auctions/[index] on desktop", () => {
           .should("have.text", "Collaterals For Auction");
         cy.findAllByTestId("DesktopCollateralListItem").within(() => {
           cy.findByTestId("DesktopCollateralListItem.CollateralSymbol").should(
-            "be.visible",
+            "be.visible"
           );
 
           cy.findByTestId("DesktopCollateralListItem.Amount")
@@ -83,7 +83,7 @@ context("/vaults/[vaultid]/auctions/[index] on desktop", () => {
             .should("be.visible")
             .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
         });
-      },
+      }
     );
   });
 });
@@ -91,7 +91,7 @@ context("/vaults/[vaultid]/auctions/[index] on desktop", () => {
 context("/vaults/[vaultid]/auctions/[index] on mobile", () => {
   before(() => {
     cy.request(
-      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1",
+      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1"
     ).then(function (response) {
       if (response.body.data.length !== 1) {
         this.skip();
@@ -152,7 +152,7 @@ context("/vaults/[vaultid]/auctions/[index] on mobile", () => {
         .should("be.visible")
         .should("have.text", "Vault ID");
       cy.findByTestId("MobileAuctionDetails.VaultID.Value").should(
-        "be.visible",
+        "be.visible"
       );
     });
 
@@ -163,10 +163,10 @@ context("/vaults/[vaultid]/auctions/[index] on mobile", () => {
           .should("have.text", "Collaterals For Auction");
         cy.findAllByTestId("MobileCollateralListItem").within(() => {
           cy.findByTestId("MobileCollateralListItem.CollateralSymbol").should(
-            "be.visible",
+            "be.visible"
           );
           cy.findByTestId("MobileCollateralListItem.displaySymbol").should(
-            "be.visible",
+            "be.visible"
           );
 
           cy.findByTestId("MobileCollateralListItem.Amount")
@@ -176,7 +176,7 @@ context("/vaults/[vaultid]/auctions/[index] on mobile", () => {
             .should("be.visible")
             .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
         });
-      },
+      }
     );
   });
 });

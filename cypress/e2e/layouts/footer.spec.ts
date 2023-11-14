@@ -33,7 +33,7 @@ context("<Footer/> on macbook-16", () => {
         .should(
           "have.attr",
           "href",
-          "https://www.linkedin.com/company/defichain",
+          "https://www.linkedin.com/company/defichain"
         )
         .should("be.visible")
         .should("have.text", "LinkedIn");
@@ -47,7 +47,7 @@ context("<Footer/> on macbook-16", () => {
         .should(
           "have.attr",
           "href",
-          "https://www.facebook.com/defichain.official",
+          "https://www.facebook.com/defichain.official"
         )
         .should("be.visible")
         .should("have.text", "Facebook");
@@ -112,7 +112,7 @@ context("<Footer/> on macbook-16", () => {
         .should("be.visible")
         .should(
           "have.text",
-          "DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone. For more info, visit",
+          "DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone. For more info, visit"
         );
 
       cy.findByTestId("FooterSectionAbout.DFCLink")
@@ -168,7 +168,7 @@ context("<Footer/> on iphone-x", () => {
         .should(
           "have.attr",
           "href",
-          "https://www.linkedin.com/company/defichain",
+          "https://www.linkedin.com/company/defichain"
         )
         .should("be.visible")
         .should("have.text", "LinkedIn");
@@ -182,7 +182,7 @@ context("<Footer/> on iphone-x", () => {
         .should(
           "have.attr",
           "href",
-          "https://www.facebook.com/defichain.official",
+          "https://www.facebook.com/defichain.official"
         )
         .should("be.visible")
         .should("have.text", "Facebook");
@@ -247,7 +247,7 @@ context("<Footer/> on iphone-x", () => {
         .should("be.visible")
         .should(
           "have.text",
-          "DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone. For more info, visit",
+          "DeFi Blockchain’s primary vision is to enable decentralized finance with Bitcoin-grade security, strength and immutability. It's a blockchain dedicated to fast, intelligent and transparent financial services, accessible by everyone. For more info, visit"
         );
 
       cy.findByTestId("FooterSectionAbout.DFCLink")

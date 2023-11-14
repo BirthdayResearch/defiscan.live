@@ -16,7 +16,7 @@ export function useApiStatus(): {
   isOceanDown: boolean;
 } {
   const { lastSync, lastSuccessfulSync } = useSelector(
-    (state: RootState) => state.stats,
+    (state: RootState) => state.stats
   );
   const { data: blockchainStatus, isSuccess: isBlockchainSuccess } =
     useGetBlockchainStatusQuery(
@@ -24,7 +24,7 @@ export function useApiStatus(): {
       {
         pollingInterval:
           getEnvironment().name === "Development" ? 3000 : 1000 * 60 * 5, // every 5mins
-      },
+      }
     );
 
   const { data: oceanStatus, isSuccess: isOceanSuccess } =
@@ -33,7 +33,7 @@ export function useApiStatus(): {
       {
         pollingInterval:
           getEnvironment().name === "Development" ? 3000 : 1000 * 60 * 5, // every 5mins
-      },
+      }
     );
 
   const [isBlockchainDown, setIsBlockchainDown] = useState(false);
@@ -41,7 +41,7 @@ export function useApiStatus(): {
 
   function getBlockStatus(
     lastSync?: string,
-    lastSuccessfulSync?: string,
+    lastSuccessfulSync?: string
   ): void {
     if (lastSync !== undefined && lastSuccessfulSync !== undefined) {
       // stats api is down - if syncing time is more than MAX_TIME_DIFF - checks which api is down

@@ -12,13 +12,13 @@ export function EmergencyChip({
     <div
       className={classNames(
         "flex px-2 bg-orange-100 dark:bg-dark-orange-100 rounded w-fit h-fit justify-between",
-        wrapperClassName,
+        wrapperClassName
       )}
     >
       <span
         className={classNames(
           "text-orange-600 dark:text-dark-orange-600 font-medium",
-          className,
+          className
         )}
       >
         SPECIAL

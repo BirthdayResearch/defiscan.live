@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx ICXCreateOrder on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/b65784e0c8ac2afa3d40299eb3086a92f2cb6c61a5364ff1c5b4d832efda41fd?network=MainNet",
+      "/transactions/b65784e0c8ac2afa3d40299eb3086a92f2cb6c61a5364ff1c5b4d832efda41fd?network=MainNet"
     );
   });
 
@@ -24,49 +24,49 @@ context("/transactions/[txid] - DfTx ICXCreateOrder on desktop", () => {
   it("should have DfTxICXCreateOrder amountFrom", () => {
     cy.findByTestId("DfTxICXCreateOrder.amountFrom").should(
       "have.text",
-      "0.00100000",
+      "0.00100000"
     );
   });
 
   it("should have DfTxICXCreateOrder amountToFill", () => {
     cy.findByTestId("DfTxICXCreateOrder.amountToFill").should(
       "have.text",
-      "0.00100000",
+      "0.00100000"
     );
   });
 
   it("should have DfTxICXCreateOrder orderPrice", () => {
     cy.findByTestId("DfTxICXCreateOrder.orderPrice").should(
       "have.text",
-      "1.00000000",
+      "1.00000000"
     );
   });
 
   it("should have DfTxICXCreateOrder orderType", () => {
     cy.findByTestId("DfTxICXCreateOrder.orderType").should(
       "have.text",
-      "Internal",
+      "Internal"
     );
   });
 
   it("should have DfTxICXCreateOrder expiry", () => {
     cy.findByTestId("DfTxICXCreateOrder.expiry").should(
       "have.text",
-      "2880 Blocks",
+      "2880 Blocks"
     );
   });
 
   it("should have DfTxICXCreateOrder ownerAddress", () => {
     cy.findByTestId("DfTxICXCreateOrder.ownerAddress").should(
       "have.text",
-      "8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg",
+      "8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg"
     );
     cy.findByTestId("DfTxICXCreateOrder.ownerAddress")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/address/8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg",
+        "/address/8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg"
       );
   });
 
@@ -78,7 +78,7 @@ context("/transactions/[txid] - DfTx ICXCreateOrder on desktop", () => {
 context("/transactions/[txid] - DfTx ICXCreateOrder on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/b65784e0c8ac2afa3d40299eb3086a92f2cb6c61a5364ff1c5b4d832efda41fd?network=MainNet",
+      "/transactions/b65784e0c8ac2afa3d40299eb3086a92f2cb6c61a5364ff1c5b4d832efda41fd?network=MainNet"
     );
   });
 
@@ -101,49 +101,49 @@ context("/transactions/[txid] - DfTx ICXCreateOrder on mobile", () => {
   it("should have DfTxICXCreateOrder amountFrom", () => {
     cy.findByTestId("DfTxICXCreateOrder.amountFrom").should(
       "have.text",
-      "0.00100000",
+      "0.00100000"
     );
   });
 
   it("should have DfTxICXCreateOrder amountToFill", () => {
     cy.findByTestId("DfTxICXCreateOrder.amountToFill").should(
       "have.text",
-      "0.00100000",
+      "0.00100000"
     );
   });
 
   it("should have DfTxICXCreateOrder orderType", () => {
     cy.findByTestId("DfTxICXCreateOrder.orderType").should(
       "have.text",
-      "Internal",
+      "Internal"
     );
   });
 
   it("should have DfTxICXCreateOrder orderPrice", () => {
     cy.findByTestId("DfTxICXCreateOrder.orderPrice").should(
       "have.text",
-      "1.00000000",
+      "1.00000000"
     );
   });
 
   it("should have DfTxICXCreateOrder expiry", () => {
     cy.findByTestId("DfTxICXCreateOrder.expiry").should(
       "have.text",
-      "2880 Blocks",
+      "2880 Blocks"
     );
   });
 
   it("should have DfTxICXCreateOrder ownerAddress", () => {
     cy.findByTestId("DfTxICXCreateOrder.ownerAddress").should(
       "have.text",
-      "8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg",
+      "8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg"
     );
     cy.findByTestId("DfTxICXCreateOrder.ownerAddress")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/address/8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg",
+        "/address/8cDSPjDe7HqvzmSL33xCrcrvBbUcmkTSpg"
       );
   });
 

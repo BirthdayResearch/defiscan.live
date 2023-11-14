@@ -14,7 +14,7 @@ interface AddressSummaryTableProps {
 }
 
 export function AddressSummaryTable(
-  props: AddressSummaryTableProps,
+  props: AddressSummaryTableProps
 ): JSX.Element {
   const api = useWhaleApiClient();
   const { connection } = useNetwork();
@@ -49,8 +49,8 @@ export function AddressSummaryTable(
       .then(({ data }: { data: WalletAddressInfoI }) => {
         setBalance(
           new BigNumber(data?.coin_balance ?? 0).dividedBy(
-            new BigNumber(10).pow(18),
-          ),
+            new BigNumber(10).pow(18)
+          )
         );
       })
       .catch(() => {

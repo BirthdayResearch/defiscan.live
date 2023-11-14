@@ -124,7 +124,7 @@ function VaultMobileDetails(props: {
             props.vault.state === LoanVaultState.IN_LIQUIDATION
               ? props.liquidatedVaultDerivedValues?.collateralRatio.toFixed(
                   0,
-                  BigNumber.ROUND_HALF_UP,
+                  BigNumber.ROUND_HALF_UP
                 )
               : props.vault.informativeRatio
           }

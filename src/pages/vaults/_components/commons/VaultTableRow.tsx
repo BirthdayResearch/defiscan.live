@@ -28,7 +28,7 @@ export function VaultTableRow(props: VaultTableRowProps): JSX.Element {
         "cursor-pointer",
         props.vault.state === LoanVaultState.FROZEN
           ? "text-gray-200"
-          : "text-gray-900 dark:text-gray-100",
+          : "text-gray-900 dark:text-gray-100"
       )}
     >
       <OverflowTable.Cell sticky>
@@ -109,7 +109,7 @@ export function VaultTableRow(props: VaultTableRowProps): JSX.Element {
               props.vault.state === LoanVaultState.IN_LIQUIDATION
                 ? props.liquidatedVaultDerivedValues?.collateralRatio.toFixed(
                     0,
-                    BigNumber.ROUND_HALF_UP,
+                    BigNumber.ROUND_HALF_UP
                   )
                 : props.vault.informativeRatio
             }

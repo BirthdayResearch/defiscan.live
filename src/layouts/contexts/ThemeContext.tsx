@@ -31,7 +31,7 @@ export function getInitialTheme(): theme {
 const ThemeContext = createContext<ThemeContextProps>(undefined as any);
 
 export function ThemeProvider(
-  props: PropsWithChildren<{ theme: theme }>,
+  props: PropsWithChildren<{ theme: theme }>
 ): JSX.Element {
   const [theme, setTheme] = useState<theme>(props.theme);
 

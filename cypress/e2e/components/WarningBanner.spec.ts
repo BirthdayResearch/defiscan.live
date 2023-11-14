@@ -26,7 +26,7 @@ context("Warning banner on desktop - Announcements", () => {
       cy.findByTestId("warning_banner").should("exist");
       cy.findByTestId("warning_banner").should(
         "contain",
-        "Other announcements",
+        "Other announcements"
       );
     });
   });
@@ -196,7 +196,7 @@ context(
         cy.findByTestId("warning_banner").should("exist");
         cy.findByTestId("warning_banner").should(
           "contain",
-          "Other announcements",
+          "Other announcements"
         );
       });
       cy.intercept("**/blockchain", {
@@ -215,7 +215,7 @@ context(
         cy.findByTestId("warning_banner").should("exist");
         cy.findByTestId("warning_banner").should(
           "contain",
-          "We are currently investigating a syncing issue on the blockchain.",
+          "We are currently investigating a syncing issue on the blockchain."
         );
       });
     });
@@ -246,7 +246,7 @@ context(
         cy.findByTestId("warning_banner").should("exist");
         cy.findByTestId("warning_banner").should(
           "contain",
-          "We are currently investigating connection issues on Ocean API.",
+          "We are currently investigating connection issues on Ocean API."
         );
       });
     });
@@ -277,9 +277,9 @@ context(
         cy.findByTestId("warning_banner").should("exist");
         cy.findByTestId("warning_banner").should(
           "contain",
-          "We are currently investigating a syncing issue on the blockchain.",
+          "We are currently investigating a syncing issue on the blockchain."
         );
       });
     });
-  },
+  }
 );

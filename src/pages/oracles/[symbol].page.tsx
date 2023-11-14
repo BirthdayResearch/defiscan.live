@@ -22,7 +22,7 @@ interface PricesPageProps {
 }
 
 export default function SymbolPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
   const {
     price: {
@@ -72,7 +72,7 @@ export default function SymbolPage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PricesPageProps>> {
   const api = getWhaleApiClient(context);
   const symbol = context.params?.symbol?.toString().trim() as string;

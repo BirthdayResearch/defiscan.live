@@ -13,7 +13,7 @@ interface DfTxPoolAddLiquidityProps {
 }
 
 export function DfTxPoolAddLiquidity(
-  props: DfTxPoolAddLiquidityProps,
+  props: DfTxPoolAddLiquidityProps
 ): JSX.Element {
   const network = useNetwork().name;
   const shareAddress =
@@ -88,7 +88,7 @@ function PoolAddLiquidityRow(props: {
       </div>
       <div
         className={classNames(
-          "table-cell px-4 md:px-6 py-3 text-gray-600 dark:text-gray-100 align-middle break-all",
+          "table-cell px-4 md:px-6 py-3 text-gray-600 dark:text-gray-100 align-middle break-all"
         )}
       >
         <span data-testid={`DfTxPoolAddLiquidity.${props.tokenId}-Amount`}>

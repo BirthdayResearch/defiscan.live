@@ -1,7 +1,7 @@
 context("/transactions/[txid] - Set Collateral Token on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/7c715e1ab06beccc580f1497fc33eb7ec4a2fca6e85b348ae0dda78658529e88",
+      "/transactions/7c715e1ab06beccc580f1497fc33eb7ec4a2fca6e85b348ae0dda78658529e88"
     );
   });
 
@@ -15,21 +15,21 @@ context("/transactions/[txid] - Set Collateral Token on desktop", () => {
 
   it("should have DfTx type", () => {
     cy.findByTestId("DfTxHeader.Subtitle").contains(
-      "Type:Set Collateral Token",
+      "Type:Set Collateral Token"
     );
   });
 
   it("should have DfTxSetCollateralToken Collateral Token", () => {
     cy.findByTestId("DfTxSetCollateralToken.CollateralToken").should(
       "have.text",
-      "0",
+      "0"
     );
   });
 
   it("should have DfTxSetCollateralToken Factor", () => {
     cy.findByTestId("DfTxSetCollateralToken.Factor").should(
       "have.text",
-      "1.00000000",
+      "1.00000000"
     );
   });
 
@@ -40,7 +40,7 @@ context("/transactions/[txid] - Set Collateral Token on desktop", () => {
   it("should have DfTxSetCollateralToken Currency Pair", () => {
     cy.findByTestId("DfTxSetCollateralToken.CurrencyPair").should(
       "have.text",
-      "DFI-USD",
+      "DFI-USD"
     );
   });
 });
@@ -48,7 +48,7 @@ context("/transactions/[txid] - Set Collateral Token on desktop", () => {
 context("/transactions/[txid] - Set Collateral Token  on Mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/7c715e1ab06beccc580f1497fc33eb7ec4a2fca6e85b348ae0dda78658529e88",
+      "/transactions/7c715e1ab06beccc580f1497fc33eb7ec4a2fca6e85b348ae0dda78658529e88"
     );
   });
 
@@ -62,21 +62,21 @@ context("/transactions/[txid] - Set Collateral Token  on Mobile", () => {
 
   it("should have DfTx type", () => {
     cy.findByTestId("DfTxHeader.Subtitle").contains(
-      "Type:Set Collateral Token",
+      "Type:Set Collateral Token"
     );
   });
 
   it("should have DfTxSetCollateralToken Collateral Token", () => {
     cy.findByTestId("DfTxSetCollateralToken.CollateralToken").should(
       "have.text",
-      "0",
+      "0"
     );
   });
 
   it("should have DfTxSetCollateralToken Factor", () => {
     cy.findByTestId("DfTxSetCollateralToken.Factor").should(
       "have.text",
-      "1.00000000",
+      "1.00000000"
     );
   });
 
@@ -87,7 +87,7 @@ context("/transactions/[txid] - Set Collateral Token  on Mobile", () => {
   it("should have DfTxSetCollateralToken Currency Pair", () => {
     cy.findByTestId("DfTxSetCollateralToken.CurrencyPair").should(
       "have.text",
-      "DFI-USD",
+      "DFI-USD"
     );
   });
 });

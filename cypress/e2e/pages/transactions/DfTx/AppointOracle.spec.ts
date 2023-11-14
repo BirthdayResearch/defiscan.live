@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Appoint Oracle on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367?network=MainNet",
+      "/transactions/a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367?network=MainNet"
     );
   });
 
@@ -20,14 +20,14 @@ context("/transactions/[txid] - DfTx Appoint Oracle on desktop", () => {
   it("should have DfTxAppointOracle Adresss", () => {
     cy.findByTestId("DfTxAppointOracle.Address").should(
       "have.text",
-      "df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw",
+      "df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw"
     );
     cy.findByTestId("DfTxAppointOracle.Address")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw",
+        "/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw"
       );
   });
 
@@ -46,7 +46,7 @@ context("/transactions/[txid] - DfTx Appoint Oracle on desktop", () => {
   it("should have DfTxAppointOracle TSLA Currency", () => {
     cy.findByTestId("DfTxAppointOracle.TSLACurrency").should(
       "have.text",
-      "USD",
+      "USD"
     );
   });
 });
@@ -54,7 +54,7 @@ context("/transactions/[txid] - DfTx Appoint Oracle on desktop", () => {
 context("/transactions/[txid] - DfTx Appoint Oracle on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367?network=MainNet",
+      "/transactions/a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367?network=MainNet"
     );
   });
 
@@ -73,14 +73,14 @@ context("/transactions/[txid] - DfTx Appoint Oracle on mobile", () => {
   it("should have DfTxAppointOracle Adresss", () => {
     cy.findByTestId("DfTxAppointOracle.Address").should(
       "have.text",
-      "df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw",
+      "df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw"
     );
     cy.findByTestId("DfTxAppointOracle.Address")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw",
+        "/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw"
       );
   });
 
@@ -99,7 +99,7 @@ context("/transactions/[txid] - DfTx Appoint Oracle on mobile", () => {
   it("should have DfTxAppointOracle TSLA Currency", () => {
     cy.findByTestId("DfTxAppointOracle.TSLACurrency").should(
       "have.text",
-      "USD",
+      "USD"
     );
   });
 });

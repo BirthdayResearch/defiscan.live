@@ -3,7 +3,7 @@
 context.skip("/transactions/[txid] - DfTx Token Mint on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/ef997609bf50fa8441ec55168a40fdd04d9df6c4954206b9fb9a25ff9a606e42?network=MainNet",
+      "/transactions/ef997609bf50fa8441ec55168a40fdd04d9df6c4954206b9fb9a25ff9a606e42?network=MainNet"
     );
   });
 
@@ -31,7 +31,7 @@ context.skip("/transactions/[txid] - DfTx Token Mint on desktop", () => {
 context.skip("/transactions/[txid] - DfTx Token Mint on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/ef997609bf50fa8441ec55168a40fdd04d9df6c4954206b9fb9a25ff9a606e42?network=MainNet",
+      "/transactions/ef997609bf50fa8441ec55168a40fdd04d9df6c4954206b9fb9a25ff9a606e42?network=MainNet"
     );
   });
 

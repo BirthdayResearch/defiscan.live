@@ -35,7 +35,7 @@ export function TransactionsList({
                   txid={transaction.txid}
                   age={formatDistanceToNow(
                     transaction.block.medianTime * 1000,
-                    { addSuffix: true },
+                    { addSuffix: true }
                   )}
                   totalVoutValue={transaction.totalVoutValue}
                 />
@@ -61,7 +61,7 @@ export function TransactionsList({
                   txid={transaction.txid}
                   age={formatDistanceToNow(
                     transaction.block.medianTime * 1000,
-                    { addSuffix: true },
+                    { addSuffix: true }
                   )}
                   totalVoutValue={transaction.totalVoutValue}
                 />
@@ -75,7 +75,7 @@ export function TransactionsList({
 }
 
 function TransactionCard(
-  props: PropsWithChildren<{ id: string }>,
+  props: PropsWithChildren<{ id: string }>
 ): JSX.Element {
   return (
     <Link href={{ pathname: `/transactions/${props.id}` }}>

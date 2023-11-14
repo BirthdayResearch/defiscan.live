@@ -12,7 +12,7 @@ export function TextTruncate(props: {
       className={classNames(
         "overflow-hidden overflow-ellipsis",
         props.width ?? "w-24",
-        props.className,
+        props.className
       )}
       data-testid={props.testId}
     >

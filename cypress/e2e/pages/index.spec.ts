@@ -71,7 +71,7 @@ context("/ on macbook-16", () => {
             .should("be.visible")
             .should("have.text", "Minted by");
           cy.findByTestId("BlockCardDetails.MintedByValue").should(
-            "be.visible",
+            "be.visible"
           );
           cy.findByTestId("BlockCardDetails.TransactionsLabel")
             .should("be.visible")
@@ -98,7 +98,7 @@ context("/ on macbook-16", () => {
     cy.findAllByTestId("LiquidityPoolCard").each(($el) => {
       cy.wrap($el).within(() => {
         cy.findByTestId("LiquidityPoolCard.PoolPairSymbol").should(
-          "be.visible",
+          "be.visible"
         );
 
         cy.findByTestId("LiquidityCardStat.APR.Label")
@@ -204,7 +204,7 @@ context("/ on iphone-x", () => {
             .should("be.visible")
             .should("have.text", "Minted by");
           cy.findByTestId("BlockCardDetails.MintedByValue").should(
-            "be.visible",
+            "be.visible"
           );
           cy.findByTestId("BlockCardDetails.TransactionsLabel")
             .should("be.visible")
@@ -228,7 +228,7 @@ context("/ on iphone-x", () => {
     cy.findAllByTestId("LiquidityPoolCard").each(($el) => {
       cy.wrap($el).within(() => {
         cy.findByTestId("LiquidityPoolCard.PoolPairSymbol").should(
-          "be.visible",
+          "be.visible"
         );
 
         cy.findByTestId("LiquidityCardStat.APR.Label")

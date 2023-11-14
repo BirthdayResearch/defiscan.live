@@ -39,7 +39,7 @@ export function WarningBanner(): JSX.Element {
     {
       pollingInterval:
         getEnvironment().name === "Development" ? 5000 : 1000 * 60 * 3, // every 3mins
-    },
+    }
   );
 
   const [emergencyMsgContent, setEmergencyMsgContent] = useState<
@@ -92,7 +92,7 @@ interface Announcement {
 }
 
 function findDisplayedAnnouncement(
-  announcements?: AnnouncementData[],
+  announcements?: AnnouncementData[]
 ): Announcement | undefined {
   if (announcements === undefined || announcements.length === 0) {
     return;

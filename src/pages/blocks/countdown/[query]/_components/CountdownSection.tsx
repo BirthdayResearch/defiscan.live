@@ -8,7 +8,7 @@ export function CountdownSection(props: {
   let days = Math.floor(props.timeLeftSecs / (3600 * 24));
   let hours = Math.floor((props.timeLeftSecs - days * (3600 * 24)) / 3600);
   let mins = Math.floor(
-    (props.timeLeftSecs - days * (3600 * 24) - hours * 3600) / 60,
+    (props.timeLeftSecs - days * (3600 * 24) - hours * 3600) / 60
   );
   let secs = props.timeLeftSecs - days * (3600 * 24) - hours * 3600 - mins * 60;
 

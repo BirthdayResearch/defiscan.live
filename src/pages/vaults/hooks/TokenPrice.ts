@@ -12,14 +12,14 @@ interface TokenPrice {
   getTokenPrice: (
     symbol: string,
     amount: BigNumber,
-    isLPS?: boolean,
+    isLPS?: boolean
   ) => BigNumber;
 }
 
 export function useTokenPrice(denominationTokenSymbol = "USDT"): TokenPrice {
   const blockCount = useSelector((state: RootState) => state.stats.count);
   const prices = useSelector((state: RootState) =>
-    dexPricesSelectorByDenomination(state.dexPrices, denominationTokenSymbol),
+    dexPricesSelectorByDenomination(state.dexPrices, denominationTokenSymbol)
   );
   const pairs = useSelector((state: RootState) => state.poolpairs.poolpairs);
 
@@ -43,7 +43,7 @@ export function useTokenPrice(denominationTokenSymbol = "USDT"): TokenPrice {
           return new BigNumber("");
         }
         const ratioToTotal = new BigNumber(amount).div(
-          pair.totalLiquidity.token,
+          pair.totalLiquidity.token
         );
         const tokenAAmount = ratioToTotal
           .times(pair.tokenA.reserve)
@@ -56,10 +56,10 @@ export function useTokenPrice(denominationTokenSymbol = "USDT"): TokenPrice {
         return usdTokenA.plus(usdTokenB);
       }
       return new BigNumber(prices[symbol]?.denominationPrice ?? 0).multipliedBy(
-        amount,
+        amount
       );
     },
-    [prices, pairs, blockCount],
+    [prices, pairs, blockCount]
   );
 
   return {

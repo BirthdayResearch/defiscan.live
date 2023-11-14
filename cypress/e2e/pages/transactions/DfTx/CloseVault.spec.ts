@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Close Vault on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/dfb1f9f983c4c1e37971c86978ef0c2715cf33ec9df20323307e9515dd7bedcf?network=MainNet",
+      "/transactions/dfb1f9f983c4c1e37971c86978ef0c2715cf33ec9df20323307e9515dd7bedcf?network=MainNet"
     );
   });
 
@@ -20,14 +20,14 @@ context("/transactions/[txid] - DfTx Close Vault on desktop", () => {
   it("should have DfTxCloseVault VaultId ", () => {
     cy.findByTestId("DfTxCloseVault.VaultId").should(
       "have.text",
-      "ba95c96e18651639c9dd4c0d03c29150a79f2fca95fb5e8c972e21b117b7f5b1",
+      "ba95c96e18651639c9dd4c0d03c29150a79f2fca95fb5e8c972e21b117b7f5b1"
     );
   });
 
   it("should have DfTxCloseVault Address ", () => {
     cy.findByTestId("DfTxCloseVault.Address").should(
       "have.text",
-      "dbPyb6DzcgP1Z2Nw6aj4Cq79CR14VESCKW",
+      "dbPyb6DzcgP1Z2Nw6aj4Cq79CR14VESCKW"
     );
   });
 });
@@ -35,7 +35,7 @@ context("/transactions/[txid] - DfTx Close Vault on desktop", () => {
 context("/transactions/[txid] - DfTx Close Vault on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/dfb1f9f983c4c1e37971c86978ef0c2715cf33ec9df20323307e9515dd7bedcf?network=MainNet",
+      "/transactions/dfb1f9f983c4c1e37971c86978ef0c2715cf33ec9df20323307e9515dd7bedcf?network=MainNet"
     );
   });
 
@@ -54,14 +54,14 @@ context("/transactions/[txid] - DfTx Close Vault on mobile", () => {
   it("should have DfTxCloseVault VaultId ", () => {
     cy.findByTestId("DfTxCloseVault.VaultId").should(
       "have.text",
-      "ba95c96e18651639c9dd4c0d03c29150a79f2fca95fb5e8c972e21b117b7f5b1",
+      "ba95c96e18651639c9dd4c0d03c29150a79f2fca95fb5e8c972e21b117b7f5b1"
     );
   });
 
   it("should have DfTxCloseVault Address ", () => {
     cy.findByTestId("DfTxCloseVault.Address").should(
       "have.text",
-      "dbPyb6DzcgP1Z2Nw6aj4Cq79CR14VESCKW",
+      "dbPyb6DzcgP1Z2Nw6aj4Cq79CR14VESCKW"
     );
   });
 });

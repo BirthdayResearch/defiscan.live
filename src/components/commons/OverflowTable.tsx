@@ -16,7 +16,7 @@ import {
 const OverflowTableContext = createContext<number>(0);
 
 export function OverflowTable(
-  props: PropsWithChildren<{ className?: string }>,
+  props: PropsWithChildren<{ className?: string }>
 ): JSX.Element {
   const [scroll, setScroll] = useState(0);
 
@@ -25,7 +25,7 @@ export function OverflowTable(
       data-testid="OverflowTable"
       className={classNames(
         "relative border border-gray-200 dark:border-gray-700 rounded-lg overflow-x-auto",
-        props.className,
+        props.className
       )}
       onScroll={(ele: any) => setScroll(ele.target?.scrollLeft)}
     >
@@ -46,7 +46,7 @@ function Header(props: PropsWithChildren<{ className?: string }>): JSX.Element {
       data-testid="OverflowTable.Header"
       className={classNames(
         "table-row border-gray-100 bg-gray-50 dark:bg-gray-700",
-        props.className,
+        props.className
       )}
     >
       {props.children}
@@ -55,14 +55,14 @@ function Header(props: PropsWithChildren<{ className?: string }>): JSX.Element {
 }
 
 function Row(
-  props: PropsWithChildren<{ className?: string; onClick?: MouseEventHandler }>,
+  props: PropsWithChildren<{ className?: string; onClick?: MouseEventHandler }>
 ): JSX.Element {
   return (
     <div
       data-testid="OverflowTable.Row"
       className={classNames(
         "table-row border-t border-gray-100 dark:border-gray-700 group",
-        props.className,
+        props.className
       )}
       onClick={props.onClick}
     >
@@ -79,7 +79,7 @@ function Head(
     alignRight?: boolean;
     infoDesc?: string | ReactNode;
     testId?: string;
-  }>,
+  }>
 ): JSX.Element {
   return (
     <div
@@ -90,7 +90,7 @@ function Head(
         {
           "sticky left-0": props.sticky!,
           "text-right": props.alignRight!,
-        },
+        }
       )}
     >
       <div
@@ -114,7 +114,7 @@ function Cell(
     className?: string;
     sticky?: boolean;
     alignRight?: boolean;
-  }>,
+  }>
 ): JSX.Element {
   return (
     <OverflowTableContext.Consumer>
@@ -127,7 +127,7 @@ function Cell(
             {
               "sticky left-0": props.sticky!,
               "text-right": props.alignRight!,
-            },
+            }
           )}
         >
           {props.children}

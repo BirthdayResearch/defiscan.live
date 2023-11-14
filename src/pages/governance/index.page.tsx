@@ -228,7 +228,7 @@ function ProposalFilterTab({
               "md:font-normal font-medium border border-r-[0.5px] py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 rounded-l cursor-pointer",
               userQueryProposalType === ListProposalsType.ALL
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200",
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             ALL
@@ -250,7 +250,7 @@ function ProposalFilterTab({
               "md:font-normal font-medium border border-x-[0.5px] py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
               userQueryProposalType === ListProposalsType.CFP
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200",
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             CFP
@@ -272,7 +272,7 @@ function ProposalFilterTab({
               "md:font-normal font-medium border border-l-[0.5px] rounded-r py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
               userQueryProposalType === ListProposalsType.VOC
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200",
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             DFIP
@@ -296,7 +296,7 @@ function ProposalFilterTab({
               "md:font-normal font-medium rounded-l border border-r-[0.5px] py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 border-gray-200 cursor-pointer",
               userQueryProposalStatus === ListProposalsStatus.VOTING
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200",
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             Open
@@ -318,7 +318,7 @@ function ProposalFilterTab({
               "md:font-normal font-medium border border-x-[0.5px] py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
               userQueryProposalStatus === ListProposalsStatus.COMPLETED
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200",
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             Approved
@@ -340,7 +340,7 @@ function ProposalFilterTab({
               "md:font-normal font-medium border border-l-[0.5px] rounded-r py-[6px] md:px-[25px] px-2 md:text-base text-xs text-gray-600 cursor-pointer",
               userQueryProposalStatus === ListProposalsStatus.REJECTED
                 ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200",
+                : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200"
             )}
           >
             Rejected
@@ -359,8 +359,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const userQueryProposalType = mapQueryType(context.query.type);
   const userQueryProposalStatus = mapQueryStatus(context.query.status);
   const currentBlockCount = await rpc.blockchain.getBlockCount();
-  const currentBlockInfo =
-    await rpc.blockchain.getBlockStats(currentBlockCount);
+  const currentBlockInfo = await rpc.blockchain.getBlockStats(
+    currentBlockCount
+  );
   const currentBlockMedianTime = currentBlockInfo.mediantime;
   // All proposal to get statistics breakdown
   const allProposals = await api.governance
@@ -393,7 +394,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         all: true,
       });
       const voteCounts = getVoteCount(
-        votes.filter((each) => each.cycle === p.currentCycle),
+        votes.filter((each) => each.cycle === p.currentCycle)
       );
       return { [p.proposalId]: voteCounts };
     });
@@ -407,7 +408,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const pages = CursorPagination.getPages(
     context,
-    queryProposals as ApiPagedResponse<any>,
+    queryProposals as ApiPagedResponse<any>
   );
 
   return {
@@ -419,7 +420,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       currentBlockMedianTime,
       userQueryProposalType,
       userQueryProposalStatus,
-      pages,
+      pages
     ),
   };
 }
@@ -436,19 +437,19 @@ function getOCGData(
   currentBlockMedianTime: number,
   userQueryProposalType: ListProposalsType,
   userQueryProposalStatus: ListProposalsStatus,
-  pages: CursorPage[],
+  pages: CursorPage[]
 ): OCGProps {
   return {
     allProposalsDetails: {
       proposalsSubmitted: allProposals.length,
       openProposals: allProposals.filter(
-        (item) => item.status === GovernanceProposalStatus.VOTING,
+        (item) => item.status === GovernanceProposalStatus.VOTING
       ).length,
       completedProposals: allProposals.filter(
-        (item) => item.status === GovernanceProposalStatus.COMPLETED,
+        (item) => item.status === GovernanceProposalStatus.COMPLETED
       ).length,
       rejectedProposals: allProposals.filter(
-        (item) => item.status === GovernanceProposalStatus.REJECTED,
+        (item) => item.status === GovernanceProposalStatus.REJECTED
       ).length,
       currentBlockCount: currentBlockCount,
       currentBlockMedianTime: currentBlockMedianTime,

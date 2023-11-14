@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Set Governance on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/c4c6a35ea8b5e0abbf30fc914455b39024f42ca95afcf3adf9f0a4d5a41b5d08?network=MainNet",
+      "/transactions/c4c6a35ea8b5e0abbf30fc914455b39024f42ca95afcf3adf9f0a4d5a41b5d08?network=MainNet"
     );
   });
 
@@ -73,7 +73,7 @@ context("/transactions/[txid] - DfTx Set Governance on desktop", () => {
 context("/transactions/[txid] - DfTx Set Governance on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/c4c6a35ea8b5e0abbf30fc914455b39024f42ca95afcf3adf9f0a4d5a41b5d08?network=MainNet",
+      "/transactions/c4c6a35ea8b5e0abbf30fc914455b39024f42ca95afcf3adf9f0a4d5a41b5d08?network=MainNet"
     );
   });
 
