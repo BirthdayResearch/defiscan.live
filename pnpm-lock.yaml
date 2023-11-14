@@ -33,11 +33,11 @@ dependencies:
     specifier: ^2.11.3
     version: 2.11.3(@babel/core@7.23.0)(redux@4.2.1)
   '@waveshq/walletkit-core':
-    specifier: ^1.3.7
-    version: 1.3.7
+    specifier: ^1.3.9
+    version: 1.3.9
   '@waveshq/walletkit-ui':
-    specifier: ^1.3.7
-    version: 1.3.7(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2)
+    specifier: ^1.3.9
+    version: 1.3.9(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2)
   bignumber.js:
     specifier: ^9.1.1
     version: 9.1.2
@@ -2314,17 +2314,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@humanwhocodes/config-array@0.11.11:
-    resolution: {integrity: sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA==}
-    engines: {node: '>=10.10.0'}
-    dependencies:
-      '@humanwhocodes/object-schema': 1.2.1
-      debug: 4.3.4(supports-color@8.1.1)
-      minimatch: 3.1.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /@humanwhocodes/config-array@0.11.13:
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
     engines: {node: '>=10.10.0'}
@@ -2338,10 +2327,6 @@ packages:
   /@humanwhocodes/module-importer@1.0.1:
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
     engines: {node: '>=12.22'}
-
-  /@humanwhocodes/object-schema@1.2.1:
-    resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
-    dev: true
 
   /@humanwhocodes/object-schema@2.0.1:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
@@ -3817,7 +3802,7 @@ packages:
   /@types/react-dom@18.2.7:
     resolution: {integrity: sha512-GRaAEriuT4zp9N4p1i8BDBYmEyfo+xQ3yHjJU4eiK5NDa1RmUZG+unZABUTK4/Ox/M+GaHwb6Ow8rUITrtjszA==}
     dependencies:
-      '@types/react': 18.2.22
+      '@types/react': 18.2.31
     dev: false
 
   /@types/react@18.2.22:
@@ -4297,8 +4282,8 @@ packages:
       - supports-color
     dev: false
 
-  /@waveshq/walletkit-core@1.3.7:
-    resolution: {integrity: sha512-2ysEuTx+cO7Hz9oFoJUDtfet9rIHb/vENqgbLNlEtjhlvhMucYrSJcDF9RBeHqV9HmSgUeh3Kpz0EbqG4Tk17A==}
+  /@waveshq/walletkit-core@1.3.9:
+    resolution: {integrity: sha512-0mp7Zj8gCgbmrR7AcGMaXEepsCPnmBmTisx5ltHBdF6K80WExR3M//j0XbW1eCROdCL4LcT0r+rG1JAJIj+nRw==}
     dependencies:
       bignumber.js: 9.1.2
       ethers: 5.7.2
@@ -4307,14 +4292,14 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@waveshq/walletkit-ui@1.3.7(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2):
-    resolution: {integrity: sha512-cHuw96V2mtte4vFbjl25FyV8Pov+bq6lDMyLebe+6BRG+eDw2hlyg/wabDexD1+Vi5bkQEmeC6UiyJL3OcYXQA==}
+  /@waveshq/walletkit-ui@1.3.9(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2):
+    resolution: {integrity: sha512-SYNkpfQ4G5VjdSxaAtYucRmPj4uP5fzwKearYG+q6nuVFWIKOtnEEBLTiqUAr13njdbywGVLTZaAM2inTZMFSQ==}
     dependencies:
       '@stickyjs/jest': 1.3.4(@babel/core@7.23.0)(@types/node@18.18.0)(typescript@5.2.2)
       '@waveshq/standard-defichain-jellyfishsdk': 2.19.0(@types/tar-fs@2.0.2)
       '@waveshq/standard-web': 2.19.0(@babel/core@7.23.0)(redux@4.2.1)
       '@waveshq/standard-web-linter': 2.19.0(@babel/core@7.23.0)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)
-      '@waveshq/walletkit-core': 1.3.7
+      '@waveshq/walletkit-core': 1.3.9
       bignumber.js: 9.1.2
       dayjs: 1.11.10
       immer: 9.0.21
@@ -6132,7 +6117,7 @@ packages:
     resolution: {integrity: sha512-2/WLvA7UZ6A2LDLQrYW0idKipmNBWhtfvrn2yzjC5PnHDzuFVj1zAZN6MJxVMKP0zZH8uzAK6OwVZYHGuyCmTw==}
     engines: {node: '>= 6.0.0'}
     dependencies:
-      yaml: 2.3.2
+      yaml: 2.3.3
     dev: false
 
   /docker-modem@3.0.8:
@@ -7087,7 +7072,7 @@ packages:
       '@eslint-community/regexpp': 4.9.0
       '@eslint/eslintrc': 2.1.2
       '@eslint/js': 8.50.0
-      '@humanwhocodes/config-array': 0.11.11
+      '@humanwhocodes/config-array': 0.11.13
       '@humanwhocodes/module-importer': 1.0.1
       '@nodelib/fs.walk': 1.2.8
       ajv: 6.12.6
@@ -9615,7 +9600,7 @@ packages:
       next: '*'
     dependencies:
       '@corex/deepmerge': 4.0.43
-      '@next/env': 13.5.3
+      '@next/env': 13.5.6
       fast-glob: 3.3.1
       minimist: 1.2.8
       next: 13.5.3(@babel/core@7.23.0)(react-dom@18.2.0)(react@18.2.0)
@@ -9629,7 +9614,7 @@ packages:
       next: '*'
     dependencies:
       '@corex/deepmerge': 4.0.43
-      '@next/env': 13.5.3
+      '@next/env': 13.5.6
       fast-glob: 3.3.1
       minimist: 1.2.8
       next: 13.5.6(@babel/core@7.23.0)(react-dom@18.2.0)(react@18.2.0)
@@ -10276,7 +10261,7 @@ packages:
     dependencies:
       lilconfig: 2.1.0
       postcss: 8.4.30
-      yaml: 2.3.2
+      yaml: 2.3.3
 
   /postcss-nested@6.0.1(postcss@8.4.30):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
@@ -12504,14 +12489,9 @@ packages:
     engines: {node: '>= 14'}
     dev: true
 
-  /yaml@2.3.2:
-    resolution: {integrity: sha512-N/lyzTPaJasoDmfV7YTrYCI0G/3ivm/9wdG0aHuheKowWQwGTsK0Eoiw6utmzAnI6pkJa0DUVygvp3spqqEKXg==}
-    engines: {node: '>= 14'}
-
   /yaml@2.3.3:
     resolution: {integrity: sha512-zw0VAJxgeZ6+++/su5AFoqBbZbrEakwu+X0M5HmcwUiBL7AzcuPKjj5we4xfQLp78LkEMpD0cOnUhmgOVy3KdQ==}
     engines: {node: '>= 14'}
-    dev: false
 
   /yargs-parser@18.1.3:
     resolution: {integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==}
