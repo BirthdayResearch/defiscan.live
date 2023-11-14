@@ -17,8 +17,7 @@ by [DeFi Jellyfish](https://github.com/BirthdayResearch/jellyfishsdk) & ocean ne
 Thanks for contributing, appreciate all the help we can get. Feel free to make a pull-request, we will guide you along
 the way to make it mergeable. Here are some of our documented [contributing guidelines](CONTRIBUTING.md).
 
-We use `npm 7` for this project, it's required to set
-up [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
+We use `pnpm` for this project.
 
 ```shell
 npm install
