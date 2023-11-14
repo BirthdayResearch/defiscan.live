@@ -10,7 +10,7 @@ interface IconPopoverProps {
 }
 
 export function HoverPopover(
-  props: PropsWithChildren<IconPopoverProps>,
+  props: PropsWithChildren<IconPopoverProps>
 ): JSX.Element {
   const [isHover, setIsHover] = useState(false);
 

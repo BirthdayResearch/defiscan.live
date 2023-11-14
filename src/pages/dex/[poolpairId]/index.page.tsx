@@ -39,7 +39,7 @@ interface PoolPairPageProps {
 }
 
 export default function PoolPairPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
   const api = useWhaleApiClient();
   const [swapItems, setSwapItems] = useState<PoolSwapData[]>(props.swaps.items);
@@ -97,7 +97,7 @@ export default function PoolPairPage(
         <div className="flex flex-wrap flex-row lg:space-x-4">
           <PoolPairDetailsBar poolpair={poolpairs} />
           {["DUSD-DFI", "dUSDC-DUSD", "dUSDT-DUSD", "dEUROC-DUSD"].includes(
-            poolpairs.displaySymbol,
+            poolpairs.displaySymbol
           ) && (
             <PoolPairInfo
               testId="DexStabilizationFee"
@@ -157,7 +157,7 @@ async function getPoolPairs(api: WhaleApiClient): Promise<PoolPairData[]> {
   while (poolpairsResponse.hasNext) {
     poolpairsResponse = await api.poolpairs.list(
       200,
-      poolpairsResponse.nextToken,
+      poolpairsResponse.nextToken
     );
     poolpairs.push(...poolpairsResponse);
   }
@@ -167,7 +167,7 @@ async function getPoolPairs(api: WhaleApiClient): Promise<PoolPairData[]> {
 
 function getPoolPairsByParam(
   param: string,
-  poolpairs: PoolPairData[],
+  poolpairs: PoolPairData[]
 ): PoolPairData | undefined {
   const [tokenA, tokenB] = param.split("-");
   return poolpairs
@@ -189,17 +189,17 @@ function getPoolPairsByParam(
 
 function getAverageStableCoinPrice(poolpairs: PoolPairData[]): string {
   const stableCoinPoolPairs = poolpairs.filter((pair) =>
-    ["dUSDT-DUSD", "dUSDC-DUSD"].includes(pair.displaySymbol),
+    ["dUSDT-DUSD", "dUSDC-DUSD"].includes(pair.displaySymbol)
   );
   let totalTokenBReserve = new BigNumber(0);
   let totalTokenAReserve = new BigNumber(0);
 
   stableCoinPoolPairs.forEach((pair) => {
     totalTokenBReserve = new BigNumber(pair.tokenB.reserve).plus(
-      totalTokenBReserve,
+      totalTokenBReserve
     );
     totalTokenAReserve = new BigNumber(pair.tokenA.reserve).plus(
-      totalTokenAReserve,
+      totalTokenAReserve
     );
   });
 
@@ -207,7 +207,7 @@ function getAverageStableCoinPrice(poolpairs: PoolPairData[]): string {
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
   const poolpairId = context.params?.poolpairId?.toString().trim() as string;
   if (!isAlphanumeric(poolpairId, "-.")) {

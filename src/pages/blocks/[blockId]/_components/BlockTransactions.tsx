@@ -10,7 +10,7 @@ import { CursorPagination } from "@components/commons/CursorPagination";
 import { getServerSideProps } from "../index.page";
 
 export function BlockTransactions(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
   const { block, transactions } = props;
   const {

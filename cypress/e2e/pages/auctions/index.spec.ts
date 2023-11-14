@@ -1,7 +1,7 @@
 context("/auctions on desktop", () => {
   before(() => {
     cy.request(
-      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1",
+      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1"
     ).then(function (response) {
       if (response.body.data.length !== 1) {
         this.skip();
@@ -39,13 +39,13 @@ context("/auctions on desktop", () => {
     cy.findAllByTestId("OverflowTable.Row").within(() => {
       cy.findByTestId("AuctionsTableRow.AuctionTimeLeft").should("be.visible");
       cy.findByTestId("AuctionsTableRow.LoanToken.TokenSymbol").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("AuctionsTableRow.LoanToken.displaySymbol").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("AuctionsTableRow.CollateralSymbols").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("AuctionsTableRow.CollateralValue")
         .should("be.visible")
@@ -63,7 +63,7 @@ context("/auctions on desktop", () => {
 context("/auctions on mobile", () => {
   before(() => {
     cy.request(
-      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1",
+      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1"
     ).then(function (response) {
       if (response.body.data.length !== 1) {
         this.skip();
@@ -82,10 +82,10 @@ context("/auctions on mobile", () => {
       cy.findAllByTestId("MobileAuctionDetailCard").within(() => {
         cy.findByTestId("CardList.Header").within(() => {
           cy.findByTestId("MobileAuctionDetailCard.TokenSymbol").should(
-            "be.visible",
+            "be.visible"
           );
           cy.findByTestId("MobileAuctionDetailCard.displaySymbol").should(
-            "be.visible",
+            "be.visible"
           );
 
           cy.findByTestId("CardList.Header.Children").should("be.visible");
@@ -94,7 +94,7 @@ context("/auctions on mobile", () => {
         });
 
         cy.findByTestId("MobileAuctionDetailCard.AuctionTimeLeft").should(
-          "be.visible",
+          "be.visible"
         );
 
         cy.findAllByTestId("MobileAuctionDetailCard.MinNextBid").within(() => {
@@ -110,13 +110,13 @@ context("/auctions on mobile", () => {
         });
 
         cy.findAllByTestId(
-          "MobileAuctionDetailCard.CollateralsForAuction",
+          "MobileAuctionDetailCard.CollateralsForAuction"
         ).within(() => {
           cy.findByTestId("CardList.Row.Title")
             .should("be.visible")
             .should("have.text", "Collateral For Auction");
           cy.findByTestId("MobileAuctionDetailCard.CollateralSymbols").should(
-            "be.visible",
+            "be.visible"
           );
         });
 
@@ -128,7 +128,7 @@ context("/auctions on mobile", () => {
             cy.findByTestId("MobileAuctionDetailCard.CollateralValue.Value")
               .should("be.visible")
               .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
-          },
+          }
         );
       });
     });

@@ -12,7 +12,7 @@ interface MoreHoverPopoverProps {
 }
 
 export function MoreHoverPopover(
-  props: PropsWithChildren<MoreHoverPopoverProps>,
+  props: PropsWithChildren<MoreHoverPopoverProps>
 ): JSX.Element {
   return (
     <HoverPopover

@@ -3,7 +3,7 @@ import BigNumber from "bignumber.js";
 export function getVotePercentage(
   numYes: number,
   numNo: number,
-  numNeutral: number,
+  numNeutral: number
 ) {
   // TODO: to remove neutral votes from total votes tabulation count after bc released fix for neutral vote tabulation
   const totalVotes = numYes + numNo + numNeutral;

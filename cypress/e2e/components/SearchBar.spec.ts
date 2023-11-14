@@ -15,7 +15,7 @@ context("search component macbook-16", () => {
       cy.findByTestId("SearchResultRow.Block.123").should(
         "have.attr",
         "href",
-        "/blocks/61899dc1c56e96e404baadb78af1c9eb06b7800981322d6c2ea453e708d424a2",
+        "/blocks/61899dc1c56e96e404baadb78af1c9eb06b7800981322d6c2ea453e708d424a2"
       );
     });
   });
@@ -26,14 +26,14 @@ context("search component macbook-16", () => {
       cy.findByTestId("SearchBar.Input")
         .click()
         .type(
-          "ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+          "ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
         );
       cy.findByTestId(
-        "SearchResultRow.Transaction.ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+        "SearchResultRow.Transaction.ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
       ).should(
         "have.attr",
         "href",
-        "/transactions/ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+        "/transactions/ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
       );
     });
   });
@@ -45,11 +45,11 @@ context("search component macbook-16", () => {
         .click()
         .type("8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8");
       cy.findByTestId(
-        "SearchResultRow.Address.8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8",
+        "SearchResultRow.Address.8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8"
       ).should(
         "have.attr",
         "href",
-        "/address/8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8",
+        "/address/8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8"
       );
     });
   });
@@ -91,7 +91,7 @@ context("search component ipad-2", () => {
       cy.findByTestId("SearchResultRow.Block.123").should(
         "have.attr",
         "href",
-        "/blocks/61899dc1c56e96e404baadb78af1c9eb06b7800981322d6c2ea453e708d424a2",
+        "/blocks/61899dc1c56e96e404baadb78af1c9eb06b7800981322d6c2ea453e708d424a2"
       );
     });
   });
@@ -102,14 +102,14 @@ context("search component ipad-2", () => {
       cy.findByTestId("SearchBar.Input")
         .click()
         .type(
-          "ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+          "ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
         );
       cy.findByTestId(
-        "SearchResultRow.Transaction.ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+        "SearchResultRow.Transaction.ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
       ).should(
         "have.attr",
         "href",
-        "/transactions/ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+        "/transactions/ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
       );
     });
   });
@@ -121,11 +121,11 @@ context("search component ipad-2", () => {
         .click()
         .type("8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8");
       cy.findByTestId(
-        "SearchResultRow.Address.8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8",
+        "SearchResultRow.Address.8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8"
       ).should(
         "have.attr",
         "href",
-        "/address/8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8",
+        "/address/8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8"
       );
     });
   });
@@ -171,7 +171,7 @@ context("search component iphone-x", () => {
       cy.findByTestId("SearchResultRow.Block.123").should(
         "have.attr",
         "href",
-        "/blocks/61899dc1c56e96e404baadb78af1c9eb06b7800981322d6c2ea453e708d424a2",
+        "/blocks/61899dc1c56e96e404baadb78af1c9eb06b7800981322d6c2ea453e708d424a2"
       );
     });
   });
@@ -183,14 +183,14 @@ context("search component iphone-x", () => {
       cy.findByTestId("SearchBar.Input")
         .click()
         .type(
-          "ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+          "ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
         );
       cy.findByTestId(
-        "SearchResultRow.Transaction.ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+        "SearchResultRow.Transaction.ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
       ).should(
         "have.attr",
         "href",
-        "/transactions/ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36",
+        "/transactions/ef8583af7b8ab2f18a423b0097a82bf38ebf2775d5e7042159dcc0da73450f36"
       );
     });
   });
@@ -203,11 +203,11 @@ context("search component iphone-x", () => {
         .click()
         .type("8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8");
       cy.findByTestId(
-        "SearchResultRow.Address.8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8",
+        "SearchResultRow.Address.8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8"
       ).should(
         "have.attr",
         "href",
-        "/address/8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8",
+        "/address/8MR5RWXEDdy9CpFdN5CG5WBe41EQJZ9ZJ8"
       );
     });
   });

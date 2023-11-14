@@ -65,7 +65,7 @@ function ButtonElement({
       className={classNames(
         "p-2 text-sm font-medium text-primary-500",
         customStyle,
-        { "text-gray-300": disabled },
+        { "text-gray-300": disabled }
       )}
     >
       {label}

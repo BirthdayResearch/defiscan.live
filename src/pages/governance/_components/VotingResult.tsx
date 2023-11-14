@@ -97,7 +97,7 @@ export function VotingResultMobile({
   const { percYes, percNo } = getVotePercentage(
     voteCounts.yes,
     voteCounts.no,
-    voteCounts.neutral,
+    voteCounts.neutral
   );
   // const total = new BigNumber(voteCounts.yes)
   //   .plus(voteCounts.no)
@@ -116,7 +116,7 @@ export function VotingResultMobile({
                 yesValue={percYes.toNumber()}
                 noValue={percNo.toNumber()}
                 approvalThreshold={Number(
-                  proposal.approvalThreshold.replace("%", ""),
+                  proposal.approvalThreshold.replace("%", "")
                 )}
                 containerClass="bg-gray-100 dark:bg-dark-gray-200"
               />
@@ -126,7 +126,7 @@ export function VotingResultMobile({
                     className={classNames(
                       percYes > percNo
                         ? "text-green-600 dark:text-[#21E529] font-semibold"
-                        : "text-gray-900 dark:text-dark-gray-900",
+                        : "text-gray-900 dark:text-dark-gray-900"
                     )}
                   >
                     {percYes.toFixed(2)}%
@@ -146,7 +146,7 @@ export function VotingResultMobile({
                       "grow text-right",
                       percNo > percYes
                         ? "text-red-600 dark:text-[#FF483D] font-semibold"
-                        : "text-gray-900 dark:text-dark-gray-900",
+                        : "text-gray-900 dark:text-dark-gray-900"
                     )}
                   >
                     {percNo.toFixed(2)}%
@@ -240,7 +240,7 @@ export function VotingResult({
   const { percYes, percNo } = getVotePercentage(
     voteCounts.yes,
     voteCounts.no,
-    voteCounts.neutral,
+    voteCounts.neutral
   );
   const total = new BigNumber(voteCounts.yes)
     .plus(voteCounts.no)
@@ -251,7 +251,7 @@ export function VotingResult({
         "border border-gray-200 dark:border-dark-gray-200 rounded-lg pb-6 dark:bg-dark-gray-100",
         {
           "pt-6": status === GovernanceProposalStatus.VOTING,
-        },
+        }
       )}
     >
       <div>
@@ -272,7 +272,7 @@ export function VotingResult({
         <div className="px-6">
           <span
             className={classNames(
-              "font-semibold text-xl text-gray-900 dark:text-dark-gray-900",
+              "font-semibold text-xl text-gray-900 dark:text-dark-gray-900"
             )}
           >
             {status === GovernanceProposalStatus.VOTING && "Current votes"}
@@ -285,7 +285,7 @@ export function VotingResult({
           >
             <div
               className={classNames(
-                "mb-[22px] lg:pb-[22px] lg:pr-0 md:pr-8 md:pb-0 pb-[22px] lg:w-full w-full md:w-1/2 lg:border-b-[0.5px] md:border-b-0 border-b-[0.5px] dark:border-dark-gray-300",
+                "mb-[22px] lg:pb-[22px] lg:pr-0 md:pr-8 md:pb-0 pb-[22px] lg:w-full w-full md:w-1/2 lg:border-b-[0.5px] md:border-b-0 border-b-[0.5px] dark:border-dark-gray-300"
               )}
             >
               <div className="flex flex-col w-full gap-y-[10px]">
@@ -302,7 +302,7 @@ export function VotingResult({
                   yesValue={percYes.toNumber()}
                   noValue={percNo.toNumber()}
                   approvalThreshold={Number(
-                    proposal.approvalThreshold.replace("%", ""),
+                    proposal.approvalThreshold.replace("%", "")
                   )}
                   containerClass="bg-gray-100 dark:bg-dark-gray-200"
                 />
@@ -312,7 +312,7 @@ export function VotingResult({
                       className={classNames(
                         percYes > percNo
                           ? "text-green-600 dark:text-[#21E529] font-semibold"
-                          : "text-gray-900 dark:text-dark-gray-900",
+                          : "text-gray-900 dark:text-dark-gray-900"
                       )}
                     >
                       {percYes.toFixed(2)}%
@@ -332,7 +332,7 @@ export function VotingResult({
                         "grow text-right",
                         percNo > percYes
                           ? "text-red-600 dark:text-[#FF483D] font-semibold"
-                          : "text-gray-900 dark:text-dark-gray-900",
+                          : "text-gray-900 dark:text-dark-gray-900"
                       )}
                     >
                       {percNo.toFixed(2)}%
@@ -375,7 +375,7 @@ export function VotingResult({
                 <>
                   <div
                     className={classNames(
-                      "lg:hidden md:flex hidden text-sm font-semibold mb-3 dark:text-dark-gray-900",
+                      "lg:hidden md:flex hidden text-sm font-semibold mb-3 dark:text-dark-gray-900"
                     )}
                   >
                     Details
@@ -418,7 +418,7 @@ export function VotingResult({
                           onSubmitVote();
                         }}
                         className={classNames(
-                          "w-full py-4 rounded font-medium text-base text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 mb-2",
+                          "w-full py-4 rounded font-medium text-base text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 mb-2"
                         )}
                       >
                         SUBMIT VOTE
@@ -482,7 +482,7 @@ export function VotingResult({
                               {
                                 "hover:border-gray-100 border-gray-100 hover:dark:border-dark-gray-100 dark:border-dark-gray-100":
                                   isLoading,
-                              },
+                              }
                             )}
                           >
                             <EditVoteIcon
@@ -498,7 +498,7 @@ export function VotingResult({
                                 {
                                   "text-gray-300 dark:text-dark-gray-300":
                                     isLoading,
-                                },
+                                }
                               )}
                             >
                               EDIT
@@ -560,7 +560,7 @@ export function Progress({
       <div
         className={classNames(
           "h-3 rounded-[54px] w-full bg-gray-200 dark:bg-dark-gray-200 relative overflow-hidden",
-          containerClass,
+          containerClass
         )}
       >
         <div
@@ -650,7 +650,7 @@ function LabelWithInfoTooltipAndChecks({
               className={classNames(
                 comparatorValue!.isGreaterThanOrEqualTo(value)
                   ? "fill-green-600 dark:fill-dark-green-500"
-                  : "fill-gray-300 dark:fill-dark-gray-400",
+                  : "fill-gray-300 dark:fill-dark-gray-400"
               )}
             />
           ) : (
@@ -660,7 +660,7 @@ function LabelWithInfoTooltipAndChecks({
                   width={14}
                   height={14}
                   className={classNames(
-                    "fill-green-600 dark:fill-dark-green-500",
+                    "fill-green-600 dark:fill-dark-green-500"
                   )}
                 />
               ) : (

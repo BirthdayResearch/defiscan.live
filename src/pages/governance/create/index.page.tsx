@@ -32,7 +32,7 @@ export default function CreateProposalPage() {
   const [activeStep, setActiveStep] = useState(1);
   const [title, setTitle] = useState<string>("");
   const [proposalType, setProposalType] = useState(
-    ProposalDisplayName.CommunityFundProposal,
+    ProposalDisplayName.CommunityFundProposal
   );
   const [payoutAddress, setPayoutAddress] = useState<string>("");
   const [context, setContext] = useState<string>("");
@@ -212,7 +212,7 @@ export default function CreateProposalPage() {
                       "p-4 border rounded w-full md:w-1/2",
                       checked
                         ? "border-primary-300 dark:text-dark-primary-500"
-                        : "border-gray-200 dark:border-dark-gray-200",
+                        : "border-gray-200 dark:border-dark-gray-200"
                     )
                   }
                 >
@@ -375,7 +375,7 @@ export default function CreateProposalPage() {
                     "w-full md:w-1/2 py-3 border rounded-sm font-medium text-base mt-4 md:mt-0",
                     canClearForm()
                       ? "border-gray-300 dark:border-dark-gray-300 text-primary-500 dark:text-dark-primary-500 hover:border-primary-200 hover:dark:border-dark-primary-300"
-                      : "border-gray-100 dark:border-dark-gray-200 text-gray-300 dark:text-dark-gray-200",
+                      : "border-gray-100 dark:border-dark-gray-200 text-gray-300 dark:text-dark-gray-200"
                   )}
                 >
                   CLEAR FORM
@@ -395,7 +395,7 @@ export default function CreateProposalPage() {
                     "w-full md:w-1/2 py-3 rounded-sm font-medium text-base border",
                     canReviewProposal()
                       ? "text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 border-primary-50 dark:border-dark-primary-50 hover:bg-primary-100 hover:border-primary-100 hover:dark:bg-dark-primary-100 hover:dark:border-dark-primary-100"
-                      : "text-gray-300 dark:text-dark-gray-300 bg-gray-100 dark:bg-dark-gray-200 border-gray-100 dark:border-dark-gray-200",
+                      : "text-gray-300 dark:text-dark-gray-300 bg-gray-100 dark:bg-dark-gray-200 border-gray-100 dark:border-dark-gray-200"
                   )}
                 >
                   REVIEW PROPOSAL
@@ -446,7 +446,7 @@ export default function CreateProposalPage() {
           setProposalType(
             proposalType === ProposalDisplayName.CommunityFundProposal
               ? ProposalDisplayName.VoteOfConfidence
-              : ProposalDisplayName.CommunityFundProposal,
+              : ProposalDisplayName.CommunityFundProposal
           );
         }}
       />

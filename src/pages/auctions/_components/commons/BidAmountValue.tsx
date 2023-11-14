@@ -24,7 +24,7 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
     minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount);
   } else {
     minBidAmount = new BigNumber(
-      props.batch.highestBid.amount.amount,
+      props.batch.highestBid.amount.amount
     ).multipliedBy(1.01);
     minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount);
   }
@@ -43,7 +43,7 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
       <div
         className={classNames(
           "text-gray-500 dark:text-gray-400",
-          props.valueClassName,
+          props.valueClassName
         )}
         data-testid="BidAmountValue.MinBidValue"
       >

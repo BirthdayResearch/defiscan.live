@@ -10,7 +10,7 @@ interface DfTxTokenUpdateAnyProps {
 }
 
 export function DfTxTokenUpdateAny(
-  props: DfTxTokenUpdateAnyProps,
+  props: DfTxTokenUpdateAnyProps
 ): JSX.Element {
   return (
     <div>

@@ -87,7 +87,7 @@ function SearchResultRow(props: {
             <div
               className={classNames(
                 "bg-white dark:bg-gray-800 p-3 cursor-pointer",
-                { "bg-primary-50 dark:bg-gray-900": active },
+                { "bg-primary-50 dark:bg-gray-900": active }
               )}
             >
               <div className="flex flex-row items-start gap-x-2">
@@ -130,7 +130,7 @@ function SearchResultRow(props: {
 }
 
 function SearchStatusMessage(
-  props: PropsWithChildren<{ message: string }>,
+  props: PropsWithChildren<{ message: string }>
 ): JSX.Element {
   return (
     <div className="w-full rounded mt-1 bg-white dark:bg-gray-800 px-4 py-8">

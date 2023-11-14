@@ -10,13 +10,13 @@ interface AuctionTimeLeft {
 
 export function useAuctionTimeLeft(
   liquidationHeight: number,
-  blockCount: number,
+  blockCount: number
 ): AuctionTimeLeft {
   const network = useNetwork().connection;
   const blocksPerAuction = !isPlayground(network) ? 720 : 36;
   const blocksRemaining = BigNumber.max(
     liquidationHeight - blockCount,
-    0,
+    0
   ).toNumber();
 
   return {

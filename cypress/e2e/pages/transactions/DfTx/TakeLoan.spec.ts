@@ -1,7 +1,7 @@
 context("/transactions/[txid] - Take Loan on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/04fe77d0176dd8c22a135253c4cc71a4fdefc48ca2bb6aa8d33954714585a186?network=MainNet",
+      "/transactions/04fe77d0176dd8c22a135253c4cc71a4fdefc48ca2bb6aa8d33954714585a186?network=MainNet"
     );
   });
 
@@ -19,13 +19,13 @@ context("/transactions/[txid] - Take Loan on desktop", () => {
 
   it("should have a vaultId", () => {
     cy.findByTestId("DfTxTakeLoan.VaultId").contains(
-      "27a8209d6b851d9aa4b1402aa5e50368c40aaf360eb547a905e1d8b4c5a2e2d9",
+      "27a8209d6b851d9aa4b1402aa5e50368c40aaf360eb547a905e1d8b4c5a2e2d9"
     );
   });
 
   it("should have an address to", () => {
     cy.findByTestId("DfTxTakeLoan.Address").contains(
-      "dFgD1hmyZ2KitHzNLzvGoFLn548fqxZE7E",
+      "dFgD1hmyZ2KitHzNLzvGoFLn548fqxZE7E"
     );
   });
 
@@ -38,7 +38,7 @@ context("/transactions/[txid] - Take Loan on desktop", () => {
 context("/transactions/[txid] - DfTx Token Create on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/04fe77d0176dd8c22a135253c4cc71a4fdefc48ca2bb6aa8d33954714585a186?network=MainNet",
+      "/transactions/04fe77d0176dd8c22a135253c4cc71a4fdefc48ca2bb6aa8d33954714585a186?network=MainNet"
     );
   });
 
@@ -56,13 +56,13 @@ context("/transactions/[txid] - DfTx Token Create on mobile", () => {
 
   it("should have a vaultId", () => {
     cy.findByTestId("DfTxTakeLoan.VaultId").contains(
-      "27a8209d6b851d9aa4b1402aa5e50368c40aaf360eb547a905e1d8b4c5a2e2d9",
+      "27a8209d6b851d9aa4b1402aa5e50368c40aaf360eb547a905e1d8b4c5a2e2d9"
     );
   });
 
   it("should have an address to", () => {
     cy.findByTestId("DfTxTakeLoan.Address").contains(
-      "dFgD1hmyZ2KitHzNLzvGoFLn548fqxZE7E",
+      "dFgD1hmyZ2KitHzNLzvGoFLn548fqxZE7E"
     );
   });
 

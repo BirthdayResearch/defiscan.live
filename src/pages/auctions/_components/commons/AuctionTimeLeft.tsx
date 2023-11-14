@@ -19,7 +19,7 @@ export function AuctionTimeLeft(props: MinNextBidProps): JSX.Element {
 
   const { timeRemaining, blocksRemaining } = useAuctionTimeLeft(
     props.liquidationHeight,
-    blocks ?? 0,
+    blocks ?? 0
   );
 
   if (timeRemaining === undefined) {

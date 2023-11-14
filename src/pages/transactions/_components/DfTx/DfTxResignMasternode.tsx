@@ -7,7 +7,7 @@ interface DfTxResignMasternodeProps {
 }
 
 export function DfTxResignMasternode(
-  props: DfTxResignMasternodeProps,
+  props: DfTxResignMasternodeProps
 ): JSX.Element {
   return (
     <div>

@@ -7,9 +7,9 @@ export function isAlphanumeric(input: string, ignore?: string): boolean {
     str = input.replace(
       new RegExp(
         "[".concat(ignore.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), "]"),
-        "g",
+        "g"
       ),
-      "",
+      ""
     );
   }
 

@@ -13,7 +13,7 @@ interface DfTxWithdrawFromVaultProps {
 }
 
 export function DfTxWithdrawFromVault(
-  props: DfTxWithdrawFromVaultProps,
+  props: DfTxWithdrawFromVaultProps
 ): JSX.Element {
   const toAddress = fromScript(props.dftx.data.to, useNetwork().name);
 

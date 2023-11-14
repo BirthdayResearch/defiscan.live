@@ -123,7 +123,7 @@ export default function AuctionsPage({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<ActionsPageProps>> {
   const next = CursorPagination.getNext(context);
   try {

@@ -30,7 +30,7 @@ export function AddressHeading(props: AddressHeadingProps): JSX.Element {
 }
 
 export function AddressNotFoundHeading(
-  props: AddressHeadingProps,
+  props: AddressHeadingProps
 ): JSX.Element {
   const address = props.address;
 

@@ -48,7 +48,7 @@ function HeaderWrapper(
     bgImage: StaticImageData;
     title: string;
     gradient: string;
-  }>,
+  }>
 ): JSX.Element {
   return (
     <div className="relative pb-24 -mb-24">

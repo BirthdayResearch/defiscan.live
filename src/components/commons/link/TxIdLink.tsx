@@ -18,7 +18,7 @@ export function TxIdLink(props: PropsWithChildren<TxIdLinkProps>): JSX.Element {
       data-testid={props.testId}
       className={classnames(
         "hover:underline text-blue-500 cursor-pointer",
-        props.className,
+        props.className
       )}
     >
       <Link href={{ pathname: `/transactions/${props.txid}` }}>

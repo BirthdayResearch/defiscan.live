@@ -8,7 +8,7 @@ import { getActivePrice } from "./ActivePrice";
 export function useNextCollateralizationRatio(
   collateralAmounts: LoanVaultTokenAmount[],
   loanAmounts: LoanVaultTokenAmount[],
-  collateralTokens: CollateralToken[],
+  collateralTokens: CollateralToken[]
 ): BigNumber {
   const collaterals = collateralAmounts?.map((collateral) => {
     const priceFactor =
@@ -19,13 +19,13 @@ export function useNextCollateralizationRatio(
         collateral.symbol,
         collateral.activePrice,
         priceFactor,
-        "NEXT",
-      ),
+        "NEXT"
+      )
     );
   });
   const loans = loanAmounts?.map((loan) => {
     return new BigNumber(loan.amount).multipliedBy(
-      getActivePrice(loan.symbol, loan.activePrice, "1", "NEXT"),
+      getActivePrice(loan.symbol, loan.activePrice, "1", "NEXT")
     );
   });
 

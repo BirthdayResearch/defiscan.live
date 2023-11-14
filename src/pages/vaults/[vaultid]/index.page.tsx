@@ -28,7 +28,7 @@ interface VaultsPageData {
 }
 
 export default function VaultIdPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
   return (
     <>
@@ -67,7 +67,7 @@ export default function VaultIdPage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<VaultsPageData>> {
   try {
     const vaultid = context.params?.vaultid?.toString().trim() as string;

@@ -19,7 +19,7 @@ context("/proof-of-backing on macbook-16", () => {
       .should("be.visible")
       .and(
         "have.text",
-        "All tokens have backed collateral from which they are minted. See proof of the backed amount on the addresses below.",
+        "All tokens have backed collateral from which they are minted. See proof of the backed amount on the addresses below."
       );
   });
 
@@ -33,7 +33,7 @@ context("/proof-of-backing on macbook-16", () => {
     cakeBackingAddresses.forEach((address) => {
       cy.getNetSupplyValueBySymbol(address.token).should(
         "match",
-        /[-+]?[0-9]*(\.[0-9]+)/,
+        /[-+]?[0-9]*(\.[0-9]+)/
       );
     });
   });
@@ -66,7 +66,7 @@ context("/proof-of-backing on iphone-x", () => {
       cy.findByTestId(`mobile-viewLink-${address.token}`).should(
         "have.attr",
         "href",
-        `/tokens/${address.token}`,
+        `/tokens/${address.token}`
       );
       cy.findByTestId(`mobile-viewLink-${address.token}`)
         .parent()
@@ -83,7 +83,7 @@ context("/proof-of-backing on iphone-x", () => {
     cy.findByTestId(
       `mobile-netSupply-${
         cakeBackingAddresses[cakeBackingAddresses.length - 1].token
-      }`,
+      }`
     ).should("be.visible");
   });
 });

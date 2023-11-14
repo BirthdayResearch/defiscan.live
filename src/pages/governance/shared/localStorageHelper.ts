@@ -11,7 +11,7 @@ import { RememberMasterNodeId } from "../enum/RememberMasterNodeId";
 
 export function getLocalStorageItem(
   key: string,
-  connection?: EnvironmentNetwork,
+  connection?: EnvironmentNetwork
 ) {
   const localStorageItem = localStorage.getItem(key)!;
 

@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Set Oracle Data on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/34ad754a5e48b8c36239a4a3ce3c707269c8b4afdc7539c7ed63856e84b9d80b?network=MainNet",
+      "/transactions/34ad754a5e48b8c36239a4a3ce3c707269c8b4afdc7539c7ed63856e84b9d80b?network=MainNet"
     );
   });
 
@@ -20,14 +20,14 @@ context("/transactions/[txid] - DfTx Set Oracle Data on desktop", () => {
   it("should have DfTxSetOracleData Oracle ID ", () => {
     cy.findByTestId("DfTxSetOracleData.OracleId").should(
       "have.text",
-      "d96d04bd4b5b35d12d20d9c6b70809f8e83118ccffff307b82459dd42a6b5f07",
+      "d96d04bd4b5b35d12d20d9c6b70809f8e83118ccffff307b82459dd42a6b5f07"
     );
   });
 
   it("should have DfTxSetOracleData Received Time", () => {
     cy.findByTestId("DfTxSetOracleData.Timestamp").should(
       "have.text",
-      "Oct 7, 2021, 4:43:25 PM",
+      "Oct 7, 2021, 4:43:25 PM"
     );
   });
 
@@ -38,7 +38,7 @@ context("/transactions/[txid] - DfTx Set Oracle Data on desktop", () => {
   it("should have DfTxSetOracleData Token Amount", () => {
     cy.findByTestId("DfTxSetOracleData.Amount").should(
       "have.text",
-      "2.50350398",
+      "2.50350398"
     );
   });
 
@@ -50,7 +50,7 @@ context("/transactions/[txid] - DfTx Set Oracle Data on desktop", () => {
 context("/transactions/[txid] - DfTx Set Oracle Data on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/34ad754a5e48b8c36239a4a3ce3c707269c8b4afdc7539c7ed63856e84b9d80b?network=MainNet",
+      "/transactions/34ad754a5e48b8c36239a4a3ce3c707269c8b4afdc7539c7ed63856e84b9d80b?network=MainNet"
     );
   });
 
@@ -69,14 +69,14 @@ context("/transactions/[txid] - DfTx Set Oracle Data on mobile", () => {
   it("should have DfTxSetOracleData Oracle ID ", () => {
     cy.findByTestId("DfTxSetOracleData.OracleId").should(
       "have.text",
-      "d96d04bd4b5b35d12d20d9c6b70809f8e83118ccffff307b82459dd42a6b5f07",
+      "d96d04bd4b5b35d12d20d9c6b70809f8e83118ccffff307b82459dd42a6b5f07"
     );
   });
 
   it("should have DfTxSetOracleData Received Time", () => {
     cy.findByTestId("DfTxSetOracleData.Timestamp").should(
       "have.text",
-      "Oct 7, 2021, 4:43:25 PM",
+      "Oct 7, 2021, 4:43:25 PM"
     );
   });
 
@@ -87,7 +87,7 @@ context("/transactions/[txid] - DfTx Set Oracle Data on mobile", () => {
   it("should have DfTxSetOracleData Token Amount", () => {
     cy.findByTestId("DfTxSetOracleData.Amount").should(
       "have.text",
-      "2.50350398",
+      "2.50350398"
     );
   });
 

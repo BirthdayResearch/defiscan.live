@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Token Create on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/2fb0ce8208392e488964e78a93efe0713c36b5b98afe600da48805498e97b8e6?network=MainNet",
+      "/transactions/2fb0ce8208392e488964e78a93efe0713c36b5b98afe600da48805498e97b8e6?network=MainNet"
     );
   });
 
@@ -45,7 +45,7 @@ context("/transactions/[txid] - DfTx Token Create on desktop", () => {
 context("/transactions/[txid] - DfTx Token Create on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/2fb0ce8208392e488964e78a93efe0713c36b5b98afe600da48805498e97b8e6?network=MainNet",
+      "/transactions/2fb0ce8208392e488964e78a93efe0713c36b5b98afe600da48805498e97b8e6?network=MainNet"
     );
   });
 

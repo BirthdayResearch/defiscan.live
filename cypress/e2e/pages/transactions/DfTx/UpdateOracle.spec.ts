@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Update Oracle on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/276a61762d0ba048999699a95bbb30d67a57bc99a650ca8d0a7d3e5d47e44ca5?network=MainNet",
+      "/transactions/276a61762d0ba048999699a95bbb30d67a57bc99a650ca8d0a7d3e5d47e44ca5?network=MainNet"
     );
   });
 
@@ -17,18 +17,18 @@ context("/transactions/[txid] - DfTx Update Oracle on desktop", () => {
   it("should have DfTxUpdateOracle Details", () => {
     cy.findByTestId("DfTxUpdateOracle.OracleId").should(
       "have.text",
-      "a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367",
+      "a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367"
     );
     cy.findByTestId("DfTxUpdateOracle.Address").should(
       "have.text",
-      "df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw",
+      "df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw"
     );
     cy.findByTestId("DfTxUpdateOracle.Address")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw",
+        "/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw"
       );
     cy.findByTestId("DfTxUpdateOracle.Weightage").should("have.text", "10");
   });
@@ -42,7 +42,7 @@ context("/transactions/[txid] - DfTx Update Oracle on desktop", () => {
     cy.findByTestId("DfTxUpdateOracle.GOOGLToken").should("have.text", "GOOGL");
     cy.findByTestId("DfTxUpdateOracle.GOOGLCurrency").should(
       "have.text",
-      "USD",
+      "USD"
     );
     cy.findByTestId("DfTxUpdateOracle.UBERToken").should("have.text", "UBER");
     cy.findByTestId("DfTxUpdateOracle.UBERCurrency").should("have.text", "USD");
@@ -52,7 +52,7 @@ context("/transactions/[txid] - DfTx Update Oracle on desktop", () => {
 context("/transactions/[txid] - DfTx Update Oracle on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/276a61762d0ba048999699a95bbb30d67a57bc99a650ca8d0a7d3e5d47e44ca5?network=MainNet",
+      "/transactions/276a61762d0ba048999699a95bbb30d67a57bc99a650ca8d0a7d3e5d47e44ca5?network=MainNet"
     );
   });
 
@@ -68,18 +68,18 @@ context("/transactions/[txid] - DfTx Update Oracle on mobile", () => {
   it("should have DfTxUpdateOracle Details", () => {
     cy.findByTestId("DfTxUpdateOracle.OracleId").should(
       "have.text",
-      "a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367",
+      "a47feba58a644d07603f65966d8779e5c87d85053c885fd91626a502cb92a367"
     );
     cy.findByTestId("DfTxUpdateOracle.Address").should(
       "have.text",
-      "df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw",
+      "df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw"
     );
     cy.findByTestId("DfTxUpdateOracle.Address")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw",
+        "/address/df1qm7f2cx8vs9lqn8v43034nvckz6dxxpqezfh6dw"
       );
     cy.findByTestId("DfTxUpdateOracle.Weightage").should("have.text", "10");
   });
@@ -93,7 +93,7 @@ context("/transactions/[txid] - DfTx Update Oracle on mobile", () => {
     cy.findByTestId("DfTxUpdateOracle.GOOGLToken").should("have.text", "GOOGL");
     cy.findByTestId("DfTxUpdateOracle.GOOGLCurrency").should(
       "have.text",
-      "USD",
+      "USD"
     );
     cy.findByTestId("DfTxUpdateOracle.UBERToken").should("have.text", "UBER");
     cy.findByTestId("DfTxUpdateOracle.UBERCurrency").should("have.text", "USD");

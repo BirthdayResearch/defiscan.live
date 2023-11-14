@@ -6,21 +6,21 @@ interface CollateralsValue {
 }
 
 export function calculateCollateralsValue(
-  batches: LoanVaultTokenAmount[],
+  batches: LoanVaultTokenAmount[]
 ): CollateralsValue {
   let totalCollateralValue = new BigNumber(0);
   batches.forEach((collateral) => {
     if (collateral.activePrice?.active == null) {
       if (collateral.symbol === "DUSD") {
         totalCollateralValue = totalCollateralValue.plus(
-          new BigNumber(collateral.amount),
+          new BigNumber(collateral.amount)
         );
       }
     } else {
       totalCollateralValue = totalCollateralValue.plus(
         new BigNumber(collateral.amount).multipliedBy(
-          collateral.activePrice?.active.amount,
-        ),
+          collateral.activePrice?.active.amount
+        )
       );
     }
   });

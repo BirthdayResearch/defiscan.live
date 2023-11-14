@@ -10,7 +10,7 @@ interface IconPopoverProps {
 }
 
 export function IconTooltip(
-  props: PropsWithChildren<IconPopoverProps>,
+  props: PropsWithChildren<IconPopoverProps>
 ): JSX.Element {
   return (
     <HoverPopover

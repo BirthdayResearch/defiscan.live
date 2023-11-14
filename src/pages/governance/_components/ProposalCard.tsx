@@ -83,14 +83,14 @@ function ProposalCard({
     proposal.cycleEndHeight,
     currentBlockHeight,
     currentBlockMedianTime,
-    secondsPerBlock,
+    secondsPerBlock
   );
   const isEmergencyProposal = proposal.options?.includes("emergency");
 
   return (
     <div
       className={classNames(
-        "border rounded-xl mt-2 border-gray-200 text-gray-500 dark:border-gray-700 dark:bg-gray-800",
+        "border rounded-xl mt-2 border-gray-200 text-gray-500 dark:border-gray-700 dark:bg-gray-800"
       )}
     >
       {/* mobile */}
@@ -107,7 +107,7 @@ function ProposalCard({
               <div
                 className={classNames(
                   "font-semibold text-gray-900 text-sm dark:text-dark-gray-900",
-                  { "line-clamp-2": !isOpen },
+                  { "line-clamp-2": !isOpen }
                 )}
               >
                 {proposal.title}
@@ -128,7 +128,7 @@ function ProposalCard({
                       {
                         "bg-primary-100 dark:bg-dark-primary-100":
                           isViewClicked,
-                      },
+                      }
                     )}
                   >
                     VIEW
@@ -278,7 +278,7 @@ function ProposalCard({
                       "text-sm",
                       proposal.status === GovernanceProposalStatus.COMPLETED
                         ? "text-green-600 dark:text-dark-green-600"
-                        : "text-red-600 dark:text-dark-red-600",
+                        : "text-red-600 dark:text-dark-red-600"
                     )}
                   >
                     {proposal.status === GovernanceProposalStatus.COMPLETED

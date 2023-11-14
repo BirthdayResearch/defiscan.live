@@ -15,7 +15,7 @@ interface CollapsibleSectionProps {
 
 // TODO(joeldavidw): Merge CollapsibleSection and section.
 export function CollapsibleSection(
-  props: CollapsibleSectionProps,
+  props: CollapsibleSectionProps
 ): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
@@ -28,14 +28,14 @@ export function CollapsibleSection(
       <div
         className={classNames(
           "flex items-center justify-between mt-6 cursor-pointer",
-          { "md:cursor-default md:mt-0": props.mdNotCollapsible },
+          { "md:cursor-default md:mt-0": props.mdNotCollapsible }
         )}
         onClick={() => handleToggle()}
       >
         <h2
           className={classNames(
             "text-lg lg:text-xl font-semibold text-gray-900 dark:text-gray-100",
-            { "md:hidden": props.mdNotCollapsible },
+            { "md:hidden": props.mdNotCollapsible }
           )}
           data-testid="CollapsibleSection.Heading"
         >

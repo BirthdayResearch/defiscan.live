@@ -9,7 +9,7 @@ import { BlockLink } from "@components/commons/link/BlockLink";
 import { getServerSideProps } from "../index.page";
 
 export function BlockDetailTable(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
 ): JSX.Element {
   const { block } = props;
   const {

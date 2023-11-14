@@ -51,13 +51,13 @@ context("/oracles/TSLA-USD macbook-13", () => {
       .eq(3)
       .should(
         "have.class",
-        "text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50",
+        "text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50"
       );
     cy.findAllByTestId("Oracles.GraphPeriodButton")
       .eq(2)
       .should(
         "have.class",
-        "text-primary-500 bg-primary-100 border-primary-100",
+        "text-primary-500 bg-primary-100 border-primary-100"
       );
     cy.get("#oraclesGraphArea").should("not.exist");
     cy.findAllByTestId("Oracles.Spinner").should("exist");
@@ -84,7 +84,7 @@ context("/oracles/TSLA-USD macbook-13", () => {
         .eq(1)
         .then((ele) => {
           cy.wrap(ele).contains(
-            /[a-zA-Z]{3} [0-9]{1,2}, [0-9]{2}:[0-9]{2}:[0-9]{2} (AM|PM)/,
+            /[a-zA-Z]{3} [0-9]{1,2}, [0-9]{2}:[0-9]{2}:[0-9]{2} (AM|PM)/
           );
           cy.wrap(ele).contains(/[0-f]{64}/);
           cy.wrap(ele).should("contain.text", "$");
@@ -150,13 +150,13 @@ context("/oracles/TSLA-USD iphone-x", () => {
         .eq(2)
         .should(
           "have.class",
-          "text-primary-500 bg-primary-100 border-primary-100 dark:bg-dark-primary-500 dark:border-dark-primary-500 dark:text-dark-gray-900",
+          "text-primary-500 bg-primary-100 border-primary-100 dark:bg-dark-primary-500 dark:border-dark-primary-500 dark:text-dark-gray-900"
         );
       cy.findAllByTestId("Oracles.GraphPeriodButton")
         .eq(3)
         .should(
           "have.class",
-          "text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50",
+          "text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50"
         );
       cy.get("#oraclesGraphArea").should("not.exist");
       cy.findAllByTestId("Oracles.Spinner").should("exist");
@@ -178,7 +178,7 @@ context("/oracles/TSLA-USD iphone-x", () => {
         .eq(1)
         .then((ele) => {
           cy.wrap(ele).contains(
-            /[a-zA-Z]{3} [0-9]{1,2}, [0-9]{2}:[0-9]{2}:[0-9]{2} (AM|PM)/,
+            /[a-zA-Z]{3} [0-9]{1,2}, [0-9]{2}:[0-9]{2}:[0-9]{2} (AM|PM)/
           );
           cy.wrap(ele).contains(/[0-f]{64}/);
           cy.wrap(ele).should("contain.text", "$");

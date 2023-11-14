@@ -29,27 +29,27 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.GettingStarted").should("be.visible");
       cy.findByTestId("Governance.Create.GettingStarted.Title").should(
         "have.text",
-        "Getting started",
+        "Getting started"
       );
       cy.findByTestId("Governance.Create.GettingStarted.Content").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.GettingStarted.Content.GitHub").should(
         "have.attr",
         "href",
-        "https://github.com/DeFiCh/dfips/issues",
+        "https://github.com/DeFiCh/dfips/issues"
       );
       cy.findByTestId("Governance.Create.GettingStarted.Content.Reddit").should(
         "have.attr",
         "href",
-        "https://www.reddit.com/r/defiblockchain/",
+        "https://www.reddit.com/r/defiblockchain/"
       );
       cy.findByTestId(
-        "Governance.Create.GettingStarted.Content.ReadHere",
+        "Governance.Create.GettingStarted.Content.ReadHere"
       ).should(
         "have.attr",
         "href",
-        "https://github.com/DeFiCh/dfips/blob/master/README.md",
+        "https://github.com/DeFiCh/dfips/blob/master/README.md"
       );
     });
 
@@ -59,26 +59,26 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1").within(() => {
         cy.findByTestId("Governance.Create.Step1.Title").should(
           "have.text",
-          "Step 1: Proposal details",
+          "Step 1: Proposal details"
         );
 
         cy.findByTestId("Governance.Create.Step1.Description").should(
           "have.text",
-          "Enter from GitHub or Reddit the title of the proposal and the type of proposal.",
+          "Enter from GitHub or Reddit the title of the proposal and the type of proposal."
         );
       });
     });
 
     it("should have step 1 cfp radio group checked and dfip radio unchecked by default", () => {
       cy.findByTestId("Governance.Create.Step1.RadioGroup").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.RadioGroup").within(() => {
         cy.findByTestId("Governance.Create.Step1.RadioGroup.CFP")
           .should("be.visible")
           .within(() => {
             cy.findByTestId(
-              "Governance.Create.Step1.RadioGroup.CFP.Checked",
+              "Governance.Create.Step1.RadioGroup.CFP.Checked"
             ).should("be.visible");
           });
 
@@ -86,7 +86,7 @@ viewPorts.forEach((viewPort) => {
           .should("be.visible")
           .within(() => {
             cy.findByTestId(
-              "Governance.Create.Step1.RadioGroup.DFIP.Unchecked",
+              "Governance.Create.Step1.RadioGroup.DFIP.Unchecked"
             ).should("be.visible");
           });
       });
@@ -99,7 +99,7 @@ viewPorts.forEach((viewPort) => {
         .should("be.visible")
         .within(() => {
           cy.findByTestId(
-            "Governance.Create.Step1.RadioGroup.DFIP.Checked",
+            "Governance.Create.Step1.RadioGroup.DFIP.Checked"
           ).should("be.visible");
         });
       // CFP radio
@@ -107,102 +107,102 @@ viewPorts.forEach((viewPort) => {
         .should("be.visible")
         .within(() => {
           cy.findByTestId(
-            "Governance.Create.Step1.RadioGroup.CFP.Unchecked",
+            "Governance.Create.Step1.RadioGroup.CFP.Unchecked"
           ).should("be.visible");
         });
     });
 
     it("should have step 1 `Name of proposal` input for DFIP proposal creation", () => {
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().type(nameOfProposal);
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.findByTestId(
-            "Governance.Create.Step1.TextArea.NameOfProposal.ClearForm",
+            "Governance.Create.Step1.TextArea.NameOfProposal.ClearForm"
           ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
-            "Invalid proposal name",
+            "Invalid proposal name"
           );
-        },
+        }
       );
     });
 
     it("should have step 1 `Discussion` (GitHub) input for DFIP proposal creation", () => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(discussion);
           cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
-            "not.exist",
+            "not.exist"
           );
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.findByTestId(
-            "Governance.Create.Step1.TextArea.Discussion.ClearForm",
+            "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
-            "Invalid URL. Only GitHub or Reddit URL are accepted",
+            "Invalid URL. Only GitHub or Reddit URL are accepted"
           );
-        },
+        }
       );
     });
 
     it("should have step 1 `Discussion` (Reddit) input for DFIP proposal creation", () => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(redditDiscussion);
           cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
-            "not.exist",
+            "not.exist"
           );
-        },
+        }
       );
 
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.findByTestId(
-            "Governance.Create.Step1.TextArea.Discussion.ClearForm",
+            "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
-            "Invalid URL. Only GitHub or Reddit URL are accepted",
+            "Invalid URL. Only GitHub or Reddit URL are accepted"
           );
-        },
+        }
       );
     });
 
     it("should not have step 1 Amount Requested, Cycles and Receiving Address inputs for DFIP proposal creation", () => {
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.AmountRequested",
+        "Governance.Create.Step1.TextArea.AmountRequested"
       ).should("not.exist");
       cy.findByTestId("Governance.Create.Step1.TextArea.Cycles").should(
-        "not.exist",
+        "not.exist"
       );
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.ReceivingAddress",
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).should("not.exist");
     });
 
@@ -210,118 +210,118 @@ viewPorts.forEach((viewPort) => {
       // choose CFP proposal creation
       cy.findByTestId("Governance.Create.Step1.RadioGroup.CFP").click();
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().type(nameOfProposal);
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.findByTestId(
-            "Governance.Create.Step1.TextArea.NameOfProposal.ClearForm",
+            "Governance.Create.Step1.TextArea.NameOfProposal.ClearForm"
           ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
-            "Invalid proposal name",
+            "Invalid proposal name"
           );
-        },
+        }
       );
     });
 
     it("should have step 1 `Discussion` (GitHub) input for CFP proposal creation", () => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(discussion);
           cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
-            "not.exist",
+            "not.exist"
           );
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.findByTestId(
-            "Governance.Create.Step1.TextArea.Discussion.ClearForm",
+            "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
-            "Invalid URL. Only GitHub or Reddit URL are accepted",
+            "Invalid URL. Only GitHub or Reddit URL are accepted"
           );
-        },
+        }
       );
     });
 
     it("should have step 1 `Discussion` (Reddit) input for CFP proposal creation", () => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(redditDiscussion);
           cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should(
-            "not.exist",
+            "not.exist"
           );
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.findByTestId(
-            "Governance.Create.Step1.TextArea.Discussion.ClearForm",
+            "Governance.Create.Step1.TextArea.Discussion.ClearForm"
           ).click();
           cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
             "have.text",
-            "Invalid URL. Only GitHub or Reddit URL are accepted",
+            "Invalid URL. Only GitHub or Reddit URL are accepted"
           );
-        },
+        }
       );
     });
 
     it("should have step 1 `Amount Requested` input for CFP proposal creation", () => {
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.AmountRequested",
+        "Governance.Create.Step1.TextArea.AmountRequested"
       ).should("be.visible");
 
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.AmountRequested",
+        "Governance.Create.Step1.TextArea.AmountRequested"
       ).within(() => {
         cy.get("textarea").click().type(amountRequested);
         cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should("not.exist");
       });
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.AmountRequested",
+        "Governance.Create.Step1.TextArea.AmountRequested"
       ).within(() => {
         cy.findByTestId(
-          "Governance.Create.Step1.TextArea.AmountRequested.ClearForm",
+          "Governance.Create.Step1.TextArea.AmountRequested.ClearForm"
         ).click();
         cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
           "have.text",
-          "Invalid amount",
+          "Invalid amount"
         );
       });
     });
 
     it("should have step 1 `Cycles` input for CFP proposal creation", () => {
       cy.findByTestId("Governance.Create.Step1.TextArea.Cycles").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
       // check for tooltip
       cy.findByTestId("InfoHoverPopover").should("be.visible");
@@ -329,13 +329,13 @@ viewPorts.forEach((viewPort) => {
         cy.get("textarea").should("have.text", "1");
       });
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.Cycles.Increment",
+        "Governance.Create.Step1.TextArea.Cycles.Increment"
       ).click();
       cy.findByTestId("Governance.Create.Step1.TextArea.Cycles").within(() => {
         cy.get("textarea").should("have.text", "2");
       });
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.Cycles.Decrement",
+        "Governance.Create.Step1.TextArea.Cycles.Decrement"
       ).click();
       cy.findByTestId("Governance.Create.Step1.TextArea.Cycles").within(() => {
         cy.get("textarea").should("have.text", "1");
@@ -344,42 +344,42 @@ viewPorts.forEach((viewPort) => {
 
     it("should have step 1 `Receiving Address` input for CFP proposal creation", () => {
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.ReceivingAddress",
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).should("be.visible");
 
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.ReceivingAddress",
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).within(() => {
         cy.get("textarea").click().type(receivingAddress);
         cy.get("Governance.Create.Step1.TextArea.ErrorMsg").should("not.exist");
       });
 
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").should(
-        "be.disabled",
+        "be.disabled"
       );
 
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.ReceivingAddress",
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).within(() => {
         cy.findByTestId(
-          "Governance.Create.Step1.TextArea.ReceivingAddress.ClearForm",
+          "Governance.Create.Step1.TextArea.ReceivingAddress.ClearForm"
         ).click();
         cy.findByTestId("Governance.Create.Step1.TextArea.ErrorMsg").should(
           "have.text",
-          "Invalid payout address. Only DFI addresses are accepted",
+          "Invalid payout address. Only DFI addresses are accepted"
         );
       });
     });
 
     it("should be able to clear input using clear form button in step 1", () => {
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.ReceivingAddress",
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).within(() => {
         cy.get("textarea").click().type(receivingAddress);
       });
       cy.findByTestId("Governance.Create.Step1.ClearForm").click();
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.ReceivingAddress",
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).within(() => {
         cy.get("textarea").should("have.text", "");
       });
@@ -389,20 +389,20 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().type(nameOfProposal);
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(discussion);
-        },
+        }
       );
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.AmountRequested",
+        "Governance.Create.Step1.TextArea.AmountRequested"
       ).within(() => {
         cy.get("textarea").click().type(amountRequested);
       });
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.ReceivingAddress",
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).within(() => {
         cy.get("textarea").click().type(receivingAddress);
       });
@@ -411,7 +411,7 @@ viewPorts.forEach((viewPort) => {
 
     it("should have step 1 fields hidden when step 2", () => {
       cy.findByTestId("Governance.Create.Step1.ExpandedPanel").should(
-        "not.exist",
+        "not.exist"
       );
     });
 
@@ -420,14 +420,14 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId("Governance.Create.Step2.Title").should(
           "have.text",
-          "Step 2: Review proposal",
+          "Step 2: Review proposal"
         );
 
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.Description",
+          "Governance.Create.Step2.ReviewProposal.Description"
         ).should(
           "have.text",
-          "Make sure all details are correct as on-chain proposals are irreversible. You can edit details by going back to the previous steps.",
+          "Make sure all details are correct as on-chain proposals are irreversible. You can edit details by going back to the previous steps."
         );
       });
     });
@@ -435,10 +435,10 @@ viewPorts.forEach((viewPort) => {
     it("should have `Name of proposal` in step 2 review details", () => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputProposalNameTitle",
+          "Governance.Create.Step2.ReviewProposal.InputProposalNameTitle"
         ).should("be.visible");
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputProposalName",
+          "Governance.Create.Step2.ReviewProposal.InputProposalName"
         ).should("have.text", nameOfProposal);
       });
     });
@@ -446,10 +446,10 @@ viewPorts.forEach((viewPort) => {
     it("should have `Type` in step 2 review details", () => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputProposalTypeTitle",
+          "Governance.Create.Step2.ReviewProposal.InputProposalTypeTitle"
         ).should("be.visible");
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputProposalType",
+          "Governance.Create.Step2.ReviewProposal.InputProposalType"
         ).should("have.text", "CFP");
       });
     });
@@ -457,10 +457,10 @@ viewPorts.forEach((viewPort) => {
     it("should have `Discussion` in step 2 review details", () => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputProposalDiscussionTitle",
+          "Governance.Create.Step2.ReviewProposal.InputProposalDiscussionTitle"
         ).should("be.visible");
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputProposalDiscussion",
+          "Governance.Create.Step2.ReviewProposal.InputProposalDiscussion"
         ).should("have.text", discussion);
       });
     });
@@ -468,10 +468,10 @@ viewPorts.forEach((viewPort) => {
     it("should have `Amount requested` in step 2 review details", () => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputAmountRequestedTitle",
+          "Governance.Create.Step2.ReviewProposal.InputAmountRequestedTitle"
         ).should("be.visible");
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputAmountRequested",
+          "Governance.Create.Step2.ReviewProposal.InputAmountRequested"
         ).should("have.text", `${amountRequested} DFI`);
       });
     });
@@ -479,10 +479,10 @@ viewPorts.forEach((viewPort) => {
     it("should have `Cycles` in step 2 review details", () => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputCycleTitle",
+          "Governance.Create.Step2.ReviewProposal.InputCycleTitle"
         ).should("be.visible");
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputCycle",
+          "Governance.Create.Step2.ReviewProposal.InputCycle"
         ).should("have.text", 1);
       });
     });
@@ -490,10 +490,10 @@ viewPorts.forEach((viewPort) => {
     it("should have `Receiving address` in step 2 review details", () => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputReceivingAddressTitle",
+          "Governance.Create.Step2.ReviewProposal.InputReceivingAddressTitle"
         ).should("be.visible");
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.InputReceivingAddress",
+          "Governance.Create.Step2.ReviewProposal.InputReceivingAddress"
         ).should("have.text", receivingAddress);
       });
     });
@@ -501,12 +501,12 @@ viewPorts.forEach((viewPort) => {
     it("should have step 2 command line info", () => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.CommandLineInfo",
+          "Governance.Create.Step2.ReviewProposal.CommandLineInfo"
         )
           .should("be.visible")
           .should(
             "have.text",
-            "A command line will be generated once all details are confirmed",
+            "A command line will be generated once all details are confirmed"
           );
       });
     });
@@ -514,17 +514,17 @@ viewPorts.forEach((viewPort) => {
     it("should have step 2 confirm details button", () => {
       cy.findByTestId("Governance.Create.Step2").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.ConfirmDetails",
+          "Governance.Create.Step2.ReviewProposal.ConfirmDetails"
         ).should("be.visible");
         cy.findByTestId(
-          "Governance.Create.Step2.ReviewProposal.ConfirmDetails",
+          "Governance.Create.Step2.ReviewProposal.ConfirmDetails"
         ).click();
       });
     });
 
     it("should have step 2 fields hidden when step 3", () => {
       cy.findByTestId("Governance.Create.Step2.ExpandedPanel").should(
-        "not.exist",
+        "not.exist"
       );
     });
 
@@ -532,7 +532,7 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step3").within(() => {
         cy.findByTestId("Governance.Create.Step3.Title").should(
           "have.text",
-          "Step 3: Submit proposal on-chain",
+          "Step 3: Submit proposal on-chain"
         );
 
         cy.findByTestId("Governance.Create.Step3.SubmitProposal.Description")
@@ -541,7 +541,7 @@ viewPorts.forEach((viewPort) => {
             cy.get("a").should(
               "have.attr",
               "href",
-              "https://defichain.com/downloads",
+              "https://defichain.com/downloads"
             );
           });
       });
@@ -553,7 +553,7 @@ viewPorts.forEach((viewPort) => {
           .should("be.visible")
           .should(
             "have.text",
-            `creategovcfp '{"title": "${nameOfProposal}" ,"context":"${discussion}","amount": ${amountRequested} ,"payoutAddress":"${receivingAddress}", "cycles": 1}'`,
+            `creategovcfp '{"title": "${nameOfProposal}" ,"context":"${discussion}","amount": ${amountRequested} ,"payoutAddress":"${receivingAddress}", "cycles": 1}'`
           );
       });
     });
@@ -566,7 +566,7 @@ viewPorts.forEach((viewPort) => {
         cy.window().then((window) => {
           window.navigator.clipboard.readText().then((text) => {
             expect(text).to.eq(
-              `creategovcfp '{"title": "${nameOfProposal}" ,"context":"${discussion}","amount": ${amountRequested} ,"payoutAddress":"${receivingAddress}", "cycles": 1}'`,
+              `creategovcfp '{"title": "${nameOfProposal}" ,"context":"${discussion}","amount": ${amountRequested} ,"payoutAddress":"${receivingAddress}", "cycles": 1}'`
             );
           });
         });
@@ -576,10 +576,10 @@ viewPorts.forEach((viewPort) => {
     it("should have step 3 info note", () => {
       cy.findByTestId("Governance.Create.Step3").within(() => {
         cy.findByTestId(
-          "Governance.Create.Step3.SubmitProposal.InfoNote",
+          "Governance.Create.Step3.SubmitProposal.InfoNote"
         ).should(
           "have.text",
-          "Command submitted into defi-cli will not be editable. Please check your details carefully before submitting.",
+          "Command submitted into defi-cli will not be editable. Please check your details carefully before submitting."
         );
       });
     });
@@ -592,22 +592,22 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().clear().type("Edited Proposal");
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").click();
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.InputProposalName",
+        "Governance.Create.Step2.ReviewProposal.InputProposalName"
       ).should("have.text", "Edited Proposal");
 
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.ConfirmDetails",
+        "Governance.Create.Step2.ReviewProposal.ConfirmDetails"
       ).click();
 
       cy.findByTestId("Governance.Create.Step3.SubmitProposal.Command")
         .should("be.visible")
         .should(
           "have.text",
-          `creategovcfp '{"title": "Edited Proposal" ,"context":"${discussion}","amount": ${amountRequested} ,"payoutAddress":"${receivingAddress}", "cycles": 1}'`,
+          `creategovcfp '{"title": "Edited Proposal" ,"context":"${discussion}","amount": ${amountRequested} ,"payoutAddress":"${receivingAddress}", "cycles": 1}'`
         );
     });
 
@@ -622,16 +622,16 @@ viewPorts.forEach((viewPort) => {
         .click();
 
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.AmountRequested",
+        "Governance.Create.Step1.TextArea.AmountRequested"
       ).should("be.visible");
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.AmountRequested",
+        "Governance.Create.Step1.TextArea.AmountRequested"
       ).should("be.visible");
       cy.findByTestId("Governance.Create.Step1.TextArea.Cycles").should(
-        "be.visible",
+        "be.visible"
       );
       cy.findByTestId(
-        "Governance.Create.Step1.TextArea.ReceivingAddress",
+        "Governance.Create.Step1.TextArea.ReceivingAddress"
       ).should("be.visible");
     });
 
@@ -640,12 +640,12 @@ viewPorts.forEach((viewPort) => {
 
       cy.findByTestId("Governance.Create.ConfirmDialog.Title").should(
         "have.text",
-        "Confirm Edit",
+        "Confirm Edit"
       );
 
       cy.findByTestId("Governance.Create.ConfirmDialog.Description").should(
         "have.text",
-        "Changing the type of proposal would cause all data to reset. Are you sure you want to continue?",
+        "Changing the type of proposal would cause all data to reset. Are you sure you want to continue?"
       );
 
       cy.findByTestId("Governance.Create.ConfirmDialog.ConfirmButton")
@@ -656,19 +656,19 @@ viewPorts.forEach((viewPort) => {
         .should("be.visible")
         .within(() => {
           cy.findByTestId(
-            "Governance.Create.Step1.RadioGroup.DFIP.Checked",
+            "Governance.Create.Step1.RadioGroup.DFIP.Checked"
           ).should("be.visible");
         });
 
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").should("have.text", "");
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").should("have.text", "");
-        },
+        }
       );
     });
 
@@ -676,42 +676,42 @@ viewPorts.forEach((viewPort) => {
       cy.findByTestId("Governance.Create.Step1.TextArea.NameOfProposal").within(
         () => {
           cy.get("textarea").click().type(nameOfProposal);
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.TextArea.Discussion").within(
         () => {
           cy.get("textarea").click().type(discussion);
-        },
+        }
       );
       cy.findByTestId("Governance.Create.Step1.ReviewProposal").click();
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.InputProposalNameTitle",
+        "Governance.Create.Step2.ReviewProposal.InputProposalNameTitle"
       ).should("be.visible");
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.InputProposalName",
+        "Governance.Create.Step2.ReviewProposal.InputProposalName"
       ).should("have.text", nameOfProposal);
 
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.InputProposalTypeTitle",
+        "Governance.Create.Step2.ReviewProposal.InputProposalTypeTitle"
       ).should("be.visible");
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.InputProposalType",
+        "Governance.Create.Step2.ReviewProposal.InputProposalType"
       ).should("have.text", "DFIP");
 
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.InputProposalDiscussionTitle",
+        "Governance.Create.Step2.ReviewProposal.InputProposalDiscussionTitle"
       ).should("be.visible");
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.InputProposalDiscussion",
+        "Governance.Create.Step2.ReviewProposal.InputProposalDiscussion"
       ).should("have.text", discussion);
       cy.findByTestId(
-        "Governance.Create.Step2.ReviewProposal.ConfirmDetails",
+        "Governance.Create.Step2.ReviewProposal.ConfirmDetails"
       ).click();
       cy.findByTestId("Governance.Create.Step3.SubmitProposal.Command")
         .should("be.visible")
         .should(
           "have.text",
-          `creategovvoc '{"title": "${nameOfProposal}" ,"context":"${discussion}"}'`,
+          `creategovvoc '{"title": "${nameOfProposal}" ,"context":"${discussion}"}'`
         );
     });
   });

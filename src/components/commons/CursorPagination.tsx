@@ -71,7 +71,7 @@ export function CursorPagination(props: CursorPaginationProps): JSX.Element {
 }
 
 function NumberButton(
-  props: CursorPage & { path: string } & { queryParam?: QueryParameter },
+  props: CursorPage & { path: string } & { queryParam?: QueryParameter }
 ): JSX.Element {
   if (props.active) {
     return (
@@ -104,7 +104,7 @@ NavigateButton.Prev = (
     queryParam?: QueryParameter;
     path: string;
     cursors: string[] | undefined;
-  }>,
+  }>
 ) => {
   return NavigateButton({ type: "Prev", ...props });
 };
@@ -114,7 +114,7 @@ NavigateButton.Next = (
     queryParam?: QueryParameter;
     path: string;
     cursors: string[] | undefined;
-  }>,
+  }>
 ) => {
   return NavigateButton({ type: "Next", ...props });
 };
@@ -125,7 +125,7 @@ function NavigateButton(
     path: string;
     cursors: string[] | undefined;
     type: "Next" | "Prev";
-  }>,
+  }>
 ): JSX.Element {
   if (props.cursors === undefined) {
     return (
@@ -177,7 +177,7 @@ function getCursorsFromContext(context: GetServerSidePropsContext): string[] {
  * @param {GetServerSidePropsContext} context to get the last next
  */
 CursorPagination.getNext = (
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext
 ): string | undefined => {
   return last(getCursorsFromContext(context));
 };
@@ -188,7 +188,7 @@ CursorPagination.getNext = (
  */
 CursorPagination.getPages = (
   context: GetServerSidePropsContext,
-  paged: ApiPagedResponse<any>,
+  paged: ApiPagedResponse<any>
 ): CursorPage[] => {
   const pages: CursorPage[] = [{ n: 1, active: false, cursors: [] }];
 

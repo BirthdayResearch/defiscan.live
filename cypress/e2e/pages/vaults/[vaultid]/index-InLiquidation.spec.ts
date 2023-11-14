@@ -1,7 +1,7 @@
 context("/vaults/[vaultid] - In Liquidation on desktop", () => {
   before(() => {
     cy.request(
-      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1",
+      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1"
     ).then(function (response) {
       if (response.body.data.length !== 1) {
         this.skip();
@@ -28,7 +28,7 @@ context("/vaults/[vaultid] - In Liquidation on desktop", () => {
     it("should Vault Details Heading", () => {
       cy.findByTestId("VaultDetailsDesktop.Heading").should(
         "have.text",
-        "Vault Details",
+        "Vault Details"
       );
     });
 
@@ -87,7 +87,7 @@ context("/vaults/[vaultid] - In Liquidation on desktop", () => {
     it("should Vault Details Heading", () => {
       cy.findByTestId("VaultAuctionsDesktop.Heading").should(
         "have.text",
-        "In Auction",
+        "In Auction"
       );
     });
 
@@ -124,14 +124,14 @@ context("/vaults/[vaultid] - In Liquidation on desktop", () => {
             .contains(/^.* left$/);
 
           cy.findByTestId("AuctionsTableRow.LoanToken.TokenSymbol").should(
-            "be.visible",
+            "be.visible"
           );
           cy.findByTestId("AuctionsTableRow.LoanToken.displaySymbol").should(
-            "be.visible",
+            "be.visible"
           );
 
           cy.findByTestId("AuctionsTableRow.CollateralSymbols").should(
-            "be.visible",
+            "be.visible"
           );
 
           cy.findByTestId("AuctionsTableRow.CollateralValue")
@@ -155,7 +155,7 @@ context("/vaults/[vaultid] - In Liquidation on desktop", () => {
 context("/vaults/[vaultid] - In Liquidation on mobile", () => {
   before(() => {
     cy.request(
-      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1",
+      "https://ocean.defichain.com/v0/mainnet/loans/auctions?size=1"
     ).then(function (response) {
       if (response.body.data.length !== 1) {
         this.skip();
@@ -182,7 +182,7 @@ context("/vaults/[vaultid] - In Liquidation on mobile", () => {
     it("should Vault Details Heading", () => {
       cy.findByTestId("VaultDetailsDesktop.Heading").should(
         "have.text",
-        "Vault Details",
+        "Vault Details"
       );
     });
 
@@ -192,7 +192,7 @@ context("/vaults/[vaultid] - In Liquidation on mobile", () => {
           .should("be.visible")
           .should("have.text", "Owner's Address");
         cy.findByTestId("VaultDetailList.OwnerAddress.Value").should(
-          "be.visible",
+          "be.visible"
         );
       });
 
@@ -201,7 +201,7 @@ context("/vaults/[vaultid] - In Liquidation on mobile", () => {
           .should("be.visible")
           .should("have.text", "Total Loan Value (USD)");
         cy.findByTestId("VaultDetailList.TotalLoanValue.Value").should(
-          "be.visible",
+          "be.visible"
         );
         cy.findByTestId("InfoHoverPopover").should("be.visible");
       });
@@ -211,7 +211,7 @@ context("/vaults/[vaultid] - In Liquidation on mobile", () => {
           .should("be.visible")
           .should("have.text", "Total Collateral Value (USD)");
         cy.findByTestId("VaultDetailList.TotalCollateralValue.Value").should(
-          "be.visible",
+          "be.visible"
         );
         cy.findByTestId("InfoHoverPopover").should("be.visible");
       });
@@ -221,7 +221,7 @@ context("/vaults/[vaultid] - In Liquidation on mobile", () => {
           .should("be.visible")
           .should("have.text", "Vault Interest Rate (APR)");
         cy.findByTestId("VaultDetailList.VaultInterestRate.Value").should(
-          "be.visible",
+          "be.visible"
         );
         cy.findByTestId("InfoHoverPopover").should("be.visible");
       });
@@ -237,23 +237,23 @@ context("/vaults/[vaultid] - In Liquidation on mobile", () => {
       cy.findByTestId("MobileVaultAuctions").within(() => {
         cy.findByTestId("CollapsibleSection.Heading").should(
           "have.text",
-          "In Auction",
+          "In Auction"
         );
 
         cy.findByTestId("MobileAuctionDetailsCards").within(() => {
           cy.findAllByTestId("MobileAuctionDetailCard").within(() => {
             cy.findByTestId("MobileAuctionDetailCard.TokenSymbol").should(
-              "be.visible",
+              "be.visible"
             );
             cy.findByTestId("MobileAuctionDetailCard.displaySymbol").should(
-              "be.visible",
+              "be.visible"
             );
             cy.findByTestId("CardList.Header.ViewButton")
               .should("be.visible")
               .should("have.text", "VIEW");
 
             cy.findByTestId("MobileAuctionDetailCard.AuctionTimeLeft").should(
-              "be.visible",
+              "be.visible"
             );
 
             cy.findAllByTestId("MobileAuctionDetailCard.MinNextBid").within(
@@ -267,22 +267,22 @@ context("/vaults/[vaultid] - In Liquidation on mobile", () => {
                 cy.findByTestId("BidAmountValue.MinBidValue")
                   .should("be.visible")
                   .contains(/^\$\d{1,3}(,\d{3})*(\.\d+)$/);
-              },
+              }
             );
 
             cy.findAllByTestId(
-              "MobileAuctionDetailCard.CollateralsForAuction",
+              "MobileAuctionDetailCard.CollateralsForAuction"
             ).within(() => {
               cy.findByTestId("CardList.Row.Title")
                 .should("be.visible")
                 .should("have.text", "Collateral For Auction");
               cy.findByTestId(
-                "MobileAuctionDetailCard.CollateralSymbols",
+                "MobileAuctionDetailCard.CollateralSymbols"
               ).should("be.visible");
             });
 
             cy.findAllByTestId(
-              "MobileAuctionDetailCard.CollateralValue",
+              "MobileAuctionDetailCard.CollateralValue"
             ).within(() => {
               cy.findByTestId("CardList.Row.Title")
                 .should("be.visible")

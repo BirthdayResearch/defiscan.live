@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Remove Oracle on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/36fb1c89217749e51a0ca268352e1d4a6012817813bdf003bad4a7c9f197eabc?network=MainNet",
+      "/transactions/36fb1c89217749e51a0ca268352e1d4a6012817813bdf003bad4a7c9f197eabc?network=MainNet"
     );
   });
 
@@ -20,7 +20,7 @@ context("/transactions/[txid] - DfTx Remove Oracle on desktop", () => {
   it("should have DfTxRemoveOracle Oracle ID", () => {
     cy.findByTestId("DfTxRemoveOracle.OracleId").should(
       "have.text",
-      "c2cd2623696af16b4bca7bcbfd9f024ad0e07be425cbd5a4f87a5cbc8d2414e0",
+      "c2cd2623696af16b4bca7bcbfd9f024ad0e07be425cbd5a4f87a5cbc8d2414e0"
     );
   });
 });
@@ -28,7 +28,7 @@ context("/transactions/[txid] - DfTx Remove Oracle on desktop", () => {
 context("/transactions/[txid] - DfTx Remove Oracle on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/36fb1c89217749e51a0ca268352e1d4a6012817813bdf003bad4a7c9f197eabc?network=MainNet",
+      "/transactions/36fb1c89217749e51a0ca268352e1d4a6012817813bdf003bad4a7c9f197eabc?network=MainNet"
     );
   });
 
@@ -47,7 +47,7 @@ context("/transactions/[txid] - DfTx Remove Oracle on mobile", () => {
   it("should have DfTxRemoveOracle Oracle ID", () => {
     cy.findByTestId("DfTxRemoveOracle.OracleId").should(
       "have.text",
-      "c2cd2623696af16b4bca7bcbfd9f024ad0e07be425cbd5a4f87a5cbc8d2414e0",
+      "c2cd2623696af16b4bca7bcbfd9f024ad0e07be425cbd5a4f87a5cbc8d2414e0"
     );
   });
 });

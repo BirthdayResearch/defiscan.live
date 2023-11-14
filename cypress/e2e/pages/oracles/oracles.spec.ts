@@ -19,7 +19,7 @@ context("/oracles on macbook-13", () => {
   it("should contain at most 1 availability btn", () => {
     cy.findAllByTestId("FeedFilter.Availability.Btn").should(
       "have.length.at.most",
-      1,
+      1
     );
   });
 
@@ -62,7 +62,7 @@ context("/oracles on iphone-x", () => {
   it("should contain at most 1 availability btn", () => {
     cy.findAllByTestId("FeedFilter.Availability.Btn").should(
       "have.length.at.most",
-      1,
+      1
     );
   });
 
