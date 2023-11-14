@@ -116,7 +116,7 @@ function DesktopVaultDetailsRow(props: {
       className={classNames(
         props.vault.state === LoanVaultState.FROZEN
           ? "text-gray-200"
-          : "text-gray-900 dark:text-gray-100"
+          : "text-gray-900 dark:text-gray-100",
       )}
     >
       <OverflowTable.Cell>
@@ -176,7 +176,7 @@ function MobileVaultDetails(props: {
         "flex flex-col space-y-2",
         props.vault.state === LoanVaultState.FROZEN
           ? "text-gray-200"
-          : "text-gray-900"
+          : "text-gray-900",
       )}
     >
       <VaultDetailsListItem

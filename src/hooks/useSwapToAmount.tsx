@@ -12,7 +12,7 @@ export function useSwapToAmount() {
     const accountHistory = await api.address.getAccountHistory(
       address,
       txnHeight,
-      order
+      order,
     );
     return accountHistory?.amounts?.reduce((toAmount, current) => {
       const [amount, symbol] = current.split("@");

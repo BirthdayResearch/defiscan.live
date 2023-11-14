@@ -57,7 +57,7 @@ function SwapRow({ swap }: { swap: PoolSwapData }): JSX.Element {
           <span
             className={classNames(
               "capitalize",
-              swap.type === SwapType.SELL ? "text-red-500" : "text-green-500"
+              swap.type === SwapType.SELL ? "text-red-500" : "text-green-500",
             )}
           >
             {swap.type.toLowerCase()}

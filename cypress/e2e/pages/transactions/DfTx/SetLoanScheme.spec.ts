@@ -1,7 +1,7 @@
 context("/transactions/[txid] - Set Loan Scheme on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/e48186121e1bb2266fce6444e48e3c83ddf7225a82ff70d203d3c549a637c175"
+      "/transactions/e48186121e1bb2266fce6444e48e3c83ddf7225a82ff70d203d3c549a637c175",
     );
   });
 
@@ -20,14 +20,14 @@ context("/transactions/[txid] - Set Loan Scheme on desktop", () => {
   it("should have DfTxSetLoanScheme Identifier", () => {
     cy.findByTestId("DfTxSetLoanScheme.Identifier").should(
       "have.text",
-      "MIN350"
+      "MIN350",
     );
   });
 
   it("should have DfTxSetLoanScheme Ratio", () => {
     cy.findByTestId("DfTxSetLoanScheme.Ratio").should(
       "have.text",
-      "1.50000000"
+      "1.50000000",
     );
   });
 
@@ -38,7 +38,7 @@ context("/transactions/[txid] - Set Loan Scheme on desktop", () => {
   it("should have DfTxSetLoanScheme Update", () => {
     cy.findByTestId("DfTxSetLoanScheme.Update").should(
       "have.text",
-      "0.00000000"
+      "0.00000000",
     );
   });
 });
@@ -46,7 +46,7 @@ context("/transactions/[txid] - Set Loan Scheme on desktop", () => {
 context("/transactions/[txid] - Set Loan Scheme on Mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/e48186121e1bb2266fce6444e48e3c83ddf7225a82ff70d203d3c549a637c175"
+      "/transactions/e48186121e1bb2266fce6444e48e3c83ddf7225a82ff70d203d3c549a637c175",
     );
   });
 
@@ -65,14 +65,14 @@ context("/transactions/[txid] - Set Loan Scheme on Mobile", () => {
   it("should have DfTxSetLoanScheme Identifier", () => {
     cy.findByTestId("DfTxSetLoanScheme.Identifier").should(
       "have.text",
-      "MIN350"
+      "MIN350",
     );
   });
 
   it("should have DfTxSetLoanScheme Ratio", () => {
     cy.findByTestId("DfTxSetLoanScheme.Ratio").should(
       "have.text",
-      "1.50000000"
+      "1.50000000",
     );
   });
 
@@ -83,7 +83,7 @@ context("/transactions/[txid] - Set Loan Scheme on Mobile", () => {
   it("should have DfTxSetLoanScheme Update", () => {
     cy.findByTestId("DfTxSetLoanScheme.Update").should(
       "have.text",
-      "0.00000000"
+      "0.00000000",
     );
   });
 });

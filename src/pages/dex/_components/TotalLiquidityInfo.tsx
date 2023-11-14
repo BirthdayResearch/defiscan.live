@@ -19,7 +19,7 @@ interface TotalLiquidityInfoProps {
 }
 
 export function TotalLiquidityInfo(
-  props: TotalLiquidityInfoProps
+  props: TotalLiquidityInfoProps,
 ): JSX.Element {
   return (
     <div

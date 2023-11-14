@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx pool update pair on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/3bfdb2058e9c0127a774e5a74ba260767fe74abb02024c3da5b4d0582d89631b?network=MainNet"
+      "/transactions/3bfdb2058e9c0127a774e5a74ba260767fe74abb02024c3da5b4d0582d89631b?network=MainNet",
     );
   });
 
@@ -28,14 +28,14 @@ context("/transactions/[txid] - DfTx pool update pair on desktop", () => {
   it("should have DfTxPoolUpdatePair commission", () => {
     cy.findByTestId("DfTxPoolUpdatePair.commission").should(
       "have.text",
-      "184467440737.09551615"
+      "184467440737.09551615",
     );
   });
 
   it("should have DfTxPoolUpdatePair ownerAddress", () => {
     cy.findByTestId("DfTxPoolUpdatePair.ownerAddress").should(
       "have.text",
-      "N/A"
+      "N/A",
     );
   });
 
@@ -46,7 +46,7 @@ context("/transactions/[txid] - DfTx pool update pair on desktop", () => {
   it("should have DfTxPoolUpdatePair Amount", () => {
     cy.findByTestId("DfTxPoolUpdatePair.Amount").should(
       "have.text",
-      "0.56350000"
+      "0.56350000",
     );
   });
 });
@@ -54,7 +54,7 @@ context("/transactions/[txid] - DfTx pool update pair on desktop", () => {
 context("/transactions/[txid] - DfTx pool update pair on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/3bfdb2058e9c0127a774e5a74ba260767fe74abb02024c3da5b4d0582d89631b?network=MainNet"
+      "/transactions/3bfdb2058e9c0127a774e5a74ba260767fe74abb02024c3da5b4d0582d89631b?network=MainNet",
     );
   });
 
@@ -81,14 +81,14 @@ context("/transactions/[txid] - DfTx pool update pair on mobile", () => {
   it("should have DfTxPoolUpdatePair commission", () => {
     cy.findByTestId("DfTxPoolUpdatePair.commission").should(
       "have.text",
-      "184467440737.09551615"
+      "184467440737.09551615",
     );
   });
 
   it("should have DfTxPoolUpdatePair ownerAddress", () => {
     cy.findByTestId("DfTxPoolUpdatePair.ownerAddress").should(
       "have.text",
-      "N/A"
+      "N/A",
     );
   });
 
@@ -99,7 +99,7 @@ context("/transactions/[txid] - DfTx pool update pair on mobile", () => {
   it("should have DfTxPoolUpdatePair Amount", () => {
     cy.findByTestId("DfTxPoolUpdatePair.Amount").should(
       "have.text",
-      "0.56350000"
+      "0.56350000",
     );
   });
 });

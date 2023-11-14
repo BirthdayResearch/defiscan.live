@@ -13,7 +13,7 @@ interface DfTxPoolUpdatePairProps {
 }
 
 export function DfTxPoolUpdatePair(
-  props: DfTxPoolUpdatePairProps
+  props: DfTxPoolUpdatePairProps,
 ): JSX.Element {
   const network = useNetwork().name;
   const ownerAddress = fromScript(props.dftx.data.ownerAddress, network);

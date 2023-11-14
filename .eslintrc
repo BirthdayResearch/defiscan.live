@@ -43,6 +43,7 @@
     "import/no-default-export": "error",
     "multiline-ternary": "off",
     "jsx-a11y/mouse-events-have-key-events": "off",
+    "jsx-a11y/control-has-associated-label": "off",
     "no-restricted-imports": [
       "error",
       {

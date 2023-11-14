@@ -32,7 +32,7 @@ export function DisclosureComponent({
                   "text-base md:text-lg font-medium",
                   isOpen || isCompleted
                     ? "text-gray-900 dark:text-dark-gray-900"
-                    : "text-gray-400 dark:dark-text-gray-400"
+                    : "text-gray-400 dark:dark-text-gray-400",
                 )}
               >
                 {title}

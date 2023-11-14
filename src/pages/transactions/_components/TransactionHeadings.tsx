@@ -10,7 +10,7 @@ interface TransactionNotFoundHeadingProps {
 }
 
 export function TransactionHeading(
-  props: TransactionHeadingProps
+  props: TransactionHeadingProps,
 ): JSX.Element {
   return (
     <>
@@ -35,7 +35,7 @@ export function TransactionHeading(
 }
 
 export function TransactionNotFoundHeading(
-  props: TransactionNotFoundHeadingProps
+  props: TransactionNotFoundHeadingProps,
 ): JSX.Element {
   const txid = props.txid;
 

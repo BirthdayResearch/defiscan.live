@@ -10,7 +10,7 @@ interface VaultDetailsListItemProps {
 }
 
 export function VaultDetailsListItem(
-  props: PropsWithChildren<VaultDetailsListItemProps>
+  props: PropsWithChildren<VaultDetailsListItemProps>,
 ): JSX.Element {
   return (
     <div
@@ -21,7 +21,7 @@ export function VaultDetailsListItem(
         <span
           className={classnames(
             "text-gray-500 dark:text-gray-400",
-            props.titleClassNames
+            props.titleClassNames,
           )}
           data-testid="VaultDetailsListItem.Title"
         >

@@ -45,7 +45,7 @@ function VoteRow({ item }: { item: ListVotesResult }): JSX.Element {
         <span
           className={classNames(
             "capitalize py-1 px-3 rounded-[32px] text-sm font-medium",
-            voteStyle
+            voteStyle,
           )}
         >
           {VoteDecision[item.vote]}
@@ -83,7 +83,7 @@ export function VoteCards({
             <span
               className={classNames(
                 "capitalize py-1 px-3 rounded-[32px] text-sm font-medium text-right",
-                getVotesStyle(item.vote)
+                getVotesStyle(item.vote),
               )}
             >
               {VoteDecision[item.vote]}

@@ -23,7 +23,7 @@ interface AddressPageProps {
 }
 
 export default function AddressPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const addressType = getAddressType(props.address, useNetwork().name);
 
@@ -78,7 +78,7 @@ export default function AddressPage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<AddressPageProps>> {
   const address = context.params?.address?.toString().trim() as string;
 

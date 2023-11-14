@@ -20,7 +20,7 @@ export function useNetwork(): NetworkContextObject {
 }
 
 export function NetworkProvider(
-  props: PropsWithChildren<any>
+  props: PropsWithChildren<any>,
 ): JSX.Element | null {
   const router = useRouter();
   const env = getEnvironment();
@@ -34,7 +34,7 @@ export function NetworkProvider(
 }
 
 function mapNetworkObject(
-  connection: EnvironmentNetwork
+  connection: EnvironmentNetwork,
 ): NetworkContextObject {
   switch (connection) {
     case EnvironmentNetwork.MainNet:

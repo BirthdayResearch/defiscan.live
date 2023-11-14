@@ -9,7 +9,7 @@ interface DfTxICXSubmitEXTHTLCProps {
 }
 
 export function DfTxICXSubmitEXTHTLC(
-  props: DfTxICXSubmitEXTHTLCProps
+  props: DfTxICXSubmitEXTHTLCProps,
 ): JSX.Element {
   return (
     <div>

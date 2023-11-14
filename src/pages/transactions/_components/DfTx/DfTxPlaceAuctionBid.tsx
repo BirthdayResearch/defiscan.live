@@ -13,7 +13,7 @@ interface DfTxPlaceAuctionBidProps {
 }
 
 export function DfTxPlaceAuctionBid(
-  props: DfTxPlaceAuctionBidProps
+  props: DfTxPlaceAuctionBidProps,
 ): JSX.Element {
   const fromAddress = fromScript(props.dftx.data.from, useNetwork().name);
 

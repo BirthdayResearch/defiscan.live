@@ -81,7 +81,7 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                 <span className="text-black font-medium mr-1 dark:text-gray-100">
                   {CalculatePercentage(
                     data.supply.circulating,
-                    data.supply.total
+                    data.supply.total,
                   )}
                 </span>
                 of total minted
@@ -100,7 +100,7 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
                       data.stats.tvl.dex,
-                      data.stats.tvl.total
+                      data.stats.tvl.total,
                     )}
                   </span>
                 </div>
@@ -110,7 +110,7 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
                       data.stats.tvl.masternodes,
-                      data.stats.tvl.total
+                      data.stats.tvl.total,
                     )}
                   </span>
                 </div>
@@ -119,7 +119,7 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
                       data.stats.tvl.loan,
-                      data.stats.tvl.total
+                      data.stats.tvl.total,
                     )}
                   </span>
                 </div>
@@ -153,7 +153,7 @@ function StatCard(
     prefix?: string;
     suffix?: string;
     testId: string;
-  }>
+  }>,
 ): JSX.Element {
   return (
     <div className="w-full md:w-1/2 p-1" data-testid={props.testId}>

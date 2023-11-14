@@ -15,7 +15,7 @@ export interface GraphProps {
  */
 export function getAdjacentNodes(
   startNode: string,
-  graph: GraphProps[]
+  graph: GraphProps[],
 ): string[] {
   const adjacentNodesSet = new Set();
   graph.forEach((vertices) => {
@@ -38,7 +38,7 @@ export function getAdjacentNodes(
 export function findPath(
   graph: GraphProps[],
   origin: string,
-  target: string
+  target: string,
 ): { visitedNodes: Set<string>; path: string[] } {
   let isPathFound = false;
   let nodesToVisit = [origin, ...getAdjacentNodes(origin, graph)];
@@ -87,7 +87,7 @@ export function findPath(
         const innerStart = {
           value: startValue,
           edges: getAdjacentNodes(startValue, graph).filter(
-            (node) => !visitedNodes.has(node)
+            (node) => !visitedNodes.has(node),
           ),
           currentDistance: start.currentDistance + 1,
         };
@@ -112,7 +112,7 @@ export function findPath(
 export function checkIfPair(
   pair: { a: string; b: string },
   a: string,
-  b: string
+  b: string,
 ): boolean {
   return (pair.a === a && pair.b === b) || (pair.b === a && pair.a === b);
 }

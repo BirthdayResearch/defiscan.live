@@ -123,7 +123,7 @@ export function VaultStatus(props: VaultStatusProps): JSX.Element {
       className={classNames(
         "min-w-max align-middle bg-white",
         props.className,
-        textClassName
+        textClassName,
       )}
       data-testid={props.testId}
     >

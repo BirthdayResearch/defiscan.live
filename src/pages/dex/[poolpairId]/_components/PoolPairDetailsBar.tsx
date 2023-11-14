@@ -35,7 +35,7 @@ export function PoolPairDetailsBar(props: {
             prefix="$"
             value={getTokenPrice(
               props.poolpair.tokenB.symbol,
-              new BigNumber(props.poolpair.priceRatio.ba)
+              new BigNumber(props.poolpair.priceRatio.ba),
             ).toFixed(2, BigNumber.ROUND_HALF_UP)}
           />
           <NumericFormat

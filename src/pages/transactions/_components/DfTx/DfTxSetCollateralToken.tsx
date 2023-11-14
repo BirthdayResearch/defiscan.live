@@ -8,7 +8,7 @@ interface DfTxSetCollateralTokenProps {
 }
 
 export function DfTxSetCollateralToken(
-  props: DfTxSetCollateralTokenProps
+  props: DfTxSetCollateralTokenProps,
 ): JSX.Element {
   return (
     <div>

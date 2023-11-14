@@ -9,7 +9,7 @@ interface RawTransactionHeadingProps {
 }
 
 export function RawTransactionHeading(
-  props: RawTransactionHeadingProps
+  props: RawTransactionHeadingProps,
 ): JSX.Element {
   const txid = props.transaction?.vin[0].txid ?? "";
   return (

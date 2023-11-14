@@ -12,7 +12,7 @@ interface WarningHoverPopoverProps {
 }
 
 export function WarningHoverPopover(
-  props: PropsWithChildren<WarningHoverPopoverProps>
+  props: PropsWithChildren<WarningHoverPopoverProps>,
 ): JSX.Element {
   return (
     <HoverPopover popover={props.description} placement={props.placement}>

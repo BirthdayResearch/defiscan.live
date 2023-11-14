@@ -3,14 +3,14 @@ import classNames from "classnames";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 
 export function AdaptiveList(
-  props: PropsWithChildren<{ className?: string }>
+  props: PropsWithChildren<{ className?: string }>,
 ): JSX.Element {
   return (
     <div
       data-testid="AdaptiveList"
       className={classNames(
         "rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden",
-        props.className
+        props.className,
       )}
     >
       <div className="table w-full border-collapse">
@@ -26,7 +26,7 @@ function Row(
     className?: string;
     testId?: string;
     infoDesc?: string | ReactNode;
-  }>
+  }>,
 ): JSX.Element {
   return (
     <div className="table-row border-b border-gray-100 dark:border-gray-700 last:border-b-0">
@@ -41,7 +41,7 @@ function Row(
       <div
         className={classNames(
           "table-cell px-4 md:px-6 py-3 text-gray-600 dark:text-gray-100 align-middle break-all",
-          props.className
+          props.className,
         )}
         data-testid={props.testId}
       >

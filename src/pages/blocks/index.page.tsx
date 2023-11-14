@@ -46,7 +46,7 @@ export default function Blocks({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BlocksPageData>> {
   const next = CursorPagination.getNext(context);
   const items = await getWhaleApiClient(context).blocks.list(50, next);

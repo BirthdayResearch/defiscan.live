@@ -2,13 +2,13 @@ context("/address/[address] on desktop", () => {
   beforeEach(() => {
     cy.viewport("macbook-16");
     cy.visit(
-      "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet"
+      "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet",
     );
   });
 
   it("should have heading", () => {
     cy.findByTestId("AddressHeading.address").contains(
-      "df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg"
+      "df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg",
     );
   });
 
@@ -16,7 +16,7 @@ context("/address/[address] on desktop", () => {
     cy.findByTestId("AddressSummaryTable.utxoBalance").contains(/\d+.\d+\sDFI/);
     cy.findByTestId("AddressSummaryTable.totalSent").contains(/\d+.\d+\sDFI/);
     cy.findByTestId("AddressSummaryTable.totalReceived").contains(
-      /\d+.\d+\sDFI/
+      /\d+.\d+\sDFI/,
     );
     cy.findByTestId("AddressSummaryTable.txCount").contains(/\d+/);
   });
@@ -25,14 +25,14 @@ context("/address/[address] on desktop", () => {
     cy.findByTestId("Balances").within(() => {
       cy.findByTestId("CollapsibleSection.Heading").should(
         "have.text",
-        "Balances"
+        "Balances",
       );
 
       cy.findAllByTestId("AddressTokenCard", { timeout: 30000 }).each(
         ($tokenCard) => {
           cy.wrap($tokenCard).within(() => {
             cy.findAllByTestId("AddressTokenCard.TokenSymbol").should(
-              "be.visible"
+              "be.visible",
             );
             cy.findByTestId("AddressTokenCard.TokenName").should("be.visible");
             cy.findByTestId("AddressTokenCard.Type")
@@ -42,7 +42,7 @@ context("/address/[address] on desktop", () => {
               .should("be.visible")
               .contains(/\d+.\d+/);
           });
-        }
+        },
       );
 
       cy.findAllByTestId("AddressTokenCard").should("have.length.at.least", 10);
@@ -53,7 +53,7 @@ context("/address/[address] on desktop", () => {
     cy.findByTestId("Vaults").within(() => {
       cy.findByTestId("CollapsibleSection.Heading").should(
         "have.text",
-        "Vaults"
+        "Vaults",
       );
 
       it("should have Vaults OverflowTable", () => {
@@ -111,7 +111,7 @@ context("/address/[address] on desktop", () => {
       it("should have Show More button", () => {
         cy.findByTestId("AddressTransactionTable.showMoreBtn").should(
           "have.text",
-          "SHOW MORE"
+          "SHOW MORE",
         );
         cy.findByTestId("AddressTransactionTable.showMoreBtn").click();
         cy.findAllByTestId("OverflowTable.Row").should("have.length", 20);
@@ -123,7 +123,7 @@ context("/address/[address] on desktop", () => {
     cy.findByTestId("Transactions").within(() => {
       cy.findByTestId("CollapsibleSection.Heading").should(
         "have.text",
-        "Transactions"
+        "Transactions",
       );
 
       it("should have Transactions OverflowTable", () => {
@@ -139,7 +139,7 @@ context("/address/[address] on desktop", () => {
       it("should have Show More button", () => {
         cy.findByTestId("AddressTransactionTable.showMoreBtn").should(
           "have.text",
-          "SHOW MORE"
+          "SHOW MORE",
         );
         cy.findByTestId("AddressTransactionTable.showMoreBtn").click();
         cy.findAllByTestId("OverflowTable.Row").should("have.length", 20);
@@ -151,7 +151,7 @@ context("/address/[address] on desktop", () => {
 context("/address/[address] on desktop - invalid address", () => {
   beforeEach(() => {
     cy.visit(
-      "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet"
+      "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet",
     );
     cy.viewport("macbook-16");
   });
@@ -159,7 +159,7 @@ context("/address/[address] on desktop - invalid address", () => {
   it("should have warning banner", () => {
     cy.findByTestId("AddressHeading.AddressNotFoundHeading").should(
       "have.text",
-      "The requested address df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA could not be found."
+      "The requested address df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA could not be found.",
     );
   });
 });
@@ -167,14 +167,14 @@ context("/address/[address] on desktop - invalid address", () => {
 context("/address/[address] on mobile", () => {
   beforeEach(() => {
     cy.visit(
-      "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet"
+      "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg?network=MainNet",
     );
     cy.viewport("iphone-x");
   });
 
   it("should have heading", () => {
     cy.findByTestId("AddressHeading.address").contains(
-      "df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg"
+      "df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzeg",
     );
   });
 
@@ -182,7 +182,7 @@ context("/address/[address] on mobile", () => {
     cy.findByTestId("AddressSummaryTable.utxoBalance").contains(/\d+.\d+\sDFI/);
     cy.findByTestId("AddressSummaryTable.totalSent").contains(/\d+.\d+\sDFI/);
     cy.findByTestId("AddressSummaryTable.totalReceived").contains(
-      /\d+.\d+\sDFI/
+      /\d+.\d+\sDFI/,
     );
     cy.findByTestId("AddressSummaryTable.txCount").contains(/\d+/);
   });
@@ -191,14 +191,14 @@ context("/address/[address] on mobile", () => {
     cy.findByTestId("Balances").within(() => {
       cy.findByTestId("CollapsibleSection.Heading").should(
         "have.text",
-        "Balances"
+        "Balances",
       );
 
       cy.findAllByTestId("AddressTokenCard", { timeout: 30000 }).each(
         ($tokenCard) => {
           cy.wrap($tokenCard).within(() => {
             cy.findAllByTestId("AddressTokenCard.TokenSymbol").should(
-              "be.visible"
+              "be.visible",
             );
             cy.findByTestId("AddressTokenCard.TokenName").should("be.visible");
             cy.findByTestId("AddressTokenCard.Type")
@@ -208,7 +208,7 @@ context("/address/[address] on mobile", () => {
               .should("be.visible")
               .contains(/\d+.\d+/);
           });
-        }
+        },
       );
 
       cy.findAllByTestId("AddressTokenCard").should("have.length.at.least", 10);
@@ -219,7 +219,7 @@ context("/address/[address] on mobile", () => {
     cy.findByTestId("Vaults").within(() => {
       cy.findByTestId("CollapsibleSection.Heading").should(
         "have.text",
-        "Vaults"
+        "Vaults",
       );
 
       it("should have Vaults OverflowTable", () => {
@@ -277,7 +277,7 @@ context("/address/[address] on mobile", () => {
       it("should have Show More button", () => {
         cy.findByTestId("AddressTransactionTable.showMoreBtn").should(
           "have.text",
-          "SHOW MORE"
+          "SHOW MORE",
         );
         cy.findByTestId("AddressTransactionTable.showMoreBtn").click();
         cy.findAllByTestId("OverflowTable.Row").should("have.length", 20);
@@ -289,7 +289,7 @@ context("/address/[address] on mobile", () => {
     cy.findByTestId("Transactions").within(() => {
       cy.findByTestId("CollapsibleSection.Heading").should(
         "have.text",
-        "Transactions"
+        "Transactions",
       );
 
       it("should have Transactions OverflowTable", () => {
@@ -305,7 +305,7 @@ context("/address/[address] on mobile", () => {
       it("should have Show More button", () => {
         cy.findByTestId("AddressTransactionTable.showMoreBtn").should(
           "have.text",
-          "SHOW MORE"
+          "SHOW MORE",
         );
         cy.findByTestId("AddressTransactionTable.showMoreBtn").click();
         cy.findAllByTestId("OverflowTable.Row").should("have.length", 20);
@@ -317,7 +317,7 @@ context("/address/[address] on mobile", () => {
 context("/address/[address] on mobile - invalid address", () => {
   beforeEach(() => {
     cy.visit(
-      "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet"
+      "/address/df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA?network=MainNet",
     );
     cy.viewport("iphone-x");
   });
@@ -325,7 +325,7 @@ context("/address/[address] on mobile - invalid address", () => {
   it("should have warning banner", () => {
     cy.findByTestId("AddressHeading.AddressNotFoundHeading").should(
       "have.text",
-      "The requested address df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA could not be found."
+      "The requested address df1q65ap3tf6mpqx6m5kmdynltu5pxpxmavq5hzzegASDDSA could not be found.",
     );
   });
 });

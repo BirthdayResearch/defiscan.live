@@ -2,14 +2,14 @@ import classNames from "classnames";
 import { PropsWithChildren } from "react";
 
 export function AdaptiveTable(
-  props: PropsWithChildren<{ className?: string }>
+  props: PropsWithChildren<{ className?: string }>,
 ): JSX.Element {
   return (
     <div
       data-testid="AdaptiveTable"
       className={classNames(
         "lg:border lg:border-gray-200 lg:rounded-lg overflow-hidden w-full dark:border-gray-700",
-        props.className
+        props.className,
       )}
     >
       <div className="table w-full border-collapse">
@@ -25,7 +25,7 @@ function Header(props: PropsWithChildren<{ className?: string }>): JSX.Element {
       data-testid="AdaptiveTable.Header"
       className={classNames(
         "hidden lg:table-row border-gray-100 bg-gray-50 dark:bg-gray-700",
-        props.className
+        props.className,
       )}
     >
       {props.children}
@@ -40,7 +40,7 @@ function Row(props: PropsWithChildren<{ className?: string }>): JSX.Element {
       className={classNames(
         "overflow-hidden flex flex-wrap border rounded-lg border-gray-100",
         "lg:border-0 lg:rounded-none lg:table-row lg:border-t dark:border-gray-700",
-        props.className
+        props.className,
       )}
     >
       {props.children}
@@ -54,7 +54,7 @@ function Head(props: PropsWithChildren<{ className?: string }>): JSX.Element {
       data-testid="AdaptiveTable.Head"
       className={classNames(
         "table-cell py-3 px-6 text-black text-opacity-60 text-sm font-semibold dark:text-gray-100",
-        props.className
+        props.className,
       )}
     >
       {props.children}
@@ -67,7 +67,7 @@ function Cell(
     className?: string;
     title?: string;
     testId?: string;
-  }>
+  }>,
 ): JSX.Element {
   return (
     <div
@@ -76,7 +76,7 @@ function Cell(
       }`}
       className={classNames(
         "table-cell w-full sm:w-auto flex-grow",
-        props.className
+        props.className,
       )}
     >
       <div className="lg:hidden py-2 px-6 bg-gray-50 text-black text-opacity-60 text-xs font-semibold dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-gray-600">

@@ -62,7 +62,7 @@ export function OracleFeed(props: PriceFeedProps): JSX.Element {
                   <HoverPopover
                     popover={`Inactive since ${format(
                       price.block.medianTime * 1000,
-                      "MMM dd, hh:mm:ss aa"
+                      "MMM dd, hh:mm:ss aa",
                     )}`}
                   >
                     <div className="p-1 cursor-help">

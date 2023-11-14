@@ -51,7 +51,7 @@ export function AuctionsTableRow(props: VaultAuctionDetailsProps): JSX.Element {
         <div className="text-right">
           <NumericFormat
             value={useCalculateAuctionsValue(
-              props.batch.collaterals
+              props.batch.collaterals,
             ).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
             thousandSeparator
             decimalScale={2}
@@ -72,7 +72,7 @@ export function AuctionsTableRow(props: VaultAuctionDetailsProps): JSX.Element {
 }
 
 export function MobileAuctionDetailsCard(
-  props: VaultAuctionDetailsProps
+  props: VaultAuctionDetailsProps,
 ): JSX.Element {
   const TokenSymbol = getAssetIcon(props.batch.loan.symbol);
 
@@ -135,7 +135,7 @@ export function MobileAuctionDetailsCard(
           >
             <NumericFormat
               value={useCalculateAuctionsValue(
-                props.batch.collaterals
+                props.batch.collaterals,
               ).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
               thousandSeparator
               decimalScale={2}

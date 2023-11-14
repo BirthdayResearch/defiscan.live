@@ -55,7 +55,7 @@ export function VaultIdCollateralDetails(props: {
                 key={col.id}
                 priceFactor={
                   props.collateralTokens.find(
-                    (token) => token.token.id === col.id
+                    (token) => token.token.id === col.id,
                   )?.factor ?? "1"
                 }
               />
@@ -84,7 +84,7 @@ export function VaultIdCollateralDetails(props: {
                 key={col.id}
                 priceFactor={
                   props.collateralTokens.find(
-                    (token) => token.token.id === col.id
+                    (token) => token.token.id === col.id,
                   )?.factor ?? "1"
                 }
               />
@@ -108,10 +108,10 @@ function CollateralCard(props: {
     props.col.activePrice,
     props.priceFactor,
     "ACTIVE",
-    "COLLATERAL"
+    "COLLATERAL",
   );
   const collateralValue = new BigNumber(props.col.amount).multipliedBy(
-    collateralPrice
+    collateralPrice,
   );
   const compositionPercentage = collateralValue
     .dividedBy(props.vaultTotalCollateralValue)
@@ -164,7 +164,7 @@ function CollateralCard(props: {
             "flex items-center space-x-1",
             props.vaultState === LoanVaultState.FROZEN
               ? "text-gray-200"
-              : "text-gray-900 dark:text-gray-100"
+              : "text-gray-900 dark:text-gray-100",
           )}
           data-testid="CollateralCard.CollateralAmount"
         >

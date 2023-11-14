@@ -15,7 +15,7 @@ export interface LiquidatedVaultDerivedValues {
 }
 
 export function calculateLiquidationValues(
-  vault: LoanVaultActive | LoanVaultLiquidated
+  vault: LoanVaultActive | LoanVaultLiquidated,
 ): LiquidatedVaultDerivedValues | undefined {
   const loanAmounts: LoanVaultTokenAmount[] = [];
   const collateralAmounts: LoanVaultTokenAmount[] = [];
@@ -38,8 +38,8 @@ export function calculateLiquidationValues(
         loanAmounts.push(batch.loan);
         loanValue = loanValue.plus(
           new BigNumber(batch.loan.amount).multipliedBy(
-            batch.loan.activePrice.active.amount
-          )
+            batch.loan.activePrice.active.amount,
+          ),
         );
       }
 
@@ -48,7 +48,7 @@ export function calculateLiquidationValues(
           if (collateral.symbol === "DUSD") {
             collateralAmounts.push(collateral);
             collateralValue = collateralValue.plus(
-              new BigNumber(collateral.amount)
+              new BigNumber(collateral.amount),
             );
           } else {
             isMissingActivePrice = true;
@@ -57,8 +57,8 @@ export function calculateLiquidationValues(
           collateralAmounts.push(collateral);
           collateralValue = collateralValue.plus(
             new BigNumber(collateral.amount).multipliedBy(
-              collateral.activePrice?.active.amount
-            )
+              collateral.activePrice?.active.amount,
+            ),
           );
         }
       });

@@ -68,7 +68,7 @@ export default function BurnPage({
                     thousandSeparator
                     value={
                       burnInfo.dexfeetokens.filter((token) =>
-                        token.endsWith("@DUSD")
+                        token.endsWith("@DUSD"),
                       )[0]
                     }
                     decimalScale={0}
@@ -105,7 +105,7 @@ export default function BurnPage({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BurnInfoData>> {
   const api = getWhaleApiClient(context);
   const burnInfo = await api.stats.getBurn();
@@ -117,7 +117,7 @@ export async function getServerSideProps(
     const rate = new BigNumber(
       burnInfo.dexfeetokens
         .filter((token) => token.endsWith(`@${symbol}`))[0]
-        .replace(`@${symbol}`, "")
+        .replace(`@${symbol}`, ""),
     )
       .div(amount)
       .multipliedBy(100);

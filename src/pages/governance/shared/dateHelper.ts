@@ -14,7 +14,7 @@ export function getCurrentYearMonth() {
 export function formatMedianTime(
   medianTime: number,
   dateFormat: string = "MMM dd, yyyy, HH:mm:ss aa",
-  approximation: boolean = false
+  approximation: boolean = false,
 ): string {
   if (approximation === true) {
     dateFormat = `'≈ '${dateFormat}`;

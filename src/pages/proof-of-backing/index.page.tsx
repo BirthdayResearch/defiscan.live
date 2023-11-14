@@ -22,7 +22,7 @@ export interface TokenWithBacking {
 }
 
 export default function ProofOfBackingPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   return (
     <Container>
@@ -54,7 +54,7 @@ export default function ProofOfBackingPage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ProofOfBackingPageProps>> {
   const api = getWhaleApiClient(context);
   const tokenList = await getAllTokens(api);
@@ -65,7 +65,7 @@ export async function getServerSideProps(
   TOKEN_BACKED.forEach((token) => {
     const _token = tokenList.find((t) => t.displaySymbol === token.name);
     const _burntToken = burntTokenList?.find(
-      (t) => t.displaySymbol === token.name
+      (t) => t.displaySymbol === token.name,
     );
     if (_token !== undefined) {
       result.push({

@@ -12,7 +12,7 @@ interface DfTxAccountToAccountProps {
 }
 
 export function DfTxAccountToAccount(
-  props: DfTxAccountToAccountProps
+  props: DfTxAccountToAccountProps,
 ): JSX.Element {
   const network = useNetwork().name;
   const from = fromScript(props.dftx.data.from, network);

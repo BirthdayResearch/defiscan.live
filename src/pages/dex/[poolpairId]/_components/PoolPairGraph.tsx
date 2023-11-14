@@ -24,7 +24,7 @@ import { UnitSuffix } from "@components/commons/UnitSuffix";
 export function PoolPairGraph(props: { poolpair: PoolPairData }): JSX.Element {
   const api = useWhaleApiClient();
   const [feed, setFeed] = useState<PoolSwapAggregatedData[] | undefined>(
-    undefined
+    undefined,
   );
 
   useEffect(() => {
@@ -120,7 +120,7 @@ function TooltipDialog({
   }
   const blockTime = format(
     fromUnixTime(feed.block.medianTime),
-    "MMM dd, hh:mm aa"
+    "MMM dd, hh:mm aa",
   );
 
   return (
@@ -144,14 +144,14 @@ function TooltipDialog({
 
 async function fetchDailySwaps(
   api: WhaleApiClient,
-  poolpairId: string
+  poolpairId: string,
 ): Promise<PoolSwapAggregatedData[]> {
   const aggregates: PoolSwapAggregatedData[] = [];
 
   const response = await api.poolpairs.listPoolSwapAggregates(
     poolpairId,
     PoolSwapAggregatedInterval.ONE_HOUR,
-    24
+    24,
   );
   aggregates.push(...response);
 

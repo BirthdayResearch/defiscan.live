@@ -96,7 +96,7 @@ export function Header(): JSX.Element {
       <header
         className={classNames(
           "sticky top-0 z-50 bg-white md:static md:shadow-none",
-          { "shadow-lg": !atTop }
+          { "shadow-lg": !atTop },
         )}
       >
         <div className="hidden border-b border-gray-100 bg-primary-700 dark:border-0 dark:bg-gray-800 md:block">
@@ -334,7 +334,7 @@ function MobileMenu({ toggleMenu }: { toggleMenu: () => void }): JSX.Element {
       <div
         ref={ref}
         className={classNames(
-          "text-gray-600 dark:text-dark-gray-900 overflow-auto"
+          "text-gray-600 dark:text-dark-gray-900 overflow-auto",
         )}
       >
         <MenuItems viewPort={ViewPort.Mobile} />
@@ -364,7 +364,7 @@ export function HeaderLink({
         data-testid={testId}
         className={classNames(
           className,
-          viewPort === ViewPort.Desktop ? "flex flex-col" : "flex flex-row"
+          viewPort === ViewPort.Desktop ? "flex flex-col" : "flex flex-row",
         )}
       >
         {pathname.includes("governance") && openProposals !== undefined && (
@@ -377,7 +377,7 @@ export function HeaderLink({
                 : "place-self-end",
               router.pathname.includes(pathname)
                 ? "bg-primary-500 text-dark-gray-900"
-                : "bg-gray-600 dark:bg-dark-gray-600 dark:text-black text-white"
+                : "bg-gray-600 dark:bg-dark-gray-600 dark:text-black text-white",
             )}
           >
             <div className="text-center">
@@ -399,7 +399,7 @@ export function HeaderLink({
             {
               "text-gray-900 dark:text-dark-gray-900":
                 !router.pathname.includes(pathname),
-            }
+            },
           )}
         >
           <div
@@ -408,7 +408,7 @@ export function HeaderLink({
               {
                 "dark:border-dark-50 border-b-2 border-primary-500":
                   router.pathname.includes(pathname),
-              }
+              },
             )}
           >
             {text}
@@ -428,7 +428,7 @@ function MenuItems({ viewPort }: { viewPort: ViewPort }): JSX.Element {
             key={index}
             className={classNames(
               "flex justify-start border-b border-gray-200 dark:border-gray-700 px-4 py-5",
-              { "md:pt-3": index === 0 }
+              { "md:pt-3": index === 0 },
             )}
             text={item.text}
             pathname={item.pathname}
@@ -447,8 +447,8 @@ function MoreDropdown(): JSX.Element {
   useEffect(() => {
     setIsItemClicked(
       dropDownLinks.some((ddl) =>
-        router.pathname.includes(ddl.rootPathName.toLowerCase())
-      )
+        router.pathname.includes(ddl.rootPathName.toLowerCase()),
+      ),
     );
   }, [router.pathname]);
 
@@ -462,7 +462,7 @@ function MoreDropdown(): JSX.Element {
               "flex flex-row items-center mx-4 dark:hover:text-dark-50 cursor-pointer text-lg hover:text-primary-500",
               {
                 "dark:text-dark-50 text-primary-500": isItemClicked,
-              }
+              },
             )}
           >
             More
@@ -525,16 +525,16 @@ const DropDownLink = React.forwardRef<HTMLAnchorElement, DropDownLinkProps>(
             "px-6 py-3.5 cursor-pointer text-sm border-gray-200 dark:border-dark-gray-300 border-b-[0.5px] hover:text-primary-500 dark:hover:text-dark-50",
             {
               "dark:text-dark-50 text-primary-500": routerPathName.includes(
-                item.rootPathName
+                item.rootPathName,
               ),
-            }
+            },
           )}
         >
           {item.name}
         </a>
       </Link>
     );
-  }
+  },
 );
 
 const dropDownLinks = [

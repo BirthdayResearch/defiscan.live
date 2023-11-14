@@ -9,7 +9,7 @@ export function TextMiddleTruncate(props: {
   const leftText = props.text.substr(0, props.textLength);
   const rightText = props.text.substr(
     props.text.length - props.textLength,
-    props.textLength
+    props.textLength,
   );
 
   return (

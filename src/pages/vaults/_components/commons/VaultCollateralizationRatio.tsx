@@ -16,7 +16,7 @@ interface VaultCollateralizationRatioProps {
 }
 
 export function VaultCollateralizationRatio(
-  props: VaultCollateralizationRatioProps
+  props: VaultCollateralizationRatioProps,
 ): JSX.Element {
   if (props.collateralizationRatio === undefined) {
     return <span>N/A</span>;
@@ -38,7 +38,7 @@ export function VaultCollateralizationRatio(
               "text-orange-500":
                 currentPercentage.gte(1.25) && currentPercentage.lte(1.5),
               "text-green-500": currentPercentage.gt(1.5),
-            }
+            },
       )}
       data-testid={props.testId}
     >

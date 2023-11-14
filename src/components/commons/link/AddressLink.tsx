@@ -10,7 +10,7 @@ interface AddressLinkProps {
 }
 
 export function AddressLink(
-  props: PropsWithChildren<AddressLinkProps>
+  props: PropsWithChildren<AddressLinkProps>,
 ): JSX.Element {
   if (props.address === undefined || props.address.length === 0) {
     return <></>;
@@ -21,7 +21,7 @@ export function AddressLink(
       data-testid={props.testId}
       className={classnames(
         "hover:underline text-blue-500 cursor-pointer",
-        props.className
+        props.className,
       )}
     >
       <Link href={{ pathname: `/address/${props.address}` }}>

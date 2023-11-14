@@ -32,7 +32,7 @@ interface BlockDetailsPageProps {
 }
 
 export default function BlockCountdown(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const { connection } = useNetwork();
   const currentHeight =
@@ -44,7 +44,7 @@ export default function BlockCountdown(
     (props.target.height - currentHeight) * secondsPerBlock * 1000;
   const millisecsToTargetHeight = estimatedTargetTime - new Date().getTime();
   const [timeLeft, setTimeLeft] = useState<number>(
-    Math.ceil(millisecsToTargetHeight / 1000)
+    Math.ceil(millisecsToTargetHeight / 1000),
   );
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export default function BlockCountdown(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];

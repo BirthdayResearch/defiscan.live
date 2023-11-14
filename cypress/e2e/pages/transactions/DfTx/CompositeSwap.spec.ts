@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Composite Swap on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/8958eb8541bf65a8604b828b4aac33bd2933f5879827b89d4dd25cb52bd6de61?network=MainNet"
+      "/transactions/8958eb8541bf65a8604b828b4aac33bd2933f5879827b89d4dd25cb52bd6de61?network=MainNet",
     );
   });
 
@@ -21,24 +21,24 @@ context("/transactions/[txid] - DfTx Composite Swap on desktop", () => {
     cy.findByTestId("DfTxCompositeSwap.SwapFrom").within(() => {
       cy.findByTestId("DfTxCompositeSwap.SwapFromTitle").should(
         "have.text",
-        "Swap From"
+        "Swap From",
       );
 
       cy.findByTestId("DfTxCompositeSwap.FromAddress").should(
         "have.text",
-        "df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm"
+        "df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm",
       );
 
       cy.findByTestId("DfTxCompositeSwap.FromTokenSymbol").should(
         "have.text",
-        "DUSD"
+        "DUSD",
       );
 
       cy.findByTestId("DfTxCompositeSwap.FromTokenSymbol").should("be.visible");
 
       cy.findByTestId("DfTxCompositeSwap.FromAmount").should(
         "have.text",
-        "0.00100000"
+        "0.00100000",
       );
     });
   });
@@ -47,29 +47,29 @@ context("/transactions/[txid] - DfTx Composite Swap on desktop", () => {
     cy.findByTestId("DfTxCompositeSwap.SwapTo").within(() => {
       cy.findByTestId("DfTxCompositeSwap.SwapToTitle").should(
         "have.text",
-        "Swap To"
+        "Swap To",
       );
 
       cy.findByTestId("DfTxCompositeSwap.ToAddress").should(
         "have.text",
-        "df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm"
+        "df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm",
       );
 
       cy.findByTestId("DfTxCompositeSwap.ToTokenSymbol").should(
         "have.text",
-        "dBTC"
+        "dBTC",
       );
 
       cy.findByTestId("DfTxCompositeSwap.ToTokenSymbol").should("be.visible");
 
       cy.findByTestId("DfTxCompositeSwap.MaxPrice").should(
         "have.text",
-        "51,500.00000000"
+        "51,500.00000000",
       );
 
       cy.findByTestId("DfTxCompositeSwap.toAmount").should(
         "have.text",
-        "0.00000002"
+        "0.00000002",
       );
     });
   });
@@ -78,7 +78,7 @@ context("/transactions/[txid] - DfTx Composite Swap on desktop", () => {
     cy.findByTestId("DfTxCompositeSwap.SwapPath").within(() => {
       cy.findByTestId("DfTxCompositeSwap.SwapPathTitle").should(
         "have.text",
-        "Swap Path"
+        "Swap Path",
       );
 
       cy.findByTestId("DfTxCompositeSwap.SwapPathDiv").should("be.visible");
@@ -89,7 +89,7 @@ context("/transactions/[txid] - DfTx Composite Swap on desktop", () => {
 context("/transactions/[txid] - DfTx Composite Swap on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/8958eb8541bf65a8604b828b4aac33bd2933f5879827b89d4dd25cb52bd6de61?network=MainNet"
+      "/transactions/8958eb8541bf65a8604b828b4aac33bd2933f5879827b89d4dd25cb52bd6de61?network=MainNet",
     );
   });
 
@@ -109,24 +109,24 @@ context("/transactions/[txid] - DfTx Composite Swap on mobile", () => {
     cy.findByTestId("DfTxCompositeSwap.SwapFrom").within(() => {
       cy.findByTestId("DfTxCompositeSwap.SwapFromTitle").should(
         "have.text",
-        "Swap From"
+        "Swap From",
       );
 
       cy.findByTestId("DfTxCompositeSwap.FromAddress").should(
         "have.text",
-        "df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm"
+        "df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm",
       );
 
       cy.findByTestId("DfTxCompositeSwap.FromTokenSymbol").should(
         "have.text",
-        "DUSD"
+        "DUSD",
       );
 
       cy.findByTestId("DfTxCompositeSwap.FromTokenSymbol").should("be.visible");
 
       cy.findByTestId("DfTxCompositeSwap.FromAmount").should(
         "have.text",
-        "0.00100000"
+        "0.00100000",
       );
     });
   });
@@ -135,28 +135,28 @@ context("/transactions/[txid] - DfTx Composite Swap on mobile", () => {
     cy.findByTestId("DfTxCompositeSwap.SwapTo").within(() => {
       cy.findByTestId("DfTxCompositeSwap.SwapToTitle").should(
         "have.text",
-        "Swap To"
+        "Swap To",
       );
 
       cy.findByTestId("DfTxCompositeSwap.ToAddress").should(
         "have.text",
-        "df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm"
+        "df1qcmmkar3spm3q2ts3v5g52xjwqdvtd2a8e72tzm",
       );
 
       cy.findByTestId("DfTxCompositeSwap.ToTokenSymbol").should(
         "have.text",
-        "dBTC"
+        "dBTC",
       );
 
       cy.findByTestId("DfTxCompositeSwap.ToTokenSymbol").should("be.visible");
       cy.findByTestId("DfTxCompositeSwap.MaxPrice").should(
         "have.text",
-        "51,500.00000000"
+        "51,500.00000000",
       );
 
       cy.findByTestId("DfTxCompositeSwap.toAmount").should(
         "have.text",
-        "0.00000002"
+        "0.00000002",
       );
     });
   });
@@ -165,7 +165,7 @@ context("/transactions/[txid] - DfTx Composite Swap on mobile", () => {
     cy.findByTestId("DfTxCompositeSwap.SwapPath").within(() => {
       cy.findByTestId("DfTxCompositeSwap.SwapPathTitle").should(
         "have.text",
-        "Swap Path"
+        "Swap Path",
       );
 
       cy.findByTestId("DfTxCompositeSwap.SwapPathDiv").should("be.visible");

@@ -7,7 +7,7 @@ interface CollateralsValue {
 }
 
 export function useCalculateAuctionsValue(
-  batches: LoanVaultTokenAmount[]
+  batches: LoanVaultTokenAmount[],
 ): CollateralsValue {
   const { getTokenPrice } = useTokenPrice();
   let totalCollateralValue = new BigNumber(0);
@@ -15,7 +15,7 @@ export function useCalculateAuctionsValue(
   batches.forEach((collateral) => {
     const price = getTokenPrice(
       collateral.symbol,
-      new BigNumber(collateral.amount)
+      new BigNumber(collateral.amount),
     );
     totalCollateralValue = totalCollateralValue.plus(price);
   });
