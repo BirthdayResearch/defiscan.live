@@ -11,11 +11,11 @@ interface LoanTotalInterestRateProps {
 }
 
 export function LoanTotalInterestRate(
-  props: LoanTotalInterestRateProps
+  props: LoanTotalInterestRateProps,
 ): JSX.Element {
   const api = useWhaleApiClient();
   const [loanTokenData, setLoanTokenData] = useState<LoanToken | undefined>(
-    undefined
+    undefined,
   );
   const [showTotalInterest, setShowTotalInterest] = useState<boolean>(false);
 
@@ -40,7 +40,7 @@ export function LoanTotalInterestRate(
     return (
       <div
         className={classNames(
-          "animate-pulse py-2.5 w-1/2 rounded-md bg-gray-200 inline"
+          "animate-pulse py-2.5 w-1/2 rounded-md bg-gray-200 inline",
         )}
       />
     );
@@ -51,7 +51,7 @@ export function LoanTotalInterestRate(
   }
 
   const totalInterestRate = new BigNumber(props.vaultInterest).plus(
-    new BigNumber(loanTokenData.interest)
+    new BigNumber(loanTokenData.interest),
   );
 
   return <VaultNumberValues value={totalInterestRate} suffix="%" />;

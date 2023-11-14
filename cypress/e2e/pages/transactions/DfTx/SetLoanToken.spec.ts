@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Set Loan Token on Desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/080438d4401d1257b537896a335e041d8efa47e6a71c2ffeb6491f0f4dc0e531"
+      "/transactions/080438d4401d1257b537896a335e041d8efa47e6a71c2ffeb6491f0f4dc0e531",
     );
   });
 
@@ -24,14 +24,14 @@ context("/transactions/[txid] - DfTx Set Loan Token on Desktop", () => {
   it("should have DfTxSetLoanToken Token Name", () => {
     cy.findByTestId("DfTxSetLoanToken.TokenName").should(
       "have.text",
-      "Decentralized USD"
+      "Decentralized USD",
     );
   });
 
   it("should have DfTxSetLoanToken currency pair", () => {
     cy.findByTestId("DfTxSetLoanToken.CurrencyPair").should(
       "have.text",
-      "DUSD-USD"
+      "DUSD-USD",
     );
   });
 
@@ -42,7 +42,7 @@ context("/transactions/[txid] - DfTx Set Loan Token on Desktop", () => {
   it("should have DfTxSetLoanToken Interest", () => {
     cy.findByTestId("DfTxSetLoanToken.Interest").should(
       "have.text",
-      "0.00000000"
+      "0.00000000",
     );
   });
 });
@@ -50,7 +50,7 @@ context("/transactions/[txid] - DfTx Set Loan Token on Desktop", () => {
 context("/transactions/[txid] - DfTx Set Loan Token on Mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/080438d4401d1257b537896a335e041d8efa47e6a71c2ffeb6491f0f4dc0e531"
+      "/transactions/080438d4401d1257b537896a335e041d8efa47e6a71c2ffeb6491f0f4dc0e531",
     );
   });
 
@@ -73,14 +73,14 @@ context("/transactions/[txid] - DfTx Set Loan Token on Mobile", () => {
   it("should have DfTxSetLoanToken Token Name", () => {
     cy.findByTestId("DfTxSetLoanToken.TokenName").should(
       "have.text",
-      "Decentralized USD"
+      "Decentralized USD",
     );
   });
 
   it("should have DfTxSetLoanToken currency pair", () => {
     cy.findByTestId("DfTxSetLoanToken.CurrencyPair").should(
       "have.text",
-      "DUSD-USD"
+      "DUSD-USD",
     );
   });
 
@@ -91,7 +91,7 @@ context("/transactions/[txid] - DfTx Set Loan Token on Mobile", () => {
   it("should have DfTxSetLoanToken Interest", () => {
     cy.findByTestId("DfTxSetLoanToken.Interest").should(
       "have.text",
-      "0.00000000"
+      "0.00000000",
     );
   });
 });

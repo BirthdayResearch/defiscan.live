@@ -18,7 +18,7 @@ interface RawTransactionVinVoutProps {
 }
 
 export function RawTransactionVinVout(
-  props: RawTransactionVinVoutProps
+  props: RawTransactionVinVoutProps,
 ): JSX.Element {
   const network = useNetwork().name;
 

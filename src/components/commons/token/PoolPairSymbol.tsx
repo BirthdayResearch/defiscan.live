@@ -17,7 +17,7 @@ export function PoolPairSymbol(props: PoolPairSymbolProps): JSX.Element {
   const api = useWhaleApiClient();
 
   const [poolPairData, setPoolPairData] = useState<PoolPairData | undefined>(
-    undefined
+    undefined,
   );
   const [showPoolPairId, setShowPoolPairId] = useState<boolean>(false);
 
@@ -67,7 +67,7 @@ export function PoolPairSymbol(props: PoolPairSymbolProps): JSX.Element {
         className={classnames(
           "absolute",
           props.symbolSizeClassName,
-          props.symbolMarginClassName
+          props.symbolMarginClassName,
         )}
       />
       <div className={classnames(props.textClassName)}>

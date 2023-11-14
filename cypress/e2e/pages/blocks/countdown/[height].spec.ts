@@ -8,7 +8,7 @@ context("/blocks/countdown/[query] on desktop - Event Name", () => {
     cy.findByTestId("InfoSection.EventTitle").should("have.text", "Test Event");
     cy.findByTestId("InfoSection.EventHeight").should(
       "have.text",
-      "Target Height - 99,999,999"
+      "Target Height - 99,999,999",
     );
   });
 
@@ -73,7 +73,7 @@ context("/blocks/countdown/[query] on desktop - Block Number", () => {
   it("should have InfoSection", () => {
     cy.findByTestId("InfoSection.BlockHeight").should(
       "have.text",
-      "Block #99,999,998"
+      "Block #99,999,998",
     );
     cy.findByTestId("InfoSection.EventTitle").should("not.exist");
     cy.findByTestId("InfoSection.EventHeight").should("not.exist");
@@ -141,7 +141,7 @@ context("/blocks/countdown/[query] on desktop - Block Number = Event", () => {
     cy.findByTestId("InfoSection.EventTitle").should("have.text", "Test Event");
     cy.findByTestId("InfoSection.EventHeight").should(
       "have.text",
-      "Target Height - 99,999,999"
+      "Target Height - 99,999,999",
     );
   });
 });
@@ -155,7 +155,7 @@ context("/blocks/countdown/[query] on desktop - NextFutureSwap", () => {
   it("should have InfoSection", () => {
     cy.findByTestId("InfoSection.EventTitle").should(
       "have.text",
-      "Next Future Settlement Block"
+      "Next Future Settlement Block",
     );
     cy.findByTestId("InfoSection.EventHeight").should("exist");
   });
@@ -222,7 +222,7 @@ context("/blocks/countdown/[query] on mobile - Event Name", () => {
     cy.findByTestId("InfoSection.EventTitle").should("have.text", "Test Event");
     cy.findByTestId("InfoSection.EventHeight").should(
       "have.text",
-      "Target Height - 99,999,999"
+      "Target Height - 99,999,999",
     );
   });
 
@@ -287,7 +287,7 @@ context("/blocks/countdown/[query] on mobile - Block Number", () => {
   it("should have InfoSection", () => {
     cy.findByTestId("InfoSection.BlockHeight").should(
       "have.text",
-      "Block #99,999,998"
+      "Block #99,999,998",
     );
     cy.findByTestId("InfoSection.EventTitle").should("not.exist");
     cy.findByTestId("InfoSection.EventHeight").should("not.exist");
@@ -355,7 +355,7 @@ context("/blocks/countdown/[query] on mobile - Event Name = Event", () => {
     cy.findByTestId("InfoSection.EventTitle").should("have.text", "Test Event");
     cy.findByTestId("InfoSection.EventHeight").should(
       "have.text",
-      "Target Height - 99,999,999"
+      "Target Height - 99,999,999",
     );
   });
 });
@@ -370,7 +370,7 @@ context("/blocks/countdown/[query] on mobile - Event Name", () => {
     cy.findByTestId("InfoSection.EventTitle").should("have.text", "Test Event");
     cy.findByTestId("InfoSection.EventHeight").should(
       "have.text",
-      "Target Height - 99,999,999"
+      "Target Height - 99,999,999",
     );
   });
 
@@ -435,7 +435,7 @@ context("/blocks/countdown/[query] on mobile - NextFutureSwap", () => {
   it("should have InfoSection", () => {
     cy.findByTestId("InfoSection.EventTitle").should(
       "have.text",
-      "Next Future Settlement Block"
+      "Next Future Settlement Block",
     );
     cy.findByTestId("InfoSection.EventHeight").should("exist");
   });
@@ -506,5 +506,5 @@ context(
     it("should have redirect to blocks page", () => {
       cy.url().should("include", "/blocks/1");
     });
-  }
+  },
 );

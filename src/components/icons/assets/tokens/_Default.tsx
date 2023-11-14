@@ -2,7 +2,7 @@ import randomColor from "randomcolor";
 import { SVGProps } from "react";
 
 export function _Default(
-  symbol: string
+  symbol: string,
 ): (props: SVGProps<SVGSVGElement>) => JSX.Element {
   function TokenDefaultSymbol(props: SVGProps<SVGSVGElement>): JSX.Element {
     const bg = randomColor({

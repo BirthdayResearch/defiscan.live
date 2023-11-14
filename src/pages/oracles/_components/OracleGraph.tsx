@@ -42,7 +42,7 @@ export function OracleGraph({
   const api = useWhaleApiClient();
   const [feed, setFeed] = useState<PriceFeedInterval[] | undefined>(undefined);
   const [graphPeriod, setGraphPeriod] = useState<GraphPeriod>(
-    GraphPeriod.THREE_MONTHS
+    GraphPeriod.THREE_MONTHS,
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const fifteenMins = 60 * 15;
@@ -58,7 +58,7 @@ export function OracleGraph({
           token,
           currency,
           90 * 24 * oneHour,
-          oneDay
+          oneDay,
         )
           .then(setFeed)
           .finally(() => setIsLoading(false));
@@ -69,7 +69,7 @@ export function OracleGraph({
           token,
           currency,
           30 * 24 * oneHour,
-          oneHour
+          oneHour,
         )
           .then(setFeed)
           .finally(() => setIsLoading(false));
@@ -80,7 +80,7 @@ export function OracleGraph({
           token,
           currency,
           7 * 24 * oneHour,
-          oneHour
+          oneHour,
         )
           .then(setFeed)
           .finally(() => setIsLoading(false));
@@ -92,7 +92,7 @@ export function OracleGraph({
           token,
           currency,
           24 * oneHour,
-          fifteenMins
+          fifteenMins,
         )
           .then(setFeed)
           .finally(() => setIsLoading(false));
@@ -163,7 +163,7 @@ function GraphPeriodButton({
         "rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0",
         graphPeriod === current
           ? "text-primary-500 bg-primary-100 border-primary-100 dark:bg-dark-primary-500 dark:border-dark-primary-500 dark:text-dark-gray-900"
-          : "text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50"
+          : "text-gray-900 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white dark:bg-gray-900 bg-gray-200 border-gray-200 hover:bg-primary-50 hover:border-primary-50",
       )}
       onClick={onClick}
       key={graphPeriod}
@@ -352,7 +352,7 @@ async function fetchTimeFramePriceFeedInterval(
   token: string,
   currency: string,
   timeRange: number,
-  interval: number
+  interval: number,
 ): Promise<PriceFeedInterval[]> {
   const prices: PriceFeedInterval[] = [];
   const after = Date.now() / 1000 - timeRange;
@@ -362,7 +362,7 @@ async function fetchTimeFramePriceFeedInterval(
     token,
     currency,
     interval,
-    dataPoints < 200 ? dataPoints : 200
+    dataPoints < 200 ? dataPoints : 200,
   );
   prices.push(...response);
   while (response.hasNext && prices.length < dataPoints) {
@@ -371,7 +371,7 @@ async function fetchTimeFramePriceFeedInterval(
       currency,
       interval,
       200,
-      response.nextToken
+      response.nextToken,
     );
     prices.push(...response);
   }

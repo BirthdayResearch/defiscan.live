@@ -12,7 +12,7 @@ interface AddressTransactionTableProps {
 }
 
 export function AddressTransactionTable(
-  props: AddressTransactionTableProps
+  props: AddressTransactionTableProps,
 ): JSX.Element {
   const api = useWhaleApiClient();
   const [transactionData, setTransactionData] = useState<AddressActivity[]>([]);

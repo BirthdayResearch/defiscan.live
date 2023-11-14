@@ -78,7 +78,7 @@ function BreadcrumbNext(props: BreadcrumbItem): JSX.Element {
         <a
           className={classNames(
             "cursor-pointer hover:text-blue-500 text-gray-500 dark:text-dark-gray-900 hover:opacity-100",
-            { "text-gray-900 dark:text-gray-400": props.isCurrentPath }
+            { "text-gray-900 dark:text-gray-400": props.isCurrentPath },
           )}
         >
           {props.name}

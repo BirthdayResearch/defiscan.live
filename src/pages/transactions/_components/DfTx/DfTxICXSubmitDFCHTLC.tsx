@@ -8,7 +8,7 @@ interface DfTxICXSubmitDFCHTLCProps {
 }
 
 export function DfTxICXSubmitDFCHTLC(
-  props: DfTxICXSubmitDFCHTLCProps
+  props: DfTxICXSubmitDFCHTLCProps,
 ): JSX.Element {
   return (
     <div>

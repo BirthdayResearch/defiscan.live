@@ -32,7 +32,7 @@ context("/vaults/[vaultid] on desktop", () => {
     it("should Vault Details Heading", () => {
       cy.findByTestId("VaultDetailsDesktop.Heading").should(
         "have.text",
-        "Vault Details"
+        "Vault Details",
       );
     });
 
@@ -76,19 +76,19 @@ context("/vaults/[vaultid] on desktop", () => {
     it("should have health bar", () => {
       cy.findAllByTestId("VaultDetailsDesktop").within(() => {
         cy.findByTestId("VaultHealthBar.CollateralizationRatio").should(
-          "be.visible"
+          "be.visible",
         );
         cy.findByTestId("VaultHealthBar.MinCollateralizationRatio").should(
-          "be.visible"
+          "be.visible",
         );
         cy.findByTestId("VaultHealthBar.NextCollateralizationRatio").should(
-          "be.visible"
+          "be.visible",
         );
         cy.findByTestId("VaultHealthBar.BarProgress").should("be.visible");
         cy.findByTestId("VaultHealthBar.CurrentLine").should("be.visible");
         cy.findByTestId("VaultHealthBar.NextLine").should("be.visible");
         cy.findByTestId("VaultHealthBar.CollateralizationRatio").should(
-          "be.visible"
+          "be.visible",
         );
         cy.findByTestId("VaultHealthBar.ColorScale").should("be.visible");
       });
@@ -99,7 +99,7 @@ context("/vaults/[vaultid] on desktop", () => {
     it("should Collateral Details Heading", () => {
       cy.findByTestId("CollateralDetailsDesktop.Heading").should(
         "have.text",
-        "Collateral Details"
+        "Collateral Details",
       );
     });
 
@@ -109,16 +109,16 @@ context("/vaults/[vaultid] on desktop", () => {
           cy.wrap($el).within(() => {
             cy.findByTestId("CollateralCard.AssetIcon").should("be.visible");
             cy.findByTestId("CollateralCard.displaySymbol").should(
-              "be.visible"
+              "be.visible",
             );
             cy.findByTestId("CollateralCard.displaySymbol").should(
-              "be.visible"
+              "be.visible",
             );
             cy.findByTestId("CollateralCard.CollateralAmountTitle").should(
-              "be.visible"
+              "be.visible",
             );
             cy.findByTestId("CollateralCard.CollateralAmount").should(
-              "be.visible"
+              "be.visible",
             );
           });
         });
@@ -129,7 +129,7 @@ context("/vaults/[vaultid] on desktop", () => {
       it("should Loan Details Heading", () => {
         cy.findByTestId("VaultLoansDesktop.Heading").should(
           "have.text",
-          "Loan Details"
+          "Loan Details",
         );
       });
 
@@ -201,7 +201,7 @@ context("/vaults/[vaultid] on mobile", () => {
       cy.findByTestId("VaultCollapsibleSection.VaultIdDetails").within(() => {
         cy.findByTestId("CollapsibleSection.Heading").should(
           "have.text",
-          "Vault Details"
+          "Vault Details",
         );
       });
     });
@@ -210,7 +210,7 @@ context("/vaults/[vaultid] on mobile", () => {
       cy.findByTestId("VaultDetailList.OwnerAddress").should("be.visible");
       cy.findByTestId("VaultDetailList.TotalLoanValue").should("be.visible");
       cy.findByTestId("VaultDetailList.TotalCollateralValue").should(
-        "be.visible"
+        "be.visible",
       );
       cy.findByTestId("VaultDetailList.VaultInterestRate").should("be.visible");
     });
@@ -218,19 +218,19 @@ context("/vaults/[vaultid] on mobile", () => {
     it("should have health bar", () => {
       cy.findAllByTestId("VaultDetailsMobile").within(() => {
         cy.findByTestId("VaultHealthBar.CollateralizationRatio").should(
-          "be.visible"
+          "be.visible",
         );
         cy.findByTestId("VaultHealthBar.MinCollateralizationRatio").should(
-          "be.visible"
+          "be.visible",
         );
         cy.findByTestId("VaultHealthBar.NextCollateralizationRatio").should(
-          "be.visible"
+          "be.visible",
         );
         cy.findByTestId("VaultHealthBar.BarProgress").should("be.visible");
         cy.findByTestId("VaultHealthBar.CurrentLine").should("be.visible");
         cy.findByTestId("VaultHealthBar.NextLine").should("be.visible");
         cy.findByTestId("VaultHealthBar.CollateralizationRatio").should(
-          "be.visible"
+          "be.visible",
         );
         cy.findByTestId("VaultHealthBar.ColorScale").should("be.visible");
       });
@@ -243,9 +243,9 @@ context("/vaults/[vaultid] on mobile", () => {
         () => {
           cy.findByTestId("CollapsibleSection.Heading").should(
             "have.text",
-            "Collateral Details"
+            "Collateral Details",
           );
-        }
+        },
       );
     });
 
@@ -255,13 +255,13 @@ context("/vaults/[vaultid] on mobile", () => {
           cy.wrap($el).within(() => {
             cy.findByTestId("CollateralCard.AssetIcon").should("be.visible");
             cy.findByTestId("CollateralCard.displaySymbol").should(
-              "be.visible"
+              "be.visible",
             );
             cy.findByTestId("CollateralCard.CollateralAmountTitle").should(
-              "be.visible"
+              "be.visible",
             );
             cy.findByTestId("CollateralCard.CollateralAmount").should(
-              "be.visible"
+              "be.visible",
             );
           });
         });
@@ -274,7 +274,7 @@ context("/vaults/[vaultid] on mobile", () => {
       cy.findByTestId("VaultCollapsibleSection.LoanDetails").within(() => {
         cy.findByTestId("CollapsibleSection.Heading").should(
           "have.text",
-          "Loan Details"
+          "Loan Details",
         );
       });
     });
@@ -284,12 +284,12 @@ context("/vaults/[vaultid] on mobile", () => {
         cy.wrap($el).within(() => {
           cy.findAllByTestId("LoanDetailsCard.AssetIcon").should("be.visible");
           cy.findAllByTestId("LoanDetailsCard.displaySymbol").should(
-            "be.visible"
+            "be.visible",
           );
           cy.findAllByTestId("LoanDetailsCard.LoanValue").should("be.visible");
           cy.findAllByTestId("LoanDetailsCard.LoanAmount").should("be.visible");
           cy.findAllByTestId("LoanDetailsCard.TotalInterestRate").should(
-            "be.visible"
+            "be.visible",
           );
         });
       });

@@ -18,10 +18,10 @@ export function VaultHealthBar(props: VaultHealthBarProps): JSX.Element {
   const atRiskThresholdMultiplier = 1.5;
   const minColRatio = new BigNumber(props.vault.loanScheme.minColRatio);
   const maxRatio = getMaxRatio(
-    minColRatio.multipliedBy(atRiskThresholdMultiplier)
+    minColRatio.multipliedBy(atRiskThresholdMultiplier),
   );
   const normalizedColRatio = new BigNumber(
-    props.vault.informativeRatio
+    props.vault.informativeRatio,
   ).dividedBy(maxRatio);
   const normalizedLiquidatedThreshold = minColRatio
     .multipliedBy(1.25)
@@ -35,7 +35,7 @@ export function VaultHealthBar(props: VaultHealthBarProps): JSX.Element {
   const nextColRatio = useNextCollateralizationRatio(
     props.vault.collateralAmounts,
     props.vault.loanAmounts,
-    props.collateralTokens
+    props.collateralTokens,
   );
 
   let normalizedNextRatio: BigNumber | undefined;
@@ -55,7 +55,7 @@ export function VaultHealthBar(props: VaultHealthBarProps): JSX.Element {
         <div className="w-1/2 text-right">
           <VaultCollateralizationRatio
             collateralizationRatio={new BigNumber(
-              props.vault.informativeRatio
+              props.vault.informativeRatio,
             ).toFixed(2)}
             loanScheme={props.vault.loanScheme}
             vaultState={props.vault.state}
@@ -118,7 +118,7 @@ export function VaultHealthBar(props: VaultHealthBarProps): JSX.Element {
           style={{
             left: `${BigNumber.min(
               normalizedColRatio.multipliedBy(100),
-              99.7
+              99.7,
             ).toFixed(2)}%`,
           }}
           data-testid="VaultHealthBar.CurrentLine"

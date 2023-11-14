@@ -27,7 +27,7 @@ const CardListContext = createContext<CardListContextI>({
 });
 
 export function CardList(
-  props: PropsWithChildren<{ className?: string; testId?: string }>
+  props: PropsWithChildren<{ className?: string; testId?: string }>,
 ): JSX.Element {
   return (
     <div
@@ -40,7 +40,7 @@ export function CardList(
 }
 
 function Card(
-  props: PropsWithChildren<{ className?: string; testId?: string }>
+  props: PropsWithChildren<{ className?: string; testId?: string }>,
 ): JSX.Element {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -62,7 +62,7 @@ function Card(
 }
 
 function Header(
-  props: PropsWithChildren<{ className?: string; path?: string }>
+  props: PropsWithChildren<{ className?: string; path?: string }>,
 ): JSX.Element {
   const { isOpen, setIsOpen } = useContext(CardListContext);
   const [isClicked, setIsClicked] = useState(false);
@@ -86,7 +86,7 @@ function Header(
               onClick={() => setIsClicked(!isClicked)}
               className={classNames(
                 "border border-primary-300 rounded text-primary-400 dark:bg-gray-900 dark:border-gray-700 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min",
-                { "bg-primary-100": isClicked }
+                { "bg-primary-100": isClicked },
               )}
             >
               VIEW
@@ -128,7 +128,7 @@ function ListItem(
     infoDesc?: string;
     titleClassNames?: string;
     testId?: string;
-  }>
+  }>,
 ): JSX.Element {
   return (
     <div
@@ -139,7 +139,7 @@ function ListItem(
         <div
           className={classNames(
             "flex items-center text-gray-500 dark:text-gray-400",
-            props.titleClassNames
+            props.titleClassNames,
           )}
           data-testid="CardList.Row.Title"
         >
@@ -166,7 +166,7 @@ function ListItem(
 function DropDownSortButton(
   props: PropsWithChildren<{
     selected?: { sortKey: string; sortOrder: string; value: string };
-  }>
+  }>,
 ): JSX.Element {
   return (
     <div data-testid="CardList.DropDownSortButton">
@@ -213,8 +213,8 @@ function DropDownSortOption({
               isSelected
                 ? "bg-primary-100 text-gray dark:bg-dark-primary-500 dark:text-gray-100"
                 : active
-                ? "bg-primary-500 text-white"
-                : "text-gray-900 "
+                  ? "bg-primary-500 text-white"
+                  : "text-gray-900 "
             } group flex rounded text-left items-center w-full px-2 py-2 text-sm dark:text-gray-100`}
             onClick={onClick}
           >

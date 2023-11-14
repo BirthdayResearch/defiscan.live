@@ -3,7 +3,7 @@ import { formatDistanceToNow } from "date-fns";
 
 export function useAge(medianTime: number): string {
   const [age, setAge] = useState(
-    `${formatDistanceToNow(medianTime * 1000)} ago`
+    `${formatDistanceToNow(medianTime * 1000)} ago`,
   );
   // const currentBlockCount = await rpc.blockchain.getBlockCount();
   useEffect(() => {

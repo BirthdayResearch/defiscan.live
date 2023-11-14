@@ -12,7 +12,7 @@ interface InfoHoverPopoverProps {
 }
 
 export function InfoHoverPopover(
-  props: PropsWithChildren<InfoHoverPopoverProps>
+  props: PropsWithChildren<InfoHoverPopoverProps>,
 ): JSX.Element {
   return (
     <HoverPopover

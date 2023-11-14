@@ -92,7 +92,7 @@ context("/dex on macbook-16", () => {
           .eq(3)
           .then(($ele) => {
             totalLiquid.push(
-              Number.parseInt($ele.text().substring(1).replaceAll(",", ""))
+              Number.parseInt($ele.text().substring(1).replaceAll(",", "")),
             );
           });
       });
@@ -118,7 +118,7 @@ context("/dex on macbook-16", () => {
           .eq(2)
           .then(($ele) => {
             volume.push(
-              Number.parseInt($ele.text().substring(1).replaceAll(",", ""))
+              Number.parseInt($ele.text().substring(1).replaceAll(",", "")),
             );
           });
       });
@@ -165,7 +165,7 @@ context("/dex on macbook-16", () => {
           .eq(1)
           .then(($ele) => {
             price.push(
-              Number.parseInt($ele.text().substring(1).replaceAll(",", ""))
+              Number.parseInt($ele.text().substring(1).replaceAll(",", "")),
             );
           });
       });
@@ -210,7 +210,7 @@ context("/dex on iphone-x", () => {
                 .should("be.visible")
                 .should("have.text", "Total Liquidity");
               cy.findByTestId("CardList.Row.Child").should("be.visible");
-            }
+            },
           );
           cy.findByTestId("PoolPairsCard.CardList.24hVolume").within(() => {
             cy.findByTestId("CardList.Row.Title")
@@ -231,7 +231,7 @@ context("/dex on iphone-x", () => {
             cy.findByTestId("CardList.Row.Child").should("be.visible");
           });
         });
-      }
+      },
     );
   });
 
@@ -314,7 +314,7 @@ context("/dex on iphone-x", () => {
             if (text !== undefined) {
               totalLiquid.push(Number.parseInt(text.replaceAll(",", "")));
             }
-          }
+          },
         );
       });
     });

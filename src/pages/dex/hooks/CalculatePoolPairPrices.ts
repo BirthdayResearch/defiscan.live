@@ -7,7 +7,7 @@ export function usePoolPairPrices(poolPairs) {
   return poolPairs.map((pair) => {
     const tokenPrice = getTokenPrice(
       pair.tokenB.symbol,
-      new BigNumber(pair.priceRatio.ba)
+      new BigNumber(pair.priceRatio.ba),
     );
     return {
       poolPair: pair,

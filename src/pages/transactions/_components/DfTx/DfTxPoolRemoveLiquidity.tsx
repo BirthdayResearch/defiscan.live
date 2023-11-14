@@ -12,7 +12,7 @@ interface DfTxPoolRemoveLiquidityProps {
 }
 
 export function DfTxPoolRemoveLiquidity(
-  props: DfTxPoolRemoveLiquidityProps
+  props: DfTxPoolRemoveLiquidityProps,
 ): JSX.Element {
   const network = useNetwork().name;
   const address = fromScript(props.dftx.data.script, network)?.address;

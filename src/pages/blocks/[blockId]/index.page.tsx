@@ -27,7 +27,7 @@ interface BlockDetailsPageProps {
 }
 
 export default function BlockDetails(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   return (
     <Container className="pt-8 pb-20">
@@ -75,7 +75,7 @@ function BlockHeading({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
   const api = getWhaleApiClient(context);
   const idOrHeight = context.params?.blockId?.toString().trim() as string;

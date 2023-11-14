@@ -134,7 +134,7 @@ export function ProposalDetail({
               "md:row-start-2":
                 proposal.type ===
                 GovernanceProposalType.COMMUNITY_FUND_PROPOSAL,
-            }
+            },
           )}
         >
           <div className="w-1/2 md:w-full mb-0 md:mb-1">
@@ -215,7 +215,7 @@ function DetailSectionTitle({
     <span
       className={classNames(
         "text-gray-500 dark:text-dark-gray-500 text-sm lg:mb-2",
-        customStyle
+        customStyle,
       )}
     >
       {label}

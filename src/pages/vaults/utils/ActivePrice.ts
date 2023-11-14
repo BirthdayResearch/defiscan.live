@@ -10,7 +10,7 @@ export function getActivePrice(
   activePrice?: ActivePrice,
   priceFactor: string = "1",
   priceType: ActivePriceType = "ACTIVE",
-  tokenType: TokenType = "LOAN"
+  tokenType: TokenType = "LOAN",
 ): string {
   if (symbol === "DUSD") {
     return new BigNumber("1").multipliedBy(priceFactor).toFixed(8);

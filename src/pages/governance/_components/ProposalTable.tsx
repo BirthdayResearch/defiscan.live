@@ -118,13 +118,13 @@ function ProposalRow({
     proposal.cycleEndHeight,
     currentBlockHeight,
     currentBlockMedianTime,
-    secondsPerBlock
+    secondsPerBlock,
   );
   const isEmergencyProposal = proposal.options?.includes("emergency");
   const { percYes, percNo } = getVotePercentage(
     votes.yes,
     votes.no,
-    votes.neutral
+    votes.neutral,
   );
 
   return (
@@ -138,7 +138,7 @@ function ProposalRow({
         });
       }}
       className={classNames(
-        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer"
+        "hover:text-primary-500 dark:hover:text-gray-100 cursor-pointer",
       )}
     >
       <OverflowTable.Cell className="align-middle font-semibold text-gray-900 dark:text-gray-100 w-[320px]">
@@ -251,7 +251,7 @@ function ProposalRow({
               yesValue={percYes.toNumber()}
               noValue={percNo.toNumber()}
               approvalThreshold={Number(
-                proposal.approvalThreshold.replace("%", "")
+                proposal.approvalThreshold.replace("%", ""),
               )}
               containerClass="bg-gray-100 dark:bg-dark-gray-200"
             />
@@ -261,7 +261,7 @@ function ProposalRow({
                   className={classNames(
                     percYes > percNo
                       ? "text-green-600 dark:text-[#21E529] font-semibold"
-                      : "text-gray-900 dark:text-dark-gray-900"
+                      : "text-gray-900 dark:text-dark-gray-900",
                   )}
                 >
                   {percYes.toFixed(2)}%
@@ -273,7 +273,7 @@ function ProposalRow({
                     "grow text-right",
                     percNo > percYes
                       ? "text-red-600 dark:text-[#FF483D] font-semibold"
-                      : "text-gray-900 dark:text-dark-gray-900"
+                      : "text-gray-900 dark:text-dark-gray-900",
                   )}
                 >
                   {percNo.toFixed(2)}%
@@ -293,7 +293,7 @@ function ProposalRow({
               "py-1 px-3 rounded-[32px] w-fit",
               proposal.status === GovernanceProposalStatus.COMPLETED
                 ? "bg-green-100 text-green-600 dark:bg-[#21E529] dark:text-dark-green-600 dark:bg-opacity-25"
-                : "bg-red-100 text-red-600 dark:bg-[#FF483D] dark:text-dark-red-600 dark:bg-opacity-20"
+                : "bg-red-100 text-red-600 dark:bg-[#FF483D] dark:text-dark-red-600 dark:bg-opacity-20",
             )}
           >
             {proposal.status === GovernanceProposalStatus.COMPLETED

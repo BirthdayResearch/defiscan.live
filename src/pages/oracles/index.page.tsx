@@ -27,7 +27,7 @@ interface PricesPageProps {
 }
 
 export default function PricesPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const types = ["All", "Crypto", "Stocks", "Forex", "Commodity", "ETF"];
 
@@ -56,8 +56,8 @@ export default function PricesPage(
     tickers
       .filter((ticker) => ticker.price.id !== "DFI-USD")
       .sort((a, b) =>
-        a.price.id.replace("-", "").localeCompare(b.price.id.replace("-", ""))
-      )
+        a.price.id.replace("-", "").localeCompare(b.price.id.replace("-", "")),
+      ),
   );
 
   return (
@@ -81,7 +81,7 @@ export default function PricesPage(
                     "rounded p-2 border cursor-pointer mx-0.5 mt-1 lg:mt-0",
                     typeSelection === type
                       ? "text-white bg-primary-500 border-primary-500 dark:bg-dark-primary-500 dark:border-dark-primary-500"
-                      : "border-gray-300 text-gray-900 hover:bg-primary-50 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white"
+                      : "border-gray-300 text-gray-900 hover:bg-primary-50 dark:text-dark-primary-500 dark:border-gray-700 dark:hover:bg-dark-primary-500 dark:hover:text-white",
                   )}
                   onClick={() => setTypeCurrentSelection(type)}
                   key={type}
@@ -130,8 +130,8 @@ export default function PricesPage(
                   (typeSelection === "All" ||
                     item.copy?.type === typeSelection.toUpperCase()) &&
                   (!availabilitySelection ||
-                    item.isToken === availabilitySelection)
-              )
+                    item.isToken === availabilitySelection),
+              ),
             );
             return sortedTickers.length === 0 ? (
               <div className="w-full flex justify-center my-32 text-gray-400">
@@ -178,7 +178,7 @@ function sortByType(tickers: PriceFeedProps[]): PriceFeedProps[] {
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<PricesPageProps>> {
   const api = getWhaleApiClient(context);
 
@@ -202,7 +202,7 @@ export async function getServerSideProps(
     while (collateralTokensResponse.hasNext) {
       collateralTokensResponse = await api.loan.listCollateralToken(
         200,
-        collateralTokensResponse.nextToken
+        collateralTokensResponse.nextToken,
       );
       collateralTokens.push(...collateralTokensResponse);
     }
@@ -217,7 +217,7 @@ export async function getServerSideProps(
     while (loanTokensResponse.hasNext) {
       loanTokensResponse = await api.loan.listLoanToken(
         200,
-        loanTokensResponse.nextToken
+        loanTokensResponse.nextToken,
       );
       loanTokens.push(...loanTokensResponse);
     }
@@ -234,13 +234,13 @@ export async function getServerSideProps(
 
   collateralTokens.forEach((collateralToken) => {
     collateralAndLoanTokens.push(
-      collateralToken.fixedIntervalPriceId.replace("/", "-")
+      collateralToken.fixedIntervalPriceId.replace("/", "-"),
     );
   });
 
   loanTokens.forEach((loanToken) => {
     collateralAndLoanTokens.push(
-      loanToken.fixedIntervalPriceId.replace("/", "-")
+      loanToken.fixedIntervalPriceId.replace("/", "-"),
     );
   });
 

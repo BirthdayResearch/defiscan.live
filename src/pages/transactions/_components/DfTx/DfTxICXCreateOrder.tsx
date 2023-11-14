@@ -12,7 +12,7 @@ interface DfTxICXCreateOrderProps {
 }
 
 export function DfTxICXCreateOrder(
-  props: DfTxICXCreateOrderProps
+  props: DfTxICXCreateOrderProps,
 ): JSX.Element {
   const network = useNetwork().name;
   const ownerAddress = fromScript(props.dftx.data.ownerAddress, network);

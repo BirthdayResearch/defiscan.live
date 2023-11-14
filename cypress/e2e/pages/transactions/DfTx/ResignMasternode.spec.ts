@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx resign masternode on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/30a534ec3cb6afe4186212f7cae772c87121e8cbb9dc90247b7f4d8d0e1f6237?network=MainNet"
+      "/transactions/30a534ec3cb6afe4186212f7cae772c87121e8cbb9dc90247b7f4d8d0e1f6237?network=MainNet",
     );
   });
 
@@ -20,7 +20,7 @@ context("/transactions/[txid] - DfTx resign masternode on desktop", () => {
   it("should have DfTxResignMasternode nodeId", () => {
     cy.findByTestId("DfTxResignMasternode.nodeId").should(
       "have.text",
-      "cae850382900d6d9f35e39f3b47bf44923656ce9f5e35ba682e8faa55efceb39"
+      "cae850382900d6d9f35e39f3b47bf44923656ce9f5e35ba682e8faa55efceb39",
     );
   });
 });
@@ -28,7 +28,7 @@ context("/transactions/[txid] - DfTx resign masternode on desktop", () => {
 context("/transactions/[txid] - DfTx resign masternode on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/30a534ec3cb6afe4186212f7cae772c87121e8cbb9dc90247b7f4d8d0e1f6237?network=MainNet"
+      "/transactions/30a534ec3cb6afe4186212f7cae772c87121e8cbb9dc90247b7f4d8d0e1f6237?network=MainNet",
     );
   });
 
@@ -47,7 +47,7 @@ context("/transactions/[txid] - DfTx resign masternode on mobile", () => {
   it("should have DfTxResignMasternode nodeId", () => {
     cy.findByTestId("DfTxResignMasternode.nodeId").should(
       "have.text",
-      "cae850382900d6d9f35e39f3b47bf44923656ce9f5e35ba682e8faa55efceb39"
+      "cae850382900d6d9f35e39f3b47bf44923656ce9f5e35ba682e8faa55efceb39",
     );
   });
 });

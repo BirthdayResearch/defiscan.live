@@ -49,7 +49,7 @@ export default function ProposalDetailPage({
     proposal.cycleEndHeight,
     currentBlockHeight,
     currentBlockMedianTime,
-    secondsPerBlock
+    secondsPerBlock,
   );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isChangeVoteClicked, setIsChangeVoteClicked] = useState(false);
@@ -58,11 +58,11 @@ export default function ProposalDetailPage({
   const [voteCommand, setVoteCommand] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [voteStage, setVoteStage] = useState<VoteStages>(
-    VoteStages.VoteProposal
+    VoteStages.VoteProposal,
   );
 
   const [cfpVotingResultTabChoice, setCfpVotingResultTabChoice] = useState(
-    CfpVotingResultCycleTab.Current
+    CfpVotingResultCycleTab.Current,
   );
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function ProposalDetailPage({
               proposal={proposal}
               proposalCreationDate={formatMedianTime(
                 proposalCreationDate,
-                "MMM dd, yyyy"
+                "MMM dd, yyyy",
               )}
               proposalEndDate={cycleEndDate}
             />
@@ -119,7 +119,7 @@ export default function ProposalDetailPage({
                   proposal.type ===
                     GovernanceProposalType.COMMUNITY_FUND_PROPOSAL
                     ? "mt-4"
-                    : "mt-6"
+                    : "mt-6",
                 )}
               >
                 <VotesList
@@ -259,7 +259,7 @@ function CfpVotingResultFilterTab({
           "md:px-5 rounded-l border border-r-[0.5px] px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500",
           cfpVotingResultTabChoice === CfpVotingResultCycleTab.Current
             ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300"
+            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300",
         )}
         onClick={() => {
           setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Current);
@@ -276,7 +276,7 @@ function CfpVotingResultFilterTab({
           "md:px-5 border border-l-[0.5px] rounded-r px-3 py-[6px] md:text-sm text-xs font-medium text-gray-500 tracking-[0.0025em] disabled:text-gray-500 disabled:border-gray-200 disabled:opacity-30",
           cfpVotingResultTabChoice === CfpVotingResultCycleTab.Previous
             ? "border-transparent bg-primary-500 dark:bg-dark-primary-500 text-white dark:text-dark-gray-0"
-            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300"
+            : "dark:border-dark-gray-300 dark:text-dark-gray-900 dark:bg-dark-gray-200 border-gray-300",
         )}
         onClick={() => {
           setCfpVotingResultTabChoice(CfpVotingResultCycleTab.Previous);
@@ -290,7 +290,7 @@ function CfpVotingResultFilterTab({
 }
 
 function getAllCycleVotes(
-  allCycleProposalVotes: ApiPagedResponse<ProposalVotesResult>
+  allCycleProposalVotes: ApiPagedResponse<ProposalVotesResult>,
 ): {} {
   const totalVotes = {};
   for (let i = 0; i < allCycleProposalVotes.length; i += 1) {
@@ -314,7 +314,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const proposal = await api.governance.getGovProposal(proposalId);
     if (proposal.amount) {
       proposal.amount = LosslessJSON.parse(
-        LosslessJSON.stringify(proposal.amount)
+        LosslessJSON.stringify(proposal.amount),
       );
     }
     const proposalVotes = await api.governance.listGovProposalVotes({
@@ -326,7 +326,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     });
     const pages = CursorPagination.getPages(
       context,
-      proposalVotes as ApiPagedResponse<any>
+      proposalVotes as ApiPagedResponse<any>,
     );
 
     const currentBlockHeight = await api.blocks
@@ -351,8 +351,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // calculate stats (yes/no/neutral) for current cycle
     const voteCounts = getVoteCount(
       allCycleProposalVotes.filter(
-        (each) => each.cycle === proposal.currentCycle
-      )
+        (each) => each.cycle === proposal.currentCycle,
+      ),
     );
     return {
       props: {

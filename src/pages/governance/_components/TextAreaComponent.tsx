@@ -60,7 +60,7 @@ export function TextAreaComponent({
             "flex flex-row py-3 px-4 bg-white dark:bg-dark-gray-50 border rounded",
             isVisited && error !== ""
               ? "border-red-500"
-              : "border-gray-300 dark:border-dark-gray-300"
+              : "border-gray-300 dark:border-dark-gray-300",
           )}
         >
           <textarea

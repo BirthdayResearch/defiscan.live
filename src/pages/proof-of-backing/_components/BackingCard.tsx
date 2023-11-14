@@ -40,7 +40,7 @@ export function BackingCard({
             >
               <div
                 className={classNames(
-                  "border-[0.5px] border-primary-300 rounded text-primary-500 dark:bg-gray-900 dark:border-dark-primary-300 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min"
+                  "border-[0.5px] border-primary-300 rounded text-primary-500 dark:bg-gray-900 dark:border-dark-primary-300 dark:text-dark-primary-500 px-1.5 py-1 text-sm h-min",
                 )}
               >
                 VIEW
@@ -76,7 +76,7 @@ export function BackingCard({
                 {
                   "dark:text-dark-gray-900": token.netSupply !== undefined,
                   "dark:text-dark-gray-500": token.netSupply === undefined,
-                }
+                },
               )}
             >
               {token.netSupply === undefined ? (

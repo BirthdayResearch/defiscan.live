@@ -14,7 +14,8 @@
     "cypress:build": "CYPRESS=true next build",
     "cypress:run": "TZ=UTC cypress run --headless --browser chrome",
     "playground:start": "docker-compose rm -fsv && docker-compose up",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@babel/types": "^7.23.3",

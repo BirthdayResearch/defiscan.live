@@ -27,7 +27,7 @@ const description =
  * Finally with <WhaleProvider> to provide WhaleContext for accessing of WhaleAPI and WhaleRPC.
  */
 export function Default(
-  props: PropsWithChildren<ScanAppProps>
+  props: PropsWithChildren<ScanAppProps>,
 ): JSX.Element | null {
   const initialTheme = getInitialTheme();
   const [mounted, setMounted] = useState(false);

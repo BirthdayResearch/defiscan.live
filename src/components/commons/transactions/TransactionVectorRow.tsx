@@ -11,7 +11,7 @@ interface TransactionVectorRowProps {
 }
 
 export function TransactionVectorRow(
-  props: TransactionVectorRowProps
+  props: TransactionVectorRowProps,
 ): JSX.Element {
   return (
     <div className="bg-gray-50 dark:bg-gray-800 dark:border dark:border-gray-700  h-20 p-3 rounded flex justify-between">

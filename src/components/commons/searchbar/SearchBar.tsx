@@ -113,7 +113,7 @@ export function SearchBar(props: SearchBarInterface): JSX.Element {
 
   const onChangeDebounceHandler = useMemo(
     () => debounce(changeHandler, 200),
-    []
+    [],
   );
 
   function onSelect(result: SearchResult): void {
@@ -137,7 +137,7 @@ export function SearchBar(props: SearchBarInterface): JSX.Element {
       >
         <div
           className={classNames(
-            "flex w-full p-2 rounded-3xl h-10 bg-white dark:bg-gray-800 dark:border-gray-700 border focus-within:border-primary-200"
+            "flex w-full p-2 rounded-3xl h-10 bg-white dark:bg-gray-800 dark:border-gray-700 border focus-within:border-primary-200",
           )}
           data-testid="SearchBar"
           ref={reference}
@@ -184,7 +184,7 @@ export function SearchBar(props: SearchBarInterface): JSX.Element {
 async function getSearchResults(
   api: WhaleApiClient,
   network: NetworkName,
-  query: string
+  query: string,
 ): Promise<SearchResult[]> {
   const searchResults: SearchResult[] = [];
 

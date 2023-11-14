@@ -53,7 +53,7 @@ export function ConfirmVoteDialog({
 
   const localStorageMasterNodeId = getLocalStorageItem(
     "masternodeId",
-    connection
+    connection,
   );
 
   const [masternodeId, setMasternodeId] = useState(localStorageMasterNodeId);
@@ -85,7 +85,7 @@ export function ConfirmVoteDialog({
               <Dialog.Panel
                 className={classNames(
                   "w-full max-w-[512px] transform overflow-hidden rounded-[10px] bg-white dark:bg-dark-gray-100 p-5 md:p-8 text-left align-middle shadow-xl transition-all",
-                  { "max-w-[436px]": voteStage === VoteStages.ReadyVoteId }
+                  { "max-w-[436px]": voteStage === VoteStages.ReadyVoteId },
                 )}
               >
                 {voteStage !== VoteStages.ReadyVoteId && (
@@ -193,11 +193,11 @@ function VoteForProposal({
 
   const localStorageRememberMasterNodeId = getLocalStorageItem(
     "rememberMasternodeId",
-    connection
+    connection,
   );
 
   const [rememberMasternodeId, setRememberMasternodeId] = useState(
-    localStorageRememberMasterNodeId
+    localStorageRememberMasterNodeId,
   );
   const ref = useRef<HTMLTextAreaElement>(null);
   const dimension = useWindowDimensions();
@@ -260,7 +260,7 @@ function VoteForProposal({
             {
               "border-red-500 dark:border-dark-red-500":
                 masternodeErrorMsg !== "",
-            }
+            },
           )}
         >
           <textarea
@@ -314,7 +314,7 @@ function VoteForProposal({
             }
           }}
           className={classNames(
-            "flex flex-row gap-x-[6px] items-center mt-2 md:mb-4 mb-6 accent-blue-600 dark:accent-dark-blue-600"
+            "flex flex-row gap-x-[6px] items-center mt-2 md:mb-4 mb-6 accent-blue-600 dark:accent-dark-blue-600",
           )}
         >
           <input
@@ -355,7 +355,7 @@ function VoteForProposal({
             connection,
             rememberMasternodeId,
             masternodeId,
-            setVoteStage
+            setVoteStage,
           );
         }}
         className="w-full py-3 rounded-sm font-medium border border-primary-50 dark:border-dark-primary-50 text-primary-500 dark:text-dark-primary-500 bg-primary-50 dark:bg-dark-primary-50 hover:bg-primary-100 hover:dark:bg-dark-primary-100 hover:border-primary-100 hover:dark:border-dark-primary-100 disabled:bg-gray-50 disabled:dark:bg-dark-gray-50 disabled:border-transparent disabled:text-gray-300 disabled:dark:text-dark-gray-300"
@@ -378,11 +378,11 @@ function UserVote({
   setUserSelectedVote: Dispatch<SetStateAction<VoteDecision>>;
 }) {
   const [isVoteSelectionDisabled, setIsVoteSelectionDisabled] = useState(
-    masternodeId === "" || masternodeErrorMsg !== ""
+    masternodeId === "" || masternodeErrorMsg !== "",
   );
   useEffect(() => {
     setIsVoteSelectionDisabled(
-      masternodeId === "" || masternodeErrorMsg !== ""
+      masternodeId === "" || masternodeErrorMsg !== "",
     );
   }, [masternodeId, masternodeErrorMsg]);
 
@@ -401,7 +401,7 @@ function UserVote({
             "grow w-1/3 rounded-l border border-r-[0.5px] py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.NO
               ? "text-white dark:text-dark-gray-0 border-0 bg-red-600 dark:bg-dark-red-600"
-              : "text-red-600 dark:text-dark-red-600 dark:bg-dark-gray-50"
+              : "text-red-600 dark:text-dark-red-600 dark:bg-dark-gray-50",
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NO);
@@ -418,7 +418,7 @@ function UserVote({
             "grow w-1/3 border border-r-[0.5px] border-l-[0.5px] py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:dark:border-opacity-30 disabled:border-opacity-30 disabled:dark:text-opacity-30 disabled:text-opacity-30",
             userSelectedVote === VoteDecision.NEUTRAL
               ? "text-white dark:text-dark-gray-0 border-0 bg-gray-600/[0.30] dark:bg-dark-gray-600/[0.30]"
-              : "text-gray-600 dark:text-dark-gray-600 dark:bg-dark-gray-50 dark:bg-opacity-30"
+              : "text-gray-600 dark:text-dark-gray-600 dark:bg-dark-gray-50 dark:bg-opacity-30",
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.NEUTRAL);
@@ -442,7 +442,7 @@ function UserVote({
             "grow w-1/3 border border-l-[0.5px] rounded-r py-3 text-sm font-medium border-gray-300 dark:border-dark-gray-300 disabled:opacity-30",
             userSelectedVote === VoteDecision.YES
               ? "text-white dark:text-dark-gray-0 border-0 bg-green-600 dark:bg-dark-green-600"
-              : "text-green-600 dark:text-dark-green-600 dark:bg-dark-gray-50"
+              : "text-green-600 dark:text-dark-green-600 dark:bg-dark-gray-50",
           )}
           onClick={() => {
             setUserSelectedVote(VoteDecision.YES);
@@ -489,7 +489,7 @@ function UserReviewVote({
           data-testid="OnChainGovernance.VotingFlow.UserReviewVote.UserSelectedVote"
           className={classNames(
             "text-right capitalize font-medium",
-            getVotesStyle(userSelectedVote)
+            getVotesStyle(userSelectedVote),
           )}
         >
           {userSelectedVote}
@@ -656,7 +656,7 @@ function onContinueVoteButtonClick(
   connection: EnvironmentNetwork,
   rememberMasternodeId: RememberMasterNodeId,
   masternodeId: string,
-  setVoteStage: Dispatch<SetStateAction<VoteStages>>
+  setVoteStage: Dispatch<SetStateAction<VoteStages>>,
 ) {
   const rememberMasternodeObj =
     getLocalStorageItem("rememberMasternodeId") ?? {};

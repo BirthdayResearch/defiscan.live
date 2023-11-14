@@ -8,7 +8,7 @@ interface VaultLinkProps {
   testId?: string;
 }
 export function VaultLink(
-  props: PropsWithChildren<VaultLinkProps>
+  props: PropsWithChildren<VaultLinkProps>,
 ): JSX.Element {
   if (props.vault === undefined || props.vault.length === 0) {
     return <></>;
@@ -19,7 +19,7 @@ export function VaultLink(
       data-testid={props.testId}
       className={classnames(
         "hover:underline text-blue-500 cursor-pointer",
-        props.className
+        props.className,
       )}
     >
       <Link href={{ pathname: `/vaults/${props.vault}` }}>

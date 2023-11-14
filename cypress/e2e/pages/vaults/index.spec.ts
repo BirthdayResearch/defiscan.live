@@ -103,10 +103,10 @@ context("/vaults on mobile", () => {
           cy.findByTestId("VaultMobileCard.LoansValue").should("be.visible");
           cy.findByTestId("VaultMobileCard.Collateral").should("be.visible");
           cy.findByTestId("VaultMobileCard.CollateralValue").should(
-            "be.visible"
+            "be.visible",
           );
           cy.findByTestId("VaultMobileCard.MinCollateralizationRatio").should(
-            "be.visible"
+            "be.visible",
           );
         });
       });

@@ -15,7 +15,7 @@ interface DfTxAccountToUtxosProps {
 }
 
 export function DfTxAccountToUtxos(
-  props: DfTxAccountToUtxosProps
+  props: DfTxAccountToUtxosProps,
 ): JSX.Element {
   const network = useNetwork().name;
   const from =

@@ -1,7 +1,7 @@
 context("/transactions/[txid] - DfTx Token Update Any on desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/fcb131a6616507ed439f9f126723495983d3ec46a97633bf615cbadc8e6af868?network=MainNet"
+      "/transactions/fcb131a6616507ed439f9f126723495983d3ec46a97633bf615cbadc8e6af868?network=MainNet",
     );
   });
 
@@ -20,14 +20,14 @@ context("/transactions/[txid] - DfTx Token Update Any on desktop", () => {
   it("should have DfTxTokenUpdateAny CreationTx", () => {
     cy.findByTestId("DfTxTokenUpdateAny.CreationTx").should(
       "have.text",
-      "085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d"
+      "085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d",
     );
     cy.findByTestId("DfTxTokenUpdateAny.CreationTx")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/transactions/085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d"
+        "/transactions/085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d",
       );
   });
 
@@ -46,7 +46,7 @@ context("/transactions/[txid] - DfTx Token Update Any on desktop", () => {
   it("should have DfTxTokenUpdateAny limit", () => {
     cy.findByTestId("DfTxTokenUpdateAny.limit").should(
       "have.text",
-      "0.00000000"
+      "0.00000000",
     );
   });
 
@@ -62,7 +62,7 @@ context("/transactions/[txid] - DfTx Token Update Any on desktop", () => {
 context("/transactions/[txid] - DfTx Token Update Any on mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/fcb131a6616507ed439f9f126723495983d3ec46a97633bf615cbadc8e6af868?network=MainNet"
+      "/transactions/fcb131a6616507ed439f9f126723495983d3ec46a97633bf615cbadc8e6af868?network=MainNet",
     );
   });
 
@@ -81,14 +81,14 @@ context("/transactions/[txid] - DfTx Token Update Any on mobile", () => {
   it("should have DfTxTokenUpdateAny CreationTx", () => {
     cy.findByTestId("DfTxTokenUpdateAny.CreationTx").should(
       "have.text",
-      "085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d"
+      "085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d",
     );
     cy.findByTestId("DfTxTokenUpdateAny.CreationTx")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/transactions/085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d"
+        "/transactions/085949ca1ea998cdc43dddad06b79872b40431dff28234c4f42314e0c74e593d",
       );
   });
 
@@ -107,7 +107,7 @@ context("/transactions/[txid] - DfTx Token Update Any on mobile", () => {
   it("should have DfTxTokenUpdateAny limit", () => {
     cy.findByTestId("DfTxTokenUpdateAny.limit").should(
       "have.text",
-      "0.00000000"
+      "0.00000000",
     );
   });
 

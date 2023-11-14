@@ -7,7 +7,7 @@ interface DfTxSetDefaultLoanSchemeProps {
 }
 
 export function DfTxSetDefaultLoanScheme(
-  props: DfTxSetDefaultLoanSchemeProps
+  props: DfTxSetDefaultLoanSchemeProps,
 ): JSX.Element {
   return (
     <div>

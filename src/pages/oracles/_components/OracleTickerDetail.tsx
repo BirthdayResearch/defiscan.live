@@ -72,7 +72,7 @@ export function OracleTickerDetail({
           name="Last Update"
           description={`${format(
             price.price.block.medianTime * 1000,
-            "MMM dd, hh:mm:ss aa"
+            "MMM dd, hh:mm:ss aa",
           )}`}
         />
         <div className="text-lg font-semibold dark:text-gray-100">

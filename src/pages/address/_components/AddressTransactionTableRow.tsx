@@ -14,7 +14,7 @@ interface TransactionTableRowProps {
 }
 
 export function AddressTransactionTableRow(
-  props: TransactionTableRowProps
+  props: TransactionTableRowProps,
 ): JSX.Element {
   const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -58,12 +58,12 @@ export function AddressTransactionTableRow(
           <HoverPopover
             popover={format(
               fromUnixTime(props.addressActivity.block.medianTime),
-              "PPpp"
+              "PPpp",
             )}
           >
             <div className="cursor-help dark:text-gray-100">
               {formatDistanceToNow(
-                props.addressActivity.block.medianTime * 1000
+                props.addressActivity.block.medianTime * 1000,
               )}{" "}
               ago
             </div>

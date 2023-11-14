@@ -1,7 +1,7 @@
 context("/transaction/[txid] - Dftx Create Vault on Desktop", () => {
   before(() => {
     cy.visit(
-      "/transactions/3dc1257fdcd34e03e634b70dea7e04b96c9ef5d6787c7fc42094b728c8bf1566"
+      "/transactions/3dc1257fdcd34e03e634b70dea7e04b96c9ef5d6787c7fc42094b728c8bf1566",
     );
   });
 
@@ -20,7 +20,7 @@ context("/transaction/[txid] - Dftx Create Vault on Desktop", () => {
   it("should have DfTxCreateVault Owners Address", () => {
     cy.findByTestId("DfTxCreateVault.OwnersAddress").should(
       "have.text",
-      "dWNDpnGPfhu5yCrkvqqjk2fA4FnHv6rqa5"
+      "dWNDpnGPfhu5yCrkvqqjk2fA4FnHv6rqa5",
     );
   });
 
@@ -32,7 +32,7 @@ context("/transaction/[txid] - Dftx Create Vault on Desktop", () => {
 context("/transaction/[txid] - Dftx Create Vault on Mobile", () => {
   before(() => {
     cy.visit(
-      "/transactions/3dc1257fdcd34e03e634b70dea7e04b96c9ef5d6787c7fc42094b728c8bf1566"
+      "/transactions/3dc1257fdcd34e03e634b70dea7e04b96c9ef5d6787c7fc42094b728c8bf1566",
     );
   });
 
@@ -51,7 +51,7 @@ context("/transaction/[txid] - Dftx Create Vault on Mobile", () => {
   it("should have DfTxCreateVault Owners Address", () => {
     cy.findByTestId("DfTxCreateVault.OwnersAddress").should(
       "have.text",
-      "dWNDpnGPfhu5yCrkvqqjk2fA4FnHv6rqa5"
+      "dWNDpnGPfhu5yCrkvqqjk2fA4FnHv6rqa5",
     );
   });
 

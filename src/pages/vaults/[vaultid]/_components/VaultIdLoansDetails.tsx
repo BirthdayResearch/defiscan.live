@@ -25,7 +25,7 @@ interface VaultIdLoansDetailsProps {
 }
 
 export function VaultIdLoansDetails(
-  props: VaultIdLoansDetailsProps
+  props: VaultIdLoansDetailsProps,
 ): JSX.Element {
   return (
     <>
@@ -68,7 +68,7 @@ export function VaultIdLoansDetails(
                 loan={loan}
                 interest={
                   props.interests.filter(
-                    (interest) => interest.id === loan.id
+                    (interest) => interest.id === loan.id,
                   )[0]
                 }
                 vault={props.vault}
@@ -93,7 +93,7 @@ export function VaultIdLoansDetails(
                 loan={loan}
                 interest={
                   props.interests.filter(
-                    (interest) => interest.id === loan.id
+                    (interest) => interest.id === loan.id,
                   )[0]
                 }
                 vault={props.vault}
@@ -109,18 +109,18 @@ export function VaultIdLoansDetails(
 
 function calculateUsdValues(
   loan: LoanVaultTokenAmount,
-  interest: LoanVaultTokenAmount
+  interest: LoanVaultTokenAmount,
 ): [BigNumber | undefined, BigNumber | undefined] {
   let loanUsdAmount =
     loan?.activePrice?.active != null
       ? new BigNumber(loan.activePrice.active.amount).multipliedBy(
-          new BigNumber(loan.amount)
+          new BigNumber(loan.amount),
         )
       : undefined;
   let interestUsdAmount =
     loan?.activePrice?.active != null
       ? new BigNumber(loan.activePrice.active.amount).multipliedBy(
-          new BigNumber(interest.amount)
+          new BigNumber(interest.amount),
         )
       : undefined;
 
@@ -143,7 +143,7 @@ function VaultLoansTableRow(props: {
   const LoanSymbol = getAssetIcon(props.loan.symbol);
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(
     props.loan,
-    props.interest
+    props.interest,
   );
 
   return (
@@ -151,7 +151,7 @@ function VaultLoansTableRow(props: {
       className={classNames(
         props.vault.state === LoanVaultState.FROZEN
           ? "text-gray-200"
-          : "text-gray-900 dark:text-gray-100"
+          : "text-gray-900 dark:text-gray-100",
       )}
     >
       <OverflowTable.Cell>
@@ -203,7 +203,7 @@ function VaultLoanDetailsCard(props: {
 
   const [loanUsdAmount, interestUsdAmount] = calculateUsdValues(
     props.loan,
-    props.interest
+    props.interest,
   );
 
   return (
