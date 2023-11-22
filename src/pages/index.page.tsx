@@ -34,7 +34,7 @@ interface HomePageStateI {
 }
 
 export default function HomePage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const api = useWhaleApiClient();
   const [data, setData] = useState<HomePageStateI>({
@@ -58,8 +58,8 @@ export default function HomePage(
         async (block) =>
           await api.blocks.getTransactions(block.id, 8).then((results) => {
             return results;
-          })
-      )
+          }),
+      ),
     ).then((results) => {
       results.map((result) => transactions.push(...result));
     });
@@ -94,7 +94,7 @@ export default function HomePage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<HomePageProps>> {
   const api = getWhaleApiClient(context);
 
@@ -102,7 +102,11 @@ export async function getServerSideProps(
     api.blocks.list(8),
     api.stats.getSupply(),
     api.stats.get(),
-  ]);
+  ]).catch((err) => {
+    console.log("error in serversideprops");
+    console.log(JSON.stringify(err));
+    return [];
+  });
 
   let transactions: Transaction[] = [];
   await Promise.all(
@@ -110,8 +114,8 @@ export async function getServerSideProps(
       async (block) =>
         await api.blocks.getTransactions(block.id, 8).then((results) => {
           return results;
-        })
-    )
+        }),
+    ),
   ).then((results) => {
     results.map((result) => transactions.push(...result));
   });
