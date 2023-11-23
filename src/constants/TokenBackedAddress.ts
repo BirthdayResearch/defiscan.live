@@ -14,8 +14,8 @@ interface BackedAddress {
 export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   BTC: {
     cake: {
-      link: "https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT",
-      address: "38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT",
+      link: "https://www.blockchain.com/btc/address/3GcSHxkKY8ADMWRam51T1WYxYSb2vH62VL",
+      address: "3GcSHxkKY8ADMWRam51T1WYxYSb2vH62VL",
     },
     quantum: {
       link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
@@ -24,8 +24,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   ETH: {
     cake: {
-      link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
-      address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+      link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
+      address: "0xc889faf456439fb932b9ce3d4f43d8078177fd29",
     },
     quantum: {
       link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
@@ -34,8 +34,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   USDT: {
     cake: {
-      link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
-      address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+      link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
+      address: "0xc889faf456439fb932b9ce3d4f43d8078177fd29",
     },
     quantum: {
       link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
@@ -44,8 +44,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   USDC: {
     cake: {
-      link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
-      address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+      link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
+      address: "0xc889faf456439fb932b9ce3d4f43d8078177fd29",
     },
     quantum: {
       link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
@@ -54,8 +54,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   EUROC: {
     cake: {
-      link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
-      address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+      link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
+      address: "0xc889faf456439fb932b9ce3d4f43d8078177fd29",
     },
     quantum: {
       link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
@@ -64,8 +64,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   LTC: {
     cake: {
-      link: "https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE",
-      address: "MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE",
+      link: "https://live.blockcypher.com/ltc/address/MTorFqmHaoFSBTmRGTnN1gXRrNqxa3tn2f",
+      address: "MTorFqmHaoFSBTmRGTnN1gXRrNqxa3tn2f",
     },
   },
   BCH: {
@@ -82,8 +82,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   MATIC: {
     cake: {
-      link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
-      address: "0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+      link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
+      address: "0xc889faf456439fb932b9ce3d4f43d8078177fd29",
     },
     quantum: {
       link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",

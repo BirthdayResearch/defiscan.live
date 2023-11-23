@@ -1,27 +1,27 @@
 export const cakeBackingAddresses = [
   {
     token: "dBTC",
-    link: "https://www.blockchain.com/btc/address/38pZuWUti3vSQuvuFYs8Lwbyje8cmaGhrT",
+    link: "https://www.blockchain.com/btc/address/3GcSHxkKY8ADMWRam51T1WYxYSb2vH62VL",
   },
   {
     token: "dETH",
-    link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
   },
   {
     token: "dUSDT",
-    link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
   },
   {
     token: "dUSDC",
-    link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
   },
   {
     token: "dEUROC",
-    link: "https://etherscan.io/address/0x94fa70d079d76279e1815ce403e9b985bccc82ac",
+    link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
   },
   {
     token: "dLTC",
-    link: "https://live.blockcypher.com/ltc/address/MLYQxJfnUfVqRwfYXjDJfmLbyA77hqzSXE",
+    link: "https://live.blockcypher.com/ltc/address/MTorFqmHaoFSBTmRGTnN1gXRrNqxa3tn2f",
   },
   {
     token: "dBCH",
