@@ -104,9 +104,9 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   SUI: {
     cake: {
-      link: "https://suiexplorer.com/address/0x072e6de3fc10b1eacbe130127f6baf3111034fc0204f0edd7a1899d8c40a11a5",
+      link: "https://suiexplorer.com/address/0xe319ee27de5d3cb4a2345c8b714a69d6710ca05395e3709983d886061b1b818d",
       address:
-        "0x072e6de3fc10b1eacbe130127f6baf3111034fc0204f0edd7a1899d8c40a11a5",
+        "0xe319ee27de5d3cb4a2345c8b714a69d6710ca05395e3709983d886061b1b818d",
     },
   },
 };
