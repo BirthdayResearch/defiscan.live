@@ -31,6 +31,10 @@ export const cakeBackingAddresses = [
     token: "dDOGE",
     link: "https://dogechain.info/address/9uv4fqPjSYNVNvqzbuGUMACBw67qQcLTxg",
   },
+  {
+    token: "dSUI",
+    link: "https://suiexplorer.com/address/0xe319ee27de5d3cb4a2345c8b714a69d6710ca05395e3709983d886061b1b818d",
+  },
 ];
 
 export const quantumBackingAddresses = [
