@@ -5,25 +5,33 @@ import {
 import { Head } from "@components/commons/Head";
 import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { Block } from "@defichain/whale-api-client/dist/api/blocks";
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  InferGetServerSidePropsType,
-} from "next";
 import { Container } from "@components/commons/Container";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import { BlocksTable } from "./_components/BlocksTable";
 import { BlocksCards } from "./_components/BlocksCards";
 
-interface BlocksPageData {
-  blocks: {
+export default function Blocks(): JSX.Element {
+  const [blocks, setBlocks] = useState<{
     items: Block[];
     pages: CursorPage[];
-  };
-}
+  }>({ items: [], pages: [] });
 
-export default function Blocks({
-  blocks,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const router = useRouter();
+  const next = CursorPagination.getNext(router);
+
+  async function fetchData() {
+    const items = await getWhaleApiClient(router).blocks.list(50, next);
+    setBlocks({
+      items,
+      pages: CursorPagination.getPages(router, items),
+    });
+  }
+
+  useEffect(() => {
+    void fetchData();
+  }, [router.query]);
+
   return (
     <Container className="pt-12 pb-20">
       <Head title="Blocks" />
@@ -43,25 +51,4 @@ export default function Blocks({
       </div>
     </Container>
   );
-}
-
-export async function getServerSideProps(
-  context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<BlocksPageData>> {
-  try {
-    const next = CursorPagination.getNext(context);
-    const items = await getWhaleApiClient(context).blocks.list(50, next);
-    return {
-      props: {
-        blocks: {
-          items,
-          pages: CursorPagination.getPages(context, items),
-        },
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
 }

@@ -1,6 +1,7 @@
 import { Link } from "@components/commons/link/Link";
 import { ApiPagedResponse } from "@defichain/whale-api-client";
 import { last, takeRight } from "lodash";
+import { NextRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
 import { PropsWithChildren } from "react";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
@@ -71,7 +72,7 @@ export function CursorPagination(props: CursorPaginationProps): JSX.Element {
 }
 
 function NumberButton(
-  props: CursorPage & { path: string } & { queryParam?: QueryParameter }
+  props: CursorPage & { path: string } & { queryParam?: QueryParameter },
 ): JSX.Element {
   if (props.active) {
     return (
@@ -104,7 +105,7 @@ NavigateButton.Prev = (
     queryParam?: QueryParameter;
     path: string;
     cursors: string[] | undefined;
-  }>
+  }>,
 ) => {
   return NavigateButton({ type: "Prev", ...props });
 };
@@ -114,7 +115,7 @@ NavigateButton.Next = (
     queryParam?: QueryParameter;
     path: string;
     cursors: string[] | undefined;
-  }>
+  }>,
 ) => {
   return NavigateButton({ type: "Next", ...props });
 };
@@ -125,7 +126,7 @@ function NavigateButton(
     path: string;
     cursors: string[] | undefined;
     type: "Next" | "Prev";
-  }>
+  }>,
 ): JSX.Element {
   if (props.cursors === undefined) {
     return (
@@ -166,7 +167,9 @@ function getQueryFromCursors(cursors: string[]): Record<string, string> {
   };
 }
 
-function getCursorsFromContext(context: GetServerSidePropsContext): string[] {
+function getCursorsFromContext(
+  context: GetServerSidePropsContext | NextRouter,
+): string[] {
   if (context.query.cursors !== undefined) {
     return (context.query.cursors as string).split(",");
   }
@@ -177,7 +180,7 @@ function getCursorsFromContext(context: GetServerSidePropsContext): string[] {
  * @param {GetServerSidePropsContext} context to get the last next
  */
 CursorPagination.getNext = (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext | NextRouter,
 ): string | undefined => {
   return last(getCursorsFromContext(context));
 };
@@ -187,8 +190,8 @@ CursorPagination.getNext = (
  * @param {ApiPagedResponse} paged
  */
 CursorPagination.getPages = (
-  context: GetServerSidePropsContext,
-  paged: ApiPagedResponse<any>
+  context: GetServerSidePropsContext | NextRouter,
+  paged: ApiPagedResponse<any>,
 ): CursorPage[] => {
   const pages: CursorPage[] = [{ n: 1, active: false, cursors: [] }];
 

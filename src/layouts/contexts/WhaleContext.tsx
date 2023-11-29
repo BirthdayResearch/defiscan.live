@@ -12,6 +12,7 @@ import { WhaleApiClient, WhaleRpcClient } from "@defichain/whale-api-client";
 import { GetServerSidePropsContext } from "next";
 import { createContext, PropsWithChildren, useContext, useMemo } from "react";
 import { WhaleApiClientOptions } from "@defichain/whale-api-client/dist/whale.api.client";
+import { NextRouter } from "next/router";
 import { getEnvironment } from "./Environment";
 import { useNetwork } from "./NetworkContext";
 
@@ -29,7 +30,7 @@ const WhaleRpcClientContext = createContext<WhaleRpcClient>(undefined as any);
  * @return WhaleApiClient created from query string of GetServerSidePropsContext
  */
 export function getWhaleApiClient(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext | NextRouter,
 ): WhaleApiClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
@@ -37,7 +38,7 @@ export function getWhaleApiClient(
 }
 
 export function getWhaleRpcClient(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext | NextRouter,
 ): WhaleRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
@@ -45,7 +46,7 @@ export function getWhaleRpcClient(
 }
 
 export function newPlaygroundRpcClient(
-  context: GetServerSidePropsContext,
+  context: GetServerSidePropsContext | NextRouter,
 ): PlaygroundRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
