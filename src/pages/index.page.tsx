@@ -1,12 +1,7 @@
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  InferGetServerSidePropsType,
-} from "next";
 import { Block } from "@defichain/whale-api-client/dist/api/blocks";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { Transaction } from "@defichain/whale-api-client/dist/api/transactions";
-import { getWhaleApiClient, useWhaleApiClient } from "@contexts/WhaleContext";
+import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { Container } from "@components/commons/Container";
 import { IndexHeader } from "@components/index/IndexHeader";
 import { LiquidityPoolList } from "@components/index/LiquidityPoolList";
@@ -15,29 +10,22 @@ import { TransactionsList } from "@components/index/TransactionsList";
 import { useEffect, useState } from "react";
 import { SupplyStats } from "@components/index/SupplyStats";
 
-interface HomePageProps {
-  blocks: Block[];
-  transactions: Transaction[];
-  liquidityPools: PoolPairData[];
-}
-
 interface HomePageStateI {
   blocks: Block[];
   transactions: Transaction[];
   liquidityPools: PoolPairData[];
 }
 
-export default function HomePage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
-): JSX.Element {
+export default function HomePage(): JSX.Element {
   const api = useWhaleApiClient();
   const [data, setData] = useState<HomePageStateI>({
-    blocks: props.blocks,
-    transactions: props.transactions,
-    liquidityPools: props.liquidityPools,
+    blocks: [],
+    transactions: [],
+    liquidityPools: [],
   });
 
   useEffect(() => {
+    void fetchData();
     const interval = setInterval(() => {
       void fetchData();
     }, 15000);
@@ -85,39 +73,4 @@ export default function HomePage(
       </Container>
     </>
   );
-}
-
-export async function getServerSideProps(
-  context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<HomePageProps>> {
-  try {
-    const api = getWhaleApiClient(context);
-    const [blocks] = await Promise.all([api.blocks.list(8)]);
-    let transactions: Transaction[] = [];
-    await Promise.all(
-      blocks.map(
-        async (block) =>
-          await api.blocks.getTransactions(block.id, 8).then((results) => {
-            return results;
-          }),
-      ),
-    ).then((results) => {
-      results.map((result) => transactions.push(...result));
-    });
-    transactions = transactions.slice(0, 8);
-
-    const liquidityPools = await api.poolpairs.list(8);
-
-    return {
-      props: {
-        blocks,
-        transactions,
-        liquidityPools,
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
 }
