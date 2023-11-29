@@ -14,15 +14,9 @@ import { BlocksList } from "@components/index/BlocksList";
 import { TransactionsList } from "@components/index/TransactionsList";
 import { useEffect, useState } from "react";
 import { SupplyStats } from "@components/index/SupplyStats";
-import {
-  StatsData,
-  SupplyData,
-} from "@defichain/whale-api-client/dist/api/stats";
 
 interface HomePageProps {
   blocks: Block[];
-  stats: StatsData;
-  supply: SupplyData;
   transactions: Transaction[];
   liquidityPools: PoolPairData[];
 }
@@ -34,7 +28,7 @@ interface HomePageStateI {
 }
 
 export default function HomePage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const api = useWhaleApiClient();
   const [data, setData] = useState<HomePageStateI>({
@@ -58,8 +52,8 @@ export default function HomePage(
         async (block) =>
           await api.blocks.getTransactions(block.id, 8).then((results) => {
             return results;
-          })
-      )
+          }),
+      ),
     ).then((results) => {
       results.map((result) => transactions.push(...result));
     });
@@ -78,7 +72,7 @@ export default function HomePage(
     <>
       <IndexHeader />
       <Container className="pb-20 relative z-1">
-        <SupplyStats stats={props.stats} supply={props.supply} />
+        <SupplyStats />
         <div className="flex flex-wrap -mx-2">
           <div className="w-full lg:w-3/5 xl:w-2/3 px-1">
             <TransactionsList transactions={data.transactions} />
@@ -94,15 +88,11 @@ export default function HomePage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<HomePageProps>> {
   const api = getWhaleApiClient(context);
 
-  const [blocks, supply, stats] = await Promise.all([
-    api.blocks.list(8),
-    api.stats.getSupply(),
-    api.stats.get(),
-  ]);
+  const [blocks] = await Promise.all([api.blocks.list(8)]);
 
   let transactions: Transaction[] = [];
   await Promise.all(
@@ -110,8 +100,8 @@ export async function getServerSideProps(
       async (block) =>
         await api.blocks.getTransactions(block.id, 8).then((results) => {
           return results;
-        })
-    )
+        }),
+    ),
   ).then((results) => {
     results.map((result) => transactions.push(...result));
   });
@@ -122,8 +112,6 @@ export async function getServerSideProps(
   return {
     props: {
       blocks,
-      stats,
-      supply,
       transactions,
       liquidityPools,
     },

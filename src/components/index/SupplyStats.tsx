@@ -12,23 +12,18 @@ import {
 import { StatsState } from "@store/stats";
 import { CalculatePercentage } from "../../utils/index/CalculatePercentage";
 
-interface SupplyStatsProps {
-  stats: StatsData;
-  supply: SupplyData;
-}
-
 interface SupplyStatsStateI {
   stats: StatsData | StatsState;
   supply: SupplyData;
 }
 
-export function SupplyStats(props: SupplyStatsProps): JSX.Element {
+export function SupplyStats(): JSX.Element {
   const statsState = useSelector((state: RootState) => state.stats);
   const supplyState = useSelector((state: RootState) => state.supply);
 
   const [data, setData] = useState<SupplyStatsStateI>({
-    stats: props.stats,
-    supply: props.supply,
+    stats: statsState,
+    supply: supplyState,
   });
 
   useEffect(() => {
@@ -46,9 +41,9 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
         <div className="flex flex-wrap" data-testid="SupplyStats.Desktop">
           <div className="w-full lg:w-3/12 mr-2 flex">
             <StatPriceCard
-              usd={data.stats.price.usd}
+              usd={data?.stats?.price?.usd}
               updatedAt={
-                "updatedAt" in data.stats ? data.stats.updatedAt : undefined
+                "updatedAt" in data?.stats ? data?.stats?.updatedAt : undefined
               }
             />
           </div>
@@ -59,13 +54,13 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
             <StatCard
               infodesc="Total DFI Minted  is the total number of DFI emitted to date."
               heading="Total DFI Minted"
-              stat={data.supply.total}
+              stat={data?.supply?.total}
               suffix="/ 1.2B"
               testId="StatCard.TotalMinted"
             >
               <div className="mt-auto text-gray-500 text-sm dark:text-gray-400">
                 <span className="text-black font-medium mr-1 dark:text-gray-100">
-                  {CalculatePercentage(data.supply.total, data.supply.max)}
+                  {CalculatePercentage(data?.supply?.total, data?.supply?.max)}
                 </span>
                 of max supply
               </div>
@@ -73,15 +68,15 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
             <StatCard
               infodesc="Circulating DFI is the total number of DFI coins that are publicly available and is circulating in the market."
               heading="Circulating DFI"
-              stat={data.supply.circulating}
+              stat={data?.supply?.circulating}
               suffix="DFI"
               testId="StatCard.Circulating"
             >
               <div className="mt-auto text-gray-500 text-sm dark:text-gray-400">
                 <span className="text-black font-medium mr-1 dark:text-gray-100">
                   {CalculatePercentage(
-                    data.supply.circulating,
-                    data.supply.total
+                    data?.supply?.circulating,
+                    data?.supply?.total,
                   )}
                 </span>
                 of total minted
@@ -90,7 +85,7 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
             <StatCard
               infodesc="Total Value Locked is the overall value of assets deposited in DeFiChain. This includes assets locked in DEXs, Masternodes, and collaterals in vaults"
               heading="Total Value Locked"
-              stat={data.stats.tvl.total}
+              stat={data?.stats?.tvl?.total}
               prefix="$"
               testId="StatCard.Tvl"
             >
@@ -99,8 +94,8 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   DEX:
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
-                      data.stats.tvl.dex,
-                      data.stats.tvl.total
+                      data?.stats?.tvl?.dex,
+                      data?.stats?.tvl?.total,
                     )}
                   </span>
                 </div>
@@ -109,8 +104,8 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   <span className="xl:hidden">MN:</span>
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
-                      data.stats.tvl.masternodes,
-                      data.stats.tvl.total
+                      data?.stats?.tvl?.masternodes,
+                      data?.stats?.tvl?.total,
                     )}
                   </span>
                 </div>
@@ -118,8 +113,8 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   Vaults:
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
-                      data.stats.tvl.loan,
-                      data.stats.tvl.total
+                      data?.stats?.tvl?.loan,
+                      data?.stats?.tvl?.total,
                     )}
                   </span>
                 </div>
@@ -128,12 +123,15 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
             <StatCard
               infodesc="Total DFI Burned is the total amount of DFI coins removed from circulation."
               heading="Total DFI Burned"
-              stat={data.supply.burned}
+              stat={data?.supply?.burned}
               testId="StatCard.TotalBurned"
             >
               <div className="mt-auto text-gray-500 text-sm dark:text-gray-400">
                 <span className="text-black mr-1 dark:text-gray-100">
-                  {CalculatePercentage(data.supply.burned, data.supply.total)}
+                  {CalculatePercentage(
+                    data?.supply?.burned,
+                    data?.supply?.total,
+                  )}
                 </span>
                 of total minted
               </div>
@@ -153,7 +151,7 @@ function StatCard(
     prefix?: string;
     suffix?: string;
     testId: string;
-  }>
+  }>,
 ): JSX.Element {
   return (
     <div className="w-full md:w-1/2 p-1" data-testid={props.testId}>
