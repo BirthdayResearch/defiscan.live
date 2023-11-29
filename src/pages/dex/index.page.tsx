@@ -6,18 +6,19 @@ import { Head } from "@components/commons/Head";
 import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { poolpairs } from "@defichain/whale-api-client";
 import { RootState } from "@store/index";
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  InferGetServerSidePropsType,
-} from "next";
+// import {
+//   GetServerSidePropsContext,
+//   GetServerSidePropsResult,
+//   InferGetServerSidePropsType,
+// } from "next";
 import { useSelector } from "react-redux";
 import { Container } from "@components/commons/Container";
 import { StatItem } from "@components/commons/stats/StatItem";
 import { NumericFormat } from "react-number-format";
 import { StatsBar } from "@components/commons/stats/StatsBar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
+import { useRouter } from "next/router";
 import {
   PoolPairsTable,
   SortKeys,
@@ -37,13 +38,63 @@ interface DexPageProps {
   };
 }
 
-export default function DexPage({
-  poolPairs,
-  aggregate,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+export default function DexPage(): JSX.Element {
   const tvl = useSelector((state: RootState) => state.stats.tvl.dex);
   const [sortKey, setSortKey] = useState<SortKeys>(SortKeys.TOTAL_LIQUIDITY);
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
+  const [dexPage, setDexPage] = useState<DexPageProps>({
+    poolPairs: {
+      items: [],
+      pages: [],
+    },
+    aggregate: { volume: { total24h: 0 } },
+  });
+
+  // Temporary fix for SSR issue
+  const router = useRouter();
+
+  async function fetchData() {
+    const api = getWhaleApiClient(router);
+    async function get24hSum(): Promise<number> {
+      const poolpairs: PoolPairData[] = [];
+
+      let poolpairsResponse = await api.poolpairs.list(200);
+      poolpairs.push(...poolpairsResponse);
+      while (poolpairsResponse.hasNext) {
+        poolpairsResponse = await api.poolpairs.list(
+          200,
+          poolpairsResponse.nextToken,
+        );
+        poolpairs.push(...poolpairsResponse);
+      }
+
+      return poolpairs.reduce((a, b) => a + (b.volume?.h24 ?? 0), 0);
+    }
+
+    const next = CursorPagination.getNext(router);
+    const items = await api.poolpairs.list(100, next);
+    const sorted = items.filter(
+      (poolpair) =>
+        !poolpair.displaySymbol.includes("/") &&
+        !poolpair.symbol.includes("BURN"),
+    );
+
+    setDexPage({
+      poolPairs: {
+        items: sorted,
+        pages: CursorPagination.getPages(router, items),
+      },
+      aggregate: {
+        volume: {
+          total24h: await get24hSum(),
+        },
+      },
+    });
+  }
+
+  useEffect(() => {
+    void fetchData();
+  }, [router.query]);
 
   return (
     <>
@@ -68,7 +119,7 @@ export default function DexPage({
           <NumericFormat
             displayType="text"
             thousandSeparator
-            value={aggregate.volume.total24h.toString()}
+            value={dexPage?.aggregate.volume.total24h.toString()}
             decimalScale={0}
             prefix="$"
           />
@@ -82,7 +133,7 @@ export default function DexPage({
 
         <div className="my-6 hidden md:block">
           <PoolPairsTable
-            poolPairs={poolPairs.items}
+            poolPairs={dexPage?.poolPairs.items}
             sortKey={sortKey}
             setSortKey={setSortKey}
             sortOrder={sortOrder}
@@ -92,7 +143,7 @@ export default function DexPage({
 
         <div className="my-6 md:hidden">
           <PoolPairsCards
-            poolPairs={poolPairs.items}
+            poolPairs={dexPage?.poolPairs.items}
             sortKey={sortKey}
             setSortKey={setSortKey}
             sortOrder={sortOrder}
@@ -101,13 +152,14 @@ export default function DexPage({
         </div>
 
         <div className="flex justify-end mt-8">
-          <CursorPagination pages={poolPairs.pages} path="/dex" />
+          <CursorPagination pages={dexPage?.poolPairs.pages} path="/dex" />
         </div>
       </Container>
     </>
   );
 }
 
+/*
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<DexPageProps>> {
@@ -156,3 +208,4 @@ export async function getServerSideProps(
     };
   }
 }
+*/
