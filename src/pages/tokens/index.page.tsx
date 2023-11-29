@@ -48,14 +48,20 @@ export default function TokensPage({
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<TokensPageData>> {
-  const next = CursorPagination.getNext(context);
-  const items = await getWhaleApiClient(context).tokens.list(20, next);
-  return {
-    props: {
-      tokens: {
-        items,
-        pages: CursorPagination.getPages(context, items),
+  try {
+    const next = CursorPagination.getNext(context);
+    const items = await getWhaleApiClient(context).tokens.list(20, next);
+    return {
+      props: {
+        tokens: {
+          items,
+          pages: CursorPagination.getPages(context, items),
+        },
       },
-    },
-  };
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }

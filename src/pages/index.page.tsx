@@ -90,30 +90,34 @@ export default function HomePage(
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<HomePageProps>> {
-  const api = getWhaleApiClient(context);
+  try {
+    const api = getWhaleApiClient(context);
+    const [blocks] = await Promise.all([api.blocks.list(8)]);
+    let transactions: Transaction[] = [];
+    await Promise.all(
+      blocks.map(
+        async (block) =>
+          await api.blocks.getTransactions(block.id, 8).then((results) => {
+            return results;
+          }),
+      ),
+    ).then((results) => {
+      results.map((result) => transactions.push(...result));
+    });
+    transactions = transactions.slice(0, 8);
 
-  const [blocks] = await Promise.all([api.blocks.list(8)]);
+    const liquidityPools = await api.poolpairs.list(8);
 
-  let transactions: Transaction[] = [];
-  await Promise.all(
-    blocks.map(
-      async (block) =>
-        await api.blocks.getTransactions(block.id, 8).then((results) => {
-          return results;
-        }),
-    ),
-  ).then((results) => {
-    results.map((result) => transactions.push(...result));
-  });
-  transactions = transactions.slice(0, 8);
-
-  const liquidityPools = await api.poolpairs.list(8);
-
-  return {
-    props: {
-      blocks,
-      transactions,
-      liquidityPools,
-    },
-  };
+    return {
+      props: {
+        blocks,
+        transactions,
+        liquidityPools,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }

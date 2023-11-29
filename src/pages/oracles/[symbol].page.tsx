@@ -22,7 +22,7 @@ interface PricesPageProps {
 }
 
 export default function SymbolPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const {
     price: {
@@ -72,34 +72,40 @@ export default function SymbolPage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<PricesPageProps>> {
-  const api = getWhaleApiClient(context);
-  const symbol = context.params?.symbol?.toString().trim() as string;
+  try {
+    const api = getWhaleApiClient(context);
+    const symbol = context.params?.symbol?.toString().trim() as string;
 
-  if (!isAlphanumeric(symbol, "-.")) {
-    return { notFound: true };
+    if (!isAlphanumeric(symbol, "-.")) {
+      return { notFound: true };
+    }
+
+    const [token, currency] = symbol.split("-");
+    if (token === undefined || currency === undefined) {
+      return { notFound: true };
+    }
+
+    const price = await api.prices.get(token, currency);
+    if (price === undefined) {
+      return { notFound: true };
+    }
+
+    const oracles = await api.prices.getOracles(token, currency, 60);
+    if (oracles === undefined) {
+      return { notFound: true };
+    }
+
+    return {
+      props: {
+        price: price,
+        oracles: oracles,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
   }
-
-  const [token, currency] = symbol.split("-");
-  if (token === undefined || currency === undefined) {
-    return { notFound: true };
-  }
-
-  const price = await api.prices.get(token, currency);
-  if (price === undefined) {
-    return { notFound: true };
-  }
-
-  const oracles = await api.prices.getOracles(token, currency, 60);
-  if (oracles === undefined) {
-    return { notFound: true };
-  }
-
-  return {
-    props: {
-      price: price,
-      oracles: oracles,
-    },
-  };
 }

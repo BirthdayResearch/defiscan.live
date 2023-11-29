@@ -27,7 +27,7 @@ interface BlockDetailsPageProps {
 }
 
 export default function BlockDetails(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   return (
     <Container className="pt-8 pb-20">
@@ -75,31 +75,37 @@ function BlockHeading({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
-  const api = getWhaleApiClient(context);
-  const idOrHeight = context.params?.blockId?.toString().trim() as string;
+  try {
+    const api = getWhaleApiClient(context);
+    const idOrHeight = context.params?.blockId?.toString().trim() as string;
 
-  if (!isAlphanumeric(idOrHeight)) {
-    return { notFound: true };
-  }
+    if (!isAlphanumeric(idOrHeight)) {
+      return { notFound: true };
+    }
 
-  const block = await api.blocks.get(idOrHeight);
+    const block = await api.blocks.get(idOrHeight);
 
-  if (block === undefined) {
-    return { notFound: true };
-  }
+    if (block === undefined) {
+      return { notFound: true };
+    }
 
-  const next = CursorPagination.getNext(context);
-  const transactions = await api.blocks.getTransactions(block.id, 50, next);
+    const next = CursorPagination.getNext(context);
+    const transactions = await api.blocks.getTransactions(block.id, 50, next);
 
-  return {
-    props: {
-      block,
-      transactions: {
-        items: transactions,
-        pages: CursorPagination.getPages(context, transactions),
+    return {
+      props: {
+        block,
+        transactions: {
+          items: transactions,
+          pages: CursorPagination.getPages(context, transactions),
+        },
       },
-    },
-  };
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }

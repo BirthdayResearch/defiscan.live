@@ -112,29 +112,6 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<DexPageProps>> {
   const api = getWhaleApiClient(context);
-
-  const next = CursorPagination.getNext(context);
-  const items = await api.poolpairs.list(100, next);
-  const sorted = items.filter(
-    (poolpair) =>
-      !poolpair.displaySymbol.includes("/") &&
-      !poolpair.symbol.includes("BURN"),
-  );
-
-  return {
-    props: {
-      poolPairs: {
-        items: sorted,
-        pages: CursorPagination.getPages(context, items),
-      },
-      aggregate: {
-        volume: {
-          total24h: await get24hSum(),
-        },
-      },
-    },
-  };
-
   async function get24hSum(): Promise<number> {
     const poolpairs: PoolPairData[] = [];
 
@@ -149,5 +126,33 @@ export async function getServerSideProps(
     }
 
     return poolpairs.reduce((a, b) => a + (b.volume?.h24 ?? 0), 0);
+  }
+
+  try {
+    const next = CursorPagination.getNext(context);
+    const items = await api.poolpairs.list(100, next);
+    const sorted = items.filter(
+      (poolpair) =>
+        !poolpair.displaySymbol.includes("/") &&
+        !poolpair.symbol.includes("BURN"),
+    );
+
+    return {
+      props: {
+        poolPairs: {
+          items: sorted,
+          pages: CursorPagination.getPages(context, items),
+        },
+        aggregate: {
+          volume: {
+            total24h: await get24hSum(),
+          },
+        },
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
   }
 }

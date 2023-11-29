@@ -46,16 +46,22 @@ export default function Blocks({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BlocksPageData>> {
-  const next = CursorPagination.getNext(context);
-  const items = await getWhaleApiClient(context).blocks.list(50, next);
-  return {
-    props: {
-      blocks: {
-        items,
-        pages: CursorPagination.getPages(context, items),
+  try {
+    const next = CursorPagination.getNext(context);
+    const items = await getWhaleApiClient(context).blocks.list(50, next);
+    return {
+      props: {
+        blocks: {
+          items,
+          pages: CursorPagination.getPages(context, items),
+        },
       },
-    },
-  };
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }

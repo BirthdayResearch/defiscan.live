@@ -32,7 +32,7 @@ interface BlockDetailsPageProps {
 }
 
 export default function BlockCountdown(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const { connection } = useNetwork();
   const currentHeight =
@@ -44,7 +44,7 @@ export default function BlockCountdown(
     (props.target.height - currentHeight) * secondsPerBlock * 1000;
   const millisecsToTargetHeight = estimatedTargetTime - new Date().getTime();
   const [timeLeft, setTimeLeft] = useState<number>(
-    Math.ceil(millisecsToTargetHeight / 1000)
+    Math.ceil(millisecsToTargetHeight / 1000),
   );
 
   useEffect(() => {
@@ -88,59 +88,12 @@ export default function BlockCountdown(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
   const query = context.params?.query?.toString().trim() as string;
-
   const event = await getEventFromPrismic();
-
-  if (
-    event === undefined &&
-    !isNumeric(query) &&
-    query.toLowerCase() !== "nextfutureswap"
-  ) {
-    return { notFound: true };
-  }
-
-  let targetHeight = event?.data.height ?? query;
-  let eventName = event?.data.name ?? null;
-
-  if (query.toLowerCase() === "nextfutureswap") {
-    targetHeight = (
-      await getWhaleRpcClient(context).oracle.getFutureSwapBlock()
-    ).toString();
-    eventName = "Next Future Settlement Block";
-  }
-
-  const blocks = await getWhaleApiClient(context).blocks.list(1);
-  if (blocks === undefined || blocks.length !== 1) {
-    return { notFound: true };
-  }
-
-  if (blocks[0].height >= Number(targetHeight)) {
-    return {
-      redirect: {
-        statusCode: 302,
-        destination: `/blocks/${String(targetHeight)}`,
-      },
-    };
-  }
-
-  return {
-    props: {
-      target: {
-        height: Number(targetHeight),
-        name: eventName,
-      },
-      current: {
-        height: blocks[0].height,
-        medianTime: blocks[0].medianTime,
-      },
-    },
-  };
-
   async function getEventFromPrismic(): Promise<PrismicDocument | undefined> {
     const endpoint = prismic.createClient("scan");
     const events = await endpoint.getByType("events");
@@ -153,5 +106,55 @@ export async function getServerSideProps(
           event.data.network.toLowerCase() === network.toLowerCase())
       );
     });
+  }
+  try {
+    if (
+      event === undefined &&
+      !isNumeric(query) &&
+      query.toLowerCase() !== "nextfutureswap"
+    ) {
+      return { notFound: true };
+    }
+
+    let targetHeight = event?.data.height ?? query;
+    let eventName = event?.data.name ?? null;
+
+    if (query.toLowerCase() === "nextfutureswap") {
+      targetHeight = (
+        await getWhaleRpcClient(context).oracle.getFutureSwapBlock()
+      ).toString();
+      eventName = "Next Future Settlement Block";
+    }
+
+    const blocks = await getWhaleApiClient(context).blocks.list(1);
+    if (blocks === undefined || blocks.length !== 1) {
+      return { notFound: true };
+    }
+
+    if (blocks[0].height >= Number(targetHeight)) {
+      return {
+        redirect: {
+          statusCode: 302,
+          destination: `/blocks/${String(targetHeight)}`,
+        },
+      };
+    }
+
+    return {
+      props: {
+        target: {
+          height: Number(targetHeight),
+          name: eventName,
+        },
+        current: {
+          height: blocks[0].height,
+          medianTime: blocks[0].medianTime,
+        },
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
   }
 }

@@ -22,7 +22,7 @@ export interface TokenWithBacking {
 }
 
 export default function ProofOfBackingPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   return (
     <Container>
@@ -54,38 +54,44 @@ export default function ProofOfBackingPage(
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ProofOfBackingPageProps>> {
-  const api = getWhaleApiClient(context);
-  const tokenList = await getAllTokens(api);
-  const burntTokenList = await api.address
-    .listToken("8defichainBurnAddressXXXXXXXdRQkSm", 200)
-    .catch(() => {});
-  const result: TokenWithBacking[] = [];
-  TOKEN_BACKED.forEach((token) => {
-    const _token = tokenList.find((t) => t.displaySymbol === token.name);
-    const _burntToken = burntTokenList?.find(
-      (t) => t.displaySymbol === token.name
-    );
-    if (_token !== undefined) {
-      result.push({
-        displaySymbol: _token.displaySymbol,
-        symbol: _token.symbol,
-        netSupply: BigNumber(_token.minted)
-          .minus(_burntToken?.amount ?? 0)
-          .toFixed(8),
-      });
-    } else {
-      result.push({
-        displaySymbol: token.name,
-        symbol: token.symbol,
-      });
-    }
-  });
+  try {
+    const api = getWhaleApiClient(context);
+    const tokenList = await getAllTokens(api);
+    const burntTokenList = await api.address
+      .listToken("8defichainBurnAddressXXXXXXXdRQkSm", 200)
+      .catch(() => {});
+    const result: TokenWithBacking[] = [];
+    TOKEN_BACKED.forEach((token) => {
+      const _token = tokenList.find((t) => t.displaySymbol === token.name);
+      const _burntToken = burntTokenList?.find(
+        (t) => t.displaySymbol === token.name,
+      );
+      if (_token !== undefined) {
+        result.push({
+          displaySymbol: _token.displaySymbol,
+          symbol: _token.symbol,
+          netSupply: BigNumber(_token.minted)
+            .minus(_burntToken?.amount ?? 0)
+            .toFixed(8),
+        });
+      } else {
+        result.push({
+          displaySymbol: token.name,
+          symbol: token.symbol,
+        });
+      }
+    });
 
-  return {
-    props: {
-      tokens: result,
-    },
-  };
+    return {
+      props: {
+        tokens: result,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }

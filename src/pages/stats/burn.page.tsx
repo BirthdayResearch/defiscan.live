@@ -68,7 +68,7 @@ export default function BurnPage({
                     thousandSeparator
                     value={
                       burnInfo.dexfeetokens.filter((token) =>
-                        token.endsWith("@DUSD")
+                        token.endsWith("@DUSD"),
                       )[0]
                     }
                     decimalScale={0}
@@ -105,46 +105,49 @@ export default function BurnPage({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BurnInfoData>> {
-  const api = getWhaleApiClient(context);
-  const burnInfo = await api.stats.getBurn();
+  try {
+    const api = getWhaleApiClient(context);
+    const burnInfo = await api.stats.getBurn();
+    const burnRates = burnInfo.dfipaybacktokens.map((token) => {
+      const amount = token.split("@")[0];
+      const symbol = token.split("@")[1];
 
-  const burnRates = burnInfo.dfipaybacktokens.map((token) => {
-    const amount = token.split("@")[0];
-    const symbol = token.split("@")[1];
-
-    const rate = new BigNumber(
-      burnInfo.dexfeetokens
-        .filter((token) => token.endsWith(`@${symbol}`))[0]
-        .replace(`@${symbol}`, "")
-    )
-      .div(amount)
-      .multipliedBy(100);
-
+      const rate = new BigNumber(
+        burnInfo.dexfeetokens
+          .filter((token) => token.endsWith(`@${symbol}`))[0]
+          .replace(`@${symbol}`, ""),
+      )
+        .div(amount)
+        .multipliedBy(100);
+      return {
+        symbol: symbol,
+        rate: rate.toFixed(8),
+      };
+    });
     return {
-      symbol: symbol,
-      rate: rate.toFixed(8),
-    };
-  });
-
-  return {
-    props: {
-      burnInfo: {
-        address: burnInfo.address,
-        amount: burnInfo.amount.toFixed(8),
-        tokens: burnInfo.tokens,
-        feeburn: burnInfo.feeburn.toFixed(8),
-        auctionburn: burnInfo.auctionburn.toFixed(8),
-        paybackburn: burnInfo.paybackburn.toFixed(8),
-        dexfeetokens: burnInfo.dexfeetokens,
-        dfipaybackfee: new BigNumber(burnInfo.dfipaybackfee)
-          .multipliedBy(100)
-          .toFixed(8),
-        dfipaybacktokens: burnInfo.dfipaybacktokens,
-        emissionburn: burnInfo.emissionburn.toFixed(8),
+      props: {
+        burnInfo: {
+          address: burnInfo.address,
+          amount: burnInfo.amount.toFixed(8),
+          tokens: burnInfo.tokens,
+          feeburn: burnInfo.feeburn.toFixed(8),
+          auctionburn: burnInfo.auctionburn.toFixed(8),
+          paybackburn: burnInfo.paybackburn.toFixed(8),
+          dexfeetokens: burnInfo.dexfeetokens,
+          dfipaybackfee: new BigNumber(burnInfo.dfipaybackfee)
+            .multipliedBy(100)
+            .toFixed(8),
+          dfipaybacktokens: burnInfo.dfipaybacktokens,
+          emissionburn: burnInfo.emissionburn.toFixed(8),
+        },
+        burnRates,
       },
-      burnRates,
-    },
-  };
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  }
 }

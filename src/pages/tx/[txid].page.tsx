@@ -6,18 +6,24 @@ export default function TxPage(): JSX.Element {
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<any>> {
-  const txid = context.params?.txid?.toString().trim() as string;
+  try {
+    const txid = context.params?.txid?.toString().trim() as string;
 
-  if (!isAlphanumeric(txid)) {
-    return { notFound: true };
+    if (!isAlphanumeric(txid)) {
+      return { notFound: true };
+    }
+
+    return {
+      redirect: {
+        statusCode: 302,
+        destination: `/transactions/${txid}`,
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
   }
-
-  return {
-    redirect: {
-      statusCode: 302,
-      destination: `/transactions/${txid}`,
-    },
-  };
 }
