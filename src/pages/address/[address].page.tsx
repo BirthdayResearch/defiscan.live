@@ -1,13 +1,14 @@
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  InferGetServerSidePropsType,
-} from "next";
+// import {
+//   GetServerSidePropsContext,
+//   GetServerSidePropsResult,
+//   InferGetServerSidePropsType,
+// } from "next";
 import { Container } from "@components/commons/Container";
 import { useNetwork } from "@contexts/NetworkContext";
 import { Head } from "@components/commons/Head";
 import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
 import { AddressType, getAddressType } from "@waveshq/walletkit-core";
+import { useRouter } from "next/router";
 import {
   AddressHeading,
   AddressNotFoundHeading,
@@ -15,16 +16,18 @@ import {
 import { AddressSummaryTable } from "./_components/AddressSummaryTable";
 import { AddressTransactionTable } from "./_components/AddressTransactionTable";
 import { AddressBalances } from "./_components/AddressBalances";
-import { isAlphanumeric } from "../../utils/commons/StringValidator";
+// import { isAlphanumeric } from "../../utils/commons/StringValidator";
 import { AddressVaults } from "./_components/AddressVaults";
 
-interface AddressPageProps {
-  address: string;
-}
+// interface AddressPageProps {
+//   address: string;
+// }
 
-export default function AddressPage(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>,
-): JSX.Element {
+export default function AddressPage(): JSX.Element {
+/*  props: InferGetServerSidePropsType<typeof getServerSideProps>, */
+  const router = useRouter();
+  const props = { address: router.query.address as string };
+  console.log({ test: router.query });
   const addressType = getAddressType(props.address, useNetwork().name);
 
   if (addressType === undefined) {
@@ -77,10 +80,10 @@ export default function AddressPage(
   );
 }
 
+/*
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<AddressPageProps>> {
-  try {
     const address = context.params?.address?.toString().trim() as string;
 
     if (!isAlphanumeric(address)) {
@@ -92,9 +95,6 @@ export async function getServerSideProps(
         address: address,
       },
     };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
 }
+
+*/
