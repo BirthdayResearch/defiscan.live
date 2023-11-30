@@ -11,6 +11,7 @@ RUN npm install -g pnpm
 
 # Install project dependencies using PNPM
 RUN pnpm install n --ignore-scripts puppeteer
+# To check why lossless-json is not installed by jellyfishsdk
 RUN pnpm install lossless-json@1.0.5
 
 # Copy the rest of the application code
