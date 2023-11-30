@@ -48,7 +48,7 @@ dependencies:
     specifier: ^2.30.0
     version: 2.30.0
   dayjs:
-    specifier: ^1.11.9
+    specifier: ^1.11.10
     version: 1.11.10
   install:
     specifier: ^0.13.0
