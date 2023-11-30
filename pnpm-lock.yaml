@@ -39,7 +39,7 @@ dependencies:
     specifier: ^1.3.9
     version: 1.3.9(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2)
   bignumber.js:
-    specifier: ^9.1.1
+    specifier: ^9.1.2
     version: 9.1.2
   classnames:
     specifier: ^2.3.2
