@@ -33,7 +33,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - uses: cypress-io/github-action@248bde77443c376edc45906ede03a1aba9da0462 # v5.8.4
+      - uses: cypress-io/github-action@ebe8b24c4428922d0f793a5c4c96853a633180e3 # v6.6.0
         with:
           config-file: cypress.config.js
           install: false
