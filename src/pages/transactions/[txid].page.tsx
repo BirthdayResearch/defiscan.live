@@ -31,6 +31,7 @@ import { TransactionSummaryTable } from "./_components/TransactionSummaryTable";
 import { TransactionDfTx } from "./_components/TransactionDfTx";
 import { isAlphanumeric } from "../../utils/commons/StringValidator";
 import { RawTransaction } from "./_components/RawTransaction";
+import { RawAccountHistory } from "./_components/RawAccountHistory";
 
 interface TransactionPageProps {
   txid: string;
@@ -103,6 +104,7 @@ export default function TransactionPage(
           isEvmTx={isEvmTx}
         />
         <TransactionDfTx dftx={dftx} transaction={props.transaction} />
+        <RawAccountHistory transaction={props.transaction} />
       </Container>
     </>
   );
