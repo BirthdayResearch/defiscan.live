@@ -11,15 +11,6 @@ dependencies:
   '@defichain/jellyfish-address':
     specifier: ^4.0.1
     version: 4.0.1(defichain@4.0.1)
-  '@defichain/jellyfish-api-core':
-    specifier: ^4.0.1
-    version: 4.0.1(defichain@4.0.1)
-  '@defichain/jellyfish-network':
-    specifier: ^4.0.1
-    version: 4.0.1(defichain@4.0.1)
-  '@defichain/playground-api-client':
-    specifier: ^4.0.1
-    version: 4.0.1(defichain@4.0.1)
   '@defichain/whale-api-client':
     specifier: ^4.0.1
     version: 4.0.1(defichain@4.0.1)
@@ -77,9 +68,6 @@ dependencies:
   next:
     specifier: ^14.0.3
     version: 14.0.3(@babel/core@7.23.0)(react-dom@18.2.0)(react@18.2.0)
-  nextjs-progressbar:
-    specifier: ^0.0.16
-    version: 0.0.16(next@14.0.3)(react@18.2.0)
   qrcode.react:
     specifier: ^3.1.0
     version: 3.1.0(react@18.2.0)
@@ -1905,19 +1893,6 @@ packages:
       - encoding
     dev: false
 
-  /@defichain/ocean-api-client@4.0.1(defichain@4.0.1):
-    resolution: {integrity: sha512-FdHFKnhhtMy8/+0xBO3kZDYDckKHfW2zn9nxpUwm5XtrEfgKEcGH0iDdTGw6m2+ksRF/j6l0gb/f/xkYINs0tQ==}
-    peerDependencies:
-      defichain: ^4.0.1
-    dependencies:
-      abort-controller: 3.0.0
-      cross-fetch: 3.1.8
-      defichain: 4.0.1
-      url-search-params-polyfill: 8.1.1
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
   /@defichain/playground-api-client@4.0.0(defichain@4.0.0):
     resolution: {integrity: sha512-aOTutwCE0iPuUk4gkt772PgV1h+f0kjTFPo9F/neLpV7eTVXCI+ivqa7QXjvXWotSGKxTLEgw0J81v6ckq3H+A==}
     peerDependencies:
@@ -1938,18 +1913,6 @@ packages:
       '@defichain/jellyfish-api-core': 4.0.0-beta.14.1(defichain@4.0.0-beta.14.1)
       '@defichain/ocean-api-client': 4.0.0-beta.14.1(defichain@4.0.0-beta.14.1)
       defichain: 4.0.0-beta.14.1
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
-  /@defichain/playground-api-client@4.0.1(defichain@4.0.1):
-    resolution: {integrity: sha512-lj/E62fceNIZnGJgwsJBPT2eYxZ3PbhlB3nCx4cpfBNb+GEugxsMnHPsnTOteam4yHCQ0mimQ/XfHdDxByTf+g==}
-    peerDependencies:
-      defichain: ^4.0.1
-    dependencies:
-      '@defichain/jellyfish-api-core': 4.0.1(defichain@4.0.1)
-      '@defichain/ocean-api-client': 4.0.1(defichain@4.0.1)
-      defichain: 4.0.1
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -10015,19 +9978,6 @@ packages:
     dependencies:
       '@types/nprogress': 0.2.1
       next: 14.0.2(@babel/core@7.23.0)(react-dom@18.2.0)(react@18.2.0)
-      nprogress: 0.2.0
-      prop-types: 15.8.1
-      react: 18.2.0
-    dev: false
-
-  /nextjs-progressbar@0.0.16(next@14.0.3)(react@18.2.0):
-    resolution: {integrity: sha512-GV0fD38EMD3vSDCmkq+tObmoup6QA91a6a9MxGuhJZuRk/9TNsrHGnIQQQ/sggkMkXuT4fBgF6jRjFwScDT3zA==}
-    peerDependencies:
-      next: '>= 6.0.0'
-      react: '>= 16.0.0'
-    dependencies:
-      '@types/nprogress': 0.2.1
-      next: 14.0.3(@babel/core@7.23.0)(react-dom@18.2.0)(react@18.2.0)
       nprogress: 0.2.0
       prop-types: 15.8.1
       react: 18.2.0
