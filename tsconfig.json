@@ -9,7 +9,8 @@
       "@components/*": ["components/*"],
       "@store/*": ["store/*"],
       "@public/*": ["../public/*"]
-    }
+    },
+    "moduleResolution": "node",
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "./cypress"]
