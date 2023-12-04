@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml /app/
 
 # Install PNPM globally
-RUN npm install -g pnpm
+RUN npm install -g pnpm next
 
 # Install project dependencies using PNPM
 RUN pnpm install --ignore-scripts puppeteer
