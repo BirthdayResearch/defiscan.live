@@ -20,6 +20,10 @@ export const cakeBackingAddresses = [
     link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
   },
   {
+    token: "dMATIC",
+    link: "https://etherscan.io/address/0xc889faf456439fb932b9ce3d4f43d8078177fd29",
+  },
+  {
     token: "dLTC",
     link: "https://live.blockcypher.com/ltc/address/MTorFqmHaoFSBTmRGTnN1gXRrNqxa3tn2f",
   },

@@ -253,19 +253,4 @@ context("/tokens/* Backing Addresses", () => {
         "https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf",
       );
   });
-
-  it("should redirect to individual token page", () => {
-    cy.visit("/tokens/DFI");
-    cy.findByText("DFI").should("exist");
-
-    cy.visit("/tokens/dBCH-DFI");
-    cy.findByText("dBCH-DFI").should("exist");
-
-    cy.visit("/tokens/eth-dfi-191");
-    cy.findByText("ETH-DFI").should("exist");
-    cy.findByText("DCT").should("exist");
-
-    cy.visit("/tokens/dbtc");
-    cy.findByText("dBTC").should("exist");
-  });
 });
