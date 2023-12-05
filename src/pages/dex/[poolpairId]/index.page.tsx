@@ -230,7 +230,7 @@ export async function getServerSideProps(
   // console.log({ res3: JSON.stringify(await res3.json()) });
 
   const res4 = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs", {
-    next: { revalidate: 100 },
+    next: { revalidate: 10 },
   });
   console.log({ res4: JSON.stringify(await res4.json()) });
 
