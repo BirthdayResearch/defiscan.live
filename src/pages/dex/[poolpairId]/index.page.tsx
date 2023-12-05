@@ -217,6 +217,9 @@ export async function getServerSideProps(
   const api = getWhaleApiClient(context);
   const poolPairs = await getPoolPairs(api);
 
+  const res = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs");
+  console.log({ res: JSON.stringify(await res.json()) });
+
   let poolPair: PoolPairData | undefined;
 
   if (poolpairId.includes("-")) {
