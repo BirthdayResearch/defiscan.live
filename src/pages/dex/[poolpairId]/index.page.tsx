@@ -14,7 +14,7 @@ import {
   CursorPage,
   CursorPagination,
 } from "@components/commons/CursorPagination";
-import { WhaleApiClient } from "@defichain/whale-api-client";
+// import { WhaleApiClient } from "@defichain/whale-api-client";
 import { Breadcrumb } from "@components/commons/Breadcrumb";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -149,21 +149,21 @@ export default function PoolPairPage(
   );
 }
 
-async function getPoolPairs(api: WhaleApiClient): Promise<PoolPairData[]> {
-  const poolpairs: PoolPairData[] = [];
+// async function getPoolPairs(api: WhaleApiClient): Promise<PoolPairData[]> {
+//   const poolpairs: PoolPairData[] = [];
 
-  let poolpairsResponse = await api.poolpairs.list(200);
-  poolpairs.push(...poolpairsResponse);
-  while (poolpairsResponse.hasNext) {
-    poolpairsResponse = await api.poolpairs.list(
-      200,
-      poolpairsResponse.nextToken,
-    );
-    poolpairs.push(...poolpairsResponse);
-  }
+//   let poolpairsResponse = await api.poolpairs.list(200);
+//   poolpairs.push(...poolpairsResponse);
+//   while (poolpairsResponse.hasNext) {
+//     poolpairsResponse = await api.poolpairs.list(
+//       200,
+//       poolpairsResponse.nextToken,
+//     );
+//     poolpairs.push(...poolpairsResponse);
+//   }
 
-  return poolpairs;
-}
+//   return poolpairs;
+// }
 
 function getPoolPairsByParam(
   param: string,
@@ -222,7 +222,7 @@ export async function getServerSideProps(
   }
 
   const api = getWhaleApiClient(context);
-  const poolPairs = await getPoolPairs(api);
+  // const poolPairs = await getPoolPairs(api);
 
   // const res = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs");
   // console.log({ res: JSON.stringify(await res.json()) });
@@ -237,9 +237,12 @@ export async function getServerSideProps(
   // console.log({ res3: JSON.stringify(await res3.json()) });
 
   const res4 = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs", {
-    next: { revalidate: 10 },
+    cache: "no-cache",
+    next: { revalidate: 1 },
   });
-  console.log({ res4: JSON.stringify(await res4.json()) });
+  // console.log({ res4: JSON.stringify(await res4.json()) });
+  const { data: poolPairs } = (await res4.json()) as any;
+  console.log({ poolPairs });
 
   let poolPair: PoolPairData | undefined;
 
