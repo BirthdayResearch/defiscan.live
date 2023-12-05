@@ -220,17 +220,17 @@ export async function getServerSideProps(
   // const res = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs");
   // console.log({ res: JSON.stringify(await res.json()) });
 
-  const res2 = await fetch(
-    `https://ocean.defichain.com/v0/mainnet/poolpairs?timestamp=${Date.now()}`,
-    {},
-  );
-  console.log({ res2: JSON.stringify(await res2.json()) });
+  // const res2 = await fetch(
+  //   `https://ocean.defichain.com/v0/mainnet/poolpairs?timestamp=${Date.now()}`,
+  //   {},
+  // );
+  // console.log({ res2: JSON.stringify(await res2.json()) });
 
   // const res3 = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs", {cache: 'no-cache'});
   // console.log({ res3: JSON.stringify(await res3.json()) });
 
   const res4 = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs", {
-    cache: "no-store",
+    next: { revalidate: 100 },
   });
   console.log({ res4: JSON.stringify(await res4.json()) });
 
