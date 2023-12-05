@@ -211,6 +211,11 @@ export const fetchCache = "force-no-store";
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
+  context.res.setHeader(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
+  );
+
   const poolpairId = context.params?.poolpairId?.toString().trim() as string;
   if (!isAlphanumeric(poolpairId, "-.")) {
     return { notFound: true };
