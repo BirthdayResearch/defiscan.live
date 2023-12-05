@@ -5,6 +5,7 @@ import { getAssetIcon } from "@components/icons/assets/tokens";
 export function PoolPairDetails(props: {
   poolpair: PoolPairData;
 }): JSX.Element {
+  console.log({ volume: props.poolpair.volume?.h24 });
   return (
     <div
       className="rounded-lg flex mt-4 flex-col p-6 bg-gray-50 w-full border border-gray-200 flex-1 dark:bg-gray-800 dark:border-gray-700"
