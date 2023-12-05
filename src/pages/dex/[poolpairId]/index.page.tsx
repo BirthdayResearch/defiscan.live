@@ -217,8 +217,22 @@ export async function getServerSideProps(
   const api = getWhaleApiClient(context);
   const poolPairs = await getPoolPairs(api);
 
-  const res = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs");
-  console.log({ res: JSON.stringify(await res.json()) });
+  // const res = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs");
+  // console.log({ res: JSON.stringify(await res.json()) });
+
+  const res2 = await fetch(
+    `https://ocean.defichain.com/v0/mainnet/poolpairs?timestamp=${Date.now()}`,
+    {},
+  );
+  console.log({ res2: JSON.stringify(await res2.json()) });
+
+  // const res3 = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs", {cache: 'no-cache'});
+  // console.log({ res3: JSON.stringify(await res3.json()) });
+
+  const res4 = await fetch("https://ocean.defichain.com/v0/mainnet/poolpairs", {
+    cache: "no-store",
+  });
+  console.log({ res4: JSON.stringify(await res4.json()) });
 
   let poolPair: PoolPairData | undefined;
 
