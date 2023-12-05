@@ -6,3 +6,8 @@ publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[[headers]]
+  for = "/*"
+    [headers.values]
+      Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
