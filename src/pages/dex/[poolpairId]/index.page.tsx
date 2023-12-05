@@ -206,6 +206,8 @@ function getAverageStableCoinPrice(poolpairs: PoolPairData[]): string {
   return new BigNumber(totalTokenAReserve).div(totalTokenBReserve).toFixed(8);
 }
 
+export const fetchCache = "force-no-store";
+
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<PoolPairPageProps>> {
