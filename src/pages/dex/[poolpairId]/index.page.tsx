@@ -242,6 +242,10 @@ export async function getServerSideProps(
   const swaps = await api.poolpairs.listPoolSwapsVerbose(poolPair.id, 10, next);
 
   // Temp: To debug volume on poolpair
+  const [, stats] = await Promise.all([api.blocks.list(8), api.stats.get()]);
+
+  console.log({ stats });
+
   console.log({ poolPair });
 
   return {
