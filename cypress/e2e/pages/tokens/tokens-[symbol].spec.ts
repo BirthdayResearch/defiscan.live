@@ -243,14 +243,14 @@ context("/tokens/* Backing Addresses", () => {
       });
     cy.findByTestId("BackingAddress.BCH").should(
       "have.text",
-      "38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf",
+      "38dTgSFhAg9c4QRqXd5fvLCYfvUdKLjmcx",
     );
     cy.findByTestId("BackingAddress.BCH")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf",
+        "https://www.blockchain.com/bch/address/38dTgSFhAg9c4QRqXd5fvLCYfvUdKLjmcx",
       );
   });
 });
