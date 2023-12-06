@@ -29,7 +29,7 @@ export const cakeBackingAddresses = [
   },
   {
     token: "dBCH",
-    link: "https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf",
+    link: "https://www.blockchain.com/bch/address/38dTgSFhAg9c4QRqXd5fvLCYfvUdKLjmcx",
   },
   {
     token: "dDOGE",

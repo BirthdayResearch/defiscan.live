@@ -70,8 +70,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   BCH: {
     cake: {
-      link: "https://www.blockchain.com/bch/address/38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf",
-      address: "38wFczGqaaGLRub2U7CWeWkMuPDwhMVMRf",
+      link: "https://www.blockchain.com/bch/address/38dTgSFhAg9c4QRqXd5fvLCYfvUdKLjmcx",
+      address: "38dTgSFhAg9c4QRqXd5fvLCYfvUdKLjmcx",
     },
   },
   DOGE: {
