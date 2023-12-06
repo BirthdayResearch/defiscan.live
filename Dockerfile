@@ -13,7 +13,7 @@ COPY package.json pnpm-lock.yaml /app/
 
 # Install project dependencies using PNPM
 # To check why lossless-json is not installed by jellyfishsdk
-RUN yarn global add pnpm && pnpm i
+RUN yarn global add pnpm && pnpm i --ignore-scripts
 
 # Rebuild the source code only when needed
 FROM base AS builder
