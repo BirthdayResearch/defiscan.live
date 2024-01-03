@@ -37,7 +37,7 @@ export const cakeBackingAddresses = [
   },
   {
     token: "dSOL",
-    link: "https://solscan.io/account/9XeYumALc7r4TvBvnUYrZpMXdvxKQ4mxf2WsR1gxyNNH",
+    link: "https://solscan.io/account/9DT7TnLgbw175oFNuAgoMuVzJkLmpVM3eektucttVmXL",
   },
   {
     token: "dDOT",
