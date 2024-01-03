@@ -36,6 +36,14 @@ export const cakeBackingAddresses = [
     link: "https://dogechain.info/address/9uv4fqPjSYNVNvqzbuGUMACBw67qQcLTxg",
   },
   {
+    token: "dSOL",
+    link: "https://solscan.io/account/9XeYumALc7r4TvBvnUYrZpMXdvxKQ4mxf2WsR1gxyNNH",
+  },
+  {
+    token: "dDOT",
+    link: "https://polkadot.subscan.io/account/12YfgqECReN4fQppa9BDoyGce43F54ZHYotE77mb5SmCBsUks",
+  },
+  {
     token: "dSUI",
     link: "https://suiexplorer.com/address/0xe319ee27de5d3cb4a2345c8b714a69d6710ca05395e3709983d886061b1b818d",
   },
