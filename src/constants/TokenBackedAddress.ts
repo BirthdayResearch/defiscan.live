@@ -92,8 +92,8 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   SOL: {
     cake: {
-      link: "https://solscan.io/account/9XeYumALc7r4TvBvnUYrZpMXdvxKQ4mxf2WsR1gxyNNH",
-      address: "9XeYumALc7r4TvBvnUYrZpMXdvxKQ4mxf2WsR1gxyNNH",
+      link: "https://solscan.io/account/9DT7TnLgbw175oFNuAgoMuVzJkLmpVM3eektucttVmXL",
+      address: "9DT7TnLgbw175oFNuAgoMuVzJkLmpVM3eektucttVmXL",
     },
   },
   DOT: {
