@@ -21,6 +21,10 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { Head } from "@components/commons/Head";
 import { useRouter } from "next/router";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { useNetwork } from "@contexts/NetworkContext";
+import { MetascanLinkButton } from "@components/commons/MetascanLinkButton";
+import { useState } from "react";
 import { checkIfEvmTx } from "../../utils/commons/evmtx/checkIfEvmTx";
 import {
   TransactionHeading,
@@ -38,12 +42,24 @@ interface TransactionPageProps {
   transaction?: Transaction;
   vins?: TransactionVin[];
   vouts?: TransactionVout[];
+  mappedEvmTxId?: string | null;
+}
+interface VmmapResult {
+  input: string;
+  type: string;
+  output: string;
+}
+
+enum VmmapTypes {
+  TxHashDVMToEVM = 5,
 }
 
 export default function TransactionPage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const router = useRouter();
+  const network = useNetwork().connection;
+  const [metachainTxUrl, setMetachainTxUrl] = useState<string>();
 
   const transactionPending =
     props.transaction === undefined ||
@@ -80,12 +96,21 @@ export default function TransactionPage(
     dftxType: dftx?.type,
   });
 
+  if (props.mappedEvmTxId) {
+    const txUrl = getMetaScanTxUrl(network, props.mappedEvmTxId);
+    if (!metachainTxUrl) {
+      setMetachainTxUrl(txUrl);
+    }
+  }
   return (
     <>
       <Head title={`Transaction #${props.transaction.txid}`} />
 
       <Container className="pt-12 pb-20">
-        <TransactionHeading transaction={props.transaction} />
+        <div className="flex items-end justify-between">
+          <TransactionHeading transaction={props.transaction} />
+          {metachainTxUrl && <MetascanLinkButton href={metachainTxUrl} />}
+        </div>
         <TransactionSummaryTable
           transaction={props.transaction}
           vins={props.vins}
@@ -152,6 +177,35 @@ function getDfTx(vouts: TransactionVout[]): DfTx<any> | undefined {
   return (stack[1] as OP_DEFI_TX).tx;
 }
 
+function getNetworkParams(network: EnvironmentNetwork): string {
+  switch (network) {
+    case EnvironmentNetwork.MainNet:
+      // no-op: network param not required for MainNet
+      return "";
+    case EnvironmentNetwork.TestNet:
+      return `?network=${EnvironmentNetwork.TestNet}`;
+    case EnvironmentNetwork.DevNet:
+      return `?network=${EnvironmentNetwork.DevNet}`;
+
+    case EnvironmentNetwork.LocalPlayground:
+    case EnvironmentNetwork.RemotePlayground:
+      return `?network=${EnvironmentNetwork.RemotePlayground}`;
+    case EnvironmentNetwork.Changi:
+      return `?network=${EnvironmentNetwork.Changi}`;
+    default:
+      return "";
+  }
+}
+
+function getMetaScanTxUrl(
+  network: EnvironmentNetwork,
+  id?: string | null,
+): string {
+  const baseMetaScanUrl = "https://meta.defiscan.live";
+  const networkParams = getNetworkParams(network);
+  return `${baseMetaScanUrl}/tx/${id}${networkParams}`;
+}
+
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<TransactionPageProps>> {
@@ -205,6 +259,19 @@ export async function getServerSideProps(
     return vouts;
   }
 
+  async function getEvmTxDetails() {
+    try {
+      const vmmap: VmmapResult = await api.rpc.call(
+        "vmmap",
+        [txid, VmmapTypes.TxHashDVMToEVM],
+        "lossless",
+      );
+      return vmmap.output;
+    } catch (e) {
+      return null;
+    }
+  }
+
   try {
     return {
       props: {
@@ -212,6 +279,7 @@ export async function getServerSideProps(
         transaction: transaction,
         vins: await getVins(),
         vouts: await getVouts(),
+        mappedEvmTxId: await getEvmTxDetails(),
       },
     };
   } catch (e) {

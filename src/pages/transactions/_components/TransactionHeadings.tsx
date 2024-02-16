@@ -10,10 +10,10 @@ interface TransactionNotFoundHeadingProps {
 }
 
 export function TransactionHeading(
-  props: TransactionHeadingProps
+  props: TransactionHeadingProps,
 ): JSX.Element {
   return (
-    <>
+    <div className="flex flex-col">
       <span
         className="leading-6 opacity-60 dark:opacity-100 dark:text-gray-100"
         data-testid="title"
@@ -30,12 +30,12 @@ export function TransactionHeading(
         </h1>
         <CopyButton className="ml-2" content={props.transaction.txid} />
       </div>
-    </>
+    </div>
   );
 }
 
 export function TransactionNotFoundHeading(
-  props: TransactionNotFoundHeadingProps
+  props: TransactionNotFoundHeadingProps,
 ): JSX.Element {
   const txid = props.txid;
 
