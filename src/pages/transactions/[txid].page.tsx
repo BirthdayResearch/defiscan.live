@@ -107,9 +107,14 @@ export default function TransactionPage(
       <Head title={`Transaction #${props.transaction.txid}`} />
 
       <Container className="pt-12 pb-20">
-        <div className="flex items-end justify-between">
+        <div className="lg:flex flex-col lg:flex-row items-end lg:justify-between">
           <TransactionHeading transaction={props.transaction} />
-          {metachainTxUrl && <MetascanLinkButton href={metachainTxUrl} />}
+          {metachainTxUrl && (
+            <MetascanLinkButton
+              href={metachainTxUrl}
+              customStyle="mt-2 lg:mt-0"
+            />
+          )}
         </div>
         <TransactionSummaryTable
           transaction={props.transaction}

@@ -45,7 +45,7 @@ function BlockHeading({
   metachainTxUrl,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <div className="flex items-end justify-between">
+    <div className="lg:flex flex-col lg:flex-row items-end lg:justify-between">
       <div>
         <Head title={`Block #${block.height}`} />
 
@@ -75,7 +75,7 @@ function BlockHeading({
           <CopyButton className="ml-2" content={block.hash} />
         </div>
       </div>
-      <div>
+      <div className="mt-2 lg:mt-0">
         {metachainTxUrl && (
           <MetascanLinkButton href={metachainTxUrl.toString()} />
         )}
