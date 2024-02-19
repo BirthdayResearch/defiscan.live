@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import { useTheme } from "@contexts/ThemeContext";
 
 interface ViewOnMetascanButtonProps {
   href?: string;
@@ -16,9 +17,9 @@ export function MetascanLinkButton({
         type="button"
         data-testid="view-on-metachain-button"
         className={classNames(
-          "border-[0.5px] rounded-[30px] border-gray-700",
+          "border-[0.5px] rounded-[30px] border-gray-200 dark:border-gray-700",
           "flex items-center gap-2",
-          "py-1 px-2 text-sm font-medium text-gray-300 tracking-[0.0025em]",
+          "py-1 px-2 text-sm font-medium text-gray-700 dark:text-gray-300 tracking-[0.0025em]",
           customStyle,
         )}
       >
@@ -30,6 +31,9 @@ export function MetascanLinkButton({
 }
 
 function DFILogo() {
+  const { theme } = useTheme();
+  const fill = theme === "dark" ? "#2F0421" : "#FFF0FA";
+
   return (
     <svg
       width="24"
@@ -40,7 +44,7 @@ function DFILogo() {
     >
       <path
         d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z"
-        fill="#2F0421"
+        fill={fill}
       />
       <path
         fillRule="evenodd"
