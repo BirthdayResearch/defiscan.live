@@ -14,6 +14,7 @@ import { CopyButton } from "@components/commons/CopyButton";
 import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { Head } from "@components/commons/Head";
 import { Container } from "@components/commons/Container";
+import { MetascanLinkButton } from "@components/commons/MetascanLinkButton";
 import { isAlphanumeric } from "../../../utils/commons/StringValidator";
 import { BlockTransactions } from "./_components/BlockTransactions";
 import { BlockDetailTable } from "./_components/BlockDetailTable";
@@ -24,14 +25,21 @@ interface BlockDetailsPageProps {
     items: Transaction[];
     pages: CursorPage[];
   };
+  metachainLink: string | string[] | null;
 }
 
 export default function BlockDetails(
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
+  const metachainLink = props.metachainLink || null;
   return (
     <Container className="pt-8 pb-20">
-      <BlockHeading {...props} />
+      <div className="flex items-end justify-between">
+        <BlockHeading {...props} />
+        {metachainLink && (
+          <MetascanLinkButton href={metachainLink.toString()} />
+        )}
+      </div>
       <BlockDetailTable {...props} />
       <BlockTransactions {...props} />
     </Container>
@@ -75,7 +83,7 @@ function BlockHeading({
 }
 
 export async function getServerSideProps(
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<BlockDetailsPageProps>> {
   const api = getWhaleApiClient(context);
   const idOrHeight = context.params?.blockId?.toString().trim() as string;
@@ -100,6 +108,7 @@ export async function getServerSideProps(
         items: transactions,
         pages: CursorPagination.getPages(context, transactions),
       },
+      metachainLink: context.query.metachainLink || null,
     },
   };
 }
