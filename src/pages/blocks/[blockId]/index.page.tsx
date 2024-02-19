@@ -25,7 +25,7 @@ interface BlockDetailsPageProps {
     items: Transaction[];
     pages: CursorPage[];
   };
-  metachainLink: string | string[] | null;
+  metachainTxUrl: string | string[] | null;
 }
 
 export default function BlockDetails(
@@ -42,7 +42,7 @@ export default function BlockDetails(
 
 function BlockHeading({
   block,
-  metachainLink,
+  metachainTxUrl,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
     <div className="flex items-end justify-between">
@@ -76,8 +76,8 @@ function BlockHeading({
         </div>
       </div>
       <div>
-        {metachainLink && (
-          <MetascanLinkButton href={metachainLink.toString()} />
+        {metachainTxUrl && (
+          <MetascanLinkButton href={metachainTxUrl.toString()} />
         )}
       </div>
     </div>
@@ -110,7 +110,7 @@ export async function getServerSideProps(
         items: transactions,
         pages: CursorPagination.getPages(context, transactions),
       },
-      metachainLink: context.query.metachainLink || null,
+      metachainTxUrl: context.query.metachainTxUrl || null,
     },
   };
 }
