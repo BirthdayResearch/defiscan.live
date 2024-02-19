@@ -31,15 +31,9 @@ interface BlockDetailsPageProps {
 export default function BlockDetails(
   props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
-  const metachainLink = props.metachainLink || null;
   return (
     <Container className="pt-8 pb-20">
-      <div className="flex items-end justify-between">
-        <BlockHeading {...props} />
-        {metachainLink && (
-          <MetascanLinkButton href={metachainLink.toString()} />
-        )}
-      </div>
+      <BlockHeading {...props} />
       <BlockDetailTable {...props} />
       <BlockTransactions {...props} />
     </Container>
@@ -48,37 +42,45 @@ export default function BlockDetails(
 
 function BlockHeading({
   block,
+  metachainLink,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   return (
-    <>
-      <Head title={`Block #${block.height}`} />
+    <div className="flex items-end justify-between">
+      <div>
+        <Head title={`Block #${block.height}`} />
 
-      <Breadcrumb
-        items={[
-          {
-            path: "/blocks",
-            name: "Blocks",
-          },
-          {
-            path: `/blocks/${block.height}`,
-            name: `#${block.height}`,
-            canonical: true,
-          },
-        ]}
-      />
+        <Breadcrumb
+          items={[
+            {
+              path: "/blocks",
+              name: "Blocks",
+            },
+            {
+              path: `/blocks/${block.height}`,
+              name: `#${block.height}`,
+              canonical: true,
+            },
+          ]}
+        />
 
-      <h1 className="font-medium text-2xl mt-1 dark:text-dark-gray-900">
-        Block #{block.height}
-      </h1>
+        <h1 className="font-medium text-2xl mt-1 dark:text-dark-gray-900">
+          Block #{block.height}
+        </h1>
 
-      <div className="flex items-center my-1 dark:text-dark-gray-900">
-        <div className="font-semibold">Hash:</div>
-        <div className="ml-1 text-lg break-all" data-testid="block-hash">
-          {block.hash}
+        <div className="flex items-center my-1 dark:text-dark-gray-900">
+          <div className="font-semibold">Hash:</div>
+          <div className="ml-1 text-lg break-all" data-testid="block-hash">
+            {block.hash}
+          </div>
+          <CopyButton className="ml-2" content={block.hash} />
         </div>
-        <CopyButton className="ml-2" content={block.hash} />
       </div>
-    </>
+      <div>
+        {metachainLink && (
+          <MetascanLinkButton href={metachainLink.toString()} />
+        )}
+      </div>
+    </div>
   );
 }
 
