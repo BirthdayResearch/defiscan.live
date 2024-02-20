@@ -12,7 +12,12 @@ export function MetascanLinkButton({
   customStyle,
 }: ViewOnMetascanButtonProps): JSX.Element {
   return (
-    <a className="" href={href} target="_blank" rel="noreferrer">
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      data-testid="metascan-link-button"
+    >
       <button
         type="button"
         data-testid="view-on-metachain-button"
