@@ -22,7 +22,6 @@ interface TransactionSummaryTableProps {
   feeRate: BigNumber;
   isDeFiTransaction: boolean;
   isEvmTx: boolean;
-  metachainTxUrl?: string;
 }
 
 export function TransactionSummaryTable(
@@ -36,7 +35,6 @@ export function TransactionSummaryTable(
         vouts={props.vouts}
         fee={props.fee}
         isEvmTx={props.isEvmTx}
-        metachainTxUrl={props.metachainTxUrl}
       />
       <SummaryTableListRight
         transaction={props.transaction}
@@ -56,7 +54,6 @@ function SummaryTableListLeft(props: {
   vouts: TransactionVout[];
   fee: BigNumber;
   isEvmTx: boolean;
-  metachainTxUrl?: string;
 }): JSX.Element {
   const {
     count: { blocks },
@@ -69,13 +66,6 @@ function SummaryTableListLeft(props: {
   } else if (props.vins[0].vout === undefined) {
     fee = "Coinbase";
   }
-
-  const metachainTxUrl = props.metachainTxUrl;
-
-  const hrefObject = {
-    pathname: `/blocks/${props.transaction.block.height}`,
-    query: metachainTxUrl ? { metachainTxUrl } : undefined,
-  };
 
   return (
     <AdaptiveList className="w-full lg:w-1/2">
@@ -95,7 +85,7 @@ function SummaryTableListLeft(props: {
         {confirmations}
       </AdaptiveList.Row>
       <AdaptiveList.Row name="Block Height">
-        <Link href={hrefObject}>
+        <Link href={{ pathname: `/blocks/${props.transaction.block.height}` }}>
           <a
             className="cursor-pointer hover:text-blue-500"
             data-testid="transaction-detail-block-height"

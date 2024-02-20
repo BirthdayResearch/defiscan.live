@@ -15,6 +15,9 @@ import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { Head } from "@components/commons/Head";
 import { Container } from "@components/commons/Container";
 import { MetascanLinkButton } from "@components/commons/MetascanLinkButton";
+import { useState } from "react";
+import { EnvironmentNetwork } from "@waveshq/walletkit-core";
+import { useNetwork } from "@contexts/NetworkContext";
 import { isAlphanumeric } from "../../../utils/commons/StringValidator";
 import { BlockTransactions } from "./_components/BlockTransactions";
 import { BlockDetailTable } from "./_components/BlockDetailTable";
@@ -25,7 +28,16 @@ interface BlockDetailsPageProps {
     items: Transaction[];
     pages: CursorPage[];
   };
-  metachainTxUrl: string | string[] | null;
+  mappedEvmBlockNum?: string | null;
+}
+interface VmmapResult {
+  input: string;
+  type: string;
+  output: string;
+}
+
+enum VmmapTypes {
+  BlockNumberDVMToEVM = 1,
 }
 
 export default function BlockDetails(
@@ -42,8 +54,18 @@ export default function BlockDetails(
 
 function BlockHeading({
   block,
-  metachainTxUrl,
+  mappedEvmBlockNum,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
+  const network = useNetwork().connection;
+  const [metachainBlockUrl, setMetachainBlockUrl] = useState<string>();
+
+  console.log(mappedEvmBlockNum);
+  if (mappedEvmBlockNum) {
+    const txUrl = getMetaScanBlockUrl(network, mappedEvmBlockNum);
+    if (!metachainBlockUrl) {
+      setMetachainBlockUrl(txUrl);
+    }
+  }
   return (
     <div className="lg:flex flex-col lg:flex-row items-end lg:justify-between">
       <div>
@@ -76,12 +98,39 @@ function BlockHeading({
         </div>
       </div>
       <div className="mt-2 lg:mt-0">
-        {metachainTxUrl && (
-          <MetascanLinkButton href={metachainTxUrl.toString()} />
-        )}
+        {metachainBlockUrl && <MetascanLinkButton href={metachainBlockUrl} />}
       </div>
     </div>
   );
+}
+
+function getNetworkParams(network: EnvironmentNetwork): string {
+  switch (network) {
+    case EnvironmentNetwork.MainNet:
+      // no-op: network param not required for MainNet
+      return "";
+    case EnvironmentNetwork.TestNet:
+      return `?network=${EnvironmentNetwork.TestNet}`;
+    case EnvironmentNetwork.DevNet:
+      return `?network=${EnvironmentNetwork.DevNet}`;
+
+    case EnvironmentNetwork.LocalPlayground:
+    case EnvironmentNetwork.RemotePlayground:
+      return `?network=${EnvironmentNetwork.RemotePlayground}`;
+    case EnvironmentNetwork.Changi:
+      return `?network=${EnvironmentNetwork.Changi}`;
+    default:
+      return "";
+  }
+}
+
+function getMetaScanBlockUrl(
+  network: EnvironmentNetwork,
+  id?: string | null,
+): string {
+  const baseMetaScanUrl = "https://meta.defiscan.live";
+  const networkParams = getNetworkParams(network);
+  return `${baseMetaScanUrl}/block/${id}${networkParams}`;
 }
 
 export async function getServerSideProps(
@@ -103,6 +152,19 @@ export async function getServerSideProps(
   const next = CursorPagination.getNext(context);
   const transactions = await api.blocks.getTransactions(block.id, 50, next);
 
+  async function getEvmTxDetails() {
+    try {
+      const vmmap: VmmapResult = await api.rpc.call(
+        "vmmap",
+        [idOrHeight, VmmapTypes.BlockNumberDVMToEVM],
+        "lossless",
+      );
+      return vmmap.output;
+    } catch (e) {
+      return null;
+    }
+  }
+
   return {
     props: {
       block,
@@ -110,7 +172,7 @@ export async function getServerSideProps(
         items: transactions,
         pages: CursorPagination.getPages(context, transactions),
       },
-      metachainTxUrl: context.query.metachainTxUrl || null,
+      mappedEvmBlockNum: await getEvmTxDetails(),
     },
   };
 }
