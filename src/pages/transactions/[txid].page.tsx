@@ -124,7 +124,6 @@ export default function TransactionPage(
           feeRate={feeRate}
           isDeFiTransaction={isDeFiTransaction}
           isEvmTx={isEvmTx}
-          metachainTxUrl={metachainTxUrl}
         />
         <TransactionVinVout
           transaction={props.transaction}
