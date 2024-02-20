@@ -155,7 +155,7 @@ export async function getServerSideProps(
     try {
       const vmmap: VmmapResult = await api.rpc.call(
         "vmmap",
-        [idOrHeight, VmmapTypes.BlockNumberDVMToEVM],
+        [block.height.toString(), VmmapTypes.BlockNumberDVMToEVM],
         "lossless",
       );
       return vmmap.output;
