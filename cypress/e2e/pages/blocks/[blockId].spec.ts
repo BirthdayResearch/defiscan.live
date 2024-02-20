@@ -1,7 +1,7 @@
 context("/blocks/[blockId] on desktop", () => {
   beforeEach(() => {
     cy.visit(
-      "/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet"
+      "/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet",
     );
     cy.viewport("macbook-13");
   });
@@ -13,7 +13,7 @@ context("/blocks/[blockId] on desktop", () => {
   it("should have block hash", () => {
     cy.findByTestId("block-hash").should(
       "have.text",
-      "f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7"
+      "f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7",
     );
   });
 
@@ -28,7 +28,7 @@ context("/blocks/[blockId] on desktop", () => {
   it("should have block detail timestamp", () => {
     cy.findByTestId("block-detail-timestamp").should(
       "have.text",
-      "Aug 25, 2021, 3:33:51 AM"
+      "Aug 25, 2021, 3:33:51 AM",
     );
   });
 
@@ -39,21 +39,21 @@ context("/blocks/[blockId] on desktop", () => {
   it("should have block detail minter", () => {
     cy.findByTestId("block-detail-minter").should(
       "have.text",
-      "8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj"
+      "8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj",
     );
     cy.findByTestId("block-detail-minter")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj"
+        "/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj",
       );
   });
 
   it("should have block detail difficulty", () => {
     cy.findByTestId("block-detail-difficulty").should(
       "have.text",
-      "16893394709.78455"
+      "16893394709.78455",
     );
   });
 
@@ -68,7 +68,7 @@ context("/blocks/[blockId] on desktop", () => {
   it("should have block detail merkle root", () => {
     cy.findByTestId("block-detail-merkle-root").should(
       "have.text",
-      "c0bf8aa08389c89f17296ba1d813f4741e25b7096ba924e0a141b6ea7d48f39e"
+      "c0bf8aa08389c89f17296ba1d813f4741e25b7096ba924e0a141b6ea7d48f39e",
     );
   });
 
@@ -93,12 +93,26 @@ context("/blocks/[blockId] on desktop", () => {
       });
     });
   });
+
+  it("should have view on metachain button on non transfer domain transactions", () => {
+    cy.visit(
+      "/blocks/02f761b10b6c08d9f383af56bf2f97873ba8cbb307759e1c307ed014808a2304",
+    );
+    cy.findByTestId("metascan-link-button").should("exist");
+  });
+
+  it("should have view on metachain button on transfer domain transactions", () => {
+    cy.visit(
+      "/blocks/5d1f906b3050814aabe3fe32d996f0f232573485686b9f38439d66709c0167e0",
+    );
+    cy.findByTestId("metascan-link-button").should("exist");
+  });
 });
 
 context("/blocks/[blockId] on mobile", () => {
   beforeEach(() => {
     cy.visit(
-      "/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet"
+      "/blocks/f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7?network=MainNet",
     );
     cy.viewport("iphone-x");
   });
@@ -110,7 +124,7 @@ context("/blocks/[blockId] on mobile", () => {
   it("should have heading", () => {
     cy.findByTestId("block-hash").should(
       "have.text",
-      "f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7"
+      "f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7",
     );
   });
 
@@ -123,7 +137,7 @@ context("/blocks/[blockId] on mobile", () => {
   it("should have block hash", () => {
     cy.findByTestId("block-hash").should(
       "have.text",
-      "f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7"
+      "f66c334c4aa6ea3f3dd18187447d16ae2c6f73941d80eab3ef0e2f1b10acd4c7",
     );
   });
 
@@ -138,7 +152,7 @@ context("/blocks/[blockId] on mobile", () => {
   it("should have block detail timestamp", () => {
     cy.findByTestId("block-detail-timestamp").should(
       "have.text",
-      "Aug 25, 2021, 3:33:51 AM"
+      "Aug 25, 2021, 3:33:51 AM",
     );
   });
 
@@ -149,21 +163,21 @@ context("/blocks/[blockId] on mobile", () => {
   it("should have block detail minter", () => {
     cy.findByTestId("block-detail-minter").should(
       "have.text",
-      "8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj"
+      "8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj",
     );
     cy.findByTestId("block-detail-minter")
       .find("a")
       .should(
         "have.attr",
         "href",
-        "/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj"
+        "/address/8Xy1uEVp4WQkktYAmKJ5mmpWTE9fQ8zuCj",
       );
   });
 
   it("should have block detail difficulty", () => {
     cy.findByTestId("block-detail-difficulty").should(
       "have.text",
-      "16893394709.78455"
+      "16893394709.78455",
     );
   });
 
@@ -178,7 +192,7 @@ context("/blocks/[blockId] on mobile", () => {
   it("should have block detail merkle root", () => {
     cy.findByTestId("block-detail-merkle-root").should(
       "have.text",
-      "c0bf8aa08389c89f17296ba1d813f4741e25b7096ba924e0a141b6ea7d48f39e"
+      "c0bf8aa08389c89f17296ba1d813f4741e25b7096ba924e0a141b6ea7d48f39e",
     );
   });
 
@@ -193,5 +207,19 @@ context("/blocks/[blockId] on mobile", () => {
         expect(pageTwoCells[0].innerText).not.equals(pageOneFirstCell);
       });
     });
+  });
+
+  it("should have view on metachain button on non transfer domain transactions", () => {
+    cy.visit(
+      "/blocks/02f761b10b6c08d9f383af56bf2f97873ba8cbb307759e1c307ed014808a2304",
+    );
+    cy.findByTestId("metascan-link-button").should("exist");
+  });
+
+  it("should have view on metachain button on transfer domain transactions", () => {
+    cy.visit(
+      "/blocks/5d1f906b3050814aabe3fe32d996f0f232573485686b9f38439d66709c0167e0",
+    );
+    cy.findByTestId("metascan-link-button").should("exist");
   });
 });
