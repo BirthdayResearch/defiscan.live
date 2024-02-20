@@ -59,7 +59,6 @@ function BlockHeading({
   const network = useNetwork().connection;
   const [metachainBlockUrl, setMetachainBlockUrl] = useState<string>();
 
-  console.log(mappedEvmBlockNum);
   if (mappedEvmBlockNum) {
     const txUrl = getMetaScanBlockUrl(network, mappedEvmBlockNum);
     if (!metachainBlockUrl) {
