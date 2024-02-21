@@ -21,7 +21,6 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { Head } from "@components/commons/Head";
 import { useRouter } from "next/router";
-import { EnvironmentNetwork } from "@waveshq/walletkit-core";
 import { useNetwork } from "@contexts/NetworkContext";
 import { MetascanLinkButton } from "@components/commons/MetascanLinkButton";
 import { useState } from "react";
@@ -36,6 +35,8 @@ import { TransactionDfTx } from "./_components/TransactionDfTx";
 import { isAlphanumeric } from "../../utils/commons/StringValidator";
 import { RawTransaction } from "./_components/RawTransaction";
 import { RawAccountHistory } from "./_components/RawAccountHistory";
+import { VmmapResult, VmmapTypes } from "./enum/VmmapTypes";
+import { getMetaScanTxUrl } from "../../utils/commons/getNetworkParams";
 
 interface TransactionPageProps {
   txid: string;
@@ -43,15 +44,6 @@ interface TransactionPageProps {
   vins?: TransactionVin[];
   vouts?: TransactionVout[];
   mappedEvmTxId?: string | null;
-}
-interface VmmapResult {
-  input: string;
-  type: string;
-  output: string;
-}
-
-enum VmmapTypes {
-  TxHashDVMToEVM = 5,
 }
 
 export default function TransactionPage(
@@ -180,35 +172,6 @@ function getDfTx(vouts: TransactionVout[]): DfTx<any> | undefined {
     return undefined;
   }
   return (stack[1] as OP_DEFI_TX).tx;
-}
-
-function getNetworkParams(network: EnvironmentNetwork): string {
-  switch (network) {
-    case EnvironmentNetwork.MainNet:
-      // no-op: network param not required for MainNet
-      return "";
-    case EnvironmentNetwork.TestNet:
-      return `?network=${EnvironmentNetwork.TestNet}`;
-    case EnvironmentNetwork.DevNet:
-      return `?network=${EnvironmentNetwork.DevNet}`;
-
-    case EnvironmentNetwork.LocalPlayground:
-    case EnvironmentNetwork.RemotePlayground:
-      return `?network=${EnvironmentNetwork.RemotePlayground}`;
-    case EnvironmentNetwork.Changi:
-      return `?network=${EnvironmentNetwork.Changi}`;
-    default:
-      return "";
-  }
-}
-
-function getMetaScanTxUrl(
-  network: EnvironmentNetwork,
-  id?: string | null,
-): string {
-  const baseMetaScanUrl = "https://meta.defiscan.live";
-  const networkParams = getNetworkParams(network);
-  return `${baseMetaScanUrl}/tx/${id}${networkParams}`;
 }
 
 export async function getServerSideProps(
