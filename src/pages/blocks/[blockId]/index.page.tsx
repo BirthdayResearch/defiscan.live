@@ -66,38 +66,39 @@ function BlockHeading({
     }
   }
   return (
-    <div className="lg:flex flex-col lg:flex-row items-end lg:justify-between">
-      <div>
-        <Head title={`Block #${block.height}`} />
+    <div>
+      <Head title={`Block #${block.height}`} />
 
-        <Breadcrumb
-          items={[
-            {
-              path: "/blocks",
-              name: "Blocks",
-            },
-            {
-              path: `/blocks/${block.height}`,
-              name: `#${block.height}`,
-              canonical: true,
-            },
-          ]}
-        />
+      <Breadcrumb
+        items={[
+          {
+            path: "/blocks",
+            name: "Blocks",
+          },
+          {
+            path: `/blocks/${block.height}`,
+            name: `#${block.height}`,
+            canonical: true,
+          },
+        ]}
+      />
+      <div className="lg:flex flex-col lg:flex-row items-center lg:justify-between">
+        <div>
+          <h1 className="font-medium text-2xl mt-1 dark:text-dark-gray-900">
+            Block #{block.height}
+          </h1>
 
-        <h1 className="font-medium text-2xl mt-1 dark:text-dark-gray-900">
-          Block #{block.height}
-        </h1>
-
-        <div className="flex items-center my-1 dark:text-dark-gray-900">
-          <div className="font-semibold">Hash:</div>
-          <div className="ml-1 text-lg break-all" data-testid="block-hash">
-            {block.hash}
+          <div className="flex items-center my-1 dark:text-dark-gray-900">
+            <div className="font-semibold">Hash:</div>
+            <div className="ml-1 text-lg break-all" data-testid="block-hash">
+              {block.hash}
+            </div>
+            <CopyButton className="ml-2" content={block.hash} />
           </div>
-          <CopyButton className="ml-2" content={block.hash} />
         </div>
-      </div>
-      <div className="mt-2 lg:mt-0">
-        {metachainBlockUrl && <MetascanLinkButton href={metachainBlockUrl} />}
+        <div className="mt-2 lg:mt-0">
+          {metachainBlockUrl && <MetascanLinkButton href={metachainBlockUrl} />}
+        </div>
       </div>
     </div>
   );

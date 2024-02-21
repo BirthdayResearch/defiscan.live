@@ -24,7 +24,7 @@ export function MetascanLinkButton({
         className={classNames(
           "border-[0.5px] rounded-[30px] border-gray-200 dark:border-gray-700",
           "flex items-center gap-2",
-          "py-1 px-2 text-sm font-medium text-gray-700 dark:text-gray-300 tracking-[0.0025em]",
+          "py-1.5 px-2 text-sm font-medium text-gray-700 dark:text-gray-300 tracking-[0.0025em]",
           customStyle,
         )}
       >
