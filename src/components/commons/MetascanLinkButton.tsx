@@ -22,7 +22,7 @@ export function MetascanLinkButton({
         type="button"
         data-testid="view-on-metachain-button"
         className={classNames(
-          "border-[0.5px] rounded-[30px] border-gray-200 dark:border-gray-700",
+          "border-[0.5px] rounded-[30px] border-gray-200 hover:border-[#FF00AF] hover:dark:border-[#F22CB3] dark:border-gray-700",
           "flex items-center gap-2",
           "py-1.5 px-2 text-sm font-medium text-gray-700 dark:text-gray-300 tracking-[0.0025em]",
           customStyle,
