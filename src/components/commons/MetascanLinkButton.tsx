@@ -29,7 +29,7 @@ export function MetascanLinkButton({
         )}
       >
         <DFILogo />
-        View on Metachain
+        View on MetaChain
       </button>
     </a>
   );
