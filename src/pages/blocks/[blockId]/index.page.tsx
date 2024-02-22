@@ -15,7 +15,7 @@ import { getWhaleApiClient } from "@contexts/WhaleContext";
 import { Head } from "@components/commons/Head";
 import { Container } from "@components/commons/Container";
 import { MetascanLinkButton } from "@components/commons/MetascanLinkButton";
-import { useState } from "react";
+import { useMemo } from "react";
 import { useNetwork } from "@contexts/NetworkContext";
 import { isAlphanumeric } from "../../../utils/commons/StringValidator";
 import { BlockTransactions } from "./_components/BlockTransactions";
@@ -49,14 +49,13 @@ function BlockHeading({
   mappedEvmBlockNum,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element {
   const network = useNetwork().connection;
-  const [metachainBlockUrl, setMetachainBlockUrl] = useState<string>();
 
-  if (mappedEvmBlockNum) {
-    const txUrl = getMetaScanBlockUrl(network, mappedEvmBlockNum);
-    if (!metachainBlockUrl) {
-      setMetachainBlockUrl(txUrl);
+  const metachainBlockUrl = useMemo(() => {
+    if (mappedEvmBlockNum) {
+      return getMetaScanBlockUrl(network, mappedEvmBlockNum);
     }
-  }
+    return undefined;
+  }, [mappedEvmBlockNum, network]);
   return (
     <div>
       <Head title={`Block #${block.height}`} />

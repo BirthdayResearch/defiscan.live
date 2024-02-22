@@ -23,7 +23,7 @@ import { Head } from "@components/commons/Head";
 import { useRouter } from "next/router";
 import { useNetwork } from "@contexts/NetworkContext";
 import { MetascanLinkButton } from "@components/commons/MetascanLinkButton";
-import { useState } from "react";
+import { useMemo } from "react";
 import { checkIfEvmTx } from "../../utils/commons/evmtx/checkIfEvmTx";
 import {
   TransactionHeading,
@@ -51,7 +51,14 @@ export default function TransactionPage(
 ): JSX.Element {
   const router = useRouter();
   const network = useNetwork().connection;
-  const [metachainTxUrl, setMetachainTxUrl] = useState<string>();
+
+  const mappedEvmTxId = props.mappedEvmTxId;
+  const metachainTxUrl = useMemo(() => {
+    if (mappedEvmTxId) {
+      return getMetaScanTxUrl(network, mappedEvmTxId);
+    }
+    return undefined;
+  }, [mappedEvmTxId, network]);
 
   const transactionPending =
     props.transaction === undefined ||
@@ -88,12 +95,6 @@ export default function TransactionPage(
     dftxType: dftx?.type,
   });
 
-  if (props.mappedEvmTxId) {
-    const txUrl = getMetaScanTxUrl(network, props.mappedEvmTxId);
-    if (!metachainTxUrl) {
-      setMetachainTxUrl(txUrl);
-    }
-  }
   return (
     <>
       <Head title={`Transaction #${props.transaction.txid}`} />
