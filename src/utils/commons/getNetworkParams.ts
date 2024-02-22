@@ -34,7 +34,6 @@ export function getMetaScanTxUrl(
   network: EnvironmentNetwork,
   id?: string | null,
 ): string {
-  const baseMetaScanUrl = "https://meta.defiscan.live";
   const networkParams = getNetworkParams(network);
   return `${baseMetaScanUrl}/tx/${id}${networkParams}`;
 }
