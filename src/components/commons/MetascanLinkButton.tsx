@@ -17,14 +17,15 @@ export function MetascanLinkButton({
       target="_blank"
       rel="noreferrer"
       data-testid="metascan-link-button"
+      className="w-[172px]"
     >
       <button
         type="button"
         data-testid="view-on-metachain-button"
         className={classNames(
-          "border-[0.5px] rounded-[30px] border-gray-200 hover:border-[#FF00AF] hover:dark:border-[#F22CB3] dark:border-gray-700",
+          "min-w-[172px] border-[0.5px] rounded-[30px] border-gray-200 hover:border-[#FF00AF] hover:dark:border-[#F22CB3] dark:border-gray-700",
           "flex items-center gap-2",
-          "py-1.5 px-2 text-sm font-medium text-gray-700 dark:text-gray-300 tracking-[0.0025em]",
+          "py-1.5 px-2 text-sm font-medium text-gray-700 dark:text-gray-300 tracking-[0.0025em] whitespace-nowrap",
           customStyle,
         )}
       >
