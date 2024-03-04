@@ -22,7 +22,6 @@ import {
 import { Head } from "@components/commons/Head";
 import { useRouter } from "next/router";
 import { useNetwork } from "@contexts/NetworkContext";
-import { MetascanLinkButton } from "@components/commons/MetascanLinkButton";
 import { useMemo } from "react";
 import { checkIfEvmTx } from "../../utils/commons/evmtx/checkIfEvmTx";
 import {
@@ -100,14 +99,11 @@ export default function TransactionPage(
       <Head title={`Transaction #${props.transaction.txid}`} />
 
       <Container className="pt-12 pb-20">
-        <div className="lg:flex flex-col lg:flex-row items-end lg:justify-between lg:gap-14">
-          <TransactionHeading transaction={props.transaction} />
-          {metachainTxUrl && (
-            <MetascanLinkButton
-              href={metachainTxUrl}
-              customStyle="mt-2 lg:mt-0"
-            />
-          )}
+        <div className="lg:flex flex-col lg:flex-row items-end lg:justify-between lg:gap-14 w-full">
+          <TransactionHeading
+            transaction={props.transaction}
+            metachainTxUrl={metachainTxUrl}
+          />
         </div>
         <TransactionSummaryTable
           transaction={props.transaction}

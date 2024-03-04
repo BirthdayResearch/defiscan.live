@@ -17,7 +17,7 @@ export function MetascanLinkButton({
       target="_blank"
       rel="noreferrer"
       data-testid="metascan-link-button"
-      className="w-[172px]"
+      className="w-[172px] mr-auto lg:mr-0"
     >
       <button
         type="button"
