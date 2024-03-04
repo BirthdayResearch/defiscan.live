@@ -58,7 +58,7 @@ services:
       -changiintermediateheight=19
 
   defi-playground:
-    image: ghcr.io/birthdayresearch/playground-api:3.39.1
+    image: ghcr.io/birthdayresearch/playground-api:4.0.7
     depends_on:
       - defi-blockchain
     ports:
