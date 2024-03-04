@@ -21,6 +21,8 @@ import {
 } from "@defichain/jellyfish-transaction";
 import { Head } from "@components/commons/Head";
 import { useRouter } from "next/router";
+import { useNetwork } from "@contexts/NetworkContext";
+import { useMemo } from "react";
 import { checkIfEvmTx } from "../../utils/commons/evmtx/checkIfEvmTx";
 import {
   TransactionHeading,
@@ -32,18 +34,30 @@ import { TransactionDfTx } from "./_components/TransactionDfTx";
 import { isAlphanumeric } from "../../utils/commons/StringValidator";
 import { RawTransaction } from "./_components/RawTransaction";
 import { RawAccountHistory } from "./_components/RawAccountHistory";
+import { VmmapResult, VmmapTypes } from "./enum/VmmapTypes";
+import { getMetaScanTxUrl } from "../../utils/commons/getNetworkParams";
 
 interface TransactionPageProps {
   txid: string;
   transaction?: Transaction;
   vins?: TransactionVin[];
   vouts?: TransactionVout[];
+  mappedEvmTxId?: string | null;
 }
 
 export default function TransactionPage(
   props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ): JSX.Element {
   const router = useRouter();
+  const network = useNetwork().connection;
+
+  const mappedEvmTxId = props.mappedEvmTxId;
+  const metachainTxUrl = useMemo(() => {
+    if (mappedEvmTxId) {
+      return getMetaScanTxUrl(network, mappedEvmTxId);
+    }
+    return undefined;
+  }, [mappedEvmTxId, network]);
 
   const transactionPending =
     props.transaction === undefined ||
@@ -85,7 +99,12 @@ export default function TransactionPage(
       <Head title={`Transaction #${props.transaction.txid}`} />
 
       <Container className="pt-12 pb-20">
-        <TransactionHeading transaction={props.transaction} />
+        <div className="lg:flex flex-col lg:flex-row items-end lg:justify-between lg:gap-14 w-full">
+          <TransactionHeading
+            transaction={props.transaction}
+            metachainTxUrl={metachainTxUrl}
+          />
+        </div>
         <TransactionSummaryTable
           transaction={props.transaction}
           vins={props.vins}
@@ -205,6 +224,19 @@ export async function getServerSideProps(
     return vouts;
   }
 
+  async function getEvmTxDetails() {
+    try {
+      const vmmap: VmmapResult = await api.rpc.call(
+        "vmmap",
+        [txid, VmmapTypes.TxHashDVMToEVM],
+        "lossless",
+      );
+      return vmmap.output;
+    } catch (e) {
+      return null;
+    }
+  }
+
   try {
     return {
       props: {
@@ -212,6 +244,7 @@ export async function getServerSideProps(
         transaction: transaction,
         vins: await getVins(),
         vouts: await getVouts(),
+        mappedEvmTxId: await getEvmTxDetails(),
       },
     };
   } catch (e) {
