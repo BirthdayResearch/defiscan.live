@@ -33,11 +33,11 @@ dependencies:
     specifier: ^3.0.1
     version: 3.0.1(@babel/core@7.23.0)(redux@4.2.1)
   '@waveshq/walletkit-core':
-    specifier: ^1.3.9
-    version: 1.3.9
+    specifier: ^1.3.10
+    version: 1.3.10
   '@waveshq/walletkit-ui':
-    specifier: ^1.3.9
-    version: 1.3.9(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2)
+    specifier: ^1.3.10
+    version: 1.3.10(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2)
   bignumber.js:
     specifier: ^9.1.2
     version: 9.1.2
@@ -2314,17 +2314,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@humanwhocodes/config-array@0.11.11:
-    resolution: {integrity: sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA==}
-    engines: {node: '>=10.10.0'}
-    dependencies:
-      '@humanwhocodes/object-schema': 1.2.1
-      debug: 4.3.4(supports-color@8.1.1)
-      minimatch: 3.1.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /@humanwhocodes/config-array@0.11.13:
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
     engines: {node: '>=10.10.0'}
@@ -2338,10 +2327,6 @@ packages:
   /@humanwhocodes/module-importer@1.0.1:
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
     engines: {node: '>=12.22'}
-
-  /@humanwhocodes/object-schema@1.2.1:
-    resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
-    dev: true
 
   /@humanwhocodes/object-schema@2.0.1:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
@@ -2829,7 +2814,6 @@ packages:
     dependencies:
       '@netlify/serverless-functions-api': 1.13.0
       is-promise: 4.0.0
-    dev: true
 
   /@netlify/ipx@1.4.5:
     resolution: {integrity: sha512-QuPxUj8Bn8hXwjdcA1BF+HPLqFJ2e9OCNrKX/s3hoUFjjqQrNSK8lLARAtzGfOM3BRsTXyi/zGdwBE+oJKd0dw==}
@@ -2887,7 +2871,6 @@ packages:
       - encoding
       - idb-keyval
       - supports-color
-    dev: true
 
   /@netlify/node-cookies@0.1.0:
     resolution: {integrity: sha512-OAs1xG+FfLX0LoRASpqzVntVV/RpYkgpI0VrUnw2u0Q1qiZUzcPffxRK8HF3gc4GjuhG5ahOEMJ9bswBiZPq0g==}
@@ -2963,7 +2946,6 @@ packages:
     dependencies:
       '@netlify/node-cookies': 0.1.0
       urlpattern-polyfill: 8.0.2
-    dev: true
 
   /@netlify/serverless-functions-api@1.7.3:
     resolution: {integrity: sha512-n6/7cJlSWvvbBlUOEAbkGyEld80S6KbG/ldQI9OhLfe1lTatgKmrTNIgqVNpaWpUdTgP2OHWFjmFBzkxxBWs5w==}
@@ -3582,29 +3564,8 @@ packages:
       tailwindcss: 3.3.5
     dev: false
 
-  /@tanstack/query-core@5.0.5:
-    resolution: {integrity: sha512-MThCETMkHDHTnFZHp71L+SqTtD5d6XHftFCVR1xRJdWM3qGrlQ2VCXaj0SKVcyJej2e1Opa2c7iknu1llxCDNQ==}
-    dev: false
-
   /@tanstack/query-core@5.8.3:
     resolution: {integrity: sha512-SWFMFtcHfttLYif6pevnnMYnBvxKf3C+MHMH7bevyYfpXpTMsLB9O6nNGBdWSoPwnZRXFNyNeVZOw25Wmdasow==}
-    dev: false
-
-  /@tanstack/react-query@5.0.5(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ZG0Q4HZ0iuI8mWiZ2/MdVYPHbrmAVhMn7+gLOkxJh6zLIgCL4luSZlohzN5Xt4MjxfxxWioO1nemwpudaTsmQg==}
-    peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 5.0.5
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@tanstack/react-query@5.8.4(react-dom@18.2.0)(react@18.2.0):
@@ -3829,7 +3790,7 @@ packages:
   /@types/react-dom@18.2.14:
     resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
     dependencies:
-      '@types/react': 18.2.31
+      '@types/react': 18.2.37
     dev: false
 
   /@types/react-dom@18.2.15:
@@ -4236,9 +4197,9 @@ packages:
   /@waveshq/standard-web@2.19.0(@babel/core@7.23.0)(redux@4.2.1):
     resolution: {integrity: sha512-tQPRU3OuPYVoTYPbXTAfIkEQ1Gx1FjtRWv5qsUe7y4IMp9SaUoFdzkMkncj2MscGLpHGPvAke7mzPF9M3ADRSg==}
     dependencies:
-      '@netlify/ipx': 1.4.5
+      '@netlify/ipx': 1.4.6
       '@reduxjs/toolkit': 1.9.7(react-redux@8.1.3)(react@18.2.0)
-      '@tanstack/react-query': 5.0.5(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 5.8.4(react-dom@18.2.0)(react@18.2.0)
       '@types/react': 18.2.31
       '@types/react-dom': 18.2.14
       follow-redirects: 1.15.3
@@ -4315,8 +4276,8 @@ packages:
       - supports-color
     dev: false
 
-  /@waveshq/walletkit-core@1.3.9:
-    resolution: {integrity: sha512-0mp7Zj8gCgbmrR7AcGMaXEepsCPnmBmTisx5ltHBdF6K80WExR3M//j0XbW1eCROdCL4LcT0r+rG1JAJIj+nRw==}
+  /@waveshq/walletkit-core@1.3.10:
+    resolution: {integrity: sha512-bK8fV9v+8m7W0cbN9fFesi3wiOff+ev6y9LzQFhSiH0pcm8Bnk7kb4DL3paqL9tqUi6nw8RbFbYloLYLEuMuRg==}
     dependencies:
       bignumber.js: 9.1.2
       ethers: 5.7.2
@@ -4325,14 +4286,14 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@waveshq/walletkit-ui@1.3.9(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2):
-    resolution: {integrity: sha512-SYNkpfQ4G5VjdSxaAtYucRmPj4uP5fzwKearYG+q6nuVFWIKOtnEEBLTiqUAr13njdbywGVLTZaAM2inTZMFSQ==}
+  /@waveshq/walletkit-ui@1.3.10(@babel/core@7.23.0)(@types/node@18.18.0)(@types/tar-fs@2.0.2)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)(typescript@5.2.2):
+    resolution: {integrity: sha512-4Hwm6BQAcYqeApHlSmAWpNoHq+M15BVeijkQpgw3nKpqQ/wyNEtl6I/MdBHqYPRcJkZjDGSg1M1HZxnuyqvpRA==}
     dependencies:
       '@stickyjs/jest': 1.3.4(@babel/core@7.23.0)(@types/node@18.18.0)(typescript@5.2.2)
       '@waveshq/standard-defichain-jellyfishsdk': 2.19.0(@types/tar-fs@2.0.2)
       '@waveshq/standard-web': 2.19.0(@babel/core@7.23.0)(redux@4.2.1)
       '@waveshq/standard-web-linter': 2.19.0(@babel/core@7.23.0)(@typescript-eslint/eslint-plugin@6.7.3)(@typescript-eslint/parser@6.7.3)(react-dom@18.2.0)(react@18.2.0)
-      '@waveshq/walletkit-core': 1.3.9
+      '@waveshq/walletkit-core': 1.3.10
       bignumber.js: 9.1.2
       dayjs: 1.11.10
       immer: 9.0.21
@@ -7102,7 +7063,7 @@ packages:
       '@eslint-community/regexpp': 4.9.0
       '@eslint/eslintrc': 2.1.2
       '@eslint/js': 8.50.0
-      '@humanwhocodes/config-array': 0.11.11
+      '@humanwhocodes/config-array': 0.11.13
       '@humanwhocodes/module-importer': 1.0.1
       '@nodelib/fs.walk': 1.2.8
       ajv: 6.12.6
