@@ -1,6 +1,6 @@
 interface BackedAddress {
   [key: string]: {
-    cake: {
+    cake?: {
       link: string;
       address: string;
     };
@@ -109,6 +109,12 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
         "0xe319ee27de5d3cb4a2345c8b714a69d6710ca05395e3709983d886061b1b818d",
     },
   },
+  XCHF: {
+    quantum: {
+      link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
+      address: "0xc3F5f07143c567D657beFAE6752382b160d17317",
+    },
+  },
 };
 
 interface TokenBacked {
@@ -164,5 +170,9 @@ export const TOKEN_BACKED: TokenBacked[] = [
   {
     name: "dSUI",
     symbol: "SUI",
+  },
+  {
+    name: "dXCHF",
+    symbol: "XCHF",
   },
 ];
