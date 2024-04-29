@@ -281,80 +281,107 @@ function BackingAddress({ tokenSymbol }: { tokenSymbol: string }): JSX.Element {
       {(() => {
         switch (tokenSymbol) {
           case "BCH":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.BCH.cake.link}
-                text={TOKEN_BACKED_ADDRESS.BCH.cake.address}
-                testId="BackingAddress.BCH"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.BCH.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.BCH.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.BCH.cake.address}
+                  testId="BackingAddress.BCH"
+                />
+              );
+            }
+            break;
           case "LTC":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.LTC.cake.link}
-                text={TOKEN_BACKED_ADDRESS.LTC.cake.address}
-                testId="BackingAddress.LTC"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.LTC.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.LTC.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.LTC.cake.address}
+                  testId="BackingAddress.LTC"
+                />
+              );
+            }
+            break;
           case "DOGE":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.DOGE.cake.link}
-                text={TOKEN_BACKED_ADDRESS.DOGE.cake.address}
-                testId="BackingAddress.DOGE"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.DOGE.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.DOGE.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.DOGE.cake.address}
+                  testId="BackingAddress.DOGE"
+                />
+              );
+            }
+            break;
           case "BTC":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.BTC.cake.link}
-                text={TOKEN_BACKED_ADDRESS.BTC.cake.address}
-                testId="BackingAddress.BTC"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.BTC.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.BTC.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.BTC.cake.address}
+                  testId="BackingAddress.BTC"
+                />
+              );
+            }
+            break;
           case "MATIC":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.MATIC.cake.link}
-                text={TOKEN_BACKED_ADDRESS.MATIC.cake.address}
-                testId="BackingAddress.MATIC"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.MATIC.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.MATIC.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.MATIC.cake.address}
+                  testId="BackingAddress.MATIC"
+                />
+              );
+            }
+            break;
           case "SOL":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.SOL.cake.link}
-                text={TOKEN_BACKED_ADDRESS.SOL.cake.address}
-                testId="BackingAddress.SOL"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.SOL.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.SOL.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.SOL.cake.address}
+                  testId="BackingAddress.SOL"
+                />
+              );
+            }
+            break;
           case "DOT":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.DOT.cake.link}
-                text={TOKEN_BACKED_ADDRESS.DOT.cake.address}
-                testId="BackingAddress.DOT"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.DOT.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.DOT.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.DOT.cake.address}
+                  testId="BackingAddress.DOT"
+                />
+              );
+            }
+            break;
           case "SUI":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.SUI.cake.link}
-                text={TOKEN_BACKED_ADDRESS.SUI.cake.address}
-                testId="BackingAddress.SUI"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.SUI.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.SUI.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.SUI.cake.address}
+                  testId="BackingAddress.SUI"
+                />
+              );
+            }
+            break;
           case "ETH":
           case "USDC":
           case "USDT":
           case "EUROC":
-            return (
-              <AddressLinkExternal
-                url={TOKEN_BACKED_ADDRESS.ETH.cake.link}
-                text={TOKEN_BACKED_ADDRESS.ETH.cake.address}
-                testId="BackingAddress.ETH"
-              />
-            );
+            if (TOKEN_BACKED_ADDRESS.ETH.cake) {
+              return (
+                <AddressLinkExternal
+                  url={TOKEN_BACKED_ADDRESS.ETH.cake.link}
+                  text={TOKEN_BACKED_ADDRESS.ETH.cake.address}
+                  testId="BackingAddress.ETH"
+                />
+              );
+            }
+            break;
         }
       })()}
     </AdaptiveList.Row>
