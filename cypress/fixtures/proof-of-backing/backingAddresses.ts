@@ -70,4 +70,8 @@ export const quantumBackingAddresses = [
     token: "dEUROC",
     link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
   },
+  {
+    token: "dXCHF",
+    link: "https://etherscan.io/address/0xc3F5f07143c567D657beFAE6752382b160d17317",
+  },
 ];

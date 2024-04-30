@@ -127,7 +127,7 @@ function TableRow({
             {backedAddress.cake.address}
           </a>
         ) : (
-          <div className="h-full px-6 flex items-center text-gray-500 dark:text-dark-gray-500 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
+          <div className="h-full border-x-[0.5px] px-6 flex items-center text-gray-500 dark:text-dark-gray-500 border-gray-300 dark:border-dark-gray-300 border-r-[0.5px]">
             N/A
           </div>
         )}
