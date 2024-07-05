@@ -22,7 +22,7 @@
     "@headlessui/react": "^1.7.17",
     "@prismicio/client": "^7.2.0",
     "@prismicio/types": "^0.2.8",
-    "@reduxjs/toolkit": "^1.9.5",
+    "@reduxjs/toolkit": "^1.9.7",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@waveshq/standard-defichain-jellyfishsdk": "^4.0.0",
     "@waveshq/standard-web": "^4.0.0",
