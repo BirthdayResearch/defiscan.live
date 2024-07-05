@@ -2,55 +2,49 @@ import { PropsWithChildren, useEffect, useState } from "react";
 import { InfoHoverPopover } from "@components/commons/popover/InfoHoverPopover";
 import { NumericFormat } from "react-number-format";
 import { CollapsibleSection } from "@components/commons/sections/CollapsibleSection";
-import { RootState } from "@store/index";
-import { StatPriceCard } from "@components/index/StatCard";
-import { useSelector } from "react-redux";
 import {
   StatsData,
   SupplyData,
 } from "@defichain/whale-api-client/dist/api/stats";
-import { StatsState } from "@store/stats";
+import { useWhaleApiClient } from "@contexts/WhaleContext";
+import { DFI as DfiIcon } from "@components/icons/assets/tokens/DFI";
 import { CalculatePercentage } from "../../utils/index/CalculatePercentage";
 
-interface SupplyStatsProps {
-  stats: StatsData;
-  supply: SupplyData;
-}
-
 interface SupplyStatsStateI {
-  stats: StatsData | StatsState;
-  supply: SupplyData;
+  stats: StatsData | null;
+  supply: SupplyData | null;
 }
 
-export function SupplyStats(props: SupplyStatsProps): JSX.Element {
-  const statsState = useSelector((state: RootState) => state.stats);
-  const supplyState = useSelector((state: RootState) => state.supply);
+export function SupplyStats(): JSX.Element {
+  const apiClient = useWhaleApiClient();
 
   const [data, setData] = useState<SupplyStatsStateI>({
-    stats: props.stats,
-    supply: props.supply,
+    stats: null,
+    supply: null,
   });
 
   useEffect(() => {
-    if (statsState?.price?.usd !== undefined && supplyState?.total !== 0) {
-      setData({
-        stats: statsState,
-        supply: supplyState,
-      });
-    }
-  }, [statsState, supplyState]);
+    apiClient.stats.get().then((stats) => {
+      setData((prev) => ({
+        ...prev,
+        stats,
+      }));
+    });
+
+    apiClient.stats.getSupply().then((supply) => {
+      setData((prev) => ({
+        ...prev,
+        supply,
+      }));
+    });
+  }, []);
 
   return (
     <section className="mb-12">
       <CollapsibleSection heading="Overview" mdNotCollapsible>
         <div className="flex flex-wrap" data-testid="SupplyStats.Desktop">
           <div className="w-full lg:w-3/12 mr-2 flex">
-            <StatPriceCard
-              usd={data.stats.price.usd}
-              updatedAt={
-                "updatedAt" in data.stats ? data.stats.updatedAt : undefined
-              }
-            />
+            <StatPriceCard usd={data.stats?.price.usd} />
           </div>
           <div
             className="w-full lg:w-9/12 flex flex-wrap -m-1"
@@ -59,13 +53,13 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
             <StatCard
               infodesc="Total DFI Minted  is the total number of DFI emitted to date."
               heading="Total DFI Minted"
-              stat={data.supply.total}
+              stat={data.supply?.total}
               suffix="/ 1.2B"
               testId="StatCard.TotalMinted"
             >
               <div className="mt-auto text-gray-500 text-sm dark:text-gray-400">
                 <span className="text-black font-medium mr-1 dark:text-gray-100">
-                  {CalculatePercentage(data.supply.total, data.supply.max)}
+                  {CalculatePercentage(data.supply?.total, data.supply?.max)}
                 </span>
                 of max supply
               </div>
@@ -73,15 +67,15 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
             <StatCard
               infodesc="Circulating DFI is the total number of DFI coins that are publicly available and is circulating in the market."
               heading="Circulating DFI"
-              stat={data.supply.circulating}
+              stat={data.supply?.circulating}
               suffix="DFI"
               testId="StatCard.Circulating"
             >
               <div className="mt-auto text-gray-500 text-sm dark:text-gray-400">
                 <span className="text-black font-medium mr-1 dark:text-gray-100">
                   {CalculatePercentage(
-                    data.supply.circulating,
-                    data.supply.total
+                    data.supply?.circulating,
+                    data.supply?.total,
                   )}
                 </span>
                 of total minted
@@ -90,7 +84,7 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
             <StatCard
               infodesc="Total Value Locked is the overall value of assets deposited in DeFiChain. This includes assets locked in DEXs, Masternodes, and collaterals in vaults"
               heading="Total Value Locked"
-              stat={data.stats.tvl.total}
+              stat={data.stats?.tvl.total}
               prefix="$"
               testId="StatCard.Tvl"
             >
@@ -99,8 +93,8 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   DEX:
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
-                      data.stats.tvl.dex,
-                      data.stats.tvl.total
+                      data.stats?.tvl.dex,
+                      data.stats?.tvl.total,
                     )}
                   </span>
                 </div>
@@ -109,8 +103,8 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   <span className="xl:hidden">MN:</span>
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
-                      data.stats.tvl.masternodes,
-                      data.stats.tvl.total
+                      data.stats?.tvl.masternodes,
+                      data.stats?.tvl.total,
                     )}
                   </span>
                 </div>
@@ -118,8 +112,8 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
                   Vaults:
                   <span className="text-black font-medium ml-1 dark:text-gray-100">
                     {CalculatePercentage(
-                      data.stats.tvl.loan,
-                      data.stats.tvl.total
+                      data.stats?.tvl.loan,
+                      data.stats?.tvl.total,
                     )}
                   </span>
                 </div>
@@ -128,12 +122,12 @@ export function SupplyStats(props: SupplyStatsProps): JSX.Element {
             <StatCard
               infodesc="Total DFI Burned is the total amount of DFI coins removed from circulation."
               heading="Total DFI Burned"
-              stat={data.supply.burned}
+              stat={data.supply?.burned}
               testId="StatCard.TotalBurned"
             >
               <div className="mt-auto text-gray-500 text-sm dark:text-gray-400">
                 <span className="text-black mr-1 dark:text-gray-100">
-                  {CalculatePercentage(data.supply.burned, data.supply.total)}
+                  {CalculatePercentage(data.supply?.burned, data.supply?.total)}
                 </span>
                 of total minted
               </div>
@@ -153,7 +147,7 @@ function StatCard(
     prefix?: string;
     suffix?: string;
     testId: string;
-  }>
+  }>,
 ): JSX.Element {
   return (
     <div className="w-full md:w-1/2 p-1" data-testid={props.testId}>
@@ -165,19 +159,51 @@ function StatCard(
           <InfoHoverPopover description={props.infodesc} />
         </div>
         <div className="flex flex-wrap items-center">
-          <NumericFormat
-            value={props.stat}
-            displayType="text"
-            thousandSeparator
-            className="text-lg lg:text-2xl font-semibold dark:text-dark-gray-900"
-            decimalScale={0}
-            prefix={props.prefix !== undefined ? props.prefix : ""}
-          />
+          {props.stat !== undefined ? (
+            <NumericFormat
+              value={props.stat}
+              displayType="text"
+              thousandSeparator
+              className="text-lg lg:text-2xl font-semibold dark:text-dark-gray-900"
+              decimalScale={0}
+              prefix={props.prefix !== undefined ? props.prefix : ""}
+            />
+          ) : (
+            "..."
+          )}
           {props.suffix !== undefined && (
             <span className="ml-1 dark:text-gray-400">{props.suffix}</span>
           )}
         </div>
         <div className="mt-2">{props.children}</div>
+      </div>
+    </div>
+  );
+}
+
+function StatPriceCard(props: { usd: number | undefined }): JSX.Element {
+  return (
+    <div
+      className="rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700 p-5 lg:p-8 flex flex-col flex-1 mb-2 lg:mb-0"
+      data-testid="StatPriceCard"
+    >
+      <div className="space-y-1.5 md:space-y-2.5">
+        <div className="flex items-center">
+          <DfiIcon className="text-2xl md:text-3xl" />
+          <div className="ml-2 dark:text-gray-400">$DFI Price</div>
+        </div>
+        <div
+          data-testid="StatPriceCard.Price"
+          className="font-semibold text-2xl md:text-4xl lg:text-5xl dark:text-dark-gray-900"
+        >
+          <NumericFormat
+            displayType="text"
+            thousandSeparator
+            value={props.usd}
+            decimalScale={2}
+            prefix="$"
+          />
+        </div>
       </div>
     </div>
   );
