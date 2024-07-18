@@ -24,6 +24,7 @@ import {
 import { getTokenName } from "../../utils/commons/token/getTokenName";
 import { isAlphanumeric, isNumeric } from "../../utils/commons/StringValidator";
 import { getAllTokens } from "./shared/getAllTokens";
+import { tokenSymbolRename } from "../../utils/commons/TokenRename";
 
 interface TokenAssetPageProps {
   token: TokenData;
@@ -202,7 +203,9 @@ function ListLeft({
           return "DCT";
         })()}
       </AdaptiveList.Row>
-      <AdaptiveList.Row name="Symbol">{token.displaySymbol}</AdaptiveList.Row>
+      <AdaptiveList.Row name="Symbol">
+        {tokenSymbolRename(token.displaySymbol)}
+      </AdaptiveList.Row>
       <AdaptiveList.Row name="Mintable">
         {(() => {
           if (token.mintable) {

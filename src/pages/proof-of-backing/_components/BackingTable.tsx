@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { TOKEN_BACKED_ADDRESS } from "constants/TokenBackedAddress";
 import { NumericFormat } from "react-number-format";
 import { TokenWithBacking } from "../index.page";
-import tokenSymbolRename from "../../../utils/commons/TokenRename";
+import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
 
 export function BackingTable({
   tokens,
@@ -108,7 +108,7 @@ function TableRow({
               displayType="text"
               thousandSeparator
               value={token.netSupply}
-              suffix={` ${token.displaySymbol}`}
+              suffix={` ${tokenSymbolRename(token.displaySymbol)}`}
               className="break-all"
               data-testid={`netSupply-value-${token.displaySymbol}`}
             />
