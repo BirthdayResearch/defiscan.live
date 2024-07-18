@@ -33,7 +33,9 @@ export function getWhaleApiClient(
 ): WhaleApiClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  return newWhaleClient(newOceanOptions(network as EnvironmentNetwork));
+  return newWhaleClient(
+    newOceanOptions(network as EnvironmentNetwork, process.env.OCEAN_ENDPOINT),
+  );
 }
 
 export function getWhaleRpcClient(
