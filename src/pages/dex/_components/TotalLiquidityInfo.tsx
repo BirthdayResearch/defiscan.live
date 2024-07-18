@@ -1,5 +1,6 @@
 import { NumericFormat } from "react-number-format";
 import React from "react";
+import tokenSymbolRename from "../../../utils/commons/TokenRename";
 
 interface TotalLiquidityInfoProps {
   tokenA: {
@@ -19,7 +20,7 @@ interface TotalLiquidityInfoProps {
 }
 
 export function TotalLiquidityInfo(
-  props: TotalLiquidityInfoProps
+  props: TotalLiquidityInfoProps,
 ): JSX.Element {
   return (
     <div
@@ -29,7 +30,9 @@ export function TotalLiquidityInfo(
       <div className="p-3">
         <div className="font-medium">Total Liquidity</div>
         <div className="flex mt-1">
-          <div className="w-1/2">{props.tokenA.displaySymbol}</div>
+          <div className="w-1/2">
+            {tokenSymbolRename(props.tokenA.displaySymbol)}
+          </div>
           <div className="w-1/2 font-medium text-right">
             <NumericFormat
               value={props.tokenA.reserve}
@@ -41,7 +44,9 @@ export function TotalLiquidityInfo(
           </div>
         </div>
         <div className="flex mt-0.5">
-          <div className="w-1/2">{props.tokenB.displaySymbol}</div>
+          <div className="w-1/2">
+            {tokenSymbolRename(props.tokenB.displaySymbol)}
+          </div>
           <div className="w-1/2 font-medium text-right">
             <NumericFormat
               value={props.tokenB.reserve}

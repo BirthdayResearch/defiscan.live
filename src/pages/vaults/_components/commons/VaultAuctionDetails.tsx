@@ -12,6 +12,7 @@ import { VaultTokenSymbols } from "./VaultTokenSymbols";
 import { AuctionTimeLeft } from "../../../auctions/_components/commons/AuctionTimeLeft";
 import { BidAmountValue } from "../../../auctions/_components/commons/BidAmountValue";
 import { useCalculateAuctionsValue } from "../../hooks/CalculateAuctionsValue";
+import tokenSymbolRename from "../../../../utils/commons/TokenRename";
 
 interface VaultAuctionDetailsProps {
   batch: LoanVaultLiquidationBatch;
@@ -36,7 +37,7 @@ export function AuctionsTableRow(props: VaultAuctionDetailsProps): JSX.Element {
             data-testid="AuctionsTableRow.LoanToken.TokenSymbol"
           />
           <span data-testid="AuctionsTableRow.LoanToken.displaySymbol">
-            {props.batch.loan.displaySymbol}
+            {tokenSymbolRename(props.batch.loan.displaySymbol)}
           </span>
         </div>
       </OverflowTable.Cell>
@@ -51,7 +52,7 @@ export function AuctionsTableRow(props: VaultAuctionDetailsProps): JSX.Element {
         <div className="text-right">
           <NumericFormat
             value={useCalculateAuctionsValue(
-              props.batch.collaterals
+              props.batch.collaterals,
             ).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
             thousandSeparator
             decimalScale={2}
@@ -72,7 +73,7 @@ export function AuctionsTableRow(props: VaultAuctionDetailsProps): JSX.Element {
 }
 
 export function MobileAuctionDetailsCard(
-  props: VaultAuctionDetailsProps
+  props: VaultAuctionDetailsProps,
 ): JSX.Element {
   const TokenSymbol = getAssetIcon(props.batch.loan.symbol);
 
@@ -135,7 +136,7 @@ export function MobileAuctionDetailsCard(
           >
             <NumericFormat
               value={useCalculateAuctionsValue(
-                props.batch.collaterals
+                props.batch.collaterals,
               ).value.toFixed(2, BigNumber.ROUND_HALF_UP)}
               thousandSeparator
               decimalScale={2}

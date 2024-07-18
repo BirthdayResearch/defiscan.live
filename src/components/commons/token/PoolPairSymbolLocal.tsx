@@ -1,5 +1,6 @@
 import classnames from "classnames";
 import { getAssetIcon } from "@components/icons/assets/tokens";
+import tokenSymbolRename from "../../../utils/commons/TokenRename";
 
 interface PoolPairSymbolProps {
   tokenA: {
@@ -23,6 +24,9 @@ export function PoolPairSymbolLocal(props: PoolPairSymbolProps): JSX.Element {
   const IconA = getAssetIcon(props.tokenA.symbol);
   const IconB = getAssetIcon(props.tokenB.symbol);
 
+  const tokenADisplaySymbol = tokenSymbolRename(props.tokenA.displaySymbol);
+  const tokenBDisplaySymbol = tokenSymbolRename(props.tokenB.displaySymbol);
+
   return (
     <div className="flex items-center" data-testid={props.testId}>
       <IconA
@@ -33,10 +37,10 @@ export function PoolPairSymbolLocal(props: PoolPairSymbolProps): JSX.Element {
       />
       <div className={classnames(props.textClassName)}>
         <span className={classnames(props.primaryTextClassName)}>
-          {props.tokenA.displaySymbol}
+          {tokenADisplaySymbol}
         </span>
         <span className={classnames(props.secondaryTextClassName)}>
-          -{props.tokenB.displaySymbol}
+          -{tokenBDisplaySymbol}
         </span>
       </div>
     </div>
