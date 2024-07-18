@@ -10,7 +10,7 @@ import {
 } from "react-icons/md";
 import { NumericFormat } from "react-number-format";
 import { TokenWithBacking } from "../index.page";
-import tokenSymbolRename from "../../../utils/commons/TokenRename";
+import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
 
 export function BackingCard({
   token,
