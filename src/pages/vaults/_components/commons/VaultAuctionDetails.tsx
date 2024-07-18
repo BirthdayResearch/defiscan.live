@@ -12,7 +12,7 @@ import { VaultTokenSymbols } from "./VaultTokenSymbols";
 import { AuctionTimeLeft } from "../../../auctions/_components/commons/AuctionTimeLeft";
 import { BidAmountValue } from "../../../auctions/_components/commons/BidAmountValue";
 import { useCalculateAuctionsValue } from "../../hooks/CalculateAuctionsValue";
-import tokenSymbolRename from "../../../../utils/commons/TokenRename";
+import { tokenSymbolRename } from "../../../../utils/commons/TokenRename";
 
 interface VaultAuctionDetailsProps {
   batch: LoanVaultLiquidationBatch;

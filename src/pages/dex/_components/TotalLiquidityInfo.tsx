@@ -1,6 +1,6 @@
 import { NumericFormat } from "react-number-format";
 import React from "react";
-import tokenSymbolRename from "../../../utils/commons/TokenRename";
+import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
 
 interface TotalLiquidityInfoProps {
   tokenA: {

@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import { getAssetIcon } from "@components/icons/assets/tokens";
-import tokenSymbolRename from "../../../utils/commons/TokenRename";
+import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
 
 interface PoolPairSymbolProps {
   tokenA: {

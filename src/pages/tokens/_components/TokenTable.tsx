@@ -5,7 +5,7 @@ import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { getAssetIcon, getTokenIcon } from "@components/icons/assets/tokens";
 import { Link } from "@components/commons/link/Link";
 import { getTokenName } from "../../../utils/commons/token/getTokenName";
-import tokenSymbolRename from "../../../utils/commons/TokenRename";
+import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
 
 export function TokenTable({ tokens }: { tokens: TokenData[] }): JSX.Element {
   return (

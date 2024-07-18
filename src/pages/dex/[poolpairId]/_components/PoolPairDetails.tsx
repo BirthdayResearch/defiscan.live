@@ -1,7 +1,7 @@
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { NumericFormat } from "react-number-format";
 import { getAssetIcon } from "@components/icons/assets/tokens";
-import tokenSymbolRename from "../../../../utils/commons/TokenRename";
+import { tokenSymbolRename } from "../../../../utils/commons/TokenRename";
 
 export function PoolPairDetails(props: {
   poolpair: PoolPairData;
