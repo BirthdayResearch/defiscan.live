@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { getAssetIcon } from "@components/icons/assets/tokens";
+import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
 
 interface PoolPairSymbolProps {
   poolPairId: string | number;
@@ -17,7 +18,7 @@ export function PoolPairSymbol(props: PoolPairSymbolProps): JSX.Element {
   const api = useWhaleApiClient();
 
   const [poolPairData, setPoolPairData] = useState<PoolPairData | undefined>(
-    undefined
+    undefined,
   );
   const [showPoolPairId, setShowPoolPairId] = useState<boolean>(false);
 
@@ -56,6 +57,9 @@ export function PoolPairSymbol(props: PoolPairSymbolProps): JSX.Element {
   const IconA = getAssetIcon(poolPairData.tokenA.symbol);
   const IconB = getAssetIcon(poolPairData.tokenB.symbol);
 
+  const tokenADisplay = tokenSymbolRename(poolPairData.tokenA.displaySymbol);
+  const tokenBDisplay = tokenSymbolRename(poolPairData.tokenB.displaySymbol);
+
   return (
     <div className="flex items-center" data-testid={props.testId}>
       <IconA
@@ -67,11 +71,11 @@ export function PoolPairSymbol(props: PoolPairSymbolProps): JSX.Element {
         className={classnames(
           "absolute",
           props.symbolSizeClassName,
-          props.symbolMarginClassName
+          props.symbolMarginClassName,
         )}
       />
       <div className={classnames(props.textClassName)}>
-        {`${poolPairData.tokenA.displaySymbol}-${poolPairData.tokenB.displaySymbol}`}
+        {`${tokenADisplay}-${tokenBDisplay}`}
       </div>
     </div>
   );

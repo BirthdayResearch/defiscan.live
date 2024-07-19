@@ -4,6 +4,7 @@ import React from "react";
 import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/loan";
 import classNames from "classnames";
 import { useTokenPrice } from "../../../vaults/hooks/TokenPrice";
+import { tokenSymbolRename } from "../../../../utils/commons/TokenRename";
 
 interface BidAmountValueProps {
   batch: LoanVaultLiquidationBatch;
@@ -24,7 +25,7 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
     minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount);
   } else {
     minBidAmount = new BigNumber(
-      props.batch.highestBid.amount.amount
+      props.batch.highestBid.amount.amount,
     ).multipliedBy(1.01);
     minBidValue = getTokenPrice(props.batch.loan.symbol, minBidAmount);
   }
@@ -35,7 +36,7 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
         value={minBidAmount.toFixed(8)}
         thousandSeparator
         decimalScale={8}
-        suffix={` ${props.batch.loan.displaySymbol}`}
+        suffix={` ${tokenSymbolRename(props.batch.loan.displaySymbol)}`}
         displayType="text"
         data-testid="BidAmountValue.MinBidAmount"
         className="dark:text-gray-100"
@@ -43,7 +44,7 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
       <div
         className={classNames(
           "text-gray-500 dark:text-gray-400",
-          props.valueClassName
+          props.valueClassName,
         )}
         data-testid="BidAmountValue.MinBidValue"
       >
