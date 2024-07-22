@@ -33,16 +33,7 @@ export function PoolPairsProvider(props: PropsWithChildren<{}>): JSX.Element {
   useEffect(() => {
     function fetch(): void {
       void api.poolpairs.list(200).then((data) => {
-        const updatedData = data.map((poolpair) => {
-          if (poolpair.displaySymbol.includes("dUSDT")) {
-            return {
-              ...poolpair,
-              displaySymbol: poolpair.displaySymbol.replace("dUSDT", "csUSDT"),
-            };
-          }
-          return poolpair;
-        });
-        dispatch(poolpairs.actions.update(updatedData));
+        dispatch(poolpairs.actions.update(data));
       });
     }
 
