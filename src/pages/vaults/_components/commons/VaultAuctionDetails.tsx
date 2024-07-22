@@ -130,7 +130,7 @@ export function MobileAuctionDetailsCard(
             />
           </CardList.ListItem>
           <CardList.ListItem
-            title="Collateral Value (USDT)"
+            title="Collateral Value (USD)"
             titleClassNames="text-sm"
             testId="MobileAuctionDetailCard.CollateralValue"
           >
