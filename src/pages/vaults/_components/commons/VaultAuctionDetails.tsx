@@ -12,7 +12,7 @@ import { VaultTokenSymbols } from "./VaultTokenSymbols";
 import { AuctionTimeLeft } from "../../../auctions/_components/commons/AuctionTimeLeft";
 import { BidAmountValue } from "../../../auctions/_components/commons/BidAmountValue";
 import { useCalculateAuctionsValue } from "../../hooks/CalculateAuctionsValue";
-import { tokenSymbolRename } from "../../../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../../../utils/commons/RenameToken";
 
 interface VaultAuctionDetailsProps {
   batch: LoanVaultLiquidationBatch;
@@ -37,7 +37,7 @@ export function AuctionsTableRow(props: VaultAuctionDetailsProps): JSX.Element {
             data-testid="AuctionsTableRow.LoanToken.TokenSymbol"
           />
           <span data-testid="AuctionsTableRow.LoanToken.displaySymbol">
-            {tokenSymbolRename(props.batch.loan.displaySymbol)}
+            {renameTokenSymbol(props.batch.loan.displaySymbol)}
           </span>
         </div>
       </OverflowTable.Cell>

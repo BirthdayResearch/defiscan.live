@@ -4,7 +4,7 @@ import React from "react";
 import { LoanVaultLiquidationBatch } from "@defichain/whale-api-client/dist/api/loan";
 import classNames from "classnames";
 import { useTokenPrice } from "../../../vaults/hooks/TokenPrice";
-import { tokenSymbolRename } from "../../../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../../../utils/commons/RenameToken";
 
 interface BidAmountValueProps {
   batch: LoanVaultLiquidationBatch;
@@ -36,7 +36,7 @@ export function BidAmountValue(props: BidAmountValueProps): JSX.Element {
         value={minBidAmount.toFixed(8)}
         thousandSeparator
         decimalScale={8}
-        suffix={` ${tokenSymbolRename(props.batch.loan.displaySymbol)}`}
+        suffix={` ${renameTokenSymbol(props.batch.loan.displaySymbol)}`}
         displayType="text"
         data-testid="BidAmountValue.MinBidAmount"
         className="dark:text-gray-100"

@@ -3,7 +3,7 @@ import { PoolPairSymbolLocal } from "@components/commons/token/PoolPairSymbolLoc
 import { NumericFormat } from "react-number-format";
 import BigNumber from "bignumber.js";
 import { useTokenPrice } from "../../../vaults/hooks/TokenPrice";
-import { tokenSymbolRename } from "../../../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../../../utils/commons/RenameToken";
 
 export function PoolPairDetailsBar(props: {
   poolpair: PoolPairData;
@@ -47,7 +47,7 @@ export function PoolPairDetailsBar(props: {
             fixedDecimalScale
             className="text-sm flex lg:justify-end text-gray-400"
             prefix="≈ "
-            suffix={` ${tokenSymbolRename(
+            suffix={` ${renameTokenSymbol(
               props.poolpair.tokenB.displaySymbol,
             )} `}
           />

@@ -3,7 +3,7 @@ import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { Link } from "@components/commons/link/Link";
 import { NumericFormat } from "react-number-format";
 import { PoolPairSymbol } from "@components/commons/token/PoolPairSymbol";
-import { tokenSymbolRename } from "../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../utils/commons/RenameToken";
 
 export function LiquidityPoolList({
   liquidityPools,
@@ -33,8 +33,8 @@ export function LiquidityPoolList({
                   : ""
               }
               priceRatio={pool.priceRatio.ba}
-              tokenASymbol={tokenSymbolRename(pool.tokenA.displaySymbol)}
-              tokenBSymbol={tokenSymbolRename(pool.tokenB.displaySymbol)}
+              tokenASymbol={renameTokenSymbol(pool.tokenA.displaySymbol)}
+              tokenBSymbol={renameTokenSymbol(pool.tokenB.displaySymbol)}
             />
           );
         })}

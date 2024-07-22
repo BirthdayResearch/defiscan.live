@@ -3,7 +3,7 @@ import classnames from "classnames";
 import { useWhaleApiClient } from "@contexts/WhaleContext";
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { getAssetIcon } from "@components/icons/assets/tokens";
-import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../../utils/commons/RenameToken";
 
 interface PoolPairSymbolProps {
   poolPairId: string | number;
@@ -57,8 +57,8 @@ export function PoolPairSymbol(props: PoolPairSymbolProps): JSX.Element {
   const IconA = getAssetIcon(poolPairData.tokenA.symbol);
   const IconB = getAssetIcon(poolPairData.tokenB.symbol);
 
-  const tokenADisplay = tokenSymbolRename(poolPairData.tokenA.displaySymbol);
-  const tokenBDisplay = tokenSymbolRename(poolPairData.tokenB.displaySymbol);
+  const tokenADisplay = renameTokenSymbol(poolPairData.tokenA.displaySymbol);
+  const tokenBDisplay = renameTokenSymbol(poolPairData.tokenB.displaySymbol);
 
   return (
     <div className="flex items-center" data-testid={props.testId}>

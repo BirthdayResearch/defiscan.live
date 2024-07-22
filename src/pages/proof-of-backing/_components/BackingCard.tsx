@@ -10,7 +10,7 @@ import {
 } from "react-icons/md";
 import { NumericFormat } from "react-number-format";
 import { TokenWithBacking } from "../index.page";
-import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../../utils/commons/RenameToken";
 
 export function BackingCard({
   token,
@@ -27,7 +27,7 @@ export function BackingCard({
         <div className="flex items-center">
           <Icon width={28} height={28} />
           <span className="pl-2 font-semibold text-gray-900 dark:text-dark-gray-900">
-            {tokenSymbolRename(token.displaySymbol)}
+            {renameTokenSymbol(token.displaySymbol)}
           </span>
         </div>
         <div

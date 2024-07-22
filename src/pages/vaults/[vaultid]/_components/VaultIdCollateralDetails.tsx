@@ -14,7 +14,7 @@ import { EmptySection } from "@components/commons/sections/EmptySection";
 import { IconTooltip } from "@components/commons/IconsTooltip";
 import { getActivePrice } from "pages/vaults/utils/ActivePrice";
 import { VaultNumberValues } from "../../_components/commons/VaultNumberValues";
-import { tokenSymbolRename } from "../../../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../../../utils/commons/RenameToken";
 
 export function VaultIdCollateralDetails(props: {
   totalCollateralValue: string;
@@ -134,7 +134,7 @@ function CollateralCard(props: {
             data-testid="CollateralCard.displaySymbol"
           >
             <div className="dark:text-gray-400">
-              {tokenSymbolRename(props.col.displaySymbol)}
+              {renameTokenSymbol(props.col.displaySymbol)}
             </div>
             {props.col.symbol === "DUSD" ? (
               <InfoHoverPopover
@@ -174,7 +174,7 @@ function CollateralCard(props: {
           <NumericFormat
             value={new BigNumber(props.col.amount).toFixed(8)}
             displayType="text"
-            suffix={` ${tokenSymbolRename(props.col.displaySymbol)}`}
+            suffix={` ${renameTokenSymbol(props.col.displaySymbol)}`}
             decimalScale={8}
             fixedDecimalScale
             thousandSeparator

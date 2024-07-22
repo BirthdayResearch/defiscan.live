@@ -4,7 +4,7 @@ import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import classNames from "classnames";
 import { getAssetIcon, getTokenIcon } from "@components/icons/assets/tokens";
 import { EVMLinearGradient } from "@components/icons/assets/tokens/EVMLinearGradient";
-import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../../utils/commons/RenameToken";
 
 interface TokenSymbolProps {
   tokenId: number;
@@ -70,7 +70,7 @@ export function TokenSymbol(props: TokenSymbolProps): JSX.Element {
         )}
         data-testid={props.testId}
       >
-        {tokenSymbolRename(tokenData.displaySymbol)}
+        {renameTokenSymbol(tokenData.displaySymbol)}
         {!tokenData.isDAT && `#${tokenData.id}`}
       </div>
       {(() => {

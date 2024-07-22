@@ -5,7 +5,7 @@ import { TokenData } from "@defichain/whale-api-client/dist/api/tokens";
 import { getAssetIcon, getTokenIcon } from "@components/icons/assets/tokens";
 import { Link } from "@components/commons/link/Link";
 import { getTokenName } from "../../../utils/commons/token/getTokenName";
-import { tokenSymbolRename } from "../../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../../utils/commons/RenameToken";
 
 export function TokenTable({ tokens }: { tokens: TokenData[] }): JSX.Element {
   return (
@@ -51,7 +51,7 @@ function TokenRow({ data }: { data: TokenData }): JSX.Element {
             return <TokenIcon className="h-8 w-8" />;
           })()}
           <div className="font-medium ml-3">
-            {tokenSymbolRename(data.displaySymbol)}
+            {renameTokenSymbol(data.displaySymbol)}
             {!data.isDAT && `#${data.id}`}
           </div>
         </div>

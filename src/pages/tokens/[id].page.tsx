@@ -24,7 +24,7 @@ import {
 import { getTokenName } from "../../utils/commons/token/getTokenName";
 import { isAlphanumeric, isNumeric } from "../../utils/commons/StringValidator";
 import { getAllTokens } from "./shared/getAllTokens";
-import { tokenSymbolRename } from "../../utils/commons/TokenRename";
+import { renameTokenSymbol } from "../../utils/commons/RenameToken";
 
 interface TokenAssetPageProps {
   token: TokenData;
@@ -204,7 +204,7 @@ function ListLeft({
         })()}
       </AdaptiveList.Row>
       <AdaptiveList.Row name="Symbol">
-        {tokenSymbolRename(token.displaySymbol)}
+        {renameTokenSymbol(token.displaySymbol)}
       </AdaptiveList.Row>
       <AdaptiveList.Row name="Mintable">
         {(() => {
