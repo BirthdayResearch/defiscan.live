@@ -90,7 +90,7 @@ function TokenDetailsItem(props: {
       data-testid={props.testId}
     >
       <span className="flex items-center dark:text-gray-400">
-        <TokenIcon className="mr-2 w-4 h-4" />{" "}
+        <TokenIcon className="mr-2 w-4 h-4" />
         {renameTokenSymbol(props.displaySymbol)}
       </span>
       <NumericFormat
