@@ -14,6 +14,7 @@ import { EmptySection } from "@components/commons/sections/EmptySection";
 import { IconTooltip } from "@components/commons/IconsTooltip";
 import { getActivePrice } from "pages/vaults/utils/ActivePrice";
 import { VaultNumberValues } from "../../_components/commons/VaultNumberValues";
+import { renameTokenSymbol } from "../../../../utils/commons/RenameToken";
 
 export function VaultIdCollateralDetails(props: {
   totalCollateralValue: string;
@@ -55,7 +56,7 @@ export function VaultIdCollateralDetails(props: {
                 key={col.id}
                 priceFactor={
                   props.collateralTokens.find(
-                    (token) => token.token.id === col.id
+                    (token) => token.token.id === col.id,
                   )?.factor ?? "1"
                 }
               />
@@ -84,7 +85,7 @@ export function VaultIdCollateralDetails(props: {
                 key={col.id}
                 priceFactor={
                   props.collateralTokens.find(
-                    (token) => token.token.id === col.id
+                    (token) => token.token.id === col.id,
                   )?.factor ?? "1"
                 }
               />
@@ -108,10 +109,10 @@ function CollateralCard(props: {
     props.col.activePrice,
     props.priceFactor,
     "ACTIVE",
-    "COLLATERAL"
+    "COLLATERAL",
   );
   const collateralValue = new BigNumber(props.col.amount).multipliedBy(
-    collateralPrice
+    collateralPrice,
   );
   const compositionPercentage = collateralValue
     .dividedBy(props.vaultTotalCollateralValue)
@@ -132,7 +133,9 @@ function CollateralCard(props: {
             className="flex flex-wrap items-center ml-1.5 font-medium"
             data-testid="CollateralCard.displaySymbol"
           >
-            <div className="dark:text-gray-400">{props.col.displaySymbol}</div>
+            <div className="dark:text-gray-400">
+              {renameTokenSymbol(props.col.displaySymbol)}
+            </div>
             {props.col.symbol === "DUSD" ? (
               <InfoHoverPopover
                 className="ml-1"
@@ -164,14 +167,14 @@ function CollateralCard(props: {
             "flex items-center space-x-1",
             props.vaultState === LoanVaultState.FROZEN
               ? "text-gray-200"
-              : "text-gray-900 dark:text-gray-100"
+              : "text-gray-900 dark:text-gray-100",
           )}
           data-testid="CollateralCard.CollateralAmount"
         >
           <NumericFormat
             value={new BigNumber(props.col.amount).toFixed(8)}
             displayType="text"
-            suffix={` ${props.col.displaySymbol}`}
+            suffix={` ${renameTokenSymbol(props.col.displaySymbol)}`}
             decimalScale={8}
             fixedDecimalScale
             thousandSeparator

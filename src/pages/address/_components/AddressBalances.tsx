@@ -6,6 +6,7 @@ import { CgSpinner } from "react-icons/cg";
 import { PoolPairSymbol } from "@components/commons/token/PoolPairSymbol";
 import { Link } from "@components/commons/link/Link";
 import { EmptySection } from "@components/commons/sections/EmptySection";
+import { renameTokenSymbol } from "../../../utils/commons/RenameToken";
 
 interface AddressBalancesProps {
   address: string;
@@ -163,7 +164,7 @@ function TokenSymbolName(props: { token: AddressToken }): JSX.Element {
         >
           <Link href={{ pathname: `/tokens/${props.token.id}` }}>
             <a className="contents">
-              {props.token.displaySymbol}
+              {renameTokenSymbol(props.token.displaySymbol)}
               {!props.token.isDAT && `#${props.token.id}`}
             </a>
           </Link>

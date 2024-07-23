@@ -21,7 +21,7 @@ context("/tokens on macbook-16", () => {
     cy.findAllByTestId("OverflowTable.Row")
       .eq(3)
       .then((ele) => {
-        cy.wrap(ele).findByText("dUSDT").should("be.visible");
+        cy.wrap(ele).findByText("ex_USDT").should("be.visible");
         cy.wrap(ele).findByText("Tether USD").should("be.visible");
         cy.wrap(ele).findByText("DAT").should("be.visible");
       });

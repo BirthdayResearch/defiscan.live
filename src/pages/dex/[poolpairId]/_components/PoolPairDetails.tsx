@@ -1,6 +1,7 @@
 import { PoolPairData } from "@defichain/whale-api-client/dist/api/poolpairs";
 import { NumericFormat } from "react-number-format";
 import { getAssetIcon } from "@components/icons/assets/tokens";
+import { renameTokenSymbol } from "../../../../utils/commons/RenameToken";
 
 export function PoolPairDetails(props: {
   poolpair: PoolPairData;
@@ -89,7 +90,8 @@ function TokenDetailsItem(props: {
       data-testid={props.testId}
     >
       <span className="flex items-center dark:text-gray-400">
-        <TokenIcon className="mr-2 w-4 h-4" /> {props.displaySymbol}
+        <TokenIcon className="mr-2 w-4 h-4" />
+        {renameTokenSymbol(props.displaySymbol)}
       </span>
       <NumericFormat
         value={props.value}

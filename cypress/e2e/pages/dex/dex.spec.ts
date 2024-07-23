@@ -18,9 +18,7 @@ context("/dex on macbook-16", () => {
       cy.wrap(ele).findByText("Pair").should("be.visible");
       cy.wrap(ele).findByText("Total Liquidity").should("be.visible");
       cy.wrap(ele).findByText("Volume (24H)").should("be.visible");
-      cy.wrap(ele)
-        .findByText("Primary Token Price (USDT)")
-        .should("be.visible");
+      cy.wrap(ele).findByText("Primary Token Price (USD)").should("be.visible");
       cy.wrap(ele).findByText("APR").should("be.visible");
     });
   });
@@ -73,7 +71,7 @@ context("/dex on macbook-16", () => {
         .findByTestId("OverflowTable.SortButton")
         .should("exist");
       cy.wrap(ele)
-        .findByText("Primary Token Price (USDT)")
+        .findByText("Primary Token Price (USD)")
         .findByTestId("OverflowTable.SortButton")
         .should("exist");
     });
@@ -92,7 +90,7 @@ context("/dex on macbook-16", () => {
           .eq(3)
           .then(($ele) => {
             totalLiquid.push(
-              Number.parseInt($ele.text().substring(1).replaceAll(",", ""))
+              Number.parseInt($ele.text().substring(1).replaceAll(",", "")),
             );
           });
       });
@@ -118,7 +116,7 @@ context("/dex on macbook-16", () => {
           .eq(2)
           .then(($ele) => {
             volume.push(
-              Number.parseInt($ele.text().substring(1).replaceAll(",", ""))
+              Number.parseInt($ele.text().substring(1).replaceAll(",", "")),
             );
           });
       });
@@ -154,7 +152,7 @@ context("/dex on macbook-16", () => {
     });
 
     cy.findByTestId("OverflowTable.Header").within(() => {
-      cy.findByText("Primary Token Price (USDT)")
+      cy.findByText("Primary Token Price (USD)")
         .findByTestId("OverflowTable.SortButton")
         .click();
     });
@@ -165,7 +163,7 @@ context("/dex on macbook-16", () => {
           .eq(1)
           .then(($ele) => {
             price.push(
-              Number.parseInt($ele.text().substring(1).replaceAll(",", ""))
+              Number.parseInt($ele.text().substring(1).replaceAll(",", "")),
             );
           });
       });
@@ -210,7 +208,7 @@ context("/dex on iphone-x", () => {
                 .should("be.visible")
                 .should("have.text", "Total Liquidity");
               cy.findByTestId("CardList.Row.Child").should("be.visible");
-            }
+            },
           );
           cy.findByTestId("PoolPairsCard.CardList.24hVolume").within(() => {
             cy.findByTestId("CardList.Row.Title")
@@ -221,7 +219,7 @@ context("/dex on iphone-x", () => {
           cy.findByTestId("PoolPairsCard.CardList.TokenPrice").within(() => {
             cy.findByTestId("CardList.Row.Title")
               .should("be.visible")
-              .should("have.text", "Primary Token Price (USDT)");
+              .should("have.text", "Primary Token Price (USD)");
             cy.findByTestId("CardList.Row.Child").should("be.visible");
           });
           cy.findByTestId("PoolPairsCard.CardList.APR").within(() => {
@@ -231,7 +229,7 @@ context("/dex on iphone-x", () => {
             cy.findByTestId("CardList.Row.Child").should("be.visible");
           });
         });
-      }
+      },
     );
   });
 
@@ -314,7 +312,7 @@ context("/dex on iphone-x", () => {
             if (text !== undefined) {
               totalLiquid.push(Number.parseInt(text.replaceAll(",", "")));
             }
-          }
+          },
         );
       });
     });
