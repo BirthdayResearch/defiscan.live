@@ -76,7 +76,7 @@ export function WhaleProvider(
   const connection = useNetwork().connection;
 
   const memo = useMemo(() => {
-    const oceanClientOptions = newOceanOptions(
+    const apiClientOptions = newOceanOptions(
       connection,
       process.env.NEXT_PUBLIC_API_CLIENT_ENDPOINT,
     );
@@ -86,7 +86,7 @@ export function WhaleProvider(
     );
 
     return {
-      api: newWhaleClient(oceanClientOptions),
+      api: newWhaleClient(apiClientOptions),
       rpc: newRpcClient(rpcClientOptions),
     };
   }, [connection]);
