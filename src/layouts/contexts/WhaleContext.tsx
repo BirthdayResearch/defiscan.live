@@ -34,7 +34,10 @@ export function getWhaleApiClient(
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
   return newWhaleClient(
-    newOceanOptions(network as EnvironmentNetwork, process.env.OCEAN_ENDPOINT),
+    newOceanOptions(
+      network as EnvironmentNetwork,
+      process.env.OCEAN_CLIENT_ENDPOINT,
+    ),
   );
 }
 
@@ -44,7 +47,10 @@ export function getWhaleRpcClient(
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
   return newRpcClient(
-    newOceanOptions(network as EnvironmentNetwork, process.env.OCEAN_ENDPOINT),
+    newOceanOptions(
+      network as EnvironmentNetwork,
+      process.env.RPC_CLIENT_ENDPOINT,
+    ),
   );
 }
 
@@ -70,10 +76,18 @@ export function WhaleProvider(
   const connection = useNetwork().connection;
 
   const memo = useMemo(() => {
-    const options = newOceanOptions(connection, process.env.OCEAN_ENDPOINT);
+    const oceanClientOptions = newOceanOptions(
+      connection,
+      process.env.OCEAN_CLIENT_ENDPOINT,
+    );
+    const rpcClientOptions = newOceanOptions(
+      connection,
+      process.env.RPC_CLIENT_ENDPOINT,
+    );
+
     return {
-      api: newWhaleClient(options),
-      rpc: newRpcClient(options),
+      api: newWhaleClient(oceanClientOptions),
+      rpc: newRpcClient(rpcClientOptions),
     };
   }, [connection]);
 
