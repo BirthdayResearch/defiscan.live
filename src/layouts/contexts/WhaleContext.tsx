@@ -33,7 +33,12 @@ export function getWhaleApiClient(
 ): WhaleApiClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  return newWhaleClient(newOceanOptions(network as EnvironmentNetwork));
+  return newWhaleClient(
+    newOceanOptions(
+      network as EnvironmentNetwork,
+      process.env.NEXT_PUBLIC_API_CLIENT_ENDPOINT,
+    ),
+  );
 }
 
 export function getWhaleRpcClient(
@@ -41,7 +46,12 @@ export function getWhaleRpcClient(
 ): WhaleRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  return newRpcClient(newOceanOptions(network as EnvironmentNetwork));
+  return newRpcClient(
+    newOceanOptions(
+      network as EnvironmentNetwork,
+      process.env.NEXT_PUBLIC_RPC_CLIENT_ENDPOINT,
+    ),
+  );
 }
 
 export function newPlaygroundRpcClient(
@@ -66,10 +76,18 @@ export function WhaleProvider(
   const connection = useNetwork().connection;
 
   const memo = useMemo(() => {
-    const options = newOceanOptions(connection);
+    const apiClientOptions = newOceanOptions(
+      connection,
+      process.env.NEXT_PUBLIC_API_CLIENT_ENDPOINT,
+    );
+    const rpcClientOptions = newOceanOptions(
+      connection,
+      process.env.NEXT_PUBLIC_RPC_CLIENT_ENDPOINT,
+    );
+
     return {
-      api: newWhaleClient(options),
-      rpc: newRpcClient(options),
+      api: newWhaleClient(apiClientOptions),
+      rpc: newRpcClient(rpcClientOptions),
     };
   }, [connection]);
 
