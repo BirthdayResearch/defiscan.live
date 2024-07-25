@@ -43,7 +43,9 @@ export function getWhaleRpcClient(
 ): WhaleRpcClient {
   const network =
     context.query.network?.toString() ?? getEnvironment().networks[0];
-  return newRpcClient(newOceanOptions(network as EnvironmentNetwork));
+  return newRpcClient(
+    newOceanOptions(network as EnvironmentNetwork, process.env.OCEAN_ENDPOINT),
+  );
 }
 
 export function newPlaygroundRpcClient(
@@ -68,7 +70,7 @@ export function WhaleProvider(
   const connection = useNetwork().connection;
 
   const memo = useMemo(() => {
-    const options = newOceanOptions(connection);
+    const options = newOceanOptions(connection, process.env.OCEAN_ENDPOINT);
     return {
       api: newWhaleClient(options),
       rpc: newRpcClient(options),
