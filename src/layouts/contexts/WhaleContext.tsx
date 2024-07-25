@@ -36,7 +36,7 @@ export function getWhaleApiClient(
   return newWhaleClient(
     newOceanOptions(
       network as EnvironmentNetwork,
-      process.env.OCEAN_CLIENT_ENDPOINT,
+      process.env.NEXT_PUBLIC_API_CLIENT_ENDPOINT,
     ),
   );
 }
@@ -49,7 +49,7 @@ export function getWhaleRpcClient(
   return newRpcClient(
     newOceanOptions(
       network as EnvironmentNetwork,
-      process.env.RPC_CLIENT_ENDPOINT,
+      process.env.NEXT_PUBLIC_RPC_CLIENT_ENDPOINT,
     ),
   );
 }
@@ -78,11 +78,11 @@ export function WhaleProvider(
   const memo = useMemo(() => {
     const oceanClientOptions = newOceanOptions(
       connection,
-      process.env.OCEAN_CLIENT_ENDPOINT,
+      process.env.NEXT_PUBLIC_API_CLIENT_ENDPOINT,
     );
     const rpcClientOptions = newOceanOptions(
       connection,
-      process.env.RPC_CLIENT_ENDPOINT,
+      process.env.NEXT_PUBLIC_RPC_CLIENT_ENDPOINT,
     );
 
     return {
