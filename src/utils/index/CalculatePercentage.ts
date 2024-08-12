@@ -8,7 +8,6 @@ export function CalculatePercentage(
   if (value2 === 0) {
     return "0.00%";
   }
-  console.log(((value1 / value2) * 100).toFixed(2));
 
   return `${((value1 / value2) * 100).toFixed(2)}%`;
 }
