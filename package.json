@@ -52,7 +52,7 @@
     "@testing-library/cypress": "^9.0.0",
     "@types/lodash": "^4.14.202",
     "@types/node": "^18.16.18",
-    "@waveshq/standard-web-linter": "^1.9.3",
+    "@waveshq/standard-web-linter": "^4.0.1",
     "autoprefixer": "^10.4.16",
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-jsx-remove-data-test-id": "^3.0.0",
