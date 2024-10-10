@@ -5,9 +5,11 @@ export function CalculatePercentage(
   if (value1 === undefined || value2 === undefined) {
     return "";
   }
-  if (value2 === 0) {
+
+  const result = value1 / value2;
+  if (isNaN(result)) {
     return "0.00%";
   }
 
-  return `${((value1 / value2) * 100).toFixed(2)}%`;
+  return `${(result * 100).toFixed(2)}%`;
 }
