@@ -98,13 +98,13 @@ export const TOKEN_BACKED_ADDRESS: BackedAddress = {
   },
   DOT: {
     cake: {
-      link: "https://polkadot.subscan.io/account/12YfgqECReN4fQppa9BDoyGce43F54ZHYotE77mb5SmCBsUks",
+      link: "https://polkadot.subscan.io/account/12YfgqECReN4fQppa9BDoyGce43F54ZHYotE77mb5SmCBsUk",
       address: "12YfgqECReN4fQppa9BDoyGce43F54ZHYotE77mb5SmCBsUk",
     },
   },
   SUI: {
     cake: {
-      link: "https://suiexplorer.com/address/0xe319ee27de5d3cb4a2345c8b714a69d6710ca05395e3709983d886061b1b818d",
+      link: "https://suiscan.xyz/mainnet/account/0xe319ee27de5d3cb4a2345c8b714a69d6710ca05395e3709983d886061b1b818d",
       address:
         "0xe319ee27de5d3cb4a2345c8b714a69d6710ca05395e3709983d886061b1b818d",
     },
