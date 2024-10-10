@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.7.17
     version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
   '@prismicio/client':
-    specifier: ^7.2.0
-    version: 7.2.0
+    specifier: ^7.11.0
+    version: 7.11.0
   '@prismicio/types':
     specifier: ^0.2.8
     version: 0.2.8
@@ -3362,19 +3362,11 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.2
 
-  /@prismicio/client@7.2.0:
-    resolution: {integrity: sha512-bfbs2ZMLd3ba7Bp1qI4qAz+13FIWE/JDT9+h+3hL/MVpK4iDpjz3vmOlYJs25myhryU9HP8Og7qKoaeE9hPzmA==}
+  /@prismicio/client@7.11.0:
+    resolution: {integrity: sha512-b5FtER97eFHH435hP4sRchtPYvrwa8v2Ye5IH3MhMp/6aH6kRSrr9fDA4+wkqF/ZK9aiJwJRkjdddgkwDFu9Vg==}
     engines: {node: '>=14.15.0'}
     dependencies:
-      '@prismicio/richtext': 2.1.5
-      imgix-url-builder: 0.0.4
-    dev: false
-
-  /@prismicio/richtext@2.1.5:
-    resolution: {integrity: sha512-Sf6iCsciPmfK3uQeFmeY9RTRSuhrCVzyU39OkiJ1VJn8O0531pKapGoWS+5WGxouJtE5+jGqV8L+L2mKP7NkXQ==}
-    engines: {node: '>=12.7.0'}
-    dependencies:
-      '@prismicio/types': 0.2.8
+      imgix-url-builder: 0.0.5
     dev: false
 
   /@prismicio/types@0.2.8:
@@ -7995,8 +7987,8 @@ packages:
     resolution: {integrity: sha512-W7+sO6/yhxy83L0G7xR8YAc5Z5QFtYEXXRV6EaE8tuYBZJnA3gVgp3q7X7muhLZVodeb9UfvjSbwt9VJwjIYAg==}
     dev: true
 
-  /imgix-url-builder@0.0.4:
-    resolution: {integrity: sha512-JRLydfxGTTbSSOG82ewuCgnmw/CzIPzoDqpP3UYD7RE+QWS8ZZbpF87ZuRqtcbEKdxahRsExinuKRxPZVvukWA==}
+  /imgix-url-builder@0.0.5:
+    resolution: {integrity: sha512-dCx3UlXghtsjySoqVCcHQHRikqDummwQEfKlxBUK/wrMzd+1ox/XX+zhqVuXKMVuZvCc84pVLEJyntQB0OOi/w==}
     engines: {node: '>=12.7.0'}
     dev: false
 
