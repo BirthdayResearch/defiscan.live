@@ -237,11 +237,7 @@ export function VotingResult({
   proposal: GovernanceProposal;
 }) {
   const minVotes = getMinVotes(proposal);
-  const { percYes, percNo } = getVotePercentage(
-    voteCounts.yes,
-    voteCounts.no,
-    voteCounts.neutral
-  );
+  const { percYes, percNo } = getVotePercentage(voteCounts.yes, voteCounts.no);
   const total = new BigNumber(voteCounts.yes)
     .plus(voteCounts.no)
     .plus(voteCounts.neutral);
